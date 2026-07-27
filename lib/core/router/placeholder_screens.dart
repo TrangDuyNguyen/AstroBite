@@ -5,24 +5,6 @@ import 'package:flutter/material.dart';
 /// Each will be replaced by actual feature screens.
 
 @RoutePage()
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
-  @override
-  Widget build(BuildContext context) => const Scaffold(
-    body: Center(child: Text('Login')),
-  );
-}
-
-@RoutePage()
-class RegisterScreen extends StatelessWidget {
-  const RegisterScreen({super.key});
-  @override
-  Widget build(BuildContext context) => const Scaffold(
-    body: Center(child: Text('Register')),
-  );
-}
-
-@RoutePage()
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
   @override
