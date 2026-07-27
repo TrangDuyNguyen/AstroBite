@@ -5,56 +5,11 @@ import 'package:flutter/material.dart';
 /// Each will be replaced by actual feature screens.
 
 @RoutePage()
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-  @override
-  Widget build(BuildContext context) => const Scaffold(
-    body: Center(child: Text('Home')),
-  );
-}
-
-@RoutePage()
 class AnalyticsScreen extends StatelessWidget {
   const AnalyticsScreen({super.key});
   @override
   Widget build(BuildContext context) => const Scaffold(
     body: Center(child: Text('Analytics')),
-  );
-}
-
-@RoutePage()
-class CameraScreen extends StatelessWidget {
-  const CameraScreen({super.key});
-  @override
-  Widget build(BuildContext context) => const Scaffold(
-    body: Center(child: Text('Camera')),
-  );
-}
-
-@RoutePage()
-class ScanReviewScreen extends StatelessWidget {
-  const ScanReviewScreen({super.key});
-  @override
-  Widget build(BuildContext context) => const Scaffold(
-    body: Center(child: Text('Scan Review')),
-  );
-}
-
-@RoutePage()
-class MealDetailScreen extends StatelessWidget {
-  const MealDetailScreen({super.key});
-  @override
-  Widget build(BuildContext context) => const Scaffold(
-    body: Center(child: Text('Meal Detail')),
-  );
-}
-
-@RoutePage()
-class ManualEntryScreen extends StatelessWidget {
-  const ManualEntryScreen({super.key});
-  @override
-  Widget build(BuildContext context) => const Scaffold(
-    body: Center(child: Text('Manual Entry')),
   );
 }
 

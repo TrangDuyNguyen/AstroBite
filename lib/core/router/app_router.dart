@@ -3,6 +3,11 @@ import 'package:flutter/material.dart';
 
 import '../../features/auth/presentation/login_screen.dart';
 import '../../features/auth/presentation/register_screen.dart';
+import '../../features/scanner/presentation/camera_screen.dart';
+import '../../features/scanner/presentation/scan_review_screen.dart';
+import '../../features/tracker/presentation/home_screen.dart';
+import '../../features/tracker/presentation/manual_entry_screen.dart';
+import '../../features/tracker/presentation/meal_detail_screen.dart';
 import 'placeholder_screens.dart';
 
 part 'app_router.gr.dart';
