@@ -12,21 +12,3 @@ class AnalyticsScreen extends StatelessWidget {
     body: Center(child: Text('Analytics')),
   );
 }
-
-@RoutePage()
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
-  @override
-  Widget build(BuildContext context) => const Scaffold(
-    body: Center(child: Text('Profile')),
-  );
-}
-
-@RoutePage()
-class ProfileEditScreen extends StatelessWidget {
-  const ProfileEditScreen({super.key});
-  @override
-  Widget build(BuildContext context) => const Scaffold(
-    body: Center(child: Text('Profile Edit')),
-  );
-}
