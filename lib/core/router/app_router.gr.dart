@@ -11,7 +11,7 @@
 part of 'app_router.dart';
 
 /// generated route for
-/// [AnalyticsScreen]
+/// [AnalyticsPage]
 class AnalyticsRoute extends PageRouteInfo<void> {
   const AnalyticsRoute({List<PageRouteInfo>? children})
     : super(AnalyticsRoute.name, initialChildren: children);
@@ -21,13 +21,13 @@ class AnalyticsRoute extends PageRouteInfo<void> {
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const AnalyticsScreen();
+      return const AnalyticsPage();
     },
   );
 }
 
 /// generated route for
-/// [CameraScreen]
+/// [CameraPage]
 class CameraRoute extends PageRouteInfo<void> {
   const CameraRoute({List<PageRouteInfo>? children})
     : super(CameraRoute.name, initialChildren: children);
@@ -37,13 +37,13 @@ class CameraRoute extends PageRouteInfo<void> {
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const CameraScreen();
+      return const CameraPage();
     },
   );
 }
 
 /// generated route for
-/// [HomeScreen]
+/// [HomePage]
 class HomeRoute extends PageRouteInfo<void> {
   const HomeRoute({List<PageRouteInfo>? children})
     : super(HomeRoute.name, initialChildren: children);
@@ -53,13 +53,13 @@ class HomeRoute extends PageRouteInfo<void> {
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const HomeScreen();
+      return const HomePage();
     },
   );
 }
 
 /// generated route for
-/// [LoginScreen]
+/// [LoginPage]
 class LoginRoute extends PageRouteInfo<void> {
   const LoginRoute({List<PageRouteInfo>? children})
     : super(LoginRoute.name, initialChildren: children);
@@ -69,13 +69,13 @@ class LoginRoute extends PageRouteInfo<void> {
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const LoginScreen();
+      return const LoginPage();
     },
   );
 }
 
 /// generated route for
-/// [ManualEntryScreen]
+/// [ManualEntryPage]
 class ManualEntryRoute extends PageRouteInfo<void> {
   const ManualEntryRoute({List<PageRouteInfo>? children})
     : super(ManualEntryRoute.name, initialChildren: children);
@@ -85,13 +85,13 @@ class ManualEntryRoute extends PageRouteInfo<void> {
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const ManualEntryScreen();
+      return const ManualEntryPage();
     },
   );
 }
 
 /// generated route for
-/// [MealDetailScreen]
+/// [MealDetailPage]
 class MealDetailRoute extends PageRouteInfo<void> {
   const MealDetailRoute({List<PageRouteInfo>? children})
     : super(MealDetailRoute.name, initialChildren: children);
@@ -101,13 +101,13 @@ class MealDetailRoute extends PageRouteInfo<void> {
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const MealDetailScreen();
+      return const MealDetailPage();
     },
   );
 }
 
 /// generated route for
-/// [ProfileEditScreen]
+/// [ProfileEditPage]
 class ProfileEditRoute extends PageRouteInfo<void> {
   const ProfileEditRoute({List<PageRouteInfo>? children})
     : super(ProfileEditRoute.name, initialChildren: children);
@@ -117,13 +117,13 @@ class ProfileEditRoute extends PageRouteInfo<void> {
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const ProfileEditScreen();
+      return const ProfileEditPage();
     },
   );
 }
 
 /// generated route for
-/// [ProfileScreen]
+/// [ProfilePage]
 class ProfileRoute extends PageRouteInfo<void> {
   const ProfileRoute({List<PageRouteInfo>? children})
     : super(ProfileRoute.name, initialChildren: children);
@@ -133,13 +133,13 @@ class ProfileRoute extends PageRouteInfo<void> {
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const ProfileScreen();
+      return const ProfilePage();
     },
   );
 }
 
 /// generated route for
-/// [RegisterScreen]
+/// [RegisterPage]
 class RegisterRoute extends PageRouteInfo<void> {
   const RegisterRoute({List<PageRouteInfo>? children})
     : super(RegisterRoute.name, initialChildren: children);
@@ -149,13 +149,13 @@ class RegisterRoute extends PageRouteInfo<void> {
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const RegisterScreen();
+      return const RegisterPage();
     },
   );
 }
 
 /// generated route for
-/// [ScanReviewScreen]
+/// [ScanReviewPage]
 class ScanReviewRoute extends PageRouteInfo<void> {
   const ScanReviewRoute({List<PageRouteInfo>? children})
     : super(ScanReviewRoute.name, initialChildren: children);
@@ -165,7 +165,7 @@ class ScanReviewRoute extends PageRouteInfo<void> {
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const ScanReviewScreen();
+      return const ScanReviewPage();
     },
   );
 }
@@ -187,7 +187,7 @@ class ShellRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [SplashScreen]
+/// [SplashPage]
 class SplashRoute extends PageRouteInfo<void> {
   const SplashRoute({List<PageRouteInfo>? children})
     : super(SplashRoute.name, initialChildren: children);
@@ -197,7 +197,7 @@ class SplashRoute extends PageRouteInfo<void> {
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const SplashScreen();
+      return const SplashPage();
     },
   );
 }

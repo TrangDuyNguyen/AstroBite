@@ -2,12 +2,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:astrobite/features/auth/domain/auth_providers.dart';
 
-import '../data/food_log_repository.dart';
+import '../data/repositories/food_log_repository_impl.dart';
 import 'daily_summary.dart';
 import 'entities/food_log.dart';
+import 'repositories/food_log_repository.dart';
 
 final foodLogRepositoryProvider = Provider<FoodLogRepository>((ref) {
-  return FoodLogRepository();
+  return FoodLogRepositoryImpl();
 });
 
 final todayDateProvider = Provider<String>((ref) {

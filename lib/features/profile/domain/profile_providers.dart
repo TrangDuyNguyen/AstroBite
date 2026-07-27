@@ -1,10 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:astrobite/features/auth/domain/auth_providers.dart';
-import '../data/profile_repository.dart';
+import '../data/repositories/profile_repository_impl.dart';
 import 'entities/user_profile.dart';
+import 'repositories/profile_repository.dart';
 
 final profileRepositoryProvider = Provider<ProfileRepository>((ref) {
-  return ProfileRepository();
+  return ProfileRepositoryImpl();
 });
 
 final userProfileStreamProvider = StreamProvider.autoDispose<UserProfile?>((ref) {

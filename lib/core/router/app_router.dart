@@ -1,17 +1,17 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-import '../../features/analytics/presentation/analytics_screen.dart';
-import '../../features/auth/presentation/login_screen.dart';
-import '../../features/auth/presentation/register_screen.dart';
-import '../../features/auth/presentation/splash_screen.dart';
-import '../../features/profile/presentation/profile_edit_screen.dart';
-import '../../features/profile/presentation/profile_screen.dart';
-import '../../features/scanner/presentation/camera_screen.dart';
-import '../../features/scanner/presentation/scan_review_screen.dart';
-import '../../features/tracker/presentation/home_screen.dart';
-import '../../features/tracker/presentation/manual_entry_screen.dart';
-import '../../features/tracker/presentation/meal_detail_screen.dart';
+import '../../features/analytics/presentation/pages/analytics_page.dart';
+import '../../features/auth/presentation/pages/login_page.dart';
+import '../../features/auth/presentation/pages/register_page.dart';
+import '../../features/auth/presentation/pages/splash_page.dart';
+import '../../features/profile/presentation/pages/profile_edit_page.dart';
+import '../../features/profile/presentation/pages/profile_page.dart';
+import '../../features/scanner/presentation/pages/camera_page.dart';
+import '../../features/scanner/presentation/pages/scan_review_page.dart';
+import '../../features/tracker/presentation/pages/home_page.dart';
+import '../../features/tracker/presentation/pages/manual_entry_page.dart';
+import '../../features/tracker/presentation/pages/meal_detail_page.dart';
 
 part 'app_router.gr.dart';
 

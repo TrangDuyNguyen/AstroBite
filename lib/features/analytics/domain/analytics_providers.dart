@@ -1,10 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:astrobite/features/auth/domain/auth_providers.dart';
-import '../data/analytics_repository.dart';
+import '../data/repositories/analytics_repository_impl.dart';
+import 'repositories/analytics_repository.dart';
 
 final analyticsRepositoryProvider = Provider<AnalyticsRepository>((ref) {
-  return AnalyticsRepository();
+  return AnalyticsRepositoryImpl();
 });
 
 final calorieTrendsProvider = FutureProvider.family<Map<String, int>, int>((ref, days) async {

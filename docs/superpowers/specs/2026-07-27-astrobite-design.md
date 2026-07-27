@@ -74,7 +74,7 @@ lib/
 │   └── router/
 │       └── app_router.dart           # Auto Route configuration
 │
-├── shared/                           # Reusable widgets
+├── shared/                           # Reusable UI components
 │   └── widgets/
 │       ├── glass_card.dart           # Glassmorphism card component
 │       ├── calorie_progress_arc.dart # Circular progress indicator
@@ -82,47 +82,98 @@ lib/
 │       ├── skeleton_loader.dart      # Loading skeleton with tips
 │       └── meal_type_chip.dart       # Sáng/Trưa/Tối/Snack chip
 │
-└── features/
+└── features/                         # Feature-first modular structure
     ├── auth/                         # Authentication feature
     │   ├── data/
-    │   │   └── auth_repository.dart
+    │   │   ├── datasources/
+    │   │   │   ├── auth_remote_datasource.dart
+    │   │   │   └── auth_local_datasource.dart
+    │   │   ├── models/
+    │   │   │   ├── user_model.dart
+    │   │   │   ├── login_request_model.dart
+    │   │   │   └── register_request_model.dart
+    │   │   ├── mappers/
+    │   │   │   └── auth_mapper.dart
+    │   │   └── repositories/
+    │   │       └── auth_repository_impl.dart
     │   ├── domain/
-    │   │   └── auth_providers.dart
+    │   │   ├── entities/
+    │   │   │   └── user_entity.dart
+    │   │   ├── value_objects/
+    │   │   │   └── auth_email.dart
+    │   │   ├── repositories/
+    │   │   │   └── auth_repository.dart
+    │   │   └── usecases/
+    │   │       ├── login_usecase.dart
+    │   │       └── register_usecase.dart
     │   └── presentation/
-    │       ├── login_screen.dart
-    │       └── register_screen.dart
+    │       ├── controllers/
+    │       │   ├── login_controller.dart
+    │       │   ├── register_controller.dart
+    │       │   └── auth_session_controller.dart
+    │       ├── pages/
+    │       │   ├── login_page.dart
+    │       │   ├── register_page.dart
+    │       │   ├── forgot_password_page.dart
+    │       │   └── splash_page.dart
+    │       └── widgets/
+    │           ├── auth_text_field.dart
+    │           ├── auth_password_field.dart
+    │           ├── auth_submit_button.dart
+    │           ├── auth_error_banner.dart
+    │           └── social_login_buttons.dart
     │
     ├── scanner/                      # AI Food Scanner feature
     │   ├── data/
-    │   │   ├── gemini_service.dart        # Firebase AI Logic calls
-    │   │   ├── food_scan_repository.dart
-    │   │   └── models/
-    │   │       └── scan_result_dto.dart   # Gemini JSON → Dart model
+    │   │   ├── datasources/
+    │   │   │   └── gemini_remote_datasource.dart # Firebase AI Logic calls
+    │   │   ├── models/
+    │   │   │   └── scan_result_dto.dart          # Gemini JSON → DTO
+    │   │   ├── mappers/
+    │   │   │   └── scan_result_mapper.dart
+    │   │   └── repositories/
+    │   │       └── food_scan_repository_impl.dart
     │   ├── domain/
     │   │   ├── entities/
     │   │   │   └── scan_result.dart
-    │   │   ├── scan_food_usecase.dart
-    │   │   └── scanner_providers.dart
+    │   │   ├── repositories/
+    │   │   │   └── food_scan_repository.dart
+    │   │   └── usecases/
+    │   │       └── scan_food_usecase.dart
     │   └── presentation/
-    │       ├── camera_screen.dart
-    │       ├── scan_review_screen.dart    # Editable result form
+    │       ├── controllers/
+    │       │   └── scanner_controller.dart
+    │       ├── pages/
+    │       │   ├── camera_page.dart
+    │       │   └── scan_review_page.dart
     │       └── widgets/
-    │           └── food_item_editor.dart  # Inline edit weight/name
+    │           └── food_item_editor.dart
     │
     ├── tracker/                      # Daily Food Log feature
     │   ├── data/
-    │   │   ├── food_log_repository.dart
-    │   │   └── models/
-    │   │       └── food_log_dto.dart
+    │   │   ├── datasources/
+    │   │   │   └── food_log_remote_datasource.dart
+    │   │   ├── models/
+    │   │   │   └── food_log_dto.dart
+    │   │   ├── mappers/
+    │   │   │   └── food_log_mapper.dart
+    │   │   └── repositories/
+    │   │       └── food_log_repository_impl.dart
     │   ├── domain/
     │   │   ├── entities/
     │   │   │   └── food_log.dart
-    │   │   ├── daily_summary.dart
-    │   │   └── tracker_providers.dart
+    │   │   ├── repositories/
+    │   │   │   └── food_log_repository.dart
+    │   │   └── usecases/
+    │   │       ├── add_food_log_usecase.dart
+    │   │       └── get_daily_summary_usecase.dart
     │   └── presentation/
-    │       ├── home_screen.dart           # Main dashboard
-    │       ├── meal_detail_screen.dart
-    │       ├── manual_entry_screen.dart   # Manual food search
+    │       ├── controllers/
+    │       │   └── tracker_controller.dart
+    │       ├── pages/
+    │       │   ├── home_page.dart
+    │       │   ├── meal_detail_page.dart
+    │       │   └── manual_entry_page.dart
     │       └── widgets/
     │           ├── daily_summary_card.dart
     │           ├── meal_section.dart
@@ -130,24 +181,48 @@ lib/
     │
     ├── analytics/                    # Charts & Trends feature
     │   ├── data/
-    │   │   └── analytics_repository.dart
+    │   │   ├── datasources/
+    │   │   │   └── analytics_remote_datasource.dart
+    │   │   ├── models/
+    │   │   │   └── analytics_dto.dart
+    │   │   └── repositories/
+    │   │       └── analytics_repository_impl.dart
     │   ├── domain/
-    │   │   └── analytics_providers.dart
+    │   │   ├── entities/
+    │   │   │   └── calorie_trend.dart
+    │   │   ├── repositories/
+    │   │   │   └── analytics_repository.dart
+    │   │   └── usecases/
+    │   │       └── get_weekly_analytics_usecase.dart
     │   └── presentation/
-    │       ├── analytics_screen.dart
+    │       ├── controllers/
+    │       │   └── analytics_controller.dart
+    │       ├── pages/
+    │       │   └── analytics_page.dart
     │       └── widgets/
     │           ├── calorie_trend_chart.dart
     │           └── weight_trend_chart.dart
     │
     └── profile/                      # User Profile feature
         ├── data/
-        │   └── profile_repository.dart
+        │   ├── datasources/
+        │   │   └── profile_remote_datasource.dart
+        │   ├── models/
+        │   │   └── user_profile_dto.dart
+        │   └── repositories/
+        │       └── profile_repository_impl.dart
         ├── domain/
         │   ├── entities/
         │   │   └── user_profile.dart
-        │   └── profile_providers.dart
+        │   ├── repositories/
+        │   │   └── profile_repository.dart
+        │   └── usecases/
+        │       └── calculate_bmr_tdee_usecase.dart
         └── presentation/
-            ├── profile_screen.dart
+            ├── controllers/
+            │   └── profile_controller.dart
+            ├── pages/
+            │   └── profile_page.dart
             └── widgets/
                 └── bmr_tdee_card.dart
 ```
