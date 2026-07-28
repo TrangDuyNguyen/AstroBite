@@ -80,7 +80,7 @@ class _ProfileEditPageState extends ConsumerState<ProfileEditPage> {
             padding: const EdgeInsets.all(AppValues.screenPadding),
             children: [
               DropdownButtonFormField<String>(
-                initialValue: _gender,
+                value: _gender,
                 decoration: const InputDecoration(labelText: 'Giới tính'),
                 items: const [
                   DropdownMenuItem(value: 'male', child: Text('Nam')),
@@ -111,7 +111,7 @@ class _ProfileEditPageState extends ConsumerState<ProfileEditPage> {
               ),
               const SizedBox(height: AppValues.spacing16),
               DropdownButtonFormField<String>(
-                initialValue: _activityLevel,
+                value: _activityLevel,
                 decoration: const InputDecoration(labelText: 'Mức độ vận động'),
                 items: const [
                   DropdownMenuItem(value: 'sedentary', child: Text('Ít vận động (Ít/không tập thể thao)')),
