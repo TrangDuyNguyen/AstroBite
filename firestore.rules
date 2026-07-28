@@ -9,7 +9,17 @@ service cloud.firestore {
       }
 
       match /aiUsage/{date} {
-        allow read, write: if request.auth != null && request.auth.uid == userId;
+        allow read: if request.auth != null && request.auth.uid == userId;
+        // Allow create only if initializing scanCount to 1
+        allow create: if request.auth != null
+                      && request.auth.uid == userId
+                      && request.resource.data.scanCount == 1;
+        // Allow update only if incrementing scanCount by exactly 1
+        // and scanCount has not exceeded the daily limit (10)
+        allow update: if request.auth != null
+                      && request.auth.uid == userId
+                      && request.resource.data.scanCount == resource.data.scanCount + 1
+                      && request.resource.data.scanCount <= 10;
       }
     }
   }

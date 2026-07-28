@@ -1,14 +1,18 @@
 import 'dart:typed_data';
-import 'package:google_generative_ai/google_generative_ai.dart';
+import 'package:firebase_ai/firebase_ai.dart';
 import 'package:astrobite/core/utils/json_parser.dart';
 import '../models/scan_result_dto.dart';
 
+/// Datasource that calls Gemini API through Firebase AI Logic.
+///
+/// This routes all requests through the Firebase backend, so no API key
+/// is ever exposed in client-side code. Firebase App Check provides
+/// additional abuse protection.
 class GeminiRemoteDatasource {
-  GeminiRemoteDatasource({GenerativeModel? model, String? apiKey})
+  GeminiRemoteDatasource({GenerativeModel? model})
       : _model = model ??
-            GenerativeModel(
-              model: 'gemini-1.5-flash',
-              apiKey: apiKey ?? 'DEV_API_KEY',
+            FirebaseAI.googleAI().generativeModel(
+              model: 'gemini-2.0-flash',
             );
 
   final GenerativeModel _model;
@@ -47,7 +51,7 @@ Contextual Rules:
     final response = await _model.generateContent([
       Content.multi([
         TextPart(_systemPrompt),
-        DataPart('image/jpeg', imageBytes),
+        InlineDataPart('image/jpeg', imageBytes),
       ]),
     ]);
 

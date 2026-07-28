@@ -18,15 +18,14 @@ migrate_working_dir/
 *.iws
 .idea/
 
-# The .vscode folder contains launch configuration and tasks you configure in
-# VS Code which you may wish to be included in version control, so this line
-# is commented out by default.
-#.vscode/
+# VS Code
+.vscode/
 
 # Flutter/Dart/Pub related
 **/doc/api/
 **/ios/Flutter/.last_build_id
 .dart_tool/
+.flutter-plugins
 .flutter-plugins-dependencies
 .pub-cache/
 .pub/
@@ -43,3 +42,53 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# ============================================
+# 🔐 SENSITIVE / CREDENTIAL FILES
+# ============================================
+
+# Firebase configuration (contains API keys, project IDs, client IDs)
+lib/firebase_options.dart
+**/google-services.json
+**/GoogleService-Info.plist
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Android signing keys & credentials
+*.keystore
+*.jks
+key.properties
+android/local.properties
+
+# iOS signing & certificates
+*.p12
+*.pem
+*.mobileprovision
+ios/Runner/ExportOptions.plist
+
+# Generic secrets
+*.secret
+*.credentials
+secrets/
+
+# ============================================
+# 🤖 AI TOOL / IDE GENERATED FILES
+# ============================================
+
+# Superpowers (Antigravity brainstorm artifacts)
+.superpowers/
+
+# Gemini / Antigravity IDE
+.gemini/
+
+# Cursor AI
+.cursor/
+.cursorignore
+.cursorrules
+
+# Memory bank (AI context files)
+.memory_bank/
+
