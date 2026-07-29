@@ -1,1 +1,35 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"astrobite-dev","appId":"1:925552313324:android:31ea07eec9ad23375d36c9","fileOutput":"android/app/google-services.json"}},"ios":{"default":{"projectId":"astrobite-dev","appId":"1:925552313324:ios:d8bb8269224dff455d36c9","uploadDebugSymbols":false,"fileOutput":"ios/Runner/GoogleService-Info.plist"}},"dart":{"lib/firebase_options.dart":{"projectId":"astrobite-dev","configurations":{"android":"1:925552313324:android:31ea07eec9ad23375d36c9","ios":"1:925552313324:ios:d8bb8269224dff455d36c9"}}}}}}
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "astrobite-dev",
+          "appId": "1:925552313324:android:31ea07eec9ad23375d36c9",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "ios": {
+        "default": {
+          "projectId": "astrobite-dev",
+          "appId": "1:925552313324:ios:d8bb8269224dff455d36c9",
+          "uploadDebugSymbols": false,
+          "fileOutput": "ios/Runner/GoogleService-Info.plist"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "astrobite-dev",
+          "configurations": {
+            "android": "1:925552313324:android:31ea07eec9ad23375d36c9",
+            "ios": "1:925552313324:ios:d8bb8269224dff455d36c9"
+          }
+        }
+      }
+    }
+  },
+  "auth": {
+    "providers": {
+      "emailPassword": true
+    }
+  }
+}
