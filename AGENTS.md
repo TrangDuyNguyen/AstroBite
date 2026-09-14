@@ -94,6 +94,18 @@ lib/
 
 ## 5. Coding & Development Conventions
 
+### Development Philosophy (Strict Ponytail Mindset)
+> [!IMPORTANT]
+> All coding and development in AstroBite MUST strictly apply the **`ponytail`** skill mindset: ruthless simplicity, zero bloat, deletion over addition.
+
+Before writing any new code, climb the Ponytail ladder:
+1. **YAGNI First**: Does this need to be built at all? Never write speculative abstractions or future-proofing nobody asked for.
+2. **Reuse Existing Code**: Check if a helper, utility, or widget pattern already exists in `lib/core/` or `lib/shared/`. Reuse it, never reinvent it.
+3. **Standard Library & Native Features**: Use Dart standard library and native Flutter features before writing custom algorithms.
+4. **Zero Unneeded Dependencies**: Never introduce a new package if standard Flutter/Dart or existing dependencies already solve it.
+5. **Shortest Working Diff**: One line before fifty. Shortest working diff wins. Boring over clever. Fewest files possible.
+6. **Mark Ceilings**: If a deliberate shortcut is taken, mark it with `// ponytail: <ceiling and upgrade path>`.
+
 ### State Management (Riverpod)
 - Prefer code-generation syntax (`@riverpod`) over legacy global provider declarations.
 - Use `AsyncValue` for asynchronous state handling (loading, error, data).
@@ -125,7 +137,7 @@ flutter test
 All AI agents and developers must adhere to the standardized 6-Gate pipeline for any new feature:
 
 ```
-[Gate 1: BA] ➔ [Gate 2: QA] ➔ [Gate 3: FE Dev] ➔ [Gate 4: Code Review] ➔ [Gate 5: Verify] ➔ [Gate 6: Release]
+[Gate 1: BA] ➔ [Gate 2: QA] ➔ [Gate 3: FE Dev (Ponytail)] ➔ [Gate 4: Code Review] ➔ [Gate 5: Verify] ➔ [Gate 6: Release]
 ```
 
 1. **Gate 1: BA Gate (`docs/` - `business-analyst` skill)**:
@@ -137,8 +149,8 @@ All AI agents and developers must adhere to the standardized 6-Gate pipeline for
    - Design manual test cases (`tests/02-manual-testcases/` covering Happy Path, Boundary, Edge-cases).
    - Write BDD Gherkin scenarios (`tests/03-bdd-gherkin-scenarios/<name>.feature`).
    - *Exit Gate*: 100% User Story coverage in Traceability Matrix.
-3. **Gate 3: Frontend Development Gate (`frontend/` - `flutter-expert` skill)**:
-   - Implement Feature-First Clean Architecture (`domain/` -> `data/` -> `presentation/`).
+3. **Gate 3: Frontend Development Gate (`frontend/` - `flutter-expert` & `ponytail` skills)**:
+   - Implement Feature-First Clean Architecture (`domain/` -> `data/` -> `presentation/`) with **strict Ponytail discipline** (minimal code, stdlib first, zero over-engineering).
    - Strictly adhere to Celestial Dark UI tokens (`AppColors.surface`, Carbs `#1A73E8`, Fat `#FF69B4`, Protein `#FFD700`).
    - *Exit Gate*: `flutter analyze` with 0 warnings/errors.
 4. **Gate 4: Code Review Gate (`code-reviewer` / `ponytail-review` skill)**:
@@ -165,5 +177,7 @@ All AI agents and developers must adhere to the standardized 6-Gate pipeline for
 - ❌ **Never** edit generated `.freezed.dart`, `.g.dart`, or `.gr.dart` files manually.
 - ❌ **Never** bypass Firebase App Check activation in `main.dart`.
 - ❌ **Never** introduce heavy state management alternatives (e.g., Bloc, GetX, Provider) alongside Riverpod.
+- ❌ **Never** write speculative over-engineered code, dead abstractions, or unneeded dependencies (always apply Ponytail).
 - ❌ **Never** merge code without passing Gate 4 (Ponytail Code Review) and Gate 5 (Automated Test Verification).
+
 

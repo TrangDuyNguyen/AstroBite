@@ -49,15 +49,20 @@ Kỹ năng điều phối quy trình phát triển tính năng toàn diện cho 
   2. `tests/03-bdd-gherkin-scenarios/<feature>.feature`: Kịch bản BDD chuẩn Gherkin khớp 100% với Acceptance Criteria của BA.
 - **Quy tắc vượt cổng**: Ma trận truy vết (Traceability Matrix) đạt 100% độ bao phủ User Story.
 
-### 🚪 CỔNG 3: Phát Triển Mã Nguồn (Frontend Dev Gate)
-- **Kỹ năng sử dụng**: `flutter-expert`
+### 🚪 CỔNG 3: Phát Triển Mã Nguồn (Frontend Dev Gate — Powered by Ponytail)
+- **Kỹ năng sử dụng**: `flutter-expert` & `ponytail`
 - **Thư mục mục tiêu**: `frontend/lib/features/<feature>/`
+- **Kỷ luật phát triển**: Bắt buộc tuân thủ triết lý Ponytail:
+  1. YAGNI: Không tạo class, abstraction trừu tượng chỉ có 1 implementation.
+  2. Tái sử dụng helper/widgets có sẵn trong `lib/core/` và `lib/shared/`.
+  3. Dùng Dart/Flutter stdlib trước khi tạo hàm mới hoặc cài dependency ngoài.
+  4. Diff ngắn nhất, tối giản nhất, ít file nhất.
 - **Các sản phẩm bắt buộc**:
   1. **Domain**: Entities (`@freezed`), Value Objects, Abstract Repositories.
   2. **Data**: Data Sources, DTOs, Repository Implementation.
   3. **Presentation**: Controllers (`@riverpod`), Screens (`@RoutePage`), Custom Widgets.
   4. Tuân thủ bảng màu dinh dưỡng bất biến: Carbs `#1A73E8`, Fat `#FF69B4`, Protein `#FFD700`.
-- **Quy tắc vượt cổng**: `flutter analyze` đạt 0 lỗi, 0 cảnh báo.
+- **Quy tắc vượt cổng**: `flutter analyze` đạt 0 lỗi, 0 cảnh báo; code tinh gọn chuẩn Ponytail.
 
 ### 🚪 CỔNG 4: Rà Soát Mã Nguồn Tối Giản (Code Review Gate — Ponytail)
 - **Kỹ năng sử dụng**: `code-reviewer` & `ponytail-review`

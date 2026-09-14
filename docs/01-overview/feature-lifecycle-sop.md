@@ -95,20 +95,19 @@ flowchart TD
 
 ---
 
-### 🔹 CỔNG 3: Phát Triển Mã Nguồn (Frontend Dev Gate)
+### 🔹 CỔNG 3: Phát Triển Mã Nguồn (Frontend Dev Gate — Powered by Ponytail)
 - **Thư mục làm việc**: `frontend/` (Submodule `astrobite-frontend`).
-- **Skill hỗ trợ**: `flutter-expert`.
+- **Skill hỗ trợ**: `flutter-expert` & `ponytail`.
 - **Nhiệm vụ cụ thể**:
   1. Tạo nhánh Git: `feat/<feature>`.
   2. Đọc yêu cầu từ `docs/` và kịch bản BDD từ `tests/`.
-  3. Triển khai theo **Feature-First Clean Architecture** (`frontend/lib/features/<feature>/`):
-     - **Domain**: Entity (`@freezed`), Value Objects, Abstract Repositories.
-     - **Data**: Data Sources (Firestore/Storage/Gemini), DTOs, Repository Implementation.
-     - **Presentation**: Controllers (`@riverpod`), Screens (`@RoutePage`), Custom Widgets.
+  3. Áp dụng nghiêm ngặt **Kỷ luật Ponytail (Ruthless Simplicity)** trong toàn bộ quá trình viết code:
+     - Leo thang Ponytail: YAGNI trước tiên ➔ Tái sử dụng code hiện có ➔ Dùng thư viện chuẩn Dart/Flutter ➔ Tuyệt đối không thêm dependency không cần thiết ➔ Ưu tiên diff ngắn nhất.
+     - Triển khai Feature-First Clean Architecture (`frontend/lib/features/<feature>/`) tinh gọn, không tạo abstraction trừu tượng chỉ có 1 caller.
   4. Tuân thủ nghiêm ngặt Design Tokens trong `lib/core/theme/app_colors.dart` (Carbs `#1A73E8`, Fat `#FF69B4`, Protein `#FFD700`, Surface `#0A192F`).
 - **Tiêu chí vượt cổng (Exit Criteria)**:
   - `flutter analyze` đạt 0 lỗi, 0 cảnh báo.
-  - Code phân tầng rõ ràng, không bypass App Check.
+  - Code phân tầng rõ ràng, tối giản, không over-engineering, không bypass App Check.
 
 ---
 
