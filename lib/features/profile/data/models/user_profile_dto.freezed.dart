@@ -21,6 +21,9 @@ mixin _$UserProfileDto {
   double get weightKg;
   String get activityLevel;
   int get dailyTargetCalories;
+  bool get isOnboardingCompleted;
+  double? get targetWeightKg;
+  String get fitnessGoal;
 
   /// Create a copy of UserProfileDto
   /// with the given fields replaced by the non-null parameter values.
@@ -49,17 +52,33 @@ mixin _$UserProfileDto {
             (identical(other.activityLevel, activityLevel) ||
                 other.activityLevel == activityLevel) &&
             (identical(other.dailyTargetCalories, dailyTargetCalories) ||
-                other.dailyTargetCalories == dailyTargetCalories));
+                other.dailyTargetCalories == dailyTargetCalories) &&
+            (identical(other.isOnboardingCompleted, isOnboardingCompleted) ||
+                other.isOnboardingCompleted == isOnboardingCompleted) &&
+            (identical(other.targetWeightKg, targetWeightKg) ||
+                other.targetWeightKg == targetWeightKg) &&
+            (identical(other.fitnessGoal, fitnessGoal) ||
+                other.fitnessGoal == fitnessGoal));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, uid, gender, birthYear, heightCm,
-      weightKg, activityLevel, dailyTargetCalories);
+  int get hashCode => Object.hash(
+      runtimeType,
+      uid,
+      gender,
+      birthYear,
+      heightCm,
+      weightKg,
+      activityLevel,
+      dailyTargetCalories,
+      isOnboardingCompleted,
+      targetWeightKg,
+      fitnessGoal);
 
   @override
   String toString() {
-    return 'UserProfileDto(uid: $uid, gender: $gender, birthYear: $birthYear, heightCm: $heightCm, weightKg: $weightKg, activityLevel: $activityLevel, dailyTargetCalories: $dailyTargetCalories)';
+    return 'UserProfileDto(uid: $uid, gender: $gender, birthYear: $birthYear, heightCm: $heightCm, weightKg: $weightKg, activityLevel: $activityLevel, dailyTargetCalories: $dailyTargetCalories, isOnboardingCompleted: $isOnboardingCompleted, targetWeightKg: $targetWeightKg, fitnessGoal: $fitnessGoal)';
   }
 }
 
@@ -76,7 +95,10 @@ abstract mixin class $UserProfileDtoCopyWith<$Res> {
       double heightCm,
       double weightKg,
       String activityLevel,
-      int dailyTargetCalories});
+      int dailyTargetCalories,
+      bool isOnboardingCompleted,
+      double? targetWeightKg,
+      String fitnessGoal});
 }
 
 /// @nodoc
@@ -99,6 +121,9 @@ class _$UserProfileDtoCopyWithImpl<$Res>
     Object? weightKg = null,
     Object? activityLevel = null,
     Object? dailyTargetCalories = null,
+    Object? isOnboardingCompleted = null,
+    Object? targetWeightKg = freezed,
+    Object? fitnessGoal = null,
   }) {
     return _then(_self.copyWith(
       uid: null == uid
@@ -129,6 +154,18 @@ class _$UserProfileDtoCopyWithImpl<$Res>
           ? _self.dailyTargetCalories
           : dailyTargetCalories // ignore: cast_nullable_to_non_nullable
               as int,
+      isOnboardingCompleted: null == isOnboardingCompleted
+          ? _self.isOnboardingCompleted
+          : isOnboardingCompleted // ignore: cast_nullable_to_non_nullable
+              as bool,
+      targetWeightKg: freezed == targetWeightKg
+          ? _self.targetWeightKg
+          : targetWeightKg // ignore: cast_nullable_to_non_nullable
+              as double?,
+      fitnessGoal: null == fitnessGoal
+          ? _self.fitnessGoal
+          : fitnessGoal // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -226,8 +263,17 @@ extension UserProfileDtoPatterns on UserProfileDto {
 
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(String uid, String gender, int birthYear, double heightCm,
-            double weightKg, String activityLevel, int dailyTargetCalories)?
+    TResult Function(
+            String uid,
+            String gender,
+            int birthYear,
+            double heightCm,
+            double weightKg,
+            String activityLevel,
+            int dailyTargetCalories,
+            bool isOnboardingCompleted,
+            double? targetWeightKg,
+            String fitnessGoal)?
         $default, {
     required TResult orElse(),
   }) {
@@ -241,7 +287,10 @@ extension UserProfileDtoPatterns on UserProfileDto {
             _that.heightCm,
             _that.weightKg,
             _that.activityLevel,
-            _that.dailyTargetCalories);
+            _that.dailyTargetCalories,
+            _that.isOnboardingCompleted,
+            _that.targetWeightKg,
+            _that.fitnessGoal);
       case _:
         return orElse();
     }
@@ -262,8 +311,17 @@ extension UserProfileDtoPatterns on UserProfileDto {
 
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(String uid, String gender, int birthYear, double heightCm,
-            double weightKg, String activityLevel, int dailyTargetCalories)
+    TResult Function(
+            String uid,
+            String gender,
+            int birthYear,
+            double heightCm,
+            double weightKg,
+            String activityLevel,
+            int dailyTargetCalories,
+            bool isOnboardingCompleted,
+            double? targetWeightKg,
+            String fitnessGoal)
         $default,
   ) {
     final _that = this;
@@ -276,7 +334,10 @@ extension UserProfileDtoPatterns on UserProfileDto {
             _that.heightCm,
             _that.weightKg,
             _that.activityLevel,
-            _that.dailyTargetCalories);
+            _that.dailyTargetCalories,
+            _that.isOnboardingCompleted,
+            _that.targetWeightKg,
+            _that.fitnessGoal);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -296,8 +357,17 @@ extension UserProfileDtoPatterns on UserProfileDto {
 
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(String uid, String gender, int birthYear, double heightCm,
-            double weightKg, String activityLevel, int dailyTargetCalories)?
+    TResult? Function(
+            String uid,
+            String gender,
+            int birthYear,
+            double heightCm,
+            double weightKg,
+            String activityLevel,
+            int dailyTargetCalories,
+            bool isOnboardingCompleted,
+            double? targetWeightKg,
+            String fitnessGoal)?
         $default,
   ) {
     final _that = this;
@@ -310,7 +380,10 @@ extension UserProfileDtoPatterns on UserProfileDto {
             _that.heightCm,
             _that.weightKg,
             _that.activityLevel,
-            _that.dailyTargetCalories);
+            _that.dailyTargetCalories,
+            _that.isOnboardingCompleted,
+            _that.targetWeightKg,
+            _that.fitnessGoal);
       case _:
         return null;
     }
@@ -327,7 +400,10 @@ class _UserProfileDto implements UserProfileDto {
       required this.heightCm,
       required this.weightKg,
       required this.activityLevel,
-      required this.dailyTargetCalories});
+      required this.dailyTargetCalories,
+      this.isOnboardingCompleted = false,
+      this.targetWeightKg,
+      this.fitnessGoal = 'maintain'});
   factory _UserProfileDto.fromJson(Map<String, dynamic> json) =>
       _$UserProfileDtoFromJson(json);
 
@@ -345,6 +421,14 @@ class _UserProfileDto implements UserProfileDto {
   final String activityLevel;
   @override
   final int dailyTargetCalories;
+  @override
+  @JsonKey()
+  final bool isOnboardingCompleted;
+  @override
+  final double? targetWeightKg;
+  @override
+  @JsonKey()
+  final String fitnessGoal;
 
   /// Create a copy of UserProfileDto
   /// with the given fields replaced by the non-null parameter values.
@@ -377,17 +461,33 @@ class _UserProfileDto implements UserProfileDto {
             (identical(other.activityLevel, activityLevel) ||
                 other.activityLevel == activityLevel) &&
             (identical(other.dailyTargetCalories, dailyTargetCalories) ||
-                other.dailyTargetCalories == dailyTargetCalories));
+                other.dailyTargetCalories == dailyTargetCalories) &&
+            (identical(other.isOnboardingCompleted, isOnboardingCompleted) ||
+                other.isOnboardingCompleted == isOnboardingCompleted) &&
+            (identical(other.targetWeightKg, targetWeightKg) ||
+                other.targetWeightKg == targetWeightKg) &&
+            (identical(other.fitnessGoal, fitnessGoal) ||
+                other.fitnessGoal == fitnessGoal));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, uid, gender, birthYear, heightCm,
-      weightKg, activityLevel, dailyTargetCalories);
+  int get hashCode => Object.hash(
+      runtimeType,
+      uid,
+      gender,
+      birthYear,
+      heightCm,
+      weightKg,
+      activityLevel,
+      dailyTargetCalories,
+      isOnboardingCompleted,
+      targetWeightKg,
+      fitnessGoal);
 
   @override
   String toString() {
-    return 'UserProfileDto(uid: $uid, gender: $gender, birthYear: $birthYear, heightCm: $heightCm, weightKg: $weightKg, activityLevel: $activityLevel, dailyTargetCalories: $dailyTargetCalories)';
+    return 'UserProfileDto(uid: $uid, gender: $gender, birthYear: $birthYear, heightCm: $heightCm, weightKg: $weightKg, activityLevel: $activityLevel, dailyTargetCalories: $dailyTargetCalories, isOnboardingCompleted: $isOnboardingCompleted, targetWeightKg: $targetWeightKg, fitnessGoal: $fitnessGoal)';
   }
 }
 
@@ -406,7 +506,10 @@ abstract mixin class _$UserProfileDtoCopyWith<$Res>
       double heightCm,
       double weightKg,
       String activityLevel,
-      int dailyTargetCalories});
+      int dailyTargetCalories,
+      bool isOnboardingCompleted,
+      double? targetWeightKg,
+      String fitnessGoal});
 }
 
 /// @nodoc
@@ -429,6 +532,9 @@ class __$UserProfileDtoCopyWithImpl<$Res>
     Object? weightKg = null,
     Object? activityLevel = null,
     Object? dailyTargetCalories = null,
+    Object? isOnboardingCompleted = null,
+    Object? targetWeightKg = freezed,
+    Object? fitnessGoal = null,
   }) {
     return _then(_UserProfileDto(
       uid: null == uid
@@ -459,6 +565,18 @@ class __$UserProfileDtoCopyWithImpl<$Res>
           ? _self.dailyTargetCalories
           : dailyTargetCalories // ignore: cast_nullable_to_non_nullable
               as int,
+      isOnboardingCompleted: null == isOnboardingCompleted
+          ? _self.isOnboardingCompleted
+          : isOnboardingCompleted // ignore: cast_nullable_to_non_nullable
+              as bool,
+      targetWeightKg: freezed == targetWeightKg
+          ? _self.targetWeightKg
+          : targetWeightKg // ignore: cast_nullable_to_non_nullable
+              as double?,
+      fitnessGoal: null == fitnessGoal
+          ? _self.fitnessGoal
+          : fitnessGoal // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }

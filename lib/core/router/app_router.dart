@@ -2,7 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 import '../../features/analytics/presentation/pages/analytics_page.dart';
+import '../../features/auth/presentation/pages/goal_summary_page.dart';
 import '../../features/auth/presentation/pages/login_page.dart';
+import '../../features/auth/presentation/pages/onboarding_page.dart';
 import '../../features/auth/presentation/pages/register_page.dart';
 import '../../features/auth/presentation/pages/splash_page.dart';
 import '../../features/profile/presentation/pages/profile_edit_page.dart';
@@ -22,6 +24,8 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: SplashRoute.page, initial: true),
     AutoRoute(page: LoginRoute.page),
     AutoRoute(page: RegisterRoute.page),
+    AutoRoute(page: OnboardingRoute.page),
+    AutoRoute(page: GoalSummaryRoute.page),
     AutoRoute(
       page: ShellRoute.page,
       children: [

@@ -13,6 +13,9 @@ abstract class UserProfileDto with _$UserProfileDto {
     required double weightKg,
     required String activityLevel,
     required int dailyTargetCalories,
+    @Default(false) bool isOnboardingCompleted,
+    double? targetWeightKg,
+    @Default('maintain') String fitnessGoal,
   }) = _UserProfileDto;
 
   factory UserProfileDto.fromJson(Map<String, dynamic> json) =>

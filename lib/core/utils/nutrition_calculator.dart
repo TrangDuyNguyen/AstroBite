@@ -26,10 +26,41 @@ class NutritionCalculator {
       'sedentary' => AppValues.sedentaryMultiplier,
       'light'     => AppValues.lightMultiplier,
       'moderate'  => AppValues.moderateMultiplier,
-      'active'    => AppValues.activeMultiplier,
+      'active' || 'very_active' => AppValues.activeMultiplier,
+      'extreme' || 'extremely_active' => AppValues.extremeMultiplier,
       _           => AppValues.sedentaryMultiplier,
     };
     return bmr * multiplier;
+  }
+
+  /// Calculates Daily Target Calories with safety floor.
+  /// Goal: 'lose_weight' (-500 kcal), 'gain_weight' (+300 kcal), 'maintain' (0).
+  /// Safety floor: Male >= 1500 kcal, Female >= 1200 kcal.
+  static int calculateTargetCalories({
+    required double tdee,
+    required String goal,
+    required String gender,
+  }) {
+    double target = switch (goal) {
+      'lose_weight' => tdee - 500,
+      'gain_weight' => tdee + 300,
+      _ => tdee,
+    };
+
+    final safetyFloor = gender == 'female' ? 1200.0 : 1500.0;
+    if (target < safetyFloor) {
+      target = safetyFloor;
+    }
+    return target.round();
+  }
+
+  /// Returns Macro distribution in grams for a given calorie target.
+  /// Standard split: 45% Carbs, 30% Protein, 25% Fat.
+  static ({int carbsG, int proteinG, int fatG}) calculateMacros(int totalCalories) {
+    final carbs = (totalCalories * 0.45 / 4).round();
+    final protein = (totalCalories * 0.30 / 4).round();
+    final fat = (totalCalories * 0.25 / 9).round();
+    return (carbsG: carbs, proteinG: protein, fatG: fat);
   }
 
   /// Recalculate calories for a food item when weight changes.

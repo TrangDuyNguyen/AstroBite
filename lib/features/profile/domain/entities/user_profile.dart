@@ -9,6 +9,9 @@ class UserProfile {
     required this.weightKg,
     required this.activityLevel,
     required this.dailyTargetCalories,
+    this.isOnboardingCompleted = false,
+    this.targetWeightKg,
+    this.fitnessGoal = 'maintain',
   });
 
   final String uid;
@@ -18,6 +21,9 @@ class UserProfile {
   final double weightKg;
   final String activityLevel;
   final int dailyTargetCalories;
+  final bool isOnboardingCompleted;
+  final double? targetWeightKg;
+  final String fitnessGoal;
 
   int get age => DateTime.now().year - birthYear;
 
@@ -42,6 +48,8 @@ class UserProfile {
       weightKg: 65,
       activityLevel: 'moderate',
       dailyTargetCalories: 2000,
+      isOnboardingCompleted: false,
+      fitnessGoal: 'maintain',
     );
   }
 }

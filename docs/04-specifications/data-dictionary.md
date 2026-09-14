@@ -24,6 +24,11 @@ Lưu trữ thông tin hồ sơ và mục tiêu calo của từng người dùng.
 | `carbs_percent` | Number (int) | Có | Tỷ lệ % Carbs (mặc định 45) |
 | `protein_percent`| Number (int) | Có | Tỷ lệ % Protein (mặc định 30) |
 | `fat_percent` | Number (int) | Có | Tỷ lệ % Fat (mặc định 25) |
+| `is_onboarding_completed` | Boolean | Có | `true`: Đã hoàn tất khảo sát; `false`: Đưa vào luồng Onboarding |
+| `onboarding_step` | Number (int) | Không | Bước khảo sát hiện tại (1-5), dùng để khôi phục khi tắt app |
+| `fitness_goal` | String | Có | `"lose_weight"`, `"maintain"`, `"gain_weight"` |
+| `pal_multiplier` | Number (double) | Có | Hệ số mức vận động (1.20, 1.375, 1.55, 1.725, 1.90) |
+| `safety_floor_applied` | Boolean | Không | `true` nếu áp dụng chặn sàn calo tối thiểu (Nam 1500, Nữ 1200) |
 | `created_at` | Timestamp | Có | Thời gian tạo tài khoản |
 
 ---

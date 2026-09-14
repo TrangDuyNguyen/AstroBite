@@ -75,5 +75,65 @@ void main() {
         expect(result, 0);
       });
     });
+
+    group('calculateTargetCalories', () {
+      test('calculates lose weight target (-500 kcal)', () {
+        final target = NutritionCalculator.calculateTargetCalories(
+          tdee: 2400,
+          goal: 'lose_weight',
+          gender: 'male',
+        );
+        expect(target, 1900);
+      });
+
+      test('applies male safety floor of 1500 kcal', () {
+        final target = NutritionCalculator.calculateTargetCalories(
+          tdee: 1800, // 1800 - 500 = 1300 < 1500
+          goal: 'lose_weight',
+          gender: 'male',
+        );
+        expect(target, 1500);
+      });
+
+      test('applies female safety floor of 1200 kcal', () {
+        final target = NutritionCalculator.calculateTargetCalories(
+          tdee: 1400, // 1400 - 500 = 900 < 1200
+          goal: 'lose_weight',
+          gender: 'female',
+        );
+        expect(target, 1200);
+      });
+
+      test('calculates gain weight target (+300 kcal)', () {
+        final target = NutritionCalculator.calculateTargetCalories(
+          tdee: 2200,
+          goal: 'gain_weight',
+          gender: 'male',
+        );
+        expect(target, 2500);
+      });
+
+      test('maintains weight target (= TDEE)', () {
+        final target = NutritionCalculator.calculateTargetCalories(
+          tdee: 2200,
+          goal: 'maintain',
+          gender: 'female',
+        );
+        expect(target, 2200);
+      });
+    });
+
+    group('calculateMacros', () {
+      test('calculates standard 45/30/25 macro split', () {
+        // 2000 kcal:
+        // Carbs: 2000 * 0.45 / 4 = 225g
+        // Protein: 2000 * 0.30 / 4 = 150g
+        // Fat: 2000 * 0.25 / 9 = 55.55... -> 56g
+        final macros = NutritionCalculator.calculateMacros(2000);
+        expect(macros.carbsG, 225);
+        expect(macros.proteinG, 150);
+        expect(macros.fatG, 56);
+      });
+    });
   });
 }

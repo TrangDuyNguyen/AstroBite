@@ -17,6 +17,12 @@ class ProfileRemoteDatasource {
     });
   }
 
+  Future<UserProfileDto?> getProfile(String userId) async {
+    final snapshot = await _userRef(userId).get();
+    if (!snapshot.exists || snapshot.data() == null) return null;
+    return UserProfileDto.fromJson({...snapshot.data()!, 'uid': userId});
+  }
+
   Future<void> saveProfile(UserProfileDto profile) async {
     await _userRef(profile.uid).set(profile.toJson(), SetOptions(merge: true));
   }

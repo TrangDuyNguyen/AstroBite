@@ -41,13 +41,19 @@
 - **So that**: Tôi có thể truy cập nhật ký dinh dưỡng và dữ liệu cá nhân của mình
 
 ### Acceptance Criteria (Given - When - Then)
-- **Scenario 1: Đăng nhập thành công với thông tin chính xác**
-  - **Given**: Tôi đang ở màn hình Đăng nhập
+- **Scenario 1: Đăng nhập thành công với tài khoản đã hoàn thành onboarding**
+  - **Given**: Tôi đang ở màn hình Đăng nhập và tài khoản của tôi đã có `is_onboarding_completed = true`
   - **When**: Tôi nhập email hợp lệ đã đăng ký và mật khẩu chính xác
   - **And**: Nhấn nút "Đăng nhập"
   - **Then**: Hệ thống xác thực thành công qua Firebase Auth và điều hướng tôi đến màn hình chính (Dashboard/ShellRoute)
 
-- **Scenario 2: Đăng nhập thất bại do sai mật khẩu hoặc tài khoản không tồn tại**
+- **Scenario 2: Đăng nhập thành công với tài khoản chưa hoàn thành onboarding**
+  - **Given**: Tôi đang ở màn hình Đăng nhập và tài khoản của tôi có `is_onboarding_completed = false`
+  - **When**: Tôi nhập email hợp lệ và mật khẩu chính xác
+  - **And**: Nhấn nút "Đăng nhập"
+  - **Then**: Hệ thống xác thực thành công và điều hướng tôi đến màn hình khảo sát `/onboarding`
+
+- **Scenario 3: Đăng nhập thất bại do sai mật khẩu hoặc tài khoản không tồn tại**
   - **Given**: Tôi đang ở màn hình Đăng nhập
   - **When**: Tôi nhập sai mật khẩu hoặc nhập email chưa đăng ký
   - **And**: Nhấn nút "Đăng nhập"
@@ -61,13 +67,17 @@
 - **So that**: Tôi không cần nhập email và ghi nhớ mật khẩu thủ công
 
 ### Acceptance Criteria (Given - When - Then)
-- **Scenario 1: Đăng nhập Google thành công**
-  - **Given**: Tôi đang ở màn hình Đăng nhập
-  - **When**: Tôi nhấn nút "Tiếp tục với Google"
-  - **And**: Tôi chọn tài khoản Google hợp lệ và cấp quyền
-  - **Then**: Hệ thống tạo credential GoogleAuthProvider, đăng nhập vào Firebase Auth và chuyển hướng tôi đến màn hình chính
+- **Scenario 1: Đăng nhập Google thành công với người dùng mới**
+  - **Given**: Tôi chưa có hồ sơ người dùng trong Firestore
+  - **When**: Tôi nhấn nút "Tiếp tục với Google" và cấp quyền
+  - **Then**: Hệ thống xác thực Firebase Auth, khởi tạo tài khoản và điều hướng tôi đến màn hình `/onboarding` (Bước 1)
 
-- **Scenario 2: Người dùng hủy luồng đăng nhập Google**
+- **Scenario 2: Đăng nhập Google thành công với người dùng cũ**
+  - **Given**: Tôi đã từng hoàn thành khảo sát với `is_onboarding_completed = true`
+  - **When**: Tôi nhấn nút "Tiếp tục với Google" và cấp quyền
+  - **Then**: Hệ thống xác thực thành công và điều hướng tôi vào thẳng Dashboard (ShellRoute)
+
+- **Scenario 3: Người dùng hủy luồng đăng nhập Google**
   - **Given**: Hộp thoại chọn tài khoản Google đang hiển thị
   - **When**: Tôi bấm nút hủy hoặc đóng popup
   - **Then**: Hệ thống giữ nguyên trạng thái tại màn hình Đăng nhập, không phát sinh lỗi crash
@@ -85,3 +95,23 @@
   - **When**: Tôi nhấn "Quên mật khẩu?"
   - **And**: Nhập email `user@example.com` vào hộp thoại và nhấn "Gửi liên kết"
   - **Then**: Hệ thống gọi Firebase Auth gửi email reset password và hiển thị SnackBar thành công: *"Đã gửi liên kết đặt lại mật khẩu về email của bạn. Vui lòng kiểm tra hộp thư."*
+
+---
+
+## US-06: Hoàn Tất Khảo Sát & Khôi Phục Phiên Bỏ Dở (Onboarding Persistence & Drop-off Recovery)
+- **As a**: Người dùng đang thực hiện khảo sát thể trạng
+- **I want to**: Tiến trình khảo sát được lưu tạm và dữ liệu tính toán được kích hoạt khi hoàn thành
+- **So that**: Tôi không bị mất thông tin nếu bị ngắt quãng và nhận được mục tiêu dinh dưỡng cá nhân chuẩn y khoa
+
+### Acceptance Criteria (Given - When - Then)
+- **Scenario 1: Khôi phục phiên khảo sát dở dang sau khi đăng nhập lại**
+  - **Given**: Tôi đã hoàn thành tới Bước 3 nhưng tắt ứng dụng
+  - **When**: Tôi mở lại ứng dụng và đăng nhập thành công
+  - **Then**: Hệ thống tự động mở lại màn hình `/onboarding` tại Bước 3 với các dữ liệu trước đó được giữ nguyên
+
+- **Scenario 2: Hoàn tất khảo sát và kích hoạt tài khoản thành công**
+  - **Given**: Tôi đang ở màn hình tóm tắt mục tiêu `/onboarding/summary`
+  - **When**: Tôi nhấn nút "Bắt đầu hành trình"
+  - **Then**: Hệ thống ghi đè thông tin hồ sơ lên Firestore với `is_onboarding_completed = true`
+  - **And**: Chuyển hướng toàn bộ sang Dashboard (ShellRoute) và hiển thị chỉ số Calorie Target chính xác
+

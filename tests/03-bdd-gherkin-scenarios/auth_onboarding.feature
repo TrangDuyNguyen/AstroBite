@@ -31,13 +31,24 @@ Feature: Authentication and Onboarding Flow
     And tapping "Bắt đầu hành trình" should navigate me to the Dashboard
 
   @smoke @critical
-  Scenario: Successful login with valid email and password
+  Scenario: Successful login with returning user who completed onboarding
     Given I am on the Login Screen
+    And my account has completed onboarding with "is_onboarding_completed" set to true
     When I enter "qa_test_01@astrobite.io" into the email field
     And I enter "AstroBite@2026" into the password field
     And I tap the "Đăng nhập" button
     Then I should be navigated to the Dashboard
     And I should see my nutrition summary
+
+  @smoke
+  Scenario: Successful login with new user who has not completed onboarding
+    Given I am on the Login Screen
+    And my account has "is_onboarding_completed" set to false
+    When I enter "qa_newbie@astrobite.io" into the email field
+    And I enter "AstroBite@2026" into the password field
+    And I tap the "Đăng nhập" button
+    Then I should be navigated to the Onboarding Survey Screen
+    And I should start at Step 1 to select gender
 
   @regression @negative
   Scenario: Login failure with incorrect credentials
@@ -49,8 +60,17 @@ Feature: Authentication and Onboarding Flow
     And I should remain on the Login Screen
 
   @smoke
-  Scenario: Successful Google Sign-In authentication
+  Scenario: Successful Google Sign-In authentication for new user
     Given I am on the Login Screen
+    When I tap the "Tiếp tục với Google" button
+    And I select my new Google account
+    Then I should be authenticated with Firebase Auth
+    And I should be navigated to the Onboarding Survey Screen
+
+  @smoke
+  Scenario: Successful Google Sign-In authentication for returning user
+    Given I am on the Login Screen
+    And I previously completed onboarding
     When I tap the "Tiếp tục với Google" button
     And I select my Google account
     Then I should be authenticated with Firebase Auth

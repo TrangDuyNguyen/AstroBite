@@ -37,7 +37,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
           password: _passwordController.text,
         );
     if (success && mounted) {
-      context.router.replaceAll([const ShellRoute()]);
+      context.router.replaceAll([const OnboardingRoute()]);
     }
   }
 

@@ -5,6 +5,8 @@ import 'package:astrobite/core/constants/app_strings.dart';
 import 'package:astrobite/core/constants/app_values.dart';
 import 'package:astrobite/core/router/app_router.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
+import 'package:astrobite/features/auth/domain/auth_providers.dart';
+import 'package:astrobite/features/profile/domain/profile_providers.dart';
 import '../controllers/login_controller.dart';
 import '../widgets/auth_submit_button.dart';
 import '../widgets/auth_text_field.dart';
@@ -31,6 +33,19 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     super.dispose();
   }
 
+  Future<void> _navigatePostAuth() async {
+    final user = ref.read(authRepositoryProvider).currentUser;
+    if (user == null) return;
+    final repo = ref.read(profileRepositoryProvider);
+    final profile = await repo.getProfile(user.uid);
+    if (!mounted) return;
+    if (profile != null && profile.isOnboardingCompleted) {
+      context.router.replaceAll([const ShellRoute()]);
+    } else {
+      context.router.replaceAll([const OnboardingRoute()]);
+    }
+  }
+
   Future<void> _handleLogin() async {
     if (!_formKey.currentState!.validate()) return;
     final success = await ref.read(loginControllerProvider.notifier).login(
@@ -38,7 +53,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
           password: _passwordController.text,
         );
     if (success && mounted) {
-      context.router.replaceAll([const ShellRoute()]);
+      await _navigatePostAuth();
     }
   }
 
@@ -46,7 +61,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     final success =
         await ref.read(loginControllerProvider.notifier).loginWithGoogle();
     if (success && mounted) {
-      context.router.replaceAll([const ShellRoute()]);
+      await _navigatePostAuth();
     }
   }
 

@@ -14,6 +14,11 @@ class ProfileRepositoryImpl implements ProfileRepository {
   }
 
   @override
+  Future<UserProfileDto?> getProfile(String userId) {
+    return _remoteDatasource.getProfile(userId);
+  }
+
+  @override
   Future<void> saveProfile(UserProfileDto profile) {
     return _remoteDatasource.saveProfile(profile);
   }

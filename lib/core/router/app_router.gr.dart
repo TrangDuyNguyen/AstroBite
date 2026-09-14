@@ -43,6 +43,88 @@ class CameraRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [GoalSummaryPage]
+class GoalSummaryRoute extends PageRouteInfo<GoalSummaryRouteArgs> {
+  GoalSummaryRoute({
+    Key? key,
+    required String gender,
+    required int birthYear,
+    required double heightCm,
+    required double weightKg,
+    required double targetWeightKg,
+    required String activityLevel,
+    required String fitnessGoal,
+    List<PageRouteInfo>? children,
+  }) : super(
+         GoalSummaryRoute.name,
+         args: GoalSummaryRouteArgs(
+           key: key,
+           gender: gender,
+           birthYear: birthYear,
+           heightCm: heightCm,
+           weightKg: weightKg,
+           targetWeightKg: targetWeightKg,
+           activityLevel: activityLevel,
+           fitnessGoal: fitnessGoal,
+         ),
+         initialChildren: children,
+       );
+
+  static const String name = 'GoalSummaryRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<GoalSummaryRouteArgs>();
+      return GoalSummaryPage(
+        key: args.key,
+        gender: args.gender,
+        birthYear: args.birthYear,
+        heightCm: args.heightCm,
+        weightKg: args.weightKg,
+        targetWeightKg: args.targetWeightKg,
+        activityLevel: args.activityLevel,
+        fitnessGoal: args.fitnessGoal,
+      );
+    },
+  );
+}
+
+class GoalSummaryRouteArgs {
+  const GoalSummaryRouteArgs({
+    this.key,
+    required this.gender,
+    required this.birthYear,
+    required this.heightCm,
+    required this.weightKg,
+    required this.targetWeightKg,
+    required this.activityLevel,
+    required this.fitnessGoal,
+  });
+
+  final Key? key;
+
+  final String gender;
+
+  final int birthYear;
+
+  final double heightCm;
+
+  final double weightKg;
+
+  final double targetWeightKg;
+
+  final String activityLevel;
+
+  final String fitnessGoal;
+
+  @override
+  String toString() {
+    return 'GoalSummaryRouteArgs{key: $key, gender: $gender, birthYear: $birthYear, heightCm: $heightCm, weightKg: $weightKg, targetWeightKg: $targetWeightKg, activityLevel: $activityLevel, fitnessGoal: $fitnessGoal}';
+  }
+}
+
+/// generated route for
 /// [HomePage]
 class HomeRoute extends PageRouteInfo<void> {
   const HomeRoute({List<PageRouteInfo>? children})
@@ -102,6 +184,22 @@ class MealDetailRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const MealDetailPage();
+    },
+  );
+}
+
+/// generated route for
+/// [OnboardingPage]
+class OnboardingRoute extends PageRouteInfo<void> {
+  const OnboardingRoute({List<PageRouteInfo>? children})
+    : super(OnboardingRoute.name, initialChildren: children);
+
+  static const String name = 'OnboardingRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const OnboardingPage();
     },
   );
 }

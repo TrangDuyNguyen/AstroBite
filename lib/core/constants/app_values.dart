@@ -29,4 +29,5 @@ abstract final class AppValues {
   static const double lightMultiplier = 1.375;
   static const double moderateMultiplier = 1.55;
   static const double activeMultiplier = 1.725;
+  static const double extremeMultiplier = 1.9;
 }

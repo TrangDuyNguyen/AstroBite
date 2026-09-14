@@ -15,6 +15,9 @@ _UserProfileDto _$UserProfileDtoFromJson(Map<String, dynamic> json) =>
       weightKg: (json['weightKg'] as num).toDouble(),
       activityLevel: json['activityLevel'] as String,
       dailyTargetCalories: (json['dailyTargetCalories'] as num).toInt(),
+      isOnboardingCompleted: json['isOnboardingCompleted'] as bool? ?? false,
+      targetWeightKg: (json['targetWeightKg'] as num?)?.toDouble(),
+      fitnessGoal: json['fitnessGoal'] as String? ?? 'maintain',
     );
 
 Map<String, dynamic> _$UserProfileDtoToJson(_UserProfileDto instance) =>
@@ -26,4 +29,7 @@ Map<String, dynamic> _$UserProfileDtoToJson(_UserProfileDto instance) =>
       'weightKg': instance.weightKg,
       'activityLevel': instance.activityLevel,
       'dailyTargetCalories': instance.dailyTargetCalories,
+      'isOnboardingCompleted': instance.isOnboardingCompleted,
+      'targetWeightKg': instance.targetWeightKg,
+      'fitnessGoal': instance.fitnessGoal,
     };

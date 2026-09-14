@@ -23,6 +23,17 @@ final userProfileStreamProvider = StreamProvider.autoDispose<UserProfile?>((ref)
       weightKg: dto.weightKg,
       activityLevel: dto.activityLevel,
       dailyTargetCalories: dto.dailyTargetCalories,
+      isOnboardingCompleted: dto.isOnboardingCompleted,
+      targetWeightKg: dto.targetWeightKg,
+      fitnessGoal: dto.fitnessGoal,
     );
   });
+});
+
+final checkOnboardingCompletedProvider = FutureProvider.autoDispose<bool>((ref) async {
+  final user = ref.watch(authStateProvider).value;
+  if (user == null) return false;
+  final repo = ref.watch(profileRepositoryProvider);
+  final profile = await repo.getProfile(user.uid);
+  return profile?.isOnboardingCompleted ?? false;
 });
