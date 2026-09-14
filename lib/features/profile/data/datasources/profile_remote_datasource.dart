@@ -11,16 +11,23 @@ class ProfileRemoteDatasource {
       _firestore.collection('users').doc(userId);
 
   Stream<UserProfileDto?> watchProfile(String userId) {
-    return _userRef(userId).snapshots().map((snapshot) {
-      if (!snapshot.exists || snapshot.data() == null) return null;
-      return UserProfileDto.fromJson({...snapshot.data()!, 'uid': userId});
-    });
+    return _userRef(userId)
+        .snapshots()
+        .map((snapshot) {
+          if (!snapshot.exists || snapshot.data() == null) return null;
+          return UserProfileDto.fromJson({...snapshot.data()!, 'uid': userId});
+        })
+        .handleError((_) => null);
   }
 
   Future<UserProfileDto?> getProfile(String userId) async {
-    final snapshot = await _userRef(userId).get();
-    if (!snapshot.exists || snapshot.data() == null) return null;
-    return UserProfileDto.fromJson({...snapshot.data()!, 'uid': userId});
+    try {
+      final snapshot = await _userRef(userId).get();
+      if (!snapshot.exists || snapshot.data() == null) return null;
+      return UserProfileDto.fromJson({...snapshot.data()!, 'uid': userId});
+    } catch (_) {
+      return null;
+    }
   }
 
   Future<void> saveProfile(UserProfileDto profile) async {

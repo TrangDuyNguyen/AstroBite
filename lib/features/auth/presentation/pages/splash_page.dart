@@ -14,12 +14,21 @@ class SplashPage extends ConsumerWidget {
     ref.listen(authStateProvider, (prev, next) async {
       final user = next.value;
       if (user != null) {
-        final repo = ref.read(profileRepositoryProvider);
-        final profile = await repo.getProfile(user.uid);
-        if (context.mounted) {
-          if (profile != null && profile.isOnboardingCompleted) {
-            context.router.replaceAll([const ShellRoute()]);
-          } else {
+        try {
+          final repo = ref.read(profileRepositoryProvider);
+          final profile = await repo.getProfile(user.uid).timeout(
+            const Duration(seconds: 3),
+            onTimeout: () => null,
+          );
+          if (context.mounted) {
+            if (profile != null && profile.isOnboardingCompleted) {
+              context.router.replaceAll([const ShellRoute()]);
+            } else {
+              context.router.replaceAll([const OnboardingRoute()]);
+            }
+          }
+        } catch (_) {
+          if (context.mounted) {
             context.router.replaceAll([const OnboardingRoute()]);
           }
         }

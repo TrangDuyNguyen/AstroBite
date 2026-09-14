@@ -36,13 +36,22 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   Future<void> _navigatePostAuth() async {
     final user = ref.read(authRepositoryProvider).currentUser;
     if (user == null) return;
-    final repo = ref.read(profileRepositoryProvider);
-    final profile = await repo.getProfile(user.uid);
-    if (!mounted) return;
-    if (profile != null && profile.isOnboardingCompleted) {
-      context.router.replaceAll([const ShellRoute()]);
-    } else {
-      context.router.replaceAll([const OnboardingRoute()]);
+    try {
+      final repo = ref.read(profileRepositoryProvider);
+      final profile = await repo.getProfile(user.uid).timeout(
+        const Duration(seconds: 3),
+        onTimeout: () => null,
+      );
+      if (!mounted) return;
+      if (profile != null && profile.isOnboardingCompleted) {
+        context.router.replaceAll([const ShellRoute()]);
+      } else {
+        context.router.replaceAll([const OnboardingRoute()]);
+      }
+    } catch (_) {
+      if (mounted) {
+        context.router.replaceAll([const OnboardingRoute()]);
+      }
     }
   }
 
