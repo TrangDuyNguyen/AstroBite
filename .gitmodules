@@ -1,0 +1,14 @@
+[submodule "docs"]
+	path = docs
+	url = https://github.com/TrangDuyNguyen/astrobite-ba-docs.git
+	branch = main
+
+[submodule "tests"]
+	path = tests
+	url = https://github.com/TrangDuyNguyen/astrobite-testcases.git
+	branch = main
+
+[submodule "frontend"]
+	path = frontend
+	url = https://github.com/TrangDuyNguyen/astrobite-frontend.git
+	branch = main

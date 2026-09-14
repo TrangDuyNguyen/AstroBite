@@ -90,6 +90,29 @@ For typography, spacing scales (4pt grid), and glassmorphism specifications, ref
 
 ---
 
+## 🏛️ Workspace Architecture & Git Submodules
+
+AstroBite adopts an **Enterprise Super-Repo Architecture** coordinating 3 dedicated submodules:
+
+```
+AstroBite/ (Super-Repo / Workspace Coordinator)
+├── .gitmodules                         # Submodule mapping definitions
+├── Makefile                            # Workspace management automation
+├── scripts/                            # Setup & synchronization scripts
+├── docs/                               # 📁 [Submodule] astrobite-ba-docs (BABOK/Agile BA Specs)
+├── tests/                              # 📁 [Submodule] astrobite-testcases (QA Strategy, Testcases & BDD)
+└── frontend/                           # 📁 [Submodule] astrobite-frontend (Flutter Clean Architecture)
+```
+
+### ⚡ Quick Workspace Commands
+- `make setup`  : Initialize and clone all submodules recursively.
+- `make update` : Synchronize submodules to their latest remote commits.
+- `make status` : Check Git branch and diff status across root and submodules.
+- `make pull`   : Pull root repository and all submodules concurrently.
+- `make test-fe`: Run unit/widget tests for the Flutter frontend.
+
+---
+
 ## 🚀 Getting Started
 
 ### Prerequisites
@@ -98,13 +121,15 @@ For typography, spacing scales (4pt grid), and glassmorphism specifications, ref
 - [Firebase CLI](https://firebase.google.com/docs/cli) (configured for your target Firebase project)
 - An active Android / iOS emulator or connected physical device
 
-### Installation
+### Installation & Workspace Setup
 
-1. **Clone the repository**:
+1. **Clone the repository with submodules**:
    ```bash
-   git clone https://github.com/your-username/AstroBite.git
+   git clone --recurse-submodules https://github.com/TrangDuyNguyen/AstroBite.git
    cd AstroBite
    ```
+   *(If cloned normally without `--recurse-submodules`, run `make setup`)*.
+
 
 2. **Install dependencies**:
    ```bash
