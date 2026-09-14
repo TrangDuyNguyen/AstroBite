@@ -93,3 +93,4 @@ secrets/
 .memory_bank/
 
 pubspec.lock
+skills-lock.json
