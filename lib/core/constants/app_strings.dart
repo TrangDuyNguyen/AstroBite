@@ -9,6 +9,12 @@ abstract final class AppStrings {
   static const email = 'Email';
   static const password = 'Mật khẩu';
   static const confirmPassword = 'Xác nhận mật khẩu';
+  static const forgotPassword = 'Quên mật khẩu?';
+  static const resetPassword = 'Đặt lại mật khẩu';
+  static const googleSignIn = 'Tiếp tục với Google';
+  static const sendResetLink = 'Gửi liên kết';
+  static const resetPasswordSent = 'Đã gửi liên kết đặt lại mật khẩu về email của bạn. Vui lòng kiểm tra hộp thư.';
+  static const orDivider = 'HOẶC';
 
   // Meals
   static const breakfast = 'Bữa sáng';
