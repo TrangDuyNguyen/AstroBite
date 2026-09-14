@@ -92,3 +92,4 @@ secrets/
 # Memory bank (AI context files)
 .memory_bank/
 
+pubspec.lock
