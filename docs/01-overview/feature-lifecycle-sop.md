@@ -1,10 +1,10 @@
 # Quy Trình Phát Triển Tính Năng Toàn Diện (Feature Delivery SOP) — AstroBite
 
-Tài liệu này chuẩn hóa **Quy trình Phát triển Tính năng Khép kín (End-to-End Feature Delivery SOP)** từ lúc nảy sinh ý tưởng cho đến khi phát hành ra người dùng, kết hợp chặt chẽ giữa 3 vai trò **BA ➔ QA ➔ FE Dev** trên kiến trúc **Git Submodules**.
+Tài liệu này chuẩn hóa **Quy trình Phát triển Tính năng Khép kín (End-to-End Feature Delivery SOP)** từ ý tưởng ban đầu đến phát hành, kết hợp chặt chẽ giữa **BA ➔ QA ➔ FE Dev ➔ Code Review (Ponytail) ➔ Verification ➔ Release** trên kiến trúc **Git Submodules**.
 
 ---
 
-## 🧭 Sơ Đồ Quy Trình 5 Cổng Chất Lượng (5-Gate Delivery Flow)
+## 🧭 Sơ Đồ Quy Trình 6 Cổng Chất Lượng (6-Gate Delivery Flow)
 
 ```mermaid
 flowchart TD
@@ -35,22 +35,31 @@ flowchart TD
         Gate3 --> CleanArch --> UnitTest
     end
     
-    UnitTest -->|flutter analyze & test PASS| Gate4
+    UnitTest -->|flutter analyze 0 warnings| Gate4
     
-    subgraph Cổng 4: Kiểm Thử Tự Động & Nghiệm Thu [CỔNG 4: Verification Gate]
-        Gate4[Chạy E2E Integration Test]
-        ManualQA[QA test trên thiết bị thật]
-        SignOff[Lập Biên bản Nghiệm thu Sign-off]
-        Gate4 --> ManualQA --> SignOff
+    subgraph Cổng 4: Rà Soát Mã Nguồn Tối Giản [CỔNG 4: Code Review Gate - Ponytail]
+        Gate4[Quét Over-engineering qua git diff]
+        Audit[Triệt tiêu code thừa, YAGNI, thư viện ngoài]
+        Format[Định dạng 1 dòng/finding + Net line reduction]
+        Gate4 --> Audit --> Format
     end
     
-    SignOff -->|Sign-off Approved| Gate5
+    Format -->|Lean already. Ship / Applied fixes| Gate5
     
-    subgraph Cổng 5: Đóng Gói & Phát Hành [CỔNG 5: Super-Repo Release]
-        Gate5[Chạy make update tại Root]
+    subgraph Cổng 5: Kiểm Thử & Nghiệm Thu [CỔNG 5: Verification Gate]
+        Gate5[Chạy flutter test & E2E Integration Test]
+        ManualQA[QA test trên thiết bị thật iOS/Android]
+        SignOff[Lập Biên bản Nghiệm thu Sign-off]
+        Gate5 --> ManualQA --> SignOff
+    end
+    
+    SignOff -->|Sign-off Approved| Gate6
+    
+    subgraph Cổng 6: Đóng Gói & Phát Hành [CỔNG 6: Super-Repo Release]
+        Gate6[Chạy make update tại Root]
         CommitPin[Commit con trỏ Submodules]
         GitTag[Tạo Tag phiên bản vX.Y.Z]
-        Gate5 --> CommitPin --> GitTag
+        Gate6 --> CommitPin --> GitTag
     end
     
     GitTag --> Release([🚀 Hoàn Tất Phát Hành])
@@ -58,7 +67,7 @@ flowchart TD
 
 ---
 
-## 🚪 Chi Tiết 5 Cổng Chất Lượng (Quality Gates)
+## 🚪 Chi Tiết 6 Cổng Chất Lượng (Quality Gates)
 
 ### 🔹 CỔNG 1: Phân Tích Nghiệp Vụ (BA Gate)
 - **Thư mục làm việc**: `docs/` (Submodule `astrobite-ba-docs`).
@@ -99,11 +108,29 @@ flowchart TD
   4. Tuân thủ nghiêm ngặt Design Tokens trong `lib/core/theme/app_colors.dart` (Carbs `#1A73E8`, Fat `#FF69B4`, Protein `#FFD700`, Surface `#0A192F`).
 - **Tiêu chí vượt cổng (Exit Criteria)**:
   - `flutter analyze` đạt 0 lỗi, 0 cảnh báo.
-  - Code sạch theo Clean Architecture, không bypass App Check.
+  - Code phân tầng rõ ràng, không bypass App Check.
 
 ---
 
-### 🔹 CỔNG 4: Kiểm Thử Tự Động & Nghiệm Thu (Verification Gate)
+### 🔹 CỔNG 4: Rà Soát Mã Nguồn Tối Giản (Code Review Gate — Powered by Ponytail)
+- **Thư mục làm việc**: `frontend/` (hoặc git diff so với nhánh `main`).
+- **Skill hỗ trợ**: `code-reviewer` & `ponytail-review`.
+- **Nhiệm vụ cụ thể**:
+  1. Trích xuất diff: `git diff origin/main...HEAD`.
+  2. Quét triệt tiêu mọi sự phức tạp không cần thiết (Ruthless Simplicity):
+     - `delete:` Code chết, helper không ai gọi, xử lý cho tương lai chưa xảy ra.
+     - `stdlib:` Tự viết lại hàm mà thư viện chuẩn Dart/Flutter đã có sẵn.
+     - `native:` Cài dependency bên thứ 3 cho việc mà Flutter SDK tự làm được.
+     - `yagni:` Tạo thêm interface, abstract class thừa chỉ có đúng 1 class thực thi duy nhất.
+     - `shrink:` Rút ngắn cùng logic nhiều dòng thành ít dòng rõ ràng hơn.
+  3. Xuất kết quả chuẩn 1 dòng: `<file>:L<line>: <tag> <what>. <replacement>.`
+  4. Đánh giá điểm số: `net: -<N> lines possible.`
+- **Tiêu chí vượt cổng (Exit Criteria)**:
+  - Đã loại bỏ hết các đoạn code over-engineering hoặc nhận xác nhận: `Lean already. Ship.`
+
+---
+
+### 🔹 CỔNG 5: Kiểm Thử Tự Động & Nghiệm Thu (Verification Gate)
 - **Thư mục làm việc**: `frontend/test/`, `frontend/integration_test/`, `tests/`.
 - **Skill hỗ trợ**: `flutter-testing` & `qa-tester`.
 - **Nhiệm vụ cụ thể**:
@@ -120,12 +147,12 @@ flowchart TD
   5. Điền biên bản nghiệm thu tại `tests/05-test-execution-reports/release-sign-offs/signoff-<feature>.md`.
 - **Tiêu chí vượt cổng (Exit Criteria)**:
   - 100% Automated Tests Pass.
-  - Không còn Bug mức S1 (Blocker) hoặc S2 (Critical).
+  - 0 Bug nghiêm trọng (Blocker/Critical).
   - QA Lead và PO đã ký duyệt biên bản nghiệm thu.
 
 ---
 
-### 🔹 CỔNG 5: Tích Hợp Super-Repo & Phát Hành (Release Gate)
+### 🔹 CỔNG 6: Tích Hợp Super-Repo & Phát Hành (Release Gate)
 - **Thư mục làm việc**: Root Super-Repo `AstroBite/`.
 - **Nhiệm vụ cụ thể**:
   1. Đảm bảo PR của cả 3 submodule đã được merge vào nhánh `main` tương ứng.
@@ -153,12 +180,13 @@ flowchart TD
 
 ---
 
-## 📊 Bảng Đối Soát Trách Nhiệm (RACI across Gates)
+## 📊 Bảng Đối Soát Trách Nhiệm (RACI across 6 Gates)
 
-| Hoạt động | BA | QA | FE Dev | PO / Release Lead |
-| :--- | :---: | :---: | :---: | :---: |
-| **Cổng 1: PRD & BDD Stories** | **R / A** | C | C | A |
-| **Cổng 2: Testcases & Kịch bản Gherkin** | C | **R / A** | I | I |
-| **Cổng 3: Clean Architecture Frontend** | I | C | **R / A** | I |
-| **Cổng 4: Test E2E & Nghiệm Thu Sign-off** | I | **R** | C | **A** |
-| **Cổng 5: Merge Super-repo & Gắn Tag** | I | I | C | **R / A** |
+| Hoạt động | BA | QA | FE Dev | Code Reviewer | PO / Release Lead |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| **Cổng 1: PRD & BDD Stories** | **R / A** | C | C | I | A |
+| **Cổng 2: Testcases & Kịch bản Gherkin** | C | **R / A** | I | I | I |
+| **Cổng 3: Clean Architecture Frontend** | I | C | **R / A** | I | I |
+| **Cổng 4: Code Review (Ponytail)** | I | I | C | **R / A** | I |
+| **Cổng 5: Test E2E & Nghiệm Thu Sign-off**| I | **R** | C | I | **A** |
+| **Cổng 6: Merge Super-repo & Gắn Tag** | I | I | C | I | **R / A** |

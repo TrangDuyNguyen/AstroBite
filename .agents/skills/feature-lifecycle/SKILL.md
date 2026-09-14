@@ -1,20 +1,20 @@
 ---
 name: feature-lifecycle
-description: "Unified End-to-End Feature Delivery Lifecycle skill for AstroBite. Orchestrates the full 5-gate pipeline: BA requirements (PRD/BDD) -> QA test design (Manual/Gherkin) -> FE Flutter Clean Architecture -> Automated & Manual Verification -> Super-repo Git Submodule release."
+description: "Unified End-to-End Feature Delivery Lifecycle skill for AstroBite. Orchestrates the full 6-gate pipeline: BA requirements (PRD/BDD) -> QA test design (Manual/Gherkin) -> FE Flutter Clean Architecture -> Code Review (Ponytail) -> Automated & Manual Verification -> Super-repo Git Submodule release."
 license: MIT
 metadata:
-  version: "1.0.0"
+  version: "1.1.0"
   domain: product-engineering
   triggers: progress feature, new feature, feature lifecycle, quy trinh feature, develop feature, release feature, end-to-end delivery
   role: technical-product-lead
   scope: full-lifecycle-orchestration
   output-format: markdown
-  related-skills: business-analyst, qa-tester, flutter-expert, flutter-testing, brainstorming
+  related-skills: business-analyst, qa-tester, flutter-expert, code-reviewer, flutter-testing, brainstorming
 ---
 
-# Unified Feature Delivery Lifecycle Skill (SOP)
+# Unified Feature Delivery Lifecycle Skill (6-Gate SOP)
 
-Kỹ năng điều phối quy trình phát triển tính năng toàn diện cho dự án **AstroBite**, kết nối nhịp nhàng 5 cổng chất lượng (5-Gate Delivery Flow) giữa **BA ➔ QA ➔ Frontend Dev ➔ Verification ➔ Super-repo Release**.
+Kỹ năng điều phối quy trình phát triển tính năng toàn diện cho dự án **AstroBite**, kết nối nhịp nhàng 6 cổng chất lượng (6-Gate Delivery Flow) giữa **BA ➔ QA ➔ Frontend Dev ➔ Code Review (Ponytail) ➔ Verification ➔ Super-repo Release**.
 
 ---
 
@@ -25,10 +25,10 @@ Kỹ năng điều phối quy trình phát triển tính năng toàn diện cho 
 
 ---
 
-## 🧭 Vận Hành 5 Cổng Chất Lượng (The 5 Quality Gates)
+## 🧭 Vận Hành 6 Cổng Chất Lượng (The 6 Quality Gates)
 
 ```
-[Gate 1: BA] ➔ [Gate 2: QA] ➔ [Gate 3: FE Dev] ➔ [Gate 4: Verify] ➔ [Gate 5: Release]
+[Gate 1: BA] ➔ [Gate 2: QA] ➔ [Gate 3: FE Dev] ➔ [Gate 4: Code Review] ➔ [Gate 5: Verify] ➔ [Gate 6: Release]
 ```
 
 ### 🚪 CỔNG 1: Phân Tích Nghiệp Vụ (BA Gate)
@@ -59,7 +59,15 @@ Kỹ năng điều phối quy trình phát triển tính năng toàn diện cho 
   4. Tuân thủ bảng màu dinh dưỡng bất biến: Carbs `#1A73E8`, Fat `#FF69B4`, Protein `#FFD700`.
 - **Quy tắc vượt cổng**: `flutter analyze` đạt 0 lỗi, 0 cảnh báo.
 
-### 🚪 CỔNG 4: Kiểm Thử Tự Động & Nghiệm Thu (Verification Gate)
+### 🚪 CỔNG 4: Rà Soát Mã Nguồn Tối Giản (Code Review Gate — Ponytail)
+- **Kỹ năng sử dụng**: `code-reviewer` & `ponytail-review`
+- **Thao tác**: Quét diff so với nhánh `main`:
+  - Tìm và loại bỏ triệt để: dead code (`delete:`), tự chế lại stdlib (`stdlib:`), dependency thừa (`native:`), abstraction rác 1 caller (`yagni:`), gom gọn code (`shrink:`).
+  - Xuất định dạng 1 dòng/phát hiện: `<file>:L<line>: <tag> <what>. <replacement>.`
+  - Đánh giá điểm rút gọn dòng: `net: -<N> lines possible.`
+- **Quy tắc vượt cổng**: Hoàn tất cắt giảm over-engineering hoặc nhận: `Lean already. Ship.`
+
+### 🚪 CỔNG 5: Kiểm Thử Tự Động & Nghiệm Thu (Verification Gate)
 - **Kỹ năng sử dụng**: `flutter-testing` & `qa-tester`
 - **Thư mục mục tiêu**: `frontend/test/`, `frontend/integration_test/`, `tests/05-test-execution-reports/`
 - **Các sản phẩm bắt buộc**:
@@ -69,7 +77,7 @@ Kỹ năng điều phối quy trình phát triển tính năng toàn diện cho 
   4. Biên bản nghiệm thu: `tests/05-test-execution-reports/release-sign-offs/signoff-<feature>.md`.
 - **Quy tắc vượt cổng**: 0 Bug nghiêm trọng (Blocker/Critical), QA Lead & PO ký duyệt Sign-off.
 
-### 🚪 CỔNG 5: Tích Hợp Super-Repo & Phát Hành (Release Gate)
+### 🚪 CỔNG 6: Tích Hợp Super-Repo & Phát Hành (Release Gate)
 - **Thư mục mục tiêu**: Root Super-Repo `AstroBite/`
 - **Các lệnh thực thi**:
   1. Đồng bộ toàn bộ submodule:
@@ -99,7 +107,8 @@ Kỹ năng điều phối quy trình phát triển tính năng toàn diện cho 
 Khi người dùng yêu cầu: *"Hãy triển khai tính năng X theo quy trình chuẩn"*, Agent sẽ:
 1. Hỏi người dùng các thông tin cơ bản của tính năng (Ý tưởng, mục tiêu, đối tượng).
 2. Tự động kích hoạt **Cổng 1 (`business-analyst`)** để viết PRD và User Stories.
-3. Xin duyệt Cổng 1, sau đó kích hoạt **Cổng 2 (`qa-tester`)** để viết Testcase và file `.feature`.
+3. Xin duyệt Cổng 1, sau đó kích hoạt **Cổng 2 (`qa-tester`)** để viết Testcases và file `.feature`.
 4. Xin duyệt Cổng 2, sau đó kích hoạt **Cổng 3 (`flutter-expert`)** để viết code Clean Architecture.
-5. Kích hoạt **Cổng 4 (`flutter-testing`)** để chạy test và tạo checklist nghiệm thu.
-6. Hướng dẫn chạy các lệnh Git Submodule ở **Cổng 5** để hoàn tất phát hành.
+5. Kích hoạt **Cổng 4 (`code-reviewer`)** để rà soát over-engineering theo chuẩn Ponytail.
+6. Kích hoạt **Cổng 5 (`flutter-testing`)** để chạy test và tạo checklist nghiệm thu.
+7. Hướng dẫn chạy các lệnh Git Submodule ở **Cổng 6** để hoàn tất phát hành.
