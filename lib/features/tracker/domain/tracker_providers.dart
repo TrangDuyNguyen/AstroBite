@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:astrobite/features/auth/domain/auth_providers.dart';
+import 'package:astrobite/features/profile/domain/profile_providers.dart';
 
 import '../data/repositories/food_log_repository_impl.dart';
 import 'daily_summary.dart';
@@ -11,8 +12,13 @@ final foodLogRepositoryProvider = Provider<FoodLogRepository>((ref) {
   return FoodLogRepositoryImpl();
 });
 
+final selectedDateProvider = StateProvider<DateTime>((ref) {
+  return DateTime.now();
+});
+
 final todayDateProvider = Provider<String>((ref) {
-  return DateFormat('yyyy-MM-dd').format(DateTime.now());
+  final selected = ref.watch(selectedDateProvider);
+  return DateFormat('yyyy-MM-dd').format(selected);
 });
 
 final dailyLogsStreamProvider = StreamProvider.autoDispose<List<FoodLog>>((ref) {
@@ -42,5 +48,11 @@ final dailyLogsStreamProvider = StreamProvider.autoDispose<List<FoodLog>>((ref) 
 final todaySummaryProvider = Provider.autoDispose<DailySummary>((ref) {
   final logs = ref.watch(dailyLogsStreamProvider).value ?? [];
   final date = ref.watch(todayDateProvider);
-  return DailySummary.fromLogs(date: date, logs: logs);
+  final profile = ref.watch(userProfileStreamProvider).value;
+  final targetCalories = profile?.dailyTargetCalories ?? 2000;
+  return DailySummary.fromLogs(
+    date: date,
+    logs: logs,
+    targetCalories: targetCalories,
+  );
 });

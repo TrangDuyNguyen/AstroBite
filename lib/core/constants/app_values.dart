@@ -15,6 +15,8 @@ abstract final class AppValues {
   static const double screenPadding = 16;
   static const double cardPadding = 16;
   static const double cardRadius = 12;
+  static const double radius8 = 8;
+  static const double radius12 = 12;
   static const double minTouchTarget = 44;
   static const double fabSize = 60;
   static const double calorieLetterSpacing = 0.5;

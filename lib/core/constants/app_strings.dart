@@ -47,4 +47,14 @@ abstract final class AppStrings {
   // Profile
   static const profile = 'Hồ sơ';
   static const analytics = 'Phân tích';
+
+  // Common Actions & Tracker
+  static const today = 'Hôm nay';
+  static const confirmDelete = 'Xác nhận xóa';
+  static const deleteFoodConfirmMessage = 'Bạn có chắc muốn xóa món này khỏi bữa ăn?';
+  static const delete = 'Xóa';
+  static const cancel = 'Hủy';
+  static const overBudget = 'vượt mục tiêu';
+  static const kcalRemaining = 'còn lại';
+  static const noMealLogs = 'Chưa có món ăn nào';
 }

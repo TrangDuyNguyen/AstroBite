@@ -11,12 +11,14 @@ class GlassCard extends StatelessWidget {
     this.padding = const EdgeInsets.all(AppValues.cardPadding),
     this.borderRadius = AppValues.cardRadius,
     this.blurSigma = 20,
+    this.borderColor,
   });
 
   final Widget child;
   final EdgeInsets padding;
   final double borderRadius;
   final double blurSigma;
+  final Color? borderColor;
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +35,8 @@ class GlassCard extends StatelessWidget {
             color: AppColors.surfaceBlur,
             borderRadius: BorderRadius.circular(borderRadius),
             border: Border.all(
-              color: AppColors.outline.withValues(alpha: 0.3),
-              width: 1,
+              color: borderColor ?? AppColors.outline.withValues(alpha: 0.3),
+              width: borderColor != null ? 1.5 : 1,
             ),
           ),
           child: child,

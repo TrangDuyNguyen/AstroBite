@@ -17,7 +17,10 @@ class DailySummaryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isOverBudget = summary.totalCalories > summary.targetCalories;
+
     return GlassCard(
+      borderColor: isOverBudget ? AppColors.tertiary.withValues(alpha: 0.8) : null,
       child: Column(
         children: [
           CalorieProgressArc(

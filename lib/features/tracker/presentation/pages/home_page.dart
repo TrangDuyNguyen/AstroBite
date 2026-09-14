@@ -6,6 +6,7 @@ import 'package:astrobite/core/constants/app_values.dart';
 import 'package:astrobite/core/router/app_router.dart';
 import '../../domain/tracker_providers.dart';
 import '../widgets/daily_summary_card.dart';
+import '../widgets/date_picker_strip.dart';
 import '../widgets/meal_section.dart';
 
 @RoutePage()
@@ -22,6 +23,7 @@ class HomePage extends ConsumerWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.person_outline),
+            tooltip: AppStrings.profile,
             onPressed: () => context.router.push(const ProfileRoute()),
           ),
         ],
@@ -30,6 +32,8 @@ class HomePage extends ConsumerWidget {
         child: ListView(
           padding: const EdgeInsets.all(AppValues.screenPadding),
           children: [
+            const DatePickerStrip(),
+            const SizedBox(height: AppValues.spacing16),
             DailySummaryCard(summary: summary),
             const SizedBox(height: AppValues.spacing24),
             Text(

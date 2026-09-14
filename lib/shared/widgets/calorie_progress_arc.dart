@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:astrobite/core/constants/app_strings.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
 
 /// Circular progress arc for daily calorie budget.
@@ -56,16 +57,20 @@ class CalorieProgressArc extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                isOverBudget ? '+${consumed - target}' : '$remaining',
+                isOverBudget ? '+${consumed - target} kcal' : '$remaining kcal',
                 style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                  fontSize: 32,
+                  fontSize: 26,
+                  fontWeight: FontWeight.bold,
                   letterSpacing: 0.5,
                   color: progressColor,
                 ),
               ),
+              const SizedBox(height: 2),
               Text(
-                isOverBudget ? 'Vượt mức' : 'Còn lại',
-                style: Theme.of(context).textTheme.labelMedium,
+                isOverBudget ? AppStrings.overBudget : AppStrings.kcalRemaining,
+                style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                  color: isOverBudget ? AppColors.tertiary : AppColors.onSurfaceVariant,
+                ),
               ),
             ],
           ),
