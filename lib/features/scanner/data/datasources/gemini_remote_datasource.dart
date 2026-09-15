@@ -10,12 +10,18 @@ import '../models/scan_result_dto.dart';
 /// is ever exposed in client-side code. Firebase App Check provides
 /// additional abuse protection.
 class GeminiRemoteDatasource {
-  GeminiRemoteDatasource({GenerativeModel? model})
-      : _model = model ??
-            FirebaseAI.googleAI().generativeModel(
+  GeminiRemoteDatasource({
+    GenerativeModel? model,
+    FirebaseAppCheck? appCheck,
+  })  : _appCheck = appCheck ?? FirebaseAppCheck.instance,
+        _model = model ??
+            FirebaseAI.googleAI(
+              appCheck: appCheck ?? FirebaseAppCheck.instance,
+            ).generativeModel(
               model: 'gemini-2.0-flash',
             );
 
+  final FirebaseAppCheck _appCheck;
   final GenerativeModel _model;
 
   static const _systemPrompt = '''
@@ -50,10 +56,10 @@ Contextual Rules:
 
   Future<ScanResultDto?> analyzeFoodImage(Uint8List imageBytes) async {
     try {
-      final token = await FirebaseAppCheck.instance.getToken(true);
-      debugPrint('[AstroBite] AppCheck token obtained: ${token != null && token.length > 10 ? "${token.substring(0, 10)}..." : token}');
+      final token = await _appCheck.getToken();
+      debugPrint('[AstroBite] AppCheck token: ${token != null && token.length > 8 ? "${token.substring(0, 8)}..." : token}');
     } catch (e) {
-      debugPrint('[AstroBite] AppCheck getToken error: $e');
+      debugPrint('[AstroBite] Warning: error getting AppCheck token: $e');
     }
 
     final response = await _model.generateContent([
