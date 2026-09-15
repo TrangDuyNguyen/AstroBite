@@ -1,5 +1,6 @@
-import 'dart:typed_data';
 import 'package:firebase_ai/firebase_ai.dart';
+import 'package:firebase_app_check/firebase_app_check.dart';
+import 'package:flutter/foundation.dart';
 import 'package:astrobite/core/utils/json_parser.dart';
 import '../models/scan_result_dto.dart';
 
@@ -48,6 +49,13 @@ Contextual Rules:
 ''';
 
   Future<ScanResultDto?> analyzeFoodImage(Uint8List imageBytes) async {
+    try {
+      final token = await FirebaseAppCheck.instance.getToken(true);
+      debugPrint('[AstroBite] AppCheck token obtained: ${token != null && token.length > 10 ? "${token.substring(0, 10)}..." : token}');
+    } catch (e) {
+      debugPrint('[AstroBite] AppCheck getToken error: $e');
+    }
+
     final response = await _model.generateContent([
       Content.multi([
         TextPart(_systemPrompt),

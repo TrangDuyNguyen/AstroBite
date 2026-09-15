@@ -1,5 +1,8 @@
+import 'dart:typed_data';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+
+import '../../features/scanner/domain/entities/scan_result.dart';
 
 import '../../features/analytics/presentation/pages/analytics_page.dart';
 import '../../features/auth/presentation/pages/goal_summary_page.dart';

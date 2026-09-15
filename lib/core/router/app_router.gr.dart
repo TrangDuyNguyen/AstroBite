@@ -254,18 +254,52 @@ class RegisterRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [ScanReviewPage]
-class ScanReviewRoute extends PageRouteInfo<void> {
-  const ScanReviewRoute({List<PageRouteInfo>? children})
-    : super(ScanReviewRoute.name, initialChildren: children);
+class ScanReviewRoute extends PageRouteInfo<ScanReviewRouteArgs> {
+  ScanReviewRoute({
+    Key? key,
+    ScanResult? scanResult,
+    Uint8List? imageBytes,
+    List<PageRouteInfo>? children,
+  }) : super(
+         ScanReviewRoute.name,
+         args: ScanReviewRouteArgs(
+           key: key,
+           scanResult: scanResult,
+           imageBytes: imageBytes,
+         ),
+         initialChildren: children,
+       );
 
   static const String name = 'ScanReviewRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const ScanReviewPage();
+      final args = data.argsAs<ScanReviewRouteArgs>(
+        orElse: () => const ScanReviewRouteArgs(),
+      );
+      return ScanReviewPage(
+        key: args.key,
+        scanResult: args.scanResult,
+        imageBytes: args.imageBytes,
+      );
     },
   );
+}
+
+class ScanReviewRouteArgs {
+  const ScanReviewRouteArgs({this.key, this.scanResult, this.imageBytes});
+
+  final Key? key;
+
+  final ScanResult? scanResult;
+
+  final Uint8List? imageBytes;
+
+  @override
+  String toString() {
+    return 'ScanReviewRouteArgs{key: $key, scanResult: $scanResult, imageBytes: $imageBytes}';
+  }
 }
 
 /// generated route for
