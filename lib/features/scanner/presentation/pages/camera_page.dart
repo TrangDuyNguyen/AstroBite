@@ -7,6 +7,7 @@ import 'package:astrobite/core/constants/app_strings.dart';
 import 'package:astrobite/core/constants/app_values.dart';
 import 'package:astrobite/core/router/app_router.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
+import 'package:astrobite/shared/widgets/gemini_api_key_dialog.dart';
 import 'package:astrobite/shared/widgets/skeleton_loader.dart';
 import '../../domain/usecases/scan_food_usecase.dart';
 import '../controllers/scanner_controller.dart';
@@ -87,7 +88,10 @@ class _CameraPageState extends ConsumerState<CameraPage> {
           ),
         );
       case ScanError(:final message):
-        if (message.contains('firebasevertexai') ||
+        if (message.contains('Chưa cấu hình Gemini API Key') ||
+            message.contains('API_KEY_INVALID') ||
+            message.contains('API key not valid') ||
+            message.contains('firebasevertexai') ||
             message.contains('Firebase AI Logic API') ||
             message.contains('disabled')) {
           showDialog(
@@ -95,26 +99,34 @@ class _CameraPageState extends ConsumerState<CameraPage> {
             builder: (ctx) => AlertDialog(
               title: const Row(
                 children: [
-                  Icon(Icons.cloud_off, color: AppColors.error),
+                  Icon(Icons.vpn_key_rounded, color: AppColors.tertiary),
                   SizedBox(width: AppValues.spacing8),
-                  Text('Chưa kích hoạt AI API'),
+                  Text('Cần Gemini API Key'),
                 ],
               ),
               content: const Text(
-                'Dịch vụ Firebase Vertex AI chưa được kích hoạt trên dự án Firebase (astrobite-dev).\n\n'
-                'Vui lòng truy cập Google Cloud Console để kích hoạt API "firebasevertexai.googleapis.com" hoặc sử dụng tính năng Nhập tay.',
+                'Để quét món ăn bằng AI miễn phí (không cần thẻ tín dụng), bạn cần cài đặt Gemini API Key từ Google AI Studio (aistudio.google.com).\n\n'
+                'Bạn có thể dán Key ngay bây giờ hoặc sử dụng tính năng Nhập tay.',
               ),
               actions: [
                 TextButton(
-                  onPressed: () => Navigator.pop(ctx),
-                  child: const Text('Đóng'),
-                ),
-                FilledButton(
                   onPressed: () {
                     Navigator.pop(ctx);
                     context.router.push(const ManualEntryRoute());
                   },
                   child: const Text('Nhập tay'),
+                ),
+                TextButton(
+                  onPressed: () => Navigator.pop(ctx),
+                  child: const Text('Đóng'),
+                ),
+                FilledButton.icon(
+                  onPressed: () {
+                    Navigator.pop(ctx);
+                    GeminiApiKeyDialog.show(context);
+                  },
+                  icon: const Icon(Icons.vpn_key, size: 18),
+                  label: const Text('Cài đặt Key'),
                 ),
               ],
             ),

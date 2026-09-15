@@ -1,28 +1,20 @@
-import 'package:firebase_ai/firebase_ai.dart';
-import 'package:firebase_app_check/firebase_app_check.dart';
-import 'package:flutter/foundation.dart';
+import 'dart:typed_data';
+import 'package:google_generative_ai/google_generative_ai.dart';
+import 'package:astrobite/core/services/gemini_api_key_service.dart';
 import 'package:astrobite/core/utils/json_parser.dart';
 import '../models/scan_result_dto.dart';
 
-/// Datasource that calls Gemini API through Firebase AI Logic.
-///
-/// This routes all requests through the Firebase backend, so no API key
-/// is ever exposed in client-side code. Firebase App Check provides
-/// additional abuse protection.
+/// Remote datasource that communicates directly with Google Gemini AI
+/// via Google AI Studio API Key (Free tier, no credit card required).
 class GeminiRemoteDatasource {
   GeminiRemoteDatasource({
     GenerativeModel? model,
-    FirebaseAppCheck? appCheck,
-  })  : _appCheck = appCheck ?? FirebaseAppCheck.instance,
-        _model = model ??
-            FirebaseAI.googleAI(
-              appCheck: appCheck ?? FirebaseAppCheck.instance,
-            ).generativeModel(
-              model: 'gemini-2.0-flash',
-            );
+    Future<String> Function()? apiKeyResolver,
+  })  : _model = model,
+        _apiKeyResolver = apiKeyResolver ?? GeminiApiKeyNotifier.getActiveKey;
 
-  final FirebaseAppCheck _appCheck;
-  final GenerativeModel _model;
+  final GenerativeModel? _model;
+  final Future<String> Function() _apiKeyResolver;
 
   static const _systemPrompt = '''
 You are an expert nutritionist and computer vision AI specialized in Vietnamese cuisine and global food mapping.
@@ -55,17 +47,57 @@ Contextual Rules:
 ''';
 
   Future<ScanResultDto?> analyzeFoodImage(Uint8List imageBytes) async {
-    try {
-      final token = await _appCheck.getToken();
-      debugPrint('[AstroBite] AppCheck token: ${token != null && token.length > 8 ? "${token.substring(0, 8)}..." : token}');
-    } catch (e) {
-      debugPrint('[AstroBite] Warning: error getting AppCheck token: $e');
+    if (_model != null) {
+      return _generateWithModel(_model!, imageBytes);
     }
 
-    final response = await _model.generateContent([
+    final apiKey = await _apiKeyResolver();
+    if (apiKey.isEmpty) {
+      throw StateError(
+        'Chưa cấu hình Gemini API Key.\n'
+        'Vui lòng vào mục Hồ sơ để cài đặt API Key miễn phí từ Google AI Studio (aistudio.google.com) hoặc file .env.',
+      );
+    }
+
+    // Prioritize active models with automatic fallback if Google updates deprecation policies
+    const candidateModels = [
+      'gemini-3.6-flash',
+      'gemini-2.5-flash',
+      'gemini-1.5-flash',
+    ];
+
+    Object? lastError;
+    for (final modelName in candidateModels) {
+      try {
+        final model = GenerativeModel(
+          model: modelName,
+          apiKey: apiKey,
+        );
+        return await _generateWithModel(model, imageBytes);
+      } catch (e) {
+        lastError = e;
+        final errStr = e.toString().toLowerCase();
+        if (errStr.contains('no longer available') ||
+            errStr.contains('not found') ||
+            errStr.contains('404')) {
+          continue;
+        }
+        rethrow;
+      }
+    }
+
+    if (lastError != null) throw lastError;
+    return null;
+  }
+
+  Future<ScanResultDto?> _generateWithModel(
+    GenerativeModel model,
+    Uint8List imageBytes,
+  ) async {
+    final response = await model.generateContent([
       Content.multi([
         TextPart(_systemPrompt),
-        InlineDataPart('image/jpeg', imageBytes),
+        DataPart('image/jpeg', imageBytes),
       ]),
     ]);
 

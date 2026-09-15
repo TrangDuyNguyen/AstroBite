@@ -4,7 +4,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:astrobite/core/constants/app_strings.dart';
 import 'package:astrobite/core/constants/app_values.dart';
 import 'package:astrobite/core/router/app_router.dart';
+import 'package:astrobite/core/services/gemini_api_key_service.dart';
+import 'package:astrobite/core/theme/app_colors.dart';
 import 'package:astrobite/features/auth/domain/auth_providers.dart';
+import 'package:astrobite/shared/widgets/gemini_api_key_dialog.dart';
 import '../../domain/entities/user_profile.dart';
 import '../../domain/profile_providers.dart';
 import '../widgets/bmr_tdee_card.dart';
@@ -70,6 +73,66 @@ class ProfilePage extends ConsumerWidget {
                     _InfoRow(label: 'Cân nặng', value: '${profile.weightKg} kg'),
                     _InfoRow(label: 'Mức độ vận động', value: profile.activityLevel),
                     _InfoRow(label: 'Mục tiêu Calo/ngày', value: '${profile.dailyTargetCalories} kcal'),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: AppValues.spacing24),
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(AppValues.cardPadding),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('Cấu hình Gemini AI', style: Theme.of(context).textTheme.titleMedium),
+                        IconButton(
+                          icon: const Icon(Icons.settings_outlined, size: 20),
+                          tooltip: 'Cài đặt API Key',
+                          onPressed: () => GeminiApiKeyDialog.show(context),
+                        ),
+                      ],
+                    ),
+                    const Divider(height: AppValues.spacing16),
+                    Consumer(
+                      builder: (context, ref, _) {
+                        final keyState = ref.watch(geminiApiKeyServiceProvider);
+                        return ListTile(
+                          contentPadding: EdgeInsets.zero,
+                          leading: CircleAvatar(
+                            backgroundColor: keyState.hasKey
+                                ? AppColors.success.withValues(alpha: 0.15)
+                                : AppColors.error.withValues(alpha: 0.15),
+                            child: Icon(
+                              Icons.vpn_key_rounded,
+                              color: keyState.hasKey ? AppColors.success : AppColors.error,
+                              size: 20,
+                            ),
+                          ),
+                          title: Text(
+                            keyState.isUsingCustomKey
+                                ? 'Key cá nhân: ${keyState.maskedActiveKey}'
+                                : keyState.hasKey
+                                    ? 'Key hệ thống (.env)'
+                                    : 'Chưa cấu hình API Key',
+                            style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+                          ),
+                          subtitle: Text(
+                            keyState.hasKey
+                                ? 'Nhấn để thay đổi hoặc kiểm tra key'
+                                : 'Nhấn để thêm key miễn phí từ AI Studio',
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Theme.of(context).colorScheme.onSurfaceVariant,
+                            ),
+                          ),
+                          trailing: const Icon(Icons.chevron_right),
+                          onTap: () => GeminiApiKeyDialog.show(context),
+                        );
+                      },
+                    ),
                   ],
                 ),
               ),

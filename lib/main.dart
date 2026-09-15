@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'app.dart';
 import 'firebase_options.dart';
-import 'package:flutter_skill/flutter_skill.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
