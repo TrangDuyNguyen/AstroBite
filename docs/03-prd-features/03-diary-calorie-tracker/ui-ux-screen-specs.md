@@ -36,3 +36,25 @@
   - Tên món + khối lượng (g) bên trái, calo (`letterSpacing: 0.5`) bên phải.
   - Vuốt sang trái (`Dismissible`): Nền đỏ xóa `AppColors.error` (`#CF6679` / `#EF4444`) với icon thùng rác màu trắng.
   - Hộp thoại xác nhận `AlertDialog`: Tiêu đề "Xác nhận xóa", nội dung "Bạn có chắc muốn xóa món này khỏi bữa ăn?", nút "Hủy" và nút "Xóa" (`AppColors.error`).
+
+### 2.4 Màn Hình Nhập Món Thủ Công (`SCR-09: ManualEntryPage`)
+- **AppBar**: Tiêu đề "Nhập tay", nút Back quay về nếu mở từ Push Route, nút Action "Thêm tùy chỉnh" (`Icons.add_box_outlined`).
+- **Thanh chọn Bữa ăn**: Dùng `MealTypeChip` (Sáng, Trưa, Tối, Phụ). Tự động active chip dựa vào `initialMealType` hoặc giờ trong ngày.
+- **Thanh tìm kiếm (`FoodSearchBar`)**: Bo góc 12pt, icon tìm kiếm, placeholder "Tìm món ăn (Phở, Cơm tấm, Bánh mì...)", hỗ trợ clear text.
+- **Danh sách món gợi ý**:
+  - Thẻ `Card` nền `AppColors.surfaceContainer`, viền mảnh `AppColors.outline.withValues(alpha: 0.2)`.
+  - Icon món / emoji minh họa.
+  - Tên món (titleMedium, đậm), phụ đề hiển thị khẩu phần mặc định và lượng calo (`Xg • Y kcal`).
+  - Nút chọn/chỉnh khẩu phần hoặc nút thêm nhanh.
+- **Bảng điều chỉnh khẩu phần (Portion Scaling Sheet/Card)**:
+  - Khi người dùng nhấn vào món ăn: Hiển thị bộ điều chỉnh khối lượng với Slider 50g - 1000g.
+  - Hiển thị tức thì Calo (headlineMedium màu `AppColors.primary`) và 3 thẻ Macro (Carbs `#1A73E8`, Protein `#FFD700`, Fat `#FF69B4`).
+  - Nút `FilledButton` lớn: "Lưu vào [Tên bữa ăn] (X kcal)" chiều cao tối thiểu 48pt.
+- **Modal Thêm Món Tùy Chỉnh (`CustomFoodSheet`)**:
+  - `showModalBottomSheet` với bo góc trên 24pt, nền `AppColors.surfaceContainer`.
+  - Các ô nhập liệu `TextFormField` với styling Dark Celestial:
+    - Tên món ăn (text, autofocus).
+    - Khối lượng (gram - number).
+    - Năng lượng (calo / kcal - number).
+    - Bộ 3 trường đạm, carbs, fat (hàng ngang 3 cột gọn gàng).
+  - Nút "Thêm vào nhật ký" kiểm tra form validation và lưu tức thì.

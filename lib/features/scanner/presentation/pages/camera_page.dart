@@ -9,6 +9,7 @@ import 'package:astrobite/core/router/app_router.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
 import 'package:astrobite/shared/widgets/gemini_api_key_dialog.dart';
 import 'package:astrobite/shared/widgets/skeleton_loader.dart';
+import '../../domain/scanner_providers.dart';
 import '../../domain/usecases/scan_food_usecase.dart';
 import '../controllers/scanner_controller.dart';
 import '../widgets/scanning_viewfinder.dart';
@@ -80,7 +81,7 @@ class _CameraPageState extends ConsumerState<CameraPage> {
               FilledButton(
                 onPressed: () {
                   Navigator.pop(ctx);
-                  context.router.push(const ManualEntryRoute());
+                  context.router.push(ManualEntryRoute());
                 },
                 child: const Text('Nhập tay'),
               ),
@@ -112,7 +113,7 @@ class _CameraPageState extends ConsumerState<CameraPage> {
                 TextButton(
                   onPressed: () {
                     Navigator.pop(ctx);
-                    context.router.push(const ManualEntryRoute());
+                    context.router.push(ManualEntryRoute());
                   },
                   child: const Text('Nhập tay'),
                 ),
@@ -131,12 +132,56 @@ class _CameraPageState extends ConsumerState<CameraPage> {
               ],
             ),
           );
-        } else {
+        } else if (message.contains('503') ||
+            message.contains('UNAVAILABLE') ||
+            message.contains('high demand') ||
+            message.contains('capacity')) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(message)),
+            SnackBar(
+              duration: const Duration(seconds: 5),
+              content: const Text(
+                'Máy chủ AI hiện đang quá tải (503). Vui lòng bấm "Thử lại" sau giây lát.',
+              ),
+              action: SnackBarAction(
+                label: 'Thử lại',
+                textColor: AppColors.primary,
+                onPressed: () {
+                  if (_previewBytes != null) {
+                    _processImage(_previewBytes!);
+                  }
+                },
+              ),
+            ),
+          );
+        } else {
+          final friendlyMessage = _formatErrorMessage(message);
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(friendlyMessage),
+              action: _previewBytes != null
+                  ? SnackBarAction(
+                      label: 'Thử lại',
+                      textColor: AppColors.primary,
+                      onPressed: () => _processImage(_previewBytes!),
+                    )
+                  : null,
+            ),
           );
         }
     }
+  }
+
+  String _formatErrorMessage(String rawMessage) {
+    if (rawMessage.contains('GenerativeAIException') || rawMessage.contains('{')) {
+      if (rawMessage.contains('503') || rawMessage.contains('UNAVAILABLE')) {
+        return 'Máy chủ AI tạm thời quá tải. Vui lòng thử lại sau giây lát.';
+      }
+      if (rawMessage.contains('429') || rawMessage.contains('RESOURCE_EXHAUSTED')) {
+        return 'Đã vượt giới hạn gọi AI tạm thời. Vui lòng thử lại sau ít phút.';
+      }
+      return 'Không thể kết nối đến máy chủ AI. Vui lòng thử lại.';
+    }
+    return rawMessage;
   }
 
   void _showScanningTips() {
@@ -209,21 +254,72 @@ class _CameraPageState extends ConsumerState<CameraPage> {
       body: SafeArea(
         child: Column(
           children: [
-            // Instruction header
+            // Instruction header & Daily Quota Indicator
             Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: AppValues.screenPadding,
                 vertical: AppValues.spacing8,
               ),
-              child: Text(
-                isScanning
-                    ? 'Gemini 2.0 Flash đang phân tích món ăn...'
-                    : 'Hướng máy ảnh vào đĩa thức ăn và bấm nút chụp',
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: isScanning ? AppColors.primary : AppColors.onSurfaceVariant,
-                      fontWeight: isScanning ? FontWeight.bold : FontWeight.normal,
-                    ),
+              child: Column(
+                children: [
+                  Text(
+                    isScanning
+                        ? 'AI đang phân tích món ăn...'
+                        : 'Hướng máy ảnh vào đĩa thức ăn và bấm nút chụp',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: isScanning ? AppColors.primary : AppColors.onSurfaceVariant,
+                          fontWeight: isScanning ? FontWeight.bold : FontWeight.normal,
+                        ),
+                  ),
+                  const SizedBox(height: AppValues.spacing8),
+                  Consumer(
+                    builder: (context, ref, _) {
+                      final scanCountAsync = ref.watch(todayScanCountProvider);
+                      final count = scanCountAsync.valueOrNull ?? 0;
+                      final remaining = (AppValues.maxDailyScans - count).clamp(0, AppValues.maxDailyScans);
+                      final isOverLimit = count >= AppValues.maxDailyScans;
+                      return Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: AppValues.spacing12,
+                          vertical: AppValues.spacing4,
+                        ),
+                        decoration: BoxDecoration(
+                          color: isOverLimit
+                              ? AppColors.error.withValues(alpha: 0.15)
+                              : AppColors.primary.withValues(alpha: 0.12),
+                          borderRadius: BorderRadius.circular(AppValues.radius12),
+                          border: Border.all(
+                            color: isOverLimit
+                                ? AppColors.error.withValues(alpha: 0.4)
+                                : AppColors.primary.withValues(alpha: 0.3),
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              Icons.auto_awesome,
+                              size: 14,
+                              color: isOverLimit ? AppColors.error : AppColors.primary,
+                            ),
+                            const SizedBox(width: AppValues.spacing4),
+                            Text(
+                              isOverLimit
+                                  ? 'Đã hết lượt quét hôm nay (10/10)'
+                                  : 'Còn lại $remaining/${AppValues.maxDailyScans} lượt quét hôm nay',
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                                color: isOverLimit ? AppColors.error : AppColors.primary,
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                ],
               ),
             ),
 
@@ -322,7 +418,7 @@ class _CameraPageState extends ConsumerState<CameraPage> {
                   IconButton.filledTonal(
                     onPressed: isScanning
                         ? null
-                        : () => context.router.push(const ManualEntryRoute()),
+                        : () => context.router.push(ManualEntryRoute()),
                     icon: const Icon(Icons.edit_note_outlined),
                     iconSize: 28,
                     tooltip: 'Nhập tay',

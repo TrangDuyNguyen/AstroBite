@@ -26,6 +26,7 @@ class ScannerController extends StateNotifier<AsyncValue<ScanFoodResult?>> {
         userId: user.uid,
         imageBytes: bytes,
       );
+      _ref.invalidate(todayScanCountProvider);
       state = AsyncData(result);
       return result;
     } catch (e, st) {

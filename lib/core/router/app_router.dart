@@ -52,11 +52,11 @@ class ShellScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AutoTabsScaffold(
-      routes: const [
-        HomeRoute(),
-        AnalyticsRoute(),
+      routes: [
+        const HomeRoute(),
+        const AnalyticsRoute(),
         ManualEntryRoute(),
-        ProfileRoute(),
+        const ProfileRoute(),
       ],
       floatingActionButton: FloatingActionButton(
         onPressed: () => context.router.push(const CameraRoute()),

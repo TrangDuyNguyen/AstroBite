@@ -14,14 +14,18 @@ class GeminiApiKeyState {
   final String customKey;
   final String defaultKey;
 
-  /// Returns custom key if set; otherwise falls back to environment default key.
-  String get activeKey => customKey.isNotEmpty ? customKey : defaultKey;
+  /// Prioritizes environment key (.env / --dart-define) first;
+  /// falls back to user custom key if environment key is not provided.
+  String get activeKey => defaultKey.isNotEmpty ? defaultKey : customKey;
 
   /// True if any valid key is available.
   bool get hasKey => activeKey.isNotEmpty;
 
-  /// True if the currently used key is the user's custom key.
-  bool get isUsingCustomKey => customKey.isNotEmpty;
+  /// True if currently using the environment key (.env).
+  bool get isUsingEnvKey => defaultKey.isNotEmpty;
+
+  /// True if currently using custom key configured by the user (only active if .env key is empty).
+  bool get isUsingCustomKey => defaultKey.isEmpty && customKey.isNotEmpty;
 
   /// Masked version of the active key for safe UI display.
   String get maskedActiveKey {
@@ -91,15 +95,19 @@ class GeminiApiKeyNotifier extends StateNotifier<GeminiApiKeyState> {
   }
 
   /// Static helper to resolve the active key asynchronously for datasources.
+  /// Prioritizes the environment key from .env/AppKeys first.
   static Future<String> getActiveKey() async {
+    final envKey = AppKeys.defaultGeminiApiKey.trim();
+    if (envKey.isNotEmpty) return envKey;
+
     try {
       final prefs = await SharedPreferences.getInstance();
       final custom = prefs.getString(_kCustomApiKeyPrefKey)?.trim() ?? '';
       if (custom.isNotEmpty) return custom;
     } catch (_) {
-      // If SharedPreferences platform channel fails, fallback to defaultKey
+      // If SharedPreferences platform channel fails, fallback to empty
     }
-    return AppKeys.defaultGeminiApiKey.trim();
+    return '';
   }
 }
 

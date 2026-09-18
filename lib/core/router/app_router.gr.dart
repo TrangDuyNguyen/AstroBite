@@ -158,18 +158,44 @@ class LoginRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [ManualEntryPage]
-class ManualEntryRoute extends PageRouteInfo<void> {
-  const ManualEntryRoute({List<PageRouteInfo>? children})
-    : super(ManualEntryRoute.name, initialChildren: children);
+class ManualEntryRoute extends PageRouteInfo<ManualEntryRouteArgs> {
+  ManualEntryRoute({
+    Key? key,
+    String? initialMealType,
+    List<PageRouteInfo>? children,
+  }) : super(
+         ManualEntryRoute.name,
+         args: ManualEntryRouteArgs(key: key, initialMealType: initialMealType),
+         initialChildren: children,
+       );
 
   static const String name = 'ManualEntryRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const ManualEntryPage();
+      final args = data.argsAs<ManualEntryRouteArgs>(
+        orElse: () => const ManualEntryRouteArgs(),
+      );
+      return ManualEntryPage(
+        key: args.key,
+        initialMealType: args.initialMealType,
+      );
     },
   );
+}
+
+class ManualEntryRouteArgs {
+  const ManualEntryRouteArgs({this.key, this.initialMealType});
+
+  final Key? key;
+
+  final String? initialMealType;
+
+  @override
+  String toString() {
+    return 'ManualEntryRouteArgs{key: $key, initialMealType: $initialMealType}';
+  }
 }
 
 /// generated route for

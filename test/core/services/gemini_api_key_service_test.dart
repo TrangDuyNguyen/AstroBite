@@ -47,6 +47,33 @@ void main() {
       expect(activeFromPref, AppKeys.defaultGeminiApiKey);
     });
 
+    test('GeminiApiKeyState prioritizes defaultKey (.env) over customKey', () {
+      const stateWithBoth = GeminiApiKeyState(
+        customKey: 'AIzaCustomKey123',
+        defaultKey: 'AIzaEnvKey456',
+      );
+
+      expect(stateWithBoth.activeKey, 'AIzaEnvKey456');
+      expect(stateWithBoth.isUsingEnvKey, isTrue);
+      expect(stateWithBoth.isUsingCustomKey, isFalse);
+
+      const stateEnvOnly = GeminiApiKeyState(
+        customKey: '',
+        defaultKey: 'AIzaEnvKey456',
+      );
+      expect(stateEnvOnly.activeKey, 'AIzaEnvKey456');
+      expect(stateEnvOnly.isUsingEnvKey, isTrue);
+      expect(stateEnvOnly.isUsingCustomKey, isFalse);
+
+      const stateCustomOnly = GeminiApiKeyState(
+        customKey: 'AIzaCustomKey123',
+        defaultKey: '',
+      );
+      expect(stateCustomOnly.activeKey, 'AIzaCustomKey123');
+      expect(stateCustomOnly.isUsingEnvKey, isFalse);
+      expect(stateCustomOnly.isUsingCustomKey, isTrue);
+    });
+
     test('maskedActiveKey handles short or empty keys gracefully', () {
       const emptyState = GeminiApiKeyState(customKey: '', defaultKey: '');
       expect(emptyState.maskedActiveKey, 'Chưa cấu hình');

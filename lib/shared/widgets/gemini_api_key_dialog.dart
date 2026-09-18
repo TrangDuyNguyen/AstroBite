@@ -155,10 +155,10 @@ class _GeminiApiKeyDialogState extends ConsumerState<GeminiApiKeyDialog> {
             ),
             const SizedBox(height: AppValues.spacing12),
             Text(
-              keyState.isUsingCustomKey
-                  ? 'Trạng thái: Đang dùng Key cá nhân (${keyState.maskedActiveKey})'
-                  : keyState.hasKey
-                      ? 'Trạng thái: Đang dùng Key mặc định từ hệ thống'
+              keyState.isUsingEnvKey
+                  ? 'Trạng thái: Đang ưu tiên dùng Key hệ thống (.env)'
+                  : keyState.isUsingCustomKey
+                      ? 'Trạng thái: Đang dùng Key cá nhân (${keyState.maskedActiveKey})'
                       : 'Trạng thái: Chưa có API Key nào được cài đặt',
               style: TextStyle(
                 fontSize: 12,

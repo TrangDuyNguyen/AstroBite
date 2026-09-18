@@ -37,7 +37,7 @@ abstract final class AppStrings {
   static const analyzing = 'Đang phân tích...';
   static const saveLog = 'Lưu nhật ký';
   static const notFood = 'Không nhận diện được món ăn. Vui lòng chụp lại rõ nét hơn hoặc nhập tay.';
-  static const quotaExceeded = 'Bạn đã dùng hết lượt quét AI hôm nay. Vui lòng sử dụng tính năng Nhập tay.';
+  static const quotaExceeded = 'Bạn đã đạt giới hạn 10 lượt quét AI hôm nay. Vui lòng sử dụng tính năng Nhập tay.';
   static const networkError = 'Lỗi kết nối mạng. Vui lòng thử lại.';
 
   // Manual Entry

@@ -112,10 +112,10 @@ class ProfilePage extends ConsumerWidget {
                             ),
                           ),
                           title: Text(
-                            keyState.isUsingCustomKey
-                                ? 'Key cá nhân: ${keyState.maskedActiveKey}'
-                                : keyState.hasKey
-                                    ? 'Key hệ thống (.env)'
+                            keyState.isUsingEnvKey
+                                ? 'Key hệ thống (.env): ${keyState.maskedActiveKey}'
+                                : keyState.isUsingCustomKey
+                                    ? 'Key cá nhân: ${keyState.maskedActiveKey}'
                                     : 'Chưa cấu hình API Key',
                             style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
                           ),

@@ -44,22 +44,22 @@ class HomePage extends ConsumerWidget {
             MealSection(
               mealType: 'breakfast',
               summary: summary,
-              onAddTap: () => context.router.push(const ManualEntryRoute()),
+              onAddTap: () => context.router.push(ManualEntryRoute(initialMealType: 'breakfast')),
             ),
             MealSection(
               mealType: 'lunch',
               summary: summary,
-              onAddTap: () => context.router.push(const ManualEntryRoute()),
+              onAddTap: () => context.router.push(ManualEntryRoute(initialMealType: 'lunch')),
             ),
             MealSection(
               mealType: 'dinner',
               summary: summary,
-              onAddTap: () => context.router.push(const ManualEntryRoute()),
+              onAddTap: () => context.router.push(ManualEntryRoute(initialMealType: 'dinner')),
             ),
             MealSection(
               mealType: 'snack',
               summary: summary,
-              onAddTap: () => context.router.push(const ManualEntryRoute()),
+              onAddTap: () => context.router.push(ManualEntryRoute(initialMealType: 'snack')),
             ),
           ],
         ),

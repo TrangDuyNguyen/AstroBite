@@ -59,11 +59,12 @@ Contextual Rules:
       );
     }
 
-    // Prioritize active models with automatic fallback if Google updates deprecation policies
+    // Prioritize active models with automatic fallback on demand spikes (503) or rate limits
     const candidateModels = [
       'gemini-3.6-flash',
-      'gemini-2.5-flash',
-      'gemini-1.5-flash',
+      'gemini-3.5-flash',
+      'gemini-3.1-flash-lite',
+      'gemini-flash-lite-latest',
     ];
 
     Object? lastError;
@@ -77,12 +78,17 @@ Contextual Rules:
       } catch (e) {
         lastError = e;
         final errStr = e.toString().toLowerCase();
-        if (errStr.contains('no longer available') ||
-            errStr.contains('not found') ||
-            errStr.contains('404')) {
-          continue;
+
+        // If the API key is completely invalid or revoked, fail fast
+        if (errStr.contains('api_key_invalid') ||
+            errStr.contains('api key not valid') ||
+            errStr.contains('key expired')) {
+          rethrow;
         }
-        rethrow;
+
+        // On capacity / high demand (503), quota / rate limit (429), or model errors,
+        // automatically fallback to the next candidate model
+        continue;
       }
     }
 
