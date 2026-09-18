@@ -1,9 +1,9 @@
-# Tài Liệu Đặc Tả Thiết Kế: Hệ Sinh Thái Sub-Agent PO & PM và Quản Trị Dự Án AstroBite
+# Tài Liệu Đặc Tả Thiết Kế: Hệ Sinh Thái Đa Sub-Agent Độc Lập & Quản Trị Dự Án AstroBite
 
 - **Dự án**: AstroBite (`astrobite`)
 - **Tác giả**: Pair Programming (Antigravity & Product Team)
-- **Ngày lập**: 2026-09-18
-- **Phiên bản**: v1.0.0
+- **Ngày cập nhật**: 2026-09-18
+- **Phiên bản**: v2.0.0 (Mở rộng: 100% Các Role Đều Là Sub-Agent Độc Lập)
 - **Trạng thái**: Draft / In Review
 - **Vị trí tài liệu**: `docs/superpowers/specs/2026-09-18-po-pm-agents-governance-design.md`
 
@@ -19,174 +19,201 @@ Dự án AstroBite đã phát triển qua giai đoạn khởi tạo ban đầu v
 4. Thống kê & Phân tích xu hướng calo/macro (`analytics`)
 5. Hồ sơ cá nhân & Mục tiêu dinh dưỡng (`profile`)
 
-Khi số lượng tính năng, màn hình và kịch bản kiểm thử tăng lên, dự án đòi hỏi năng lực quản trị cấp cao hơn:
-- Phải có người định hình tầm nhìn dài hạn, xếp độ ưu tiên tính năng và kiểm soát chất lượng đầu ra của sản phẩm (Vai trò **Product Owner - PO**).
-- Phải có người lập kế hoạch Sprint, phân rã công việc chi tiết theo 6 Cổng (WBS), ước lượng độ phức tạp và gỡ bỏ điểm nghẽn kỹ thuật (Vai trò **Project Manager - PM**).
+Khi ứng dụng phát triển lớn với nhiều tính năng phức tạp, nếu để một Agent duy nhất kiêm nhiệm mọi việc sẽ dễ dẫn đến thiên vị, tự duyệt code cẩu thả, hoặc bỏ qua các tiêu chuẩn kiểm thử khắt khe. 
 
 ### 1.2. Mục tiêu thiết kế
-1. Xây dựng 2 Sub-Agent độc lập: `product-owner` và `project-manager`.
-2. Đảm bảo tính khách quan tối đa thông qua nguyên tắc kiểm soát chéo (Four-Eyes Principle / Separation of Concerns), không một agent nào được tự duyệt sản phẩm của mình.
-3. Thiết lập hệ thống lưu trữ dữ liệu quản trị sản phẩm bằng Markdown chuẩn hóa trực tiếp trong kho mã nguồn: `docs/00-roadmap/` và `docs/00-project-management/`.
-4. Chuẩn hóa phương pháp luận: Khung ưu tiên **MoSCoW** cho PO và thang điểm **Story Points Fibonacci (1, 2, 3, 5, 8)** theo chu trình 6 Gates cho PM.
-5. Khảo sát hiện trạng 5 features hiện có để lập ngay **Product Roadmap (v1.0 -> v1.2)** và **Sprint 1 Backlog** kèm ma trận WBS thực tế.
+1. **100% Các Role trong dự án đều là Sub-Agent Độc Lập**: Tách biệt rõ ràng 6 Sub-Agents chuyên trách:
+   - `product-owner` (PO Sub-Agent)
+   - `project-manager` (PM Sub-Agent)
+   - `business-analyst` (BA Sub-Agent)
+   - `qa-tester` (QA Sub-Agent)
+   - `flutter-developer` (Dev FE Sub-Agent)
+   - `code-reviewer` (Reviewer Sub-Agent)
+2. **Nguyên tắc Kiểm Soát Chéo Khách Quan (Four-Eyes Principle / Checks & Balances)**: Loại bỏ triệt để xung đột lợi ích — Không một Sub-Agent nào được tự phê duyệt hoặc nghiệm thu sản phẩm do chính mình tạo ra.
+3. **Quản trị Bằng Markdown Chuẩn Hóa**: Lưu trữ toàn bộ Lộ trình và Kế hoạch trực tiếp trong Git: `docs/00-roadmap/` (do PO sở hữu) và `docs/00-project-management/` (do PM sở hữu).
+4. **Chuẩn hóa Phương pháp luận**: Khung ưu tiên **MoSCoW** cho PO, thang điểm **Fibonacci Story Points (1, 2, 3, 5, 8)** theo chu trình 6 Gates cho PM.
+5. **Khảo sát & Khởi tạo Dữ liệu Thực tế**: Khảo sát 5 features hiện có, lập ngay **Product Roadmap (v1.0 -> v1.2)** và **Sprint 1 Backlog** kèm ma trận WBS thực tế.
 
 ---
 
-## 2. Kiến Trúc Sub-Agent & Nguyên Tắc Độc Lập Khách Quan
+## 2. Ma Trận 6 Sub-Agent Độc Lập & Cơ Chế Kiểm Soát Chéo
 
 ```
                        ┌─────────────────────────┐
-                       │   Product Owner (PO)    │
+                       │  Sub-Agent PO (Product) │
                        │ [Strategy, Vision, OKR] │
-                       │   [MoSCoW & Roadmap]    │
+                       │    [MoSCoW & Roadmap]   │
                        └────────────┬────────────┘
-                                    │ (Bàn giao Epics & Phê duyệt Gate 1)
+                                    │ (Bàn giao Epic & Duyệt PRD Gate 1)
                                     ▼
                        ┌─────────────────────────┐
-                       │  Project Manager (PM)   │
+                       │   Sub-Agent PM (Scrum)  │
                        │  [Sprint, WBS 6 Gates]  │
                        │ [Story Points, Blockers]│
                        └────────────┬────────────┘
-                                    │ (Điều phối thực thi & giám sát)
+                                    │ (Điều phối WBS & Giám sát tiến độ)
        ┌───────────────┬────────────┴───────────┬───────────────┐
        ▼               ▼                        ▼               ▼
  ┌───────────┐   ┌───────────┐            ┌───────────┐   ┌───────────┐
- │ Gate 1 BA │   │ Gate 2 QA │            │ Gate 3/4  │   │ Gate 5/6  │
- │ (Analyst) │   │ (Tester)  │            │ (Dev FE & │   │ (Verify & │
- │           │   │           │            │  Review)  │   │  Release) │
+ │ Sub-Agent │   │ Sub-Agent │            │ Sub-Agent │   │ Sub-Agent │
+ │    BA     │   │ QA Tester │            │  Dev FE   │   │ Reviewer  │
+ │ (Gate 1)  │   │(Gate 2, 5)│            │ (Gate 3)  │   │ (Gate 4)  │
  └───────────┘   └───────────┘            └───────────┘   └───────────┘
 ```
 
-### 2.1. Nguyên tắc Bất Khả Xâm Phạm (Four-Eyes Principle)
-Để loại bỏ thiên vị và giữ tính khách quan cao nhất trong quy trình AI-driven development:
-- **Dev FE không tự duyệt code của mình**: Bắt buộc phải qua Sub-Agent `code-reviewer` rà soát theo triết lý Ponytail.
-- **BA không tự duyệt PRD của mình**: Bắt buộc phải được Sub-Agent `product-owner` phản biện, đối soát với Business Goals và ký duyệt Gate 1.
-- **Dev & PM không tự nghiệm thu chất lượng**: Bắt buộc phải có Sub-Agent `qa-tester` chạy kiểm thử tự động độc lập và lập `signoff-<feature>.md` tại Gate 5.
-- **PM không tự ý thay đổi Roadmap**: Quyền quyết định ưu tiên và bổ sung tính năng thuộc quyền tối thượng của Sub-Agent `product-owner`.
-- **PO là người ký duyệt Release Gate 6**: Đảm bảo sản phẩm đạt đầy đủ giá trị cam kết trước khi đóng gói phát hành.
+### 2.1. Danh Sách 6 Sub-Agent Chuyên Biệt
+
+| Sub-Agent | Tên Skill Tương Ứng | Lập Trường & Mục Tiêu Độc Lập | Sản Phẩm Đầu Ra Bắt Buộc | Thẩm Quyền Phê Duyệt |
+| :--- | :--- | :--- | :--- | :--- |
+| **1. Sub-Agent PO** | `product-owner` | Đại diện Người dùng & Kinh doanh; Tối đa hóa giá trị sản phẩm; Khắt khe về phạm vi. | `docs/00-roadmap/product-roadmap.md`, `epics-backlog.md` | Duyệt PRD Gate 1 & Duyệt Release Gate 6. |
+| **2. Sub-Agent PM** | `project-manager` | Kỷ luật Tiến độ, Capacity & Rủi ro; Giữ vững nhịp độ giao hàng và tháo gỡ blockers. | `docs/00-project-management/sprint-backlog.md`, `wbs-task-matrix.md`, `risk-blocker-log.md` | Duyệt phân bổ Task & Đóng/Mở Sprint. |
+| **3. Sub-Agent BA** | `business-analyst` | Làm rõ nghiệp vụ, hành vi người dùng; Cung cấp đặc tả chi tiết, không chấp nhận sự mơ hồ. | `docs/03-prd-features/<id>/prd.md`, `user-stories.md` (BDD), `ui-ux-screen-specs.md` | Hoàn thiện tài liệu Gate 1 trình PO duyệt. |
+| **4. Sub-Agent QA** | `qa-tester` & `flutter-testing` | Đứng về phía sự hoài nghi lỗi; Đảm bảo chất lượng và độ ổn định; Không thỏa hiệp với bug. | `tests/02-manual-testcases/`, `tests/03-bdd-gherkin-scenarios/*.feature`, `signoff-<feat>.md` | Nghiệm thu Gate 2 và Ký duyệt Gate 5. |
+| **5. Sub-Agent Dev FE** | `flutter-expert` & `ponytail` | Triển khai mã nguồn Flutter Clean Architecture tinh gọn; Tuân thủ tuyệt đối màu sắc dinh dưỡng. | `frontend/lib/features/<feat>/` (Domain, Data, Presentation) | Hoàn thành Gate 3 với `flutter analyze` 0 lỗi. |
+| **6. Sub-Agent Reviewer**| `code-reviewer` & `ponytail-review` | Cực đoan chống over-engineering; Tìm và xóa bỏ boilerplate, dead code, dependency thừa. | Báo cáo Review 1 dòng/phát hiện: `<file>:L<line>: <tag> <what>. <replacement>.` | Ký duyệt Gate 4 (Phải đạt `Lean already. Ship.`). |
 
 ---
 
-## 3. Đặc Tả Hai Sub-Agent Mới
+### 2.2. Quy Tắc Bất Khả Xâm Phạm (The Four-Eyes Principle)
+1. **Không Tự Duyệt**: Tuyệt đối không một Sub-Agent nào có quyền tự phê duyệt hay ký sign-off cho sản phẩm của mình.
+   - *BA viết PRD* ➔ Bắt buộc Sub-Agent **PO** duyệt.
+   - *Dev FE viết code* ➔ Bắt buộc Sub-Agent **Reviewer** duyệt Gate 4 và Sub-Agent **QA** duyệt Gate 5.
+   - *PM muốn đổi Scope* ➔ Bắt buộc Sub-Agent **PO** phê duyệt cập nhật Roadmap.
+2. **Phản Biện Khách Quan (Healthy Friction)**:
+   - Sub-Agent PO có quyền từ chối PRD nếu BA viết lan man, không bám sát mục tiêu app dinh dưỡng hoặc thiếu tính khả thi.
+   - Sub-Agent Reviewer có quyền chặn code của Dev FE nếu phát hiện over-engineering, class thừa, dependency không cần thiết.
+   - Sub-Agent QA có quyền bác bỏ phát hành nếu tỷ lệ Pass < 100% hoặc FPS < 55, AI latency > 2.5s.
+3. **Cơ Chế Kích Hoạt (Sub-Agent Dispatching)**: Khi thực thi một Gate, hệ thống sẽ kích hoạt chính xác Sub-Agent chuyên trách với System Prompt, Persona và Bộ Tiêu Chuẩn đánh giá độc lập.
+
+---
+
+## 3. Đặc Tả Chi Tiết Hai Sub-Agent Mới (PO & PM)
 
 ### 3.1. Sub-Agent Product Owner (`.agents/skills/product-owner/SKILL.md`)
-- **Metadata**:
-  - `name`: `product-owner`
-  - `domain`: `product-management`
-  - `role`: `strategic-product-owner`
-  - `triggers`: `roadmap, product vision, epic, prioritization, moscow, release planning, approve prd, product owner, po`
-- **Lập trường & Nhiệm vụ cốt lõi**:
-  1. **Product Vision & OKRs**: Đảm bảo mọi tính năng giữ vững bản sắc Celestial Dark UI và công năng tính toán dinh dưỡng chính xác từ Gemini AI.
-  2. **Quản lý danh mục Epics**: Định nghĩa các Epic lớn (`EPIC-01` đến `EPIC-07`), xác định mục tiêu và phạm vi kinh doanh.
-  3. **Phân loại MoSCoW**:
-     - **Must-have (M)**: Bắt buộc để Core User Flow không bị đứt đoạn.
-     - **Should-have (S)**: Tác động mạnh đến tỷ lệ giữ chân D30 (Retention) và hiệu quả dinh dưỡng.
-     - **Could-have (C)**: Gia tăng độ yêu thích (Delight factors).
-     - **Won't-have (W)**: Chưa thực hiện trong phiên bản này.
-  4. **Quản lý Lộ trình 3 Chân trời (Now - Next - Later)**: Duy trì `docs/00-roadmap/product-roadmap.md`.
-  5. **Cổng Phê duyệt & Nghiệm thu**: Ký duyệt Gate 1 (PRD Approval) và nghiệm thu Gate 6 (Final Release Sign-off).
+* **Metadata**:
+  * `name`: `product-owner`
+  * `domain`: `product-management`
+  * `role`: `strategic-product-owner`
+  * `triggers`: `roadmap, product vision, epic, prioritization, moscow, release planning, approve prd, product owner, po`
+* **Lập trường & Trách nhiệm cốt lõi**:
+  * Duy trì Tầm nhìn & OKRs (Độ chính xác AI > 85%, Latency < 2.5s, D30 Retention > 35%).
+  * Quản lý danh mục Epics (`EPIC-01` đến `EPIC-07`) và phân loại theo **MoSCoW**:
+    * **Must-have (M)**: Không có thì gãy Core User Flow (Auth, Quét ảnh AI, Nhật ký ăn uống, Tính BMR/TDEE).
+    * **Should-have (S)**: Tác động mạnh tới Retention (Cảnh báo calo, Đồ thị dinh dưỡng tuần/tháng, Nhập thủ công nhanh).
+    * **Could-have (C)**: Tính năng gia tăng thích thú (Gợi ý thực đơn, Streak ăn uống, Widget).
+    * **Won't-have (W)**: Hoãn lại (Đặt đồ ăn online, Kê đơn bệnh lý).
+  * Lộ trình 3 Chân trời (Now: v1.0 MVP, Next: v1.1 Dinh dưỡng nâng cao, Later: v1.2 AI Coach).
+  * Ký duyệt Gate 1 và Nghiệm thu phát hành Gate 6.
 
 ### 3.2. Sub-Agent Project Manager (`.agents/skills/project-manager/SKILL.md`)
-- **Metadata**:
-  - `name`: `project-manager`
-  - `domain`: `project-management`
-  - `role`: `scrum-master-delivery-lead`
-  - `triggers`: `sprint, sprint backlog, wbs, task breakdown, story points, project status, blockers, risk log, pm, project manager`
-- **Lập trường & Nhiệm vụ cốt lõi**:
-  1. **Sprint Planning & Goal**: Thiết lập mục tiêu Sprint, kiểm soát sức chứa (Capacity) theo Story Points.
-  2. **WBS Task Matrix**: Phân rã User Story thành danh sách task kỹ thuật ánh xạ trực tiếp vào 6 Cổng, gán cho từng Agent chuyên môn.
-  3. **Ước lượng Fibonacci Story Points**:
-     - `1 SP`: Sửa UI nhỏ, update constant, bổ sung 1 test case.
-     - `2 SP`: Widget độc lập (`GlassCard`, `MacroBar`), Freezed entity đơn giản.
-     - `3 SP`: Màn hình CRUD cơ bản + Riverpod Notifier + Firestore repo.
-     - `5 SP`: Màn hình tương tác phức tạp, tính toán dinh dưỡng realtime (Manual Entry, Custom Sheet).
-     - `8 SP`: Tính năng AI phức tạp (Gemini Flash Vision scanning, image preprocessing, multi-step error recovery).
-     - `>= 13 SP`: Bắt buộc phân rã (Decompose) thành các task `<= 8 SP`.
-  4. **Giám sát Tiến độ & Điểm nghẽn (Blockers)**: Duy trì `docs/00-project-management/risk-blocker-log.md`.
-  5. **Báo cáo Tiến độ Dự án**: Cập nhật trạng thái Kanban trong `sprint-backlog.md` (Todo, In Progress, Review, Done).
+* **Metadata**:
+  * `name`: `project-manager`
+  * `domain`: `project-management`
+  * `role`: `scrum-master-delivery-lead`
+  * `triggers`: `sprint, sprint backlog, wbs, task breakdown, story points, project status, blockers, risk log, pm, project manager`
+* **Lập trường & Trách nhiệm cốt lõi**:
+  * Thiết lập chu kỳ Sprint, Sprint Goal và cam kết Story Points.
+  * Phân rã công việc **WBS (Work Breakdown Structure)** theo ma trận 6 Cổng cho từng feature, gán trực tiếp cho Sub-Agent BA, QA, Dev FE, Reviewer.
+  * Ước lượng **Fibonacci Story Points (1, 2, 3, 5, 8)**:
+    * `1 SP`: Sửa UI nhỏ, update theme token, test case đơn lẻ.
+    * `2 SP`: Widget độc lập (`GlassCard`, `MacroBar`), model Freezed cơ bản.
+    * `3 SP`: Màn hình CRUD cơ bản + Riverpod Notifier + Firestore repo.
+    * `5 SP`: Màn hình tương tác phức tạp, tính toán động realtime (Manual Entry, Custom Food Sheet).
+    * `8 SP`: Tính năng AI phức tạp (Gemini Flash Vision scanning, image preprocessing, multi-step error recovery).
+    * `>= 13 SP`: Buộc phải phân rã thành các sub-tasks `<= 8 SP`.
+  * Quản trị rủi ro và điểm nghẽn kỹ thuật (`risk-blocker-log.md`).
+  * Báo cáo tiến độ Sprint (Todo, In Progress, Review, Verify, Done).
 
 ---
 
-## 4. Cấu Trúc Thư Mục & Tài Liệu Quản Trị
+## 4. Cấu Trúc Thư Mục & Tài Liệu Quản Trị (`docs/`)
 
 ```
 docs/
-├── 00-roadmap/                                  # [PO SỞ HỮU]
-│   ├── README.md                                # Quy chuẩn vận hành Roadmap của PO
+├── 00-roadmap/                                  # [DO SUB-AGENT PO SỞ HỮU]
+│   ├── README.md                                # Quy chuẩn quản trị Lộ trình & Epics
 │   ├── product-roadmap.md                       # Lộ trình 3 Chân trời (Now - Next - Later)
-│   └── epics-backlog.md                         # Danh mục Epics & Độ ưu tiên MoSCoW
+│   └── epics-backlog.md                         # Danh mục Epics & Đánh giá MoSCoW
 │
-├── 00-project-management/                       # [PM SỞ HỮU]
-│   ├── README.md                                # Quy chuẩn Sprint & Task của PM
+├── 00-project-management/                       # [DO SUB-AGENT PM SỞ HỮU]
+│   ├── README.md                                # Quy chuẩn quản trị Sprint & WBS Task
 │   ├── sprint-backlog.md                        # Sprint Goal, Story Points, Bảng Kanban
-│   ├── wbs-task-matrix.md                       # Phân rã WBS theo ma trận 6 Cổng
-│   └── risk-blocker-log.md                      # Bảng theo dõi điểm nghẽn & rủi ro kỹ thuật
+│   ├── wbs-task-matrix.md                       # Phân rã WBS theo 6 Cổng & Gán Sub-Agent
+│   └── risk-blocker-log.md                      # Nhật ký rủi ro, điểm nghẽn kỹ thuật
 │
 └── templates/                                   # Templates chuẩn hóa
-    ├── template-epic.md                         # Mẫu Epic mới (PO)
-    ├── template-roadmap-item.md                 # Mẫu hạng mục lộ trình (PO)
-    ├── template-sprint.md                       # Mẫu mở Sprint mới (PM)
-    └── template-wbs-task.md                     # Mẫu task WBS (PM)
+    ├── template-epic.md                         # Template Epic mới (PO)
+    ├── template-roadmap-item.md                 # Template Hạng mục lộ trình (PO)
+    ├── template-sprint.md                       # Template Khởi tạo Sprint (PM)
+    └── template-wbs-task.md                     # Template Task WBS (PM)
 ```
 
 ---
 
-## 5. Quy Trình Vận Hành Liên Hoàn 6-Gate SOP
+## 5. Quy Trình Vận Hành 6-Gate SOP Bằng Hệ Thống Sub-Agent
 
 ```
-[BƯỚC 1: PO]          [BƯỚC 2: BA]         [BƯỚC 3: PO DUYỆT]       [BƯỚC 4: PM]
-Chiến lược & Epic  ➔  Viết PRD & BDD   ➔   Ký duyệt Gate 1     ➔   Lập Sprint & WBS
-(MoSCoW & Roadmap)    (docs/03-prd-...)    (PO Sign-off PRD)        (Story Points & Tasks)
-                                                                           │
-                                                                           ▼
-[BƯỚC 7: PO DUYỆT]    [BƯỚC 6: VERIFY]     [BƯỚC 5: DEV & REVIEW] ◄────────┘
-Ký duyệt Release   ◄─ QA & Test 100%   ◄─  Code Ponytail & Review
-(Đóng Milestone)      (Gate 5 Sign-off)    (Gate 3 & Gate 4)
+[GATE 1: BA] ────────► [DUYỆT GATE 1: PO] ──────► [LẬP SPRINT & WBS: PM]
+(Sub-Agent BA)          (Sub-Agent PO)             (Sub-Agent PM)
+                                                          │
+                                                          ▼
+[GATE 4: REVIEW] ◄──── [GATE 3: DEV FE] ◄──────── [GATE 2: QA TEST]
+(Sub-Agent Reviewer)    (Sub-Agent Dev FE)         (Sub-Agent QA)
+       │
+       ▼
+[GATE 5: VERIFY] ────► [GATE 6: RELEASE & SIGN-OFF: PO]
+(Sub-Agent QA)          (Sub-Agent PO & PM)
 ```
 
-1. **Gate 1 (BA Gate)**: BA viết PRD ➔ **PO kiểm tra & ký duyệt**.
-2. **Khởi tạo WBS**: PM nhận PRD đã duyệt, mở Sprint, tạo task WBS với Story Points.
-3. **Gate 2 (QA Gate)**: QA viết test cases và kịch bản `.feature`.
-4. **Gate 3 (Dev FE Gate)**: Dev FE triển khai code Clean Architecture chuẩn Ponytail.
-5. **Gate 4 (Code Review Gate)**: Code Reviewer quét diff, loại bỏ mã thừa.
-6. **Gate 5 (Verification Gate)**: QA chạy test tự động 100% Pass và lập `signoff-<feature>.md`.
-7. **Gate 6 (Release Gate)**: **PO ký duyệt Release**, PM cập nhật đóng Sprint & đóng Milestone.
+1. **Gate 1**: Sub-Agent BA viết PRD ➔ **Sub-Agent PO thẩm định & ký duyệt Gate 1**.
+2. **Sprint & WBS**: **Sub-Agent PM** khởi tạo Sprint, phân rã WBS và chấm Story Points.
+3. **Gate 2**: **Sub-Agent QA** thiết kế Test Cases và kịch bản `.feature`.
+4. **Gate 3**: **Sub-Agent Dev FE** viết mã nguồn Clean Architecture chuẩn Ponytail.
+5. **Gate 4**: **Sub-Agent Reviewer** quét diff, loại bỏ over-engineering, xác nhận `Lean already. Ship.`.
+6. **Gate 5**: **Sub-Agent QA** chạy test suite 100% Pass, kiểm tra phi chức năng và ký `signoff-<feat>.md`.
+7. **Gate 6**: **Sub-Agent PO** ký duyệt phát hành cuối cùng; **Sub-Agent PM** đóng Sprint & cập nhật Roadmap.
 
 ---
 
 ## 6. Khảo Sát Hiện Trạng & Dữ Liệu Khởi Tạo Thực Tế
 
-### 6.1. Bảng hiện trạng 5 Core Features của AstroBite
+### 6.1. Hiện trạng 5 Tính Năng Cốt Lõi
 
-| Mã Feature | Tên Tính Năng | Trạng Thái Hiện Tại | Nhiệm Vụ Tiếp Theo |
+| Mã Feature | Tên Tính Năng | Trạng Thái Hiện Tại | Đánh Giá Của Sub-Agent PM & PO |
 | :--- | :--- | :---: | :--- |
-| `FEAT-01` | Auth & Onboarding | **Gate 6 Ready** | Đã ký `signoff-auth-login.md`. |
-| `FEAT-02` | Gemini Food Scanner AI | **Gate 6 Ready** | Đã ký `signoff-food-scanner.md`. |
-| `FEAT-03` | Diary & Manual Food Entry | **Gate 6 Ready** | Đã ký `signoff-manual-entry.md` (86 tests pass). |
-| `FEAT-04` | Analytics & Insights | **Gate 4/5 (In Progress)** | Cần hoàn tất bộ test suite và lập sign-off Gate 5. |
-| `FEAT-05` | User Profile & Goals | **Gate 4/5 (In Progress)** | Cần hoàn tất bộ test suite và lập sign-off Gate 5. |
+| `FEAT-01` | Auth & Onboarding | **Gate 6 Ready** | Đã ký `signoff-auth-login.md`. Đủ điều kiện Release v1.0. |
+| `FEAT-02` | Gemini Food Scanner AI | **Gate 6 Ready** | Đã ký `signoff-food-scanner.md`. Đủ điều kiện Release v1.0. |
+| `FEAT-03` | Diary & Manual Food Entry | **Gate 6 Ready** | Đã ký `signoff-manual-entry.md` (86 tests pass). Đủ điều kiện Release v1.0. |
+| `FEAT-04` | Analytics & Insights | **Gate 4/5 (In Progress)** | Code FE đã có (`lib/features/analytics`), cần hoàn tất Gate 5 Sign-off. |
+| `FEAT-05` | User Profile & Goals | **Gate 4/5 (In Progress)** | Code FE đã có (`lib/features/profile`), cần hoàn tất Gate 5 Sign-off. |
 
-### 6.2. Kế hoạch khởi tạo Lộ trình (Roadmap v1.0 -> v1.2)
-- **Now (v1.0.0 MVP)**: Hoàn tất Gate 5 & Gate 6 cho Analytics và Profile ➔ Phát hành trọn gói v1.0.0.
-- **Next (v1.1.0 Enhanced Insights & Multi-Scanning)**: Quét nhiều món cùng lúc (Multi-item), Thống kê vi chất (Micronutrients), Chế độ Offline Sync với Cloud Firestore.
-- **Later (v1.2.0+ AI Proactive Coach & Ecosystem)**: AI Nutrition Coach tư vấn hội thoại trực tiếp, Apple Health / Health Connect, Home Widget.
+### 6.2. Kế hoạch Lộ trình (Roadmap v1.0 -> v1.2) do Sub-Agent PO Lập
+* **Now (v1.0.0 MVP Release)**: Đóng gói nghiệm thu Gate 5 & Gate 6 cho `FEAT-04` và `FEAT-05` ➔ Phát hành AstroBite v1.0.0.
+* **Next (v1.1.0 Enhanced Nutrition)**: Quét đồ ăn đa món (Multi-item), Phân tích vi chất (Micronutrients), Chế độ Offline Sync với Cloud Firestore.
+* **Later (v1.2.0+ AI Proactive Coach)**: Trợ lý dinh dưỡng hội thoại Gemini Chat, Tích hợp Apple Health & Google Health Connect, Home Widget.
 
-### 6.3. Kế hoạch khởi tạo Sprint 1 Backlog
-- **Sprint 01**: "Hoàn thiện nghiệm thu Gate 5 & Phát hành AstroBite v1.0.0".
-- **Story Points cam kết**: 13 SP.
-- **Mục tiêu**: Đưa `FEAT-04` và `FEAT-05` vượt qua Gate 4 và Gate 5, đủ điều kiện để PO ký duyệt Release.
+### 6.3. Kế hoạch Sprint 01 do Sub-Agent PM Lập
+* **Sprint Goal**: Hoàn thiện toàn bộ test suite, rà soát mã nguồn và ký nghiệm thu Gate 5 cho `FEAT-04` (Analytics) & `FEAT-05` (Profile) để PO ký duyệt Release v1.0.0.
+* **Cam kết Story Points**: 13 SP.
+* **Bảng WBS Matrix ban đầu**: Gán nhiệm vụ cụ thể cho Sub-Agent QA, Dev FE và Reviewer.
 
 ---
 
-## 7. Kế Hoạch Cập Nhật & Tích Hợp Hệ Thống
-1. Tạo 2 file kỹ năng mới:
+## 7. Kế Hoạch Triển Khai Thực Tế
+
+1. **Khởi tạo 2 Sub-Agent Skills Mới**:
    - [`.agents/skills/product-owner/SKILL.md`](file:///Users/nguyenduytrang/flutter_project/AstroBite/.agents/skills/product-owner/SKILL.md)
    - [`.agents/skills/project-manager/SKILL.md`](file:///Users/nguyenduytrang/flutter_project/AstroBite/.agents/skills/project-manager/SKILL.md)
-2. Tạo cấu trúc thư mục & dữ liệu thực tế:
+2. **Cập nhật & Chuẩn hóa 4 Sub-Agent Skills Hiện Có**:
+   - [`.agents/skills/business-analyst/SKILL.md`](file:///Users/nguyenduytrang/flutter_project/AstroBite/.agents/skills/business-analyst/SKILL.md): Đóng gói chuẩn Persona Sub-Agent BA.
+   - [`.agents/skills/qa-tester/SKILL.md`](file:///Users/nguyenduytrang/flutter_project/AstroBite/.agents/skills/qa-tester/SKILL.md): Đóng gói chuẩn Persona Sub-Agent QA.
+   - [`.agents/skills/flutter-expert/SKILL.md`](file:///Users/nguyenduytrang/flutter_project/AstroBite/.agents/skills/flutter-expert/SKILL.md): Đóng gói chuẩn Persona Sub-Agent Dev FE.
+   - [`.agents/skills/code-reviewer/SKILL.md`](file:///Users/nguyenduytrang/flutter_project/AstroBite/.agents/skills/code-reviewer/SKILL.md): Đóng gói chuẩn Persona Sub-Agent Reviewer.
+3. **Khởi tạo Hệ thống Thư mục & Dữ liệu Markdown Quản trị**:
    - `docs/00-roadmap/` (`README.md`, `product-roadmap.md`, `epics-backlog.md`)
    - `docs/00-project-management/` (`README.md`, `sprint-backlog.md`, `wbs-task-matrix.md`, `risk-blocker-log.md`)
    - `docs/templates/` (`template-epic.md`, `template-roadmap-item.md`, `template-sprint.md`, `template-wbs-task.md`)
-3. Cập nhật các tài liệu cốt lõi:
-   - [`AGENTS.md`](file:///Users/nguyenduytrang/flutter_project/AstroBite/AGENTS.md): Thêm PO & PM vào danh sách quy định Agent.
-   - [`.agents/skills/feature-lifecycle/SKILL.md`](file:///Users/nguyenduytrang/flutter_project/AstroBite/.agents/skills/feature-lifecycle/SKILL.md): Tích hợp sự điều phối của PO & PM vào 6 Gates.
-   - [`docs/01-overview/stakeholder-matrix.md`](file:///Users/nguyenduytrang/flutter_project/AstroBite/docs/01-overview/stakeholder-matrix.md): Cập nhật ma trận RACI chi tiết.
+4. **Cập nhật Quy chế Dự án & Điều phối Trung tâm**:
+   - [`AGENTS.md`](file:///Users/nguyenduytrang/flutter_project/AstroBite/AGENTS.md): Định nghĩa kiến trúc Đa Sub-Agent và nguyên tắc Four-Eyes.
+   - [`.agents/skills/feature-lifecycle/SKILL.md`](file:///Users/nguyenduytrang/flutter_project/AstroBite/.agents/skills/feature-lifecycle/SKILL.md): Điều phối 6 Sub-Agents qua 6 Gates.
+   - [`docs/01-overview/stakeholder-matrix.md`](file:///Users/nguyenduytrang/flutter_project/AstroBite/docs/01-overview/stakeholder-matrix.md): Đồng bộ ma trận RACI giữa 6 Sub-Agents.
