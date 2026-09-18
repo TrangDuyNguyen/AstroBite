@@ -10,21 +10,21 @@
 
 | Mã Task | Feature / Epic | Cổng Chất Lượng | Mô Tả Nhiệm Vụ Kỹ Thuật | Sub-Agent Đảm Nhiệm | SP | Phụ Thuộc | Trạng Thái |
 | :--- | :--- | :---: | :--- | :---: | :---: | :---: | :---: |
-| **`TSK-MUL-01`** | `FEAT-06` Multi-Item | **Gate 1** | Soạn thảo PRD & BDD Given-When-Then nhận diện nhiều món ăn | `business-analyst` | 2 | None | 🟡 Ready for BA |
-| **`TSK-OFF-01`** | `FEAT-07` Offline-Sync | **Gate 1** | Soạn thảo PRD & BDD cơ chế đệm dữ liệu cục bộ & tự động sync | `business-analyst` | 1 | None | 🟡 Ready for BA |
-| **`TSK-MIC-01`** | `FEAT-08` Micronutrients | **Gate 1** | Soạn thảo PRD & BDD mở rộng theo dõi Natri, Xơ, Đường | `business-analyst` | 1 | None | 🟡 Ready for BA |
-| **`TSK-MUL-02`** | `FEAT-06` Multi-Item | **Gate 2** | Thiết kế UI Flow, Layout 4pt và các trạng thái nhận diện đĩa cơm đa món | `ui-ux-designer` | 2 | TSK-MUL-01 | ⚪ Pending |
-| **`TSK-OFF-02`** | `FEAT-07` Offline-Sync | **Gate 2** | Thiết kế Banner ngoại tuyến, huy hiệu sync và trạng thái cache | `ui-ux-designer` | 1 | TSK-OFF-01 | ⚪ Pending |
-| **`TSK-MIC-02`** | `FEAT-08` Micronutrients | **Gate 2** | Thiết kế UI Chips vi chất, thanh đo và cảnh báo vượt ngưỡng | `ui-ux-designer` | 1 | TSK-MIC-01 | ⚪ Pending |
-| **`TSK-MUL-03`** | `FEAT-06` Multi-Item | **Gate 3** | Thiết kế Manual TCs & Gherkin scenarios cho đĩa cơm đa món | `qa-tester` | 2 | TSK-MUL-02 | ⚪ Pending |
-| **`TSK-OFF-03`** | `FEAT-07` Offline-Sync | **Gate 3** | Thiết kế Manual TCs & kịch bản mất mạng / phục hồi kết nối | `qa-tester` | 1 | TSK-OFF-02 | ⚪ Pending |
-| **`TSK-MIC-03`** | `FEAT-08` Micronutrients | **Gate 3** | Thiết kế Manual TCs & BDD cảnh báo vượt ngưỡng vi chất | `qa-tester` | 1 | TSK-MIC-02 | ⚪ Pending |
-| **`TSK-MUL-04`** | `FEAT-06` Multi-Item | **Gate 4** | Cập nhật Gemini 2.0 Vision Prompt & UI danh sách bóc tách món | `flutter-expert` | 4 | TSK-MUL-03 | ⚪ Pending |
-| **`TSK-OFF-04`** | `FEAT-07` Offline-Sync | **Gate 4** | Triển khai Local Hive Repository & Connectivity Sync Notifier | `flutter-expert` | 3 | TSK-OFF-03 | ⚪ Pending |
-| **`TSK-MIC-04`** | `FEAT-08` Micronutrients | **Gate 4** | Cập nhật Freezed FoodLog DTO & UI Chips Vi chất | `flutter-expert` | 1 | TSK-MIC-03 | ⚪ Pending |
-| **`TSK-S2-REV`**  | Toàn bộ Sprint 02 | **Gate 5** | Ponytail Code Review: Kiểm soát phình to code & zero bloat | `code-reviewer` | 2 | TSK-MUL-04, TSK-OFF-04 | ⚪ Pending |
-| **`TSK-S2-VER`**  | Toàn bộ Sprint 02 | **Gate 6** | Chạy automated test suite 100% Pass, test offline & ký sign-off | `qa-tester` | 2 | TSK-S2-REV | ⚪ Pending |
-| **`TSK-REL-02`** | Release v1.1.0 | **Gate 7** | Nghiệm thu tổng thể, gắn Git Tag `v1.1.0` và đóng Sprint 02 | `project-manager` & `product-owner` | 2 | TSK-S2-VER | ⚪ Pending |
+| **`TSK-MUL-01`** | `FEAT-06` Multi-Item | **Gate 1** | Soạn thảo PRD & BDD Given-When-Then nhận diện nhiều món ăn | `business-analyst` | 2 | None | 🟢 Done (PO Approved) |
+| **`TSK-OFF-01`** | `FEAT-07` Offline-Sync | **Gate 1** | Soạn thảo PRD & BDD cơ chế đệm dữ liệu cục bộ & tự động sync | `business-analyst` | 1 | None | 🟢 Done (PO Approved) |
+| **`TSK-MIC-01`** | `FEAT-08` Micronutrients | **Gate 1** | Soạn thảo PRD & BDD mở rộng theo dõi Natri, Xơ, Đường | `business-analyst` | 1 | None | 🟢 Done (PO Approved) |
+| **`TSK-MUL-02`** | `FEAT-06` Multi-Item | **Gate 2** | Thiết kế UI Flow, Layout 4pt và các trạng thái nhận diện đĩa cơm đa món | `ui-ux-designer` | 2 | TSK-MUL-01 | 🟢 Done (BA & PO Signed Off) |
+| **`TSK-OFF-02`** | `FEAT-07` Offline-Sync | **Gate 2** | Thiết kế Banner ngoại tuyến, huy hiệu sync và trạng thái cache | `ui-ux-designer` | 1 | TSK-OFF-01 | 🟢 Done (BA & PO Signed Off) |
+| **`TSK-MIC-02`** | `FEAT-08` Micronutrients | **Gate 2** | Thiết kế UI Chips vi chất, thanh đo và cảnh báo vượt ngưỡng | `ui-ux-designer` | 1 | TSK-MIC-01 | 🟢 Done (BA & PO Signed Off) |
+| **`TSK-MUL-03`** | `FEAT-06` Multi-Item | **Gate 3** | Thiết kế Manual TCs & Gherkin scenarios cho đĩa cơm đa món | `qa-tester` | 2 | TSK-MUL-02 | 🟢 Done (QA & PM Signed Off) |
+| **`TSK-OFF-03`** | `FEAT-07` Offline-Sync | **Gate 3** | Thiết kế Manual TCs & kịch bản mất mạng / phục hồi kết nối | `qa-tester` | 1 | TSK-OFF-02 | 🟢 Done (QA & PM Signed Off) |
+| **`TSK-MIC-03`** | `FEAT-08` Micronutrients | **Gate 3** | Thiết kế Manual TCs & BDD cảnh báo vượt ngưỡng vi chất | `qa-tester` | 1 | TSK-MIC-02 | 🟢 Done (QA & PM Signed Off) |
+| **`TSK-MUL-04`** | `FEAT-06` Multi-Item | **Gate 4** | Cập nhật Gemini 2.0 Vision Prompt & UI danh sách bóc tách món | `flutter-expert` | 4 | TSK-MUL-03 | 🟢 Done (Dev FE Finished) |
+| **`TSK-OFF-04`** | `FEAT-07` Offline-Sync | **Gate 4** | Triển khai Local Cache Datasource & Sync Queue, Banner | `flutter-expert` | 3 | TSK-OFF-03 | 🟢 Done (Dev FE Finished) |
+| **`TSK-MIC-04`** | `FEAT-08` Micronutrients | **Gate 4** | Cập nhật Freezed FoodLog DTO, DailyMicronutrientCard & UI Chips | `flutter-expert` | 1 | TSK-MIC-03 | 🟢 Done (Dev FE Finished) |
+| **`TSK-S2-REV`**  | Toàn bộ Sprint 02 | **Gate 5** | Ponytail Code Review: Kiểm soát phình to code & zero bloat | `code-reviewer` | 2 | TSK-MUL-04, TSK-OFF-04 | 🟢 Done (Reviewer Signed Off: "Lean already. Ship.") |
+| **`TSK-S2-VER`**  | Toàn bộ Sprint 02 | **Gate 6** | Chạy automated test suite 100% Pass, test offline & ký sign-off | `qa-tester` | 2 | TSK-S2-REV | 🟢 Done (QA Signed Off: Release Approved) |
+| **`TSK-REL-02`** | Release v1.1.0 | **Gate 7** | Nghiệm thu tổng thể, gắn Git Tag `v1.1.0` và đóng Sprint 02 | `project-manager` & `product-owner` | 2 | TSK-S2-VER | ⚡ Ready for Release |
 
 ---
 

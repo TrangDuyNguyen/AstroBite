@@ -5,6 +5,8 @@ import 'package:astrobite/core/constants/app_strings.dart';
 import 'package:astrobite/core/constants/app_values.dart';
 import 'package:astrobite/core/router/app_router.dart';
 import '../../domain/tracker_providers.dart';
+import '../widgets/celestial_offline_banner.dart';
+import '../widgets/daily_micronutrient_card.dart';
 import '../widgets/daily_summary_card.dart';
 import '../widgets/date_picker_strip.dart';
 import '../widgets/meal_section.dart';
@@ -29,17 +31,23 @@ class HomePage extends ConsumerWidget {
         ],
       ),
       body: SafeArea(
-        child: ListView(
-          padding: const EdgeInsets.all(AppValues.screenPadding),
+        child: Column(
           children: [
-            const DatePickerStrip(),
-            const SizedBox(height: AppValues.spacing16),
-            DailySummaryCard(summary: summary),
-            const SizedBox(height: AppValues.spacing24),
-            Text(
-              AppStrings.nutritionLog,
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
+            const CelestialOfflineBanner(),
+            Expanded(
+              child: ListView(
+                padding: const EdgeInsets.all(AppValues.screenPadding),
+                children: [
+                  const DatePickerStrip(),
+                  const SizedBox(height: AppValues.spacing16),
+                  DailySummaryCard(summary: summary),
+                  const SizedBox(height: AppValues.spacing16),
+                  DailyMicronutrientCard(summary: summary),
+                  const SizedBox(height: AppValues.spacing24),
+                  Text(
+                    AppStrings.nutritionLog,
+                    style: Theme.of(context).textTheme.headlineMedium,
+                  ),
             const SizedBox(height: AppValues.spacing12),
             MealSection(
               mealType: 'breakfast',
@@ -64,6 +72,9 @@ class HomePage extends ConsumerWidget {
           ],
         ),
       ),
-    );
-  }
+    ],
+  ),
+),
+);
+}
 }

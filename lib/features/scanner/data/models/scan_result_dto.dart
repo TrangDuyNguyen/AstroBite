@@ -10,6 +10,9 @@ abstract class ScanResultDto with _$ScanResultDto {
     @JsonKey(name: 'total_calories') required int totalCalories,
     required MacroDto macros,
     required List<DishDto> dishes,
+    @JsonKey(name: 'sodium_mg', defaultValue: 0.0) double? sodiumMg,
+    @JsonKey(name: 'fiber_g', defaultValue: 0.0) double? fiberG,
+    @JsonKey(name: 'sugar_g', defaultValue: 0.0) double? sugarG,
   }) = _ScanResultDto;
 
   factory ScanResultDto.fromJson(Map<String, dynamic> json) =>
@@ -35,6 +38,12 @@ abstract class DishDto with _$DishDto {
     @JsonKey(name: 'confidence_score') required double confidenceScore,
     @JsonKey(name: 'estimated_weight_g') required int estimatedWeightG,
     required int calories,
+    @JsonKey(name: 'carbs_g', defaultValue: 0) int? carbsG,
+    @JsonKey(name: 'protein_g', defaultValue: 0) int? proteinG,
+    @JsonKey(name: 'fat_g', defaultValue: 0) int? fatG,
+    @JsonKey(name: 'sodium_mg', defaultValue: 0.0) double? sodiumMg,
+    @JsonKey(name: 'fiber_g', defaultValue: 0.0) double? fiberG,
+    @JsonKey(name: 'sugar_g', defaultValue: 0.0) double? sugarG,
   }) = _DishDto;
 
   factory DishDto.fromJson(Map<String, dynamic> json) =>

@@ -41,6 +41,10 @@ final dailyLogsStreamProvider = StreamProvider.autoDispose<List<FoodLog>>((ref) 
             source: dto.source,
             confidenceScore: dto.confidenceScore,
             imageUrl: dto.imageUrl,
+            sodiumMg: dto.sodiumMg ?? 0.0,
+            fiberG: dto.fiberG ?? 0.0,
+            sugarG: dto.sugarG ?? 0.0,
+            syncStatus: dto.syncStatus ?? 'synced',
           ))
       .toList());
 });
@@ -56,3 +60,6 @@ final todaySummaryProvider = Provider.autoDispose<DailySummary>((ref) {
     targetCalories: targetCalories,
   );
 });
+
+final isOfflineProvider = StateProvider<bool>((ref) => false);
+

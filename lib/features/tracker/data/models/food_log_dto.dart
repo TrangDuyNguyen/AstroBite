@@ -18,6 +18,11 @@ abstract class FoodLogDto with _$FoodLogDto {
     required String source,
     double? confidenceScore,
     String? imageUrl,
+    @JsonKey(name: 'sodium_mg', defaultValue: 0.0) double? sodiumMg,
+    @JsonKey(name: 'fiber_g', defaultValue: 0.0) double? fiberG,
+    @JsonKey(name: 'sugar_g', defaultValue: 0.0) double? sugarG,
+    @JsonKey(name: 'sync_status', defaultValue: 'synced') String? syncStatus,
+    @JsonKey(name: 'dishes') List<Map<String, dynamic>>? dishes,
   }) = _FoodLogDto;
 
   factory FoodLogDto.fromJson(Map<String, dynamic> json) =>

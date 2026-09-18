@@ -31,19 +31,29 @@ Schema Definition:
     "carbs_g": integer,
     "fat_g": integer
   },
+  "sodium_mg": float,
+  "fiber_g": float,
+  "sugar_g": float,
   "dishes": [
     {
       "dish_name": "string",
       "confidence_score": float,
       "estimated_weight_g": integer,
-      "calories": integer
+      "calories": integer,
+      "carbs_g": integer,
+      "protein_g": integer,
+      "fat_g": integer,
+      "sodium_mg": float,
+      "fiber_g": float,
+      "sugar_g": float
     }
   ]
 }
 
 Contextual Rules:
 1. Prioritize Vietnamese traditional food profiles and default ingredients.
-2. If multiple items exist on one plate, segment them into the "dishes" array.
+2. If multiple items exist on one plate or tray, segment each distinct item into the "dishes" array.
+3. Provide accurate estimates for sodium (mg), dietary fiber (g), and sugars (g).
 ''';
 
   Future<ScanResultDto?> analyzeFoodImage(Uint8List imageBytes) async {

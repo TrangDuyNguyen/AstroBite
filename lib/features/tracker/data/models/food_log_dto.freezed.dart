@@ -26,6 +26,16 @@ mixin _$FoodLogDto {
   String get source;
   double? get confidenceScore;
   String? get imageUrl;
+  @JsonKey(name: 'sodium_mg', defaultValue: 0.0)
+  double? get sodiumMg;
+  @JsonKey(name: 'fiber_g', defaultValue: 0.0)
+  double? get fiberG;
+  @JsonKey(name: 'sugar_g', defaultValue: 0.0)
+  double? get sugarG;
+  @JsonKey(name: 'sync_status', defaultValue: 'synced')
+  String? get syncStatus;
+  @JsonKey(name: 'dishes')
+  List<Map<String, dynamic>>? get dishes;
 
   /// Create a copy of FoodLogDto
   /// with the given fields replaced by the non-null parameter values.
@@ -60,7 +70,14 @@ mixin _$FoodLogDto {
             (identical(other.confidenceScore, confidenceScore) ||
                 other.confidenceScore == confidenceScore) &&
             (identical(other.imageUrl, imageUrl) ||
-                other.imageUrl == imageUrl));
+                other.imageUrl == imageUrl) &&
+            (identical(other.sodiumMg, sodiumMg) ||
+                other.sodiumMg == sodiumMg) &&
+            (identical(other.fiberG, fiberG) || other.fiberG == fiberG) &&
+            (identical(other.sugarG, sugarG) || other.sugarG == sugarG) &&
+            (identical(other.syncStatus, syncStatus) ||
+                other.syncStatus == syncStatus) &&
+            const DeepCollectionEquality().equals(other.dishes, dishes));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -78,11 +95,16 @@ mixin _$FoodLogDto {
       fatG,
       source,
       confidenceScore,
-      imageUrl);
+      imageUrl,
+      sodiumMg,
+      fiberG,
+      sugarG,
+      syncStatus,
+      const DeepCollectionEquality().hash(dishes));
 
   @override
   String toString() {
-    return 'FoodLogDto(id: $id, date: $date, mealType: $mealType, dishName: $dishName, estimatedWeightG: $estimatedWeightG, calories: $calories, proteinG: $proteinG, carbsG: $carbsG, fatG: $fatG, source: $source, confidenceScore: $confidenceScore, imageUrl: $imageUrl)';
+    return 'FoodLogDto(id: $id, date: $date, mealType: $mealType, dishName: $dishName, estimatedWeightG: $estimatedWeightG, calories: $calories, proteinG: $proteinG, carbsG: $carbsG, fatG: $fatG, source: $source, confidenceScore: $confidenceScore, imageUrl: $imageUrl, sodiumMg: $sodiumMg, fiberG: $fiberG, sugarG: $sugarG, syncStatus: $syncStatus, dishes: $dishes)';
   }
 }
 
@@ -104,7 +126,12 @@ abstract mixin class $FoodLogDtoCopyWith<$Res> {
       int fatG,
       String source,
       double? confidenceScore,
-      String? imageUrl});
+      String? imageUrl,
+      @JsonKey(name: 'sodium_mg', defaultValue: 0.0) double? sodiumMg,
+      @JsonKey(name: 'fiber_g', defaultValue: 0.0) double? fiberG,
+      @JsonKey(name: 'sugar_g', defaultValue: 0.0) double? sugarG,
+      @JsonKey(name: 'sync_status', defaultValue: 'synced') String? syncStatus,
+      @JsonKey(name: 'dishes') List<Map<String, dynamic>>? dishes});
 }
 
 /// @nodoc
@@ -131,6 +158,11 @@ class _$FoodLogDtoCopyWithImpl<$Res> implements $FoodLogDtoCopyWith<$Res> {
     Object? source = null,
     Object? confidenceScore = freezed,
     Object? imageUrl = freezed,
+    Object? sodiumMg = freezed,
+    Object? fiberG = freezed,
+    Object? sugarG = freezed,
+    Object? syncStatus = freezed,
+    Object? dishes = freezed,
   }) {
     return _then(_self.copyWith(
       id: null == id
@@ -181,6 +213,26 @@ class _$FoodLogDtoCopyWithImpl<$Res> implements $FoodLogDtoCopyWith<$Res> {
           ? _self.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      sodiumMg: freezed == sodiumMg
+          ? _self.sodiumMg
+          : sodiumMg // ignore: cast_nullable_to_non_nullable
+              as double?,
+      fiberG: freezed == fiberG
+          ? _self.fiberG
+          : fiberG // ignore: cast_nullable_to_non_nullable
+              as double?,
+      sugarG: freezed == sugarG
+          ? _self.sugarG
+          : sugarG // ignore: cast_nullable_to_non_nullable
+              as double?,
+      syncStatus: freezed == syncStatus
+          ? _self.syncStatus
+          : syncStatus // ignore: cast_nullable_to_non_nullable
+              as String?,
+      dishes: freezed == dishes
+          ? _self.dishes
+          : dishes // ignore: cast_nullable_to_non_nullable
+              as List<Map<String, dynamic>>?,
     ));
   }
 }
@@ -290,7 +342,13 @@ extension FoodLogDtoPatterns on FoodLogDto {
             int fatG,
             String source,
             double? confidenceScore,
-            String? imageUrl)?
+            String? imageUrl,
+            @JsonKey(name: 'sodium_mg', defaultValue: 0.0) double? sodiumMg,
+            @JsonKey(name: 'fiber_g', defaultValue: 0.0) double? fiberG,
+            @JsonKey(name: 'sugar_g', defaultValue: 0.0) double? sugarG,
+            @JsonKey(name: 'sync_status', defaultValue: 'synced')
+            String? syncStatus,
+            @JsonKey(name: 'dishes') List<Map<String, dynamic>>? dishes)?
         $default, {
     required TResult orElse(),
   }) {
@@ -309,7 +367,12 @@ extension FoodLogDtoPatterns on FoodLogDto {
             _that.fatG,
             _that.source,
             _that.confidenceScore,
-            _that.imageUrl);
+            _that.imageUrl,
+            _that.sodiumMg,
+            _that.fiberG,
+            _that.sugarG,
+            _that.syncStatus,
+            _that.dishes);
       case _:
         return orElse();
     }
@@ -342,7 +405,13 @@ extension FoodLogDtoPatterns on FoodLogDto {
             int fatG,
             String source,
             double? confidenceScore,
-            String? imageUrl)
+            String? imageUrl,
+            @JsonKey(name: 'sodium_mg', defaultValue: 0.0) double? sodiumMg,
+            @JsonKey(name: 'fiber_g', defaultValue: 0.0) double? fiberG,
+            @JsonKey(name: 'sugar_g', defaultValue: 0.0) double? sugarG,
+            @JsonKey(name: 'sync_status', defaultValue: 'synced')
+            String? syncStatus,
+            @JsonKey(name: 'dishes') List<Map<String, dynamic>>? dishes)
         $default,
   ) {
     final _that = this;
@@ -360,7 +429,12 @@ extension FoodLogDtoPatterns on FoodLogDto {
             _that.fatG,
             _that.source,
             _that.confidenceScore,
-            _that.imageUrl);
+            _that.imageUrl,
+            _that.sodiumMg,
+            _that.fiberG,
+            _that.sugarG,
+            _that.syncStatus,
+            _that.dishes);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -392,7 +466,13 @@ extension FoodLogDtoPatterns on FoodLogDto {
             int fatG,
             String source,
             double? confidenceScore,
-            String? imageUrl)?
+            String? imageUrl,
+            @JsonKey(name: 'sodium_mg', defaultValue: 0.0) double? sodiumMg,
+            @JsonKey(name: 'fiber_g', defaultValue: 0.0) double? fiberG,
+            @JsonKey(name: 'sugar_g', defaultValue: 0.0) double? sugarG,
+            @JsonKey(name: 'sync_status', defaultValue: 'synced')
+            String? syncStatus,
+            @JsonKey(name: 'dishes') List<Map<String, dynamic>>? dishes)?
         $default,
   ) {
     final _that = this;
@@ -410,7 +490,12 @@ extension FoodLogDtoPatterns on FoodLogDto {
             _that.fatG,
             _that.source,
             _that.confidenceScore,
-            _that.imageUrl);
+            _that.imageUrl,
+            _that.sodiumMg,
+            _that.fiberG,
+            _that.sugarG,
+            _that.syncStatus,
+            _that.dishes);
       case _:
         return null;
     }
@@ -432,7 +517,13 @@ class _FoodLogDto implements FoodLogDto {
       required this.fatG,
       required this.source,
       this.confidenceScore,
-      this.imageUrl});
+      this.imageUrl,
+      @JsonKey(name: 'sodium_mg', defaultValue: 0.0) this.sodiumMg,
+      @JsonKey(name: 'fiber_g', defaultValue: 0.0) this.fiberG,
+      @JsonKey(name: 'sugar_g', defaultValue: 0.0) this.sugarG,
+      @JsonKey(name: 'sync_status', defaultValue: 'synced') this.syncStatus,
+      @JsonKey(name: 'dishes') final List<Map<String, dynamic>>? dishes})
+      : _dishes = dishes;
   factory _FoodLogDto.fromJson(Map<String, dynamic> json) =>
       _$FoodLogDtoFromJson(json);
 
@@ -460,6 +551,28 @@ class _FoodLogDto implements FoodLogDto {
   final double? confidenceScore;
   @override
   final String? imageUrl;
+  @override
+  @JsonKey(name: 'sodium_mg', defaultValue: 0.0)
+  final double? sodiumMg;
+  @override
+  @JsonKey(name: 'fiber_g', defaultValue: 0.0)
+  final double? fiberG;
+  @override
+  @JsonKey(name: 'sugar_g', defaultValue: 0.0)
+  final double? sugarG;
+  @override
+  @JsonKey(name: 'sync_status', defaultValue: 'synced')
+  final String? syncStatus;
+  final List<Map<String, dynamic>>? _dishes;
+  @override
+  @JsonKey(name: 'dishes')
+  List<Map<String, dynamic>>? get dishes {
+    final value = _dishes;
+    if (value == null) return null;
+    if (_dishes is EqualUnmodifiableListView) return _dishes;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   /// Create a copy of FoodLogDto
   /// with the given fields replaced by the non-null parameter values.
@@ -499,7 +612,14 @@ class _FoodLogDto implements FoodLogDto {
             (identical(other.confidenceScore, confidenceScore) ||
                 other.confidenceScore == confidenceScore) &&
             (identical(other.imageUrl, imageUrl) ||
-                other.imageUrl == imageUrl));
+                other.imageUrl == imageUrl) &&
+            (identical(other.sodiumMg, sodiumMg) ||
+                other.sodiumMg == sodiumMg) &&
+            (identical(other.fiberG, fiberG) || other.fiberG == fiberG) &&
+            (identical(other.sugarG, sugarG) || other.sugarG == sugarG) &&
+            (identical(other.syncStatus, syncStatus) ||
+                other.syncStatus == syncStatus) &&
+            const DeepCollectionEquality().equals(other._dishes, _dishes));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -517,11 +637,16 @@ class _FoodLogDto implements FoodLogDto {
       fatG,
       source,
       confidenceScore,
-      imageUrl);
+      imageUrl,
+      sodiumMg,
+      fiberG,
+      sugarG,
+      syncStatus,
+      const DeepCollectionEquality().hash(_dishes));
 
   @override
   String toString() {
-    return 'FoodLogDto(id: $id, date: $date, mealType: $mealType, dishName: $dishName, estimatedWeightG: $estimatedWeightG, calories: $calories, proteinG: $proteinG, carbsG: $carbsG, fatG: $fatG, source: $source, confidenceScore: $confidenceScore, imageUrl: $imageUrl)';
+    return 'FoodLogDto(id: $id, date: $date, mealType: $mealType, dishName: $dishName, estimatedWeightG: $estimatedWeightG, calories: $calories, proteinG: $proteinG, carbsG: $carbsG, fatG: $fatG, source: $source, confidenceScore: $confidenceScore, imageUrl: $imageUrl, sodiumMg: $sodiumMg, fiberG: $fiberG, sugarG: $sugarG, syncStatus: $syncStatus, dishes: $dishes)';
   }
 }
 
@@ -545,7 +670,12 @@ abstract mixin class _$FoodLogDtoCopyWith<$Res>
       int fatG,
       String source,
       double? confidenceScore,
-      String? imageUrl});
+      String? imageUrl,
+      @JsonKey(name: 'sodium_mg', defaultValue: 0.0) double? sodiumMg,
+      @JsonKey(name: 'fiber_g', defaultValue: 0.0) double? fiberG,
+      @JsonKey(name: 'sugar_g', defaultValue: 0.0) double? sugarG,
+      @JsonKey(name: 'sync_status', defaultValue: 'synced') String? syncStatus,
+      @JsonKey(name: 'dishes') List<Map<String, dynamic>>? dishes});
 }
 
 /// @nodoc
@@ -572,6 +702,11 @@ class __$FoodLogDtoCopyWithImpl<$Res> implements _$FoodLogDtoCopyWith<$Res> {
     Object? source = null,
     Object? confidenceScore = freezed,
     Object? imageUrl = freezed,
+    Object? sodiumMg = freezed,
+    Object? fiberG = freezed,
+    Object? sugarG = freezed,
+    Object? syncStatus = freezed,
+    Object? dishes = freezed,
   }) {
     return _then(_FoodLogDto(
       id: null == id
@@ -622,6 +757,26 @@ class __$FoodLogDtoCopyWithImpl<$Res> implements _$FoodLogDtoCopyWith<$Res> {
           ? _self.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      sodiumMg: freezed == sodiumMg
+          ? _self.sodiumMg
+          : sodiumMg // ignore: cast_nullable_to_non_nullable
+              as double?,
+      fiberG: freezed == fiberG
+          ? _self.fiberG
+          : fiberG // ignore: cast_nullable_to_non_nullable
+              as double?,
+      sugarG: freezed == sugarG
+          ? _self.sugarG
+          : sugarG // ignore: cast_nullable_to_non_nullable
+              as double?,
+      syncStatus: freezed == syncStatus
+          ? _self.syncStatus
+          : syncStatus // ignore: cast_nullable_to_non_nullable
+              as String?,
+      dishes: freezed == dishes
+          ? _self._dishes
+          : dishes // ignore: cast_nullable_to_non_nullable
+              as List<Map<String, dynamic>>?,
     ));
   }
 }

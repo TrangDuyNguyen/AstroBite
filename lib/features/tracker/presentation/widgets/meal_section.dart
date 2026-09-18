@@ -6,6 +6,7 @@ import 'package:astrobite/core/theme/app_colors.dart';
 import 'package:astrobite/features/auth/domain/auth_providers.dart';
 import '../../domain/daily_summary.dart';
 import '../controllers/tracker_controller.dart';
+import 'sync_status_badge.dart';
 
 class MealSection extends ConsumerWidget {
   const MealSection({
@@ -167,18 +168,39 @@ class MealSection extends ConsumerWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Expanded(
-                          child: Text(
-                            '${log.dishName} (${log.estimatedWeightG}g)',
-                            style: Theme.of(context).textTheme.bodyMedium,
-                            overflow: TextOverflow.ellipsis,
+                          child: Row(
+                            children: [
+                              Flexible(
+                                child: Text(
+                                  '${log.dishName} (${log.estimatedWeightG}g)',
+                                  style: Theme.of(context).textTheme.bodyMedium,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                              if (log.isHighSodium) ...[
+                                const SizedBox(width: AppValues.spacing4),
+                                const Icon(
+                                  Icons.warning_amber_rounded,
+                                  size: 14,
+                                  color: AppColors.warning,
+                                ),
+                              ],
+                            ],
                           ),
                         ),
-                        Text(
-                          '${log.calories} cal',
-                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                letterSpacing: AppValues.calorieLetterSpacing,
-                                color: AppColors.onSurface,
-                              ),
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              '${log.calories} cal',
+                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    letterSpacing: AppValues.calorieLetterSpacing,
+                                    color: AppColors.onSurface,
+                                  ),
+                            ),
+                            const SizedBox(width: AppValues.spacing4),
+                            SyncStatusBadge(syncStatus: log.syncStatus),
+                          ],
                         ),
                       ],
                     ),

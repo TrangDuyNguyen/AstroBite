@@ -37,4 +37,7 @@ class TrackerController extends StateNotifier<AsyncValue<void>> {
           );
     });
   }
+
+  Future<int> syncPendingLogs({required String userId}) =>
+      _ref.read(foodLogRepositoryProvider).syncPendingLogs(userId: userId);
 }

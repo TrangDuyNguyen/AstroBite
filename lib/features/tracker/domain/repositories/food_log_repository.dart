@@ -21,4 +21,8 @@ abstract class FoodLogRepository {
     required String startDate,
     required String endDate,
   });
+
+  Future<int> syncPendingLogs({required String userId});
+
+  Future<List<FoodLogDto>> getPendingSyncLogs({required String userId});
 }

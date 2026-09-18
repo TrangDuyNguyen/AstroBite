@@ -20,6 +20,12 @@ mixin _$ScanResultDto {
   int get totalCalories;
   MacroDto get macros;
   List<DishDto> get dishes;
+  @JsonKey(name: 'sodium_mg', defaultValue: 0.0)
+  double? get sodiumMg;
+  @JsonKey(name: 'fiber_g', defaultValue: 0.0)
+  double? get fiberG;
+  @JsonKey(name: 'sugar_g', defaultValue: 0.0)
+  double? get sugarG;
 
   /// Create a copy of ScanResultDto
   /// with the given fields replaced by the non-null parameter values.
@@ -41,17 +47,21 @@ mixin _$ScanResultDto {
             (identical(other.totalCalories, totalCalories) ||
                 other.totalCalories == totalCalories) &&
             (identical(other.macros, macros) || other.macros == macros) &&
-            const DeepCollectionEquality().equals(other.dishes, dishes));
+            const DeepCollectionEquality().equals(other.dishes, dishes) &&
+            (identical(other.sodiumMg, sodiumMg) ||
+                other.sodiumMg == sodiumMg) &&
+            (identical(other.fiberG, fiberG) || other.fiberG == fiberG) &&
+            (identical(other.sugarG, sugarG) || other.sugarG == sugarG));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, isFood, totalCalories, macros,
-      const DeepCollectionEquality().hash(dishes));
+      const DeepCollectionEquality().hash(dishes), sodiumMg, fiberG, sugarG);
 
   @override
   String toString() {
-    return 'ScanResultDto(isFood: $isFood, totalCalories: $totalCalories, macros: $macros, dishes: $dishes)';
+    return 'ScanResultDto(isFood: $isFood, totalCalories: $totalCalories, macros: $macros, dishes: $dishes, sodiumMg: $sodiumMg, fiberG: $fiberG, sugarG: $sugarG)';
   }
 }
 
@@ -65,7 +75,10 @@ abstract mixin class $ScanResultDtoCopyWith<$Res> {
       {@JsonKey(name: 'is_food') bool isFood,
       @JsonKey(name: 'total_calories') int totalCalories,
       MacroDto macros,
-      List<DishDto> dishes});
+      List<DishDto> dishes,
+      @JsonKey(name: 'sodium_mg', defaultValue: 0.0) double? sodiumMg,
+      @JsonKey(name: 'fiber_g', defaultValue: 0.0) double? fiberG,
+      @JsonKey(name: 'sugar_g', defaultValue: 0.0) double? sugarG});
 
   $MacroDtoCopyWith<$Res> get macros;
 }
@@ -87,6 +100,9 @@ class _$ScanResultDtoCopyWithImpl<$Res>
     Object? totalCalories = null,
     Object? macros = null,
     Object? dishes = null,
+    Object? sodiumMg = freezed,
+    Object? fiberG = freezed,
+    Object? sugarG = freezed,
   }) {
     return _then(_self.copyWith(
       isFood: null == isFood
@@ -105,6 +121,18 @@ class _$ScanResultDtoCopyWithImpl<$Res>
           ? _self.dishes
           : dishes // ignore: cast_nullable_to_non_nullable
               as List<DishDto>,
+      sodiumMg: freezed == sodiumMg
+          ? _self.sodiumMg
+          : sodiumMg // ignore: cast_nullable_to_non_nullable
+              as double?,
+      fiberG: freezed == fiberG
+          ? _self.fiberG
+          : fiberG // ignore: cast_nullable_to_non_nullable
+              as double?,
+      sugarG: freezed == sugarG
+          ? _self.sugarG
+          : sugarG // ignore: cast_nullable_to_non_nullable
+              as double?,
     ));
   }
 
@@ -216,15 +244,18 @@ extension ScanResultDtoPatterns on ScanResultDto {
             @JsonKey(name: 'is_food') bool isFood,
             @JsonKey(name: 'total_calories') int totalCalories,
             MacroDto macros,
-            List<DishDto> dishes)?
+            List<DishDto> dishes,
+            @JsonKey(name: 'sodium_mg', defaultValue: 0.0) double? sodiumMg,
+            @JsonKey(name: 'fiber_g', defaultValue: 0.0) double? fiberG,
+            @JsonKey(name: 'sugar_g', defaultValue: 0.0) double? sugarG)?
         $default, {
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
       case _ScanResultDto() when $default != null:
-        return $default(
-            _that.isFood, _that.totalCalories, _that.macros, _that.dishes);
+        return $default(_that.isFood, _that.totalCalories, _that.macros,
+            _that.dishes, _that.sodiumMg, _that.fiberG, _that.sugarG);
       case _:
         return orElse();
     }
@@ -249,14 +280,17 @@ extension ScanResultDtoPatterns on ScanResultDto {
             @JsonKey(name: 'is_food') bool isFood,
             @JsonKey(name: 'total_calories') int totalCalories,
             MacroDto macros,
-            List<DishDto> dishes)
+            List<DishDto> dishes,
+            @JsonKey(name: 'sodium_mg', defaultValue: 0.0) double? sodiumMg,
+            @JsonKey(name: 'fiber_g', defaultValue: 0.0) double? fiberG,
+            @JsonKey(name: 'sugar_g', defaultValue: 0.0) double? sugarG)
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _ScanResultDto():
-        return $default(
-            _that.isFood, _that.totalCalories, _that.macros, _that.dishes);
+        return $default(_that.isFood, _that.totalCalories, _that.macros,
+            _that.dishes, _that.sodiumMg, _that.fiberG, _that.sugarG);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -280,14 +314,17 @@ extension ScanResultDtoPatterns on ScanResultDto {
             @JsonKey(name: 'is_food') bool isFood,
             @JsonKey(name: 'total_calories') int totalCalories,
             MacroDto macros,
-            List<DishDto> dishes)?
+            List<DishDto> dishes,
+            @JsonKey(name: 'sodium_mg', defaultValue: 0.0) double? sodiumMg,
+            @JsonKey(name: 'fiber_g', defaultValue: 0.0) double? fiberG,
+            @JsonKey(name: 'sugar_g', defaultValue: 0.0) double? sugarG)?
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _ScanResultDto() when $default != null:
-        return $default(
-            _that.isFood, _that.totalCalories, _that.macros, _that.dishes);
+        return $default(_that.isFood, _that.totalCalories, _that.macros,
+            _that.dishes, _that.sodiumMg, _that.fiberG, _that.sugarG);
       case _:
         return null;
     }
@@ -301,7 +338,10 @@ class _ScanResultDto implements ScanResultDto {
       {@JsonKey(name: 'is_food') required this.isFood,
       @JsonKey(name: 'total_calories') required this.totalCalories,
       required this.macros,
-      required final List<DishDto> dishes})
+      required final List<DishDto> dishes,
+      @JsonKey(name: 'sodium_mg', defaultValue: 0.0) this.sodiumMg,
+      @JsonKey(name: 'fiber_g', defaultValue: 0.0) this.fiberG,
+      @JsonKey(name: 'sugar_g', defaultValue: 0.0) this.sugarG})
       : _dishes = dishes;
   factory _ScanResultDto.fromJson(Map<String, dynamic> json) =>
       _$ScanResultDtoFromJson(json);
@@ -321,6 +361,16 @@ class _ScanResultDto implements ScanResultDto {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_dishes);
   }
+
+  @override
+  @JsonKey(name: 'sodium_mg', defaultValue: 0.0)
+  final double? sodiumMg;
+  @override
+  @JsonKey(name: 'fiber_g', defaultValue: 0.0)
+  final double? fiberG;
+  @override
+  @JsonKey(name: 'sugar_g', defaultValue: 0.0)
+  final double? sugarG;
 
   /// Create a copy of ScanResultDto
   /// with the given fields replaced by the non-null parameter values.
@@ -346,17 +396,21 @@ class _ScanResultDto implements ScanResultDto {
             (identical(other.totalCalories, totalCalories) ||
                 other.totalCalories == totalCalories) &&
             (identical(other.macros, macros) || other.macros == macros) &&
-            const DeepCollectionEquality().equals(other._dishes, _dishes));
+            const DeepCollectionEquality().equals(other._dishes, _dishes) &&
+            (identical(other.sodiumMg, sodiumMg) ||
+                other.sodiumMg == sodiumMg) &&
+            (identical(other.fiberG, fiberG) || other.fiberG == fiberG) &&
+            (identical(other.sugarG, sugarG) || other.sugarG == sugarG));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, isFood, totalCalories, macros,
-      const DeepCollectionEquality().hash(_dishes));
+      const DeepCollectionEquality().hash(_dishes), sodiumMg, fiberG, sugarG);
 
   @override
   String toString() {
-    return 'ScanResultDto(isFood: $isFood, totalCalories: $totalCalories, macros: $macros, dishes: $dishes)';
+    return 'ScanResultDto(isFood: $isFood, totalCalories: $totalCalories, macros: $macros, dishes: $dishes, sodiumMg: $sodiumMg, fiberG: $fiberG, sugarG: $sugarG)';
   }
 }
 
@@ -372,7 +426,10 @@ abstract mixin class _$ScanResultDtoCopyWith<$Res>
       {@JsonKey(name: 'is_food') bool isFood,
       @JsonKey(name: 'total_calories') int totalCalories,
       MacroDto macros,
-      List<DishDto> dishes});
+      List<DishDto> dishes,
+      @JsonKey(name: 'sodium_mg', defaultValue: 0.0) double? sodiumMg,
+      @JsonKey(name: 'fiber_g', defaultValue: 0.0) double? fiberG,
+      @JsonKey(name: 'sugar_g', defaultValue: 0.0) double? sugarG});
 
   @override
   $MacroDtoCopyWith<$Res> get macros;
@@ -395,6 +452,9 @@ class __$ScanResultDtoCopyWithImpl<$Res>
     Object? totalCalories = null,
     Object? macros = null,
     Object? dishes = null,
+    Object? sodiumMg = freezed,
+    Object? fiberG = freezed,
+    Object? sugarG = freezed,
   }) {
     return _then(_ScanResultDto(
       isFood: null == isFood
@@ -413,6 +473,18 @@ class __$ScanResultDtoCopyWithImpl<$Res>
           ? _self._dishes
           : dishes // ignore: cast_nullable_to_non_nullable
               as List<DishDto>,
+      sodiumMg: freezed == sodiumMg
+          ? _self.sodiumMg
+          : sodiumMg // ignore: cast_nullable_to_non_nullable
+              as double?,
+      fiberG: freezed == fiberG
+          ? _self.fiberG
+          : fiberG // ignore: cast_nullable_to_non_nullable
+              as double?,
+      sugarG: freezed == sugarG
+          ? _self.sugarG
+          : sugarG // ignore: cast_nullable_to_non_nullable
+              as double?,
     ));
   }
 
@@ -791,6 +863,18 @@ mixin _$DishDto {
   @JsonKey(name: 'estimated_weight_g')
   int get estimatedWeightG;
   int get calories;
+  @JsonKey(name: 'carbs_g', defaultValue: 0)
+  int? get carbsG;
+  @JsonKey(name: 'protein_g', defaultValue: 0)
+  int? get proteinG;
+  @JsonKey(name: 'fat_g', defaultValue: 0)
+  int? get fatG;
+  @JsonKey(name: 'sodium_mg', defaultValue: 0.0)
+  double? get sodiumMg;
+  @JsonKey(name: 'fiber_g', defaultValue: 0.0)
+  double? get fiberG;
+  @JsonKey(name: 'sugar_g', defaultValue: 0.0)
+  double? get sugarG;
 
   /// Create a copy of DishDto
   /// with the given fields replaced by the non-null parameter values.
@@ -814,17 +898,35 @@ mixin _$DishDto {
             (identical(other.estimatedWeightG, estimatedWeightG) ||
                 other.estimatedWeightG == estimatedWeightG) &&
             (identical(other.calories, calories) ||
-                other.calories == calories));
+                other.calories == calories) &&
+            (identical(other.carbsG, carbsG) || other.carbsG == carbsG) &&
+            (identical(other.proteinG, proteinG) ||
+                other.proteinG == proteinG) &&
+            (identical(other.fatG, fatG) || other.fatG == fatG) &&
+            (identical(other.sodiumMg, sodiumMg) ||
+                other.sodiumMg == sodiumMg) &&
+            (identical(other.fiberG, fiberG) || other.fiberG == fiberG) &&
+            (identical(other.sugarG, sugarG) || other.sugarG == sugarG));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
-      runtimeType, dishName, confidenceScore, estimatedWeightG, calories);
+      runtimeType,
+      dishName,
+      confidenceScore,
+      estimatedWeightG,
+      calories,
+      carbsG,
+      proteinG,
+      fatG,
+      sodiumMg,
+      fiberG,
+      sugarG);
 
   @override
   String toString() {
-    return 'DishDto(dishName: $dishName, confidenceScore: $confidenceScore, estimatedWeightG: $estimatedWeightG, calories: $calories)';
+    return 'DishDto(dishName: $dishName, confidenceScore: $confidenceScore, estimatedWeightG: $estimatedWeightG, calories: $calories, carbsG: $carbsG, proteinG: $proteinG, fatG: $fatG, sodiumMg: $sodiumMg, fiberG: $fiberG, sugarG: $sugarG)';
   }
 }
 
@@ -837,7 +939,13 @@ abstract mixin class $DishDtoCopyWith<$Res> {
       {@JsonKey(name: 'dish_name') String dishName,
       @JsonKey(name: 'confidence_score') double confidenceScore,
       @JsonKey(name: 'estimated_weight_g') int estimatedWeightG,
-      int calories});
+      int calories,
+      @JsonKey(name: 'carbs_g', defaultValue: 0) int? carbsG,
+      @JsonKey(name: 'protein_g', defaultValue: 0) int? proteinG,
+      @JsonKey(name: 'fat_g', defaultValue: 0) int? fatG,
+      @JsonKey(name: 'sodium_mg', defaultValue: 0.0) double? sodiumMg,
+      @JsonKey(name: 'fiber_g', defaultValue: 0.0) double? fiberG,
+      @JsonKey(name: 'sugar_g', defaultValue: 0.0) double? sugarG});
 }
 
 /// @nodoc
@@ -856,6 +964,12 @@ class _$DishDtoCopyWithImpl<$Res> implements $DishDtoCopyWith<$Res> {
     Object? confidenceScore = null,
     Object? estimatedWeightG = null,
     Object? calories = null,
+    Object? carbsG = freezed,
+    Object? proteinG = freezed,
+    Object? fatG = freezed,
+    Object? sodiumMg = freezed,
+    Object? fiberG = freezed,
+    Object? sugarG = freezed,
   }) {
     return _then(_self.copyWith(
       dishName: null == dishName
@@ -874,6 +988,30 @@ class _$DishDtoCopyWithImpl<$Res> implements $DishDtoCopyWith<$Res> {
           ? _self.calories
           : calories // ignore: cast_nullable_to_non_nullable
               as int,
+      carbsG: freezed == carbsG
+          ? _self.carbsG
+          : carbsG // ignore: cast_nullable_to_non_nullable
+              as int?,
+      proteinG: freezed == proteinG
+          ? _self.proteinG
+          : proteinG // ignore: cast_nullable_to_non_nullable
+              as int?,
+      fatG: freezed == fatG
+          ? _self.fatG
+          : fatG // ignore: cast_nullable_to_non_nullable
+              as int?,
+      sodiumMg: freezed == sodiumMg
+          ? _self.sodiumMg
+          : sodiumMg // ignore: cast_nullable_to_non_nullable
+              as double?,
+      fiberG: freezed == fiberG
+          ? _self.fiberG
+          : fiberG // ignore: cast_nullable_to_non_nullable
+              as double?,
+      sugarG: freezed == sugarG
+          ? _self.sugarG
+          : sugarG // ignore: cast_nullable_to_non_nullable
+              as double?,
     ));
   }
 }
@@ -975,15 +1113,30 @@ extension DishDtoPatterns on DishDto {
             @JsonKey(name: 'dish_name') String dishName,
             @JsonKey(name: 'confidence_score') double confidenceScore,
             @JsonKey(name: 'estimated_weight_g') int estimatedWeightG,
-            int calories)?
+            int calories,
+            @JsonKey(name: 'carbs_g', defaultValue: 0) int? carbsG,
+            @JsonKey(name: 'protein_g', defaultValue: 0) int? proteinG,
+            @JsonKey(name: 'fat_g', defaultValue: 0) int? fatG,
+            @JsonKey(name: 'sodium_mg', defaultValue: 0.0) double? sodiumMg,
+            @JsonKey(name: 'fiber_g', defaultValue: 0.0) double? fiberG,
+            @JsonKey(name: 'sugar_g', defaultValue: 0.0) double? sugarG)?
         $default, {
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
       case _DishDto() when $default != null:
-        return $default(_that.dishName, _that.confidenceScore,
-            _that.estimatedWeightG, _that.calories);
+        return $default(
+            _that.dishName,
+            _that.confidenceScore,
+            _that.estimatedWeightG,
+            _that.calories,
+            _that.carbsG,
+            _that.proteinG,
+            _that.fatG,
+            _that.sodiumMg,
+            _that.fiberG,
+            _that.sugarG);
       case _:
         return orElse();
     }
@@ -1008,14 +1161,29 @@ extension DishDtoPatterns on DishDto {
             @JsonKey(name: 'dish_name') String dishName,
             @JsonKey(name: 'confidence_score') double confidenceScore,
             @JsonKey(name: 'estimated_weight_g') int estimatedWeightG,
-            int calories)
+            int calories,
+            @JsonKey(name: 'carbs_g', defaultValue: 0) int? carbsG,
+            @JsonKey(name: 'protein_g', defaultValue: 0) int? proteinG,
+            @JsonKey(name: 'fat_g', defaultValue: 0) int? fatG,
+            @JsonKey(name: 'sodium_mg', defaultValue: 0.0) double? sodiumMg,
+            @JsonKey(name: 'fiber_g', defaultValue: 0.0) double? fiberG,
+            @JsonKey(name: 'sugar_g', defaultValue: 0.0) double? sugarG)
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _DishDto():
-        return $default(_that.dishName, _that.confidenceScore,
-            _that.estimatedWeightG, _that.calories);
+        return $default(
+            _that.dishName,
+            _that.confidenceScore,
+            _that.estimatedWeightG,
+            _that.calories,
+            _that.carbsG,
+            _that.proteinG,
+            _that.fatG,
+            _that.sodiumMg,
+            _that.fiberG,
+            _that.sugarG);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -1039,14 +1207,29 @@ extension DishDtoPatterns on DishDto {
             @JsonKey(name: 'dish_name') String dishName,
             @JsonKey(name: 'confidence_score') double confidenceScore,
             @JsonKey(name: 'estimated_weight_g') int estimatedWeightG,
-            int calories)?
+            int calories,
+            @JsonKey(name: 'carbs_g', defaultValue: 0) int? carbsG,
+            @JsonKey(name: 'protein_g', defaultValue: 0) int? proteinG,
+            @JsonKey(name: 'fat_g', defaultValue: 0) int? fatG,
+            @JsonKey(name: 'sodium_mg', defaultValue: 0.0) double? sodiumMg,
+            @JsonKey(name: 'fiber_g', defaultValue: 0.0) double? fiberG,
+            @JsonKey(name: 'sugar_g', defaultValue: 0.0) double? sugarG)?
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _DishDto() when $default != null:
-        return $default(_that.dishName, _that.confidenceScore,
-            _that.estimatedWeightG, _that.calories);
+        return $default(
+            _that.dishName,
+            _that.confidenceScore,
+            _that.estimatedWeightG,
+            _that.calories,
+            _that.carbsG,
+            _that.proteinG,
+            _that.fatG,
+            _that.sodiumMg,
+            _that.fiberG,
+            _that.sugarG);
       case _:
         return null;
     }
@@ -1060,7 +1243,13 @@ class _DishDto implements DishDto {
       {@JsonKey(name: 'dish_name') required this.dishName,
       @JsonKey(name: 'confidence_score') required this.confidenceScore,
       @JsonKey(name: 'estimated_weight_g') required this.estimatedWeightG,
-      required this.calories});
+      required this.calories,
+      @JsonKey(name: 'carbs_g', defaultValue: 0) this.carbsG,
+      @JsonKey(name: 'protein_g', defaultValue: 0) this.proteinG,
+      @JsonKey(name: 'fat_g', defaultValue: 0) this.fatG,
+      @JsonKey(name: 'sodium_mg', defaultValue: 0.0) this.sodiumMg,
+      @JsonKey(name: 'fiber_g', defaultValue: 0.0) this.fiberG,
+      @JsonKey(name: 'sugar_g', defaultValue: 0.0) this.sugarG});
   factory _DishDto.fromJson(Map<String, dynamic> json) =>
       _$DishDtoFromJson(json);
 
@@ -1075,6 +1264,24 @@ class _DishDto implements DishDto {
   final int estimatedWeightG;
   @override
   final int calories;
+  @override
+  @JsonKey(name: 'carbs_g', defaultValue: 0)
+  final int? carbsG;
+  @override
+  @JsonKey(name: 'protein_g', defaultValue: 0)
+  final int? proteinG;
+  @override
+  @JsonKey(name: 'fat_g', defaultValue: 0)
+  final int? fatG;
+  @override
+  @JsonKey(name: 'sodium_mg', defaultValue: 0.0)
+  final double? sodiumMg;
+  @override
+  @JsonKey(name: 'fiber_g', defaultValue: 0.0)
+  final double? fiberG;
+  @override
+  @JsonKey(name: 'sugar_g', defaultValue: 0.0)
+  final double? sugarG;
 
   /// Create a copy of DishDto
   /// with the given fields replaced by the non-null parameter values.
@@ -1103,17 +1310,35 @@ class _DishDto implements DishDto {
             (identical(other.estimatedWeightG, estimatedWeightG) ||
                 other.estimatedWeightG == estimatedWeightG) &&
             (identical(other.calories, calories) ||
-                other.calories == calories));
+                other.calories == calories) &&
+            (identical(other.carbsG, carbsG) || other.carbsG == carbsG) &&
+            (identical(other.proteinG, proteinG) ||
+                other.proteinG == proteinG) &&
+            (identical(other.fatG, fatG) || other.fatG == fatG) &&
+            (identical(other.sodiumMg, sodiumMg) ||
+                other.sodiumMg == sodiumMg) &&
+            (identical(other.fiberG, fiberG) || other.fiberG == fiberG) &&
+            (identical(other.sugarG, sugarG) || other.sugarG == sugarG));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
-      runtimeType, dishName, confidenceScore, estimatedWeightG, calories);
+      runtimeType,
+      dishName,
+      confidenceScore,
+      estimatedWeightG,
+      calories,
+      carbsG,
+      proteinG,
+      fatG,
+      sodiumMg,
+      fiberG,
+      sugarG);
 
   @override
   String toString() {
-    return 'DishDto(dishName: $dishName, confidenceScore: $confidenceScore, estimatedWeightG: $estimatedWeightG, calories: $calories)';
+    return 'DishDto(dishName: $dishName, confidenceScore: $confidenceScore, estimatedWeightG: $estimatedWeightG, calories: $calories, carbsG: $carbsG, proteinG: $proteinG, fatG: $fatG, sodiumMg: $sodiumMg, fiberG: $fiberG, sugarG: $sugarG)';
   }
 }
 
@@ -1127,7 +1352,13 @@ abstract mixin class _$DishDtoCopyWith<$Res> implements $DishDtoCopyWith<$Res> {
       {@JsonKey(name: 'dish_name') String dishName,
       @JsonKey(name: 'confidence_score') double confidenceScore,
       @JsonKey(name: 'estimated_weight_g') int estimatedWeightG,
-      int calories});
+      int calories,
+      @JsonKey(name: 'carbs_g', defaultValue: 0) int? carbsG,
+      @JsonKey(name: 'protein_g', defaultValue: 0) int? proteinG,
+      @JsonKey(name: 'fat_g', defaultValue: 0) int? fatG,
+      @JsonKey(name: 'sodium_mg', defaultValue: 0.0) double? sodiumMg,
+      @JsonKey(name: 'fiber_g', defaultValue: 0.0) double? fiberG,
+      @JsonKey(name: 'sugar_g', defaultValue: 0.0) double? sugarG});
 }
 
 /// @nodoc
@@ -1146,6 +1377,12 @@ class __$DishDtoCopyWithImpl<$Res> implements _$DishDtoCopyWith<$Res> {
     Object? confidenceScore = null,
     Object? estimatedWeightG = null,
     Object? calories = null,
+    Object? carbsG = freezed,
+    Object? proteinG = freezed,
+    Object? fatG = freezed,
+    Object? sodiumMg = freezed,
+    Object? fiberG = freezed,
+    Object? sugarG = freezed,
   }) {
     return _then(_DishDto(
       dishName: null == dishName
@@ -1164,6 +1401,30 @@ class __$DishDtoCopyWithImpl<$Res> implements _$DishDtoCopyWith<$Res> {
           ? _self.calories
           : calories // ignore: cast_nullable_to_non_nullable
               as int,
+      carbsG: freezed == carbsG
+          ? _self.carbsG
+          : carbsG // ignore: cast_nullable_to_non_nullable
+              as int?,
+      proteinG: freezed == proteinG
+          ? _self.proteinG
+          : proteinG // ignore: cast_nullable_to_non_nullable
+              as int?,
+      fatG: freezed == fatG
+          ? _self.fatG
+          : fatG // ignore: cast_nullable_to_non_nullable
+              as int?,
+      sodiumMg: freezed == sodiumMg
+          ? _self.sodiumMg
+          : sodiumMg // ignore: cast_nullable_to_non_nullable
+              as double?,
+      fiberG: freezed == fiberG
+          ? _self.fiberG
+          : fiberG // ignore: cast_nullable_to_non_nullable
+              as double?,
+      sugarG: freezed == sugarG
+          ? _self.sugarG
+          : sugarG // ignore: cast_nullable_to_non_nullable
+              as double?,
     ));
   }
 }

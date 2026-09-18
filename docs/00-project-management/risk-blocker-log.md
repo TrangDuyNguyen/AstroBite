@@ -13,6 +13,8 @@
 | **`RSK-001`** | 2026-09-18 | **Performance** | Thư viện FL Chart có thể gây sụt giảm FPS (< 55 FPS) khi vẽ biểu đồ đường xu hướng nhiều ngày trên máy cấu hình yếu. | **Trung bình** | Bọc Widget biểu đồ bằng `RepaintBoundary` trên cả CalorieTrendChart và WeightTrendChart; giới hạn điểm dữ liệu render. Đã kiểm thử đạt. | `flutter-expert` & `qa-tester` | 🟢 **Resolved** |
 | **`RSK-002`** | 2026-09-18 | **Data / Network** | Khi người dùng nhập món thủ công hoặc quét ảnh ở nơi mất mạng, kết nối Cloud Firestore có thể bị timeout. | **Trung bình** | Sử dụng bộ nhớ đệm `common_foods_dataset.dart` cục bộ khi offline; thêm cờ báo chưa đồng bộ và kích hoạt sync ngầm khi có mạng. | `flutter-expert` | 🟢 **Controlled** |
 | **`RSK-003`** | 2026-09-18 | **AI Latency** | Gemini 2.0 Flash Vision đôi khi phản hồi chậm vào giờ cao điểm (> 2.5s). | **Thấp** | Nén ảnh JPEG xuống tối đa 512x512 trước khi gửi; hiển thị `SkeletonLoader` kèm thông điệp Celestial UI mượt mà để giữ chân người dùng. | `flutter-expert` & `qa-tester` | 🟢 **Controlled** |
+| **`RSK-004`** | 2026-09-18 | **AI Complexity** | Đĩa cơm đa món (`FEAT-06`) với bố cục phức tạp có thể làm tăng độ trễ AI (> 2.5s) hoặc sinh JSON thiếu cấu trúc. | **Trung bình** | Sử dụng System Prompt có JSON schema nghiêm ngặt, bóc tách `dishes` array độc lập; đã tích hợp và vượt qua unit/widget test. | `ui-ux-designer` & `flutter-expert` | 🟢 **Controlled** |
+| **`RSK-005`** | 2026-09-18 | **Offline Sync** | Khối lượng bản ghi chờ đồng bộ (`FEAT-07`) tích tụ lâu ngày có thể gây nghẽn mạng khi vừa online trở lại. | **Thấp** | Cơ chế đệm SharedPreferences + Pending Queue kết hợp nút bấm chủ động và sync ngầm; đã kiểm thử đạt 100%. | `ui-ux-designer` & `flutter-expert` | 🟢 **Controlled** |
 
 ---
 

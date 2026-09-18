@@ -19,6 +19,13 @@ _FoodLogDto _$FoodLogDtoFromJson(Map<String, dynamic> json) => _FoodLogDto(
       source: json['source'] as String,
       confidenceScore: (json['confidenceScore'] as num?)?.toDouble(),
       imageUrl: json['imageUrl'] as String?,
+      sodiumMg: (json['sodium_mg'] as num?)?.toDouble() ?? 0.0,
+      fiberG: (json['fiber_g'] as num?)?.toDouble() ?? 0.0,
+      sugarG: (json['sugar_g'] as num?)?.toDouble() ?? 0.0,
+      syncStatus: json['sync_status'] as String? ?? 'synced',
+      dishes: (json['dishes'] as List<dynamic>?)
+          ?.map((e) => e as Map<String, dynamic>)
+          .toList(),
     );
 
 Map<String, dynamic> _$FoodLogDtoToJson(_FoodLogDto instance) =>
@@ -35,4 +42,9 @@ Map<String, dynamic> _$FoodLogDtoToJson(_FoodLogDto instance) =>
       'source': instance.source,
       'confidenceScore': instance.confidenceScore,
       'imageUrl': instance.imageUrl,
+      'sodium_mg': instance.sodiumMg,
+      'fiber_g': instance.fiberG,
+      'sugar_g': instance.sugarG,
+      'sync_status': instance.syncStatus,
+      'dishes': instance.dishes,
     };

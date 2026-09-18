@@ -58,12 +58,22 @@ class ScanFoodUseCase {
         proteinG: dto.macros.proteinG,
         carbsG: dto.macros.carbsG,
         fatG: dto.macros.fatG,
+        sodiumMg: dto.sodiumMg ?? 0.0,
+        fiberG: dto.fiberG ?? 0.0,
+        sugarG: dto.sugarG ?? 0.0,
         dishes: dto.dishes
             .map((d) => DishItem(
                   dishName: d.dishName,
                   confidenceScore: d.confidenceScore,
                   estimatedWeightG: d.estimatedWeightG,
                   calories: d.calories,
+                  carbsG: d.carbsG ?? 0,
+                  proteinG: d.proteinG ?? 0,
+                  fatG: d.fatG ?? 0,
+                  sodiumMg: d.sodiumMg ?? 0.0,
+                  fiberG: d.fiberG ?? 0.0,
+                  sugarG: d.sugarG ?? 0.0,
+                  isSelected: true,
                 ))
             .toList(),
       );

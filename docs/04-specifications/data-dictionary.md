@@ -38,15 +38,63 @@ Lưu trữ các lần ghi nhận món ăn theo từng ngày.
 
 | Tên trường | Kiểu dữ liệu | Bắt buộc | Mô tả & Giá trị hợp lệ |
 | :--- | :--- | :---: | :--- |
-| `id` | String | Có | Mã định danh bản ghi bữa ăn |
+| `id` | String | Có | Mã định danh bản ghi bữa ăn (UUID v4 sinh từ client) |
 | `user_id` | String | Có | UID người sở hữu |
 | `meal_type` | String | Có | `"breakfast"`, `"lunch"`, `"dinner"`, `"snack"` |
-| `food_name` | String | Có | Tên món ăn (VD: "Phở Bò") |
-| `serving_size_g` | Number (double) | Có | Khẩu phần thực tế (gram) |
+| `food_name` | String | Có | Tên món ăn hoặc chuỗi tổng hợp các món đa món (VD: "Cơm tấm, Sườn nướng, Chả trứng") |
+| `serving_size_g` | Number (double) | Có | Tổng khẩu phần thực tế (gram) |
 | `calories` | Number (double) | Có | Tổng calo nạp vào (kcal) |
 | `carbs_g` | Number (double) | Có | Lượng Carbohydrates (g) |
 | `fat_g` | Number (double) | Có | Lượng Chất béo (g) |
 | `protein_g` | Number (double) | Có | Lượng Chất đạm (g) |
+| `sodium_mg` | Number (double) | Không | Hàm lượng Natri / Muối (mg) (Mặc định 0.0 nếu chưa có) |
+| `fiber_g` | Number (double) | Không | Hàm lượng Chất xơ (g) (Mặc định 0.0 nếu chưa có) |
+| `sugar_g` | Number (double) | Không | Hàm lượng Đường (g) (Mặc định 0.0 nếu chưa có) |
+| `dishes` | Array<Map> | Không | Danh sách các món con chi tiết trong bữa ăn đa món (Xem bảng 2.1) |
 | `image_url` | String | Không | Đường dẫn ảnh trên Firebase Storage |
-| `source` | String | Có | `"ai_scan"` hoặc `"manual_entry"` |
+| `source` | String | Có | `"ai_scan"`, `"multi_scan"`, hoặc `"manual_entry"` |
+| `sync_status` | String | Có | Trạng thái đồng bộ: `"synced"`, `"pending_sync"`, `"failed"` |
+| `last_modified_at`| Timestamp | Có | Thời điểm chỉnh sửa gần nhất (Dùng cho Last-Write-Wins sync) |
 | `logged_at` | Timestamp | Có | Thời gian ăn (dùng để nhóm theo ngày) |
+
+### 2.1. Cấu trúc phần tử trong mảng `dishes` (Dành cho bữa ăn đa món)
+
+| Tên trường | Kiểu dữ liệu | Bắt buộc | Mô tả |
+| :--- | :--- | :---: | :--- |
+| `dish_name` | String | Có | Tên món ăn con (VD: "Sườn nướng") |
+| `estimated_weight_g` | Number (int) | Có | Trọng lượng món con (gram) |
+| `calories` | Number (int) | Có | Calo của riêng món con |
+| `carbs_g` | Number (int) | Có | Carbs của món con (g) |
+| `fat_g` | Number (int) | Có | Fat của món con (g) |
+| `protein_g` | Number (int) | Có | Protein của món con (g) |
+| `sodium_mg` | Number (double)| Không | Natri của món con (mg) |
+| `fiber_g` | Number (double)| Không | Chất xơ của món con (g) |
+| `sugar_g` | Number (double)| Không | Đường của món con (g) |
+| `confidence_score` | Number (double)| Có | Độ tin cậy AI nhận diện (0.0 - 1.0) |
+| `is_selected` | Boolean | Có | `true`: Được tính vào bữa; `false`: Bỏ chọn không ăn |
+
+---
+
+## 3. Cấu Trúc Bộ Nhớ Đệm Cục Bộ (Local Cache & Offline Storage)
+
+Sử dụng bộ nhớ cục bộ hiệu năng cao (Hive Key-Value Box) trên thiết bị di động để bảo đảm tính khả dụng Offline-First:
+
+### 3.1. Box `offline_meal_logs`
+- **Khóa (Key)**: `String id` (UUID bản ghi).
+- **Giá trị (Value)**: JSON map chứa toàn bộ các trường của bản ghi `meal_logs` tương thích với Firestore DTO.
+- **Phạm vi lưu trữ**: Tối đa 30 ngày gần nhất của tài khoản hiện tại.
+
+### 3.2. Box `sync_queue`
+Lưu trữ danh sách các tác vụ đồng bộ đang chờ gửi lên server khi có mạng:
+
+| Tên trường | Kiểu dữ liệu | Bắt buộc | Mô tả |
+| :--- | :--- | :---: | :--- |
+| `task_id` | String | Có | UUID tác vụ đồng bộ |
+| `action` | String | Có | Loại hành động: `"create"`, `"update"`, `"delete"` |
+| `entity_type` | String | Có | Loại thực thể: `"meal_log"`, `"user_profile"` |
+| `entity_id` | String | Có | ID của bản ghi mục tiêu |
+| `payload` | Map<String, dynamic> | Có | Dữ liệu đầy đủ cần gửi lên Firestore |
+| `created_at` | DateTime | Có | Thời gian tạo tác vụ |
+| `retry_count` | Number (int) | Có | Số lần đã thử lại (Tối đa 5 lần với Exponential Backoff) |
+| `last_error` | String | Không | Lý do lỗi lần thử gần nhất |
+

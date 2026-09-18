@@ -55,6 +55,12 @@ class FakeFoodLogRepository implements FoodLogRepository {
     required String startDate,
     required String endDate,
   }) async => savedLogs;
+
+  @override
+  Future<int> syncPendingLogs({required String userId}) async => 0;
+
+  @override
+  Future<List<FoodLogDto>> getPendingSyncLogs({required String userId}) async => [];
 }
 
 void main() {

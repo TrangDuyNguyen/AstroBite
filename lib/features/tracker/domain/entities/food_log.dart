@@ -12,6 +12,10 @@ class FoodLog {
     required this.source,
     this.confidenceScore,
     this.imageUrl,
+    this.sodiumMg = 0.0,
+    this.fiberG = 0.0,
+    this.sugarG = 0.0,
+    this.syncStatus = 'synced',
   });
 
   final String id;
@@ -26,4 +30,10 @@ class FoodLog {
   final String source;
   final double? confidenceScore;
   final String? imageUrl;
+  final double sodiumMg;
+  final double fiberG;
+  final double sugarG;
+  final String syncStatus;
+
+  bool get isHighSodium => sodiumMg > 800.0;
 }

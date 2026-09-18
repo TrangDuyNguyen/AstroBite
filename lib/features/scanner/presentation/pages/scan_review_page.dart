@@ -13,6 +13,7 @@ import 'package:astrobite/features/tracker/data/models/food_log_dto.dart';
 import 'package:astrobite/features/tracker/domain/tracker_providers.dart';
 import 'package:astrobite/shared/widgets/glass_card.dart';
 import 'package:astrobite/shared/widgets/meal_type_chip.dart';
+import '../widgets/micronutrient_chips_row.dart';
 
 @RoutePage()
 class ScanReviewPage extends ConsumerStatefulWidget {
@@ -33,6 +34,7 @@ class _ScanReviewPageState extends ConsumerState<ScanReviewPage> {
   late String _selectedMeal;
   int _currentWeightG = 0;
   bool _isSaving = false;
+  List<DishItem> _dishes = [];
 
   static String _defaultMealType() {
     final hour = DateTime.now().hour;
@@ -61,6 +63,7 @@ class _ScanReviewPageState extends ConsumerState<ScanReviewPage> {
           : (initial.dishes.isNotEmpty
               ? initial.dishes.first.estimatedWeightG
               : 350);
+      _dishes = initial.dishes.map((d) => d.copyWith()).toList();
     }
   }
 
@@ -72,7 +75,28 @@ class _ScanReviewPageState extends ConsumerState<ScanReviewPage> {
     return null;
   }
 
-  Future<void> _saveFoodLog(ScanResult scaled) async {
+  ScanResult _computeEffectiveResult(ScanResult base) {
+    if (_dishes.length <= 1) {
+      final effectiveWeight = _currentWeightG > 0
+          ? _currentWeightG
+          : (base.totalWeightG > 0 ? base.totalWeightG : 350);
+      return base.scaleToWeight(effectiveWeight);
+    }
+
+    return ScanResult(
+      isFood: true,
+      totalCalories: base.totalCalories,
+      proteinG: base.proteinG,
+      carbsG: base.carbsG,
+      fatG: base.fatG,
+      sodiumMg: base.sodiumMg,
+      fiberG: base.fiberG,
+      sugarG: base.sugarG,
+      dishes: _dishes,
+    );
+  }
+
+  Future<void> _saveFoodLog(ScanResult effective) async {
     if (_isSaving) return;
     setState(() => _isSaving = true);
 
@@ -88,19 +112,41 @@ class _ScanReviewPageState extends ConsumerState<ScanReviewPage> {
     }
 
     try {
+      final activeDishes = _dishes.where((d) => d.isSelected).toList();
+      final isMulti = activeDishes.length > 1;
+
       final log = FoodLogDto(
         id: '',
         date: ref.read(todayDateProvider),
         mealType: _selectedMeal,
-        dishName: scaled.primaryDishName,
-        estimatedWeightG: _currentWeightG,
-        calories: scaled.totalCalories,
-        proteinG: scaled.proteinG,
-        carbsG: scaled.carbsG,
-        fatG: scaled.fatG,
-        source: 'ai_scan',
-        confidenceScore: scaled.primaryConfidenceScore,
+        dishName: effective.primaryDishName,
+        estimatedWeightG: _dishes.length > 1 ? effective.activeWeightG : _currentWeightG,
+        calories: effective.activeCalories,
+        proteinG: effective.activeProteinG,
+        carbsG: effective.activeCarbsG,
+        fatG: effective.activeFatG,
+        source: isMulti ? 'multi_scan' : 'ai_scan',
+        confidenceScore: effective.primaryConfidenceScore,
         imageUrl: null,
+        sodiumMg: effective.activeSodiumMg,
+        fiberG: effective.activeFiberG,
+        sugarG: effective.activeSugarG,
+        syncStatus: 'pending_sync',
+        dishes: activeDishes
+            .map((d) => {
+                  'dish_name': d.dishName,
+                  'estimated_weight_g': d.estimatedWeightG,
+                  'calories': d.calories,
+                  'carbs_g': d.carbsG,
+                  'protein_g': d.proteinG,
+                  'fat_g': d.fatG,
+                  'sodium_mg': d.sodiumMg,
+                  'fiber_g': d.fiberG,
+                  'sugar_g': d.sugarG,
+                  'confidence_score': d.confidenceScore,
+                  'is_selected': d.isSelected,
+                })
+            .toList(),
       );
 
       await ref.read(foodLogRepositoryProvider).addFoodLog(
@@ -112,7 +158,7 @@ class _ScanReviewPageState extends ConsumerState<ScanReviewPage> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-              'Đã lưu ${scaled.primaryDishName} vào ${_mealLabel(_selectedMeal)}!',
+              'Đã lưu ${effective.primaryDishName} vào ${_mealLabel(_selectedMeal)}!',
             ),
           ),
         );
@@ -129,6 +175,111 @@ class _ScanReviewPageState extends ConsumerState<ScanReviewPage> {
         setState(() => _isSaving = false);
       }
     }
+  }
+
+  void _showQuickAddSheet(BuildContext context) {
+    final nameController = TextEditingController();
+    final calController = TextEditingController();
+    final weightController = TextEditingController(text: '150');
+
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: AppColors.surfaceContainer,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(AppValues.cardRadius)),
+      ),
+      builder: (ctx) => Padding(
+        padding: EdgeInsets.only(
+          left: AppValues.screenPadding,
+          right: AppValues.screenPadding,
+          top: AppValues.screenPadding,
+          bottom: MediaQuery.of(ctx).viewInsets.bottom + AppValues.screenPadding,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Thêm món ăn thủ công',
+                  style: Theme.of(ctx).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.close),
+                  onPressed: () => Navigator.of(ctx).pop(),
+                ),
+              ],
+            ),
+            const SizedBox(height: AppValues.spacing12),
+            TextField(
+              controller: nameController,
+              decoration: const InputDecoration(
+                labelText: 'Tên món ăn',
+                hintText: 'VD: Canh khổ qua, Trứng ốp la...',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: AppValues.spacing12),
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: calController,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                      labelText: 'Calo (kcal)',
+                      hintText: 'VD: 120',
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: AppValues.spacing12),
+                Expanded(
+                  child: TextField(
+                    controller: weightController,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                      labelText: 'Khẩu phần (g)',
+                      hintText: 'VD: 150',
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: AppValues.spacing16),
+            FilledButton(
+              onPressed: () {
+                final name = nameController.text.trim();
+                final cal = int.tryParse(calController.text.trim()) ?? 0;
+                final weight = int.tryParse(weightController.text.trim()) ?? 150;
+                if (name.isNotEmpty && cal > 0) {
+                  setState(() {
+                    _dishes.add(DishItem(
+                      dishName: name,
+                      confidenceScore: 1.0,
+                      estimatedWeightG: weight,
+                      calories: cal,
+                      carbsG: (cal * 0.5 / 4).round(),
+                      proteinG: (cal * 0.3 / 4).round(),
+                      fatG: (cal * 0.2 / 9).round(),
+                      isSelected: true,
+                    ));
+                  });
+                  Navigator.of(ctx).pop();
+                }
+              },
+              child: const Text('Thêm vào mâm cơm'),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   @override
@@ -156,11 +307,10 @@ class _ScanReviewPageState extends ConsumerState<ScanReviewPage> {
       );
     }
 
-    // Dynamic scaled calculation
+    final scaled = _computeEffectiveResult(baseResult);
     final effectiveWeight = _currentWeightG > 0
         ? _currentWeightG
         : (baseResult.totalWeightG > 0 ? baseResult.totalWeightG : 350);
-    final scaled = baseResult.scaleToWeight(effectiveWeight);
 
     return Scaffold(
       appBar: AppBar(
@@ -226,7 +376,7 @@ class _ScanReviewPageState extends ConsumerState<ScanReviewPage> {
                 child: Column(
                   children: [
                     Text(
-                      '${scaled.totalCalories} kcal',
+                      '${scaled.activeCalories} kcal',
                       style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                             fontSize: 40,
                             fontWeight: FontWeight.bold,
@@ -241,135 +391,170 @@ class _ScanReviewPageState extends ConsumerState<ScanReviewPage> {
                       children: [
                         _MacroIndicator(
                           label: 'Tinh bột',
-                          value: '${scaled.carbsG}g',
+                          value: '${scaled.activeCarbsG}g',
                           color: AppColors.primary, // #1A73E8
                         ),
                         _MacroIndicator(
                           label: 'Chất đạm',
-                          value: '${scaled.proteinG}g',
+                          value: '${scaled.activeProteinG}g',
                           color: AppColors.tertiary, // #FFD700
                         ),
                         _MacroIndicator(
                           label: 'Chất béo',
-                          value: '${scaled.fatG}g',
+                          value: '${scaled.activeFatG}g',
                           color: AppColors.secondary, // #FF69B4
                         ),
                       ],
+                    ),
+                    const SizedBox(height: AppValues.spacing16),
+                    // CMP-MIC-01: Micronutrient Chips Row
+                    MicronutrientChipsRow(
+                      sodiumMg: scaled.activeSodiumMg,
+                      fiberG: scaled.activeFiberG,
+                      sugarG: scaled.activeSugarG,
                     ),
                   ],
                 ),
               ),
               const SizedBox(height: AppValues.spacing24),
 
-              // COMP-03: Portion Adjustment Slider
-              Card(
-                color: AppColors.surfaceContainer,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(AppValues.cardRadius),
-                  side: BorderSide(
-                    color: AppColors.outline.withValues(alpha: 0.3),
+              // Single item portion slider (if only 1 dish)
+              if (_dishes.length <= 1) ...[
+                Card(
+                  color: AppColors.surfaceContainer,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(AppValues.cardRadius),
+                    side: BorderSide(
+                      color: AppColors.outline.withValues(alpha: 0.3),
+                    ),
                   ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(AppValues.cardPadding),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Khẩu phần ước lượng',
-                            style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                          ),
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: AppValues.spacing12,
-                              vertical: AppValues.spacing4,
-                            ),
-                            decoration: BoxDecoration(
-                              color: AppColors.primary.withValues(alpha: 0.2),
-                              borderRadius: BorderRadius.circular(AppValues.radius8),
-                            ),
-                            child: Text(
-                              '${effectiveWeight}g',
+                  child: Padding(
+                    padding: const EdgeInsets.all(AppValues.cardPadding),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Khẩu phần ước lượng',
                               style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                                    color: AppColors.primary,
                                     fontWeight: FontWeight.bold,
                                   ),
                             ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: AppValues.spacing8),
-                      SliderTheme(
-                        data: SliderTheme.of(context).copyWith(
-                          activeTrackColor: AppColors.primary,
-                          inactiveTrackColor: AppColors.outline.withValues(alpha: 0.3),
-                          thumbColor: AppColors.primary,
-                          overlayColor: AppColors.primary.withValues(alpha: 0.2),
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: AppValues.spacing12,
+                                vertical: AppValues.spacing4,
+                              ),
+                              decoration: BoxDecoration(
+                                color: AppColors.primary.withValues(alpha: 0.2),
+                                borderRadius: BorderRadius.circular(AppValues.radius8),
+                              ),
+                              child: Text(
+                                '${effectiveWeight}g',
+                                style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                                      color: AppColors.primary,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                              ),
+                            ),
+                          ],
                         ),
-                        child: Slider(
-                          value: effectiveWeight.toDouble().clamp(50.0, 1000.0),
-                          min: 50.0,
-                          max: 1000.0,
-                          divisions: 95,
-                          onChanged: (val) {
-                            HapticFeedback.selectionClick();
-                            setState(() {
-                              _currentWeightG = val.round();
-                            });
-                          },
+                        const SizedBox(height: AppValues.spacing8),
+                        SliderTheme(
+                          data: SliderTheme.of(context).copyWith(
+                            activeTrackColor: AppColors.primary,
+                            inactiveTrackColor: AppColors.outline.withValues(alpha: 0.3),
+                            thumbColor: AppColors.primary,
+                            overlayColor: AppColors.primary.withValues(alpha: 0.2),
+                          ),
+                          child: Slider(
+                            value: effectiveWeight.toDouble().clamp(50.0, 1000.0),
+                            min: 50.0,
+                            max: 1000.0,
+                            divisions: 95,
+                            onChanged: (val) {
+                              HapticFeedback.selectionClick();
+                              setState(() {
+                                _currentWeightG = val.round();
+                              });
+                            },
+                          ),
                         ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            '50g',
-                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                  color: AppColors.onSurfaceVariant,
-                                ),
-                          ),
-                          Text(
-                            '1000g',
-                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                  color: AppColors.onSurfaceVariant,
-                                ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: AppValues.spacing16),
-
-              // Dishes segment detail if multiple dishes identified
-              if (scaled.dishes.length > 1) ...[
-                Text(
-                  'Thành phần nhận diện (${scaled.dishes.length} món)',
-                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
-                ),
-                const SizedBox(height: AppValues.spacing8),
-                ...scaled.dishes.map(
-                  (dish) => Card(
-                    margin: const EdgeInsets.only(bottom: AppValues.spacing8),
-                    color: AppColors.surfaceContainer,
-                    child: ListTile(
-                      title: Text(dish.dishName),
-                      subtitle: Text('${dish.estimatedWeightG}g'),
-                      trailing: Text(
-                        '${dish.calories} kcal',
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                      ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              '50g',
+                              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                    color: AppColors.onSurfaceVariant,
+                                  ),
+                            ),
+                            Text(
+                              '1000g',
+                              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                    color: AppColors.onSurfaceVariant,
+                                  ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
                 ),
+                const SizedBox(height: AppValues.spacing16),
+              ],
+
+              // Multi-Item dishes segment detail
+              if (_dishes.length > 1) ...[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Thành phần nhận diện (${_dishes.length} món)',
+                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
+                    ),
+                    TextButton.icon(
+                      icon: const Icon(Icons.add, size: 18),
+                      label: const Text('Thêm món'),
+                      onPressed: () => _showQuickAddSheet(context),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: AppValues.spacing8),
+                ...List.generate(_dishes.length, (idx) {
+                  final dish = _dishes[idx];
+                  return _DishItemCard(
+                    dish: dish,
+                    onToggle: (val) {
+                      setState(() {
+                        dish.isSelected = val ?? true;
+                      });
+                    },
+                    onWeightChanged: (newWeight) {
+                      setState(() {
+                        final baseWeight = dish.estimatedWeightG > 0 ? dish.estimatedWeightG : 100;
+                        final ratio = newWeight / baseWeight;
+                        dish.estimatedWeightG = newWeight;
+                        dish.calories = (dish.calories * ratio).round();
+                        dish.carbsG = (dish.carbsG * ratio).round();
+                        dish.proteinG = (dish.proteinG * ratio).round();
+                        dish.fatG = (dish.fatG * ratio).round();
+                        dish.sodiumMg = dish.sodiumMg * ratio;
+                        dish.fiberG = dish.fiberG * ratio;
+                        dish.sugarG = dish.sugarG * ratio;
+                      });
+                    },
+                    onRemove: () {
+                      setState(() {
+                        _dishes.removeAt(idx);
+                      });
+                    },
+                  );
+                }),
                 const SizedBox(height: AppValues.spacing16),
               ],
 
@@ -436,7 +621,7 @@ class _ScanReviewPageState extends ConsumerState<ScanReviewPage> {
                       Text(
                         _isSaving
                             ? 'Đang lưu...'
-                            : 'Lưu vào ${_mealLabel(_selectedMeal)} (${scaled.totalCalories} kcal)',
+                            : 'Lưu vào ${_mealLabel(_selectedMeal)} (${scaled.activeCalories} kcal)',
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ],
@@ -447,6 +632,170 @@ class _ScanReviewPageState extends ConsumerState<ScanReviewPage> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _DishItemCard extends StatelessWidget {
+  const _DishItemCard({
+    required this.dish,
+    required this.onToggle,
+    required this.onWeightChanged,
+    required this.onRemove,
+  });
+
+  final DishItem dish;
+  final ValueChanged<bool?> onToggle;
+  final ValueChanged<int> onWeightChanged;
+  final VoidCallback onRemove;
+
+  @override
+  Widget build(BuildContext context) {
+    final isSelected = dish.isSelected;
+
+    return AnimatedOpacity(
+      duration: const Duration(milliseconds: 200),
+      opacity: isSelected ? 1.0 : 0.4,
+      child: Card(
+        margin: const EdgeInsets.only(bottom: AppValues.spacing12),
+        color: AppColors.surfaceContainer,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppValues.radius12),
+          side: BorderSide(
+            color: isSelected
+                ? AppColors.primary.withValues(alpha: 0.3)
+                : AppColors.outline.withValues(alpha: 0.15),
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(AppValues.spacing12),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Checkbox(
+                    value: isSelected,
+                    onChanged: onToggle,
+                    activeColor: AppColors.primary,
+                  ),
+                  Expanded(
+                    child: Text(
+                      dish.dishName,
+                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            decoration: isSelected
+                                ? TextDecoration.none
+                                : TextDecoration.lineThrough,
+                          ),
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: AppValues.spacing8,
+                      vertical: 2,
+                    ),
+                    decoration: BoxDecoration(
+                      color: AppColors.primary.withValues(alpha: 0.15),
+                      borderRadius: BorderRadius.circular(AppValues.radius8),
+                    ),
+                    child: Text(
+                      '${(dish.confidenceScore * 100).toInt()}% tin cậy',
+                      style: const TextStyle(
+                        color: AppColors.primary,
+                        fontSize: 11,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.close, size: 18),
+                    tooltip: 'Xóa món',
+                    onPressed: onRemove,
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: AppValues.spacing8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      '${dish.estimatedWeightG}g • ${dish.calories} kcal',
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.onSurface,
+                          ),
+                    ),
+                    Row(
+                      children: [
+                        _MiniMacro(label: 'C', value: '${dish.carbsG}g', color: AppColors.primary),
+                        const SizedBox(width: AppValues.spacing8),
+                        _MiniMacro(label: 'P', value: '${dish.proteinG}g', color: AppColors.tertiary),
+                        const SizedBox(width: AppValues.spacing8),
+                        _MiniMacro(label: 'F', value: '${dish.fatG}g', color: AppColors.secondary),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              if (isSelected) ...[
+                const SizedBox(height: AppValues.spacing4),
+                SliderTheme(
+                  data: SliderTheme.of(context).copyWith(
+                    activeTrackColor: AppColors.primary,
+                    inactiveTrackColor: AppColors.outline.withValues(alpha: 0.3),
+                    thumbColor: AppColors.primary,
+                    thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 6),
+                    trackHeight: 3,
+                  ),
+                  child: Slider(
+                    value: dish.estimatedWeightG.toDouble().clamp(20.0, 800.0),
+                    min: 20.0,
+                    max: 800.0,
+                    divisions: 156,
+                    onChanged: (val) {
+                      HapticFeedback.selectionClick();
+                      onWeightChanged(val.round());
+                    },
+                  ),
+                ),
+              ],
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _MiniMacro extends StatelessWidget {
+  const _MiniMacro({
+    required this.label,
+    required this.value,
+    required this.color,
+  });
+
+  final String label;
+  final String value;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          width: 6,
+          height: 6,
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+        ),
+        const SizedBox(width: 4),
+        Text(
+          value,
+          style: TextStyle(fontSize: 11, color: color, fontWeight: FontWeight.w500),
+        ),
+      ],
     );
   }
 }
