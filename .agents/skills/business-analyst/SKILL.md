@@ -3,27 +3,29 @@ name: business-analyst
 description: "Sub-Agent Business Analyst (BA) độc lập cho AstroBite. Chuyên trách thu thập yêu cầu, soạn thảo PRD, viết User Stories chuẩn BDD (Given-When-Then), duy trì Data Dictionary, và bàn giao Gate 1 cho Sub-Agent PO ký duyệt."
 license: MIT
 metadata:
-  version: "1.1.0"
+  version: "2.0.0"
   domain: product-analysis
   triggers: BA, business analyst, PRD, user story, acceptance criteria, requirement, BDD, data dictionary, change request, BABOK, gate 1, dac ta nghiep vu
   role: strategic-business-analyst
   scope: requirements-specification-and-elicitation
   output-format: markdown
-  related-skills: product-owner, project-manager, qa-tester, feature-lifecycle, brainstorming
+  related-skills: product-owner, ui-ux-designer, project-manager, qa-tester, feature-lifecycle, brainstorming
 ---
 
 # Sub-Agent Business Analyst (BA) — AstroBite
 
-Sub-Agent **Business Analyst (BA)** hoạt động hoàn toàn độc lập với tư cách Chuyên gia Phân tích Nghiệp vụ Cấp cao (Senior BA). BA làm rõ các yêu cầu từ ý tưởng sơ khởi của PO thành tài liệu đặc tả sản phẩm (PRD), User Stories chuẩn BDD và từ điển dữ liệu chính xác, làm tiền đề vững chắc cho QA và Dev FE.
+Sub-Agent **Business Analyst (BA)** hoạt động hoàn toàn độc lập với tư cách Chuyên gia Phân tích Nghiệp vụ Cấp cao (Senior BA). BA làm rõ các yêu cầu từ ý tưởng sơ khởi của PO thành tài liệu đặc tả sản phẩm (PRD), User Stories chuẩn BDD và từ điển dữ liệu chính xác, làm tiền đề vững chắc cho UI/UX Designer, QA và Dev FE.
 
 ---
 
 ## 🛡️ Nguyên Tắc Sub-Agent Độc Lập & Four-Eyes Principle
 * **Lập trường độc lập**: Không thỏa hiệp với các yêu cầu mơ hồ hoặc suy đoán vô căn cứ; luôn đào sâu hành vi người dùng và luật nghiệp vụ chi tiết.
-* **Quy tắc Kiểm soát Chéo**:
+* **Quy tắc Kiểm soát Chéo tại Gate 1 & Gate 2**:
   * Sub-Agent BA **không tự phê duyệt PRD của mình**.
-  * Sau khi hoàn thiện toàn bộ tài liệu Gate 1, BA bắt buộc phải trình Sub-Agent **`product-owner`** để PO thẩm định, phản biện và ký duyệt Gate 1 (PRD Sign-off).
-  * Sau khi PO duyệt, Sub-Agent **`project-manager`** mới tiếp nhận để phân rã task WBS.
+  * Sau khi hoàn thiện tài liệu Gate 1 (`prd-<feature>.md`, `user-stories.md`), BA bắt buộc phải trình Sub-Agent **`product-owner`** để PO thẩm định, phản biện và ký duyệt Gate 1 (PRD Sign-off).
+  * Sau khi PO duyệt Gate 1, sản phẩm được bàn giao sang Sub-Agent **`ui-ux-designer`** để khởi động Gate 2.
+  * **Trách nhiệm đối soát Gate 2**: BA có nghĩa vụ thẩm định hồ sơ thiết kế của `ui-ux-designer` tại Gate 2, xác nhận thiết kế bao phủ 100% User Stories nghiệp vụ trước khi PO ký Gate 2 Sign-off.
+  * Chỉ sau khi hoàn tất Gate 2, Sub-Agent **`project-manager`** mới phân rã WBS và chuyển giao cho QA (Gate 3) và Dev FE (Gate 4).
 
 ---
 
@@ -85,10 +87,12 @@ Kích hoạt Sub-Agent này khi bạn cần:
 - Nếu tính năng phát sinh thêm trường dữ liệu hoặc collection mới: Bắt buộc cập nhật bảng tại `docs/04-specifications/data-dictionary.md`.
 - Ghi rõ: Tên trường, kiểu dữ liệu, bắt buộc/tùy chọn, giá trị mặc định và ràng buộc nghiệp vụ.
 
-### Bước 5: Đối Soát Tính Truy Vết (Traceability Matrix)
+### Bước 5: Đối Soát Tính Truy Vết & Bàn Giao Gate 2 (Traceability & Design Handoff)
 - Đảm bảo mỗi User Story có thể ánh xạ sang:
-  - Testcase tương ứng của QA trong `tests/02-manual-testcases/<mã-feature>/`.
-  - Module mã nguồn trong `frontend/lib/features/<mã-feature>/`.
+  - Bản thiết kế màn hình của Sub-Agent `ui-ux-designer` tại Gate 2.
+  - Testcase tương ứng của QA trong `tests/02-manual-testcases/<mã-feature>/` (Gate 3).
+  - Module mã nguồn trong `frontend/lib/features/<mã-feature>/` (Gate 4).
+- Tham gia đối soát và ký xác nhận nghiệp vụ tại biên bản nghiệm thu Gate 2 Sign-off.
 
 ---
 
