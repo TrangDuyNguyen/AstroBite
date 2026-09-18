@@ -24,7 +24,7 @@
 | **`TSK-MIC-04`** | `FEAT-08` Micronutrients | **Gate 4** | Cập nhật Freezed FoodLog DTO, DailyMicronutrientCard & UI Chips | `flutter-expert` | 1 | TSK-MIC-03 | 🟢 Done (Dev FE Finished) |
 | **`TSK-S2-REV`**  | Toàn bộ Sprint 02 | **Gate 5** | Ponytail Code Review: Kiểm soát phình to code & zero bloat | `code-reviewer` | 2 | TSK-MUL-04, TSK-OFF-04 | 🟢 Done (Reviewer Signed Off: "Lean already. Ship.") |
 | **`TSK-S2-VER`**  | Toàn bộ Sprint 02 | **Gate 6** | Chạy automated test suite 100% Pass, test offline & ký sign-off | `qa-tester` | 2 | TSK-S2-REV | 🟢 Done (QA Signed Off: Release Approved) |
-| **`TSK-REL-02`** | Release v1.1.0 | **Gate 7** | Nghiệm thu tổng thể, gắn Git Tag `v1.1.0` và đóng Sprint 02 | `project-manager` & `product-owner` | 2 | TSK-S2-VER | ⚡ Ready for Release |
+| **`TSK-REL-02`** | Release v1.1.0 | **Gate 7** | Nghiệm thu tổng thể, gắn Git Tag `v1.1.0` và đóng Sprint 02 | `project-manager` & `product-owner` | 2 | TSK-S2-VER | 🟢 Done (Released v1.1.0) |
 
 ---
 
