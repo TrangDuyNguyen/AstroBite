@@ -1,34 +1,42 @@
 # Quy Trình Phát Triển Tính Năng Toàn Diện (Feature Delivery SOP) — AstroBite
 
-Tài liệu này chuẩn hóa **Quy trình Phát triển Tính năng Khép kín (End-to-End Feature Delivery SOP)** từ ý tưởng ban đầu đến phát hành, kết hợp chặt chẽ giữa **BA ➔ QA ➔ FE Dev ➔ Code Review (Ponytail) ➔ Verification ➔ Release** trên kiến trúc **Git Submodules**.
+Tài liệu này chuẩn hóa **Quy trình Phát triển Tính năng Khép kín (End-to-End Feature Delivery SOP)** từ ý tưởng chiến lược đến khi phát hành, được vận hành bởi **6 Sub-Agents Độc Lập** theo nguyên tắc kiểm soát chéo (**Four-Eyes Principle**): **PO ➔ BA ➔ PM (WBS) ➔ QA ➔ Dev FE ➔ Reviewer ➔ QA Verify ➔ PO Release**.
 
 ---
 
-## 🧭 Sơ Đồ Quy Trình 6 Cổng Chất Lượng (6-Gate Delivery Flow)
+## 🧭 Sơ Đồ Điều Phối 6 Sub-Agents & 6 Cổng Chất Lượng
 
 ```mermaid
 flowchart TD
-    Idea([💡 Ý Tưởng Tính Năng Mới]) --> Gate1
+    PO_Strategy([👑 Sub-Agent PO: Định Hướng Epic & MoSCoW]) --> Gate1
     
-    subgraph Cổng 1: Phân Tích Nghiệp Vụ [CỔNG 1: BA Gate - docs/]
+    subgraph Cổng 1: Phân Tích Nghiệp Vụ [CỔNG 1: Sub-Agent BA - docs/03-prd-features/]
         Gate1[BA phân tích & viết PRD]
-        US[Viết User Stories chuẩn BDD]
+        US[Viết User Stories chuẩn BDD Given-When-Then]
         Data[Cập nhật Từ điển Dữ liệu]
         Gate1 --> US --> Data
     end
     
-    Data -->|Review & Approve PRD| Gate2
+    Data -->|Four-Eyes: PO Thẩm định & Ký duyệt PRD| PM_Sprint
     
-    subgraph Cổng 2: Thiết Kế Kiểm Thử [CỔNG 2: QA Gate - tests/]
+    subgraph Kế Hoạch Sprint & WBS [LẬP KẾ HOẠCH: Sub-Agent PM - docs/00-pm/]
+        PM_Sprint[PM mở Sprint & lập WBS Task Matrix]
+        Points[Chấm Fibonacci Story Points 1, 2, 3, 5, 8]
+        PM_Sprint --> Points
+    end
+    
+    Points --> Gate2
+    
+    subgraph Cổng 2: Thiết Kế Kiểm Thử [CỔNG 2: Sub-Agent QA - tests/]
         Gate2[QA đọc PRD & Stories]
-        TC[Thiết kế Testcase Thủ công]
+        TC[Thiết kế Testcase Thủ công EP & BVA]
         BDD[Viết kịch bản Gherkin .feature]
         Gate2 --> TC --> BDD
     end
     
     BDD -->|Traceability Matrix 100%| Gate3
     
-    subgraph Cổng 3: Phát Triển Mã Nguồn [CỔNG 3: Dev Gate - frontend/]
+    subgraph Cổng 3: Phát Triển Mã Nguồn [CỔNG 3: Sub-Agent Dev FE - frontend/]
         Gate3[FE Dev đọc PRD & BDD]
         CleanArch[Xây dựng Clean Architecture: Domain -> Data -> Presentation]
         UnitTest[Viết Unit & Widget Test]
@@ -37,28 +45,28 @@ flowchart TD
     
     UnitTest -->|flutter analyze 0 warnings| Gate4
     
-    subgraph Cổng 4: Rà Soát Mã Nguồn Tối Giản [CỔNG 4: Code Review Gate - Ponytail]
+    subgraph Cổng 4: Rà Soát Mã Nguồn Tối Giản [CỔNG 4: Sub-Agent Reviewer - Ponytail]
         Gate4[Quét Over-engineering qua git diff]
-        Audit[Triệt tiêu code thừa, YAGNI, thư viện ngoài]
+        Audit[Triệt tiêu code thừa, YAGNI, abstraction rác]
         Format[Định dạng 1 dòng/finding + Net line reduction]
         Gate4 --> Audit --> Format
     end
     
-    Format -->|Lean already. Ship / Applied fixes| Gate5
+    Format -->|Lean already. Ship / Fixes applied| Gate5
     
-    subgraph Cổng 5: Kiểm Thử & Nghiệm Thu [CỔNG 5: Verification Gate]
-        Gate5[Chạy flutter test & E2E Integration Test]
+    subgraph Cổng 5: Kiểm Thử & Nghiệm Thu [CỔNG 5: Sub-Agent QA Verify]
+        Gate5[Chạy flutter test 100% Pass & Non-functional]
         ManualQA[QA test trên thiết bị thật iOS/Android]
-        SignOff[Lập Biên bản Nghiệm thu Sign-off]
+        SignOff[Sub-Agent QA ký Biên bản Nghiệm thu signoff.md]
         Gate5 --> ManualQA --> SignOff
     end
     
-    SignOff -->|Sign-off Approved| Gate6
+    SignOff -->|Four-Eyes: Sub-Agent PO Nghiệm thu & Duyệt Release| Gate6
     
-    subgraph Cổng 6: Đóng Gói & Phát Hành [CỔNG 6: Super-Repo Release]
-        Gate6[Chạy make update tại Root]
+    subgraph Cổng 6: Đóng Gói & Phát Hành [CỔNG 6: Sub-Agent PO & PM Release]
+        Gate6[Chạy make update & verify full tests]
         CommitPin[Commit con trỏ Submodules]
-        GitTag[Tạo Tag phiên bản vX.Y.Z]
+        GitTag[Tạo Tag phiên bản vX.Y.Z & đóng Sprint]
         Gate6 --> CommitPin --> GitTag
     end
     
@@ -67,18 +75,28 @@ flowchart TD
 
 ---
 
-## 🚪 Chi Tiết 6 Cổng Chất Lượng (Quality Gates)
+## 🚪 Chi Tiết 6 Cổng Chất Lượng & Phân Nhiệm Sub-Agent
 
-### 🔹 CỔNG 1: Phân Tích Nghiệp Vụ (BA Gate)
-- **Thư mục làm việc**: `docs/` (Submodule `astrobite-ba-docs`).
-- **Skill hỗ trợ**: `business-analyst`.
+### 🔹 Giai đoạn 0: Chiến Lược & Ưu Tiên (Sub-Agent PO)
+- **Sub-Agent đảm nhiệm**: `product-owner`
+- **Thư mục làm việc**: `docs/00-roadmap/`
+- **Nhiệm vụ**: Xác định tính năng thuộc chân trời nào (Now / Next / Later), phân loại MoSCoW (Must, Should, Could, Won't), giao đầu bài cho Sub-Agent BA.
+
+### 🔹 CỔNG 1: Phân Tích Nghiệp Vụ (Sub-Agent BA Gate)
+- **Thư mục làm việc**: `docs/03-prd-features/<id>-<feature>/`.
+- **Sub-Agent đảm nhiệm**: `business-analyst`.
 - **Nhiệm vụ cụ thể**:
   1. Tạo thư mục `docs/03-prd-features/<id>-<feature>/`.
   2. Viết `prd-<feature>.md` (Bối cảnh, User Personas, KPIs, User Flow).
   3. Viết `user-stories.md` kèm Acceptance Criteria chuẩn BDD (`Given - When - Then`).
   4. Viết `ui-ux-screen-specs.md` (Layout, Màu sắc Celestial Dark, Spacing 4pt).
   5. Cập nhật thực thể mới vào `docs/04-specifications/data-dictionary.md`.
-- **Tiêu chí vượt cổng (Exit Criteria)**: PO và Tech Lead phê duyệt PRD và User Stories.
+- **Tiêu chí vượt cổng (Four-Eyes Exit Criteria)**: **Sub-Agent PO thẩm định và ký duyệt Gate 1**. BA không tự duyệt sản phẩm của mình.
+
+### 🔹 Giai đoạn Lập Kế Hoạch Thực Thi (Sub-Agent PM)
+- **Sub-Agent đảm nhiệm**: `project-manager`
+- **Thư mục làm việc**: `docs/00-project-management/`
+- **Nhiệm vụ**: Đưa vào `sprint-backlog.md`, phân rã `wbs-task-matrix.md` từ Gate 2 đến Gate 6, chấm điểm Fibonacci Story Points (`1, 2, 3, 5, 8`), ghi nhận rủi ro vào `risk-blocker-log.md`.
 
 ---
 

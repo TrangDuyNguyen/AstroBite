@@ -132,42 +132,54 @@ flutter test
 
 ---
 
-## 6. End-to-End Feature Delivery Lifecycle (6-Gate SOP)
+## 6. End-to-End Feature Delivery Lifecycle (6-Gate SOP & Multi Sub-Agent Architecture)
 
-All AI agents and developers must adhere to the standardized 6-Gate pipeline for any new feature:
+All engineering and delivery in AstroBite is executed by **6 Independent Sub-Agents** operating under the **Four-Eyes Principle (Checks & Balances)**. No Sub-Agent has the authority to self-approve its own deliverables:
 
 ```
-[Gate 1: BA] ➔ [Gate 2: QA] ➔ [Gate 3: FE Dev (Ponytail)] ➔ [Gate 4: Code Review] ➔ [Gate 5: Verify] ➔ [Gate 6: Release]
+[PO Sub-Agent] ──────────► [BA Sub-Agent] ──────────► [PO Sub-Agent Duyệt]
+(Roadmap & Epics)          (Gate 1: PRD & BDD)         (Gate 1 Sign-Off)
+                                                              │
+                                                              ▼
+[Gate 4: Reviewer] ◄───── [Gate 3: Dev FE] ◄───────── [PM Sub-Agent]
+(Sub-Agent Reviewer)       (Sub-Agent Dev FE)          (Sprint & WBS Tasks)
+       │                                                      │
+       ▼                                                      ▼
+[Gate 5: QA Verify] ─────► [Gate 6: PO & PM Release] ◄────── [Gate 2: QA Design]
+(Sub-Agent QA Tester)      (Final Release Sign-Off)    (Sub-Agent QA Tester)
 ```
 
-1. **Gate 1: BA Gate (`docs/` - `business-analyst` skill)**:
-   - Author PRD (`docs/03-prd-features/<id>-<name>/prd-<name>.md`).
-   - Write User Stories with BDD Acceptance Criteria (`Given - When - Then`).
-   - Update Data Dictionary (`docs/04-specifications/data-dictionary.md`) if data schema changes.
-   - *Exit Gate*: PO / Tech Lead approvals.
-2. **Gate 2: QA Test Design Gate (`tests/` - `qa-tester` skill)**:
-   - Design manual test cases (`tests/02-manual-testcases/` covering Happy Path, Boundary, Edge-cases).
-   - Write BDD Gherkin scenarios (`tests/03-bdd-gherkin-scenarios/<name>.feature`).
-   - *Exit Gate*: 100% User Story coverage in Traceability Matrix.
-3. **Gate 3: Frontend Development Gate (`frontend/` - `flutter-expert` & `ponytail` skills)**:
-   - Implement Feature-First Clean Architecture (`domain/` -> `data/` -> `presentation/`) with **strict Ponytail discipline** (minimal code, stdlib first, zero over-engineering).
-   - Strictly adhere to Celestial Dark UI tokens (`AppColors.surface`, Carbs `#1A73E8`, Fat `#FF69B4`, Protein `#FFD700`).
-   - *Exit Gate*: `flutter analyze` with 0 warnings/errors.
-4. **Gate 4: Code Review Gate (`code-reviewer` / `ponytail-review` skill)**:
-   - Inspect git diff against `main` for over-engineering, unneeded dependencies, boilerplate, and dead code.
-   - Output in strict single-line format: `<file>:L<line>: <tag> <what>. <replacement>.`
-   - Calculate net line reduction score: `net: -<N> lines possible.`
-   - *Exit Gate*: All complexity pruned or verified as `Lean already. Ship.`
-5. **Gate 5: Verification & QA Sign-off Gate (`flutter-testing` & `qa-tester` skills)**:
-   - Run unit & widget tests (`flutter test` 100% Pass).
-   - Execute E2E Integration tests (`frontend/integration_test/<name>_flow_test.dart`).
-   - Non-functional mobile checks (FPS 55-60, AI latency <= 2.5s, Offline persistence).
-   - *Exit Gate*: 0 S1/S2 bugs, QA Lead & PO signed sign-off checklist.
-6. **Gate 6: Super-Repo Release Gate (Root Workspace Coordinator)**:
-   - Synchronize all submodules: `make update`.
-   - Verify full-workspace integrity: `make test-fe && make status`.
-   - Commit submodule pointer updates: `git add docs tests frontend && git commit -m "feat(release): ship <name> (vX.Y.Z)"`.
-   - Create and push release tag: `git tag -a vX.Y.Z -m "Release vX.Y.Z" && git push origin vX.Y.Z`.
+### The 6 Independent Sub-Agents & Quality Gates
+
+1. **Sub-Agent PO (`product-owner` skill)**:
+   - **Thẩm quyền**: Định hướng Tầm nhìn, OKRs, Lộ trình 3 Chân trời (`docs/00-roadmap/product-roadmap.md`), phân loại **MoSCoW** (`docs/00-roadmap/epics-backlog.md`).
+   - **Chốt cổng**: Thẩm định & ký duyệt Gate 1 (PRD Sign-off); Ký duyệt phát hành tối cao tại Gate 6.
+2. **Sub-Agent PM (`project-manager` skill)**:
+   - **Thẩm quyền**: Quản lý Sprint Backlog (`docs/00-project-management/sprint-backlog.md`), phân rã **WBS Task Matrix** (`wbs-task-matrix.md`), chấm **Fibonacci Story Points (1, 2, 3, 5, 8)**, và xử lý điểm nghẽn (`risk-blocker-log.md`).
+   - **Chốt cổng**: Kiểm soát tiến độ các Gates và điều phối bàn giao giữa các Sub-Agents.
+3. **Gate 1: Sub-Agent BA (`business-analyst` skill)**:
+   - Soạn PRD (`docs/03-prd-features/<id>-<name>/prd-<name>.md`), User Stories BDD (`Given-When-Then`), cập nhật Data Dictionary.
+   - *Exit Gate*: Sub-Agent PO phê duyệt chính thức (PO Sign-off).
+4. **Gate 2: Sub-Agent QA (`qa-tester` skill)**:
+   - Thiết kế Manual Testcases (`tests/02-manual-testcases/` EP & BVA) và kịch bản BDD Gherkin (`tests/03-bdd-gherkin-scenarios/*.feature`).
+   - *Exit Gate*: Ma trận truy vết (Traceability Matrix) bao phủ 100% User Stories của BA.
+5. **Gate 3: Sub-Agent Dev FE (`flutter-expert` & `ponytail` skills)**:
+   - Triển khai Feature-First Clean Architecture (`domain` -> `data` -> `presentation`) theo **kỷ luật Ponytail** (code tối giản, stdlib trước, zero over-engineering).
+   - Tuyệt đối tuân thủ bảng màu dinh dưỡng: Carbs `#1A73E8`, Fat `#FF69B4`, Protein `#FFD700`.
+   - *Exit Gate*: `flutter analyze` đạt 0 lỗi, 0 cảnh báo.
+6. **Gate 4: Sub-Agent Reviewer (`code-reviewer` & `ponytail-review` skills)**:
+   - Rà soát git diff khách quan, loại bỏ triệt để abstraction rác, dead code, dependency thừa.
+   - Xuất phát hiện định dạng 1 dòng: `<file>:L<line>: <tag> <what>. <replacement>.`
+   - *Exit Gate*: Phải đạt phán quyết `Lean already. Ship.`
+7. **Gate 5: Sub-Agent QA Verification (`flutter-testing` & `qa-tester` skills)**:
+   - Chạy automated test suite (`flutter test` 100% Pass) và Integration test.
+   - Đo lường phi chức năng: FPS >= 55, AI latency <= 2.5s, Offline persistence.
+   - *Exit Gate*: 0 bug S1/S2, Sub-Agent QA ký biên bản nghiệm thu `tests/05-test-execution-reports/release-sign-offs/signoff-<name>.md`.
+8. **Gate 6: Super-Repo Release Gate (Sub-Agent PO & PM)**:
+   - PO kiểm tra nghiệm thu tổng thể và ký duyệt phát hành.
+   - PM điều phối: `make update`, `make test-fe && make status`.
+   - Commit cập nhật pointer submodules và gắn tag phát hành: `git tag -a vX.Y.Z -m "Release vX.Y.Z" && git push origin vX.Y.Z`.
+   - PO cập nhật Roadmap sang trạng thái `Done`, PM đóng Sprint.
 
 ---
 
