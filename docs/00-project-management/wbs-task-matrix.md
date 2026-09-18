@@ -25,11 +25,11 @@
 | **`TSK-TRK-03`** | `FEAT-03` Diary | **Gate 3** | Triển khai ManualEntryPage & CustomFoodSheet | `flutter-expert` | 5 | TSK-TRK-02 | 🟢 Done |
 | **`TSK-TRK-04`** | `FEAT-03` Diary | **Gate 4** | Ponytail code review, loại bỏ code dư thừa | `code-reviewer` | 1 | TSK-TRK-03 | 🟢 Done |
 | **`TSK-TRK-05`** | `FEAT-03` Diary | **Gate 5** | Chạy test (86 tests pass) & ký `signoff-manual-entry.md` | `qa-tester` | 2 | TSK-TRK-04 | 🟢 Done |
-| **`TSK-ANA-01`** | `FEAT-04` Analytics | **Gate 4** | Review diff và dọn dẹp over-engineering trong Analytics | `code-reviewer` | 2 | Mã nguồn có sẵn | 🟡 In Progress |
-| **`TSK-ANA-02`** | `FEAT-04` Analytics | **Gate 5** | Kiểm thử Widget FL Chart, đo FPS >= 55 & lập sign-off | `qa-tester` | 3 | TSK-ANA-01 | 🟡 In Progress |
-| **`TSK-PRO-01`** | `FEAT-05` Profile | **Gate 4** | Review mã nguồn Profile, tối ưu hóa công thức BMR/TDEE | `code-reviewer` | 3 | Mã nguồn có sẵn | 🟡 In Progress |
-| **`TSK-PRO-02`** | `FEAT-05` Profile | **Gate 5** | Chạy automated test suite Profile & lập sign-off | `qa-tester` | 2 | TSK-PRO-01 | 🟡 In Progress |
-| **`TSK-REL-01`** | Release v1.0.0 | **Gate 6** | Đồng bộ submodules, verify test toàn hệ thống, tạo git tag | `project-manager` & `product-owner` | 3 | TSK-ANA-02, TSK-PRO-02 | ⚪ Pending |
+| **`TSK-ANA-01`** | `FEAT-04` Analytics | **Gate 4** | Review diff và dọn dẹp over-engineering trong Analytics | `code-reviewer` | 2 | Mã nguồn có sẵn | 🟢 Done |
+| **`TSK-ANA-02`** | `FEAT-04` Analytics | **Gate 5** | Kiểm thử Widget FL Chart, đo FPS >= 55 & lập sign-off | `qa-tester` | 3 | TSK-ANA-01 | 🟢 Done |
+| **`TSK-PRO-01`** | `FEAT-05` Profile | **Gate 4** | Review mã nguồn Profile, tối ưu hóa công thức BMR/TDEE | `code-reviewer` | 3 | Mã nguồn có sẵn | 🟢 Done |
+| **`TSK-PRO-02`** | `FEAT-05` Profile | **Gate 5** | Chạy automated test suite Profile & lập sign-off | `qa-tester` | 2 | TSK-PRO-01 | 🟢 Done |
+| **`TSK-REL-01`** | Release v1.0.0 | **Gate 6** | Đồng bộ submodules, verify test toàn hệ thống, tạo git tag | `project-manager` & `product-owner` | 3 | TSK-ANA-02, TSK-PRO-02 | 🟢 Done |
 
 ---
 

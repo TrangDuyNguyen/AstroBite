@@ -1,9 +1,9 @@
 # Bản Đồ Lộ Trình Sản Phẩm AstroBite (Product Roadmap)
 
 - **Quản lý bởi**: Sub-Agent Product Owner (PO)
-- **Phiên bản hiện tại**: v1.0.0-rc
+- **Phiên bản hiện tại**: v1.0.0
 - **Cập nhật lần cuối**: 2026-09-18
-- **Tình trạng tổng thể**: 🟢 Đang trên đà hoàn tất v1.0.0 MVP
+- **Tình trạng tổng thể**: 🟢 Đã hoàn tất phát hành phiên bản thương mại v1.0.0 MVP (100% Passed)
 
 ---
 
@@ -11,12 +11,12 @@
 
 ```
        ┌────────────────────────────────────────────────────────────┐
-       │   🟢 CHÂN TRỜI 1: NOW (v1.0.0 MVP — Q3/2026)               │
-       │   - FEAT-01: Auth & Onboarding (Gate 6 Ready)              │
-       │   - FEAT-02: Gemini Food Scanner AI (Gate 6 Ready)         │
-       │   - FEAT-03: Diary & Manual Food Entry (Gate 6 Ready)      │
-       │   - FEAT-04: Analytics & Trends (In Progress -> Gate 5)    │
-       │   - FEAT-05: User Profile & Goals (In Progress -> Gate 5)  │
+       │   🟢 CHÂN TRỜI 1: NOW (v1.0.0 MVP — Q3/2026) [RELEASED]    │
+       │   - FEAT-01: Auth & Onboarding (Released)                  │
+       │   - FEAT-02: Gemini Food Scanner AI (Released)             │
+       │   - FEAT-03: Diary & Manual Food Entry (Released)          │
+       │   - FEAT-04: Analytics & Trends (Released)                 │
+       │   - FEAT-05: User Profile & Goals (Released)               │
        └─────────────────────────────┬──────────────────────────────┘
                                      │
                                      ▼
@@ -52,8 +52,8 @@
   1. `FEAT-01` **Auth & Onboarding**: Email/Pass, Google Sign-in, luồng chào mừng. *(Trạng thái: Gate 6 Ready - Đã ký sign-off)*.
   2. `FEAT-02` **Gemini Food Scanner AI**: Chụp ảnh món ăn, phân tích Vision AI, bóc tách calo/macro. *(Trạng thái: Gate 6 Ready - Đã ký sign-off)*.
   3. `FEAT-03` **Diary & Manual Food Entry**: Quản lý 4 bữa ăn, danh bạ món có sẵn, slider điều chỉnh gram, tạo custom food. *(Trạng thái: Gate 6 Ready - Đã ký sign-off, 86 tests pass)*.
-  4. `FEAT-04` **Analytics & Insights**: Biểu đồ tiêu thụ calo và tỷ lệ 3 chất đa lượng theo tuần/tháng. *(Trạng thái: IN PROGRESS - Đang hoàn tất kiểm thử Gate 5)*.
-  5. `FEAT-05` **User Profile & Goals**: Tính BMR/TDEE tự động theo thể trạng và mức độ vận động. *(Trạng thái: IN PROGRESS - Đang hoàn tất nghiệm thu Gate 5)*.
+  4. `FEAT-04` **Analytics & Insights**: Biểu đồ tiêu thụ calo và tỷ lệ 3 chất đa lượng theo tuần/tháng. *(Trạng thái: Released - Đã ký sign-off)*.
+  5. `FEAT-05` **User Profile & Goals**: Tính BMR/TDEE tự động theo thể trạng và mức độ vận động. *(Trạng thái: Released - Đã ký sign-off)*.
 
 ---
 

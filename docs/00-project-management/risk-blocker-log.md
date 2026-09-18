@@ -10,7 +10,7 @@
 
 | Mã Rủi Ro | Ngày Phát Hiện | Phân Loại | Mô Tả Điểm Nghẽn Kỹ Thuật | Mức Độ | Phương Án Tháo Gỡ Đề Xuất | Sub-Agent Phụ Trách | Trạng Thái |
 | :--- | :---: | :---: | :--- | :---: | :--- | :---: | :---: |
-| **`RSK-001`** | 2026-09-18 | **Performance** | Thư viện FL Chart có thể gây sụt giảm FPS (< 55 FPS) khi vẽ biểu đồ đường xu hướng nhiều ngày trên máy cấu hình yếu. | **Trung bình** | Bọc Widget biểu đồ bằng `RepaintBoundary`, rút gọn số điểm render dữ liệu trục X xuống tối đa 7 điểm/tuần hoặc 30 điểm/tháng. | `flutter-expert` & `qa-tester` | 🟡 **Mitigating** |
+| **`RSK-001`** | 2026-09-18 | **Performance** | Thư viện FL Chart có thể gây sụt giảm FPS (< 55 FPS) khi vẽ biểu đồ đường xu hướng nhiều ngày trên máy cấu hình yếu. | **Trung bình** | Bọc Widget biểu đồ bằng `RepaintBoundary` trên cả CalorieTrendChart và WeightTrendChart; giới hạn điểm dữ liệu render. Đã kiểm thử đạt. | `flutter-expert` & `qa-tester` | 🟢 **Resolved** |
 | **`RSK-002`** | 2026-09-18 | **Data / Network** | Khi người dùng nhập món thủ công hoặc quét ảnh ở nơi mất mạng, kết nối Cloud Firestore có thể bị timeout. | **Trung bình** | Sử dụng bộ nhớ đệm `common_foods_dataset.dart` cục bộ khi offline; thêm cờ báo chưa đồng bộ và kích hoạt sync ngầm khi có mạng. | `flutter-expert` | 🟢 **Controlled** |
 | **`RSK-003`** | 2026-09-18 | **AI Latency** | Gemini 2.0 Flash Vision đôi khi phản hồi chậm vào giờ cao điểm (> 2.5s). | **Thấp** | Nén ảnh JPEG xuống tối đa 512x512 trước khi gửi; hiển thị `SkeletonLoader` kèm thông điệp Celestial UI mượt mà để giữ chân người dùng. | `flutter-expert` & `qa-tester` | 🟢 **Controlled** |
 

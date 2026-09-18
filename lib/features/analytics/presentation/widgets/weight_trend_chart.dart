@@ -21,34 +21,36 @@ class WeightTrendChart extends StatelessWidget {
 
     return SizedBox(
       height: 220,
-      child: LineChart(
-        LineChartData(
-          gridData: FlGridData(
-            show: true,
-            getDrawingHorizontalLine: (value) => FlLine(
-              color: colorScheme.outline.withValues(alpha: 0.15),
-              strokeWidth: 1,
-            ),
-          ),
-          titlesData: const FlTitlesData(
-            topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-            rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-          ),
-          borderData: FlBorderData(show: false),
-          lineBarsData: [
-            LineChartBarData(
-              spots: spots,
-              isCurved: true,
-              color: colorScheme.secondary,
-              barWidth: 3,
-              isStrokeCapRound: true,
-              dotData: const FlDotData(show: true),
-              belowBarData: BarAreaData(
-                show: true,
-                color: colorScheme.secondary.withValues(alpha: 0.15),
+      child: RepaintBoundary(
+        child: LineChart(
+          LineChartData(
+            gridData: FlGridData(
+              show: true,
+              getDrawingHorizontalLine: (value) => FlLine(
+                color: colorScheme.outline.withValues(alpha: 0.15),
+                strokeWidth: 1,
               ),
             ),
-          ],
+            titlesData: const FlTitlesData(
+              topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+              rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+            ),
+            borderData: FlBorderData(show: false),
+            lineBarsData: [
+              LineChartBarData(
+                spots: spots,
+                isCurved: true,
+                color: colorScheme.secondary,
+                barWidth: 3,
+                isStrokeCapRound: true,
+                dotData: const FlDotData(show: true),
+                belowBarData: BarAreaData(
+                  show: true,
+                  color: colorScheme.secondary.withValues(alpha: 0.15),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
