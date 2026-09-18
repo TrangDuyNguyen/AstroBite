@@ -1,38 +1,43 @@
 # Ma Trận Phân Rã Công Việc 6 Cổng (WBS Task Matrix)
 
-- **Quản lý bởi**: Sub-Agent Project Manager (PM)
+- **Quản lý bởi**: Sub-Agent Project Manager (PM) & Sub-Agent Product Owner (PO)
 - **Ánh xạ quy trình**: 6-Gate Delivery Flow (BA ➔ QA ➔ Dev FE ➔ Code Review ➔ Verification ➔ Release)
 - **Cập nhật lần cuối**: 2026-09-18
 
 ---
 
-## 🏗️ Bảng Ma Trận Phân Rã WBS Chi Tiết
+## 🏗️ 1. Bảng Ma Trận Phân Rã WBS Sprint 02 (v1.1.0 Enhancements — Active)
 
 | Mã Task | Feature / Epic | Cổng Chất Lượng | Mô Tả Nhiệm Vụ Kỹ Thuật | Sub-Agent Đảm Nhiệm | SP | Phụ Thuộc | Trạng Thái |
 | :--- | :--- | :---: | :--- | :---: | :---: | :---: | :---: |
-| **`TSK-AUT-01`** | `FEAT-01` Auth | **Gate 1** | Soạn thảo PRD & User Stories luồng Auth / Onboarding | `business-analyst` | 3 | None | 🟢 Done |
-| **`TSK-AUT-02`** | `FEAT-01` Auth | **Gate 2** | Thiết kế manual testcases & kịch bản BDD login | `qa-tester` | 2 | TSK-AUT-01 | 🟢 Done |
-| **`TSK-AUT-03`** | `FEAT-01` Auth | **Gate 3** | Triển khai giao diện LoginPage & AuthRiverpodNotifier | `flutter-expert` | 3 | TSK-AUT-02 | 🟢 Done |
-| **`TSK-AUT-04`** | `FEAT-01` Auth | **Gate 4** | Rà soát mã nguồn Ponytail, dọn dẹp import thừa | `code-reviewer` | 1 | TSK-AUT-03 | 🟢 Done |
-| **`TSK-AUT-05`** | `FEAT-01` Auth | **Gate 5** | Chạy automated test suite & lập `signoff-auth-login.md` | `qa-tester` | 2 | TSK-AUT-04 | 🟢 Done |
-| **`TSK-SCN-01`** | `FEAT-02` Scanner | **Gate 1** | Soạn thảo PRD Vision AI Gemini 2.0 Flash | `business-analyst` | 3 | None | 🟢 Done |
-| **`TSK-SCN-02`** | `FEAT-02` Scanner | **Gate 2** | Thiết kế testcase nhận diện món ăn & BDD | `qa-tester` | 3 | TSK-SCN-01 | 🟢 Done |
-| **`TSK-SCN-03`** | `FEAT-02` Scanner | **Gate 3** | Triển khai FoodScannerPage, Gemini Vision Client | `flutter-expert` | 8 | TSK-SCN-02 | 🟢 Done |
-| **`TSK-SCN-04`** | `FEAT-02` Scanner | **Gate 4** | Review diff, cắt bỏ abstraction rác trong AI parser | `code-reviewer` | 2 | TSK-SCN-03 | 🟢 Done |
-| **`TSK-SCN-05`** | `FEAT-02` Scanner | **Gate 5** | Test độ trễ AI (<2.5s) & ký `signoff-food-scanner.md` | `qa-tester` | 3 | TSK-SCN-04 | 🟢 Done |
-| **`TSK-TRK-01`** | `FEAT-03` Diary | **Gate 1** | Soạn PRD Calorie Diary & Manual Food Entry | `business-analyst` | 3 | None | 🟢 Done |
-| **`TSK-TRK-02`** | `FEAT-03` Diary | **Gate 2** | Thiết kế testcase BVA slider gram & BDD feature | `qa-tester` | 2 | TSK-TRK-01 | 🟢 Done |
-| **`TSK-TRK-03`** | `FEAT-03` Diary | **Gate 3** | Triển khai ManualEntryPage & CustomFoodSheet | `flutter-expert` | 5 | TSK-TRK-02 | 🟢 Done |
-| **`TSK-TRK-04`** | `FEAT-03` Diary | **Gate 4** | Ponytail code review, loại bỏ code dư thừa | `code-reviewer` | 1 | TSK-TRK-03 | 🟢 Done |
-| **`TSK-TRK-05`** | `FEAT-03` Diary | **Gate 5** | Chạy test (86 tests pass) & ký `signoff-manual-entry.md` | `qa-tester` | 2 | TSK-TRK-04 | 🟢 Done |
-| **`TSK-ANA-01`** | `FEAT-04` Analytics | **Gate 4** | Review diff và dọn dẹp over-engineering trong Analytics | `code-reviewer` | 2 | Mã nguồn có sẵn | 🟢 Done |
-| **`TSK-ANA-02`** | `FEAT-04` Analytics | **Gate 5** | Kiểm thử Widget FL Chart, đo FPS >= 55 & lập sign-off | `qa-tester` | 3 | TSK-ANA-01 | 🟢 Done |
-| **`TSK-PRO-01`** | `FEAT-05` Profile | **Gate 4** | Review mã nguồn Profile, tối ưu hóa công thức BMR/TDEE | `code-reviewer` | 3 | Mã nguồn có sẵn | 🟢 Done |
-| **`TSK-PRO-02`** | `FEAT-05` Profile | **Gate 5** | Chạy automated test suite Profile & lập sign-off | `qa-tester` | 2 | TSK-PRO-01 | 🟢 Done |
-| **`TSK-REL-01`** | Release v1.0.0 | **Gate 6** | Đồng bộ submodules, verify test toàn hệ thống, tạo git tag | `project-manager` & `product-owner` | 3 | TSK-ANA-02, TSK-PRO-02 | 🟢 Done |
+| **`TSK-MUL-01`** | `FEAT-06` Multi-Item | **Gate 1** | Soạn thảo PRD & BDD Given-When-Then nhận diện nhiều món ăn | `business-analyst` | 2 | None | 🟡 Ready for BA |
+| **`TSK-OFF-01`** | `FEAT-07` Offline-Sync | **Gate 1** | Soạn thảo PRD & BDD cơ chế đệm dữ liệu cục bộ & tự động sync | `business-analyst` | 1 | None | 🟡 Ready for BA |
+| **`TSK-MIC-01`** | `FEAT-08` Micronutrients | **Gate 1** | Soạn thảo PRD & BDD mở rộng theo dõi Natri, Xơ, Đường | `business-analyst` | 1 | None | 🟡 Ready for BA |
+| **`TSK-MUL-02`** | `FEAT-06` Multi-Item | **Gate 2** | Thiết kế Manual TCs & Gherkin scenarios cho đĩa cơm đa món | `qa-tester` | 2 | TSK-MUL-01 | ⚪ Pending |
+| **`TSK-OFF-02`** | `FEAT-07` Offline-Sync | **Gate 2** | Thiết kế Manual TCs & kịch bản mất mạng / phục hồi kết nối | `qa-tester` | 1 | TSK-OFF-01 | ⚪ Pending |
+| **`TSK-MIC-02`** | `FEAT-08` Micronutrients | **Gate 2** | Thiết kế Manual TCs & BDD cảnh báo vượt ngưỡng vi chất | `qa-tester` | 1 | TSK-MIC-01 | ⚪ Pending |
+| **`TSK-MUL-03`** | `FEAT-06` Multi-Item | **Gate 3** | Cập nhật Gemini 2.0 Vision Prompt & UI danh sách bóc tách món | `flutter-expert` | 4 | TSK-MUL-02 | ⚪ Pending |
+| **`TSK-OFF-03`** | `FEAT-07` Offline-Sync | **Gate 3** | Triển khai Local Hive Repository & Connectivity Sync Notifier | `flutter-expert` | 3 | TSK-OFF-02 | ⚪ Pending |
+| **`TSK-MIC-03`** | `FEAT-08` Micronutrients | **Gate 3** | Cập nhật Freezed FoodLog DTO & UI Chips Vi chất | `flutter-expert` | 1 | TSK-MIC-02 | ⚪ Pending |
+| **`TSK-S2-REV`**  | Toàn bộ Sprint 02 | **Gate 4** | Ponytail Code Review: Kiểm soát phình to code & zero bloat | `code-reviewer` | 2 | TSK-MUL-03, TSK-OFF-03 | ⚪ Pending |
+| **`TSK-S2-VER`**  | Toàn bộ Sprint 02 | **Gate 5** | Chạy automated test suite 100% Pass, test offline & ký sign-off | `qa-tester` | 2 | TSK-S2-REV | ⚪ Pending |
+| **`TSK-REL-02`** | Release v1.1.0 | **Gate 6** | Nghiệm thu tổng thể, gắn Git Tag `v1.1.0` và đóng Sprint 02 | `project-manager` & `product-owner` | 2 | TSK-S2-VER | ⚪ Pending |
 
 ---
 
-## 🧭 Quy Định Vận Hành Của Sub-Agent PM
-1. **Liên kết phụ thuộc (Pre-requisites)**: Một task ở Gate sau tuyệt đối không được bắt đầu nếu task ở Gate trước chưa hoàn thành.
-2. **Quyền hạn cập nhật**: Chỉ Sub-Agent PM mới có quyền cập nhật trạng thái cột `Trạng Thái` của bảng WBS này sau khi nhận được bằng chứng nghiệm thu từ Sub-Agent tương ứng.
+## 🏛️ 2. Lưu Trữ Ma Trận WBS Sprint 01 (v1.0.0 MVP — 100% Done)
+
+| Mã Task | Feature / Epic | Cổng Chất Lượng | Mô Tả Nhiệm Vụ Kỹ Thuật | Sub-Agent Đảm Nhiệm | SP | Trạng Thái |
+| :--- | :--- | :---: | :--- | :---: | :---: | :---: |
+| **`TSK-AUT-01..05`** | `FEAT-01` Auth | **Gate 1 - 5** | PRD, TCs, UI LoginPage, Riverpod, Sign-off | Đa Sub-Agents | 11 | 🟢 Done |
+| **`TSK-SCN-01..05`** | `FEAT-02` Scanner | **Gate 1 - 5** | PRD Vision AI, TCs, FoodScannerPage, Latency < 2.5s | Đa Sub-Agents | 19 | 🟢 Done |
+| **`TSK-TRK-01..05`** | `FEAT-03` Diary | **Gate 1 - 5** | PRD Diary, TCs Slider, ManualEntryPage, 86 tests pass | Đa Sub-Agents | 13 | 🟢 Done |
+| **`TSK-ANA-01..02`** | `FEAT-04` Analytics | **Gate 4 - 5** | Ponytail Review, RepaintBoundary FL Chart, Sign-off | Đa Sub-Agents | 5 | 🟢 Done |
+| **`TSK-PRO-01..02`** | `FEAT-05` Profile | **Gate 4 - 5** | Ponytail Review, BMR/TDEE calculations, Sign-off | Đa Sub-Agents | 5 | 🟢 Done |
+| **`TSK-REL-01`** | Release v1.0.0 | **Gate 6** | Release notes, Git Tag v1.0.0, PO sign-off phát hành | PO & PM | 3 | 🟢 Done |
+
+---
+
+## 🧭 Quy Định Vận Hành Của Sub-Agent PM & PO
+1. **Quy tắc chuyển giao Gate**: Task ở Gate sau chỉ được bắt đầu khi Gate trước đã có văn bản nghiệm thu chính thức từ Sub-Agent tương ứng.
+2. **Quyền hạn cập nhật**: Chỉ Sub-Agent PM mới có quyền cập nhật trạng thái tiến độ thực thi; chỉ Sub-Agent PO có quyền điều chỉnh phạm vi và ký phát hành.

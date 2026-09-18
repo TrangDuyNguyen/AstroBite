@@ -11,7 +11,7 @@
 
 ```
        ┌────────────────────────────────────────────────────────────┐
-       │   🟢 CHÂN TRỜI 1: NOW (v1.0.0 MVP — Q3/2026) [RELEASED]    │
+       │   🟢 CHÂN TRỜI 1: HISTORICAL (v1.0.0 MVP — RELEASED)       │
        │   - FEAT-01: Auth & Onboarding (Released)                  │
        │   - FEAT-02: Gemini Food Scanner AI (Released)             │
        │   - FEAT-03: Diary & Manual Food Entry (Released)          │
@@ -21,7 +21,7 @@
                                      │
                                      ▼
        ┌────────────────────────────────────────────────────────────┐
-       │   🟡 CHÂN TRỜI 2: NEXT (v1.1.0 Enhancements — Q4/2026)      │
+       │   🟡 CHÂN TRỜI 2: NOW (v1.1.0 Enhancements — SPRINT 02)    │
        │   - Quét đồng thời nhiều món trên bàn ăn (Multi-item AI)   │
        │   - Phân tích vi chất (Micronutrients: Natri, Xơ, Đường)   │
        │   - Cơ chế Offline-First Sync dữ liệu với Cloud Firestore  │
@@ -76,9 +76,9 @@
 ---
 
 ## 📈 Ma Trận Theo Dõi Tiến Độ Lộ Trình
-
+ 
 | Phiên Bản | Tiến Độ Hoàn Thành | Trạng Thái Quản Trị | Dự Kiến Phát Hành | Người Ký Duyệt |
 | :---: | :---: | :---: | :---: | :---: |
-| **v1.0.0 (MVP)** | **80%** (3/5 features đã ký sign-off) | Đang chạy Sprint 01 để đóng 2 features còn lại | Cuối Q3/2026 | Sub-Agent PO |
-| **v1.1.0** | **0%** | Đã định hình phạm vi trong Backlog | Q4/2026 | Sub-Agent PO |
+| **v1.0.0 (MVP)** | **100%** (5/5 features đã ký sign-off) | Đã phát hành chính thức (Release Tag `v1.0.0`) | 2026-09-18 | Sub-Agent PO & PM |
+| **v1.1.0** | **Sprint 02 Active** | Đang triển khai Sprint 02 (Khởi động Gate 1) | Q4/2026 | Sub-Agent PO |
 | **v1.2.0+** | **0%** | Ý tưởng chiến lược chân trời Later | Q1/2027 | Sub-Agent PO |

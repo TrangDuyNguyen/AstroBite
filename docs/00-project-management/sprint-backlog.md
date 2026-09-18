@@ -1,52 +1,56 @@
 # Kế Hoạch Sprint Hiện Hành (Sprint Backlog)
 
-- **Quản lý bởi**: Sub-Agent Project Manager (PM)
-- **Sprint hiện tại**: `Sprint 01`
-- **Mục tiêu Sprint (Sprint Goal)**: Hoàn tất kiểm thử, rà soát Ponytail và ký biên bản nghiệm thu Gate 5 cho `FEAT-04` (Analytics & Trends) và `FEAT-05` (User Profile & Goals), chuẩn bị đầy đủ điều kiện để Sub-Agent PO ký duyệt phát hành AstroBite v1.0.0.
-- **Thời gian chu kỳ**: 2026-09-18 đến 2026-10-02 (Chu kỳ 2 tuần)
-- **Tổng Story Points cam kết**: **13 SP**
-- **Trạng thái Sprint**: 🏁 **Hoàn thành 100% & Đã đóng Sprint (Phát hành thành công Release v1.0.0)**
+- **Quản lý bởi**: Sub-Agent Product Owner (PO) & Sub-Agent Project Manager (PM)
+- **Sprint hiện tại**: `Sprint 02`
+- **Phiên bản mục tiêu**: `v1.1.0` (Dinh Dưỡng Nâng Cao & Trải Nghiệm Offline)
+- **Thời gian chu kỳ**: 2026-10-03 đến 2026-10-17 (Chu kỳ 2 tuần)
+- **Mục tiêu Sprint (Sprint Goal)**: Nâng cấp năng lực Gemini Vision AI nhận diện đồng thời nhiều món ăn trên một mâm (`EPIC-06`), kiến tạo bộ nhớ đệm Offline-First Resilience tự đồng bộ Cloud Firestore (`EPIC-09`), và mở rộng theo dõi vi chất dinh dưỡng (`EPIC-08`), bảo đảm tiêu chuẩn 6 Cổng Chất Lượng.
+- **Tổng Story Points cam kết (Target Capacity)**: **16 SP**
+- **Trạng thái Sprint**: 🟡 **Khởi động Sprint 02 — Chuyển giao Gate 1 cho Sub-Agent BA**
 
 ---
 
-## 📋 Bảng Kanban Trực Quan Sprint 01
+## 📋 Bảng Kanban Trực Quan Sprint 02 (v1.1.0)
 
-### 1. 📝 TODO — [0 SP]
-*(Không còn task tồn đọng)*
+### 1. 📝 TODO (Chờ phân tích PRD Gate 1 & Thiết kế Test Gate 2) — [16 SP]
+- [ ] `TSK-MUL-01` [Gate 1]: Soạn thảo PRD & User Stories BDD cho Multi-Item Food Scanner AI (`FEAT-06`) — *Sub-Agent BA* `(2 SP)`
+- [ ] `TSK-OFF-01` [Gate 1]: Soạn thảo PRD & User Stories BDD cho Offline-First Local Cache & Sync (`FEAT-07`) — *Sub-Agent BA* `(1 SP)`
+- [ ] `TSK-MIC-01` [Gate 1]: Soạn thảo PRD & User Stories BDD cho Micronutrients Tracking (`FEAT-08`) — *Sub-Agent BA* `(1 SP)`
+- [ ] `TSK-MUL-02` [Gate 2]: Thiết kế Manual Testcases & kịch bản BDD Gherkin cho nhận diện nhiều món — *Sub-Agent QA* `(2 SP)`
+- [ ] `TSK-OFF-02` [Gate 2]: Thiết kế Manual Testcases & kịch bản BDD cho tình huống mất mạng đột ngột — *Sub-Agent QA* `(1 SP)`
+- [ ] `TSK-MIC-02` [Gate 2]: Thiết kế Manual Testcases & kịch bản BDD cho vi chất và ngưỡng khuyến nghị — *Sub-Agent QA* `(1 SP)`
+- [ ] `TSK-MUL-03` [Gate 3]: Mở rộng Prompt Gemini 2.0 Flash Vision & UI hiển thị đa món — *Sub-Agent Dev FE* `(4 SP)`
+- [ ] `TSK-OFF-03` [Gate 3]: Triển khai Local Hive/Cache Food Log & Background Sync Notifier — *Sub-Agent Dev FE* `(3 SP)`
+- [ ] `TSK-MIC-03` [Gate 3]: Mở rộng Freezed Entity & UI Chips Vi chất trên màn hình Food Log — *Sub-Agent Dev FE* `(1 SP)`
 
 ### 2. ⚡ IN PROGRESS — [0 SP]
-*(Tất cả các task đã hoàn thành)*
+*(Chờ Sub-Agent BA nhận bàn giao để triển khai Gate 1)*
 
 ### 3. 🔍 IN REVIEW & VERIFY — [0 SP]
-*(100% nghiệm thu chất lượng đạt chuẩn)*
+*(Chờ các Gate 4 & 5)*
 
-### 4. 🏁 DONE (Đã hoàn thành 100% Sprint 01) — [13 SP]
-- [x] `TSK-ANA-01` [Gate 4]: Rà soát Ponytail cho mô-đun Analytics (`lib/features/analytics/`), bọc `RepaintBoundary` giải quyết `RSK-001` — *Verdict: Lean already. Ship.* `(2 SP)`
-- [x] `TSK-PRO-01` [Gate 4]: Rà soát Ponytail cho mô-đun Profile & BMR/TDEE calculation (`lib/features/profile/`) — *Verdict: Lean already. Ship.* `(3 SP)`
-- [x] `TSK-ANA-02` [Gate 5]: Viết Widget & Unit tests cho biểu đồ Analytics, xác thực FPS >= 55 và ký duyệt `signoff-analytics.md` — *Sub-Agent QA Approved* `(3 SP)`
-- [x] `TSK-PRO-02` [Gate 5]: Thực thi bộ testcases tính toán dinh dưỡng Profile, xác thực BDD và ký duyệt `signoff-profile.md` — *Sub-Agent QA Approved* `(2 SP)`
-- [x] `TSK-REL-01` [Gate 6]: Chuẩn bị hồ sơ Release v1.0.0, cập nhật Roadmap, gắn Git Tag `v1.0.0`, PO ký duyệt phát hành — *PO & PM Release Approved* `(3 SP)`
-
-### 5. 🏆 CÁC TÍNH NĂNG CỐT LÕI ĐÃ PHÁT HÀNH TRONG V1.0.0
-- [x] `FEAT-01` Auth & Onboarding: [`signoff-auth-login.md`](file:///Users/nguyenduytrang/flutter_project/AstroBite/tests/05-test-execution-reports/release-sign-offs/signoff-auth-login.md) — *PO Approved*
-- [x] `FEAT-02` Gemini Food Scanner AI: [`signoff-food-scanner.md`](file:///Users/nguyenduytrang/flutter_project/AstroBite/tests/05-test-execution-reports/release-sign-offs/signoff-food-scanner.md) — *PO Approved*
-- [x] `FEAT-03` Diary & Manual Food Entry: [`signoff-manual-entry.md`](file:///Users/nguyenduytrang/flutter_project/AstroBite/tests/05-test-execution-reports/release-sign-offs/signoff-manual-entry.md) — *PO Approved*
-- [x] `FEAT-04` Nutrition Analytics & Trends: [`signoff-analytics.md`](file:///Users/nguyenduytrang/flutter_project/AstroBite/tests/05-test-execution-reports/release-sign-offs/signoff-analytics.md) — *PO Approved*
-- [x] `FEAT-05` Personalized Goals & Profile: [`signoff-profile.md`](file:///Users/nguyenduytrang/flutter_project/AstroBite/tests/05-test-execution-reports/release-sign-offs/signoff-profile.md) — *PO Approved*
+### 4. 🏁 DONE — [0 SP]
+*(Sprint 02 mới khởi tạo)*
 
 ---
 
-## 📊 Chỉ Số Tiến Độ Sprint (Sprint Metrics)
+## 📊 Chỉ Số Tiến Độ Sprint 02 (Sprint Metrics)
 
 ```
 Story Points Phân Bổ:
-[████████████████████] 13 / 13 SP Đã Hoàn Thành (100% Done)
-- Đã hoàn thành (Done): 13/13 SP (100%)
-- Đang kiểm thử (In Verify): 0/13 SP (0%)
-- Đang rà soát (In Progress): 0/13 SP (0%)
-- Chưa thực hiện (Todo): 0/13 SP (0%)
-- Tỷ lệ Test Suite tự động: 94/94 tests PASSED (100%)
-- Tỷ lệ Static Analysis: 0 errors, 0 warnings (100% Clean)
+[░░░░░░░░░░░░░░░░░░░░] 0 / 16 SP Hoàn Thành
+- Chưa thực hiện (Todo): 16/16 SP (100%)
+- Đang triển khai (In Progress): 0/16 SP (0%)
+- Đang kiểm thử (In Verify): 0/16 SP (0%)
+- Đã hoàn thành (Done): 0/16 SP (0%)
 ```
 
-* **Kết luận của Sub-Agent PM & PO**: Sprint 01 đã chính thức hoàn thành vượt chỉ tiêu chất lượng. Phiên bản AstroBite v1.0.0 MVP đã sẵn sàng phân phối.
+---
+
+## 🏛️ Lịch Sử Các Sprint Đã Hoàn Thành (Sprint Archive)
+
+### 🟢 Sprint 01 — AstroBite v1.0.0 MVP Release (Hoàn tất 18/09/2026)
+- **Mục tiêu**: Hoàn tất kiểm thử, rà soát Ponytail và ký nghiệm thu Gate 5 cho Analytics & Profile, đóng gói v1.0.0.
+- **Kết quả**: **13 / 13 SP (100% Passed)**, 94/94 tests tự động passed, 0 lỗi static analysis.
+- **Git Tag**: [`v1.0.0`](file:///Users/nguyenduytrang/flutter_project/AstroBite)
+- **Biên bản phát hành**: [`docs/05-change-management/release-v1.0.0.md`](file:///Users/nguyenduytrang/flutter_project/AstroBite/docs/05-change-management/release-v1.0.0.md)
