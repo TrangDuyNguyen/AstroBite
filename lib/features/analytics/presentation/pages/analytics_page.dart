@@ -7,6 +7,7 @@ import 'package:astrobite/shared/widgets/glass_card.dart';
 import '../../domain/analytics_providers.dart';
 import '../widgets/calorie_trend_chart.dart';
 import '../widgets/weight_trend_chart.dart';
+import '../../../health/presentation/widgets/health_cards.dart';
 
 @RoutePage()
 class AnalyticsPage extends ConsumerStatefulWidget {
@@ -77,6 +78,11 @@ class _AnalyticsPageState extends ConsumerState<AnalyticsPage> {
                   const WeightTrendChart(),
                 ],
               ),
+            ),
+            const SizedBox(height: AppValues.spacing24),
+            const EnergyBalanceCard(
+              caloriesIn: 1850,
+              calorieTarget: 2000,
             ),
           ],
         ),

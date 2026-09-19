@@ -17,6 +17,8 @@ import '../../features/scanner/presentation/pages/scan_review_page.dart';
 import '../../features/tracker/presentation/pages/home_page.dart';
 import '../../features/tracker/presentation/pages/manual_entry_page.dart';
 import '../../features/tracker/presentation/pages/meal_detail_page.dart';
+import '../../features/coach/presentation/coach_page.dart';
+import '../../features/health/presentation/health_connection_page.dart';
 
 part 'app_router.gr.dart';
 
@@ -42,6 +44,8 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: ScanReviewRoute.page),
     AutoRoute(page: MealDetailRoute.page),
     AutoRoute(page: ProfileEditRoute.page),
+    AutoRoute(page: CoachRoute.page),
+    AutoRoute(page: HealthConnectionRoute.page),
   ];
 }
 

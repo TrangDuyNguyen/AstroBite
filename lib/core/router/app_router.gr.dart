@@ -43,6 +43,22 @@ class CameraRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [CoachPage]
+class CoachRoute extends PageRouteInfo<void> {
+  const CoachRoute({List<PageRouteInfo>? children})
+    : super(CoachRoute.name, initialChildren: children);
+
+  static const String name = 'CoachRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const CoachPage();
+    },
+  );
+}
+
+/// generated route for
 /// [GoalSummaryPage]
 class GoalSummaryRoute extends PageRouteInfo<GoalSummaryRouteArgs> {
   GoalSummaryRoute({
@@ -122,6 +138,22 @@ class GoalSummaryRouteArgs {
   String toString() {
     return 'GoalSummaryRouteArgs{key: $key, gender: $gender, birthYear: $birthYear, heightCm: $heightCm, weightKg: $weightKg, targetWeightKg: $targetWeightKg, activityLevel: $activityLevel, fitnessGoal: $fitnessGoal}';
   }
+}
+
+/// generated route for
+/// [HealthConnectionPage]
+class HealthConnectionRoute extends PageRouteInfo<void> {
+  const HealthConnectionRoute({List<PageRouteInfo>? children})
+    : super(HealthConnectionRoute.name, initialChildren: children);
+
+  static const String name = 'HealthConnectionRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const HealthConnectionPage();
+    },
+  );
 }
 
 /// generated route for

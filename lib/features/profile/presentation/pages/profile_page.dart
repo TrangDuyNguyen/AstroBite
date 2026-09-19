@@ -133,6 +133,42 @@ class ProfilePage extends ConsumerWidget {
                         );
                       },
                     ),
+                    const Divider(height: 1),
+                    ListTile(
+                      contentPadding: EdgeInsets.zero,
+                      leading: CircleAvatar(
+                        backgroundColor: AppColors.primary.withValues(alpha: 0.15),
+                        child: const Text('🤖', style: TextStyle(fontSize: 18)),
+                      ),
+                      title: const Text('AI Coach', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14)),
+                      subtitle: Text(
+                        'Tư vấn chế độ ăn uống thông minh',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
+                        ),
+                      ),
+                      trailing: const Icon(Icons.chevron_right),
+                      onTap: () => context.router.push(const CoachRoute()),
+                    ),
+                    const Divider(height: 1),
+                    ListTile(
+                      contentPadding: EdgeInsets.zero,
+                      leading: CircleAvatar(
+                        backgroundColor: AppColors.secondary.withValues(alpha: 0.15),
+                        child: const Text('🏃', style: TextStyle(fontSize: 18)),
+                      ),
+                      title: const Text('Kết nối Sức khỏe', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14)),
+                      subtitle: Text(
+                        'Đồng bộ Apple Health / Health Connect',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
+                        ),
+                      ),
+                      trailing: const Icon(Icons.chevron_right),
+                      onTap: () => context.router.push(const HealthConnectionRoute()),
+                    ),
                   ],
                 ),
               ),
