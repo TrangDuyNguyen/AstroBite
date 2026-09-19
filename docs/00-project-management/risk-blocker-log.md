@@ -2,11 +2,21 @@
 
 - **Quản lý bởi**: Sub-Agent Project Manager (PM)
 - **Mục tiêu**: Giám sát và tháo gỡ điểm nghẽn kỹ thuật sớm nhất, đảm bảo dòng chảy liên tục qua 6 Gates
-- **Cập nhật lần cuối**: 2026-09-18
+- **Cập nhật lần cuối**: 2026-09-19
 
 ---
 
 ## 🚨 Bảng Quản Trị Rủi Ro & Blockers Đang Hoạt Động
+
+| Mã Rủi Ro | Ngày Phát Hiện | Phân Loại | Mô Tả Điểm Nghẽn Kỹ Thuật | Mức Độ | Phương Án Tháo Gỡ Đề Xuất | Sub-Agent Phụ Trách | Trạng Thái |
+| :--- | :---: | :---: | :--- | :---: | :--- | :---: | :---: |
+| **`RSK-006`** | 2026-09-19 | **AI Context** | Chat session dài (`EPIC-07`) có thể vượt token limit của Gemini 2.0 Flash, gây mất ngữ cảnh hội thoại giữa chừng. | **Trung bình** | Giới hạn lịch sử chat gửi kèm mỗi request (sliding window 10 tin nhắn gần nhất); thông báo người dùng khi session reset. | `flutter-expert` & `qa-tester` | 🟡 **Active** |
+| **`RSK-007`** | 2026-09-19 | **Platform Permissions** | Apple HealthKit và Health Connect (`EPIC-10`) yêu cầu quyền truy cập phức tạp, có thể bị từ chối bởi người dùng hoặc bị thay đổi policy giữa các phiên bản OS. | **Trung bình** | Thiết kế graceful degradation: app vẫn hoạt động đầy đủ khi không có Health data; hiển thị UI hướng dẫn cấp quyền với trạng thái Empty State rõ ràng. | `ui-ux-designer` & `flutter-expert` | 🟡 **Active** |
+| **`RSK-008`** | 2026-09-19 | **Dependency** | Plugin `health` (pub.dev) có thể có breaking changes hoặc compatibility issues với Flutter 3.x và các phiên bản iOS/Android mới. | **Thấp** | Bọc plugin bằng abstract repository layer (`HealthRepository`); dễ dàng swap implementation nếu cần thay đổi package. | `flutter-expert` | 🟡 **Active** |
+
+---
+
+## 🏛️ Lịch Sử Rủi Ro Đã Xử Lý (Sprint 01 & 02)
 
 | Mã Rủi Ro | Ngày Phát Hiện | Phân Loại | Mô Tả Điểm Nghẽn Kỹ Thuật | Mức Độ | Phương Án Tháo Gỡ Đề Xuất | Sub-Agent Phụ Trách | Trạng Thái |
 | :--- | :---: | :---: | :--- | :---: | :--- | :---: | :---: |

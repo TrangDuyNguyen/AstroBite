@@ -98,3 +98,38 @@ Lưu trữ danh sách các tác vụ đồng bộ đang chờ gửi lên server 
 | `retry_count` | Number (int) | Có | Số lần đã thử lại (Tối đa 5 lần với Exponential Backoff) |
 | `last_error` | String | Không | Lý do lỗi lần thử gần nhất |
 
+---
+
+## 4. Subcollection `users/{uid}/chat_sessions/{date}` (Sprint 03 — EPIC-07 AI Coach)
+Lưu trữ lịch sử hội thoại AI Coach theo ngày. Mỗi ngày tạo 1 document mới (session reset hàng ngày).
+
+| Tên trường | Kiểu dữ liệu | Bắt buộc | Mô tả & Giá trị hợp lệ |
+| :--- | :--- | :---: | :--- |
+| `date` | String | Có | Ngày session dạng `"YYYY-MM-DD"` (làm document ID) |
+| `user_id` | String | Có | UID người sở hữu |
+| `messages` | Array<Map> | Có | Danh sách tin nhắn hội thoại (Xem bảng 4.1) |
+| `message_count` | Number (int) | Có | Tổng số tin nhắn trong ngày (giới hạn 50) |
+| `created_at` | Timestamp | Có | Thời gian tạo session |
+| `last_message_at` | Timestamp | Có | Thời gian tin nhắn cuối cùng |
+
+### 4.1. Cấu trúc phần tử trong mảng `messages`
+
+| Tên trường | Kiểu dữ liệu | Bắt buộc | Mô tả |
+| :--- | :--- | :---: | :--- |
+| `id` | String | Có | UUID tin nhắn |
+| `role` | String | Có | `"user"` hoặc `"assistant"` |
+| `content` | String | Có | Nội dung tin nhắn (text) |
+| `timestamp` | Timestamp | Có | Thời gian gửi |
+| `is_error` | Boolean | Không | `true` nếu là tin nhắn lỗi (timeout, network error) |
+
+---
+
+## 5. Document `users/{uid}` — Trường bổ sung cho Health Integration (Sprint 03 — EPIC-10)
+
+| Tên trường | Kiểu dữ liệu | Bắt buộc | Mô tả & Giá trị hợp lệ |
+| :--- | :--- | :---: | :--- |
+| `health_connected` | Boolean | Không | `true`: Đã kết nối Apple Health / Health Connect; `false` hoặc null: Chưa kết nối |
+| `health_write_enabled` | Boolean | Không | `true`: Bật đồng bộ calo nạp ngược về Health Platform; mặc định `false` |
+| `health_platform` | String | Không | `"apple_healthkit"`, `"health_connect"`, hoặc `null` |
+| `health_connected_at` | Timestamp | Không | Thời gian kết nối lần gần nhất |
+

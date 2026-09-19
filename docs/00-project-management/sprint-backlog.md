@@ -1,25 +1,58 @@
 # Kế Hoạch Sprint Hiện Hành (Sprint Backlog)
 
 - **Quản lý bởi**: Sub-Agent Product Owner (PO) & Sub-Agent Project Manager (PM)
-- **Sprint hiện tại**: *(Chưa lên kế hoạch — Sprint 03 pending PO Roadmap)*
-- **Phiên bản mục tiêu**: `v1.2.0` *(TBD)*
-- **Trạng thái Sprint**: 🔵 **Chờ Lập Kế Hoạch Sprint Tiếp Theo**
+- **Sprint hiện tại**: Sprint 03
+- **Phiên bản mục tiêu**: `v1.2.0`
+- **Thời gian Sprint**: 19/09/2026 – 03/10/2026
+- **Trạng thái Sprint**: 🟢 **Hoàn Tất & Đã Phát Hành (Released v1.2.0)**
+- **Tổng Story Points**: 21 SP
 
 ---
 
-## 📋 Bảng Kanban Trực Quan (Trống — Chờ Sprint Planning)
+## 🎯 Mục Tiêu Sprint 03
+
+Chuyển đổi AstroBite từ ứng dụng ghi chép dinh dưỡng thụ động sang **Trợ lý AI dinh dưỡng chủ động** (Proactive AI Nutrition Coach):
+1. **EPIC-07** Smart Realtime AI Coach — Chat hội thoại với Gemini AI (Must-have, 13 SP)
+2. **EPIC-10** Apple Health / Health Connect Integration — Kết nối thiết bị đeo (Should-have, 8 SP)
+
+---
+
+## 📋 Bảng Kanban Trực Quan
 
 ### 1. 📝 TODO — [0 SP]
-*(Chờ PO chốt Sprint 03 Backlog từ Epics Roadmap)*
+*(Toàn bộ task đã hoàn thành)*
 
 ### 2. ⚡ IN PROGRESS — [0 SP]
-*(Không có tác vụ đang chạy)*
+*(Không còn tác vụ đang chạy)*
 
 ### 3. 🔍 IN REVIEW & VERIFY — [0 SP]
-*(Không có tác vụ chờ duyệt)*
+*(Gate 5 Review & Gate 6 QA Verification đã hoàn tất 100%)*
 
-### 4. 🏁 DONE — [0 SP]
-*(Sprint mới chưa bắt đầu)*
+### 4. 🏁 DONE — [21 SP]
+
+| Mã Task | Feature / Epic | Gate | Mô Tả | Sub-Agent | SP | Trạng Thái |
+|:---|:---|:---:|:---|:---:|:---:|:---:|
+| `TSK-CHAT-01` | `EPIC-07` AI Coach | **G1** | Soạn PRD & BDD cho AI Chat Coach | `business-analyst` | 2 | 🟢 Done |
+| `TSK-CHAT-02` | `EPIC-07` AI Coach | **G2** | Thiết kế UI Chat Screen: Bubble, typing indicator, Quick Actions | `ui-ux-designer` | 2 | 🟢 Done |
+| `TSK-CHAT-03` | `EPIC-07` AI Coach | **G3** | Manual TCs & BDD Gherkin cho hội thoại AI | `qa-tester` | 1 | 🟢 Done |
+| `TSK-CHAT-04` | `EPIC-07` AI Coach | **G4** | Triển khai `features/coach/` — Domain, Data, Presentation | `flutter-expert` | 5 | 🟢 Done |
+| `TSK-CHAT-05` | `EPIC-07` AI Coach | **G5** | Ponytail Code Review cho chat feature | `code-reviewer` | 1 | 🟢 Done |
+| `TSK-CHAT-06` | `EPIC-07` AI Coach | **G6** | Automated test suite + integration test | `qa-tester` | 2 | 🟢 Done |
+| `TSK-HLTH-01` | `EPIC-10` Health | **G1** | Soạn PRD & BDD kết nối 2 chiều Health Platform | `business-analyst` | 1 | 🟢 Done |
+| `TSK-HLTH-02` | `EPIC-10` Health | **G2** | Thiết kế UI Health Dashboard & biểu đồ cân bằng năng lượng | `ui-ux-designer` | 1 | 🟢 Done |
+| `TSK-HLTH-03` | `EPIC-10` Health | **G3** | Manual TCs & BDD cho đồng bộ dữ liệu & quyền truy cập | `qa-tester` | 1 | 🟢 Done |
+| `TSK-HLTH-04` | `EPIC-10` Health | **G4** | Triển khai `features/health/` — Domain, Data, Presentation | `flutter-expert` | 3 | 🟢 Done |
+| `TSK-HLTH-05` | `EPIC-10` Health | **G5** | Ponytail Code Review cho health integration | `code-reviewer` | 1 | 🟢 Done |
+| `TSK-HLTH-06` | `EPIC-10` Health | **G6** | Automated test suite + kiểm thử quyền platform | `qa-tester` | 1 | 🟢 Done |
+
+---
+
+## 📊 Burndown Sprint 03
+
+| Ngày | SP Còn Lại | Ghi Chú |
+|:---:|:---:|:---|
+| 19/09 | 21 | Khởi động Sprint 03 |
+| 19/09 | 0 | Hoàn tất 7 Cổng (Gate 1 - Gate 7), 118/118 tests Pass, phát hành v1.2.0 |
 
 ---
 

@@ -2,11 +2,43 @@
 
 - **Quản lý bởi**: Sub-Agent Project Manager (PM) & Sub-Agent Product Owner (PO)
 - **Ánh xạ quy trình**: 7-Gate Delivery Flow (BA ➔ UI/UX Designer ➔ QA ➔ Dev FE ➔ Code Review ➔ Verification ➔ Release)
-- **Cập nhật lần cuối**: 2026-09-18
+- **Cập nhật lần cuối**: 2026-09-19
 
 ---
 
-## 🏗️ 1. Bảng Ma Trận Phân Rã WBS Sprint 02 (v1.1.0 Enhancements — Active)
+## 🏗️ 1. Bảng Ma Trận Phân Rã WBS Sprint 03 (v1.2.0 AI Coach & Health — Active)
+
+### EPIC-07: Smart Realtime AI Coach (13 SP)
+
+| Mã Task | Feature / Epic | Cổng Chất Lượng | Mô Tả Nhiệm Vụ Kỹ Thuật | Sub-Agent Đảm Nhiệm | SP | Phụ Thuộc | Trạng Thái |
+| :--- | :--- | :---: | :--- | :---: | :---: | :---: | :---: |
+| **`TSK-CHAT-01`** | `EPIC-07` AI Coach | **Gate 1** | Soạn thảo PRD & BDD Given-When-Then cho AI Chat Coach: luồng hỏi đáp, gợi ý thực đơn, tương tác ngữ cảnh bữa ăn hiện tại | `business-analyst` | 2 | None | 🟢 Done (PO Approved) |
+| **`TSK-CHAT-02`** | `EPIC-07` AI Coach | **Gate 2** | Thiết kế UI Chat Screen: Bubble layout, typing indicator shimmer, Quick Actions chips, Celestial Dark UI tokens | `ui-ux-designer` | 2 | TSK-CHAT-01 | 🟢 Done (BA & PO Signed Off) |
+| **`TSK-CHAT-03`** | `EPIC-07` AI Coach | **Gate 3** | Thiết kế Manual TCs & BDD Gherkin cho hội thoại AI (edge cases: mất mạng, response timeout, nội dung không phù hợp) | `qa-tester` | 1 | TSK-CHAT-02 | 🟢 Done (QA & PM Signed Off) |
+| **`TSK-CHAT-04`** | `EPIC-07` AI Coach | **Gate 4** | Triển khai `features/coach/` — Domain (ChatMessage), Data (Gemini Chat API via `google_generative_ai`), Presentation (CoachPage, CoachController) | `flutter-expert` | 5 | TSK-CHAT-03 | 🟢 Done (Dev FE Finished) |
+| **`TSK-CHAT-05`** | `EPIC-07` AI Coach | **Gate 5** | Ponytail Code Review: kiểm soát over-engineering, dead code trong chat feature | `code-reviewer` | 1 | TSK-CHAT-04 | 🟢 Done (Reviewer Signed Off: "Lean already. Ship.") |
+| **`TSK-CHAT-06`** | `EPIC-07` AI Coach | **Gate 6** | Chạy automated test suite 100% Pass, integration test AI Chat, ký biên bản nghiệm thu | `qa-tester` | 2 | TSK-CHAT-05 | 🟢 Done (QA Signed Off: Release Approved) |
+
+### EPIC-10: Apple Health / Health Connect Integration (8 SP)
+
+| Mã Task | Feature / Epic | Cổng Chất Lượng | Mô Tả Nhiệm Vụ Kỹ Thuật | Sub-Agent Đảm Nhiệm | SP | Phụ Thuộc | Trạng Thái |
+| :--- | :--- | :---: | :--- | :---: | :---: | :---: | :---: |
+| **`TSK-HLTH-01`** | `EPIC-10` Health | **Gate 1** | Soạn thảo PRD & BDD cho kết nối 2 chiều Health Platform (đọc calo tiêu hao, ghi calo nạp vào) | `business-analyst` | 1 | None | 🟢 Done (PO Approved) |
+| **`TSK-HLTH-02`** | `EPIC-10` Health | **Gate 2** | Thiết kế UI Health Dashboard: Thanh tổng hợp Calo In/Out, biểu đồ cân bằng năng lượng, trạng thái kết nối Health | `ui-ux-designer` | 1 | TSK-HLTH-01 | 🟢 Done (BA & PO Signed Off) |
+| **`TSK-HLTH-03`** | `EPIC-10` Health | **Gate 3** | Thiết kế Manual TCs & BDD cho đồng bộ dữ liệu, xung đột dữ liệu, quyền truy cập bị từ chối | `qa-tester` | 1 | TSK-HLTH-02 | 🟢 Done (QA & PM Signed Off) |
+| **`TSK-HLTH-04`** | `EPIC-10` Health | **Gate 4** | Triển khai `features/health/` — Domain (HealthActivity, EnergyBalance), Data (health plugin wrapper), Presentation (HealthConnectionPage, HealthCards) | `flutter-expert` | 3 | TSK-HLTH-03 | 🟢 Done (Dev FE Finished) |
+| **`TSK-HLTH-05`** | `EPIC-10` Health | **Gate 5** | Ponytail Code Review cho health integration: kiểm tra abstraction layer, dependency | `code-reviewer` | 1 | TSK-HLTH-04 | 🟢 Done (Reviewer Signed Off: "Lean already. Ship.") |
+| **`TSK-HLTH-06`** | `EPIC-10` Health | **Gate 6** | Automated test suite + kiểm thử quyền platform (HealthKit/Health Connect permissions) | `qa-tester` | 1 | TSK-HLTH-05 | 🟢 Done (QA Signed Off: Release Approved) |
+
+### Cross-Sprint Release Task
+
+| Mã Task | Feature / Epic | Cổng Chất Lượng | Mô Tả Nhiệm Vụ Kỹ Thuật | Sub-Agent Đảm Nhiệm | SP | Phụ Thuộc | Trạng Thái |
+| :--- | :--- | :---: | :--- | :---: | :---: | :---: | :---: |
+| **`TSK-REL-03`** | Release v1.2.0 | **Gate 7** | Nghiệm thu tổng thể, gắn Git Tag `v1.2.0`, cập nhật Roadmap → Done và đóng Sprint 03 | `project-manager` & `product-owner` | 2 | TSK-CHAT-06, TSK-HLTH-06 | 🟢 Done (Released v1.2.0) |
+
+---
+
+## 🏛️ 2. Lưu Trữ Ma Trận WBS Sprint 02 (v1.1.0 Enhancements — 100% Done)
 
 | Mã Task | Feature / Epic | Cổng Chất Lượng | Mô Tả Nhiệm Vụ Kỹ Thuật | Sub-Agent Đảm Nhiệm | SP | Phụ Thuộc | Trạng Thái |
 | :--- | :--- | :---: | :--- | :---: | :---: | :---: | :---: |
@@ -28,7 +60,7 @@
 
 ---
 
-## 🏛️ 2. Lưu Trữ Ma Trận WBS Sprint 01 (v1.0.0 MVP — 100% Done)
+## 🏛️ 3. Lưu Trữ Ma Trận WBS Sprint 01 (v1.0.0 MVP — 100% Done)
 
 | Mã Task | Feature / Epic | Cổng Chất Lượng | Mô Tả Nhiệm Vụ Kỹ Thuật | Sub-Agent Đảm Nhiệm | SP | Trạng Thái |
 | :--- | :--- | :---: | :--- | :---: | :---: | :---: |
