@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 
-/// Chuyển đổi mã lỗi từ Firebase Authentication sang thông điệp tiếng Việt thân thiện.
+/// Chuyển đổi mã lỗi từ Firebase Authentication và Google Sign-In sang thông điệp tiếng Việt thân thiện.
 abstract final class AuthErrorHandler {
   static String getErrorMessage(dynamic error) {
     if (error is FirebaseAuthException) {
@@ -17,6 +18,18 @@ abstract final class AuthErrorHandler {
         'popup-closed-by-user' => 'Thao tác đăng nhập đã được hủy.',
         _ => error.message ?? 'Đã xảy ra lỗi xác thực. Vui lòng thử lại.',
       };
+    }
+    if (error is PlatformException) {
+      if (error.code == 'sign_in_canceled' || error.message?.contains('canceled') == true) {
+        return 'Thao tác đăng nhập Google đã được hủy.';
+      }
+      if (error.code == 'network_error') {
+        return 'Lỗi kết nối mạng khi xác thực với Google. Vui lòng thử lại.';
+      }
+      if (error.code == 'sign_in_failed' || error.message?.contains('10') == true) {
+        return 'Đăng nhập Google thất bại. Vui lòng kiểm tra cấu hình tài khoản Google hoặc mạng.';
+      }
+      return error.message ?? 'Lỗi xác thực hệ thống (${error.code}).';
     }
     if (error is Exception) {
       final msg = error.toString();

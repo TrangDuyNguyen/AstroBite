@@ -35,16 +35,28 @@ class AuthRemoteDatasource {
   }
 
   Future<UserCredential?> signInWithGoogle() async {
-    final googleUser = await _googleSignIn.signIn();
-    if (googleUser == null) {
-      return null;
+    try {
+      final googleUser = await _googleSignIn.signIn();
+      if (googleUser == null) {
+        return null;
+      }
+      final googleAuth = await googleUser.authentication;
+      if (googleAuth.idToken == null && googleAuth.accessToken == null) {
+        throw Exception('Không nhận được token xác thực từ Google. Vui lòng thử lại.');
+      }
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+      return await _auth.signInWithCredential(credential);
+    } on FirebaseAuthException {
+      rethrow;
+    } catch (e) {
+      if (e.toString().contains('sign_in_canceled') || e.toString().contains('canceled')) {
+        return null;
+      }
+      rethrow;
     }
-    final googleAuth = await googleUser.authentication;
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
-    return _auth.signInWithCredential(credential);
   }
 
   Future<void> sendPasswordResetEmail({required String email}) async {
