@@ -121,6 +121,9 @@ Mỗi màn hình bắt buộc phải có mô tả cho 5 trạng thái:
 ### Bước 5: Ánh Xạ Token Celestial Dark UI & Trình Duyệt Gate 2 Sign-off
 - Lập bảng ánh xạ cụ thể từng thành phần UI sang biến Flutter `AppColors.*` và Theme tokens.
 - Liệt kê các Shared Widgets có thể tái sử dụng từ `shared/widgets/`: `GlassCard`, `MacroBar`, `CalorieProgressArc`, `MealTypeChip`, `SkeletonLoader`.
+- **Kiểm định trực quan qua Flutter Preview MCP (`flutter-preview:preview_widget`)**:
+  - Dựng nhanh widget snippet của các components chủ chốt (ví dụ: GlassCard mới, Empty state card, Shimmer layout) bằng công cụ `preview_widget` (set `width: 390`, `height: 844` theo chuẩn mobile viewport).
+  - Tự kiểm tra: tỷ lệ tương phản màu nền `#0A192F` / bề mặt `#112240`, độ rõ của số calo bold `+0.5 letterSpacing`, và lưới padding 4pt.
 - Lưu hồ sơ thiết kế vào `docs/03-prd-features/<mã-feature>/ui-ux-design-spec.md` theo template `docs/templates/template-ui-ux-spec.md`.
 - Trình Sub-Agent `business-analyst` đối soát 100% User Stories và Sub-Agent `product-owner` ký duyệt **Gate 2 Sign-Off**.
 

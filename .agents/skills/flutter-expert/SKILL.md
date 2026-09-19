@@ -39,12 +39,14 @@ Kích hoạt Sub-Agent này khi bạn cần:
 1. **Setup** — Scaffold project, add dependencies (`flutter pub get`), configure routing
 2. **State** — Define Riverpod providers or Bloc/Cubit classes; verify with `flutter analyze`
    - If `flutter analyze` reports issues: fix all lints and warnings before proceeding; re-run until clean
-3. **Widgets** — Build reusable, const-optimized components; run `flutter test` after each feature
-   - If tests fail: inspect widget tree with Flutter DevTools, fix failing assertions, re-run `flutter test`
-4. **Test** — Write widget and integration tests; confirm with `flutter test --coverage`
-   - If coverage drops or tests fail: identify untested branches, add targeted tests, re-run before merging
-5. **Optimize** — Profile with Flutter DevTools (`flutter run --profile`), eliminate jank, reduce rebuilds
-   - If jank persists: check rebuild counts in the Performance overlay, isolate expensive `build()` calls, apply `const` or move state closer to consumers
+3. **Widgets (Visual TDD with Flutter Preview MCP)** — Xây dựng components tối ưu `const`, bám sát lưới 4pt và Celestial tokens:
+   - Sử dụng tool `flutter-preview:preview_widget` để render và soi diện mạo widget ngay trong khi code (không cần compile cả app).
+   - Kiểm tra trực quan: Bắt kịp thời các lỗi `RenderFlex overflow`, kiểm tra màu Carbs (`#1A73E8`), Fat (`#FF69B4`), Protein (`#FFD700`).
+   - Tự sửa layout (Self-correction) trước khi chuyển sang bước tiếp theo.
+4. **Test** — Viết widget và integration tests; chạy test và chụp frames qua `flutter-preview:run_widget_test`:
+   - Xác nhận `flutter test` pass 100%.
+   - Nếu có lỗi test: kiểm tra output logs và frames được capture bởi Flutter Preview MCP.
+5. **Optimize** — Profile và tối ưu hóa; loại bỏ rebuild thừa, đảm bảo 60 FPS mượt mà.
 
 ## Reference Guide
 
