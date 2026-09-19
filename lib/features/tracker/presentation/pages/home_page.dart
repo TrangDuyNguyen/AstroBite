@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:astrobite/core/constants/app_strings.dart';
 import 'package:astrobite/core/constants/app_values.dart';
 import 'package:astrobite/core/router/app_router.dart';
+import 'package:astrobite/core/theme/app_colors.dart';
+import 'package:astrobite/shared/widgets/glass_card.dart';
 import '../../domain/tracker_providers.dart';
 import '../widgets/celestial_offline_banner.dart';
 import '../widgets/daily_micronutrient_card.dart';
@@ -43,6 +45,85 @@ class HomePage extends ConsumerWidget {
                   DailySummaryCard(summary: summary),
                   const SizedBox(height: AppValues.spacing16),
                   DailyMicronutrientCard(summary: summary),
+                  const SizedBox(height: AppValues.spacing16),
+                  // AstroCoach Quick Tip & CTA
+                  GlassCard(
+                    padding: const EdgeInsets.all(AppValues.cardPadding),
+                    child: InkWell(
+                      onTap: () => context.router.push(const CoachRoute()),
+                      borderRadius: BorderRadius.circular(AppValues.cardRadius),
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 44,
+                            height: 44,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              gradient: LinearGradient(
+                                colors: [
+                                  AppColors.primary,
+                                  AppColors.secondary.withValues(alpha: 0.8),
+                                ],
+                              ),
+                            ),
+                            child: const Icon(
+                              Icons.auto_awesome,
+                              color: Colors.white,
+                              size: 22,
+                            ),
+                          ),
+                          const SizedBox(width: AppValues.spacing12),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Text(
+                                      'AstroCoach AI',
+                                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                            fontWeight: FontWeight.bold,
+                                            color: AppColors.onSurface,
+                                          ),
+                                    ),
+                                    const SizedBox(width: 6),
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                                      decoration: BoxDecoration(
+                                        color: AppColors.tertiary.withValues(alpha: 0.2),
+                                        borderRadius: BorderRadius.circular(4),
+                                      ),
+                                      child: const Text(
+                                        'PROACTIVE',
+                                        style: TextStyle(
+                                          color: AppColors.tertiary,
+                                          fontSize: 9,
+                                          fontWeight: FontWeight.bold,
+                                          letterSpacing: 0.8,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  'Hôm nay bạn cần gợi ý thực đơn hay phân tích calo? Bấm để hỏi ngay!',
+                                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                        color: AppColors.onSurfaceVariant,
+                                      ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const Icon(
+                            Icons.arrow_forward_ios,
+                            size: 14,
+                            color: AppColors.onSurfaceVariant,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                   const SizedBox(height: AppValues.spacing24),
                   Text(
                     AppStrings.nutritionLog,

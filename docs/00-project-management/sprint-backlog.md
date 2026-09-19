@@ -1,74 +1,70 @@
 # Kế Hoạch Sprint Hiện Hành (Sprint Backlog)
 
 - **Quản lý bởi**: Sub-Agent Product Owner (PO) & Sub-Agent Project Manager (PM)
-- **Sprint hiện tại**: Sprint 03
-- **Phiên bản mục tiêu**: `v1.2.0`
+- **Sprint hiện tại**: Sprint 04
+- **Tên Sprint**: Cosmic Onboarding & Flawless Product Architecture
+- **Phiên bản mục tiêu**: `v1.3.0`
 - **Thời gian Sprint**: 19/09/2026 – 03/10/2026
-- **Trạng thái Sprint**: 🟢 **Hoàn Tất & Đã Phát Hành (Released v1.2.0)**
-- **Tổng Story Points**: 21 SP
+- **Trạng thái Sprint**: 🟡 **Đang Triển Khai (Active Execution)**
+- **Tổng Story Points**: 22 SP (Must: 13 SP [59%], Should: 5 SP [23%], Could: 4 SP [18%])
 
 ---
 
-## 🎯 Mục Tiêu Sprint 03
+## 🎯 Mục Tiêu Sprint 04
 
-Chuyển đổi AstroBite từ ứng dụng ghi chép dinh dưỡng thụ động sang **Trợ lý AI dinh dưỡng chủ động** (Proactive AI Nutrition Coach):
-1. **EPIC-07** Smart Realtime AI Coach — Chat hội thoại với Gemini AI (Must-have, 13 SP)
-2. **EPIC-10** Apple Health / Health Connect Integration — Kết nối thiết bị đeo (Should-have, 8 SP)
+Khắc phục triệt để các lỗ hổng nền tảng được PO thẩm định & User phê duyệt:
+1. **Google Sign-In & Auth Resiliency**: Cập nhật cấu hình OAuth/Server Client ID, loại bỏ triệt để lỗi đăng nhập Google, xử lý mượt mà cả khi offline hoặc token refresh.
+2. **Information Architecture (IA) Restructuring**: Đưa **AstroCoach AI** ra vị trí trang trọng tại Tab chính thứ 2 của Navigation Bar, chuyển Manual Entry thành nút hành động nhanh từ Home/Tracker.
+3. **Cosmic Nutrition Brand Connection**: Gắn kết triết lý "Mỗi cơ thể là một tiểu vũ trụ, Calo & Macro là năng lượng vận hành các hành tinh sinh học" vào toàn bộ luồng Onboarding và Dashboard.
+4. **Hero Entry Point trên HomePage**: Thẻ AstroCoach AI Proactive Card và Health summary hiển thị trực tiếp 1 chạm trên Dashboard.
 
 ---
 
 ## 📋 Bảng Kanban Trực Quan
 
-### 1. 📝 TODO — [0 SP]
-*(Toàn bộ task đã hoàn thành)*
+### 1. 📝 TODO — [4 SP]
+| Mã Task | Feature / Epic | Gate | Mô Tả | Sub-Agent | SP | Trạng Thái |
+|:---|:---|:---:|:---|:---:|:---:|:---:|
+| `TSK-S4-POLISH` | UI/UX Polish | **G4-G5** | Tinh chỉnh chuyển động hạt bụi sao & Celestial glow 60 FPS | `flutter-expert` | 4 | ⚪ Backlog |
 
 ### 2. ⚡ IN PROGRESS — [0 SP]
-*(Không còn tác vụ đang chạy)*
+*(Không còn tác vụ dở dang)*
 
 ### 3. 🔍 IN REVIEW & VERIFY — [0 SP]
-*(Gate 5 Review & Gate 6 QA Verification đã hoàn tất 100%)*
+*(Đang chuẩn bị nghiệm thu Gate 6)*
 
-### 4. 🏁 DONE — [21 SP]
+### 4. 🏁 DONE — [18 SP]
 
 | Mã Task | Feature / Epic | Gate | Mô Tả | Sub-Agent | SP | Trạng Thái |
 |:---|:---|:---:|:---|:---:|:---:|:---:|
-| `TSK-CHAT-01` | `EPIC-07` AI Coach | **G1** | Soạn PRD & BDD cho AI Chat Coach | `business-analyst` | 2 | 🟢 Done |
-| `TSK-CHAT-02` | `EPIC-07` AI Coach | **G2** | Thiết kế UI Chat Screen: Bubble, typing indicator, Quick Actions | `ui-ux-designer` | 2 | 🟢 Done |
-| `TSK-CHAT-03` | `EPIC-07` AI Coach | **G3** | Manual TCs & BDD Gherkin cho hội thoại AI | `qa-tester` | 1 | 🟢 Done |
-| `TSK-CHAT-04` | `EPIC-07` AI Coach | **G4** | Triển khai `features/coach/` — Domain, Data, Presentation | `flutter-expert` | 5 | 🟢 Done |
-| `TSK-CHAT-05` | `EPIC-07` AI Coach | **G5** | Ponytail Code Review cho chat feature | `code-reviewer` | 1 | 🟢 Done |
-| `TSK-CHAT-06` | `EPIC-07` AI Coach | **G6** | Automated test suite + integration test | `qa-tester` | 2 | 🟢 Done |
-| `TSK-HLTH-01` | `EPIC-10` Health | **G1** | Soạn PRD & BDD kết nối 2 chiều Health Platform | `business-analyst` | 1 | 🟢 Done |
-| `TSK-HLTH-02` | `EPIC-10` Health | **G2** | Thiết kế UI Health Dashboard & biểu đồ cân bằng năng lượng | `ui-ux-designer` | 1 | 🟢 Done |
-| `TSK-HLTH-03` | `EPIC-10` Health | **G3** | Manual TCs & BDD cho đồng bộ dữ liệu & quyền truy cập | `qa-tester` | 1 | 🟢 Done |
-| `TSK-HLTH-04` | `EPIC-10` Health | **G4** | Triển khai `features/health/` — Domain, Data, Presentation | `flutter-expert` | 3 | 🟢 Done |
-| `TSK-HLTH-05` | `EPIC-10` Health | **G5** | Ponytail Code Review cho health integration | `code-reviewer` | 1 | 🟢 Done |
-| `TSK-HLTH-06` | `EPIC-10` Health | **G6** | Automated test suite + kiểm thử quyền platform | `qa-tester` | 1 | 🟢 Done |
+| `TSK-S4-AUTH` | `FEAT-01` Auth | **G0-G4** | Cấu hình `serverClientId` Google OAuth từ Web Client ID, fix crash & idToken | `tech-lead` / `flutter-expert` | 5 | 🟢 Done |
+| `TSK-S4-NAV` | `FEAT-NAV` Shell | **G2-G4** | Tái cấu trúc ShellScreen đưa `CoachRoute` lên Tab chính NavigationBar | `ui-ux-designer` / `flutter-expert` | 5 | 🟢 Done |
+| `TSK-S4-BRAND` | `FEAT-01` Onboarding | **G1-G4** | Gắn kết triết lý Cosmic Nutrition vào 5 bước Onboarding & Launcher assets | `ui-ux-designer` / `flutter-expert` | 3 | 🟢 Done |
+| `TSK-S4-COACH-UI` | `EPIC-07` AI Coach | **G2-G4** | Thêm AstroCoach Quick Card trên Home & Quick Action Chips phong phú | `flutter-expert` | 3 | 🟢 Done |
+| `TSK-S4-HLTH-DASH` | `EPIC-10` Health | **G2-G4** | Tối ưu hiển thị và điều hướng thẻ Health từ Profile & Home | `flutter-expert` | 2 | 🟢 Done |
 
 ---
 
-## 📊 Burndown Sprint 03
+## 📊 Burndown Sprint 04
 
 | Ngày | SP Còn Lại | Ghi Chú |
 |:---:|:---:|:---|
-| 19/09 | 21 | Khởi động Sprint 03 |
-| 19/09 | 0 | Hoàn tất 7 Cổng (Gate 1 - Gate 7), 118/118 tests Pass, phát hành v1.2.0 |
+| 19/09 | 22 | Khởi động Sprint 04 theo phê duyệt PO |
+| 19/09 | 4 | Hoàn tất Auth Google fix, Shell Navigation, Cosmic Onboarding, AstroCoach Home Card (18/22 SP) |
 
 ---
 
 ## 🏛️ Lịch Sử Các Sprint Đã Hoàn Thành (Sprint Archive)
 
+### 🟢 Sprint 03 — AstroBite v1.2.0 Trợ Lý AI Dinh Dưỡng & Apple Health (Hoàn tất 19/09/2026)
+- **Mục tiêu**: Tích hợp Gemini AI Chat Coach (`EPIC-07`) và Apple Health / Health Connect (`EPIC-10`).
+- **Kết quả**: **21 / 21 SP (100% Passed)** — 119/119 tests pass, phát hành tag `v1.2.0`.
+- **Biên bản phát hành**: [`docs/05-change-management/release-v1.2.0.md`](file:///Users/nguyenduytrang/flutter_project/AstroBite/docs/05-change-management/release-v1.2.0.md)
+
 ### 🟢 Sprint 02 — AstroBite v1.1.0 Dinh Dưỡng Nâng Cao & Trải Nghiệm Offline (Hoàn tất 18/09/2026)
-- **Mục tiêu**: Mở rộng Gemini Vision AI nhận diện đa món (`FEAT-06`), kiến tạo Offline-First Cache & Sync (`FEAT-07`), và theo dõi vi chất dinh dưỡng (`FEAT-08`).
-- **Kết quả**: **26 / 26 SP (100% Passed)** — 7-Gate SOP hoàn tất toàn bộ chuỗi Gates 1→7.
-- **Kiểm thử**: 110/110 tests passed (100%), `flutter analyze` 0 issues, 0 bugs S1-S4.
-- **Ponytail Review**: -121 dòng dead code pruned, verdict: `Lean already. Ship.`
-- **Git Tag**: [`v1.1.0`](file:///Users/nguyenduytrang/flutter_project/AstroBite)
-- **Biên bản phát hành**: [`docs/05-change-management/release-v1.1.0.md`](file:///Users/nguyenduytrang/flutter_project/AstroBite/docs/05-change-management/release-v1.1.0.md)
-- **Biên bản QA Sign-Off**: [`tests/05-test-execution-reports/release-sign-offs/signoff-sprint-02.md`](file:///Users/nguyenduytrang/flutter_project/AstroBite/tests/05-test-execution-reports/release-sign-offs/signoff-sprint-02.md)
+- **Mục tiêu**: Mở rộng Gemini Vision AI nhận diện đa món (`FEAT-06`), Offline-First Cache & Sync (`FEAT-07`), vi chất (`FEAT-08`).
+- **Kết quả**: **26 / 26 SP (100% Passed)** — 110/110 tests pass, phát hành tag `v1.1.0`.
 
 ### 🟢 Sprint 01 — AstroBite v1.0.0 MVP Release (Hoàn tất 18/09/2026)
-- **Mục tiêu**: Hoàn tất kiểm thử, rà soát Ponytail và ký nghiệm thu Gate 5 cho Analytics & Profile, đóng gói v1.0.0.
-- **Kết quả**: **13 / 13 SP (100% Passed)**, 94/94 tests tự động passed, 0 lỗi static analysis.
-- **Git Tag**: [`v1.0.0`](file:///Users/nguyenduytrang/flutter_project/AstroBite)
-- **Biên bản phát hành**: [`docs/05-change-management/release-v1.0.0.md`](file:///Users/nguyenduytrang/flutter_project/AstroBite/docs/05-change-management/release-v1.0.0.md)
+- **Mục tiêu**: Hoàn tất kiểm thử, rà soát Ponytail cho Analytics & Profile, đóng gói v1.0.0.
+- **Kết quả**: **13 / 13 SP (100% Passed)**, 94/94 tests pass, phát hành tag `v1.0.0`.

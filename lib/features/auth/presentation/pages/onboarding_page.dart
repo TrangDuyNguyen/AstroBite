@@ -172,6 +172,23 @@ class _OnboardingPageState extends State<OnboardingPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            decoration: BoxDecoration(
+              color: AppColors.primary.withValues(alpha: 0.15),
+              borderRadius: BorderRadius.circular(4),
+            ),
+            child: const Text(
+              'TIỂU VŨ TRỤ SINH HỌC',
+              style: TextStyle(
+                color: AppColors.primary,
+                fontSize: 10,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 1.2,
+              ),
+            ),
+          ),
+          const SizedBox(height: AppValues.spacing8),
           const Text(
             'Giới tính sinh học của bạn?',
             style: TextStyle(
@@ -182,7 +199,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
           ),
           const SizedBox(height: AppValues.spacing8),
           const Text(
-            'Chỉ số này dùng để tính toán tốc độ trao đổi chất cơ bản (BMR) theo chuẩn y khoa Mifflin-St Jeor.',
+            'Mỗi cơ thể là một tiểu vũ trụ độc lập. Giới tính sinh học giúp AstroBite định vị tốc độ trao đổi chất cơ bản (BMR) theo chuẩn y khoa Mifflin-St Jeor.',
             style: TextStyle(fontSize: 14, color: AppColors.onSurfaceVariant),
           ),
           const Spacer(),
@@ -220,6 +237,23 @@ class _OnboardingPageState extends State<OnboardingPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            decoration: BoxDecoration(
+              color: AppColors.tertiary.withValues(alpha: 0.15),
+              borderRadius: BorderRadius.circular(4),
+            ),
+            child: const Text(
+              'TỌA ĐỘ KHÔNG GIAN',
+              style: TextStyle(
+                color: AppColors.tertiary,
+                fontSize: 10,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 1.2,
+              ),
+            ),
+          ),
+          const SizedBox(height: AppValues.spacing8),
           const Text(
             'Năm sinh & Chiều cao',
             style: TextStyle(
@@ -230,7 +264,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
           ),
           const SizedBox(height: AppValues.spacing8),
           const Text(
-            'Giúp AstroBite ước lượng chính xác nhu cầu năng lượng hàng ngày của bạn.',
+            'Năm sinh và chiều cao tạo nên khung tọa độ sinh học để AstroBite ước lượng chính xác năng lượng tiêu hao.',
             style: TextStyle(fontSize: 14, color: AppColors.onSurfaceVariant),
           ),
           const SizedBox(height: AppValues.spacing32),
@@ -250,9 +284,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 ),
                 Slider(
                   value: _birthYear.toDouble(),
-                  min: (DateTime.now().year - 80).toDouble(),
-                  max: (DateTime.now().year - 12).toDouble(),
-                  divisions: 68,
+                  min: 1950,
+                  max: DateTime.now().year.toDouble() - 10,
+                  divisions: DateTime.now().year - 1960,
                   activeColor: AppColors.primary,
                   onChanged: (v) => setState(() => _birthYear = v.round()),
                 ),
@@ -270,15 +304,15 @@ class _OnboardingPageState extends State<OnboardingPage> {
                     const Text('Chiều cao', style: TextStyle(color: AppColors.onSurfaceVariant)),
                     Text(
                       '${_heightCm.round()} cm',
-                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.onSurface),
+                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.primary),
                     ),
                   ],
                 ),
                 Slider(
                   value: _heightCm,
-                  min: 100,
-                  max: 230,
-                  divisions: 130,
+                  min: 120,
+                  max: 220,
+                  divisions: 100,
                   activeColor: AppColors.primary,
                   onChanged: (v) => setState(() => _heightCm = v),
                 ),
@@ -290,14 +324,33 @@ class _OnboardingPageState extends State<OnboardingPage> {
     );
   }
 
-  // Step 3: Weight & Target Weight
+  // Step 3: Weight
   Widget _buildStepWeight() {
-    final bmi = _weightKg / ((_heightCm / 100) * (_heightCm / 100));
+    final heightM = _heightCm / 100;
+    final bmi = _weightKg / (heightM * heightM);
+
     return SingleChildScrollView(
       padding: const EdgeInsets.all(AppValues.screenPadding),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            decoration: BoxDecoration(
+              color: AppColors.secondary.withValues(alpha: 0.15),
+              borderRadius: BorderRadius.circular(4),
+            ),
+            child: const Text(
+              'TRỌNG LỰC QUỸ ĐẠO',
+              style: TextStyle(
+                color: AppColors.secondary,
+                fontSize: 10,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 1.2,
+              ),
+            ),
+          ),
+          const SizedBox(height: AppValues.spacing8),
           const Text(
             'Cân nặng hiện tại & Mục tiêu',
             style: TextStyle(
@@ -308,7 +361,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
           ),
           const SizedBox(height: AppValues.spacing8),
           Text(
-            'BMI hiện tại của bạn: ${bmi.toStringAsFixed(1)} (${_getBmiCategory(bmi)})',
+            'Định vị cân nặng để thiết lập mục tiêu năng lượng. BMI hiện tại: ${bmi.toStringAsFixed(1)} (${_getBmiCategory(bmi)})',
             style: const TextStyle(fontSize: 14, color: AppColors.primary, fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: AppValues.spacing24),
@@ -383,6 +436,23 @@ class _OnboardingPageState extends State<OnboardingPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            decoration: BoxDecoration(
+              color: AppColors.primary.withValues(alpha: 0.15),
+              borderRadius: BorderRadius.circular(4),
+            ),
+            child: const Text(
+              'TẦN SỐ VẬN ĐỘNG',
+              style: TextStyle(
+                color: AppColors.primary,
+                fontSize: 10,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 1.2,
+              ),
+            ),
+          ),
+          const SizedBox(height: AppValues.spacing8),
           const Text(
             'Mức độ vận động',
             style: TextStyle(
@@ -393,7 +463,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
           ),
           const SizedBox(height: AppValues.spacing8),
           const Text(
-            'Yếu tố quyết định hệ số tiêu hao năng lượng (TDEE) hàng ngày.',
+            'Cường độ hoạt động thể chất quyết định hệ số tiêu hao năng lượng (TDEE) trong chu kỳ ngày của bạn.',
             style: TextStyle(fontSize: 14, color: AppColors.onSurfaceVariant),
           ),
           const SizedBox(height: AppValues.spacing16),
@@ -482,6 +552,23 @@ class _OnboardingPageState extends State<OnboardingPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            decoration: BoxDecoration(
+              color: AppColors.tertiary.withValues(alpha: 0.15),
+              borderRadius: BorderRadius.circular(4),
+            ),
+            child: const Text(
+              'MỤC TIÊU QUỸ ĐẠO',
+              style: TextStyle(
+                color: AppColors.tertiary,
+                fontSize: 10,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 1.2,
+              ),
+            ),
+          ),
+          const SizedBox(height: AppValues.spacing8),
           const Text(
             'Mục tiêu chính của bạn?',
             style: TextStyle(
@@ -492,7 +579,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
           ),
           const SizedBox(height: AppValues.spacing8),
           const Text(
-            'AstroBite sẽ cá nhân hóa mục tiêu Calo và tỷ lệ Macro cho bạn.',
+            'Chọn quỹ đạo phát triển vóc dáng của bạn — Đồng hành 24/7 cùng trợ lý thông minh AstroCoach AI.',
             style: TextStyle(fontSize: 14, color: AppColors.onSurfaceVariant),
           ),
           const Spacer(),

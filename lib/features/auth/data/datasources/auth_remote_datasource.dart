@@ -6,7 +6,11 @@ class AuthRemoteDatasource {
     FirebaseAuth? auth,
     GoogleSignIn? googleSignIn,
   })  : _auth = auth ?? FirebaseAuth.instance,
-        _googleSignIn = googleSignIn ?? GoogleSignIn();
+        _googleSignIn = googleSignIn ??
+            GoogleSignIn(
+              serverClientId:
+                  '925552313324-nge0ljq0ug1attkt02k49o7vqfvdeujd.apps.googleusercontent.com',
+            );
 
   final FirebaseAuth _auth;
   final GoogleSignIn _googleSignIn;

@@ -1,9 +1,9 @@
 # Bản Đồ Lộ Trình Sản Phẩm AstroBite (Product Roadmap)
 
 - **Quản lý bởi**: Sub-Agent Product Owner (PO)
-- **Phiên bản hiện tại**: v1.2.0 (Sprint 03 Active)
+- **Phiên bản hiện tại**: v1.3.0 (Sprint 04 Active)
 - **Cập nhật lần cuối**: 2026-09-19
-- **Tình trạng tổng thể**: 🟡 Đang triển khai Sprint 03 — Trợ Lý Ảo & Hệ Sinh Thái Sức Khỏe
+- **Tình trạng tổng thể**: 🟡 Đang triển khai Sprint 04 — Cosmic Onboarding & Flawless Product Architecture
 
 ---
 
@@ -11,30 +11,35 @@
 
 ```
        ┌──────────────────────────────────────────────────────────────┐
-       │   🟢 CHÂN TRỜI 1: HISTORICAL (v1.0.0 + v1.1.0 — RELEASED)   │
-       │   - FEAT-01: Auth & Onboarding (Released v1.0.0)            │
-       │   - FEAT-02: Gemini Food Scanner AI (Released v1.0.0)       │
-       │   - FEAT-03: Diary & Manual Food Entry (Released v1.0.0)    │
-       │   - FEAT-04: Analytics & Trends (Released v1.0.0)           │
-       │   - FEAT-05: User Profile & Goals (Released v1.0.0)         │
-       │   - FEAT-06: Multi-Item Meal Detection (Released v1.1.0)    │
-       │   - FEAT-07: Offline-First Resilience (Released v1.1.0)     │
-       │   - FEAT-08: Micronutrient Tracking (Released v1.1.0)       │
+       │   🟢 CHÂN TRỜI 1: HISTORICAL (v1.0.0, v1.1.0, v1.2.0 — DONE) │
+       │   - FEAT-01: Auth & Onboarding (Released v1.0.0)             │
+       │   - FEAT-02: Gemini Food Scanner AI (Released v1.0.0)        │
+       │   - FEAT-03: Diary & Manual Food Entry (Released v1.0.0)     │
+       │   - FEAT-04: Analytics & Trends (Released v1.0.0)            │
+       │   - FEAT-05: User Profile & Goals (Released v1.0.0)          │
+       │   - FEAT-06: Multi-Item Meal Detection (Released v1.1.0)     │
+       │   - FEAT-07: Offline-First Resilience (Released v1.1.0)      │
+       │   - FEAT-08: Micronutrient Tracking (Released v1.1.0)        │
+       │   - EPIC-07: Smart Realtime AI Coach (Released v1.2.0)       │
+       │   - EPIC-10: Apple Health Integration (Released v1.2.0)      │
        └──────────────────────────────┬───────────────────────────────┘
                                       │
                                       ▼
        ┌──────────────────────────────────────────────────────────────┐
-       │   🟡 CHÂN TRỜI 2: NOW (v1.2.0 — SPRINT 03)                   │
-       │   - EPIC-07: Smart Realtime AI Coach (Chat Gemini)           │
-       │   - EPIC-10: Apple Health / Health Connect Integration       │
+       │   🟡 CHÂN TRỜI 2: NOW (v1.3.0 — SPRINT 04 ACTIVE)            │
+       │   - TSK-S4-AUTH: Google Sign-In & Auth Resilience (5 SP)     │
+       │   - TSK-S4-NAV: Shell Navigation (AstroCoach Tab 2) (5 SP)   │
+       │   - TSK-S4-BRAND: Cosmic Nutrition Onboarding Story (3 SP)   │
+       │   - TSK-S4-COACH-UI: Home Proactive Card & Action Chips (3SP)│
+       │   - TSK-S4-HLTH-DASH: Health Dashboard Visibility (2 SP)     │
        └──────────────────────────────┬───────────────────────────────┘
                                       │
                                       ▼
        ┌──────────────────────────────────────────────────────────────┐
-       │   🟣 CHÂN TRỜI 3: NEXT (v1.3.0 — Q1/2027)                    │
-       │   - EPIC-11: Mobile Widgets & Quick Glance                   │
-       │   - EPIC-12: Custom Recipes & Meal Plans                     │
-       │   - EPIC-13: Gamification (Streak ăn sạch & Huy hiệu)       │
+       │   🟣 CHÂN TRỜI 3: NEXT (v1.4.0 — Q1/2027)                     │
+       │   - EPIC-11: Mobile Widgets & Quick Glance                    │
+       │   - EPIC-12: Custom Recipes & Meal Plans                      │
+       │   - EPIC-13: Gamification (Streak ăn sạch & Huy hiệu)        │
        └──────────────────────────────────────────────────────────────┘
 ```
 
@@ -95,5 +100,6 @@
 | :---: | :---: | :---: | :---: | :---: |
 | **v1.0.0 (MVP)** | **100%** (5/5 features đã ký sign-off) | Đã phát hành chính thức (Release Tag `v1.0.0`) | 2026-09-18 | Sub-Agent PO & PM |
 | **v1.1.0** | **100%** (3/3 features đã ký sign-off) | Đã phát hành chính thức (Release Tag `v1.1.0`) | 2026-09-18 | Sub-Agent PO & PM |
-| **v1.2.0** | **0%** (0/2 epics hoàn thành) | 🟡 Sprint 03 Active — Gate 1 khởi động | Q4/2026 | Sub-Agent PO |
-| **v1.3.0+** | **0%** | Ý tưởng chiến lược chân trời NEXT | Q1/2027 | Sub-Agent PO |
+| **v1.2.0** | **100%** (2/2 epics hoàn thành) | Đã phát hành chính thức (Release Tag `v1.2.0`) | 2026-09-19 | Sub-Agent PO & PM |
+| **v1.3.0** | **82%** (18/22 SP hoàn thành) | 🟡 Sprint 04 Active — Hardening & Navigation | Q4/2026 | Sub-Agent PO |
+| **v1.4.0+** | **0%** | Ý tưởng chiến lược chân trời NEXT | Q1/2027 | Sub-Agent PO |

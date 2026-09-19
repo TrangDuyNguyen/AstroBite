@@ -20,9 +20,10 @@ class _CoachPageState extends ConsumerState<CoachPage> {
   bool _isSending = false;
 
   static const _quickActions = [
-    'Bữa tối nên ăn gì?',
-    'Phân tích hôm nay',
-    'Món dưới 500 kcal',
+    '✨ Bữa tối nên ăn gì?',
+    '📊 Phân tích calo hôm nay',
+    '🥩 Gợi ý món giàu Protein',
+    '🥗 Món ăn nhẹ dưới 200 kcal',
   ];
 
   @override
@@ -91,7 +92,7 @@ class _CoachPageState extends ConsumerState<CoachPage> {
       appBar: AppBar(
         backgroundColor: AppColors.surface,
         surfaceTintColor: Colors.transparent,
-        title: const Text('AI Coach 🤖'),
+        title: const Text('AstroCoach AI ✨'),
       ),
       body: Column(
         children: [

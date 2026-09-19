@@ -35,16 +35,16 @@ class AppRouter extends RootStackRouter {
       page: ShellRoute.page,
       children: [
         AutoRoute(page: HomeRoute.page),
+        AutoRoute(page: CoachRoute.page),
         AutoRoute(page: AnalyticsRoute.page),
-        AutoRoute(page: ManualEntryRoute.page),
         AutoRoute(page: ProfileRoute.page),
       ],
     ),
+    AutoRoute(page: ManualEntryRoute.page),
     AutoRoute(page: CameraRoute.page),
     AutoRoute(page: ScanReviewRoute.page),
     AutoRoute(page: MealDetailRoute.page),
     AutoRoute(page: ProfileEditRoute.page),
-    AutoRoute(page: CoachRoute.page),
     AutoRoute(page: HealthConnectionRoute.page),
   ];
 }
@@ -56,11 +56,11 @@ class ShellScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AutoTabsScaffold(
-      routes: [
-        const HomeRoute(),
-        const AnalyticsRoute(),
-        ManualEntryRoute(),
-        const ProfileRoute(),
+      routes: const [
+        HomeRoute(),
+        CoachRoute(),
+        AnalyticsRoute(),
+        ProfileRoute(),
       ],
       floatingActionButton: FloatingActionButton(
         onPressed: () => context.router.push(const CameraRoute()),
@@ -78,14 +78,14 @@ class ShellScreen extends StatelessWidget {
               label: 'Tổng quan',
             ),
             NavigationDestination(
+              icon: Icon(Icons.auto_awesome_outlined),
+              selectedIcon: Icon(Icons.auto_awesome),
+              label: 'AstroCoach',
+            ),
+            NavigationDestination(
               icon: Icon(Icons.bar_chart_outlined),
               selectedIcon: Icon(Icons.bar_chart),
               label: 'Phân tích',
-            ),
-            NavigationDestination(
-              icon: Icon(Icons.edit_note_outlined),
-              selectedIcon: Icon(Icons.edit_note),
-              label: 'Nhập tay',
             ),
             NavigationDestination(
               icon: Icon(Icons.person_outline),
