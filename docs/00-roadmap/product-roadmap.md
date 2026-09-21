@@ -11,35 +11,26 @@
 
 ```
        ┌──────────────────────────────────────────────────────────────┐
-       │   🟢 CHÂN TRỜI 1: HISTORICAL (v1.0.0, v1.1.0, v1.2.0 — DONE) │
-       │   - FEAT-01: Auth & Onboarding (Released v1.0.0)             │
-       │   - FEAT-02: Gemini Food Scanner AI (Released v1.0.0)        │
-       │   - FEAT-03: Diary & Manual Food Entry (Released v1.0.0)     │
-       │   - FEAT-04: Analytics & Trends (Released v1.0.0)            │
-       │   - FEAT-05: User Profile & Goals (Released v1.0.0)          │
-       │   - FEAT-06: Multi-Item Meal Detection (Released v1.1.0)     │
-       │   - FEAT-07: Offline-First Resilience (Released v1.1.0)      │
-       │   - FEAT-08: Micronutrient Tracking (Released v1.1.0)        │
-       │   - EPIC-07: Smart Realtime AI Coach (Released v1.2.0)       │
-       │   - EPIC-10: Apple Health Integration (Released v1.2.0)      │
+       │   🟢 CHÂN TRỜI 1: HISTORICAL (v1.0.0, v1.1.0, v1.2.0, v1.3.0)│
+       │   - v1.0.0: MVP Core (Auth, Scanner, Diary, Stats, Profile)  │
+       │   - v1.1.0: Multi-Item Vision, Offline-First, Micronutrients │
+       │   - v1.2.0: Realtime AI Coach, Apple Health Integration      │
+       │   - v1.3.0: Cosmic Onboarding, Google Auth Fix, New Shell IA │
        └──────────────────────────────┬───────────────────────────────┘
                                       │
                                       ▼
        ┌──────────────────────────────────────────────────────────────┐
-       │   🟡 CHÂN TRỜI 2: NOW (v1.3.0 — SPRINT 04 ACTIVE)            │
-       │   - TSK-S4-AUTH: Google Sign-In & Auth Resilience (5 SP)     │
-       │   - TSK-S4-NAV: Shell Navigation (AstroCoach Tab 2) (5 SP)   │
-       │   - TSK-S4-BRAND: Cosmic Nutrition Onboarding Story (3 SP)   │
-       │   - TSK-S4-COACH-UI: Home Proactive Card & Action Chips (3SP)│
-       │   - TSK-S4-HLTH-DASH: Health Dashboard Visibility (2 SP)     │
+       │   🟡 CHÂN TRỜI 2: NOW (v1.4.0 — SPRINT 05 ACTIVE)            │
+       │   - EPIC-13: Gamification & Cosmic Streak Engine (13 SP)     │
+       │   - EPIC-11: Mobile Widgets & Quick Glance (8 SP)            │
+       │   - EPIC-07-EXT: AI Coach Contextual Memory & 1-Tap Log (5SP)│
        └──────────────────────────────┬───────────────────────────────┘
                                       │
                                       ▼
        ┌──────────────────────────────────────────────────────────────┐
-       │   🟣 CHÂN TRỜI 3: NEXT (v1.4.0 — Q1/2027)                     │
-       │   - EPIC-11: Mobile Widgets & Quick Glance                    │
-       │   - EPIC-12: Custom Recipes & Meal Plans                      │
-       │   - EPIC-13: Gamification (Streak ăn sạch & Huy hiệu)        │
+       │   🟣 CHÂN TRỜI 3: NEXT (v1.5.0 — Q1/2027)                     │
+       │   - EPIC-12: Custom Recipes & Meal Planning                  │
+       │   - EPIC-14: Social Guilds & Planetary Challenges            │
        └──────────────────────────────────────────────────────────────┘
 ```
 
@@ -101,5 +92,6 @@
 | **v1.0.0 (MVP)** | **100%** (5/5 features đã ký sign-off) | Đã phát hành chính thức (Release Tag `v1.0.0`) | 2026-09-18 | Sub-Agent PO & PM |
 | **v1.1.0** | **100%** (3/3 features đã ký sign-off) | Đã phát hành chính thức (Release Tag `v1.1.0`) | 2026-09-18 | Sub-Agent PO & PM |
 | **v1.2.0** | **100%** (2/2 epics hoàn thành) | Đã phát hành chính thức (Release Tag `v1.2.0`) | 2026-09-19 | Sub-Agent PO & PM |
-| **v1.3.0** | **82%** (18/22 SP hoàn thành) | 🟡 Sprint 04 Active — Hardening & Navigation | Q4/2026 | Sub-Agent PO |
-| **v1.4.0+** | **0%** | Ý tưởng chiến lược chân trời NEXT | Q1/2027 | Sub-Agent PO |
+| **v1.3.0** | **100%** (18/18 SP thực tế hoàn thành) | Đã phát hành chính thức (Release Tag `v1.3.0`) | 2026-09-19 | Sub-Agent PO & PM |
+| **v1.4.0** | **100%** (26/26 SP hoàn tất kiểm thử & review) | 🟢 Đã hoàn thành Sprint 05 — Sẵn sàng ký Gate 7 Release | 2026-09-19 | Sub-Agent PO & PM |
+| **v1.5.0+** | **0%** | Ý tưởng chiến lược chân trời NEXT | Q1/2027 | Sub-Agent PO |

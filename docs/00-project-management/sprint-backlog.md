@@ -1,56 +1,54 @@
 # Kế Hoạch Sprint Hiện Hành (Sprint Backlog)
 
 - **Quản lý bởi**: Sub-Agent Product Owner (PO) & Sub-Agent Project Manager (PM)
-- **Sprint hiện tại**: Sprint 04
-- **Tên Sprint**: Cosmic Onboarding & Flawless Product Architecture
-- **Phiên bản mục tiêu**: `v1.3.0`
+- **Sprint hiện tại**: Sprint 05
+- **Tên Sprint**: The Cosmic Habit Loop & Frictionless Access
+- **Phiên bản mục tiêu**: `v1.4.0`
 - **Thời gian Sprint**: 19/09/2026 – 03/10/2026
-- **Trạng thái Sprint**: 🟡 **Đang Triển Khai (Active Execution)**
-- **Tổng Story Points**: 22 SP (Must: 13 SP [59%], Should: 5 SP [23%], Could: 4 SP [18%])
+- **Trạng thái Sprint**: 🟡 **Khởi Động & Thực Thi (Active Execution)**
+- **Tổng Story Points**: 26 SP (Must: 13 SP [50%], Should: 8 SP [31%], Could: 5 SP [19%])
 
 ---
 
-## 🎯 Mục Tiêu Sprint 04
+## 🎯 Mục Tiêu Sprint 05
 
-Khắc phục triệt để các lỗ hổng nền tảng được PO thẩm định & User phê duyệt:
-1. **Google Sign-In & Auth Resiliency**: Cập nhật cấu hình OAuth/Server Client ID, loại bỏ triệt để lỗi đăng nhập Google, xử lý mượt mà cả khi offline hoặc token refresh.
-2. **Information Architecture (IA) Restructuring**: Đưa **AstroCoach AI** ra vị trí trang trọng tại Tab chính thứ 2 của Navigation Bar, chuyển Manual Entry thành nút hành động nhanh từ Home/Tracker.
-3. **Cosmic Nutrition Brand Connection**: Gắn kết triết lý "Mỗi cơ thể là một tiểu vũ trụ, Calo & Macro là năng lượng vận hành các hành tinh sinh học" vào toàn bộ luồng Onboarding và Dashboard.
-4. **Hero Entry Point trên HomePage**: Thẻ AstroCoach AI Proactive Card và Health summary hiển thị trực tiếp 1 chạm trên Dashboard.
+Thúc đẩy tỷ lệ giữ chân **D30 Retention ≥ 35%** và đưa thời gian log món ăn xuống **< 2s**:
+1. **Cosmic Gamification & Streak Engine (`EPIC-13`)**: Vòng năng lượng tiểu vũ trụ (Cosmic Core Energy Ring), hệ thống tính chuỗi ngày ăn sạch (Streak), cơ chế bảo vệ chuỗi Starlight Shield, và hệ thống danh hiệu/huy hiệu hành tinh.
+2. **Mobile Widgets & Quick Glance (`EPIC-11`)**: Widget Calo/Macro thu nhỏ ngoài LockScreen / HomeScreen (iOS WidgetKit & Android AppWidget) kèm nút 1 chạm mở camera scan.
+3. **AstroCoach AI Enhancement (`EPIC-07-EXT`)**: Bộ nhớ ngữ cảnh dài hạn (đọc profile/dị ứng/thói quen) và nút 1 chạm ghi trực tiếp món ăn gợi ý vào nhật ký (`1-Tap Meal Log`).
 
 ---
 
-## 📋 Bảng Kanban Trực Quan
+## 📋 Bảng Kanban Trực Quan Sprint 05
 
-### 1. 📝 TODO — [4 SP]
-| Mã Task | Feature / Epic | Gate | Mô Tả | Sub-Agent | SP | Trạng Thái |
-|:---|:---|:---:|:---|:---:|:---:|:---:|
-| `TSK-S4-POLISH` | UI/UX Polish | **G4-G5** | Tinh chỉnh chuyển động hạt bụi sao & Celestial glow 60 FPS | `flutter-expert` | 4 | ⚪ Backlog |
+### 1. 📝 BACKLOG / TODO — [0 SP]
+*Tất cả hạng mục đã hoàn tất!*
 
 ### 2. ⚡ IN PROGRESS — [0 SP]
-*(Không còn tác vụ dở dang)*
 
 ### 3. 🔍 IN REVIEW & VERIFY — [0 SP]
-*(Đang chuẩn bị nghiệm thu Gate 6)*
 
-### 4. 🏁 DONE — [18 SP]
-
+### 4. 🏁 DONE — [26 SP]
 | Mã Task | Feature / Epic | Gate | Mô Tả | Sub-Agent | SP | Trạng Thái |
 |:---|:---|:---:|:---|:---:|:---:|:---:|
-| `TSK-S4-AUTH` | `FEAT-01` Auth | **G0-G4** | Cấu hình `serverClientId` Google OAuth từ Web Client ID, fix crash & idToken | `tech-lead` / `flutter-expert` | 5 | 🟢 Done |
-| `TSK-S4-NAV` | `FEAT-NAV` Shell | **G2-G4** | Tái cấu trúc ShellScreen đưa `CoachRoute` lên Tab chính NavigationBar | `ui-ux-designer` / `flutter-expert` | 5 | 🟢 Done |
-| `TSK-S4-BRAND` | `FEAT-01` Onboarding | **G1-G4** | Gắn kết triết lý Cosmic Nutrition vào 5 bước Onboarding & Launcher assets | `ui-ux-designer` / `flutter-expert` | 3 | 🟢 Done |
-| `TSK-S4-COACH-UI` | `EPIC-07` AI Coach | **G2-G4** | Thêm AstroCoach Quick Card trên Home & Quick Action Chips phong phú | `flutter-expert` | 3 | 🟢 Done |
-| `TSK-S4-HLTH-DASH` | `EPIC-10` Health | **G2-G4** | Tối ưu hiển thị và điều hướng thẻ Health từ Profile & Home | `flutter-expert` | 2 | 🟢 Done |
+| `TSK-S5-TECH-SPIKE` | Kiến Trúc & Spike | **G0** | Nghiên cứu native widget sync & Streak state machine (ADR-05) | `tech-lead` | 3 | 🟢 Done |
+| `TSK-S5-PRD-STREAK` | `EPIC-13` Gamification | **G1** | Soạn thảo PRD & BDD Given-When-Then cho Cosmic Streak & Badges | `business-analyst` | 3 | 🟢 Done |
+| `TSK-S5-UI-STREAK` | `EPIC-13` Gamification | **G2** | Thiết kế Celestial Energy Ring, Badges & Shimmer/Streak UI | `ui-ux-designer` | 3 | 🟢 Done |
+| `TSK-S5-DEV-STREAK` | `EPIC-13` Gamification | **G4-G6** | Domain Entity `StreakRecord`, Riverpod `streakNotifierProvider`, UI & 13 tests pass | `flutter-expert` | 4 | 🟢 Done |
+| `TSK-S5-PRD-WIDGET` | `EPIC-11` Widgets | **G1** | Soạn thảo PRD & Spec dữ liệu đồng bộ Widget iOS/Android | `business-analyst` | 2 | 🟢 Done |
+| `TSK-S5-UI-WIDGET` | `EPIC-11` Widgets | **G2** | Thiết kế Wireframe/Layout Widget Small, Medium và Lockscreen | `ui-ux-designer` | 2 | 🟢 Done |
+| `TSK-S5-DEV-WIDGET` | `EPIC-11` Widgets | **G4-G6** | Tích hợp package `home_widget`, WidgetSyncService, deep-link scanner & tests pass | `flutter-expert` | 4 | 🟢 Done |
+| `TSK-S5-QA-TESTPLAN`| Quality Assurance | **G3** | Xây dựng BDD Gherkin testcases cho 1-Tap AI Coach context | `qa-tester` | 2 | 🟢 Done |
+| `TSK-S5-DEV-COACH`  | `EPIC-07-EXT` AI Coach | **G4-G6** | Nâng cấp context memory (profile/streak) và nút 1-Tap Log trong Chat | `flutter-expert` | 3 | 🟢 Done |
 
 ---
 
-## 📊 Burndown Sprint 04
+## 🏛️ Lịch Sử Các Sprint Đã Hoàn Thành (Sprint Archive)
 
-| Ngày | SP Còn Lại | Ghi Chú |
-|:---:|:---:|:---|
-| 19/09 | 22 | Khởi động Sprint 04 theo phê duyệt PO |
-| 19/09 | 4 | Hoàn tất Auth Google fix, Shell Navigation, Cosmic Onboarding, AstroCoach Home Card (18/22 SP) |
+### 🟢 Sprint 04 — AstroBite v1.3.0 Cosmic Onboarding & Flawless Product Architecture (Hoàn tất 19/09/2026)
+- **Mục tiêu**: Khắc phục Google OAuth login, tái cấu trúc Shell Navigation (đưa AstroCoach lên Tab 2), đồng nhất nhận diện thương hiệu Cosmic Nutrition.
+- **Kết quả**: **18 / 18 SP (100% Passed)** — 119/119 tests pass, phát hành tag `v1.3.0`.
+- **Commit**: `b859712`, `0111be9`.
 
 ---
 
