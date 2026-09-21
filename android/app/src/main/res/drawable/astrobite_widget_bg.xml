@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <!-- Liquid Glass: Gradient bán trong suốt ánh qua hình nền thiết bị -->
+    <gradient
+        android:angle="135"
+        android:startColor="#B3162D50"
+        android:centerColor="#800D1D38"
+        android:endColor="#99091528"
+        android:type="linear" />
+    <!-- Viền khúc xạ ánh sáng mép kính tinh thể (Refraction Specular Edge) -->
+    <stroke
+        android:width="1.2dp"
+        android:color="#4D80C4FF" />
+    <corners android:radius="24dp" />
+</shape>

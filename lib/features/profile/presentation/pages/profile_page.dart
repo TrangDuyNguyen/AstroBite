@@ -8,6 +8,7 @@ import 'package:astrobite/core/services/gemini_api_key_service.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
 import 'package:astrobite/features/auth/domain/auth_providers.dart';
 import 'package:astrobite/shared/widgets/gemini_api_key_dialog.dart';
+import 'package:astrobite/features/widgets/widget_sync_service.dart';
 import '../../domain/entities/user_profile.dart';
 import '../../domain/profile_providers.dart';
 import '../widgets/bmr_tdee_card.dart';
@@ -169,6 +170,24 @@ class ProfilePage extends ConsumerWidget {
                       trailing: const Icon(Icons.chevron_right),
                       onTap: () => context.router.push(const HealthConnectionRoute()),
                     ),
+                    const Divider(height: 1),
+                    ListTile(
+                      contentPadding: EdgeInsets.zero,
+                      leading: CircleAvatar(
+                        backgroundColor: AppColors.tertiary.withValues(alpha: 0.15),
+                        child: const Text('📱', style: TextStyle(fontSize: 18)),
+                      ),
+                      title: const Text('Tiện ích Màn hình chính (Widget)', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14)),
+                      subtitle: Text(
+                        'Xem nhanh Calo/Macro & Quét AI 1-chạm',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
+                        ),
+                      ),
+                      trailing: const Icon(Icons.chevron_right),
+                      onTap: () => _showWidgetGuideSheet(context, ref),
+                    ),
                   ],
                 ),
               ),
@@ -185,6 +204,128 @@ class ProfilePage extends ConsumerWidget {
           ],
         ),
       ),
+    );
+  }
+
+  void _showWidgetGuideSheet(BuildContext context, WidgetRef ref) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: AppColors.surface,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
+      builder: (ctx) {
+        return SafeArea(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(AppValues.cardPadding),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Center(
+                  child: Container(
+                    width: 40,
+                    height: 4,
+                    decoration: BoxDecoration(
+                      color: AppColors.outline,
+                      borderRadius: BorderRadius.circular(2),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: AppValues.spacing16),
+                Row(
+                  children: [
+                    const CircleAvatar(
+                      backgroundColor: AppColors.surfaceContainer,
+                      child: Text('📱', style: TextStyle(fontSize: 20)),
+                    ),
+                    const SizedBox(width: AppValues.spacing12),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Tiện ích Màn hình chính',
+                            style: Theme.of(ctx).textTheme.titleMedium?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                          ),
+                          Text(
+                            'AstroBite Quick Glance & AI Scan',
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Theme.of(ctx).colorScheme.onSurfaceVariant,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: AppValues.spacing16),
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: AppColors.surfaceContainer,
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: AppColors.outline),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        '⚡ Ghim nhanh Widget (Android 8.0+)',
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: AppColors.onSurface),
+                      ),
+                      const SizedBox(height: 6),
+                      const Text(
+                        'Hệ thống sẽ mở hộp thoại xác nhận thêm widget AstroBite trực tiếp ra màn hình chờ.',
+                        style: TextStyle(fontSize: 12, color: AppColors.onSurfaceVariant),
+                      ),
+                      const SizedBox(height: 12),
+                      SizedBox(
+                        width: double.infinity,
+                        child: FilledButton.icon(
+                          style: FilledButton.styleFrom(
+                            backgroundColor: AppColors.primary,
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                          ),
+                          onPressed: () async {
+                            final success = await ref.read(widgetSyncServiceProvider).requestPinWidget();
+                            if (ctx.mounted) {
+                              Navigator.pop(ctx);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(success
+                                      ? '✨ Đã gửi yêu cầu ghim Widget ra màn hình chính!'
+                                      : '💡 Thiết bị chưa hỗ trợ ghim tự động. Vui lòng thêm thủ công theo hướng dẫn bên dưới.'),
+                                  backgroundColor: AppColors.surfaceContainer,
+                                  behavior: SnackBarBehavior.floating,
+                                ),
+                              );
+                            }
+                          },
+                          icon: const Icon(Icons.push_pin_outlined, size: 18),
+                          label: const Text('Ghim Widget Ngay', style: TextStyle(fontWeight: FontWeight.bold)),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: AppValues.spacing16),
+                Text('📖 Hướng dẫn thêm thủ công', style: Theme.of(ctx).textTheme.titleSmall),
+                const SizedBox(height: 8),
+                const Text(
+                  '• Android: Nhấn giữ khoảng trống trên Màn hình chính ➔ Chọn "Tiện ích" (Widgets) ➔ Tìm "AstroBite" ➔ Chạm giữ và kéo ra màn hình.\n\n• iOS: Nhấn giữ khoảng trống trên Màn hình chính ➔ Nhấn biểu tượng "+" góc trên ➔ Tìm "AstroBite" ➔ Chọn kích thước Widget và nhấn "Thêm tiện ích".',
+                  style: TextStyle(fontSize: 12, height: 1.5, color: AppColors.onSurfaceVariant),
+                ),
+                const SizedBox(height: AppValues.spacing16),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

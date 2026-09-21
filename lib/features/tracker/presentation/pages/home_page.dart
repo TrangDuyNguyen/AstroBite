@@ -13,6 +13,10 @@ import '../widgets/daily_summary_card.dart';
 import '../widgets/date_picker_strip.dart';
 import '../widgets/meal_section.dart';
 
+import 'package:astrobite/features/gamification/presentation/controllers/streak_controller.dart';
+import 'package:astrobite/features/gamification/presentation/widgets/cosmic_streak_badge.dart';
+import 'package:astrobite/features/widgets/widget_sync_service.dart';
+
 @RoutePage()
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
@@ -21,15 +25,26 @@ class HomePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final summary = ref.watch(todaySummaryProvider);
 
+    // Sync to native OS widgets reactively
+    ref.listen(todaySummaryProvider, (_, next) {
+      ref.read(widgetSyncServiceProvider).sync(
+            summary: next,
+            streak: ref.read(streakNotifierProvider).valueOrNull,
+          );
+    });
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(AppStrings.todayOverview),
         actions: [
+          const Center(child: CosmicStreakBadge()),
+          const SizedBox(width: AppValues.spacing8),
           IconButton(
             icon: const Icon(Icons.person_outline),
             tooltip: AppStrings.profile,
             onPressed: () => context.router.push(const ProfileRoute()),
           ),
+          const SizedBox(width: AppValues.spacing8),
         ],
       ),
       body: SafeArea(

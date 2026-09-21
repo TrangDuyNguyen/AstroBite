@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AstroBite</string>
+    <string name="widget_name">AstroBite Calo &amp; Macro</string>
+    <string name="widget_description">Xem nhanh ngân sách Calo còn lại, tỉ lệ Carbs/Fat/Protein và quét AI 1-chạm.</string>
+</resources>
