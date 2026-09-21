@@ -1,8 +1,13 @@
+import 'dart:convert';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 
 import 'package:astrobite/core/theme/app_colors.dart';
+import 'package:astrobite/features/auth/domain/auth_providers.dart';
+import 'package:astrobite/features/tracker/data/models/food_log_dto.dart';
+import 'package:astrobite/features/tracker/presentation/controllers/tracker_controller.dart';
 import '../domain/chat_message.dart';
 import 'coach_controller.dart';
 
@@ -164,13 +169,23 @@ class _CoachPageState extends ConsumerState<CoachPage> {
 
   Widget _buildBubble(ChatMessage message) {
     final isUser = message.isUser;
+    Map<String, dynamic>? mealData;
+    String displayContent = message.content;
+    final match = RegExp(r'<!--astrobite-meal:(.*?)-->').firstMatch(message.content);
+    if (match != null) {
+      try {
+        mealData = jsonDecode(match.group(1)!) as Map<String, dynamic>;
+        displayContent = message.content.replaceAll(match.group(0)!, '').trim();
+      } catch (_) {}
+    }
+
     return Align(
       alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
         margin: const EdgeInsets.only(bottom: 8),
         padding: const EdgeInsets.all(12),
         constraints: BoxConstraints(
-          maxWidth: MediaQuery.of(context).size.width * 0.8,
+          maxWidth: MediaQuery.of(context).size.width * 0.85,
         ),
         decoration: BoxDecoration(
           color: isUser
@@ -199,11 +214,64 @@ class _CoachPageState extends ConsumerState<CoachPage> {
               const SizedBox(height: 4),
             ],
             Text(
-              message.content,
+              displayContent,
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: AppColors.onSurface,
                   ),
             ),
+            if (mealData != null) ...[
+              const SizedBox(height: 8),
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: AppColors.surface,
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                    color: AppColors.primary.withValues(alpha: 0.4),
+                    width: 0.8,
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    const Text('🍲', style: TextStyle(fontSize: 22)),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            mealData['dishName']?.toString() ?? 'Gợi ý món ăn',
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13,
+                              color: AppColors.onSurface,
+                            ),
+                          ),
+                          const SizedBox(height: 2),
+                          Text(
+                            '${mealData['calories'] ?? 0} kcal • ${mealData['protein'] ?? 0}g P • ${mealData['carbs'] ?? 0}g C • ${mealData['fat'] ?? 0}g F',
+                            style: const TextStyle(
+                              fontSize: 11,
+                              color: AppColors.onSurfaceVariant,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    FilledButton.icon(
+                      style: FilledButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                        visualDensity: VisualDensity.compact,
+                        backgroundColor: AppColors.primary,
+                      ),
+                      onPressed: () => _logMealFromCoach(mealData!),
+                      icon: const Icon(Icons.add, size: 14),
+                      label: const Text('1-Chạm', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold)),
+                    ),
+                  ],
+                ),
+              ),
+            ],
             const SizedBox(height: 4),
             Text(
               '${message.timestamp.hour}:${message.timestamp.minute.toString().padLeft(2, '0')}',
@@ -214,7 +282,6 @@ class _CoachPageState extends ConsumerState<CoachPage> {
             if (message.isError)
               TextButton(
                 onPressed: () {
-                  // ponytail: retry by resending the previous user message
                   final messages = ref.read(coachControllerProvider).valueOrNull ?? [];
                   final lastUserMsg = messages.lastWhere(
                     (m) => m.isUser,
@@ -228,6 +295,40 @@ class _CoachPageState extends ConsumerState<CoachPage> {
         ),
       ),
     );
+  }
+
+  Future<void> _logMealFromCoach(Map<String, dynamic> mealData) async {
+    final user = ref.read(authRepositoryProvider).currentUser;
+    if (user == null) return;
+
+    final now = DateTime.now();
+    final log = FoodLogDto(
+      id: '${now.microsecondsSinceEpoch}',
+      date: DateFormat('yyyy-MM-dd').format(now),
+      mealType: mealData['mealType']?.toString() ?? 'lunch',
+      dishName: mealData['dishName']?.toString() ?? 'Món từ AstroCoach',
+      estimatedWeightG: (mealData['weightG'] as num?)?.toInt() ?? 150,
+      calories: (mealData['calories'] as num?)?.toInt() ?? 300,
+      proteinG: (mealData['protein'] as num?)?.toInt() ?? 25,
+      carbsG: (mealData['carbs'] as num?)?.toInt() ?? 30,
+      fatG: (mealData['fat'] as num?)?.toInt() ?? 8,
+      source: 'ai_coach',
+    );
+
+    await ref.read(trackerControllerProvider.notifier).addFoodLog(
+          userId: user.uid,
+          log: log,
+        );
+
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('✨ Đã thêm "${log.dishName}" (${log.calories} kcal) vào nhật ký!'),
+          backgroundColor: AppColors.surfaceContainer,
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+    }
   }
 
   Widget _buildTypingIndicator() {
