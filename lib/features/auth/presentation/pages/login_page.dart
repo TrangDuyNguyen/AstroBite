@@ -256,24 +256,31 @@ class _LoginPageState extends ConsumerState<LoginPage>
                       child: Column(
                         children: [
                           const CosmicLogoBadge(
-                            size: 72,
+                            size: 80,
                             heroTag: 'astrobite-brand-logo',
                           ),
-                          const SizedBox(height: AppValues.spacing12),
+                          const SizedBox(height: AppValues.spacing16),
                           Text(
-                            '🌌 ${AppStrings.appName}',
+                            AppStrings.appName,
                             style: GoogleFonts.outfit(
-                              fontSize: 28,
+                              fontSize: 30,
                               fontWeight: FontWeight.w700,
-                              letterSpacing: 0.8,
+                              letterSpacing: 1.0,
                               color: AppColors.onSurface,
+                              shadows: [
+                                BoxShadow(
+                                  color: AppColors.primary.withValues(alpha: 0.4),
+                                  blurRadius: 16,
+                                  offset: const Offset(0, 2),
+                                ),
+                              ],
                             ),
                           ),
-                          const SizedBox(height: 4),
+                          const SizedBox(height: 6),
                           Text(
                             'Đăng nhập để theo dõi mục tiêu dinh dưỡng',
                             style: GoogleFonts.inter(
-                              fontSize: 13,
+                              fontSize: 14,
                               color: AppColors.onSurfaceVariant,
                             ),
                             textAlign: TextAlign.center,
@@ -403,12 +410,22 @@ class _LoginPageState extends ConsumerState<LoginPage>
                     opacity: _fadeCardAnimation,
                     child: TextButton(
                       onPressed: () => context.router.push(const RegisterRoute()),
-                      child: Text(
-                        'Chưa có tài khoản? ${AppStrings.register}',
-                        style: TextStyle(
-                          color: colorScheme.primary,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
+                      child: RichText(
+                        text: TextSpan(
+                          text: 'Chưa có tài khoản? ',
+                          style: GoogleFonts.inter(
+                            color: AppColors.onSurfaceVariant,
+                            fontSize: 14,
+                          ),
+                          children: [
+                            TextSpan(
+                              text: AppStrings.register,
+                              style: GoogleFonts.inter(
+                                color: colorScheme.primary,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),

@@ -111,7 +111,7 @@ class _CosmicLogoBadgeState extends State<CosmicLogoBadge>
                 ),
               ),
               child: Image.asset(
-                'assets/images/app_icon.png',
+                'assets/icons/app_icon.png',
                 fit: BoxFit.cover,
                 errorBuilder: (context, error, stackTrace) {
                   // Graceful fallback for widget tests where asset bundle may not load binary

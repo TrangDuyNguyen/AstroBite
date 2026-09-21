@@ -64,7 +64,7 @@ void main() {
       await tester.pumpAndSettle();
 
       // Check header
-      expect(find.text('🌌 ${AppStrings.appName}'), findsOneWidget);
+      expect(find.text(AppStrings.appName), findsOneWidget);
       expect(find.text('Đăng nhập để theo dõi mục tiêu dinh dưỡng'), findsOneWidget);
 
       // Check input fields
@@ -75,7 +75,14 @@ void main() {
       expect(find.text(AppStrings.forgotPassword), findsOneWidget);
       expect(find.widgetWithText(FilledButton, AppStrings.login), findsOneWidget);
       expect(find.byType(GoogleSignInButton), findsOneWidget);
-      expect(find.text('Chưa có tài khoản? ${AppStrings.register}'), findsOneWidget);
+      expect(
+        find.byWidgetPredicate(
+          (widget) =>
+              widget is RichText &&
+              widget.text.toPlainText().contains('Chưa có tài khoản?'),
+        ),
+        findsOneWidget,
+      );
     });
 
     testWidgets('toggles password visibility when eye icon is tapped', (tester) async {

@@ -183,6 +183,10 @@ void main() {
       await tester.pumpWidget(createWidget());
       await tester.pumpAndSettle();
 
+      final lunchChip = find.text('Bữa trưa');
+      await tester.tap(lunchChip);
+      await tester.pumpAndSettle();
+
       final saveBtn = find.widgetWithText(FilledButton, 'Lưu vào Bữa trưa (750 kcal)');
       await tester.ensureVisible(saveBtn);
       await tester.tap(saveBtn);
