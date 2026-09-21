@@ -15,15 +15,12 @@
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <!-- Circular Celestial Avatar Badge -->
-        <TextView
+        <!-- AstroBite App Logo Icon -->
+        <ImageView
             android:layout_width="22dp"
             android:layout_height="22dp"
-            android:background="@drawable/astrobite_logo_circle_bg"
-            android:gravity="center"
-            android:includeFontPadding="false"
-            android:text="✨"
-            android:textSize="11sp" />
+            android:src="@drawable/ic_astrobite_widget_logo"
+            android:contentDescription="AstroBite" />
 
         <TextView
             android:layout_width="wrap_content"
