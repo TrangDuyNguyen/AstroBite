@@ -40,6 +40,9 @@ void main() {
       expect(payload.carbsGrams, 180);
       expect(payload.fatGrams, 45);
       expect(payload.proteinGrams, 110);
+      expect(payload.targetCarbsGrams, 220);
+      expect(payload.targetFatGrams, 65);
+      expect(payload.targetProteinGrams, 140);
       expect(payload.currentStreak, 5);
       expect(payload.hasShield, true);
 
@@ -47,6 +50,9 @@ void main() {
       expect(map['remaining_calories'], 650);
       expect(map['consumed_calories'], 1550);
       expect(map['target_calories'], 2200);
+      expect(map['target_carbs_grams'], 220);
+      expect(map['target_protein_grams'], 140);
+      expect(map['target_fat_grams'], 65);
       expect(map['current_streak'], 5);
       expect(map['has_shield'], true);
     });

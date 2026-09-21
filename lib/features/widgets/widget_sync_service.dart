@@ -14,6 +14,9 @@ class WidgetSyncPayload {
     required this.carbsGrams,
     required this.fatGrams,
     required this.proteinGrams,
+    this.targetCarbsGrams = 155,
+    this.targetFatGrams = 50,
+    this.targetProteinGrams = 120,
     required this.currentStreak,
     required this.hasShield,
     required this.lastUpdated,
@@ -25,6 +28,9 @@ class WidgetSyncPayload {
   final int carbsGrams;
   final int fatGrams;
   final int proteinGrams;
+  final int targetCarbsGrams;
+  final int targetFatGrams;
+  final int targetProteinGrams;
   final int currentStreak;
   final bool hasShield;
   final DateTime lastUpdated;
@@ -37,6 +43,9 @@ class WidgetSyncPayload {
       'carbs_grams': carbsGrams,
       'fat_grams': fatGrams,
       'protein_grams': proteinGrams,
+      'target_carbs_grams': targetCarbsGrams,
+      'target_fat_grams': targetFatGrams,
+      'target_protein_grams': targetProteinGrams,
       'current_streak': currentStreak,
       'has_shield': hasShield,
       'last_updated': lastUpdated.toIso8601String(),
@@ -54,6 +63,9 @@ class WidgetSyncPayload {
       carbsGrams: summary.totalCarbsG,
       fatGrams: summary.totalFatG,
       proteinGrams: summary.totalProteinG,
+      targetCarbsGrams: summary.targetCarbsG > 0 ? summary.targetCarbsG : 155,
+      targetFatGrams: summary.targetFatG > 0 ? summary.targetFatG : 50,
+      targetProteinGrams: summary.targetProteinG > 0 ? summary.targetProteinG : 120,
       currentStreak: streak?.currentStreak ?? 0,
       hasShield: streak?.hasShield ?? false,
       lastUpdated: DateTime.now(),
@@ -99,6 +111,9 @@ class WidgetSyncService {
         HomeWidget.saveWidgetData<int>('carbs_grams', payload.carbsGrams),
         HomeWidget.saveWidgetData<int>('fat_grams', payload.fatGrams),
         HomeWidget.saveWidgetData<int>('protein_grams', payload.proteinGrams),
+        HomeWidget.saveWidgetData<int>('target_carbs_grams', payload.targetCarbsGrams),
+        HomeWidget.saveWidgetData<int>('target_fat_grams', payload.targetFatGrams),
+        HomeWidget.saveWidgetData<int>('target_protein_grams', payload.targetProteinGrams),
         HomeWidget.saveWidgetData<int>('current_streak', payload.currentStreak),
         HomeWidget.saveWidgetData<bool>('has_shield', payload.hasShield),
         HomeWidget.saveWidgetData<String>('last_updated', payload.lastUpdated.toIso8601String()),

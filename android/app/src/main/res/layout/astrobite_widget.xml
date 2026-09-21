@@ -7,19 +7,30 @@
     android:orientation="vertical"
     android:padding="14dp">
 
-    <!-- Header: App Name & Streak Pill Badge -->
+    <!-- Header: App Logo Badge & Streak Pill -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
+        <!-- Circular Celestial Avatar Badge -->
+        <TextView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:background="@drawable/astrobite_logo_circle_bg"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="✨"
+            android:textSize="11sp" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:letterSpacing="0.06"
-            android:text="✨ ASTROBITE"
-            android:textColor="#64FFDA"
+            android:layout_marginStart="8dp"
+            android:letterSpacing="0.08"
+            android:text="ASTROBITE"
+            android:textColor="#4DEEEA"
             android:textSize="11sp"
             android:textStyle="bold" />
 
@@ -28,30 +39,29 @@
             android:layout_height="1dp"
             android:layout_weight="1" />
 
+        <!-- Warm Amber Streak Badge -->
         <TextView
             android:id="@+id/widget_streak"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/astrobite_streak_badge_bg"
-            android:paddingStart="8dp"
+            android:paddingStart="9dp"
             android:paddingTop="3dp"
-            android:paddingEnd="8dp"
+            android:paddingEnd="9dp"
             android:paddingBottom="3dp"
             android:text="🔥 0 ngày"
-            android:textColor="#FFD700"
+            android:textColor="#FFAA00"
             android:textSize="11sp"
             android:textStyle="bold" />
     </LinearLayout>
 
-    <!-- Main Content: Calories, Progress Bar & Pill Scan CTA -->
+    <!-- Calories, Progress and Quick Scan Button -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingTop="4dp"
-        android:paddingBottom="4dp">
+        android:layout_marginTop="8dp">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -71,42 +81,52 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:includeFontPadding="false"
-                    android:text="2,000"
+                    android:text="1,501"
                     android:textColor="#FFFFFF"
-                    android:textSize="26sp"
+                    android:textSize="28sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginBottom="2dp"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginBottom="3dp"
                     android:text="kcal còn lại"
-                    android:textColor="#8892B0"
+                    android:textColor="#8E9EB5"
                     android:textSize="11sp" />
             </LinearLayout>
 
-            <!-- Calorie Progress Bar -->
-            <ProgressBar
-                android:id="@+id/widget_calorie_progress"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="match_parent"
-                android:layout_height="6dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="12dp"
-                android:max="100"
-                android:progress="0"
-                android:progressDrawable="@drawable/astrobite_progress_bar_bg" />
-
-            <!-- Consumed Progress Text -->
-            <TextView
-                android:id="@+id/widget_consumed_progress"
+            <!-- Consumed Summary + Percentage Pill -->
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="Đã nạp: 0 / 2,000 kcal"
-                android:textColor="#CCD6F6"
-                android:textSize="10sp" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_marginTop="3dp">
+
+                <TextView
+                    android:id="@+id/widget_consumed_progress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Đã nạp: 550 / 2,051 kcal"
+                    android:textColor="#CCD6F6"
+                    android:textSize="10.5sp" />
+
+                <TextView
+                    android:id="@+id/widget_calorie_pct"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:background="@drawable/astrobite_pct_pill_bg"
+                    android:paddingStart="5dp"
+                    android:paddingTop="1dp"
+                    android:paddingEnd="5dp"
+                    android:paddingBottom="1dp"
+                    android:text="27%"
+                    android:textColor="#38BDF8"
+                    android:textSize="9.5sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
         </LinearLayout>
 
         <!-- Quick 1-Tap AI Scanner Pill Button -->
@@ -117,116 +137,228 @@
             android:background="@drawable/astrobite_btn_bg"
             android:gravity="center"
             android:paddingStart="14dp"
-            android:paddingTop="9dp"
+            android:paddingTop="8dp"
             android:paddingEnd="14dp"
-            android:paddingBottom="9dp"
+            android:paddingBottom="8dp"
             android:text="📸 Quét AI"
             android:textColor="#FFFFFF"
             android:textSize="12sp"
             android:textStyle="bold" />
     </LinearLayout>
 
+    <!-- Full-width Calorie Progress Bar -->
+    <ProgressBar
+        android:id="@+id/widget_calorie_progress"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="10dp"
+        android:max="100"
+        android:progress="27"
+        android:progressDrawable="@drawable/astrobite_progress_bar_bg" />
+
     <!-- Macro Micro-Cards Row (Carbs, Protein, Fat) -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingTop="2dp">
+        android:orientation="horizontal">
 
-        <!-- Carbs Micro-Card (Blue #1A73E8) -->
+        <!-- Carbs Micro-Card (Blue #00D2FF) -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginEnd="6dp"
             android:background="@drawable/astrobite_macro_pill_bg"
-            android:gravity="center"
             android:orientation="vertical"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp">
+            android:padding="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:letterSpacing="0.04"
+                    android:text="CARB"
+                    android:textColor="#8E9EB5"
+                    android:textSize="9sp"
+                    android:textStyle="bold" />
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+                <FrameLayout
+                    android:layout_width="6dp"
+                    android:layout_height="6dp"
+                    android:background="@drawable/astrobite_dot_carbs" />
+            </LinearLayout>
 
             <TextView
+                android:id="@+id/widget_carbs_val"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:letterSpacing="0.04"
-                android:text="CARB"
-                android:textColor="#8892B0"
-                android:textSize="9sp"
+                android:layout_marginTop="2dp"
+                android:text="70 g"
+                android:textColor="#00D2FF"
+                android:textSize="15sp"
                 android:textStyle="bold" />
 
+            <ProgressBar
+                android:id="@+id/widget_carbs_progress"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:max="100"
+                android:progress="45"
+                android:progressDrawable="@drawable/astrobite_progress_carbs" />
+
             <TextView
-                android:id="@+id/widget_carbs"
+                android:id="@+id/widget_carbs_target"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
-                android:text="0g"
-                android:textColor="#1A73E8"
-                android:textSize="12sp"
-                android:textStyle="bold" />
+                android:text="Mục tiêu 155g"
+                android:textColor="#8E9EB5"
+                android:textSize="8.5sp" />
         </LinearLayout>
 
         <!-- Protein Micro-Card (Gold #FFD700) -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="6dp"
             android:layout_weight="1"
+            android:layout_marginEnd="6dp"
             android:background="@drawable/astrobite_macro_pill_bg"
-            android:gravity="center"
             android:orientation="vertical"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp">
+            android:padding="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:letterSpacing="0.04"
+                    android:text="PROTEIN"
+                    android:textColor="#8E9EB5"
+                    android:textSize="9sp"
+                    android:textStyle="bold" />
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+                <FrameLayout
+                    android:layout_width="6dp"
+                    android:layout_height="6dp"
+                    android:background="@drawable/astrobite_dot_protein" />
+            </LinearLayout>
 
             <TextView
+                android:id="@+id/widget_protein_val"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:letterSpacing="0.04"
-                android:text="PROTEIN"
-                android:textColor="#8892B0"
-                android:textSize="9sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/widget_protein"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
-                android:text="0g"
+                android:layout_marginTop="2dp"
+                android:text="30 g"
                 android:textColor="#FFD700"
-                android:textSize="12sp"
+                android:textSize="15sp"
                 android:textStyle="bold" />
+
+            <ProgressBar
+                android:id="@+id/widget_protein_progress"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:max="100"
+                android:progress="25"
+                android:progressDrawable="@drawable/astrobite_progress_protein" />
+
+            <TextView
+                android:id="@+id/widget_protein_target"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mục tiêu 120g"
+                android:textColor="#8E9EB5"
+                android:textSize="8.5sp" />
         </LinearLayout>
 
         <!-- Fat Micro-Card (Pink #FF69B4) -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="6dp"
             android:layout_weight="1"
             android:background="@drawable/astrobite_macro_pill_bg"
-            android:gravity="center"
             android:orientation="vertical"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp">
+            android:padding="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:letterSpacing="0.04"
+                    android:text="FAT"
+                    android:textColor="#8E9EB5"
+                    android:textSize="9sp"
+                    android:textStyle="bold" />
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+                <FrameLayout
+                    android:layout_width="6dp"
+                    android:layout_height="6dp"
+                    android:background="@drawable/astrobite_dot_fat" />
+            </LinearLayout>
 
             <TextView
+                android:id="@+id/widget_fat_val"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:letterSpacing="0.04"
-                android:text="FAT"
-                android:textColor="#8892B0"
-                android:textSize="9sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/widget_fat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
-                android:text="0g"
+                android:layout_marginTop="2dp"
+                android:text="16 g"
                 android:textColor="#FF69B4"
-                android:textSize="12sp"
+                android:textSize="15sp"
                 android:textStyle="bold" />
+
+            <ProgressBar
+                android:id="@+id/widget_fat_progress"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:max="100"
+                android:progress="32"
+                android:progressDrawable="@drawable/astrobite_progress_fat" />
+
+            <TextView
+                android:id="@+id/widget_fat_target"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mục tiêu 50g"
+                android:textColor="#8E9EB5"
+                android:textSize="8.5sp" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
-    <!-- Frosted Glass Streak Badge: Viên kính mờ mạ viền vàng -->
-    <solid android:color="#4D253A5A" />
+    <solid android:color="#402D1A07" />
     <stroke
         android:width="1dp"
-        android:color="#40FFD700" />
+        android:color="#66FFAA00" />
     <corners android:radius="12dp" />
 </shape>
