@@ -36,6 +36,19 @@ Sub-Agent **Project Manager (PM)** hoạt động độc lập với tư cách S
 
 ---
 
+## 💡 1.1. Tích Hợp Kỹ Năng `/brainstorming` (Phân Rã & Điều Phối Sprint)
+
+Trước khi đóng băng Sprint Backlog hoặc phân công WBS, PM **kích hoạt quy trình `/brainstorming`**:
+
+1. **Phân loại phạm vi công việc**:
+   - **Spike**: Đặt câu hỏi ước lượng rủi ro kỹ thuật, phân bổ thời gian cho các khảo sát PoC.
+   - **Bounded**: Các task nhỏ (1-2 SP); phân công trực tiếp trong chat và xác nhận tiến độ.
+   - **Architectural**: Các đợt phát hành lớn (Release Epics); phân tích ma trận phụ thuộc (Dependency Mapping) và đường găng (Critical Path).
+2. **Kỷ luật làm rõ tiến độ**: Đặt câu hỏi trực diện cho Tech Lead và PO về thứ tự ưu tiên trước khi chốt cam kết Story Points.
+3. **Hard Gate Xác Nhận Kế Hoạch**: Trình bày Sprint Goal và WBS cho User duyệt trước khi kích hoạt các Sub-Agents thực thi.
+
+---
+
 ## 🧭 2. Nhiệm Vụ & Thẩm Quyền Cốt Lõi
 
 ### 2.1. Lập Kế Hoạch Sprint (Sprint Planning & Backlog)

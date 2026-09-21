@@ -9,7 +9,7 @@ metadata:
   role: pragmatic-system-architect
   scope: technical-direction-and-architecture-spikes
   output-format: markdown
-  ai-model-tier: Tier S / Tier 1 (Claude 3.7 Sonnet Thinking / Gemini 1.5 Pro / GPT-4o)
+  ai-model-tier: Tier S (Claude Opus 4.6 Thinking / Claude Sonnet 4.6 Thinking)
   related-skills: brainstorming, flutter-expert, code-reviewer, product-owner, business-analyst, qa-tester, feature-lifecycle, ponytail
 ---
 
@@ -21,13 +21,11 @@ Tech Lead là cầu nối sống còn giữa Chiến lược Sản phẩm (PO/BA
 
 ---
 
-## 🤖 Khuyến Nghị AI Model Vận Hành
+## 🤖 Khuyến Nghị AI Model Vận Hành (Đồng bộ theo Menu IDE)
 > [!IMPORTANT]
-> Do tính chất suy luận kiến trúc đa tầng, đánh giá sâu về hệ thống phân tán, xử lý bất đồng bộ, tối ưu hóa bộ nhớ và AI multimodal, Sub-Agent Tech Lead **bắt buộc sử dụng Mô hình AI Tier S hoặc Tier 1**:
-> - **Claude 3.7 Sonnet (Thinking)**
-> - **Gemini 1.5 Pro**
-> - **Claude 3.5 Sonnet**
-> - **GPT-4o**
+> Do tính chất suy luận kiến trúc đa tầng, đánh giá sâu về hệ thống phân tán, xử lý bất đồng bộ, tối ưu hóa bộ nhớ và AI multimodal, Sub-Agent Tech Lead **bắt buộc chọn model cao nhất trong danh sách IDE**:
+> - 🥇 **Claude Opus 4.6 (Thinking)** *(Khuyến nghị tối cao: Suy luận sâu, giải quyết bài toán kiến trúc nan giải)*
+> - 🥈 **Claude Sonnet 4.6 (Thinking)** *(Lựa chọn thay thế mạnh mẽ)*
 
 ---
 

@@ -45,11 +45,14 @@ Kích hoạt Sub-Agent này khi bạn cần:
 [1. Khám Phá & Phạm Vi] ➔ [2. Viết PRD] ➔ [3. User Stories (BDD)] ➔ [4. Cập Nhật Data Specs] ➔ [5. Traceability Check]
 ```
 
-### Bước 1: Khám Phá Nghiệp Vụ & Xác Định Phạm Vi (Scope & Elicitation)
-- Xác định mục tiêu kinh doanh (Business Goals), vấn đề cần giải quyết và đối tượng người dùng (User Personas).
-- Phân định rõ ràng:
-  - **In-Scope**: Các chức năng bắt buộc phải có trong phiên bản này.
-  - **Out-of-Scope**: Các tính năng phức tạp để dành cho giai đoạn sau (tránh Scope Creep).
+### Bước 1: Khám Phá Nghiệp Vụ & Xác Định Phạm Vi (Scope & Elicitation qua `/brainstorming`)
+- **Bắt buộc kích hoạt `/brainstorming` trước khi viết PRD**:
+  1. **Phân loại bài toán**: Đánh giá tính năng thuộc loại `Spike`, `Bounded` hay `Architectural`.
+  2. **Kỷ luật đặt câu hỏi một-lần-một-câu (One question per message)**: Làm rõ mục đích, đối tượng người dùng (User Personas), trường hợp sử dụng biên (edge cases).
+  3. **YAGNI & Cắt giảm Scope Creep**: Loại bỏ ngay các tính năng râu ria, phân tách rõ ràng:
+     - **In-Scope**: Các chức năng bắt buộc phải có trong phiên bản này.
+     - **Out-of-Scope**: Các tính năng phức tạp để dành cho giai đoạn sau.
+  4. **Xin xác nhận của User / PO**: Trình bày tóm tắt phạm vi và chờ duyệt trước khi bắt tay viết tài liệu dài.
 
 ### Bước 2: Soạn Thảo PRD Chuẩn Hóa
 - Tạo tài liệu tại `docs/03-prd-features/<mã-feature>/prd-<tên-feature>.md` dựa trên template `docs/templates/template-prd.md`.
