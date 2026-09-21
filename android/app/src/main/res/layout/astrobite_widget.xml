@@ -23,7 +23,7 @@
             android:textSize="11sp"
             android:textStyle="bold" />
 
-        <View
+        <FrameLayout
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_weight="1" />
