@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:astrobite/core/constants/app_strings.dart';
 import 'package:astrobite/core/constants/app_values.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
-import 'package:astrobite/shared/widgets/calorie_progress_arc.dart';
+import 'package:astrobite/features/gamification/presentation/widgets/cosmic_energy_ring.dart';
 import 'package:astrobite/shared/widgets/glass_card.dart';
 import 'package:astrobite/shared/widgets/macro_bar.dart';
 import '../../domain/daily_summary.dart';
@@ -23,9 +23,8 @@ class DailySummaryCard extends StatelessWidget {
       borderColor: isOverBudget ? AppColors.tertiary.withValues(alpha: 0.8) : null,
       child: Column(
         children: [
-          CalorieProgressArc(
-            consumed: summary.totalCalories,
-            target: summary.targetCalories,
+          CosmicEnergyRing(
+            summary: summary,
           ),
           const SizedBox(height: AppValues.spacing24),
           MacroBar(

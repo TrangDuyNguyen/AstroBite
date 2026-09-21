@@ -2,6 +2,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../data/models/food_log_dto.dart';
 import '../../domain/tracker_providers.dart';
 
+import 'package:astrobite/features/gamification/presentation/controllers/streak_controller.dart';
+
 final trackerControllerProvider =
     StateNotifierProvider.autoDispose<TrackerController, AsyncValue<void>>((ref) {
   return TrackerController(ref);
@@ -21,6 +23,9 @@ class TrackerController extends StateNotifier<AsyncValue<void>> {
       await _ref.read(foodLogRepositoryProvider).addFoodLog(
             userId: userId,
             log: log,
+          );
+      await _ref.read(streakNotifierProvider.notifier).recordMeal(
+            date: DateTime.tryParse(log.date),
           );
     });
   }
