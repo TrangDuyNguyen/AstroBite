@@ -33,6 +33,14 @@ class HomePage extends ConsumerWidget {
           );
     });
 
+    // Immediate initial sync on first build
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(widgetSyncServiceProvider).sync(
+            summary: summary,
+            streak: ref.read(streakNotifierProvider).valueOrNull,
+          );
+    });
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(AppStrings.todayOverview),
