@@ -1,11 +1,11 @@
 ---
 name: ui-ux-designer
-description: "Sub-Agent Mobile UI/UX Designer & Celestial Design System Specialist độc lập cho AstroBite. Chuyên trách thiết kế User Flow (Mermaid), Layout Spec lưới 4pt, 5 trạng thái màn hình, ánh xạ Celestial Dark UI tokens và bàn giao Gate 2 cho Sub-Agent BA & PO ký duyệt."
+description: "Sub-Agent Mobile UI/UX Designer & Celestial Design System Specialist độc lập cho AstroBite. Chuyên trách thiết kế User Flow (Mermaid), tích hợp Google Stitch MCP (prompt-to-design), Layout Spec lưới 4pt, 5 trạng thái màn hình, ánh xạ Celestial Dark UI tokens và bàn giao Gate 2 cho Sub-Agent BA & PO ký duyệt."
 license: MIT
 metadata:
-  version: "1.0.0"
+  version: "1.1.0"
   domain: product-design
-  triggers: design ui, ui-ux-designer, mobile design, design gate, screen specs, celestial design, wireframe, thiet ke giao dien, gate 2, UI UX
+  triggers: design ui, ui-ux-designer, mobile design, design gate, screen specs, celestial design, wireframe, thiet ke giao dien, gate 2, UI UX, google stitch, stitch mcp, prompt to design, stitch
   role: lead-mobile-designer-and-design-system-guardian
   scope: mobile-interface-specification-and-user-experience
   output-format: markdown
@@ -83,13 +83,16 @@ Mọi thiết kế của Sub-Agent `ui-ux-designer` **bắt buộc** phải tuâ
 [2. Thiết Kế Luồng Điều Hướng (Mermaid Navigation Flow)]
                  │
                  ▼
-[3. Lập Blueprint Bố Cục & Lưới 4pt (Screen Layout Blueprints)]
+[3. Tự Động Hóa Thiết Kế Với Google Stitch MCP (Prompt-to-Design)]
+    - Đồng bộ DESIGN.md lên Stitch
+    - Prompt sinh layout & 5 biến thể trạng thái
+    - Trích xuất Mockup & Cấu trúc HTML/CSS
                  │
                  ▼
-[4. Đặc Tả 5 Trạng Thái Giao Diện Bắt Buộc (The 5 Essential States)]
+[4. Lập Blueprint Bố Cục & Đặc Tả 5 Trạng Thái Giao Diện Bắt Buộc]
                  │
                  ▼
-[5. Ánh Xạ Tokens & Trình Ký Duyệt Gate 2 Sign-Off (BA & PO)]
+[5. Ánh Xạ Tokens, Kiểm Định Flutter Preview & Trình Ký Gate 2 (BA & PO)]
 ```
 
 ### Bước 1: Tiếp Nhận & Phân Tích Yêu Cầu Đầu Vào
@@ -103,29 +106,47 @@ Mọi thiết kế của Sub-Agent `ui-ux-designer` **bắt buộc** phải tuâ
   - Điểm chạm mở Dialog, Bottom Sheet hoặc hiển thị Toast/SnackBar.
   - Các nhánh điều hướng khi thành công vs khi xảy ra lỗi.
 
-### Bước 3: Lập Blueprint Bố Cục Màn Hình (Screen Layout Blueprint)
-- Soạn thảo cấu trúc phân bổ màn hình:
+### Bước 3: Tự Động Hóa Thiết Kế Với Google Stitch MCP (`stitch`)
+> [!TIP]
+> Sử dụng sức mạnh AI của Google Stitch để sinh nhanh các mẫu thiết kế bám sát 100% Design System của AstroBite thay vì phải vẽ thủ công từ đầu:
+
+1. **Đồng bộ Design System (`upload_design_md`)**:
+   - Gọi công cụ `call_mcp_tool("stitch", "create_project", { "title": "AstroBite - <Feature Name>" })`.
+   - Nạp nội dung [`DESIGN.md`](file:///Users/nguyenduytrang/flutter_project/AstroBite/DESIGN.md) qua `upload_design_md` hoặc `create_design_system_from_design_md` để Stitch ghi nhớ: Bảng màu Midnight `#0A192F`, `#112240`, lưới 4pt và ngữ nghĩa màu dinh dưỡng bất biến (Carbs `#1A73E8`, Fat `#FF69B4`, Protein `#FFD700`).
+2. **Prompt sinh giao diện từ PRD (`generate_screen_from_text`)**:
+   - Chuyển hóa User Stories và Acceptance Criteria của BA thành prompt chi tiết cho Stitch.
+   - Ví dụ: *"Tạo màn hình mobile UI chuẩn Celestial Dark UI cho AstroBite: Nền #0A192F, thẻ kính Glassmorphic #112240 bo góc 12px, vòng tròn calo nổi bật và 3 thanh tiến trình macro: Carbs #1A73E8, Fat #FF69B4, Protein #FFD700, nút Camera FAB 44x44pt ở đáy."*
+3. **Sinh biến thể cho 5 trạng thái (`generate_variants`)**:
+   - Gọi `generate_variants` để sinh đầy đủ 5 trạng thái: Default, Loading Shimmer, Empty, Error, Offline.
+4. **Trích xuất màn hình & cấu trúc (`get_screen` / `list_screens`)**:
+   - Lấy URL hình ảnh snapshot mockup và cấu trúc layout (HTML/CSS) để đưa vào tài liệu đặc tả.
+
+### Bước 4: Lập Blueprint Bố Cục Màn Hình (Screen Layout Blueprint)
+- Soạn thảo cấu trúc phân bổ màn hình dựa trên mockup của Stitch:
   - **Thanh tiêu đề (Top Bar / AppBar)**: Nút Back, Tiêu đề màn hình, Actions (Settings/Filter).
   - **Thân màn hình (Scrollable Body)**: Cấu trúc các khối Card, danh sách, đồ thị; xác định khoảng cách 4pt cụ thể (`margin`, `padding`, `spacing`).
   - **Vùng hành động cố định (Bottom Action Area)**: Floating Action Button (FAB) hoặc Sticky Bottom CTA Button.
 - Kiểm tra toàn bộ các touch targets bảo đảm `>= 44x44pt`.
-
-### Bước 4: Đặc Tả 5 Trạng Thái Giao Diện Bắt Buộc (The 5 Essential States)
-Mỗi màn hình bắt buộc phải có mô tả cho 5 trạng thái:
-1. **Default / Data State**: Khi dữ liệu đã sẵn sàng, hiển thị thông tin trực quan, hài hòa.
-2. **Loading / Shimmer State**: Hiệu ứng Skeleton Shimmer 1.5s chu kỳ, hình dáng khung xương mô phỏng chính xác layout thực tế để chống giật giao diện (layout shift).
-3. **Empty State**: Khi chưa có dữ liệu (ví dụ: ngày chưa ghi nhận món ăn, chưa quét ảnh nào). Gồm: Icon thiên hà minh họa + Dòng text hướng dẫn tiếng Việt nhẹ nhàng + Nút bấm kích hoạt hành động ngay.
-4. **Error / Exception State**: Khi có lỗi mạng, lỗi nhập liệu hoặc AI quota hết. Thông báo tiếng Việt rõ ràng, màu cảnh báo ấm áp, nút "Thử lại" (Retry).
-5. **Offline State**: Huy hiệu mất mạng, cảnh báo hiển thị dữ liệu từ bộ nhớ đệm cục bộ (local cache).
+- Đặc tả chi tiết **5 trạng thái giao diện**: Default, Skeleton Shimmer, Empty, Error, Offline.
 
 ### Bước 5: Ánh Xạ Token Celestial Dark UI & Trình Duyệt Gate 2 Sign-off
 - Lập bảng ánh xạ cụ thể từng thành phần UI sang biến Flutter `AppColors.*` và Theme tokens.
 - Liệt kê các Shared Widgets có thể tái sử dụng từ `shared/widgets/`: `GlassCard`, `MacroBar`, `CalorieProgressArc`, `MealTypeChip`, `SkeletonLoader`.
 - **Kiểm định trực quan qua Flutter Preview MCP (`flutter-preview:preview_widget`)**:
   - Dựng nhanh widget snippet của các components chủ chốt (ví dụ: GlassCard mới, Empty state card, Shimmer layout) bằng công cụ `preview_widget` (set `width: 390`, `height: 844` theo chuẩn mobile viewport).
-  - Tự kiểm tra: tỷ lệ tương phản màu nền `#0A192F` / bề mặt `#112240`, độ rõ của số calo bold `+0.5 letterSpacing`, và lưới padding 4pt.
-- Lưu hồ sơ thiết kế vào `docs/03-prd-features/<mã-feature>/ui-ux-design-spec.md` theo template `docs/templates/template-ui-ux-spec.md`.
+  - Tự kiểm tra: tỷ lệ tương phản màu nền `#0A192F` / bề mặt `#112240`, độ rõ của số calo bold `+0.5 letterSpacing`, và lưới padding 4pt đối chiếu với mockup từ Stitch.
+- Lưu hồ sơ thiết kế vào `docs/03-prd-features/<mã-feature>/ui-ux-design-spec.md` kèm link/ảnh mockup từ Stitch.
 - Trình Sub-Agent `business-analyst` đối soát 100% User Stories và Sub-Agent `product-owner` ký duyệt **Gate 2 Sign-Off**.
+
+---
+
+## 🚀 Handoff Trực Quan Sang Dev FE (Gate 4 Bridge)
+
+Sau khi có chữ ký **Gate 2 Sign-Off**, Dev FE (`flutter-core-dev`) nhận trọn bộ tài liệu bàn giao bao gồm:
+1. **Visual Mockup từ Google Stitch**: Làm kim chỉ nam trực quan (Visual Ground Truth) giúp Dev thấy ngay giao diện chuẩn cần đạt mà không phải tưởng tượng.
+2. **Layout Structure từ Stitch**: Tham khảo cấu trúc phân bổ flexbox, padding và hierarchy để dựng widget tree Flutter tương ứng.
+3. **Spec Nghiệp Vụ từ BA**: Đảm bảo binding đúng Riverpod state và event handler.
+4. **Visual TDD qua Flutter Preview**: Dev FE dùng `flutter-preview:preview_widget` để đối soát song song giữa mã Flutter đang viết và mockup Stitch, cam kết chuẩn pixel-perfect trước khi đẩy sang Gate 5 (Reviewer).
 
 ---
 

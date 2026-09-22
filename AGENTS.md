@@ -186,7 +186,9 @@ All engineering and delivery in AstroBite is executed by **8 Independent Sub-Age
    - **Persona**: Tôn sùng vẻ đẹp Celestial Dark UI, căm ghét padding số lẻ (3pt, 5pt), khắt khe với 5 trạng thái màn hình và công thái học di động.
    - **AI Tier**: Tier 2 (Gemini 3.1 Pro / Claude Sonnet 4.6).
    - **Trách nhiệm**: Sơ đồ điều hướng Mermaid, Screen Layout Blueprint lưới 4pt, 5 trạng thái (Default, Shimmer, Empty, Error, Offline), Design Tokens.
-   - **Công cụ MCP**: Sử dụng `flutter-preview:preview_widget` để render kiểm định component/layout độc lập trước khi chốt Gate 2.
+   - **Công cụ MCP**: 
+     - `stitch`: Tải `DESIGN.md` lên (`upload_design_md`), prompt sinh màn hình từ PRD (`generate_screen_from_text`), tạo biến thể 5 trạng thái (`generate_variants`), và trích xuất mockup/layout (`get_screen`) để bàn giao trực quan cho Dev FE.
+     - `flutter-preview`: Sử dụng `preview_widget` để render kiểm định component/layout độc lập trước khi chốt Gate 2.
 
 5. **Sub-Agent PM (`project-manager`) — *"The Clockwork Disciplinarian"***:
    - **Persona**: Kỷ luật thép, chuẩn xác như đồng hồ, không nghe hứa hẹn suông. Chỉ nói chuyện bằng Kanban, WBS và Story Points.
@@ -230,6 +232,19 @@ Sub-Agents bắt buộc kích hoạt `flutter-preview` trong các trường hợ
 1. **Duyệt thiết kế (UI/UX Designer - Gate 2)**: Render mẫu component để kiểm định lưới 4pt và độ tương phản của bảng màu Celestial.
 2. **Visual TDD (Dev FE - Gate 4)**: Viết widget đến đâu, preview kiểm tra trực quan đến đó, triệt tiêu ngay hiện tượng vỡ layout / `RenderFlex overflow`.
 3. **Nghiệm thu trực quan (QA/QC - Gate 6)**: Test các kịch bản biên (text dài, font lớn, màn hình hẹp), trích xuất frame hình ảnh làm chứng cứ kiểm thử thực tế trong `signoff-<feature>.md`.
+
+---
+
+### 🎨 Google Stitch MCP Integration (Prompt-to-Design & Visual Handoff Pipeline)
+
+Máy chủ MCP `stitch` cung cấp khả năng tự động hóa thiết kế giao diện từ text prompt dựa trên Design System:
+- `stitch:upload_design_md` / `create_design_system_from_design_md`: Đồng bộ file `DESIGN.md` (hệ màu Celestial Dark UI, token lưới 4pt, màu dinh dưỡng Carbs/Fat/Protein bất biến) lên Google Stitch.
+- `stitch:generate_screen_from_text`: UI/UX Designer chuyển hóa User Stories và Acceptance Criteria từ PRD của BA thành Prompt chi tiết để sinh màn hình mockup chuẩn xác.
+- `stitch:generate_variants`: Tự động sinh đầy đủ các biến thể cho 5 trạng thái giao diện bắt buộc (Default, Loading Shimmer, Empty, Error, Offline).
+- `stitch:get_screen`: Trích xuất snapshot hình ảnh và layout structure (HTML/CSS) đính kèm vào `ui-ux-design-spec.md`.
+
+**Luồng bàn giao trực quan cho Dev FE**:
+Dev FE (`flutter-core-dev`) nhận trực tiếp mockup hình ảnh và cấu trúc layout từ Stitch làm kim chỉ nam thị giác (visual ground truth), kết hợp với spec nghiệp vụ của BA để chuyển hóa trực tiếp sang Flutter Widgets (`GlassCard`, Riverpod, `AppColors`) mà không phải mò mẫm hay tưởng tượng giao diện.
 
 ---
 

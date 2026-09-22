@@ -122,6 +122,7 @@ Hội đồng thẩm định sẽ **LẬP TỨC REJECT VÀ TRẢ VỀ** nếu:
 - ❌ Sai lệch bảng màu dinh dưỡng: Carbs `#1A73E8`, Fat `#FF69B4`, Protein `#FFD700`.
 - ❌ Vi phạm lưới 4pt (padding 3pt, 5pt, 7pt, 10pt...) hoặc Touch Target nhỏ hơn `44x44pt`.
 - ❌ BA đối soát thấy sót dù chỉ 1 User Story từ Gate 1 mà không có màn hình/dialog thể hiện.
+- ❌ Thiếu mockup visual trực quan hoặc cấu trúc layout (sinh từ Google Stitch MCP hoặc blueprint) để Dev FE bám theo.
 
 ### 🚪 Chốt Chặn 3: QC Thẩm Định Gate 3 (Test Design) — Cấm Du Di!
 QC sẽ **TỪ CHỐI BÀN GIAO CHO DEV** nếu:
@@ -162,15 +163,21 @@ Khi người dùng ra lệnh: *"Hãy triển khai tính năng X theo quy trình 
    - Làm PoC kiểm chứng, đánh giá 2-3 approaches, soạn thảo ADR hoặc Tech Feasibility Report.
 3. **BA thực thi Gate 1** (Tier 2): Soạn PRD (`prd-<feature>.md`), User Stories BDD và Data Dictionary.
 4. **PO & Tech Lead thẩm định Gate 1** (Tier S): Soi xét kỹ lưỡng tính thực dụng và tính khả thi kỹ thuật ➔ Ký `Gate 1 Sign-Off` & `Feasibility Sign-Off`.
-5. **UI/UX thực thi Gate 2** (Tier 2): Thiết kế Mermaid Flow, Blueprint 4pt, 5 UI States, Celestial Tokens; sử dụng `flutter-preview:preview_widget` để render kiểm định visual các components cốt lõi.
+5. **UI/UX thực thi Gate 2** (Tier 2):
+   - Thiết kế Mermaid Flow, Blueprint 4pt, 5 UI States, Celestial Tokens.
+   - **Kích hoạt Google Stitch MCP (`stitch`)**: Tải `DESIGN.md` lên Stitch (`upload_design_md`), prompt sinh màn hình từ User Stories của BA (`generate_screen_from_text`), sinh 5 biến thể (`generate_variants`), và trích xuất mockup visual + cấu trúc layout (`get_screen`).
+   - Sử dụng `flutter-preview:preview_widget` để render kiểm định visual các components cốt lõi.
+   - Lưu hồ sơ `ui-ux-design-spec.md` hoàn chỉnh kèm hình ảnh mockup làm kim chỉ nam cho Dev FE.
 6. **BA đối soát, PO & Tech Lead duyệt Gate 2** (Tier S): Ký `Gate 2 Sign-Off`.
 7. **PM phân rã WBS & Sprint** (Tier 3): Chấm Story Points, lập bảng WBS ánh xạ các Gate.
 8. **QC thiết kế kiểm thử Gate 3** (Tier 1/S): Viết Manual TCs và kịch bản BDD `.feature`.
-9. **Dev Team thực thi Gate 4** (Tier 1 hoặc Tier 2 tùy SP): Điều phối chính xác theo chuyên môn:
-   - `flutter-core-dev`: Clean Architecture, Riverpod 2.x, Celestial UI 60 FPS, Visual TDD (`flutter-preview:preview_widget`).
-   - `flutter-native-dev`: Android AppWidget XML, iOS WidgetKit Swift, Camera/Exif pipeline, Health Connect/Kit, 0 RAM leak.
-   - `cloud-ai-dev`: Firebase Auth/Firestore/Storage/App Check, Gemini 2.0 Flash Vision prompt & JSON schema, latency <= 2.5s.
-   - Toàn bộ tuân thủ Ponytail (stdlib trước, 0 bloat, `flutter analyze` 0 lỗi).
+9. **Dev Team thực thi Gate 4** (Tier 1 hoặc Tier 2 tùy SP): 
+   - Nhận mockup visual + cấu trúc layout từ Stitch và spec BDD từ BA để code chuẩn xác, không đoán mò giao diện.
+   - Điều phối chính xác theo chuyên môn:
+     - `flutter-core-dev`: Clean Architecture, Riverpod 2.x, Celestial UI 60 FPS, Visual TDD (`flutter-preview:preview_widget`).
+     - `flutter-native-dev`: Android AppWidget XML, iOS WidgetKit Swift, Camera/Exif pipeline, Health Connect/Kit, 0 RAM leak.
+     - `cloud-ai-dev`: Firebase Auth/Firestore/Storage/App Check, Gemini 2.0 Flash Vision prompt & JSON schema, latency <= 2.5s.
+     - Toàn bộ tuân thủ Ponytail (stdlib trước, 0 bloat, `flutter analyze` 0 lỗi).
 10. **Reviewer rà soát Gate 5** (Tier 2): Cắt giảm over-engineering cho đến khi `Lean already. Ship.`.
 11. **QC kiểm thử & nghiệm thu Gate 6** (Tier S): Chạy tự động và trích xuất frames qua `flutter-preview:run_widget_test` & `get_frame`, đo FPS, AI latency, lập biên bản Sign-off kèm minh chứng ảnh.
 12. **PO & PM phát hành Gate 7**: Chạy lệnh make, gắn Git Tag và đóng Sprint.
