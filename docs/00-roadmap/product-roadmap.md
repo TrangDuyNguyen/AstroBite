@@ -1,9 +1,9 @@
 # Bản Đồ Lộ Trình Sản Phẩm AstroBite (Product Roadmap)
 
 - **Quản lý bởi**: Sub-Agent Product Owner (PO)
-- **Phiên bản hiện tại**: v1.3.0 (Sprint 04 Active)
-- **Cập nhật lần cuối**: 2026-09-19
-- **Tình trạng tổng thể**: 🟡 Đang triển khai Sprint 04 — Cosmic Onboarding & Flawless Product Architecture
+- **Phiên bản hiện tại**: v1.4.0 (Sprint 05 Released)
+- **Cập nhật lần cuối**: 2026-09-22
+- **Tình trạng tổng thể**: 🟢 Đã hoàn thành phát hành v1.4.0 — Chuẩn bị Sprint 06 (v1.5.0)
 
 ---
 
@@ -93,5 +93,5 @@
 | **v1.1.0** | **100%** (3/3 features đã ký sign-off) | Đã phát hành chính thức (Release Tag `v1.1.0`) | 2026-09-18 | Sub-Agent PO & PM |
 | **v1.2.0** | **100%** (2/2 epics hoàn thành) | Đã phát hành chính thức (Release Tag `v1.2.0`) | 2026-09-19 | Sub-Agent PO & PM |
 | **v1.3.0** | **100%** (18/18 SP thực tế hoàn thành) | Đã phát hành chính thức (Release Tag `v1.3.0`) | 2026-09-19 | Sub-Agent PO & PM |
-| **v1.4.0** | **100%** (26/26 SP hoàn tất kiểm thử & review) | 🟢 Đã hoàn thành Sprint 05 — Sẵn sàng ký Gate 7 Release | 2026-09-19 | Sub-Agent PO & PM |
+| **v1.4.0** | **100%** (26/26 SP hoàn tất kiểm thử & review) | Đã phát hành chính thức (Release Tag `v1.4.0`) | 2026-09-22 | Sub-Agent PO & PM |
 | **v1.5.0+** | **0%** | Ý tưởng chiến lược chân trời NEXT | Q1/2027 | Sub-Agent PO |
