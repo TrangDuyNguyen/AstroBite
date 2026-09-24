@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
@@ -118,6 +119,61 @@ class _CoachPageState extends ConsumerState<CoachPage> {
     );
   }
 
+  Future<void> _confirmDeleteSession([String? date]) async {
+    final messages = ref.read(coachControllerProvider).valueOrNull ?? [];
+    if (date == null && messages.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Cuộc trò chuyện hiện tại đang trống.'),
+          backgroundColor: AppColors.surfaceContainer,
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+      return;
+    }
+
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        backgroundColor: AppColors.surfaceContainer,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        title: const Text(
+          'Xoá cuộc trò chuyện?',
+          style: TextStyle(color: AppColors.onSurface, fontWeight: FontWeight.bold, fontSize: 16),
+        ),
+        content: Text(
+          date != null
+              ? 'Tất cả tin nhắn trong phiên ngày $date sẽ bị xoá vĩnh viễn và không thể khôi phục.'
+              : 'Tất cả tin nhắn trong phiên này sẽ bị xoá vĩnh viễn và không thể khôi phục.',
+          style: const TextStyle(color: AppColors.onSurfaceVariant, fontSize: 14),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, false),
+            child: const Text('Huỷ', style: TextStyle(color: AppColors.onSurfaceVariant)),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, true),
+            child: const Text('Xoá', style: TextStyle(color: AppColors.error, fontWeight: FontWeight.bold)),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed == true && mounted) {
+      await ref.read(coachControllerProvider.notifier).deleteSession(date);
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('🗑️ Đã xoá cuộc trò chuyện thành công.'),
+            backgroundColor: AppColors.surfaceContainer,
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+      }
+    }
+  }
+
   static Map<String, dynamic>? _extractMealData(String content) {
     // 1. Try markdown code block ```astrobite-meal ... ```
     final blockMatch = RegExp(r'```(?:astrobite-meal|json)?\s*(\{.*?"dishName".*?\})\s*```', dotAll: true).firstMatch(content)
@@ -183,7 +239,7 @@ class _CoachPageState extends ConsumerState<CoachPage> {
               child: const CircleAvatar(
                 radius: 14,
                 backgroundColor: AppColors.surfaceContainer,
-                child: Icon(Icons.auto_awesome, color: AppColors.primary, size: 16),
+                backgroundImage: AssetImage('assets/images/astrobot_mascot.png'),
               ),
             ),
             const SizedBox(width: 10),
@@ -227,6 +283,11 @@ class _CoachPageState extends ConsumerState<CoachPage> {
         ),
         actions: [
           IconButton(
+            icon: const Icon(Icons.delete_outline_rounded, color: AppColors.onSurfaceVariant, size: 22),
+            tooltip: 'Xoá cuộc trò chuyện',
+            onPressed: () => _confirmDeleteSession(),
+          ),
+          IconButton(
             icon: const Icon(Icons.history_rounded, color: AppColors.onSurface, size: 22),
             tooltip: 'Lịch sử hội thoại',
             onPressed: _showHistorySheet,
@@ -234,10 +295,25 @@ class _CoachPageState extends ConsumerState<CoachPage> {
           const SizedBox(width: 6),
         ],
       ),
-      body: Column(
+      body: Stack(
         children: [
-          // Context Header Strip
-          _buildContextHeader(summary),
+          // Background Mascot Artwork
+          Positioned.fill(
+            child: IgnorePointer(
+              child: Opacity(
+                opacity: 0.15,
+                child: Image.asset(
+                  'assets/images/astrobot_mascot.png',
+                  fit: BoxFit.cover,
+                  alignment: Alignment.center,
+                ),
+              ),
+            ),
+          ),
+          Column(
+            children: [
+              // Context Header Strip
+              _buildContextHeader(summary),
 
           // Reviewing past session notice banner
           if (ref.watch(coachControllerProvider.notifier).selectedDate != null)
@@ -311,20 +387,28 @@ class _CoachPageState extends ConsumerState<CoachPage> {
           // Dynamic Quick Actions
           if (!_isSending) _buildQuickActions(),
 
-          // Input bar
-          _buildInputBar(),
-
-          // Medical Disclaimer
+          // Medical Disclaimer (Placed cleanly above Input Bar)
           const Padding(
-            padding: EdgeInsets.only(bottom: 6),
+            padding: EdgeInsets.only(top: 4, bottom: 2),
             child: Text(
               '⚕️ AI gợi ý tham khảo, không thay thế chuyên gia y tế',
               style: TextStyle(
                 fontSize: 10,
                 color: AppColors.outline,
               ),
+              textAlign: TextAlign.center,
             ),
           ),
+
+          // Input bar + Floating Dock Clearance
+          Padding(
+            padding: EdgeInsets.only(
+              bottom: (MediaQuery.viewInsetsOf(context).bottom > 0) ? 8 : 106,
+            ),
+            child: _buildInputBar(),
+          ),
+        ],
+      ),
         ],
       ),
     );
@@ -480,17 +564,32 @@ class _CoachPageState extends ConsumerState<CoachPage> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              padding: const EdgeInsets.all(16),
+              width: 110,
+              height: 110,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: AppColors.surfaceContainer,
-                border: Border.all(color: AppColors.primary.withValues(alpha: 0.3)),
+                border: Border.all(
+                  color: AppColors.primary.withValues(alpha: 0.4),
+                  width: 2,
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: AppColors.primary.withValues(alpha: 0.25),
+                    blurRadius: 24,
+                    spreadRadius: 2,
+                  ),
+                ],
               ),
-              child: const Icon(Icons.auto_awesome, size: 48, color: AppColors.primary),
+              child: ClipOval(
+                child: Image.asset(
+                  'assets/images/astrobot_mascot.png',
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
             const SizedBox(height: 16),
             const Text(
-              'Xin chào! Tôi là AstroCoach v2',
+              'Xin chào! Tôi là AstroBot ✨',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 17,
@@ -555,13 +654,40 @@ class _CoachPageState extends ConsumerState<CoachPage> {
               const SizedBox(height: 4),
             ],
             if (displayContent.isNotEmpty)
-              Text(
-                displayContent,
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: AppColors.onSurface,
-                      height: 1.35,
+              isUser || message.isError
+                  ? Text(
+                      displayContent,
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            color: AppColors.onSurface,
+                            height: 1.35,
+                          ),
+                    )
+                  : MarkdownBody(
+                      data: displayContent,
+                      shrinkWrap: true,
+                      styleSheet: MarkdownStyleSheet(
+                        p: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              color: AppColors.onSurface,
+                              height: 1.45,
+                            ),
+                        h3: Theme.of(context).textTheme.titleSmall?.copyWith(
+                              color: AppColors.onSurface,
+                              fontWeight: FontWeight.bold,
+                            ),
+                        strong: const TextStyle(
+                          fontWeight: FontWeight.w700,
+                          color: AppColors.onSurface,
+                        ),
+                        listBullet: const TextStyle(color: AppColors.onSurface),
+                        horizontalRuleDecoration: BoxDecoration(
+                          border: Border(
+                            top: BorderSide(
+                              color: Colors.white.withValues(alpha: 0.12),
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
-              ),
             // Holographic Bento Meal Card
             if (mealData != null) ...[
               const SizedBox(height: 10),
@@ -594,7 +720,10 @@ class _CoachPageState extends ConsumerState<CoachPage> {
                     (m) => m.isUser,
                     orElse: () => message,
                   );
-                  if (lastUserMsg.isUser) _sendMessage(lastUserMsg.content);
+                  if (lastUserMsg.isUser) {
+                    ref.read(coachControllerProvider.notifier).removeErrors();
+                    _sendMessage(lastUserMsg.content);
+                  }
                 },
                 child: const Text('Thử lại', style: TextStyle(color: AppColors.primary)),
               ),
@@ -902,11 +1031,9 @@ class _CoachPageState extends ConsumerState<CoachPage> {
   }
 
   Widget _buildInputBar() {
-    return SafeArea(
-      top: false,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        child: Row(
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+      child: Row(
           children: [
             Expanded(
               child: TextField(
@@ -955,8 +1082,7 @@ class _CoachPageState extends ConsumerState<CoachPage> {
             ),
           ],
         ),
-      ),
-    );
+      );
   }
 
   void _showHistorySheet() {
@@ -1071,12 +1197,14 @@ class _CoachPageState extends ConsumerState<CoachPage> {
                                         Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Text(
-                                              dateStr == todayStr ? 'Hôm nay ($dateStr)' : dateStr,
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 13,
-                                                color: isSelected ? AppColors.primary : AppColors.onSurface,
+                                            Expanded(
+                                              child: Text(
+                                                dateStr == todayStr ? 'Hôm nay ($dateStr)' : dateStr,
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 13,
+                                                  color: isSelected ? AppColors.primary : AppColors.onSurface,
+                                                ),
                                               ),
                                             ),
                                             Container(
@@ -1088,6 +1216,15 @@ class _CoachPageState extends ConsumerState<CoachPage> {
                                               child: Text(
                                                 '$count tin nhắn',
                                                 style: const TextStyle(fontSize: 10, color: AppColors.onSurfaceVariant),
+                                              ),
+                                            ),
+                                            const SizedBox(width: 4),
+                                            InkWell(
+                                              onTap: () => _confirmDeleteSession(dateStr),
+                                              borderRadius: BorderRadius.circular(6),
+                                              child: const Padding(
+                                                padding: EdgeInsets.all(4),
+                                                child: Icon(Icons.delete_outline_rounded, size: 18, color: AppColors.onSurfaceVariant),
                                               ),
                                             ),
                                           ],

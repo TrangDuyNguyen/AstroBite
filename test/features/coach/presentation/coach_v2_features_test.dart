@@ -295,6 +295,63 @@ Hãy thưởng thức nhé!
       // Banner is removed
       expect(find.textContaining('Đang xem lại phiên'), findsNothing);
     });
+
+    testWidgets('Tapping delete button in AppBar displays confirmation dialog and triggers deletion', (tester) async {
+      final mockMessages = [
+        ChatMessage(
+          id: 'msg_1',
+          role: 'user',
+          content: 'Tư vấn bữa tối',
+          timestamp: DateTime.now(),
+        ),
+      ];
+      final mockController = _MockCoachController(mockMessages);
+
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            coachControllerProvider.overrideWith(() => mockController),
+            todaySummaryProvider.overrideWithValue(
+              const DailySummary(
+                date: '2026-09-24',
+                totalCalories: 1000,
+                targetCalories: 2000,
+                totalProteinG: 60,
+                targetProteinG: 120,
+                totalCarbsG: 100,
+                targetCarbsG: 200,
+                totalFatG: 30,
+                targetFatG: 60,
+                logs: [],
+              ),
+            ),
+          ],
+          child: const MaterialApp(
+            home: CoachPage(),
+          ),
+        ),
+      );
+
+      await tester.pumpAndSettle();
+
+      final deleteBtn = find.byTooltip('Xoá cuộc trò chuyện');
+      expect(deleteBtn, findsOneWidget);
+
+      await tester.tap(deleteBtn);
+      await tester.pumpAndSettle();
+
+      // Confirmation dialog should be displayed
+      expect(find.text('Xoá cuộc trò chuyện?'), findsOneWidget);
+      expect(find.text('Xoá'), findsOneWidget);
+      expect(find.text('Huỷ'), findsOneWidget);
+
+      // Tap confirm "Xoá"
+      await tester.tap(find.text('Xoá'));
+      await tester.pumpAndSettle();
+
+      expect(mockController.deleteCalled, isTrue);
+      expect(find.text('🗑️ Đã xoá cuộc trò chuyện thành công.'), findsOneWidget);
+    });
   });
 }
 
@@ -302,6 +359,8 @@ class _MockCoachController extends CoachController {
   _MockCoachController(this._messages);
   final List<ChatMessage> _messages;
   String? _mockSelectedDate;
+  bool deleteCalled = false;
+  String? lastDeletedDate;
 
   @override
   String? get selectedDate => _mockSelectedDate;
@@ -313,5 +372,12 @@ class _MockCoachController extends CoachController {
   Future<void> selectSessionDate(String? date) async {
     _mockSelectedDate = date;
     state = AsyncData(_messages);
+  }
+
+  @override
+  Future<void> deleteSession([String? dateToDelete]) async {
+    deleteCalled = true;
+    lastDeletedDate = dateToDelete;
+    state = const AsyncData([]);
   }
 }

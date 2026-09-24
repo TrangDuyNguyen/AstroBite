@@ -201,6 +201,7 @@ class ProfilePage extends ConsumerWidget {
               icon: const Icon(Icons.logout, color: Colors.redAccent),
               label: const Text('Đăng xuất', style: TextStyle(color: Colors.redAccent)),
             ),
+            const SizedBox(height: 110),
           ],
         ),
       ),

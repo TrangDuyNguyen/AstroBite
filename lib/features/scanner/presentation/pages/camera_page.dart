@@ -32,9 +32,9 @@ class _CameraPageState extends ConsumerState<CameraPage> {
     try {
       final XFile? file = await _imagePicker.pickImage(
         source: source,
-        maxWidth: 1024,
-        maxHeight: 1024,
-        imageQuality: 85,
+        maxWidth: 720,
+        maxHeight: 720,
+        imageQuality: 75,
       );
 
       if (file == null) return;

@@ -93,12 +93,16 @@ abstract final class AppTheme {
         ),
       ),
       navigationBarTheme: NavigationBarThemeData(
-        backgroundColor: AppColors.surface,
+        backgroundColor: Colors.transparent,
         surfaceTintColor: Colors.transparent,
         indicatorColor: AppColors.primary.withValues(alpha: 0.2),
         labelTextStyle: WidgetStatePropertyAll(
           GoogleFonts.inter(fontSize: 12, fontWeight: FontWeight.w500),
         ),
+      ),
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
       ),
       bottomSheetTheme: const BottomSheetThemeData(
         backgroundColor: AppColors.surfaceContainer,

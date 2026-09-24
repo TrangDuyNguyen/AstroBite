@@ -1,9 +1,9 @@
 # Bản Đồ Lộ Trình Sản Phẩm AstroBite (Product Roadmap)
 
 - **Quản lý bởi**: Sub-Agent Product Owner (PO)
-- **Phiên bản hiện tại**: v1.5.0 (Sprint 06 Active)
-- **Cập nhật lần cuối**: 2026-09-22
-- **Tình trạng tổng thể**: 🟡 Sprint 06 Active — Trọng tâm Glanceable Celestial Core (Màn hình Hôm nay)
+- **Phiên bản hiện tại**: v1.8.2 (Sprint 09 Completed)
+- **Cập nhật lần cuối**: 2026-09-24
+- **Tình trạng tổng thể**: 🟢 Hoàn thành Sprint 09 — AstroCoach AI Intelligence v2 & Mascot Dock Navigation (v1.8.2)
 
 ---
 
@@ -11,26 +11,32 @@
 
 ```
        ┌──────────────────────────────────────────────────────────────┐
-       │   🟢 CHÂN TRỜI 1: HISTORICAL (v1.0.0 đến v1.4.0)             │
+       │   🟢 CHÂN TRỜI 1: HISTORICAL (v1.0.0 đến v1.8.2)             │
        │   - v1.0.0: MVP Core (Auth, Scanner, Diary, Stats, Profile)  │
        │   - v1.1.0: Multi-Item Vision, Offline-First, Micronutrients │
        │   - v1.2.0: Realtime AI Coach, Apple Health Integration      │
        │   - v1.3.0: Cosmic Onboarding, Google Auth Fix, New Shell IA │
        │   - v1.4.0: Cosmic Streak Engine & Mobile OS Widgets (v1.4)  │
+       │   - v1.5.0: Glanceable Celestial Cockpit & 1-Tap Quick Log   │
+       │   - v1.6.0: Zero-Friction Ergonomic Logging & Radar Pulse    │
+       │   - v1.7.0: Cinematic Celestial UI & AR HUD Food Scanner     │
+       │   - v1.8.0: AstroCoach Intelligence v2 & Bento Meal Card     │
+       │   - v1.8.1: AstroCoach Multi-Session Conversation History    │
+       │   - v1.8.2: AstroBot Mascot Dock & Celestial Navigation      │
        └──────────────────────────────┬───────────────────────────────┘
                                       │
                                       ▼
        ┌──────────────────────────────────────────────────────────────┐
-       │   🟡 CHÂN TRỜI 2: NOW (v1.5.0 — SPRINT 06 ACTIVE)            │
-       │   - EPIC-15: Glanceable Celestial Cockpit & Quick Log (13 SP)│
-       │   - EPIC-UI-CORE: 4pt Grid & Glanceable Polish (5 SP)        │
+       │   🟡 CHÂN TRỜI 2: NOW (v1.9.0 — SPRINT 10 PLANNING)          │
+       │   - EPIC-12: Custom Recipes & Meal Planning Architecture     │
+       │   - EPIC-HEALTH-PRO: Deep Biometrics & Calorie Deficit Engine│
        └──────────────────────────────┬───────────────────────────────┘
                                       │
                                       ▼
        ┌──────────────────────────────────────────────────────────────┐
-       │   🟣 CHÂN TRỜI 3: NEXT (v1.6.0 — Q1/2027)                     │
-       │   - EPIC-12: Custom Recipes & Meal Planning                  │
+       │   🟣 CHÂN TRỜI 3: NEXT (v2.0.0 — Q1/2027)                     │
        │   - EPIC-14: Social Guilds & Planetary Challenges            │
+       │   - EPIC-GLOBAL: Multi-Region Food Culture Intelligence      │
        └──────────────────────────────────────────────────────────────┘
 ```
 
@@ -112,4 +118,6 @@
 | **v1.6.0** | **100%** (9/9 SP - 152/152 tests pass) | Đã phát hành chính thức (Release Tag `v1.6.0`) | 2026-09-24 | Sub-Agent PO & PM |
 | **v1.7.0** | **100%** (12/12 SP - 159/159 tests pass) | Đã phát hành chính thức (Release Tag `v1.7.0`) | 2026-09-24 | Sub-Agent PO & PM |
 | **v1.8.0** | **100%** (14/14 SP - 163/163 tests pass) | Đã phát hành chính thức (Release Tag `v1.8.0`) | 2026-09-24 | Sub-Agent PO & PM |
-| **v1.9.0+** | **0%** | Custom Recipes, Meal Planning & Social Challenges | Q4/2026 | Sub-Agent PO |
+| **v1.8.1** | **100%** (164/164 tests pass) | Đã phát hành chính thức (Release Tag `v1.8.1`) | 2026-09-24 | Sub-Agent PO & PM |
+| **v1.8.2** | **100%** (168/168 tests pass) | Đã phát hành chính thức (Release Tag `v1.8.2`) | 2026-09-24 | Sub-Agent PO & PM |
+| **v1.9.0+** | **0%** | Custom Recipes, Meal Planning & Biometrics Deficit | Q4/2026 | Sub-Agent PO |

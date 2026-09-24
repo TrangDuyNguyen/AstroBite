@@ -57,4 +57,9 @@ abstract final class AppStrings {
   static const overBudget = 'vượt mục tiêu';
   static const kcalRemaining = 'còn lại';
   static const noMealLogs = 'Chưa có món ăn nào';
+  // Navigation
+  static const navToday = 'Hôm nay';
+  static const navCoach = 'AstroCoach';
+  static const navInsights = 'Thống kê';
+  static const navProfile = 'Cá nhân';
 }

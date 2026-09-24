@@ -84,6 +84,7 @@ class _AnalyticsPageState extends ConsumerState<AnalyticsPage> {
               caloriesIn: 1850,
               calorieTarget: 2000,
             ),
+            const SizedBox(height: 100),
           ],
         ),
       ),

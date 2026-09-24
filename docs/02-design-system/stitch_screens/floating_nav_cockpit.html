@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AstroBite - Celestial Cockpit Dashboard</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Inter Google Font -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration verbatim from Design System -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "tertiary-container": "#c9a900",
+            "on-primary": "#002e68",
+            "surface-dim": "#041329",
+            "on-primary-fixed": "#001a41",
+            "surface-blur": "rgba(17, 34, 64, 0.75)",
+            "tertiary": "#e9c400",
+            "secondary-container": "#90015a",
+            "on-secondary-container": "#ff99c6",
+            "inverse-primary": "#005bc0",
+            "surface-container-high": "#1c2a41",
+            "surface-container": "#112240",
+            "on-primary-fixed-variant": "#004493",
+            "error": "#ffb4ab",
+            "background": "#041329",
+            "glass-border": "rgba(255, 255, 255, 0.08)",
+            "surface-tint": "#adc7ff",
+            "inverse-on-surface": "#233148",
+            "error-container": "#93000a",
+            "primary-fixed-dim": "#adc7ff",
+            "secondary": "#ffb0d0",
+            "tertiary-fixed-dim": "#e9c400",
+            "surface-bright": "#2c3951",
+            "on-secondary-fixed-variant": "#8c0058",
+            "outline-variant": "#414754",
+            "on-surface": "#FFFFFF",
+            "on-tertiary-fixed": "#221b00",
+            "on-surface-variant": "#c1c6d6",
+            "on-tertiary": "#3a3000",
+            "outline": "#495670",
+            "on-error": "#690005",
+            "tertiary-fixed": "#ffe16d",
+            "inverse-surface": "#d6e3ff",
+            "secondary-fixed": "#ffd8e6",
+            "primary-fixed": "#d8e2ff",
+            "on-error-container": "#ffdad6",
+            "surface-container-highest": "#27354c",
+            "on-tertiary-container": "#4c3f00",
+            "surface": "#041329",
+            "surface-variant": "#27354c",
+            "primary-container": "#1a73e8",
+            "on-primary-container": "#ffffff",
+            "on-secondary": "#63003d",
+            "surface-container-lowest": "#010e24",
+            "surface-container-low": "#0d1c32",
+            "primary": "#adc7ff",
+            "on-secondary-fixed": "#3d0024",
+            "on-tertiary-fixed-variant": "#544600",
+            "on-background": "#d6e3ff",
+            "secondary-fixed-dim": "#ffb0d0"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "unit": "4px",
+            "touch-target": "44px",
+            "card-padding": "16px",
+            "gutter-md": "12px",
+            "gutter-lg": "16px",
+            "edge-margin": "16px"
+          },
+          "fontFamily": {
+            "title-md": ["Inter", "sans-serif"],
+            "label-md": ["Inter", "sans-serif"],
+            "headline-md": ["Inter", "sans-serif"],
+            "body-md": ["Inter", "sans-serif"],
+            "body-lg": ["Inter", "sans-serif"],
+            "custom-calorie": ["Inter", "sans-serif"]
+          },
+          "fontSize": {
+            "title-md": [
+              "14px",
+              { "lineHeight": "1.3", "letterSpacing": "0", "fontWeight": "500" }
+            ],
+            "label-md": [
+              "12px",
+              { "lineHeight": "1.4", "letterSpacing": "0", "fontWeight": "500" }
+            ],
+            "headline-md": [
+              "20px",
+              { "lineHeight": "1.25", "letterSpacing": "0", "fontWeight": "700" }
+            ],
+            "body-md": [
+              "14px",
+              { "lineHeight": "1.4", "letterSpacing": "0", "fontWeight": "400" }
+            ],
+            "body-lg": [
+              "18px",
+              { "lineHeight": "1.4", "letterSpacing": "0", "fontWeight": "400" }
+            ],
+            "custom-calorie": [
+              "18px",
+              { "lineHeight": "1.25", "letterSpacing": "+0.5px", "fontWeight": "700" }
+            ]
+          }
+        }
+      }
+    };
+  </script>
+<style>
+    /* Custom glow highlights & atmospheric stars */
+    .glow-blue {
+      box-shadow: 0 0 24px -2px rgba(26, 115, 232, 0.45);
+    }
+    .glow-gold {
+      box-shadow: 0 0 16px -2px rgba(233, 196, 0, 0.4);
+    }
+    .glow-pink {
+      box-shadow: 0 0 16px -2px rgba(255, 105, 180, 0.35);
+    }
+    .text-glow-blue {
+      text-shadow: 0 0 14px rgba(173, 199, 255, 0.6);
+    }
+    .star-bg {
+      background-image: 
+        radial-gradient(1px 1px at 20px 30px, rgba(255, 255, 255, 0.4), transparent),
+        radial-gradient(1.5px 1.5px at 150px 80px, rgba(173, 199, 255, 0.5), transparent),
+        radial-gradient(1px 1px at 310px 120px, rgba(255, 255, 255, 0.3), transparent),
+        radial-gradient(1.5px 1.5px at 70px 240px, rgba(233, 196, 0, 0.35), transparent),
+        radial-gradient(1px 1px at 280px 390px, rgba(255, 255, 255, 0.3), transparent),
+        radial-gradient(2px 2px at 190px 480px, rgba(173, 199, 255, 0.4), transparent);
+    }
+    /* Circular radial meter dash math */
+    .arc-meter {
+      stroke-dasharray: 283;
+      stroke-dashoffset: 88;
+      transition: stroke-dashoffset 1s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface antialiased min-h-screen flex justify-center selection:bg-primary-container selection:text-on-primary-container">
+<!-- Mobile Viewport Container (390px fixed mobile app frame with cosmic dark styling) -->
+<div class="w-full max-w-[390px] min-h-screen bg-surface relative flex flex-col pb-32 pt-2 overflow-x-hidden star-bg">
+<!-- Top Glow Nebula effect -->
+<div class="absolute -top-16 left-1/2 -translate-x-1/2 w-72 h-44 bg-primary-container/20 rounded-full blur-3xl pointer-events-none"></div>
+<!-- SHARED COMPONENT: TopAppBar (Integrated & tailored to Celestial Cockpit) -->
+<header class="sticky top-0 z-40 w-full px-edge-margin h-touch-target flex items-center justify-between bg-surface-blur backdrop-blur-md">
+<!-- Left: Celestial Avatar & Date Context -->
+<div class="flex items-center gap-3">
+<div class="relative w-10 h-10 rounded-full p-[1.5px] bg-gradient-to-tr from-primary-container via-secondary to-tertiary">
+<div class="w-full h-full rounded-full bg-surface-container-low flex items-center justify-center overflow-hidden">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="bedtime" style="font-variation-settings: 'FILL' 1;">bedtime</span>
+</div>
+<span class="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-tertiary border-2 border-surface"></span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="font-headline-md text-headline-md text-on-surface font-bold tracking-tight">Hôm nay</span>
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse"></span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant font-medium">Thứ Hai, 27 Th07</span>
+</div>
+</div>
+<!-- Right: Cosmic Streak Fire Badge -->
+<div class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container-high/80 border border-glass-border shadow-sm glow-gold cursor-pointer active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-tertiary text-base" data-icon="local_fire_department" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+<span class="font-label-md text-label-md font-bold text-tertiary-fixed tracking-wide">7 Ngày Streak</span>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 px-edge-margin space-y-4 pt-3">
+<!-- HERO SECTION: The Celestial Cockpit Card -->
+<section class="relative rounded-2xl bg-surface-container border border-glass-border p-card-padding backdrop-blur-md overflow-hidden shadow-2xl">
+<!-- Ambient subtle shimmer behind cockpit -->
+<div class="absolute -top-10 -right-10 w-32 h-32 bg-primary-container/15 rounded-full blur-2xl pointer-events-none"></div>
+<div class="absolute -bottom-10 -left-10 w-28 h-28 bg-secondary-container/15 rounded-full blur-2xl pointer-events-none"></div>
+<!-- Cockpit Header Subtitle -->
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="rocket_launch">rocket_launch</span>
+<span class="font-label-md text-label-md text-primary tracking-wide font-semibold uppercase">Celestial Cockpit</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant/80">Mục tiêu: 2.100 kcal</span>
+</div>
+<!-- Cockpit Main Display: Left Radial Arc + Right Macro Pill Gauges -->
+<div class="flex items-center justify-between gap-4">
+<!-- LEFT: Radial Progress Arc Gauge -->
+<div class="relative w-[136px] h-[136px] flex items-center justify-center shrink-0">
+<!-- Radial SVG Meter -->
+<svg class="w-full h-full -rotate-90" viewbox="0 0 100 100">
+<!-- Background track -->
+<circle cx="50" cy="50" fill="none" r="42" stroke="#1c2a41" stroke-linecap="round" stroke-width="8"></circle>
+<!-- Glow backdrop track -->
+<circle class="filter blur-sm" cx="50" cy="50" fill="none" opacity="0.3" r="42" stroke="#1a73e8" stroke-dasharray="264" stroke-dashoffset="82" stroke-linecap="round" stroke-width="8"></circle>
+<!-- Primary Active Arc (Carbs/Calories) -->
+<circle class="arc-meter" cx="50" cy="50" fill="none" r="42" stroke="#1a73e8" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<!-- Center Content: Calories Remaining -->
+<div class="absolute inset-0 flex flex-col items-center justify-center text-center p-2">
+<span class="font-label-md text-label-md text-on-surface-variant font-medium">Còn lại</span>
+<span class="font-headline-md text-2xl font-black text-on-surface text-glow-blue leading-tight tracking-tight">650</span>
+<span class="font-label-md text-[11px] text-primary font-semibold tracking-wider uppercase">kcal</span>
+</div>
+</div>
+<!-- RIGHT: 3 Vertical Macro Progress Indicators -->
+<div class="flex-1 flex flex-col justify-between space-y-2.5">
+<!-- 1. Carbs (Electric Blue) -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between items-baseline font-label-md text-label-md">
+<span class="text-on-surface font-semibold flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-primary-container inline-block"></span>
+                  Carbs
+                </span>
+<span class="text-on-surface font-bold">120<span class="text-on-surface-variant font-normal">/220g</span></span>
+</div>
+<div class="h-2 w-full bg-surface-container-high rounded-full overflow-hidden p-[1px]">
+<div class="h-full bg-primary-container rounded-full w-[55%] glow-blue transition-all duration-700"></div>
+</div>
+</div>
+<!-- 2. Protein (Warm Gold) -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between items-baseline font-label-md text-label-md">
+<span class="text-on-surface font-semibold flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-tertiary-fixed-dim inline-block"></span>
+                  Protein
+                </span>
+<span class="text-on-surface font-bold">85<span class="text-on-surface-variant font-normal">/130g</span></span>
+</div>
+<div class="h-2 w-full bg-surface-container-high rounded-full overflow-hidden p-[1px]">
+<div class="h-full bg-tertiary-container rounded-full w-[65%] glow-gold transition-all duration-700"></div>
+</div>
+</div>
+<!-- 3. Fat (Hot Pink) -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between items-baseline font-label-md text-label-md">
+<span class="text-on-surface font-semibold flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-secondary inline-block"></span>
+                  Fat
+                </span>
+<span class="text-on-surface font-bold">38<span class="text-on-surface-variant font-normal">/65g</span></span>
+</div>
+<div class="h-2 w-full bg-surface-container-high rounded-full overflow-hidden p-[1px]">
+<div class="h-full bg-secondary rounded-full w-[58%] glow-pink transition-all duration-700"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Collapsible Micronutrients Pill Bar -->
+<div class="mt-4 pt-3 border-t border-glass-border">
+<button class="w-full flex items-center justify-between px-3 py-2 rounded-xl bg-surface-container-high/60 border border-glass-border text-on-surface-variant hover:text-on-surface transition-colors" type="button">
+<div class="flex items-center gap-1.5 font-label-md text-label-md overflow-hidden text-ellipsis whitespace-nowrap">
+<span class="material-symbols-outlined text-primary text-base shrink-0" data-icon="science">science</span>
+<span class="text-on-surface font-semibold">Vi chất:</span>
+<span class="text-on-surface-variant truncate">Natri 1.400mg • Xơ 22g • Đường 28g</span>
+</div>
+<span class="material-symbols-outlined text-sm text-outline shrink-0 ml-1" data-icon="expand_more">expand_more</span>
+</button>
+</div>
+</section>
+<!-- MEAL DIARY SECTION ('Nhật ký bữa ăn') -->
+<section class="space-y-3 pt-1">
+<!-- Section Header -->
+<div class="flex items-end justify-between px-1">
+<div>
+<h2 class="font-headline-md text-headline-md font-bold text-on-surface">Nhật ký bữa ăn</h2>
+<p class="font-label-md text-label-md text-on-surface-variant">4 bữa • Cần nạp đủ để duy trì năng lượng</p>
+</div>
+<div class="text-right">
+<span class="font-headline-md text-sm font-bold text-primary">1.450</span>
+<span class="font-label-md text-label-md text-outline"> / 2.100 kcal</span>
+</div>
+</div>
+<!-- Meals List (4 Structured Cards) -->
+<div class="space-y-2.5">
+<!-- 1. Bữa sáng (Breakfast) -->
+<article class="p-card-padding rounded-xl bg-surface-container border border-glass-border transition-all duration-150 hover:bg-surface-container-high/70 flex items-center justify-between gap-3">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-11 h-11 rounded-xl bg-surface-container-high border border-glass-border flex items-center justify-center shrink-0 shadow-inner">
+<span class="material-symbols-outlined text-tertiary text-2xl" data-icon="wb_twilight">wb_twilight</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-2">
+<h3 class="font-title-md text-title-md font-bold text-on-surface truncate">Bữa sáng</h3>
+<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-primary-container/20 text-primary">Đã hoàn thành</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant truncate">Phở bò tái nạm</p>
+<div class="flex items-center gap-2 mt-1 font-label-md text-label-md text-outline">
+<span class="text-on-surface font-semibold">450 kcal</span>
+<span>•</span>
+<span class="text-primary">C 55g</span>
+<span class="text-tertiary">P 28g</span>
+<span class="text-secondary">F 12g</span>
+</div>
+</div>
+</div>
+<!-- Quick Add / Edit Action Button (Min 44px touch target) -->
+<button aria-label="Sửa bữa sáng" class="w-touch-target h-touch-target rounded-full bg-surface-container-high border border-glass-border flex items-center justify-center text-primary active:scale-95 transition-transform hover:bg-primary hover:text-on-primary shrink-0">
+<span class="material-symbols-outlined text-xl" data-icon="check">check</span>
+</button>
+</article>
+<!-- 2. Bữa trưa (Lunch) -->
+<article class="p-card-padding rounded-xl bg-surface-container border border-glass-border transition-all duration-150 hover:bg-surface-container-high/70 flex items-center justify-between gap-3">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-11 h-11 rounded-xl bg-surface-container-high border border-glass-border flex items-center justify-center shrink-0 shadow-inner">
+<span class="material-symbols-outlined text-tertiary-fixed text-2xl" data-icon="wb_sunny">wb_sunny</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-2">
+<h3 class="font-title-md text-title-md font-bold text-on-surface truncate">Bữa trưa</h3>
+<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-primary-container/20 text-primary">Đã hoàn thành</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant truncate">Cơm gạo lứt &amp; Ức gà nướng</p>
+<div class="flex items-center gap-2 mt-1 font-label-md text-label-md text-outline">
+<span class="text-on-surface font-semibold">620 kcal</span>
+<span>•</span>
+<span class="text-primary">C 45g</span>
+<span class="text-tertiary">P 42g</span>
+<span class="text-secondary">F 14g</span>
+</div>
+</div>
+</div>
+<button aria-label="Sửa bữa trưa" class="w-touch-target h-touch-target rounded-full bg-surface-container-high border border-glass-border flex items-center justify-center text-primary active:scale-95 transition-transform hover:bg-primary hover:text-on-primary shrink-0">
+<span class="material-symbols-outlined text-xl" data-icon="check">check</span>
+</button>
+</article>
+<!-- 3. Bữa tối (Dinner) -->
+<article class="p-card-padding rounded-xl bg-surface-container border border-glass-border transition-all duration-150 hover:bg-surface-container-high/70 flex items-center justify-between gap-3">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-11 h-11 rounded-xl bg-surface-container-high border border-glass-border flex items-center justify-center shrink-0 shadow-inner">
+<span class="material-symbols-outlined text-primary text-2xl" data-icon="dark_mode">dark_mode</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-2">
+<h3 class="font-title-md text-title-md font-bold text-on-surface truncate">Bữa tối</h3>
+<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-primary-container/20 text-primary">Đã hoàn thành</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant truncate">Salad cá hồi &amp; bơ</p>
+<div class="flex items-center gap-2 mt-1 font-label-md text-label-md text-outline">
+<span class="text-on-surface font-semibold">380 kcal</span>
+<span>•</span>
+<span class="text-primary">C 20g</span>
+<span class="text-tertiary">P 15g</span>
+<span class="text-secondary">F 12g</span>
+</div>
+</div>
+</div>
+<button aria-label="Sửa bữa tối" class="w-touch-target h-touch-target rounded-full bg-surface-container-high border border-glass-border flex items-center justify-center text-primary active:scale-95 transition-transform hover:bg-primary hover:text-on-primary shrink-0">
+<span class="material-symbols-outlined text-xl" data-icon="check">check</span>
+</button>
+</article>
+<!-- 4. Snack (Bữa phụ - Unlogged state) -->
+<article class="p-card-padding rounded-xl bg-surface-container/50 border border-dashed border-outline/40 transition-all duration-150 hover:border-primary/50 flex items-center justify-between gap-3">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-11 h-11 rounded-xl bg-surface-container-low border border-dashed border-outline/50 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-surface-variant text-2xl" data-icon="nutrition">nutrition</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-2">
+<h3 class="font-title-md text-title-md font-medium text-on-surface-variant truncate">Bữa phụ / Snack</h3>
+<span class="px-2 py-0.5 rounded-full text-[10px] font-medium bg-surface-container-high text-on-surface-variant">Chưa ăn</span>
+</div>
+<p class="font-body-md text-body-md text-outline truncate">Chưa ghi nhận món ăn</p>
+<div class="flex items-center gap-1 mt-1 font-label-md text-label-md text-outline">
+<span>0 kcal</span>
+<span>/</span>
+<span>200 kcal gợi ý</span>
+</div>
+</div>
+</div>
+<!-- Quick Add Action Button -->
+<button aria-label="Thêm bữa phụ" class="w-touch-target h-touch-target rounded-full bg-primary-container text-on-primary-container flex items-center justify-center glow-blue active:scale-90 transition-transform shrink-0">
+<span class="material-symbols-outlined text-2xl font-bold" data-icon="add">add</span>
+</button>
+</article>
+</div>
+</section>
+<!-- Quick AI Insight Banner -->
+<section class="rounded-xl p-3.5 bg-gradient-to-r from-surface-container via-surface-container-high to-surface-container border border-glass-border flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-tertiary/10 border border-tertiary/20 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-tertiary text-xl" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<div class="flex-1 min-w-0">
+<p class="font-label-md text-label-md text-on-surface font-semibold truncate">Gợi ý từ AstroCoach</p>
+<p class="font-body-md text-[13px] text-on-surface-variant leading-tight truncate">Cần thêm 45g Protein để đạt mục tiêu phục hồi cơ!</p>
+</div>
+<span class="material-symbols-outlined text-outline text-lg shrink-0" data-icon="chevron_right">chevron_right</span>
+</section>
+</main>
+<!-- REDESIGNED FLOATING 3D DOCK / CELESTIAL ISLAND BAR -->
+<nav class="fixed bottom-5 left-4 right-4 max-w-[358px] mx-auto z-50 h-[68px] rounded-full bg-[#0d1c32]/85 backdrop-blur-2xl border border-white/15 border-t-white/25 shadow-[0_16px_36px_rgba(0,0,0,0.65),0_0_20px_rgba(26,115,232,0.22),inset_0_1px_1px_rgba(255,255,255,0.2)] flex items-center justify-between px-3">
+<!-- Tab 1: Hôm nay / Today (Active with neon glow & pill highlight) -->
+<button aria-label="Hôm nay" class="relative flex flex-col items-center justify-center text-primary min-w-[50px] h-touch-target px-2 rounded-full bg-primary/10 border border-primary/25 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-xl" data-icon="bedtime" style="font-variation-settings: 'FILL' 1;">bedtime</span>
+<span class="font-label-md text-[10px] tracking-tight font-bold text-glow-blue mt-0.5">Hôm nay</span>
+</button>
+<!-- Tab 2: AstroCoach -->
+<button aria-label="AstroCoach" class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary min-w-[50px] h-touch-target px-1 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-xl" data-icon="smart_toy">smart_toy</span>
+<span class="font-label-md text-[10px] tracking-tight mt-0.5">AstroCoach</span>
+</button>
+<!-- Center Elevated Action FAB: AI Food Scanner Camera -->
+<div class="relative -top-2 flex items-center justify-center shrink-0">
+<button aria-label="AI Food Scanner Camera" class="w-[54px] h-[54px] rounded-full bg-gradient-to-tr from-primary-container to-[#3b82f6] flex items-center justify-center text-white border-2 border-[#adc7ff]/40 shadow-[0_8px_20px_rgba(26,115,232,0.5),inset_0_1px_2px_rgba(255,255,255,0.4)] glow-blue active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-[28px] drop-shadow" data-icon="photo_camera" style="font-variation-settings: 'FILL' 1;">photo_camera</span>
+</button>
+</div>
+<!-- Tab 3: Thống kê / Insights -->
+<button aria-label="Thống kê Insights" class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary min-w-[50px] h-touch-target px-1 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-xl" data-icon="analytics">analytics</span>
+<span class="font-label-md text-[10px] tracking-tight mt-0.5">Thống kê</span>
+</button>
+<!-- Tab 4: Cá nhân / Profile -->
+<button aria-label="Cá nhân Profile" class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary min-w-[50px] h-touch-target px-1 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-xl" data-icon="person">person</span>
+<span class="font-label-md text-[10px] tracking-tight mt-0.5">Cá nhân</span>
+</button>
+</nav>
+</div>
+</body></html>

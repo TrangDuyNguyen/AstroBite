@@ -9,7 +9,7 @@ import '../domain/chat_message.dart';
 class CoachRepository {
   CoachRepository({GenerativeModel? model}) : _model = model;
 
-  GenerativeModel? _model;
+  final GenerativeModel? _model;
   ChatSession? _chatSession;
 
   static const _maxMessagesPerDay = 50;
@@ -40,16 +40,12 @@ hoặc thẻ ẩn:
 <!--astrobite-meal:{"dishName":"Tên món","calories":350,"protein":30,"carbs":40,"fat":8,"sodium":210,"mealType":"lunch"}-->
 ''';
 
-  Future<GenerativeModel> _getModel() async {
-    if (_model != null) return _model!;
-    final apiKey = await GeminiApiKeyNotifier.getActiveKey();
-    _model = GenerativeModel(
-      model: 'gemini-2.0-flash',
-      apiKey: apiKey,
-      systemInstruction: Content.system(_systemPrompt),
-    );
-    return _model!;
-  }
+  static const candidateModels = [
+    'gemini-3-flash-preview',
+    'gemini-3.6-flash',
+    'gemini-flash-latest',
+  ];
+
 
   /// Sends a message to Gemini with daily meal context and returns AI response.
   Future<String> sendMessage({
@@ -58,12 +54,65 @@ hoặc thẻ ẩn:
     required String mealContext,
     required List<ChatMessage> history,
   }) async {
-    final model = await _getModel();
+    if (_model != null) {
+      return _sendWithModel(
+        _model!,
+        userMessage: userMessage,
+        mealContext: mealContext,
+        history: history,
+      );
+    }
 
-    // Build sliding window history for multi-turn
-    final recentHistory = history.length > _slidingWindowSize
-        ? history.sublist(history.length - _slidingWindowSize)
-        : history;
+    final apiKey = await GeminiApiKeyNotifier.getActiveKey();
+    if (apiKey.isEmpty) {
+      throw StateError('Gemini API Key chưa được cấu hình.');
+    }
+
+    Object? lastError;
+    for (final modelName in candidateModels) {
+      try {
+        final model = GenerativeModel(
+          model: modelName,
+          apiKey: apiKey,
+          systemInstruction: Content.system(_systemPrompt),
+        );
+        return await _sendWithModel(
+          model,
+          userMessage: userMessage,
+          mealContext: mealContext,
+          history: history,
+        );
+      } catch (e) {
+        lastError = e;
+        final errStr = e.toString().toLowerCase();
+
+        // If the API key is completely invalid or revoked, fail fast without useless retries
+        if (errStr.contains('api_key_invalid') ||
+            errStr.contains('api key not valid') ||
+            errStr.contains('key expired')) {
+          rethrow;
+        }
+
+        // On capacity / high demand (503), quota (429), not found (404), or timeout, fallback to next model
+        continue;
+      }
+    }
+
+    if (lastError != null) throw lastError;
+    return 'Xin lỗi, tôi không thể trả lời lúc này.';
+  }
+
+  Future<String> _sendWithModel(
+    GenerativeModel model, {
+    required String userMessage,
+    required String mealContext,
+    required List<ChatMessage> history,
+  }) async {
+    // Build sliding window history for multi-turn (only previous messages, filter out error bubbles)
+    final cleanHistory = history.where((m) => !m.isError).toList();
+    final recentHistory = cleanHistory.length > _slidingWindowSize
+        ? cleanHistory.sublist(cleanHistory.length - _slidingWindowSize)
+        : cleanHistory;
 
     _chatSession = model.startChat(
       history: [
@@ -177,6 +226,16 @@ hoặc thẻ ẩn:
         'last_message': lastMsg,
       };
     }).toList();
+  }
+
+  /// Deletes a chat session for a specific date from Firestore.
+  Future<void> deleteSession(String userId, String date) async {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userId)
+        .collection('chat_sessions')
+        .doc(date)
+        .delete();
   }
 
   int get maxMessagesPerDay => _maxMessagesPerDay;

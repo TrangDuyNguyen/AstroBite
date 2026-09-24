@@ -69,12 +69,12 @@ Contextual Rules:
       );
     }
 
-    // Prioritize active models with automatic fallback on demand spikes (503) or rate limits
+    // Prioritize active fast vision models with automatic fallback on demand spikes (503) or rate limits
     const candidateModels = [
+      'gemini-3-flash-preview',
       'gemini-3.6-flash',
+      'gemini-flash-latest',
       'gemini-3.5-flash',
-      'gemini-3.1-flash-lite',
-      'gemini-flash-lite-latest',
     ];
 
     Object? lastError;
@@ -83,6 +83,9 @@ Contextual Rules:
         final model = GenerativeModel(
           model: modelName,
           apiKey: apiKey,
+          generationConfig: GenerationConfig(
+            responseMimeType: 'application/json',
+          ),
         );
         return await _generateWithModel(model, imageBytes);
       } catch (e) {
@@ -96,7 +99,7 @@ Contextual Rules:
           rethrow;
         }
 
-        // On capacity / high demand (503), quota / rate limit (429), or model errors,
+        // On capacity / high demand (503), quota / rate limit (429), timeout, or model errors,
         // automatically fallback to the next candidate model
         continue;
       }
@@ -115,7 +118,7 @@ Contextual Rules:
         TextPart(_systemPrompt),
         DataPart('image/jpeg', imageBytes),
       ]),
-    ]);
+    ]).timeout(const Duration(seconds: 14));
 
     final text = response.text;
     if (text == null || text.isEmpty) return null;

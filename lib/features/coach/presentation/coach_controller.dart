@@ -1,3 +1,8 @@
+import 'dart:async';
+
+import 'package:flutter/foundation.dart';
+import 'package:google_generative_ai/google_generative_ai.dart';
+import 'package:intl/intl.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:astrobite/features/auth/domain/auth_providers.dart';
@@ -54,13 +59,35 @@ class CoachController extends _$CoachController {
     }
   }
 
+  /// Deletes a chat session by date, or deletes the active session if date is omitted.
+  Future<void> deleteSession([String? dateToDelete]) async {
+    final user = ref.read(authRepositoryProvider).currentUser;
+    if (user == null) return;
+
+    final today = DateFormat('yyyy-MM-dd').format(DateTime.now());
+    final targetDate = dateToDelete ?? _selectedDate ?? today;
+    final repo = ref.read(coachRepositoryProvider);
+
+    await repo.deleteSession(user.uid, targetDate);
+    ref.invalidate(chatSessionsListProvider);
+
+    final currentViewingDate = _selectedDate ?? today;
+    if (targetDate == currentViewingDate) {
+      if (_selectedDate != null) {
+        _selectedDate = null;
+        state = AsyncData(await repo.loadTodaySession(user.uid));
+      } else {
+        state = const AsyncData([]);
+      }
+    }
+  }
+
   /// Sends a user message and receives AI response.
   Future<void> sendMessage(String text) async {
     final user = ref.read(authRepositoryProvider).currentUser;
     if (user == null) return;
 
     final repo = ref.read(coachRepositoryProvider);
-    final currentMessages = state.valueOrNull ?? [];
 
     // Check daily limit
     final count = await repo.getTodayMessageCount(user.uid);
@@ -69,52 +96,110 @@ class CoachController extends _$CoachController {
     }
 
     final now = DateTime.now();
-    // Add user message immediately
-    final userMsg = ChatMessage(
-      id: '${now.microsecondsSinceEpoch}_u',
-      role: 'user',
-      content: text,
-      timestamp: now,
-    );
+    final rawMessages = state.valueOrNull ?? [];
+    final currentMessages = rawMessages.where((m) => !m.isError).toList();
 
-    state = AsyncData(<ChatMessage>[...currentMessages, userMsg]);
-    await repo.saveMessage(user.uid, userMsg);
+    // Check if this is a retry of the last message (e.g. user tapped "Thử lại")
+    final bool isRetry = currentMessages.isNotEmpty &&
+        currentMessages.last.isUser &&
+        currentMessages.last.content == text;
+
+    final ChatMessage userMsg;
+    final List<ChatMessage> historyForAi;
+
+    if (isRetry) {
+      userMsg = currentMessages.last;
+      historyForAi = currentMessages.sublist(0, currentMessages.length - 1);
+    } else {
+      userMsg = ChatMessage(
+        id: '${now.microsecondsSinceEpoch}_u',
+        role: 'user',
+        content: text,
+        timestamp: now,
+      );
+      historyForAi = currentMessages;
+      state = AsyncData(<ChatMessage>[...currentMessages, userMsg]);
+      await repo.saveMessage(user.uid, userMsg);
+    }
 
     // Build meal context from today's tracker
     final mealContext = _buildMealContext();
 
-    try {
-      final response = await repo
-          .sendMessage(
-            userMessage: text,
-            userId: user.uid,
-            mealContext: mealContext,
-            history: [...currentMessages, userMsg],
-          )
-          .timeout(const Duration(seconds: 15));
+    const maxRetries = 1;
+    const timeout = Duration(seconds: 35);
 
-      final aiTime = DateTime.now();
-      final aiMsg = ChatMessage(
-        id: '${aiTime.microsecondsSinceEpoch}_a',
-        role: 'assistant',
-        content: response,
-        timestamp: aiTime,
-      );
+    for (var attempt = 0; attempt <= maxRetries; attempt++) {
+      try {
+        final response = await repo
+            .sendMessage(
+              userMessage: text,
+              userId: user.uid,
+              mealContext: mealContext,
+              history: historyForAi,
+            )
+            .timeout(timeout);
 
-      final updated = <ChatMessage>[...state.valueOrNull ?? [], aiMsg];
-      state = AsyncData(updated);
-      await repo.saveMessage(user.uid, aiMsg);
-    } catch (e) {
-      final errTime = DateTime.now();
-      final errorMsg = ChatMessage(
-        id: '${errTime.microsecondsSinceEpoch}_err',
-        role: 'assistant',
-        content: 'AI đang bận, vui lòng thử lại.',
-        timestamp: errTime,
-        isError: true,
-      );
-      state = AsyncData(<ChatMessage>[...state.valueOrNull ?? [], errorMsg]);
+        final aiTime = DateTime.now();
+        final aiMsg = ChatMessage(
+          id: '${aiTime.microsecondsSinceEpoch}_a',
+          role: 'assistant',
+          content: response,
+          timestamp: aiTime,
+        );
+
+        final updated = <ChatMessage>[...state.valueOrNull ?? [], aiMsg];
+        state = AsyncData(updated);
+        await repo.saveMessage(user.uid, aiMsg);
+        return; // Success — exit retry loop
+      } on TimeoutException {
+        if (attempt < maxRetries) {
+          await Future<void>.delayed(Duration(seconds: 1 << attempt));
+          continue;
+        }
+        _addErrorMessage('Phản hồi quá lâu. Vui lòng thử lại.');
+      } on InvalidApiKey {
+        _addErrorMessage('API Key không hợp lệ. Kiểm tra cài đặt.');
+        return; // No point retrying
+      } on ServerException catch (e) {
+        debugPrint('Gemini ServerException: ${e.message}');
+        if (attempt < maxRetries) {
+          await Future<void>.delayed(Duration(seconds: 1 << attempt));
+          continue;
+        }
+        _addErrorMessage('Máy chủ AI đang quá tải. Vui lòng thử lại sau.');
+      } on GenerativeAIException catch (e) {
+        debugPrint('GenerativeAIException: ${e.message}');
+        _addErrorMessage('Lỗi AI: ${e.message}');
+        return; // Likely a non-retryable config error
+      } catch (e, st) {
+        debugPrint('Coach unexpected error: $e\n$st');
+        if (attempt < maxRetries) {
+          await Future<void>.delayed(Duration(seconds: 1 << attempt));
+          continue;
+        }
+        _addErrorMessage('Có lỗi xảy ra. Vui lòng thử lại.');
+      }
     }
+  }
+
+  /// Appends an error message bubble to the chat state.
+  void _addErrorMessage(String content) {
+    final errTime = DateTime.now();
+    final errorMsg = ChatMessage(
+      id: '${errTime.microsecondsSinceEpoch}_err',
+      role: 'assistant',
+      content: content,
+      timestamp: errTime,
+      isError: true,
+    );
+    state = AsyncData(<ChatMessage>[...state.valueOrNull ?? [], errorMsg]);
+  }
+
+  /// Removes all error messages from the current state (used before retry).
+  void removeErrors() {
+    final current = state.valueOrNull;
+    if (current == null) return;
+    state = AsyncData(current.where((m) => !m.isError).toList());
   }
 
   /// Marks a meal recommendation message as logged.
