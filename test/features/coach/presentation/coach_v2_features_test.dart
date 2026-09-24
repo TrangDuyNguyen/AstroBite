@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:astrobite/core/theme/app_colors.dart';
 import 'package:astrobite/features/coach/domain/chat_message.dart';
 import 'package:astrobite/features/coach/presentation/coach_controller.dart';
 import 'package:astrobite/features/coach/presentation/coach_page.dart';
@@ -221,13 +220,98 @@ Hãy thưởng thức nhé!
       expect(find.byIcon(Icons.send_rounded), findsOneWidget);
       expect(find.textContaining('AI gợi ý tham khảo, không thay thế chuyên gia y tế'), findsOneWidget);
     });
+
+    testWidgets('Tapping History button opens bottom sheet with past conversation sessions and switches session', (tester) async {
+      final mockSessions = [
+        {
+          'date': '2026-09-23',
+          'message_count': 6,
+          'last_message': 'Bạn nên uống đủ 2 lít nước hôm nay nhé!',
+        },
+        {
+          'date': '2026-09-22',
+          'message_count': 4,
+          'last_message': 'Gợi ý bữa trưa cá hồi áp chảo.',
+        },
+      ];
+
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            coachControllerProvider.overrideWith(() => _MockCoachController([])),
+            chatSessionsListProvider.overrideWith((ref) => Future.value(mockSessions)),
+            todaySummaryProvider.overrideWithValue(
+              const DailySummary(
+                date: '2026-09-24',
+                totalCalories: 1000,
+                targetCalories: 2000,
+                totalProteinG: 60,
+                targetProteinG: 120,
+                totalCarbsG: 100,
+                targetCarbsG: 200,
+                totalFatG: 30,
+                targetFatG: 60,
+                logs: [],
+              ),
+            ),
+          ],
+          child: const MaterialApp(
+            home: CoachPage(),
+          ),
+        ),
+      );
+
+      await tester.pumpAndSettle();
+
+      // History button exists in AppBar
+      final historyBtn = find.byIcon(Icons.history_rounded);
+      expect(historyBtn, findsOneWidget);
+
+      // Tap history button
+      await tester.tap(historyBtn);
+      await tester.pumpAndSettle();
+
+      // Bottom sheet header
+      expect(find.text('Lịch sử hội thoại AstroCoach'), findsOneWidget);
+
+      // Sessions displayed
+      expect(find.text('2026-09-23'), findsOneWidget);
+      expect(find.text('6 tin nhắn'), findsOneWidget);
+      expect(find.text('Bạn nên uống đủ 2 lít nước hôm nay nhé!'), findsOneWidget);
+      expect(find.text('2026-09-22'), findsOneWidget);
+
+      // Tap on past session
+      await tester.tap(find.text('2026-09-23'));
+      await tester.pumpAndSettle();
+
+      // Bottom sheet closes and review notice banner appears
+      expect(find.textContaining('Đang xem lại phiên: 2026-09-23'), findsOneWidget);
+      expect(find.text('Hôm nay ↺'), findsOneWidget);
+
+      // Tap "Hôm nay ↺" to return
+      await tester.tap(find.text('Hôm nay ↺'));
+      await tester.pumpAndSettle();
+
+      // Banner is removed
+      expect(find.textContaining('Đang xem lại phiên'), findsNothing);
+    });
   });
 }
 
 class _MockCoachController extends CoachController {
   _MockCoachController(this._messages);
   final List<ChatMessage> _messages;
+  String? _mockSelectedDate;
+
+  @override
+  String? get selectedDate => _mockSelectedDate;
 
   @override
   Future<List<ChatMessage>> build() async => _messages;
+
+  @override
+  Future<void> selectSessionDate(String? date) async {
+    _mockSelectedDate = date;
+    state = AsyncData(_messages);
+  }
 }

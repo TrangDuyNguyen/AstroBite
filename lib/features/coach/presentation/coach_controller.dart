@@ -13,8 +13,19 @@ final coachRepositoryProvider = Provider<CoachRepository>((ref) {
   return CoachRepository();
 });
 
+final chatSessionsListProvider =
+    FutureProvider.autoDispose<List<Map<String, dynamic>>>((ref) async {
+  final user = ref.watch(authRepositoryProvider).currentUser;
+  if (user == null) return [];
+  final repo = ref.watch(coachRepositoryProvider);
+  return repo.loadChatSessionsList(user.uid);
+});
+
 @riverpod
 class CoachController extends _$CoachController {
+  String? _selectedDate;
+  String? get selectedDate => _selectedDate;
+
   @override
   FutureOr<List<ChatMessage>> build() async {
     final user = ref.watch(authRepositoryProvider).currentUser;
@@ -22,6 +33,25 @@ class CoachController extends _$CoachController {
 
     final repo = ref.read(coachRepositoryProvider);
     return repo.loadTodaySession(user.uid);
+  }
+
+  /// Switches to review a past chat session by date, or pass null to return to today.
+  Future<void> selectSessionDate(String? date) async {
+    final user = ref.read(authRepositoryProvider).currentUser;
+    if (user == null) return;
+
+    _selectedDate = date;
+    state = const AsyncLoading();
+    final repo = ref.read(coachRepositoryProvider);
+    try {
+      if (date == null) {
+        state = AsyncData(await repo.loadTodaySession(user.uid));
+      } else {
+        state = AsyncData(await repo.loadSessionByDate(user.uid, date));
+      }
+    } catch (e, st) {
+      state = AsyncError(e, st);
+    }
   }
 
   /// Sends a user message and receives AI response.

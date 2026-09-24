@@ -225,11 +225,63 @@ class _CoachPageState extends ConsumerState<CoachPage> {
             ),
           ],
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.history_rounded, color: AppColors.onSurface, size: 22),
+            tooltip: 'Lịch sử hội thoại',
+            onPressed: _showHistorySheet,
+          ),
+          const SizedBox(width: 6),
+        ],
       ),
       body: Column(
         children: [
           // Context Header Strip
           _buildContextHeader(summary),
+
+          // Reviewing past session notice banner
+          if (ref.watch(coachControllerProvider.notifier).selectedDate != null)
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              decoration: BoxDecoration(
+                color: AppColors.primary.withValues(alpha: 0.15),
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: AppColors.primary.withValues(alpha: 0.4)),
+              ),
+              child: Row(
+                children: [
+                  const Icon(Icons.event_note_rounded, size: 16, color: AppColors.primary),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      'Đang xem lại phiên: ${ref.watch(coachControllerProvider.notifier).selectedDate}',
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: AppColors.onSurface,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () =>
+                        ref.read(coachControllerProvider.notifier).selectSessionDate(null),
+                    style: TextButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 0),
+                      visualDensity: VisualDensity.compact,
+                    ),
+                    child: const Text(
+                      'Hôm nay ↺',
+                      style: TextStyle(
+                        color: AppColors.protein,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
 
           // Chat messages
           Expanded(
@@ -904,6 +956,168 @@ class _CoachPageState extends ConsumerState<CoachPage> {
           ],
         ),
       ),
+    );
+  }
+
+  void _showHistorySheet() {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: AppColors.surfaceContainer,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      isScrollControlled: true,
+      builder: (ctx) {
+        return Consumer(
+          builder: (context, ref, _) {
+            final sessionsAsync = ref.watch(chatSessionsListProvider);
+            final currentSelected =
+                ref.read(coachControllerProvider.notifier).selectedDate;
+
+            return DraggableScrollableSheet(
+              initialChildSize: 0.6,
+              minChildSize: 0.35,
+              maxChildSize: 0.85,
+              expand: false,
+              builder: (_, scrollController) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  child: Column(
+                    children: [
+                      Container(
+                        width: 40,
+                        height: 4,
+                        decoration: BoxDecoration(
+                          color: AppColors.outline.withValues(alpha: 0.5),
+                          borderRadius: BorderRadius.circular(2),
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      Row(
+                        children: [
+                          const Icon(Icons.history_rounded, color: AppColors.primary, size: 22),
+                          const SizedBox(width: 8),
+                          const Expanded(
+                            child: Text(
+                              'Lịch sử hội thoại AstroCoach',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.onSurface,
+                              ),
+                            ),
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.close_rounded, color: AppColors.onSurfaceVariant, size: 20),
+                            onPressed: () => Navigator.pop(context),
+                          ),
+                        ],
+                      ),
+                      const Divider(color: Colors.white10),
+                      Expanded(
+                        child: sessionsAsync.when(
+                          loading: () => const Center(
+                            child: CircularProgressIndicator(color: AppColors.primary),
+                          ),
+                          error: (e, _) => Center(
+                            child: Text('Lỗi tải lịch sử: $e', style: const TextStyle(color: AppColors.onSurfaceVariant)),
+                          ),
+                          data: (sessions) {
+                            if (sessions.isEmpty) {
+                              return const Center(
+                                child: Text(
+                                  'Chưa có cuộc trò chuyện nào trước đó.',
+                                  style: TextStyle(color: AppColors.onSurfaceVariant),
+                                ),
+                              );
+                            }
+                            return ListView.separated(
+                              controller: scrollController,
+                              itemCount: sessions.length,
+                              separatorBuilder: (_, __) => const SizedBox(height: 8),
+                              itemBuilder: (context, index) {
+                                final s = sessions[index];
+                                final dateStr = s['date'] as String? ?? '';
+                                final count = s['message_count'] as int? ?? 0;
+                                final lastMsg = s['last_message'] as String? ?? '';
+                                final todayStr = DateFormat('yyyy-MM-dd').format(DateTime.now());
+                                final isSelected = (currentSelected == null && dateStr == todayStr) ||
+                                    (currentSelected == dateStr);
+
+                                return InkWell(
+                                  onTap: () {
+                                    ref.read(coachControllerProvider.notifier).selectSessionDate(
+                                          dateStr == todayStr ? null : dateStr,
+                                        );
+                                    Navigator.pop(context);
+                                  },
+                                  borderRadius: BorderRadius.circular(12),
+                                  child: Container(
+                                    padding: const EdgeInsets.all(12),
+                                    decoration: BoxDecoration(
+                                      color: isSelected
+                                          ? AppColors.primary.withValues(alpha: 0.15)
+                                          : AppColors.surface,
+                                      borderRadius: BorderRadius.circular(12),
+                                      border: Border.all(
+                                        color: isSelected
+                                            ? AppColors.primary
+                                            : Colors.white.withValues(alpha: 0.08),
+                                      ),
+                                    ),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              dateStr == todayStr ? 'Hôm nay ($dateStr)' : dateStr,
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 13,
+                                                color: isSelected ? AppColors.primary : AppColors.onSurface,
+                                              ),
+                                            ),
+                                            Container(
+                                              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                                              decoration: BoxDecoration(
+                                                color: AppColors.surfaceContainer,
+                                                borderRadius: BorderRadius.circular(8),
+                                              ),
+                                              child: Text(
+                                                '$count tin nhắn',
+                                                style: const TextStyle(fontSize: 10, color: AppColors.onSurfaceVariant),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        if (lastMsg.isNotEmpty) ...[
+                                          const SizedBox(height: 4),
+                                          Text(
+                                            lastMsg,
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: const TextStyle(fontSize: 11, color: AppColors.onSurfaceVariant),
+                                          ),
+                                        ],
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            );
+          },
+        );
+      },
     );
   }
 }

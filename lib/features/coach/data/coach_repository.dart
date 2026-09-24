@@ -138,5 +138,46 @@ hoặc thẻ ẩn:
     return doc.data()?['message_count'] as int? ?? 0;
   }
 
+  /// Loads a chat session by a specific date from Firestore.
+  Future<List<ChatMessage>> loadSessionByDate(String userId, String date) async {
+    final doc = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userId)
+        .collection('chat_sessions')
+        .doc(date)
+        .get();
+
+    if (!doc.exists) return [];
+
+    final messages = doc.data()?['messages'] as List<dynamic>? ?? [];
+    return messages
+        .map((m) => ChatMessage.fromMap(Map<String, dynamic>.from(m as Map)))
+        .toList();
+  }
+
+  /// Loads past chat sessions metadata from Firestore (most recent 30 sessions).
+  Future<List<Map<String, dynamic>>> loadChatSessionsList(String userId) async {
+    final snapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userId)
+        .collection('chat_sessions')
+        .orderBy('date', descending: true)
+        .limit(30)
+        .get();
+
+    return snapshot.docs.map((doc) {
+      final data = doc.data();
+      final messages = data['messages'] as List<dynamic>? ?? [];
+      final lastMsg = messages.isNotEmpty
+          ? (messages.last['content'] as String? ?? '')
+          : '';
+      return {
+        'date': doc.id,
+        'message_count': data['message_count'] as int? ?? messages.length,
+        'last_message': lastMsg,
+      };
+    }).toList();
+  }
+
   int get maxMessagesPerDay => _maxMessagesPerDay;
 }
