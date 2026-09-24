@@ -169,9 +169,6 @@ class _ScanReviewPageState extends ConsumerState<ScanReviewPage> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Lỗi khi lưu nhật ký: $e')),
         );
-      }
-    } finally {
-      if (mounted) {
         setState(() => _isSaving = false);
       }
     }
@@ -328,17 +325,62 @@ class _ScanReviewPageState extends ConsumerState<ScanReviewPage> {
             children: [
               // Food name & confidence score badge
               Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
-                    child: Text(
-                      scaled.primaryDishName,
-                      style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.onSurface,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        if (_dishes.length > 1) ...[
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: AppValues.spacing8,
+                              vertical: 2,
+                            ),
+                            decoration: BoxDecoration(
+                              color: AppColors.primary.withValues(alpha: 0.15),
+                              borderRadius: BorderRadius.circular(AppValues.radius8),
+                              border: Border.all(
+                                color: AppColors.primary.withValues(alpha: 0.35),
+                                width: 1,
+                              ),
+                            ),
+                            child: Text(
+                              '🍱 Mâm cơm (${_dishes.length} món)',
+                              style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                                    color: AppColors.primary,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                            ),
                           ),
+                          const SizedBox(height: AppValues.spacing4),
+                        ],
+                        Text(
+                          _dishes.length > 2
+                              ? '${_dishes.first.dishName} & ${_dishes.length - 1} món khác'
+                              : scaled.primaryDishName,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.onSurface,
+                              ),
+                        ),
+                        if (_dishes.length > 1) ...[
+                          const SizedBox(height: 2),
+                          Text(
+                            _dishes.map((d) => d.dishName).join(' • '),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                  color: AppColors.onSurfaceVariant,
+                                ),
+                          ),
+                        ],
+                      ],
                     ),
                   ),
+                  const SizedBox(width: AppValues.spacing8),
                   Container(
                     padding: const EdgeInsets.symmetric(
                       horizontal: AppValues.spacing12,
@@ -371,38 +413,76 @@ class _ScanReviewPageState extends ConsumerState<ScanReviewPage> {
               ),
               const SizedBox(height: AppValues.spacing16),
 
-              // Hero Calorie GlassCard
+              // Hero Calorie GlassCard (Holographic Bento Sheet from Stitch)
               GlassCard(
                 child: Column(
                   children: [
-                    Text(
-                      '${scaled.activeCalories} kcal',
-                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                            fontSize: 40,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.primary,
-                            letterSpacing: AppValues.calorieLetterSpacing,
-                          ),
-                    ),
-                    const SizedBox(height: AppValues.spacing12),
-                    // Strict Celestial Dark Nutrient Colors
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        _MacroIndicator(
-                          label: 'Tinh bột',
-                          value: '${scaled.activeCarbsG}g',
-                          color: AppColors.primary, // #1A73E8
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              '${scaled.activeCalories} kcal',
+                              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                                    fontSize: 34,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.primary,
+                                    letterSpacing: AppValues.calorieLetterSpacing,
+                                  ),
+                            ),
+                            const SizedBox(height: 2),
+                            Text(
+                              'Khẩu phần tiêu chuẩn • ${effectiveWeight}g',
+                              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                    color: AppColors.onSurfaceVariant,
+                                  ),
+                            ),
+                          ],
                         ),
-                        _MacroIndicator(
-                          label: 'Chất đạm',
-                          value: '${scaled.activeProteinG}g',
-                          color: AppColors.tertiary, // #FFD700
+                        _CalorieTargetRadialGauge(
+                          calories: scaled.activeCalories,
+                          targetCalories: 2100,
                         ),
-                        _MacroIndicator(
-                          label: 'Chất béo',
-                          value: '${scaled.activeFatG}g',
-                          color: AppColors.secondary, // #FF69B4
+                      ],
+                    ),
+                    const SizedBox(height: AppValues.spacing16),
+                    // Strict Celestial Dark Nutrient Colors - Holographic Macro Triad
+                    Row(
+                      children: [
+                        Expanded(
+                          child: _MacroIndicator(
+                            label: 'Tinh bột',
+                            value: '${scaled.activeCarbsG}g',
+                            color: AppColors.primary, // #1A73E8
+                            ratio: (scaled.activeCalories > 0
+                                ? (scaled.activeCarbsG * 4) / scaled.activeCalories
+                                : 0.48).clamp(0.0, 1.0),
+                          ),
+                        ),
+                        const SizedBox(width: AppValues.spacing8),
+                        Expanded(
+                          child: _MacroIndicator(
+                            label: 'Chất đạm',
+                            value: '${scaled.activeProteinG}g',
+                            color: AppColors.tertiary, // #FFD700
+                            ratio: (scaled.activeCalories > 0
+                                ? (scaled.activeProteinG * 4) / scaled.activeCalories
+                                : 0.24).clamp(0.0, 1.0),
+                          ),
+                        ),
+                        const SizedBox(width: AppValues.spacing8),
+                        Expanded(
+                          child: _MacroIndicator(
+                            label: 'Chất béo',
+                            value: '${scaled.activeFatG}g',
+                            color: AppColors.secondary, // #FF69B4
+                            ratio: (scaled.activeCalories > 0
+                                ? (scaled.activeFatG * 9) / scaled.activeCalories
+                                : 0.28).clamp(0.0, 1.0),
+                          ),
                         ),
                       ],
                     ),
@@ -462,6 +542,62 @@ class _ScanReviewPageState extends ConsumerState<ScanReviewPage> {
                           ],
                         ),
                         const SizedBox(height: AppValues.spacing8),
+
+                        // Quick Weight Steppers (US-02 / BVA Presets)
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: [
+                              _QuickReviewWeightChip(
+                                label: '-50g',
+                                onTap: () {
+                                  HapticFeedback.selectionClick();
+                                  setState(() {
+                                    _currentWeightG = (effectiveWeight - 50).clamp(50, 1000);
+                                  });
+                                },
+                              ),
+                              const SizedBox(width: AppValues.spacing8),
+                              _QuickReviewWeightChip(
+                                label: '+50g',
+                                onTap: () {
+                                  HapticFeedback.selectionClick();
+                                  setState(() {
+                                    _currentWeightG = (effectiveWeight + 50).clamp(50, 1000);
+                                  });
+                                },
+                              ),
+                              const SizedBox(width: AppValues.spacing8),
+                              _QuickReviewWeightChip(
+                                label: '1 Bát (~150g)',
+                                isSelected: effectiveWeight == 150,
+                                onTap: () {
+                                  HapticFeedback.selectionClick();
+                                  setState(() => _currentWeightG = 150);
+                                },
+                              ),
+                              const SizedBox(width: AppValues.spacing8),
+                              _QuickReviewWeightChip(
+                                label: '1 Đĩa (~300g)',
+                                isSelected: effectiveWeight == 300,
+                                onTap: () {
+                                  HapticFeedback.selectionClick();
+                                  setState(() => _currentWeightG = 300);
+                                },
+                              ),
+                              const SizedBox(width: AppValues.spacing8),
+                              _QuickReviewWeightChip(
+                                label: 'Phần Chuẩn (~350g)',
+                                isSelected: effectiveWeight == 350,
+                                onTap: () {
+                                  HapticFeedback.selectionClick();
+                                  setState(() => _currentWeightG = 350);
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: AppValues.spacing4),
                         SliderTheme(
                           data: SliderTheme.of(context).copyWith(
                             activeTrackColor: AppColors.primary,
@@ -557,18 +693,43 @@ class _ScanReviewPageState extends ConsumerState<ScanReviewPage> {
                 }),
                 const SizedBox(height: AppValues.spacing16),
               ],
-
-              // Meal Type Selector
-              Text(
-                'Bữa ăn áp dụng',
-                style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-              ),
-              const SizedBox(height: AppValues.spacing8),
+            ],
+          ),
+        ),
+      ),
+      bottomNavigationBar: Container(
+        padding: const EdgeInsets.fromLTRB(
+          AppValues.screenPadding,
+          AppValues.spacing8,
+          AppValues.screenPadding,
+          AppValues.spacing12,
+        ),
+        decoration: BoxDecoration(
+          color: AppColors.surfaceContainer,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.25),
+              blurRadius: 10,
+              offset: const Offset(0, -3),
+            ),
+          ],
+          border: Border(
+            top: BorderSide(
+              color: AppColors.outline.withValues(alpha: 0.2),
+              width: 1,
+            ),
+          ),
+        ),
+        child: SafeArea(
+          top: false,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // One-Thumb Meal Type Selector (US-03)
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     MealTypeChip(
                       mealType: 'breakfast',
@@ -596,37 +757,61 @@ class _ScanReviewPageState extends ConsumerState<ScanReviewPage> {
                   ],
                 ),
               ),
-              const SizedBox(height: AppValues.spacing32),
-
-              // Save to Diary Button
-              SizedBox(
-                height: AppValues.minTouchTarget + 4,
-                child: FilledButton(
-                  onPressed: _isSaving ? null : () => _saveFoodLog(scaled),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      if (_isSaving)
-                        const SizedBox(
-                          width: 20,
-                          height: 20,
-                          child: CircularProgressIndicator(
-                            strokeWidth: 2,
-                            color: Colors.white,
-                          ),
-                        )
-                      else
-                        const Icon(Icons.bookmark_add_outlined),
-                      const SizedBox(width: AppValues.spacing8),
-                      Text(
-                        _isSaving
-                            ? 'Đang lưu...'
-                            : 'Lưu vào ${_mealLabel(_selectedMeal)} (${scaled.activeCalories} kcal)',
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                    ],
+              const SizedBox(height: AppValues.spacing8),
+              // Sticky Save CTA Button Row with Re-scan
+              Row(
+                children: [
+                  IconButton.filledTonal(
+                    onPressed: () => context.router.popForced(),
+                    icon: const Icon(Icons.refresh_rounded),
+                    iconSize: 22,
+                    tooltip: 'Quét lại',
+                    style: IconButton.styleFrom(
+                      backgroundColor: Colors.white.withValues(alpha: 0.1),
+                      padding: const EdgeInsets.all(AppValues.spacing12),
+                    ),
                   ),
-                ),
+                  const SizedBox(width: AppValues.spacing12),
+                  Expanded(
+                    child: SizedBox(
+                      height: 48,
+                      child: FilledButton(
+                        onPressed: _isSaving ? null : () => _saveFoodLog(scaled),
+                        style: FilledButton.styleFrom(
+                          backgroundColor: AppColors.primary,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(AppValues.spacing48),
+                          ),
+                          elevation: 6,
+                          shadowColor: AppColors.primary.withValues(alpha: 0.5),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            if (_isSaving)
+                              const SizedBox(
+                                width: 18,
+                                height: 18,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                  color: Colors.white,
+                                ),
+                              )
+                            else
+                              const Icon(Icons.check_circle_outline, size: 20),
+                            const SizedBox(width: AppValues.spacing8),
+                            Text(
+                              _isSaving
+                                  ? 'Đang lưu...'
+                                  : 'Lưu vào ${_mealLabel(_selectedMeal)} (${scaled.activeCalories} kcal)',
+                              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
@@ -805,31 +990,234 @@ class _MacroIndicator extends StatelessWidget {
     required this.label,
     required this.value,
     required this.color,
+    this.ratio = 0.0,
   });
 
   final String label;
   final String value;
   final Color color;
+  final double ratio;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(
-          value,
-          style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: color,
-              ),
+    final percent = (ratio * 100).round();
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppValues.spacing8,
+        vertical: AppValues.spacing8,
+      ),
+      decoration: BoxDecoration(
+        color: AppColors.surface.withValues(alpha: 0.8),
+        borderRadius: BorderRadius.circular(AppValues.radius12),
+        border: Border.all(
+          color: color.withValues(alpha: 0.35),
+          width: 1,
         ),
-        const SizedBox(height: AppValues.spacing4),
-        Text(
-          label,
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: AppColors.onSurfaceVariant,
+        boxShadow: [
+          BoxShadow(
+            color: color.withValues(alpha: 0.1),
+            blurRadius: 8,
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                label,
+                style: const TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.onSurfaceVariant,
+                ),
               ),
-        ),
-      ],
+              Container(
+                width: 6,
+                height: 6,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: color,
+                  boxShadow: [
+                    BoxShadow(
+                      color: color.withValues(alpha: 0.8),
+                      blurRadius: 4,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: AppValues.spacing4),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.baseline,
+            textBaseline: TextBaseline.alphabetic,
+            children: [
+              Text(
+                value,
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+              if (percent > 0) ...[
+                const SizedBox(width: AppValues.spacing4),
+                Text(
+                  '($percent%)',
+                  style: TextStyle(
+                    fontSize: 10,
+                    fontWeight: FontWeight.w500,
+                    color: color,
+                  ),
+                ),
+              ],
+            ],
+          ),
+          const SizedBox(height: AppValues.spacing8),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(AppValues.spacing48),
+            child: LinearProgressIndicator(
+              value: ratio.clamp(0.0, 1.0),
+              minHeight: 4,
+              backgroundColor: Colors.white.withValues(alpha: 0.1),
+              color: color,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
+
+class _CalorieTargetRadialGauge extends StatelessWidget {
+  const _CalorieTargetRadialGauge({required this.calories, required this.targetCalories});
+
+  final int calories;
+  final int targetCalories;
+
+  @override
+  Widget build(BuildContext context) {
+    final percent = targetCalories > 0
+        ? ((calories / targetCalories) * 100).clamp(0, 100).toInt()
+        : 0;
+    final progressRatio = (percent / 100.0).clamp(0.0, 1.0);
+
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppValues.spacing12,
+        vertical: AppValues.spacing8,
+      ),
+      decoration: BoxDecoration(
+        color: AppColors.surface.withValues(alpha: 0.6),
+        borderRadius: BorderRadius.circular(AppValues.radius12),
+        border: Border.all(
+          color: Colors.white.withValues(alpha: 0.1),
+          width: 1,
+        ),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SizedBox(
+            width: 34,
+            height: 34,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                CircularProgressIndicator(
+                  value: progressRatio,
+                  backgroundColor: Colors.white.withValues(alpha: 0.1),
+                  color: AppColors.primary,
+                  strokeWidth: 3.2,
+                ),
+                Text(
+                  '$percent%',
+                  style: const TextStyle(
+                    fontSize: 10,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: AppValues.spacing8),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text(
+                'Mục tiêu',
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+              Text(
+                '${targetCalories.toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (m) => '${m[1]},')} kcal',
+                style: const TextStyle(
+                  fontSize: 10,
+                  color: AppColors.onSurfaceVariant,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _QuickReviewWeightChip extends StatelessWidget {
+  const _QuickReviewWeightChip({
+    required this.label,
+    required this.onTap,
+    this.isSelected = false,
+  });
+
+  final String label;
+  final VoidCallback onTap;
+  final bool isSelected;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: isSelected
+          ? AppColors.primary.withValues(alpha: 0.25)
+          : AppColors.surfaceContainer,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(AppValues.radius8),
+        side: BorderSide(
+          color: isSelected
+              ? AppColors.primary
+              : AppColors.outline.withValues(alpha: 0.25),
+        ),
+      ),
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(AppValues.radius8),
+        child: Container(
+          constraints: const BoxConstraints(minWidth: 44, minHeight: 36),
+          alignment: Alignment.center,
+          padding: const EdgeInsets.symmetric(
+            horizontal: AppValues.spacing12,
+            vertical: AppValues.spacing4,
+          ),
+          child: Text(
+            label,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
+              color: isSelected ? AppColors.primary : AppColors.onSurface,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+

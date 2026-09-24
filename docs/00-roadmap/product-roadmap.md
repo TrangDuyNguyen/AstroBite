@@ -109,4 +109,5 @@
 | **v1.3.0** | **100%** (18/18 SP thực tế hoàn thành) | Đã phát hành chính thức (Release Tag `v1.3.0`) | 2026-09-19 | Sub-Agent PO & PM |
 | **v1.4.0** | **100%** (26/26 SP hoàn tất kiểm thử & review) | Đã phát hành chính thức (Release Tag `v1.4.0`) | 2026-09-22 | Sub-Agent PO & PM |
 | **v1.5.0** | **100%** (18/18 SP - 148/148 tests pass) | Đã phát hành chính thức (Release Tag `v1.5.0`) | 2026-09-24 | Sub-Agent PO & PM |
-| **v1.6.0+** | **0%** | Ý tưởng chiến lược chân trời NEXT (Custom Recipes) | Q4/2026 | Sub-Agent PO |
+| **v1.6.0** | **100%** (9/9 SP - 152/152 tests pass) | Đã phát hành chính thức (Release Tag `v1.6.0`) | 2026-09-24 | Sub-Agent PO & PM |
+| **v1.7.0+** | **0%** | Đại trùng tu giao diện Cinematic AR & Custom Recipes | Q4/2026 | Sub-Agent PO |

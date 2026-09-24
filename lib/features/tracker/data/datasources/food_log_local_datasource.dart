@@ -111,4 +111,47 @@ class FoodLogLocalDatasource {
       jsonEncode(queue.map((l) => l.toJson()).toList()),
     );
   }
+
+  Future<void> deleteCachedLogById({
+    required String userId,
+    required String logId,
+  }) async {
+    try {
+      final prefs = await _getPrefs();
+      final prefix = 'cached_food_logs_${userId}_';
+      for (final key in prefs.getKeys()) {
+        if (key.startsWith(prefix)) {
+          final raw = prefs.getString(key);
+          if (raw != null && raw.contains(logId)) {
+            final list = jsonDecode(raw) as List<dynamic>;
+            final filtered =
+                list.where((item) => (item as Map)['id'] != logId).toList();
+            await prefs.setString(key, jsonEncode(filtered));
+          }
+        }
+      }
+    } catch (_) {}
+  }
+
+  Future<void> removeDuplicatePendingLogs({required String userId}) async {
+    try {
+      final queue = await getPendingSyncLogs(userId: userId);
+      final seen = <String>{};
+      final cleaned = <FoodLogDto>[];
+      for (final log in queue) {
+        final key =
+            '${log.date}_${log.mealType}_${log.dishName.trim().toLowerCase()}_${log.calories}_${log.estimatedWeightG}';
+        if (seen.add(key)) {
+          cleaned.add(log);
+        }
+      }
+      if (cleaned.length != queue.length) {
+        final prefs = await _getPrefs();
+        await prefs.setString(
+          _queueKey(userId),
+          jsonEncode(cleaned.map((l) => l.toJson()).toList()),
+        );
+      }
+    } catch (_) {}
+  }
 }

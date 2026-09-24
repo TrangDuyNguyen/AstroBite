@@ -26,8 +26,10 @@ class FoodLogRemoteDatasource {
     required String userId,
     required FoodLogDto log,
   }) async {
-    final docRef = _foodLogsRef(userId).doc();
-    await docRef.set(log.copyWith(id: docRef.id).toJson());
+    final docRef = log.id.isNotEmpty
+        ? _foodLogsRef(userId).doc(log.id)
+        : _foodLogsRef(userId).doc();
+    await docRef.set(log.copyWith(id: docRef.id, syncStatus: 'synced').toJson());
   }
 
   Future<void> deleteFoodLog({

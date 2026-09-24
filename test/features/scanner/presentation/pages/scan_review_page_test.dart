@@ -197,5 +197,45 @@ void main() {
       expect(find.text('Chưa có dữ liệu phân tích món ăn.'), findsOneWidget);
       expect(find.text('Quay lại Camera'), findsOneWidget);
     });
+
+    testWidgets('US-05: updates portion via Quick Steppers (+50g, -50g, 1 Bát, 1 Đĩa)', (tester) async {
+      tester.view.physicalSize = const Size(800, 1600);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
+
+      await tester.pumpWidget(createWidgetUnderTest());
+      await tester.pumpAndSettle();
+
+      // Initial estimated weight for sample is 400g
+      expect(find.text('400g'), findsOneWidget);
+
+      // Tap '1 Đĩa (~300g)'
+      final plateChip = find.text('1 Đĩa (~300g)');
+      expect(plateChip, findsOneWidget);
+      await tester.tap(plateChip);
+      await tester.pumpAndSettle();
+      expect(find.text('300g'), findsWidgets);
+
+      // Tap '1 Bát (~150g)'
+      final bowlChip = find.text('1 Bát (~150g)');
+      expect(bowlChip, findsOneWidget);
+      await tester.tap(bowlChip);
+      await tester.pumpAndSettle();
+      expect(find.text('150g'), findsWidgets);
+
+      // Tap '+50g' -> 200g
+      final plus50 = find.text('+50g');
+      expect(plus50, findsOneWidget);
+      await tester.tap(plus50);
+      await tester.pumpAndSettle();
+      expect(find.text('200g'), findsWidgets);
+
+      // Tap '-50g' -> 150g
+      final minus50 = find.text('-50g');
+      expect(minus50, findsOneWidget);
+      await tester.tap(minus50);
+      await tester.pumpAndSettle();
+      expect(find.text('150g'), findsWidgets);
+    });
   });
 }

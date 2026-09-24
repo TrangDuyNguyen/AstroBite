@@ -45,6 +45,7 @@ final dailyLogsStreamProvider = StreamProvider.autoDispose<List<FoodLog>>((ref) 
             fiberG: dto.fiberG ?? 0.0,
             sugarG: dto.sugarG ?? 0.0,
             syncStatus: dto.syncStatus ?? 'synced',
+            dishes: dto.dishes,
           ))
       .toList());
 });

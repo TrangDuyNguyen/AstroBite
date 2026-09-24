@@ -125,5 +125,56 @@ void main() {
       expect(firstEmission.length, 1);
       expect(firstEmission.first.dishName, 'Bún Chả Hà Nội');
     });
+
+    test('addFoodLog debounces rapid identical submissions within 2 seconds', () async {
+      await repository.addFoodLog(userId: 'user-1', log: testLog);
+      // Immediately call again with identical dish, meal, date, and calories
+      await repository.addFoodLog(userId: 'user-1', log: testLog.copyWith(id: 'diff-id'));
+
+      final cached = await localDatasource.getCachedLogs(
+        userId: 'user-1',
+        date: '2026-09-18',
+      );
+      expect(cached.length, 1);
+    });
+
+    test('watchDailyLogs deduplicates identical logs in cache and auto-persists clean list', () async {
+      final dupLog = testLog.copyWith(id: 'offline-log-dup');
+      await localDatasource.saveCachedLogs(
+        userId: 'user-1',
+        date: '2026-09-18',
+        logs: [testLog, dupLog],
+      );
+
+      final stream = repository.watchDailyLogs(userId: 'user-1', date: '2026-09-18');
+      final firstEmission = await stream.first;
+
+      expect(firstEmission.length, 1);
+      expect(firstEmission.first.dishName, 'Bún Chả Hà Nội');
+
+      // Local cache is also cleaned up
+      final cachedAfter = await localDatasource.getCachedLogs(
+        userId: 'user-1',
+        date: '2026-09-18',
+      );
+      expect(cachedAfter.length, 1);
+    });
+
+    test('watchDailyLogs prevents duplicate pending log when remote already contains identical dish', () async {
+      fakeRemote.remoteStore.add(
+        testLog.copyWith(id: 'remote-doc-1', syncStatus: 'synced'),
+      );
+      await localDatasource.addToPendingQueue(
+        userId: 'user-1',
+        log: testLog.copyWith(id: 'pending-log-1', syncStatus: 'pending_sync'),
+      );
+
+      final stream = repository.watchDailyLogs(userId: 'user-1', date: '2026-09-18');
+      final emissions = await stream.take(2).toList();
+      final latest = emissions.last;
+
+      expect(latest.length, 1);
+      expect(latest.first.id, 'remote-doc-1');
+    });
   });
 }

@@ -42,6 +42,13 @@ class _ManualEntryPageState extends ConsumerState<ManualEntryPage> {
     return 'snack';
   }
 
+  static final List<CommonFoodItem> _defaultRecentFoods = [
+    if (commonVietnameseFoods.isNotEmpty) commonVietnameseFoods[0], // Phở bò
+    if (commonVietnameseFoods.length > 2) commonVietnameseFoods[2], // Cơm tấm sườn
+    if (commonVietnameseFoods.length > 4) commonVietnameseFoods[4], // Bún chả Hà Nội
+    if (commonVietnameseFoods.length > 9) commonVietnameseFoods[9], // Ức gà áp chảo
+  ];
+
   String _mealLabel(String mealType) => switch (mealType) {
         'breakfast' => AppStrings.breakfast,
         'lunch' => AppStrings.lunch,
@@ -110,9 +117,6 @@ class _ManualEntryPageState extends ConsumerState<ManualEntryPage> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Lỗi khi lưu nhật ký: $e')),
         );
-      }
-    } finally {
-      if (mounted) {
         setState(() => _isSaving = false);
       }
     }
@@ -177,41 +181,60 @@ class _ManualEntryPageState extends ConsumerState<ManualEntryPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // Meal Type Selector
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    MealTypeChip(
-                      mealType: 'breakfast',
-                      isSelected: _selectedMeal == 'breakfast',
-                      onTap: () => setState(() => _selectedMeal = 'breakfast'),
-                    ),
-                    const SizedBox(width: AppValues.spacing8),
-                    MealTypeChip(
-                      mealType: 'lunch',
-                      isSelected: _selectedMeal == 'lunch',
-                      onTap: () => setState(() => _selectedMeal = 'lunch'),
-                    ),
-                    const SizedBox(width: AppValues.spacing8),
-                    MealTypeChip(
-                      mealType: 'dinner',
-                      isSelected: _selectedMeal == 'dinner',
-                      onTap: () => setState(() => _selectedMeal = 'dinner'),
-                    ),
-                    const SizedBox(width: AppValues.spacing8),
-                    MealTypeChip(
-                      mealType: 'snack',
-                      isSelected: _selectedMeal == 'snack',
-                      onTap: () => setState(() => _selectedMeal = 'snack'),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: AppValues.spacing12),
-
               // Search Bar
               FoodSearchBar(onChanged: (q) => setState(() => _query = q)),
+              const SizedBox(height: AppValues.spacing8),
+
+              // Recent & Favorite Foods Tray (US-01 / 1-Tap populate)
+              Row(
+                children: [
+                  const Icon(Icons.history, size: 16, color: AppColors.primary),
+                  const SizedBox(width: AppValues.spacing4),
+                  Text(
+                    'Món gần đây:',
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          color: AppColors.onSurfaceVariant,
+                          fontWeight: FontWeight.w600,
+                        ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: AppValues.spacing4),
+              SizedBox(
+                height: 38,
+                child: ListView.separated(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: _defaultRecentFoods.length,
+                  separatorBuilder: (_, __) => const SizedBox(width: AppValues.spacing8),
+                  itemBuilder: (context, index) {
+                    final item = _defaultRecentFoods[index];
+                    final isSelected = _selectedItem?.name == item.name;
+                    return ActionChip(
+                      avatar: const Text('🍽️', style: TextStyle(fontSize: 12)),
+                      label: Text(
+                        '${item.name} (${item.baseCalories}k)',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: isSelected ? Colors.white : AppColors.onSurface,
+                          fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                        ),
+                      ),
+                      backgroundColor: isSelected
+                          ? AppColors.primary
+                          : AppColors.surfaceContainer,
+                      side: BorderSide(
+                        color: isSelected
+                            ? AppColors.primary
+                            : AppColors.outline.withValues(alpha: 0.3),
+                      ),
+                      onPressed: () {
+                        HapticFeedback.selectionClick();
+                        _selectFood(item);
+                      },
+                    );
+                  },
+                ),
+              ),
               const SizedBox(height: AppValues.spacing12),
 
               // Selected Food Scaling Card (if item selected)
@@ -276,6 +299,62 @@ class _ManualEntryPageState extends ConsumerState<ManualEntryPage> {
                       ),
                       const SizedBox(height: AppValues.spacing8),
 
+                      // Quick Weight Steppers (US-02)
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: [
+                            _QuickWeightChip(
+                              label: '-50g',
+                              onTap: () {
+                                HapticFeedback.selectionClick();
+                                setState(() {
+                                  _currentWeightG = (_currentWeightG - 50).clamp(50, 1000);
+                                });
+                              },
+                            ),
+                            const SizedBox(width: AppValues.spacing8),
+                            _QuickWeightChip(
+                              label: '+50g',
+                              onTap: () {
+                                HapticFeedback.selectionClick();
+                                setState(() {
+                                  _currentWeightG = (_currentWeightG + 50).clamp(50, 1000);
+                                });
+                              },
+                            ),
+                            const SizedBox(width: AppValues.spacing8),
+                            _QuickWeightChip(
+                              label: '1 Bát (~150g)',
+                              isSelected: _currentWeightG == 150,
+                              onTap: () {
+                                HapticFeedback.selectionClick();
+                                setState(() => _currentWeightG = 150);
+                              },
+                            ),
+                            const SizedBox(width: AppValues.spacing8),
+                            _QuickWeightChip(
+                              label: '1 Đĩa (~300g)',
+                              isSelected: _currentWeightG == 300,
+                              onTap: () {
+                                HapticFeedback.selectionClick();
+                                setState(() => _currentWeightG = 300);
+                              },
+                            ),
+                            const SizedBox(width: AppValues.spacing8),
+                            _QuickWeightChip(
+                              label: 'Chuẩn (~100g)',
+                              isSelected: _currentWeightG == 100,
+                              onTap: () {
+                                HapticFeedback.selectionClick();
+                                setState(() => _currentWeightG = 100);
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: AppValues.spacing4),
+
                       // Slider
                       Row(
                         children: [
@@ -304,27 +383,6 @@ class _ManualEntryPageState extends ConsumerState<ManualEntryPage> {
                               style: const TextStyle(
                                   fontWeight: FontWeight.bold, color: AppColors.primary)),
                         ],
-                      ),
-
-                      // Save Button for selected item
-                      SizedBox(
-                        height: AppValues.minTouchTarget,
-                        child: FilledButton.icon(
-                          onPressed: _isSaving ? null : _saveSelectedItem,
-                          icon: _isSaving
-                              ? const SizedBox(
-                                  width: 18,
-                                  height: 18,
-                                  child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
-                                )
-                              : const Icon(Icons.bookmark_add_outlined),
-                          label: Text(
-                            _isSaving
-                                ? 'Đang lưu...'
-                                : 'Lưu vào ${_mealLabel(_selectedMeal)} (${_selectedItem!.calculateCalories(_currentWeightG)} kcal)',
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                        ),
                       ),
                     ],
                   ),
@@ -437,6 +495,98 @@ class _ManualEntryPageState extends ConsumerState<ManualEntryPage> {
           ),
         ),
       ),
+      bottomNavigationBar: Container(
+        padding: const EdgeInsets.fromLTRB(
+          AppValues.screenPadding,
+          AppValues.spacing8,
+          AppValues.screenPadding,
+          AppValues.spacing12,
+        ),
+        decoration: BoxDecoration(
+          color: AppColors.surfaceContainer,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.25),
+              blurRadius: 10,
+              offset: const Offset(0, -3),
+            ),
+          ],
+          border: Border(
+            top: BorderSide(
+              color: AppColors.outline.withValues(alpha: 0.2),
+              width: 1,
+            ),
+          ),
+        ),
+        child: SafeArea(
+          top: false,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // One-Thumb Meal Type Selector (US-03)
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    MealTypeChip(
+                      mealType: 'breakfast',
+                      isSelected: _selectedMeal == 'breakfast',
+                      onTap: () => setState(() => _selectedMeal = 'breakfast'),
+                    ),
+                    const SizedBox(width: AppValues.spacing8),
+                    MealTypeChip(
+                      mealType: 'lunch',
+                      isSelected: _selectedMeal == 'lunch',
+                      onTap: () => setState(() => _selectedMeal = 'lunch'),
+                    ),
+                    const SizedBox(width: AppValues.spacing8),
+                    MealTypeChip(
+                      mealType: 'dinner',
+                      isSelected: _selectedMeal == 'dinner',
+                      onTap: () => setState(() => _selectedMeal = 'dinner'),
+                    ),
+                    const SizedBox(width: AppValues.spacing8),
+                    MealTypeChip(
+                      mealType: 'snack',
+                      isSelected: _selectedMeal == 'snack',
+                      onTap: () => setState(() => _selectedMeal = 'snack'),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: AppValues.spacing8),
+              // Sticky Save CTA Button (52pt)
+              SizedBox(
+                width: double.infinity,
+                height: 48,
+                child: FilledButton.icon(
+                  onPressed: (_isSaving || _selectedItem == null) ? null : _saveSelectedItem,
+                  style: FilledButton.styleFrom(
+                    backgroundColor: AppColors.primary,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(AppValues.radius12),
+                    ),
+                  ),
+                  icon: _isSaving
+                      ? const SizedBox(
+                          width: 18,
+                          height: 18,
+                          child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                        )
+                      : const Icon(Icons.bookmark_add_outlined),
+                  label: Text(
+                    _isSaving
+                        ? 'Đang lưu...'
+                        : 'Lưu vào ${_mealLabel(_selectedMeal)} (${_selectedItem != null ? _selectedItem!.calculateCalories(_currentWeightG) : 0} kcal)',
+                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
@@ -511,3 +661,53 @@ class _MacroStat extends StatelessWidget {
     );
   }
 }
+
+class _QuickWeightChip extends StatelessWidget {
+  const _QuickWeightChip({
+    required this.label,
+    required this.onTap,
+    this.isSelected = false,
+  });
+
+  final String label;
+  final VoidCallback onTap;
+  final bool isSelected;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: isSelected
+          ? AppColors.primary.withValues(alpha: 0.25)
+          : AppColors.surfaceContainer,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(AppValues.radius8),
+        side: BorderSide(
+          color: isSelected
+              ? AppColors.primary
+              : AppColors.outline.withValues(alpha: 0.25),
+        ),
+      ),
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(AppValues.radius8),
+        child: Container(
+          constraints: const BoxConstraints(minWidth: 44, minHeight: 36),
+          alignment: Alignment.center,
+          padding: const EdgeInsets.symmetric(
+            horizontal: AppValues.spacing12,
+            vertical: AppValues.spacing4,
+          ),
+          child: Text(
+            label,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
+              color: isSelected ? AppColors.primary : AppColors.onSurface,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+

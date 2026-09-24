@@ -25,6 +25,7 @@ class CameraPage extends ConsumerStatefulWidget {
 class _CameraPageState extends ConsumerState<CameraPage> {
   final _imagePicker = ImagePicker();
   Uint8List? _previewBytes;
+  bool _isTorchOn = false;
 
   Future<void> _pickImage(ImageSource source) async {
     HapticFeedback.selectionClick();
@@ -240,10 +241,69 @@ class _CameraPageState extends ConsumerState<CameraPage> {
     return Scaffold(
       backgroundColor: AppColors.surface,
       appBar: AppBar(
-        title: const Text(AppStrings.scanFood),
-        backgroundColor: Colors.transparent,
+        backgroundColor: AppColors.surface.withValues(alpha: 0.75),
         elevation: 0,
+        centerTitle: true,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => context.router.maybePop(),
+        ),
+        title: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Text(
+                  AppStrings.scanFood,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    letterSpacing: 0.3,
+                  ),
+                ),
+                const SizedBox(width: AppValues.spacing8),
+                const Icon(Icons.auto_awesome, size: 14, color: AppColors.primary),
+              ],
+            ),
+            const SizedBox(height: 2),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: 6,
+                  height: 6,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Color(0xFF38BDF8),
+                  ),
+                ),
+                const SizedBox(width: AppValues.spacing4),
+                const Text(
+                  'Gemini Vision AI 2.0 • Active',
+                  style: TextStyle(
+                    fontSize: 10,
+                    color: Color(0xFF38BDF8),
+                    fontWeight: FontWeight.w500,
+                    letterSpacing: 0.2,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
         actions: [
+          IconButton(
+            icon: Icon(
+              _isTorchOn ? Icons.flash_on : Icons.flash_off,
+              color: _isTorchOn ? AppColors.tertiary : AppColors.onSurfaceVariant,
+            ),
+            tooltip: 'Đèn Flash',
+            onPressed: () {
+              HapticFeedback.selectionClick();
+              setState(() => _isTorchOn = !_isTorchOn);
+            },
+          ),
           IconButton(
             icon: const Icon(Icons.help_outline),
             tooltip: 'Mẹo quét',
@@ -264,7 +324,7 @@ class _CameraPageState extends ConsumerState<CameraPage> {
                 children: [
                   Text(
                     isScanning
-                        ? 'AI đang phân tích món ăn...'
+                        ? '✨ AI đang giải mã cấu trúc món ăn...'
                         : 'Hướng máy ảnh vào đĩa thức ăn và bấm nút chụp',
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(

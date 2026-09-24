@@ -16,6 +16,7 @@ class FoodLog {
     this.fiberG = 0.0,
     this.sugarG = 0.0,
     this.syncStatus = 'synced',
+    this.dishes,
   });
 
   final String id;
@@ -34,6 +35,7 @@ class FoodLog {
   final double fiberG;
   final double sugarG;
   final String syncStatus;
+  final List<Map<String, dynamic>>? dishes;
 
   bool get isHighSodium => sodiumMg > 800.0;
 }

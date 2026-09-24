@@ -189,5 +189,90 @@ void main() {
       expect(saved.calories, 250);
       expect(saved.source, 'manual_entry');
     });
+
+    testWidgets('US-01: selects food via Recent Foods tray and updates scaling card', (tester) async {
+      tester.view.physicalSize = const Size(800, 1600);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
+
+      await tester.pumpWidget(createWidgetUnderTest());
+      await tester.pumpAndSettle();
+
+      // Recent foods header is visible
+      expect(find.text('Món gần đây:'), findsOneWidget);
+
+      // Find chip for 'Ức gà áp chảo' in recent list and tap it
+      final chickenChip = find.textContaining('Ức gà áp chảo');
+      expect(chickenChip, findsWidgets);
+      await tester.tap(chickenChip.first);
+      await tester.pumpAndSettle();
+
+      // Selected card should reflect Ức gà áp chảo and 165 kcal
+      expect(find.text('Ức gà áp chảo'), findsWidgets);
+      expect(find.text('165 kcal'), findsWidgets);
+    });
+
+    testWidgets('US-02: modifies weight via Quick Steppers (+50g, -50g, 1 Bát, 1 Đĩa)', (tester) async {
+      tester.view.physicalSize = const Size(800, 1600);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
+
+      await tester.pumpWidget(createWidgetUnderTest());
+      await tester.pumpAndSettle();
+
+      // Initial weight for Phở bò is 350g (baseWeightG)
+      expect(find.text('350g'), findsWidgets);
+
+      // Tap '+50g' -> 400g
+      final plus50 = find.text('+50g');
+      expect(plus50, findsOneWidget);
+      await tester.tap(plus50);
+      await tester.pumpAndSettle();
+      expect(find.text('400g'), findsWidgets);
+
+      // Tap '1 Đĩa (~300g)'
+      final platePreset = find.text('1 Đĩa (~300g)');
+      expect(platePreset, findsOneWidget);
+      await tester.tap(platePreset);
+      await tester.pumpAndSettle();
+      expect(find.text('300g'), findsWidgets);
+
+      // Tap '1 Bát (~150g)'
+      final bowlPreset = find.text('1 Bát (~150g)');
+      expect(bowlPreset, findsOneWidget);
+      await tester.tap(bowlPreset);
+      await tester.pumpAndSettle();
+      expect(find.text('150g'), findsWidgets);
+
+      // Tap '-50g' twice -> 100g -> 50g (min limit BVA)
+      final minus50 = find.text('-50g');
+      await tester.tap(minus50);
+      await tester.pumpAndSettle();
+      expect(find.text('100g'), findsWidgets);
+
+      await tester.tap(minus50);
+      await tester.pumpAndSettle();
+      expect(find.text('50g'), findsWidgets);
+
+      // Tapping again should clamp at 50g
+      await tester.tap(minus50);
+      await tester.pumpAndSettle();
+      expect(find.text('50g'), findsWidgets);
+    });
+
+    testWidgets('US-03: sticky bottom bar has meal chips and save CTA', (tester) async {
+      tester.view.physicalSize = const Size(800, 1600);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
+
+      await tester.pumpWidget(createWidgetUnderTest(initialMealType: 'dinner'));
+      await tester.pumpAndSettle();
+
+      // Meal chips are in the bottom bar
+      expect(find.byType(MealTypeChip), findsNWidgets(4));
+
+      // Save button reflects dinner
+      expect(find.textContaining('Lưu vào Bữa tối'), findsOneWidget);
+    });
   });
 }

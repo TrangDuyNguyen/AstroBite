@@ -200,5 +200,19 @@ void main() {
       expect(saved.dishName, contains('Cơm tấm'));
       expect(saved.dishName, contains('Sườn nướng'));
     });
+
+    testWidgets('renders compact multi-dish header with badge and formatted title', (tester) async {
+      tester.view.physicalSize = const Size(800, 1600);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
+
+      await tester.pumpWidget(createWidget());
+      await tester.pumpAndSettle();
+
+      // Check header badge
+      expect(find.text('🍱 Mâm cơm (3 món)'), findsOneWidget);
+      // Check compact title
+      expect(find.text('Cơm tấm & 2 món khác'), findsOneWidget);
+    });
   });
 }

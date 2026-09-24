@@ -6,7 +6,24 @@
 
 ---
 
-## 🏗️ 1. Bảng Ma Trận Phân Rã WBS Sprint 06 (v1.5.0 Glanceable Celestial Core — Active)
+## 🏗️ 1. Bảng Ma Trận Phân Rã WBS Sprint 07 (v1.6.0 Zero-Friction Logging — Active)
+
+### EPIC-16: Zero-Friction Ergonomic Food Logging (`FEAT-14` — 9 SP)
+
+| Mã Task | Feature / Epic | Cổng Chất Lượng | Mô Tả Nhiệm Vụ Kỹ Thuật | Sub-Agent Đảm Nhiệm | SP | Phụ Thuộc | Trạng Thái |
+| :--- | :--- | :--- | :--- | :---: | :---: | :---: | :---: |
+| **`TSK-S7-PRD`** | `FEAT-14` PRD | **Gate 1** | Đặc tả PRD BDD, SLAs < 3.5s, 1-tap Recent Food, Thumb Zone CTA | `business-analyst` | 1 | None | 🟢 **Gate 1 Approved** |
+| **`TSK-S7-UI-SPEC`** | `FEAT-14` Design | **Gate 2** | Mermaid flow, Blueprint 4pt, 5 UI states, Sticky Bottom Bar layout | `ui-ux-designer` | 2 | TSK-S7-PRD | 🟢 **Gate 2 Approved** |
+| **`TSK-S7-QA-TESTS`** | `FEAT-14` Test Plan | **Gate 3** | Kịch bản BDD, Widget tests cho Recent tray, Steppers & Sticky CTA | `qa-tester` | 1 | TSK-S7-UI-SPEC | ⚡ **In Progress** |
+| **`TSK-S7-DEV-MANUAL`** | `FEAT-14` Flutter | **Gate 4** | Cải tạo `ManualEntryPage`: khay Recent Foods, Quick Steppers, Sticky Thumb CTA | `flutter-core-dev` | 3 | TSK-S7-QA-TESTS | ⚡ **In Progress** |
+| **`TSK-S7-DEV-SCANNER`**| `FEAT-14` Flutter | **Gate 4** | Cải tạo `CameraPage` (Radar Wave) & `ScanReviewPage` (Compact Sticky Review) | `flutter-core-dev` | 2 | TSK-S7-DEV-MANUAL | ⏳ Queued Gate 4 |
+| **`TSK-S7-REVIEW`** | Quality Gate | **Gate 5** | Ponytail AST review: cắt giảm code thừa, kiểm tra stdlib, 0 bloat | `code-reviewer` | - | Gate 4 | ⏳ Chờ Dev xong |
+| **`TSK-S7-QA-VERIFY`** | Quality Gate | **Gate 6** | Chạy automated test suite 100% pass, `flutter analyze` 0 issues, SLA 60 FPS | `qa-tester` | - | Gate 5 | ⏳ Chờ Reviewer |
+| **`TSK-S7-RELEASE`** | Milestone | **Gate 7** | PO & PM nghiệm thu toàn diện, phát hành `v1.6.0` và gắn tag Git | `product-owner` & `project-manager` | - | Gate 6 | ⏳ Cổng cuối |
+
+---
+
+## 🏛️ 2. Bảng Ma Trận Phân Rã WBS Sprint 06 (v1.5.0 Glanceable Celestial Core — 100% Done)
 
 ### EPIC-15: Glanceable Celestial Cockpit (`FEAT-13` — 10 SP)
 

@@ -13,18 +13,52 @@ class FoodLogRepositoryImpl implements FoodLogRepository {
 
   final FoodLogRemoteDatasource _remoteDatasource;
   final FoodLogLocalDatasource _localDatasource;
+  final Map<String, int> _recentLogDebounce = {};
+
+  String _logSignature(FoodLogDto log) {
+    return '${log.date}_${log.mealType}_${log.dishName.trim().toLowerCase()}_${log.calories}_${log.estimatedWeightG}';
+  }
+
+  List<FoodLogDto> _deduplicateLogs(List<FoodLogDto> logs) {
+    final seenIds = <String>{};
+    final seenSignatures = <String>{};
+    final result = <FoodLogDto>[];
+
+    for (final log in logs) {
+      if (log.id.isNotEmpty && !seenIds.add(log.id)) {
+        continue;
+      }
+      final sig = _logSignature(log);
+      if (!seenSignatures.add(sig)) {
+        continue;
+      }
+      result.add(log);
+    }
+    return result;
+  }
 
   @override
   Stream<List<FoodLogDto>> watchDailyLogs({
     required String userId,
     required String date,
   }) async* {
+    // 0. Auto-clean any duplicate pending sync items in queue
+    await _localDatasource.removeDuplicatePendingLogs(userId: userId);
+
     // 1. Immediate local cache retrieval (< 50ms)
     final initialCached = await _localDatasource.getCachedLogs(
       userId: userId,
       date: date,
     );
-    yield initialCached;
+    final deduplicatedInitial = _deduplicateLogs(initialCached);
+    if (deduplicatedInitial.length != initialCached.length) {
+      await _localDatasource.saveCachedLogs(
+        userId: userId,
+        date: date,
+        logs: deduplicatedInitial,
+      );
+    }
+    yield deduplicatedInitial;
 
     // 2. Stream remote updates with offline resilience
     try {
@@ -37,10 +71,20 @@ class FoodLogRepositoryImpl implements FoodLogRepository {
         final pendingForDate = pending.where((p) => p.date == date).toList();
 
         final remoteIds = remoteLogs.map((r) => r.id).toSet();
-        final merged = [
+        final remoteSignatures = remoteLogs
+            .map((r) => _logSignature(r))
+            .toSet();
+
+        final filteredPending = pendingForDate.where((p) {
+          if (remoteIds.contains(p.id)) return false;
+          if (remoteSignatures.contains(_logSignature(p))) return false;
+          return true;
+        }).toList();
+
+        final merged = _deduplicateLogs([
           ...remoteLogs,
-          ...pendingForDate.where((p) => !remoteIds.contains(p.id)),
-        ];
+          ...filteredPending,
+        ]);
 
         await _localDatasource.saveCachedLogs(
           userId: userId,
@@ -59,6 +103,17 @@ class FoodLogRepositoryImpl implements FoodLogRepository {
     required String userId,
     required FoodLogDto log,
   }) async {
+    final now = DateTime.now().millisecondsSinceEpoch;
+    final debounceKey =
+        '${userId}_${log.date}_${log.mealType}_${log.dishName.trim().toLowerCase()}_${log.calories}';
+    final lastTime = _recentLogDebounce[debounceKey];
+    if (lastTime != null && (now - lastTime) < 2000) {
+      // Ignore duplicate rapid clicks within 2.0s
+      return;
+    }
+    _recentLogDebounce[debounceKey] = now;
+    _recentLogDebounce.removeWhere((_, time) => now - time > 15000);
+
     final effectiveId = log.id.isNotEmpty
         ? log.id
         : 'log_${DateTime.now().millisecondsSinceEpoch}';
@@ -100,6 +155,10 @@ class FoodLogRepositoryImpl implements FoodLogRepository {
     required String logId,
   }) async {
     await _localDatasource.removeFromPendingQueue(
+      userId: userId,
+      logId: logId,
+    );
+    await _localDatasource.deleteCachedLogById(
       userId: userId,
       logId: logId,
     );
