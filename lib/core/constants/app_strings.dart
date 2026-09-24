@@ -23,7 +23,7 @@ abstract final class AppStrings {
   static const snack = 'Bữa phụ';
 
   // Dashboard
-  static const todayOverview = 'Tổng quan hôm nay';
+  static const todayOverview = 'Hôm nay';
   static const nutritionLog = 'Nhật ký dinh dưỡng';
   static const remaining = 'Còn lại';
   static const consumed = 'Đã nạp';

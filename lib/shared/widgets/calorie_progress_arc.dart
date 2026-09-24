@@ -59,7 +59,7 @@ class CalorieProgressArc extends StatelessWidget {
               Text(
                 isOverBudget ? '+${consumed - target} kcal' : '$remaining kcal',
                 style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                  fontSize: 26,
+                  fontSize: size < 160 ? 17 : 26,
                   fontWeight: FontWeight.bold,
                   letterSpacing: 0.5,
                   color: progressColor,
@@ -69,6 +69,7 @@ class CalorieProgressArc extends StatelessWidget {
               Text(
                 isOverBudget ? AppStrings.overBudget : AppStrings.kcalRemaining,
                 style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                  fontSize: size < 160 ? 10 : null,
                   color: isOverBudget ? AppColors.tertiary : AppColors.onSurfaceVariant,
                 ),
               ),

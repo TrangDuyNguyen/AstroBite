@@ -391,6 +391,25 @@ class _ManualEntryPageState extends ConsumerState<ManualEntryPage> {
                             margin: const EdgeInsets.only(bottom: AppValues.spacing8),
                             child: ListTile(
                               onTap: () => _selectFood(item),
+                              leading: Container(
+                                width: 38,
+                                height: 38,
+                                decoration: BoxDecoration(
+                                  color: AppColors.surface,
+                                  borderRadius: BorderRadius.circular(AppValues.radius8),
+                                  border: Border.all(
+                                    color: isSelected
+                                        ? AppColors.primary.withValues(alpha: 0.5)
+                                        : AppColors.outline.withValues(alpha: 0.2),
+                                  ),
+                                ),
+                                alignment: Alignment.center,
+                                child: Icon(
+                                  _getFoodIcon(item.name),
+                                  color: isSelected ? AppColors.primary : AppColors.onSurfaceVariant,
+                                  size: 20,
+                                ),
+                              ),
                               title: Text(
                                 item.name,
                                 style: TextStyle(
@@ -419,6 +438,43 @@ class _ManualEntryPageState extends ConsumerState<ManualEntryPage> {
         ),
       ),
     );
+  }
+
+  static IconData _getFoodIcon(String name) {
+    final lower = name.toLowerCase();
+    if (lower.contains('phở') ||
+        lower.contains('bún') ||
+        lower.contains('hủ tiếu') ||
+        lower.contains('miến') ||
+        lower.contains('mì')) {
+      return Icons.ramen_dining_rounded;
+    }
+    if (lower.contains('cơm') || lower.contains('xôi')) {
+      return Icons.rice_bowl_rounded;
+    }
+    if (lower.contains('bánh')) {
+      return Icons.bakery_dining_rounded;
+    }
+    if (lower.contains('bò') ||
+        lower.contains('gà') ||
+        lower.contains('thịt') ||
+        lower.contains('heo') ||
+        lower.contains('sườn')) {
+      return Icons.kebab_dining_rounded;
+    }
+    if (lower.contains('cá') || lower.contains('tôm') || lower.contains('hải sản')) {
+      return Icons.set_meal_rounded;
+    }
+    if (lower.contains('trứng')) {
+      return Icons.egg_alt_outlined;
+    }
+    if (lower.contains('salad') || lower.contains('rau') || lower.contains('canh')) {
+      return Icons.eco_rounded;
+    }
+    if (lower.contains('sữa') || lower.contains('cà phê') || lower.contains('trà')) {
+      return Icons.local_cafe_rounded;
+    }
+    return Icons.restaurant_rounded;
   }
 }
 

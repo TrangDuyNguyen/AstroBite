@@ -19,6 +19,7 @@ import '../../features/tracker/presentation/pages/manual_entry_page.dart';
 import '../../features/tracker/presentation/pages/meal_detail_page.dart';
 import '../../features/coach/presentation/coach_page.dart';
 import '../../features/health/presentation/health_connection_page.dart';
+import '../../shared/widgets/celestial_bottom_nav.dart';
 
 part 'app_router.gr.dart';
 
@@ -62,38 +63,8 @@ class ShellScreen extends StatelessWidget {
         AnalyticsRoute(),
         ProfileRoute(),
       ],
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => context.router.push(const CameraRoute()),
-        child: const Icon(Icons.camera_alt),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBuilder: (_, tabsRouter) {
-        return NavigationBar(
-          selectedIndex: tabsRouter.activeIndex,
-          onDestinationSelected: tabsRouter.setActiveIndex,
-          destinations: const [
-            NavigationDestination(
-              icon: Icon(Icons.home_outlined),
-              selectedIcon: Icon(Icons.home),
-              label: 'Tổng quan',
-            ),
-            NavigationDestination(
-              icon: Icon(Icons.auto_awesome_outlined),
-              selectedIcon: Icon(Icons.auto_awesome),
-              label: 'AstroCoach',
-            ),
-            NavigationDestination(
-              icon: Icon(Icons.bar_chart_outlined),
-              selectedIcon: Icon(Icons.bar_chart),
-              label: 'Phân tích',
-            ),
-            NavigationDestination(
-              icon: Icon(Icons.person_outline),
-              selectedIcon: Icon(Icons.person),
-              label: 'Hồ sơ',
-            ),
-          ],
-        );
+        return CelestialBottomNav(tabsRouter: tabsRouter);
       },
     );
   }

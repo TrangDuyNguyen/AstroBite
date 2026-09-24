@@ -43,6 +43,15 @@ class DailySummary {
   int getMealCalories(String mealType) =>
       getMealLogs(mealType).fold(0, (sum, item) => sum + item.calories);
 
+  int getMealCarbs(String mealType) =>
+      getMealLogs(mealType).fold(0, (sum, item) => sum + item.carbsG);
+
+  int getMealProtein(String mealType) =>
+      getMealLogs(mealType).fold(0, (sum, item) => sum + item.proteinG);
+
+  int getMealFat(String mealType) =>
+      getMealLogs(mealType).fold(0, (sum, item) => sum + item.fatG);
+
   factory DailySummary.fromLogs({
     required String date,
     required List<FoodLog> logs,

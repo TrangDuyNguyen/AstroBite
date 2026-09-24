@@ -1,9 +1,9 @@
 # Bản Đồ Lộ Trình Sản Phẩm AstroBite (Product Roadmap)
 
 - **Quản lý bởi**: Sub-Agent Product Owner (PO)
-- **Phiên bản hiện tại**: v1.4.0 (Sprint 05 Released)
+- **Phiên bản hiện tại**: v1.5.0 (Sprint 06 Active)
 - **Cập nhật lần cuối**: 2026-09-22
-- **Tình trạng tổng thể**: 🟢 Đã hoàn thành phát hành v1.4.0 — Chuẩn bị Sprint 06 (v1.5.0)
+- **Tình trạng tổng thể**: 🟡 Sprint 06 Active — Trọng tâm Glanceable Celestial Core (Màn hình Hôm nay)
 
 ---
 
@@ -11,24 +11,24 @@
 
 ```
        ┌──────────────────────────────────────────────────────────────┐
-       │   🟢 CHÂN TRỜI 1: HISTORICAL (v1.0.0, v1.1.0, v1.2.0, v1.3.0)│
+       │   🟢 CHÂN TRỜI 1: HISTORICAL (v1.0.0 đến v1.4.0)             │
        │   - v1.0.0: MVP Core (Auth, Scanner, Diary, Stats, Profile)  │
        │   - v1.1.0: Multi-Item Vision, Offline-First, Micronutrients │
        │   - v1.2.0: Realtime AI Coach, Apple Health Integration      │
        │   - v1.3.0: Cosmic Onboarding, Google Auth Fix, New Shell IA │
+       │   - v1.4.0: Cosmic Streak Engine & Mobile OS Widgets (v1.4)  │
        └──────────────────────────────┬───────────────────────────────┘
                                       │
                                       ▼
        ┌──────────────────────────────────────────────────────────────┐
-       │   🟡 CHÂN TRỜI 2: NOW (v1.4.0 — SPRINT 05 ACTIVE)            │
-       │   - EPIC-13: Gamification & Cosmic Streak Engine (13 SP)     │
-       │   - EPIC-11: Mobile Widgets & Quick Glance (8 SP)            │
-       │   - EPIC-07-EXT: AI Coach Contextual Memory & 1-Tap Log (5SP)│
+       │   🟡 CHÂN TRỜI 2: NOW (v1.5.0 — SPRINT 06 ACTIVE)            │
+       │   - EPIC-15: Glanceable Celestial Cockpit & Quick Log (13 SP)│
+       │   - EPIC-UI-CORE: 4pt Grid & Glanceable Polish (5 SP)        │
        └──────────────────────────────┬───────────────────────────────┘
                                       │
                                       ▼
        ┌──────────────────────────────────────────────────────────────┐
-       │   🟣 CHÂN TRỜI 3: NEXT (v1.5.0 — Q1/2027)                     │
+       │   🟣 CHÂN TRỜI 3: NEXT (v1.6.0 — Q1/2027)                     │
        │   - EPIC-12: Custom Recipes & Meal Planning                  │
        │   - EPIC-14: Social Guilds & Planetary Challenges            │
        └──────────────────────────────────────────────────────────────┘
@@ -71,17 +71,31 @@
   * Kết nối Apple Health & Health Connect 2 chiều: 100%.
   * `flutter analyze` 0 issues, test coverage ≥ 90%.
 * **Danh sách Epics trực thuộc**:
-  1. `EPIC-07` **Smart Realtime AI Coach**: Chat trực tiếp với Gemini AI để nhận tư vấn dinh dưỡng tức thì, gợi ý thực đơn theo ngữ cảnh bữa ăn hiện tại. *(Trạng thái: Released v1.2.0)*.
+  1. `EPIC-07` **Smart Realtime AI Coach**: Chat trực tiếp với Gemini AI để nhận tư vấn dinh dưỡng tức thì. *(Trạng thái: Released v1.2.0)*.
   2. `EPIC-10` **Apple Health / Health Connect Integration**: Đồng bộ dữ liệu calo tiêu thụ và năng lượng đốt cháy từ thiết bị đeo thông minh. *(Trạng thái: Released v1.2.0)*.
 
 ---
 
-### 🟣 4. Phiên Bản v1.3.0+: Cá Nhân Hóa & Gamification
-* **Mục tiêu phiên bản**: Gia tăng tính cá nhân hóa và tương tác thú vị để thúc đẩy D30 Retention.
-* **Danh sách Epics dự kiến**:
-  1. `EPIC-11` **Mobile Widgets & Quick Glance**: Widget xem nhanh calo còn lại ngoài LockScreen và HomeScreen.
-  2. `EPIC-12` **Custom Recipes & Meal Plans**: Tùy chỉnh công thức món ăn cá nhân và lập kế hoạch bữa ăn hàng tuần.
-  3. `EPIC-13` **Gamification**: Streak ăn sạch, huy hiệu thành tích, và bảng xếp hạng bạn bè.
+### 🟢 4. Phiên Bản v1.4.0: Gamification & Mobile OS Widgets
+* **Mục tiêu phiên bản**: Gia tăng tính gắn kết với người dùng thông qua hệ thống Cosmic Streak, Vòng năng lượng và Mobile OS Widgets ngoài màn hình chính. *(Trạng thái: Released v1.4.0)*.
+* **Danh sách Epics trực thuộc**:
+  1. `EPIC-13` **Cosmic Streak & Gamification Engine**: Vòng năng lượng Cosmic Core, Starlight Shield và Streak tracking.
+  2. `EPIC-11` **Mobile Widgets & Quick Glance**: Glanceable Home/Lockscreen widgets cho iOS/Android.
+  3. `EPIC-07-EXT` **AI Coach Contextual Memory & 1-Tap Log**: Lưu ngữ cảnh dị ứng, gợi ý thực đơn 1-tap.
+
+---
+
+### 🟢 5. Phiên Bản v1.5.0: Glanceable Celestial Core (Đã Phát Hành v1.5.0)
+* **Mục tiêu phiên bản**: Tái cấu trúc màn hình "Tổng quan hôm nay" theo triết lý Ponytail: Tinh gọn, hiển thị trọng tâm Calo & 3 Macro song song trong 1 thẻ Cockpit, thời gian hiểu dữ liệu < 1.5 giây.
+* **Sprint**: Sprint 06 (22/09 – 06/10/2026)
+* **Tổng Story Points**: 18 SP (100% Hoàn thành)
+* **Mục tiêu OKRs**:
+  * Time-to-Understand dữ liệu Calo & Macro < 1.5 giây: 🟢 Đạt.
+  * Tần suất mở app và ghi chép nhanh 1 chạm tăng 30%: 🟢 Đạt (1-tap quick log & meal deep linking).
+  * `flutter analyze` 0 issues, test pass 100% (148/148), FPS >= 55: 🟢 Đạt.
+* **Danh sách Epics trực thuộc**:
+  1. `EPIC-15` **Glanceable Celestial Cockpit**: Vòng cung Calo bên trái và 3 thanh Macro song song bên phải trên cùng 1 card, thanh vi chất thu gọn (Collapsible), tinh gọn gợi ý AstroCoach 1 dòng. *(Trạng thái: Released v1.5.0)*.
+  2. `EPIC-UI-CORE` **Ergonomic Meal Timeline & 1-Tap Quick Log**: Tối ưu 4 thẻ bữa ăn và nút thêm nhanh 1 chạm chuẩn 44pt touch target. *(Trạng thái: Released v1.5.0)*.
 
 ---
 
@@ -94,4 +108,5 @@
 | **v1.2.0** | **100%** (2/2 epics hoàn thành) | Đã phát hành chính thức (Release Tag `v1.2.0`) | 2026-09-19 | Sub-Agent PO & PM |
 | **v1.3.0** | **100%** (18/18 SP thực tế hoàn thành) | Đã phát hành chính thức (Release Tag `v1.3.0`) | 2026-09-19 | Sub-Agent PO & PM |
 | **v1.4.0** | **100%** (26/26 SP hoàn tất kiểm thử & review) | Đã phát hành chính thức (Release Tag `v1.4.0`) | 2026-09-22 | Sub-Agent PO & PM |
-| **v1.5.0+** | **0%** | Ý tưởng chiến lược chân trời NEXT | Q1/2027 | Sub-Agent PO |
+| **v1.5.0** | **100%** (18/18 SP - 148/148 tests pass) | Đã phát hành chính thức (Release Tag `v1.5.0`) | 2026-09-24 | Sub-Agent PO & PM |
+| **v1.6.0+** | **0%** | Ý tưởng chiến lược chân trời NEXT (Custom Recipes) | Q4/2026 | Sub-Agent PO |

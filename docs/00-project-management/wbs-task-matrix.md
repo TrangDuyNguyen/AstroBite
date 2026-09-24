@@ -1,12 +1,41 @@
 # Ma Trận Phân Rã Công Việc 7 Cổng (WBS Task Matrix)
 
 - **Quản lý bởi**: Sub-Agent Project Manager (PM) & Sub-Agent Product Owner (PO)
-- **Ánh xạ quy trình**: 7-Gate Delivery Flow (BA ➔ UI/UX Designer ➔ QA ➔ Dev FE ➔ Code Review ➔ Verification ➔ Release)
-- **Cập nhật lần cuối**: 2026-09-19
+- **Ánh xạ quy trình**: 7-Gate Delivery Flow (Tech Spike ➔ BA ➔ UI/UX Designer ➔ QA ➔ Dev FE ➔ Code Review ➔ Verification ➔ Release)
+- **Cập nhật lần cuối**: 2026-09-24
 
 ---
 
-## 🏗️ 1. Bảng Ma Trận Phân Rã WBS Sprint 05 (v1.4.0 The Cosmic Habit Loop — Active)
+## 🏗️ 1. Bảng Ma Trận Phân Rã WBS Sprint 06 (v1.5.0 Glanceable Celestial Core — Active)
+
+### EPIC-15: Glanceable Celestial Cockpit (`FEAT-13` — 10 SP)
+
+| Mã Task | Feature / Epic | Cổng Chất Lượng | Mô Tả Nhiệm Vụ Kỹ Thuật | Sub-Agent Đảm Nhiệm | SP | Phụ Thuộc | Trạng Thái |
+| :--- | :--- | :---: | :--- | :---: | :---: | :---: | :---: |
+| **`TSK-S6-PRD-COCKPIT`** | `EPIC-15` PRD | **Gate 1** | Đặc tả PRD BDD Given-When-Then, Data Dictionary cho Cockpit & Collapsible Pill | `business-analyst` | 3 | None | 🟢 Approved |
+| **`TSK-S6-UI-COCKPIT`** | `EPIC-15` Design | **Gate 2** | Thiết kế Google Stitch Mockup (`db13f5531baf4aeab67ab09be0b5bafa`), layout 4pt, 5 UI states | `ui-ux-designer` | 3 | TSK-S6-PRD-COCKPIT | 🟢 Approved |
+| **`TSK-S6-QA-COCKPIT`** | `EPIC-15` Tests | **Gate 3** | Viết Test Suite cho Cockpit Card, toggle Vi chất & Over-budget state | `qa-tester` | 2 | TSK-S6-UI-COCKPIT | 🟢 Done |
+| **`TSK-S6-DEV-COCKPIT`** | `EPIC-15` Flutter | **Gate 4** | Triển khai `CelestialCockpitCard`, adapter `DailySummaryCard`, dải Vi chất thu gọn | `flutter-expert` | 2 | TSK-S6-QA-COCKPIT | 🟢 Done |
+
+### EPIC-UI-CORE: Ergonomic Meal Timeline & 1-Tap Quick Log (8 SP)
+
+| Mã Task | Feature / Epic | Cổng Chất Lượng | Mô Tả Nhiệm Vụ Kỹ Thuật | Sub-Agent Đảm Nhiệm | SP | Phụ Thuộc | Trạng Thái |
+| :--- | :--- | :---: | :--- | :---: | :---: | :---: | :---: |
+| **`TSK-S6-DEV-TIMELINE`** | `EPIC-UI-CORE` | **Gate 4** | Tối ưu 4 thẻ `MealSection` với nút `+` 1-tap quick add, popup xác nhận xóa món | `flutter-expert` | 3 | None | 🟢 Done |
+| **`TSK-S6-DEV-ROUTER`** | `EPIC-UI-CORE` | **Gate 4** | Cấu hình router truyền `mealType` query param vào `ManualEntryPage` | `flutter-expert` | 2 | TSK-S6-DEV-TIMELINE | 🟢 Done |
+| **`TSK-S6-DEV-NAV-BAR`** | `EPIC-UI-CORE` | **Gate 4** | Cập nhật `CelestialBottomNav` & `CelestialTimeAvatar` đồng bộ nhận diện thiên hà | `flutter-expert` | 3 | None | 🟢 Done |
+
+### Sprint 06 Quality Assurance & Delivery Gate (Gate 5 - 7)
+
+| Mã Task | Feature / Epic | Cổng Chất Lượng | Mô Tả Nhiệm Vụ Kỹ Thuật | Sub-Agent Đảm Nhiệm | SP | Phụ Thuộc | Trạng Thái |
+| :--- | :--- | :---: | :--- | :---: | :---: | :---: | :---: |
+| **`TSK-S6-PONYTAIL`** | Quality Gate | **Gate 5** | Ponytail diff review: loại bỏ 40 dòng UI rác, thay thế bằng 1 dòng AstroCoach chip | `code-reviewer` | - | Gate 4 | 🟢 Passed |
+| **`TSK-S6-QA-VERIFY`** | Quality Gate | **Gate 6** | Automated test 148/148 pass, `flutter analyze` 0 issues, SLA 60 FPS, touch target >= 44pt | `qa-tester` | - | Gate 5 | 🟢 Passed |
+| **`TSK-S6-RELEASE`** | Milestone | **Gate 7** | Đóng Sprint 06, biên bản release notes `v1.5.0` và gắn tag Git phát hành | `product-owner` & `project-manager` | - | Gate 6 | ⏳ Ready |
+
+---
+
+## 🏛️ 2. Lưu Trữ Ma Trận WBS Sprint 05 (v1.4.0 The Cosmic Habit Loop — 100% Done)
 
 ### EPIC-13: Gamification & Cosmic Streak Engine (13 SP)
 
@@ -34,7 +63,7 @@
 
 ---
 
-## 🏛️ 2. Lưu Trữ Ma Trận WBS Sprint 04 (v1.3.0 Cosmic Onboarding & Flawless IA — 100% Done)
+## 🏛️ 3. Lưu Trữ Ma Trận WBS Sprint 04 (v1.3.0 Cosmic Onboarding & Flawless IA — 100% Done)
 
 | Mã Task | Feature / Epic | Cổng Chất Lượng | Mô Tả Nhiệm Vụ Kỹ Thuật | Sub-Agent Đảm Nhiệm | SP | Trạng Thái |
 | :--- | :--- | :---: | :--- | :---: | :---: | :---: |

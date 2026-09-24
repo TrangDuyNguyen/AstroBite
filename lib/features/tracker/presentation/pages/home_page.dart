@@ -5,10 +5,9 @@ import 'package:astrobite/core/constants/app_strings.dart';
 import 'package:astrobite/core/constants/app_values.dart';
 import 'package:astrobite/core/router/app_router.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
-import 'package:astrobite/shared/widgets/glass_card.dart';
 import '../../domain/tracker_providers.dart';
 import '../widgets/celestial_offline_banner.dart';
-import '../widgets/daily_micronutrient_card.dart';
+import '../widgets/celestial_time_avatar.dart';
 import '../widgets/daily_summary_card.dart';
 import '../widgets/date_picker_strip.dart';
 import '../widgets/meal_section.dart';
@@ -41,18 +40,106 @@ class HomePage extends ConsumerWidget {
           );
     });
 
+    final selectedDate = ref.watch(selectedDateProvider);
+    final now = DateTime.now();
+    final isToday = selectedDate.year == now.year &&
+        selectedDate.month == now.month &&
+        selectedDate.day == now.day;
+    final weekdayStr = switch (selectedDate.weekday) {
+      DateTime.monday => 'Thứ Hai',
+      DateTime.tuesday => 'Thứ Ba',
+      DateTime.wednesday => 'Thứ Tư',
+      DateTime.thursday => 'Thứ Năm',
+      DateTime.friday => 'Thứ Sáu',
+      DateTime.saturday => 'Thứ Bảy',
+      DateTime.sunday => 'Chủ Nhật',
+      _ => '',
+    };
+    final dateSubtitle =
+        '$weekdayStr, ${selectedDate.day.toString().padLeft(2, '0')} Th${selectedDate.month.toString().padLeft(2, '0')}';
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text(AppStrings.todayOverview),
-        actions: [
-          const Center(child: CosmicStreakBadge()),
-          const SizedBox(width: AppValues.spacing8),
-          IconButton(
-            icon: const Icon(Icons.person_outline),
-            tooltip: AppStrings.profile,
-            onPressed: () => context.router.push(const ProfileRoute()),
-          ),
-          const SizedBox(width: AppValues.spacing8),
+        backgroundColor: Colors.transparent,
+        surfaceTintColor: Colors.transparent,
+        elevation: 0,
+        automaticallyImplyLeading: false,
+        centerTitle: false,
+        titleSpacing: AppValues.screenPadding,
+        title: Row(
+          children: [
+            CelestialTimeAvatar(
+              onTap: () => context.router.push(const ProfileRoute()),
+            ),
+            const SizedBox(width: AppValues.spacing12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        isToday ? AppStrings.todayOverview : 'Nhật ký dinh dưỡng',
+                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                              fontWeight: FontWeight.w800,
+                              letterSpacing: -0.2,
+                              color: AppColors.onSurface,
+                            ),
+                      ),
+                      const SizedBox(width: 5),
+                      Container(
+                        width: 6,
+                        height: 6,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: AppColors.primary,
+                        ),
+                      ),
+                    ],
+                  ),
+                  InkWell(
+                    onTap: () async {
+                      final picked = await showDatePicker(
+                        context: context,
+                        initialDate: selectedDate,
+                        firstDate: DateTime(2020),
+                        lastDate: DateTime.now().add(const Duration(days: 365)),
+                      );
+                      if (picked != null) {
+                        ref.read(selectedDateProvider.notifier).state = picked;
+                      }
+                    },
+                    borderRadius: BorderRadius.circular(AppValues.radius8),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          dateSubtitle,
+                          style:
+                              Theme.of(context).textTheme.labelSmall?.copyWith(
+                                    color: AppColors.onSurfaceVariant,
+                                    fontSize: 11,
+                                  ),
+                        ),
+                        const SizedBox(width: 2),
+                        const Icon(
+                          Icons.arrow_drop_down_rounded,
+                          size: 16,
+                          color: AppColors.onSurfaceVariant,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+        actions: const [
+          Center(child: CosmicStreakBadge()),
+          SizedBox(width: AppValues.screenPadding),
         ],
       ),
       body: SafeArea(
@@ -66,115 +153,133 @@ class HomePage extends ConsumerWidget {
                   const DatePickerStrip(),
                   const SizedBox(height: AppValues.spacing16),
                   DailySummaryCard(summary: summary),
-                  const SizedBox(height: AppValues.spacing16),
-                  DailyMicronutrientCard(summary: summary),
-                  const SizedBox(height: AppValues.spacing16),
-                  // AstroCoach Quick Tip & CTA
-                  GlassCard(
-                    padding: const EdgeInsets.all(AppValues.cardPadding),
-                    child: InkWell(
-                      onTap: () => context.router.push(const CoachRoute()),
-                      borderRadius: BorderRadius.circular(AppValues.cardRadius),
+                  const SizedBox(height: AppValues.spacing20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.baseline,
+                    textBaseline: TextBaseline.alphabetic,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            AppStrings.nutritionLog,
+                            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.onSurface,
+                                ),
+                          ),
+                          const SizedBox(height: 2),
+                          Text(
+                            '4 bữa • Cần nạp đủ để duy trì năng lượng',
+                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                  color: AppColors.onSurfaceVariant,
+                                  fontSize: 12,
+                                ),
+                          ),
+                        ],
+                      ),
+                      Text(
+                        '${summary.totalCalories} / ${summary.targetCalories} kcal',
+                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.onSurfaceVariant,
+                              letterSpacing: 0.5,
+                            ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: AppValues.spacing12),
+                  MealSection(
+                    mealType: 'breakfast',
+                    summary: summary,
+                    onAddTap: () => context.router.push(ManualEntryRoute(initialMealType: 'breakfast')),
+                  ),
+                  MealSection(
+                    mealType: 'lunch',
+                    summary: summary,
+                    onAddTap: () => context.router.push(ManualEntryRoute(initialMealType: 'lunch')),
+                  ),
+                  MealSection(
+                    mealType: 'dinner',
+                    summary: summary,
+                    onAddTap: () => context.router.push(ManualEntryRoute(initialMealType: 'dinner')),
+                  ),
+                  MealSection(
+                    mealType: 'snack',
+                    summary: summary,
+                    onAddTap: () => context.router.push(ManualEntryRoute(initialMealType: 'snack')),
+                  ),
+                  const SizedBox(height: AppValues.spacing8),
+                  // AstroCoach Suggestion Card
+                  InkWell(
+                    onTap: () => context.router.push(const CoachRoute()),
+                    borderRadius: BorderRadius.circular(AppValues.radius12),
+                    child: Container(
+                      padding: const EdgeInsets.all(AppValues.spacing12),
+                      decoration: BoxDecoration(
+                        color: AppColors.surfaceContainer,
+                        borderRadius: BorderRadius.circular(AppValues.radius12),
+                        border: Border.all(
+                          color: AppColors.outline.withValues(alpha: 0.25),
+                          width: 0.8,
+                        ),
+                      ),
                       child: Row(
                         children: [
                           Container(
-                            width: 44,
-                            height: 44,
+                            width: 36,
+                            height: 36,
                             decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              gradient: LinearGradient(
-                                colors: [
-                                  AppColors.primary,
-                                  AppColors.secondary.withValues(alpha: 0.8),
-                                ],
-                              ),
+                              color: AppColors.tertiary.withValues(alpha: 0.15),
+                              borderRadius: BorderRadius.circular(AppValues.radius8),
                             ),
                             child: const Icon(
                               Icons.auto_awesome,
-                              color: Colors.white,
-                              size: 22,
+                              color: AppColors.tertiary,
+                              size: 18,
                             ),
                           ),
                           const SizedBox(width: AppValues.spacing12),
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
                               children: [
-                                Row(
-                                  children: [
-                                    Text(
-                                      'AstroCoach AI',
-                                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                                            fontWeight: FontWeight.bold,
-                                            color: AppColors.onSurface,
-                                          ),
-                                    ),
-                                    const SizedBox(width: 6),
-                                    Container(
-                                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                                      decoration: BoxDecoration(
-                                        color: AppColors.tertiary.withValues(alpha: 0.2),
-                                        borderRadius: BorderRadius.circular(4),
-                                      ),
-                                      child: const Text(
-                                        'PROACTIVE',
-                                        style: TextStyle(
-                                          color: AppColors.tertiary,
-                                          fontSize: 9,
-                                          fontWeight: FontWeight.bold,
-                                          letterSpacing: 0.8,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 4),
                                 Text(
-                                  'Hôm nay bạn cần gợi ý thực đơn hay phân tích calo? Bấm để hỏi ngay!',
+                                  'Gợi ý từ AstroCoach',
+                                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                                        color: AppColors.onSurface,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 13,
+                                      ),
+                                ),
+                                const SizedBox(height: 2),
+                                Text(
+                                  summary.totalProteinG < summary.targetProteinG
+                                      ? 'Cần thêm ${(summary.targetProteinG - summary.totalProteinG)}g Protein để đạt mục tiêu...'
+                                      : 'Dinh dưỡng hôm nay đang rất cân bằng và tối ưu!',
                                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
                                         color: AppColors.onSurfaceVariant,
+                                        fontSize: 12,
                                       ),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ],
                             ),
                           ),
                           const Icon(
-                            Icons.arrow_forward_ios,
-                            size: 14,
+                            Icons.chevron_right,
+                            size: 20,
                             color: AppColors.onSurfaceVariant,
                           ),
                         ],
                       ),
                     ),
                   ),
-                  const SizedBox(height: AppValues.spacing24),
-                  Text(
-                    AppStrings.nutritionLog,
-                    style: Theme.of(context).textTheme.headlineMedium,
-                  ),
-            const SizedBox(height: AppValues.spacing12),
-            MealSection(
-              mealType: 'breakfast',
-              summary: summary,
-              onAddTap: () => context.router.push(ManualEntryRoute(initialMealType: 'breakfast')),
-            ),
-            MealSection(
-              mealType: 'lunch',
-              summary: summary,
-              onAddTap: () => context.router.push(ManualEntryRoute(initialMealType: 'lunch')),
-            ),
-            MealSection(
-              mealType: 'dinner',
-              summary: summary,
-              onAddTap: () => context.router.push(ManualEntryRoute(initialMealType: 'dinner')),
-            ),
-            MealSection(
-              mealType: 'snack',
-              summary: summary,
-              onAddTap: () => context.router.push(ManualEntryRoute(initialMealType: 'snack')),
-            ),
-          ],
-        ),
+                ],
+              ),
       ),
     ],
   ),

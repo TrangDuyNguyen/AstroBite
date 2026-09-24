@@ -6,8 +6,8 @@ import 'package:astrobite/features/tracker/domain/daily_summary.dart';
 import 'package:astrobite/features/tracker/domain/entities/food_log.dart';
 import 'package:astrobite/features/tracker/domain/tracker_providers.dart';
 import 'package:astrobite/features/tracker/presentation/pages/home_page.dart';
+import 'package:astrobite/features/tracker/presentation/widgets/celestial_time_avatar.dart';
 import 'package:astrobite/features/tracker/presentation/widgets/daily_summary_card.dart';
-import 'package:astrobite/features/tracker/presentation/widgets/date_picker_strip.dart';
 import 'package:astrobite/features/tracker/presentation/widgets/meal_section.dart';
 
 void main() {
@@ -65,10 +65,10 @@ void main() {
 
       // AppBar title & actions
       expect(find.text(AppStrings.todayOverview), findsOneWidget);
-      expect(find.byIcon(Icons.person_outline), findsOneWidget);
+      expect(find.byType(CelestialTimeAvatar), findsOneWidget);
 
-      // DatePickerStrip
-      expect(find.byType(DatePickerStrip), findsOneWidget);
+      // AppBar date picker trigger
+      expect(find.byIcon(Icons.arrow_drop_down_rounded), findsOneWidget);
 
       // DailySummaryCard
       expect(find.byType(DailySummaryCard), findsOneWidget);

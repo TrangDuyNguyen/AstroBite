@@ -23,12 +23,20 @@ class MealTypeChip extends StatelessWidget {
     _           => mealType,
   };
 
-  String get _icon => switch (mealType) {
-    'breakfast' => '🌅',
-    'lunch'     => '☀️',
-    'dinner'    => '🌙',
-    'snack'     => '🍪',
-    _           => '🍽️',
+  IconData get _iconData => switch (mealType) {
+    'breakfast' => Icons.wb_twilight_rounded,
+    'lunch'     => Icons.wb_sunny_rounded,
+    'dinner'    => Icons.nightlight_round,
+    'snack'     => Icons.apple_rounded,
+    _           => Icons.restaurant_rounded,
+  };
+
+  Color get _iconColor => switch (mealType) {
+    'breakfast' => const Color(0xFFFFD700),
+    'lunch'     => const Color(0xFFFFB300),
+    'dinner'    => const Color(0xFF90CAF9),
+    'snack'     => const Color(0xFFFF69B4),
+    _           => const Color(0xFF1A73E8),
   };
 
   @override
@@ -55,7 +63,11 @@ class MealTypeChip extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(_icon),
+            Icon(
+              _iconData,
+              size: 16,
+              color: isSelected ? colorScheme.primary : _iconColor,
+            ),
             const SizedBox(width: AppValues.spacing4),
             Text(
               _label,
