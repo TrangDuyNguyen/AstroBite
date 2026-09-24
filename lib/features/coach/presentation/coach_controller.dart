@@ -87,6 +87,18 @@ class CoachController extends _$CoachController {
     }
   }
 
+  /// Marks a meal recommendation message as logged.
+  void markMessageLogged(String messageId) {
+    final current = state.valueOrNull;
+    if (current == null) return;
+    state = AsyncData(current.map((msg) {
+      if (msg.id == messageId) {
+        return msg.copyWith(isLogged: true);
+      }
+      return msg;
+    }).toList());
+  }
+
   /// Builds meal context string from today's tracker, user profile, and streak data.
   String _buildMealContext() {
     try {
@@ -113,6 +125,7 @@ class CoachController extends _$CoachController {
 - Tình trạng dinh dưỡng hôm nay (${summary.date}):
   + Đã nạp: ${summary.totalCalories} kcal / Chỉ tiêu: ${summary.targetCalories} kcal (Ngân sách calo còn lại: $remaining kcal).
   + Macro đã nạp: Protein ${summary.totalProteinG}g/${summary.targetProteinG}g, Carbs ${summary.totalCarbsG}g/${summary.targetCarbsG}g, Fat ${summary.totalFatG}g/${summary.targetFatG}g.
+  + Vi chất đã nạp: Natri ${summary.totalSodiumMg.toInt()}mg / ${summary.targetSodiumMg.toInt()}mg.
   + Món đã ăn hôm nay: $mealLogsText
 ''';
     } catch (_) {

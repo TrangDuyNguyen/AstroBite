@@ -111,4 +111,5 @@
 | **v1.5.0** | **100%** (18/18 SP - 148/148 tests pass) | Đã phát hành chính thức (Release Tag `v1.5.0`) | 2026-09-24 | Sub-Agent PO & PM |
 | **v1.6.0** | **100%** (9/9 SP - 152/152 tests pass) | Đã phát hành chính thức (Release Tag `v1.6.0`) | 2026-09-24 | Sub-Agent PO & PM |
 | **v1.7.0** | **100%** (12/12 SP - 159/159 tests pass) | Đã phát hành chính thức (Release Tag `v1.7.0`) | 2026-09-24 | Sub-Agent PO & PM |
-| **v1.8.0+** | **0%** | AI Health Coach v2 & Custom Recipes / Meal Planning | Q4/2026 | Sub-Agent PO |
+| **v1.8.0** | **100%** (14/14 SP - 163/163 tests pass) | Đã phát hành chính thức (Release Tag `v1.8.0`) | 2026-09-24 | Sub-Agent PO & PM |
+| **v1.9.0+** | **0%** | Custom Recipes, Meal Planning & Social Challenges | Q4/2026 | Sub-Agent PO |

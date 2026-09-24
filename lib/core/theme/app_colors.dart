@@ -17,6 +17,11 @@ abstract final class AppColors {
   static const secondary = Color(0xFFFF69B4);        // Fat / Weight trend curves
   static const tertiary = Color(0xFFFFD700);         // Protein / Calorie warning
 
+  // Semantic Nutrient Aliases
+  static const carbs = primary;
+  static const fat = secondary;
+  static const protein = tertiary;
+
   // Typography
   static const onSurface = Color(0xFFFFFFFF);        // Primary text
   static const onSurfaceVariant = Color(0xFF8892B0); // Secondary text

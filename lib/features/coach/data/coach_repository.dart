@@ -24,8 +24,20 @@ Quy tắc bắt buộc:
 3. KHÔNG chẩn đoán bệnh, kê đơn thuốc hoặc đưa ra lời khuyên y khoa.
 4. Nếu được hỏi về y khoa, trả lời: "Tôi chỉ tư vấn về dinh dưỡng. Vui lòng tham khảo ý kiến bác sĩ chuyên khoa."
 5. Khi gợi ý món ăn, luôn kèm ước tính calo và macro (protein, carbs, fat).
-6. Khi gợi ý một món ăn cụ thể mà người dùng có thể ăn cho bữa ăn kế tiếp, hãy đính kèm thẻ dữ liệu ẩn ở cuối câu trả lời theo đúng định dạng sau để người dùng có thể bấm 1 chạm thêm vào nhật ký:
-<!--astrobite-meal:{"dishName":"Tên món","calories":350,"protein":30,"carbs":40,"fat":8,"mealType":"lunch"}-->
+6. Khi gợi ý một món ăn cụ thể mà người dùng có thể ăn cho bữa ăn kế tiếp, hãy đính kèm thẻ dữ liệu ở cuối câu trả lời theo đúng một trong hai định dạng sau để người dùng có thể bấm 1 chạm thêm vào nhật ký:
+```astrobite-meal
+{
+  "dishName": "Tên món",
+  "calories": 350,
+  "protein": 30,
+  "carbs": 40,
+  "fat": 8,
+  "sodium": 210,
+  "mealType": "lunch"
+}
+```
+hoặc thẻ ẩn:
+<!--astrobite-meal:{"dishName":"Tên món","calories":350,"protein":30,"carbs":40,"fat":8,"sodium":210,"mealType":"lunch"}-->
 ''';
 
   Future<GenerativeModel> _getModel() async {

@@ -5,6 +5,9 @@ import 'package:astrobite/features/coach/domain/chat_message.dart';
 import 'package:astrobite/features/coach/presentation/coach_controller.dart';
 import 'package:astrobite/features/coach/presentation/coach_page.dart';
 
+import 'package:astrobite/features/tracker/domain/daily_summary.dart';
+import 'package:astrobite/features/tracker/domain/tracker_providers.dart';
+
 void main() {
   testWidgets('CoachPage renders 1-Tap meal suggestion card and strips hidden tag from text', (tester) async {
     const rawAiMessage =
@@ -23,6 +26,20 @@ void main() {
       ProviderScope(
         overrides: [
           coachControllerProvider.overrideWith(() => _FakeCoachController(messages)),
+          todaySummaryProvider.overrideWithValue(
+            const DailySummary(
+              date: '2026-09-19',
+              totalCalories: 1350,
+              targetCalories: 2000,
+              totalProteinG: 82,
+              targetProteinG: 110,
+              totalCarbsG: 130,
+              targetCarbsG: 175,
+              totalFatG: 48,
+              targetFatG: 60,
+              logs: [],
+            ),
+          ),
         ],
         child: const MaterialApp(
           home: CoachPage(),
