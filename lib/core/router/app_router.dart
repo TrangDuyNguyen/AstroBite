@@ -19,6 +19,9 @@ import '../../features/tracker/presentation/pages/manual_entry_page.dart';
 import '../../features/tracker/presentation/pages/meal_detail_page.dart';
 import '../../features/coach/presentation/coach_page.dart';
 import '../../features/health/presentation/health_connection_page.dart';
+import '../../features/recipes/presentation/pages/recipe_builder_page.dart';
+import '../../features/recipes/presentation/pages/recipes_page.dart';
+import '../../features/recipes/presentation/pages/meal_planner_page.dart';
 import '../../shared/widgets/celestial_bottom_nav.dart';
 
 part 'app_router.gr.dart';
@@ -47,6 +50,9 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: MealDetailRoute.page),
     AutoRoute(page: ProfileEditRoute.page),
     AutoRoute(page: HealthConnectionRoute.page),
+    AutoRoute(page: RecipesRoute.page),
+    AutoRoute(page: RecipeBuilderRoute.page),
+    AutoRoute(page: MealPlannerRoute.page),
   ];
 }
 

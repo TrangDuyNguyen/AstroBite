@@ -73,3 +73,24 @@ class _ScanSkeletonLoaderState extends State<ScanSkeletonLoader>
     );
   }
 }
+
+/// Generic shimmer placeholder box for list loading states.
+class SkeletonLoader extends StatelessWidget {
+  const SkeletonLoader({super.key, this.height = 56, this.width = double.infinity});
+
+  final double height;
+  final double width;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: height,
+      width: width,
+      margin: const EdgeInsets.only(bottom: AppValues.spacing12),
+      decoration: BoxDecoration(
+        color: AppColors.surfaceContainer,
+        borderRadius: BorderRadius.circular(AppValues.cardRadius),
+      ),
+    );
+  }
+}

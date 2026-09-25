@@ -1,12 +1,31 @@
-# Ma Trận Phân Rã Công Việc 7 Cổng (WBS Task Matrix)
+# Ma Trận Phân Rã Công Việc 8 Cổng (WBS Task Matrix)
 
 - **Quản lý bởi**: Sub-Agent Project Manager (PM) & Sub-Agent Product Owner (PO)
-- **Ánh xạ quy trình**: 7-Gate Delivery Flow (Tech Spike ➔ BA ➔ UI/UX Designer ➔ QA ➔ Dev FE ➔ Code Review ➔ Verification ➔ Release)
-- **Cập nhật lần cuối**: 2026-09-24
+- **Ánh xạ quy trình**: 8-Gate Delivery Flow (Tech Spike ➔ BA ➔ UI/UX Designer ➔ QA ➔ Dev FE ➔ Code Review ➔ Verification ➔ Release)
+- **Cập nhật lần cuối**: 2026-09-25
 
 ---
 
-## 🏗️ 1. Bảng Ma Trận Phân Rã WBS Sprint 07 (v1.6.0 Zero-Friction Logging — Active)
+## 🏗️ 1. Bảng Ma Trận Phân Rã WBS Sprint 10 (v1.9.0 Custom Recipes & Meal Planning — Active)
+
+### EPIC-12: Custom Recipes & Meal Planning Architecture (`FEAT-17` — 14 SP)
+
+| Mã Task | Feature / Epic | Cổng Chất Lượng | Mô Tả Nhiệm Vụ Kỹ Thuật | Sub-Agent Đảm Nhiệm | SP | Phụ Thuộc | Trạng Thái |
+| :--- | :--- | :---: | :--- | :---: | :---: | :---: | :---: |
+| **`TSK-S10-SPIKE`** | `FEAT-17` Tech Spike | **Gate 0** | Khảo sát kiến trúc dữ liệu Recipe & Local Aggregator O(N) | `tech-lead` | 1 | None | 🟢 **Gate 0 Approved** |
+| **`TSK-S10-PRD`** | `FEAT-17` PRD BDD | **Gate 1** | Đặc tả 4 User Stories BDD, Data Dictionary & Gate 1 Sign-Off | `business-analyst` | 2 | TSK-S10-SPIKE | 🟢 **Gate 1 Approved** |
+| **`TSK-S10-STITCH-UI`** | `FEAT-17` UI/UX | **Gate 2** | Mermaid flow, Blueprint lưới 4pt, 5 UI states, Stitch mockups | `ui-ux-designer` | 2 | TSK-S10-PRD | 🟢 **Gate 2 Approved** |
+| **`TSK-S10-QA-TESTS`** | `FEAT-17` Test Plan | **Gate 3** | Kịch bản BDD Gherkin, Master Test Plan & ma trận EP/BVA | `qa-tester` | 2 | TSK-S10-STITCH-UI | 🟢 **Gate 3 Approved** |
+| **`TSK-S10-DEV-RECIPE`**| `FEAT-17` Flutter | **Gate 4** | Domain `Recipe`, UI Recipe Builder & Auto Macro Aggregator | `flutter-core-dev` | 3 | TSK-S10-QA-TESTS | 🟢 **Gate 4 Implemented** |
+| **`TSK-S10-DEV-PLANNER`**| `FEAT-17` Flutter | **Gate 4** | Weekly Day Strip, Meal Planner Calendar & 1-Tap Log to Diary | `flutter-core-dev` | 3 | TSK-S10-DEV-RECIPE | 🟢 **Gate 4 Implemented** |
+| **`TSK-S10-DEV-SYNC`** | `FEAT-17` Cloud/Offline | **Gate 4** | Offline SQLite/Prefs Cache, Pending Sync Queue & Firestore | `cloud-ai-dev` | 1 | TSK-S10-DEV-PLANNER| 🟢 **Gate 4 Implemented** |
+| **`TSK-S10-REVIEW`** | Quality Gate | **Gate 5** | Ponytail AST review: 0 bloat, stdlib trước, xóa code thừa | `code-reviewer` | - | Gate 4 | 🟢 **Gate 5 Approved** |
+| **`TSK-S10-QA-VERIFY`** | Quality Gate | **Gate 6** | Chạy automated test suite 100% pass, analyze 0 issues, 60 FPS | `qa-tester` | - | Gate 5 | 🟢 **Gate 6 Signed Off** |
+| **`TSK-S10-RELEASE`** | Milestone | **Gate 7** | PO & PM nghiệm thu toàn diện, phát hành `v1.9.0` & tag Git | `product-owner` & `project-manager` | - | Gate 6 | 🟢 **Gate 7 Released** |
+
+---
+
+## 🏛️ 2. Bảng Ma Trận Phân Rã WBS Sprint 07 (v1.6.0 Zero-Friction Logging — 100% Done)
 
 ### EPIC-16: Zero-Friction Ergonomic Food Logging (`FEAT-14` — 9 SP)
 

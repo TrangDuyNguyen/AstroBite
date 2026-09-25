@@ -6,7 +6,7 @@ part of 'coach_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$coachControllerHash() => r'e02d833a5f3d43c04ef5995bb597a7fd8459d7c7';
+String _$coachControllerHash() => r'18ce5a2dac2027971df004316373be117fd8392e';
 
 /// See also [CoachController].
 @ProviderFor(CoachController)

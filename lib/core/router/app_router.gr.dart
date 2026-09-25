@@ -247,6 +247,22 @@ class MealDetailRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [MealPlannerPage]
+class MealPlannerRoute extends PageRouteInfo<void> {
+  const MealPlannerRoute({List<PageRouteInfo>? children})
+    : super(MealPlannerRoute.name, initialChildren: children);
+
+  static const String name = 'MealPlannerRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const MealPlannerPage();
+    },
+  );
+}
+
+/// generated route for
 /// [OnboardingPage]
 class OnboardingRoute extends PageRouteInfo<void> {
   const OnboardingRoute({List<PageRouteInfo>? children})
@@ -290,6 +306,38 @@ class ProfileRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const ProfilePage();
+    },
+  );
+}
+
+/// generated route for
+/// [RecipeBuilderPage]
+class RecipeBuilderRoute extends PageRouteInfo<void> {
+  const RecipeBuilderRoute({List<PageRouteInfo>? children})
+    : super(RecipeBuilderRoute.name, initialChildren: children);
+
+  static const String name = 'RecipeBuilderRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const RecipeBuilderPage();
+    },
+  );
+}
+
+/// generated route for
+/// [RecipesPage]
+class RecipesRoute extends PageRouteInfo<void> {
+  const RecipesRoute({List<PageRouteInfo>? children})
+    : super(RecipesRoute.name, initialChildren: children);
+
+  static const String name = 'RecipesRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const RecipesPage();
     },
   );
 }
