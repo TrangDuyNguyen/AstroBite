@@ -45,4 +45,19 @@ platform :android do
     )
     UI.success("✅ Uploaded to Google Play Internal Track!")
   end
+
+  desc "Distribute Release APK to Firebase App Distribution for Testers"
+  lane :distribute_firebase do
+    build_apk
+    apk_file = File.join(project_root, "build/app/outputs/flutter-apk/app-release.apk")
+    UI.message("📦 Uploading APK to Firebase App Distribution...")
+    firebase_app_distribution(
+      app: ENV["FIREBASE_APP_ID_ANDROID"] || "1:925552313324:android:31ea07eec9ad23375d36c9",
+      apk_path: apk_file,
+      groups: ENV["FIREBASE_TESTER_GROUPS"] || "internal-testers",
+      release_notes: ENV["RELEASE_NOTES"] || "AstroBite automated release build",
+      service_credentials_file: ENV["FIREBASE_CREDENTIALS_PATH"]
+    )
+    UI.success("🎉 APK distributed to Firebase Testers successfully!")
+  end
 end

@@ -76,7 +76,7 @@ jobs:
         run: flutter pub get
 
       - name: 🚀 Build Android Release via Fastlane
-        run: bundle exec fastlane android
+        run: bundle exec fastlane android build_release
 
       - name: 📤 Upload Android Artifacts
         uses: actions/upload-artifact@v4
@@ -96,6 +96,16 @@ jobs:
             build/app/outputs/bundle/release/app-release.aab
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 📱 Distribute Android APK to Firebase Testers
+        if: (startsWith(github.ref, 'refs/tags/v') || github.event_name == 'release') && secrets.FIREBASE_APP_DISTRIBUTION_CREDENTIALS != ''
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        with:
+          appId: ${{ secrets.FIREBASE_APP_ID_ANDROID || '1:925552313324:android:31ea07eec9ad23375d36c9' }}
+          serviceCredentialsFileContent: ${{ secrets.FIREBASE_APP_DISTRIBUTION_CREDENTIALS }}
+          groups: ${{ secrets.FIREBASE_TESTER_GROUPS || 'internal-testers' }}
+          file: build/app/outputs/flutter-apk/app-release.apk
+          releaseNotes: "AstroBite Release ${{ github.ref_name || 'Automated Release' }} — APK for Testers"
 
   # =========================================================================
   # 🍎 JOB 2: IOS RELEASE BUILD (IPA)
@@ -143,7 +153,7 @@ jobs:
           cd ios && pod install
 
       - name: 🚀 Build iOS Release via Fastlane
-        run: bundle exec fastlane ios
+        run: bundle exec fastlane ios build_release
         env:
           NO_CODESIGN: ${{ secrets.APPLE_CERTIFICATE_KEY_P12 == '' && 'true' || 'false' }}
 
@@ -172,3 +182,13 @@ jobs:
             build/ios/ipa/*.tar.gz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 📱 Distribute iOS IPA to Firebase Testers
+        if: (startsWith(github.ref, 'refs/tags/v') || github.event_name == 'release') && secrets.FIREBASE_APP_DISTRIBUTION_CREDENTIALS != '' && hashFiles('build/ios/ipa/*.ipa') != ''
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        with:
+          appId: ${{ secrets.FIREBASE_APP_ID_IOS || '1:925552313324:ios:d8bb8269224dff455d36c9' }}
+          serviceCredentialsFileContent: ${{ secrets.FIREBASE_APP_DISTRIBUTION_CREDENTIALS }}
+          groups: ${{ secrets.FIREBASE_TESTER_GROUPS || 'internal-testers' }}
+          file: build/ios/ipa/*.ipa
+          releaseNotes: "AstroBite iOS Release ${{ github.ref_name || 'Automated Release' }} — IPA for Testers"

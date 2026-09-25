@@ -34,4 +34,21 @@ platform :ios do
     )
     UI.success("✅ Uploaded to TestFlight!")
   end
+
+  desc "Distribute iOS IPA to Firebase App Distribution for Testers"
+  lane :distribute_firebase do
+    build_ipa
+    ipa_file = Dir.glob(File.join(project_root, "build/ios/ipa/*.ipa")).first
+    UI.user_error!("No IPA file found in build/ios/ipa/!") unless ipa_file
+
+    UI.message("📦 Uploading IPA to Firebase App Distribution...")
+    firebase_app_distribution(
+      app: ENV["FIREBASE_APP_ID_IOS"] || "1:925552313324:ios:d8bb8269224dff455d36c9",
+      ipa_path: ipa_file,
+      groups: ENV["FIREBASE_TESTER_GROUPS"] || "internal-testers",
+      release_notes: ENV["RELEASE_NOTES"] || "AstroBite automated iOS release build",
+      service_credentials_file: ENV["FIREBASE_CREDENTIALS_PATH"]
+    )
+    UI.success("🎉 iOS IPA distributed to Firebase Testers successfully!")
+  end
 end
