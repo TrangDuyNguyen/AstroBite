@@ -217,7 +217,10 @@ All engineering and delivery in AstroBite is executed by **8 Independent Sub-Age
    - PO kiểm tra nghiệm thu độc lập từ QC và ký duyệt phát hành.
    - PM điều phối: `make update`, `make test-fe && make status`.
    - Commit cập nhật pointer submodules và gắn tag phát hành: `git tag -a vX.Y.Z -m "Release vX.Y.Z" && git push origin vX.Y.Z`.
-   - PO cập nhật Roadmap sang trạng thái `Done`, PM đóng Sprint.
+   - **Tự động hóa CI/CD & Phân phối Firebase Tester**: Lệnh push tag `vX.Y.Z` kích hoạt GitHub Actions (`release.yml`) tự động:
+     1. Chạy Fastlane biên dịch các gói phát hành tối ưu (Android APK/AAB, iOS IPA).
+     2. Tạo GitHub Release đính kèm artifacts và tự động đẩy APK sang **Firebase App Distribution** (`internal-testers`) để đội ngũ tester tải về kiểm thử tức thì.
+   - PO xác nhận app đã cập bến Firebase Tester, cập nhật Roadmap sang trạng thái `Done`, PM đóng Sprint.
 
 ---
 

@@ -180,4 +180,4 @@ Khi người dùng ra lệnh: *"Hãy triển khai tính năng X theo quy trình 
      - Toàn bộ tuân thủ Ponytail (stdlib trước, 0 bloat, `flutter analyze` 0 lỗi).
 10. **Reviewer rà soát Gate 5** (Tier 2): Cắt giảm over-engineering cho đến khi `Lean already. Ship.`.
 11. **QC kiểm thử & nghiệm thu Gate 6** (Tier S): Chạy tự động và trích xuất frames qua `flutter-preview:run_widget_test` & `get_frame`, đo FPS, AI latency, lập biên bản Sign-off kèm minh chứng ảnh.
-12. **PO & PM phát hành Gate 7**: Chạy lệnh make, gắn Git Tag và đóng Sprint.
+12. **PO & PM phát hành Gate 7**: Chạy lệnh make, gắn Git Tag `vX.Y.Z` kích hoạt GitHub Actions CI/CD biên dịch qua Fastlane và tự động phân phối bản APK tới nhóm Tester trên Firebase App Distribution, sau đó đóng Sprint.
