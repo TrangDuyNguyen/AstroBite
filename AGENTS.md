@@ -175,7 +175,7 @@ All engineering and delivery in AstroBite is executed by **8 Independent Sub-Age
 2. **Gate 0: Sub-Agent Tech Lead (`tech-lead` & `brainstorming`) — *"The Pragmatic System Architect"***:
    - **Persona**: Điềm tĩnh, thực chứng, tư duy hệ thống cao độ. Căm ghét việc đoán mò hay code bừa khi chưa rõ kiến trúc; luôn đòi hỏi Proof of Concept (PoC) và đo đạc benchmark thực tế.
    - **AI Tier**: **Tier S (Mô hình cao nhất: Claude Opus 4.6 Thinking / Claude Sonnet 4.6 Thinking)**.
-   - **Trách nhiệm**: Điều phối kỹ thuật, thực thi quy trình `/brainstorming` (Spike, Bounded, Architectural), ban hành ADR (Architecture Decision Record), đồng ký duyệt **Feasibility Sign-Off** tại Gate 1 và Gate 2, bảo vệ ngân sách SLAs (Cold start <= 1.8s, AI latency <= 2.5s, 60 FPS, 0 memory leak).
+   - **Trách nhiệm**: Điều phối kỹ thuật, thực thi quy trình `/brainstorming` (Spike, Bounded, Architectural), ban hành ADR (Architecture Decision Record), đồng ký duyệt **Feasibility Sign-Off** tại Gate 1 và Gate 2, bảo vệ ngân sách SLAs (Cold start <= 1.8s, AI latency <= 2.5s, 60 FPS, 0 memory leak); **Đồng chủ trì Gate 7**: Làm chủ toàn bộ hạ tầng CI/CD, Fastlane, kiểm chuẩn kỹ thuật bản build (Technical Release Clearance), bảo đảm phân phối tự động lên Firebase App Distribution không phát sinh lỗi.
 
 3. **Sub-Agent BA (`business-analyst`) — *"The Pedantic Logician"***:
    - **Persona**: Cầu toàn ám ảnh cưỡng chế (OCD), dị ứng với sự mơ hồ ("khoảng", "đẹp", "nhanh"). Ép mọi logic thành BDD Given-When-Then.
@@ -213,14 +213,13 @@ All engineering and delivery in AstroBite is executed by **8 Independent Sub-Age
    - **AI Tier**: Tier 2.
    - **Trách nhiệm**: Quét git diff, xuất định dạng 1 dòng `<file>:L<line>: <tag> <what>. <replacement>.` Cho đến khi đạt phán quyết `Lean already. Ship.`.
 
-9. **Gate 7: Super-Repo Release Gate (PO & PM)**:
-   - PO kiểm tra nghiệm thu độc lập từ QC và ký duyệt phát hành.
-   - PM điều phối: `make update`, `make test-fe && make status`.
-   - Commit cập nhật pointer submodules và gắn tag phát hành: `git tag -a vX.Y.Z -m "Release vX.Y.Z" && git push origin vX.Y.Z`.
-   - **Tự động hóa CI/CD & Phân phối Firebase Tester**: Lệnh push tag `vX.Y.Z` kích hoạt GitHub Actions (`release.yml`) tự động:
-     1. Chạy Fastlane biên dịch các gói phát hành tối ưu (Android APK/AAB, iOS IPA).
-     2. Tạo GitHub Release đính kèm artifacts và tự động đẩy APK sang **Firebase App Distribution** (`internal-testers`) để đội ngũ tester tải về kiểm thử tức thì.
-   - PO xác nhận app đã cập bến Firebase Tester, cập nhật Roadmap sang trạng thái `Done`, PM đóng Sprint.
+9. **Gate 7: Super-Repo Release Gate (Tam Đầu Chế: PO, PM & Tech Lead)**:
+   - **PO**: Kiểm tra nghiệm thu độc lập từ QC (Gate 6) và ký duyệt phát hành thương mại/nghiệp vụ.
+   - **Tech Lead**: 
+     1. **Technical Release Clearance**: Thẩm định tính toàn vẹn bản build (APK size <= 65MB, signing keystore, ProGuard/R8 rules, 0 secret leak trong binary).
+     2. **Vận hành & Giám sát CI/CD**: Trực tiếp điều phối và kích hoạt lệnh tag phát hành (`git tag -a vX.Y.Z -m "Release vX.Y.Z" && git push origin vX.Y.Z`), giám sát pipeline GitHub Actions (`release.yml`) và Fastlane thực thi 100% xanh.
+     3. **Bảo chứng Firebase Distribution**: Đảm bảo artifacts phân phối cập bến thành công tới nhóm `internal-testers` trên Firebase App Distribution, chuẩn bị phương án rollback/hotfix nếu phát sinh sự cố.
+   - **PM**: Điều phối `make update`, `make test-fe && make status`, cập nhật WBS/Sprint backlog, đóng Sprint sau khi PO và Tech Lead xác nhận hoàn tất.
 
 ---
 

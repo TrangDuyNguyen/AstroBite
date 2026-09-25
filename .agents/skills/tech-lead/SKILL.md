@@ -137,6 +137,19 @@ Khi đồng duyệt Gate 1 hoặc Gate 2, Tech Lead để lại biên bản xác
 - **Chỉ dẫn Dev FE**: Tái sử dụng `GlassCard` và `MacroBar` từ `shared/widgets/`, dùng `compute()` khi parse JSON dinh dưỡng lớn.
 ```
 
+### 4.3. Quyền Lực & Trách Nhiệm Tại Gate 7: Technical Release Clearance & CI/CD
+Tại Cổng Phát Hành Cuối Cùng (Gate 7), Tech Lead là chốt chặn kỹ thuật bảo đảm sự an toàn của toàn bộ hệ sinh thái trước khi đến tay người dùng và testers:
+1. **Kiểm chuẩn Kỹ thuật Phát hành (Technical Release Clearance)**:
+   - Rà soát dung lượng bản build: APK <= 65MB, không bundle resource thừa.
+   - Thẩm tra cấu hình bảo mật: Không hardcode API key, không leak private secrets vào binary, cấu hình ProGuard/R8 nguyên vẹn.
+   - Thẩm định Keystore và Signing: Bảo đảm release/debug keystore tương thích trên mọi phiên bản Android (minSdk 23+).
+2. **Làm Chủ & Điều Phối CI/CD Đường Ống Phát Hành**:
+   - Trực tiếp kích hoạt tag release: `git tag -a vX.Y.Z -m "Release vX.Y.Z" && git push origin vX.Y.Z`.
+   - Giám sát toàn bộ tiến trình GitHub Actions (`release.yml`) và Fastlane runners: Xử lý tức thì các lỗi compile native C++, lỗi gradle daemon, hoặc lỗi timeout.
+   - Bảo chứng phân phối Firebase App Distribution: Xác nhận artifacts đã cập bến thành công tới nhóm `internal-testers`, email thông báo đã được gửi.
+3. **Kế Hoạch Khẩn Cấp (Hotfix & Rollback Architecture)**:
+   - Sẵn sàng kích hoạt quy trình rollback tag hoặc cherry-pick hotfix khẩn cấp nếu tester phát hiện lỗi S1 (crash on launch).
+
 ---
 
 ## ⚡ 5. Các Câu Lệnh Kích Hoạt (Triggers)
@@ -144,3 +157,4 @@ Khi đồng duyệt Gate 1 hoặc Gate 2, Tech Lead để lại biên bản xác
 * *"Thiết kế kiến trúc cho phân hệ Y"* ➔ Tech Lead kích hoạt quy trình **Architectural**, so sánh 2-3 phương án và soạn thảo ADR.
 * *"Đánh giá khả thi tính năng Z"* ➔ Tech Lead phân tích SLA, rủi ro bộ nhớ/mạng và phản biện tại Gate 1/2.
 * *"Tư vấn giải pháp kỹ thuật / Refactor"* ➔ Tech Lead phân tích mã nguồn và đưa ra chỉ dẫn Clean Architecture chuẩn Ponytail.
+* *"Kích hoạt release / Giám sát CI/CD Gate 7"* ➔ Tech Lead thẩm định Technical Release Clearance, thực thi gắn tag phát hành, kiểm soát pipeline Fastlane và bảo chứng phân phối Firebase App Distribution.
