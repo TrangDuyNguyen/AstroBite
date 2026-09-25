@@ -1,0 +1,37 @@
+# ios/fastlane/Fastfile
+# AstroBite iOS Fastlane Pipeline
+
+default_platform(:ios)
+
+platform :ios do
+  project_root = File.expand_path("../..", __dir__)
+
+  desc "Build iOS IPA / Archive in release mode"
+  lane :build_ipa do
+    UI.message("🚀 Building iOS IPA in release mode...")
+    Dir.chdir(project_root) do
+      if ENV["NO_CODESIGN"] == "true" || (ENV["CI"] && !ENV["APPLE_CERTIFICATE_KEY_P12"])
+        UI.important("⚠️ Building with --no-codesign (Unsigned CI build)...")
+        sh("flutter", "build", "ipa", "--release", "--no-codesign")
+      else
+        sh("flutter", "build", "ipa", "--release")
+      end
+    end
+    UI.success("✅ iOS Release build completed in build/ios/!")
+  end
+
+  desc "Build iOS Release"
+  lane :build_release do
+    build_ipa
+  end
+
+  desc "Upload to Apple TestFlight"
+  lane :deploy_testflight do
+    build_ipa
+    UI.message("📦 Uploading IPA to Apple TestFlight...")
+    upload_to_testflight(
+      skip_waiting_for_build_processing: true
+    )
+    UI.success("✅ Uploaded to TestFlight!")
+  end
+end

@@ -1,0 +1,174 @@
+name: AstroBite Release CI/CD
+
+on:
+  push:
+    tags:
+      - 'v*'
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: 'Tag or version name to release'
+        required: false
+        default: 'manual-build'
+
+permissions:
+  contents: write
+
+jobs:
+  # =========================================================================
+  # 🤖 JOB 1: ANDROID RELEASE BUILD (APK & AAB)
+  # =========================================================================
+  build-android:
+    name: Build Android (Fastlane)
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: ☕ Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'gradle'
+
+      - name: 🐦 Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: '3.29.2'
+          cache: true
+
+      - name: 💎 Set up Ruby & Bundler
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+
+      - name: 🔐 Configure Environment & Android Secrets
+        run: |
+          # 1. Environment file
+          if [ -n "${{ secrets.ENV_FILE }}" ]; then
+            echo "${{ secrets.ENV_FILE }}" > .env
+          elif [ -f ".env.example" ]; then
+            cp .env.example .env
+          fi
+
+          # 2. Firebase Google Services JSON
+          if [ -n "${{ secrets.GOOGLE_SERVICES_JSON_BASE64 }}" ]; then
+            echo "${{ secrets.GOOGLE_SERVICES_JSON_BASE64 }}" | base64 -d > android/app/google-services.json
+          fi
+
+          # 3. Android Signing Keystore & key.properties
+          if [ -n "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" ]; then
+            echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 -d > android/app/upload-keystore.jks
+          fi
+          if [ -n "${{ secrets.ANDROID_KEY_PROPERTIES }}" ]; then
+            echo "${{ secrets.ANDROID_KEY_PROPERTIES }}" > android/key.properties
+          fi
+
+      - name: 📦 Install Flutter Dependencies
+        run: flutter pub get
+
+      - name: 🚀 Build Android Release via Fastlane
+        run: bundle exec fastlane android
+
+      - name: 📤 Upload Android Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-release-artifacts
+          path: |
+            build/app/outputs/flutter-apk/app-release.apk
+            build/app/outputs/bundle/release/app-release.aab
+          retention-days: 14
+
+      - name: 🏷️ Attach Android Assets to GitHub Release
+        if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'release'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            build/app/outputs/flutter-apk/app-release.apk
+            build/app/outputs/bundle/release/app-release.aab
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # =========================================================================
+  # 🍎 JOB 2: IOS RELEASE BUILD (IPA)
+  # =========================================================================
+  build-ios:
+    name: Build iOS (Fastlane)
+    runs-on: macos-latest
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: 🐦 Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: '3.29.2'
+          cache: true
+
+      - name: 💎 Set up Ruby & Bundler
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+
+      - name: 🔐 Configure Environment & iOS Secrets
+        run: |
+          # 1. Environment file
+          if [ -n "${{ secrets.ENV_FILE }}" ]; then
+            echo "${{ secrets.ENV_FILE }}" > .env
+          elif [ -f ".env.example" ]; then
+            cp .env.example .env
+          fi
+
+          # 2. Firebase GoogleService-Info.plist
+          if [ -n "${{ secrets.GOOGLE_SERVICE_INFO_PLIST_BASE64 }}" ]; then
+            echo "${{ secrets.GOOGLE_SERVICE_INFO_PLIST_BASE64 }}" | base64 -d > ios/Runner/GoogleService-Info.plist
+          fi
+
+      - name: 📦 Install Flutter Dependencies & CocoaPods
+        run: |
+          flutter pub get
+          cd ios && pod install
+
+      - name: 🚀 Build iOS Release via Fastlane
+        run: bundle exec fastlane ios
+        env:
+          NO_CODESIGN: ${{ secrets.APPLE_CERTIFICATE_KEY_P12 == '' && 'true' || 'false' }}
+
+      - name: 📦 Archive iOS build folder if IPA not generated
+        run: |
+          if [ ! -d "build/ios/ipa" ]; then
+            mkdir -p build/ios/ipa
+            tar -czf build/ios/ipa/Runner-app.tar.gz -C build/ios/archive/Runner.xcarchive . 2>/dev/null || true
+          fi
+
+      - name: 📤 Upload iOS Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-release-artifacts
+          path: |
+            build/ios/ipa/*.ipa
+            build/ios/ipa/*.tar.gz
+          retention-days: 14
+
+      - name: 🏷️ Attach iOS Assets to GitHub Release
+        if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'release'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            build/ios/ipa/*.ipa
+            build/ios/ipa/*.tar.gz
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -8,6 +8,8 @@ class AuthRemoteDatasource {
   })  : _auth = auth ?? FirebaseAuth.instance,
         _googleSignIn = googleSignIn ??
             GoogleSignIn(
+              clientId:
+                  '925552313324-he3hov1bd7o5u3h2egigtmhfd4t8s5cd.apps.googleusercontent.com',
               serverClientId:
                   '925552313324-nge0ljq0ug1attkt02k49o7vqfvdeujd.apps.googleusercontent.com',
             );

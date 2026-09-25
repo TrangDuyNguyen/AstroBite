@@ -1,0 +1,48 @@
+# android/fastlane/Fastfile
+# AstroBite Android Fastlane Pipeline
+
+default_platform(:android)
+
+platform :android do
+  project_root = File.expand_path("../..", __dir__)
+
+  desc "Build Android APK (Release)"
+  lane :build_apk do
+    UI.message("🚀 Building Android APK in release mode...")
+    Dir.chdir(project_root) do
+      sh("flutter", "build", "apk", "--release")
+    end
+    UI.success("✅ Android APK built at: build/app/outputs/flutter-apk/app-release.apk")
+  end
+
+  desc "Build Android App Bundle (Release AAB)"
+  lane :build_aab do
+    UI.message("🚀 Building Android App Bundle (AAB) in release mode...")
+    Dir.chdir(project_root) do
+      sh("flutter", "build", "appbundle", "--release")
+    end
+    UI.success("✅ Android AAB built at: build/app/outputs/bundle/release/app-release.aab")
+  end
+
+  desc "Build all Android release artifacts (APK & AAB)"
+  lane :build_release do
+    UI.message("🚀 Starting AstroBite Android full release build...")
+    build_apk
+    build_aab
+    UI.success("🎉 All Android release artifacts generated successfully!")
+  end
+
+  desc "Deploy AAB to Google Play Console Internal Track"
+  lane :deploy_internal do
+    build_aab
+    UI.message("📦 Uploading AAB to Google Play Internal Track...")
+    upload_to_play_store(
+      track: "internal",
+      aab: File.join(project_root, "build/app/outputs/bundle/release/app-release.aab"),
+      skip_upload_metadata: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true
+    )
+    UI.success("✅ Uploaded to Google Play Internal Track!")
+  end
+end

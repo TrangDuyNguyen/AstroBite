@@ -1,0 +1,30 @@
+# fastlane/Fastfile
+# AstroBite Master Fastlane Pipeline
+
+default_platform(:all)
+
+platform :all do
+  desc "Build Android release artifacts (APK & AAB)"
+  lane :android do
+    UI.message("📱 Running Android release lane via Fastlane...")
+    Dir.chdir("android") do
+      sh("bundle exec fastlane android build_release")
+    end
+  end
+
+  desc "Build iOS release artifacts (IPA)"
+  lane :ios do
+    UI.message("🍎 Running iOS release lane via Fastlane...")
+    Dir.chdir("ios") do
+      sh("bundle exec fastlane ios build_release")
+    end
+  end
+
+  desc "Build both Android and iOS release artifacts"
+  lane :release do
+    UI.message("🚀 Running Full AstroBite Cross-Platform Release Build...")
+    android
+    ios
+    UI.success("🎉 All cross-platform release builds completed successfully!")
+  end
+end

@@ -30,9 +30,12 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>com.solopreneur.astrobite</string>
+				<string>com.googleusercontent.apps.925552313324-he3hov1bd7o5u3h2egigtmhfd4t8s5cd</string>
 			</array>
 		</dict>
 	</array>
+	<key>GIDClientID</key>
+	<string>925552313324-he3hov1bd7o5u3h2egigtmhfd4t8s5cd.apps.googleusercontent.com</string>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>

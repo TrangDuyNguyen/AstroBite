@@ -1,0 +1,5 @@
+# fastlane/Appfile
+# AstroBite Master Fastlane App Configuration
+
+app_identifier("com.solopreneur.astrobite")
+package_name("com.solopreneur.astrobite")

@@ -43,6 +43,15 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
+# Fastlane & Ruby Bundler
+**/fastlane/report.xml
+**/fastlane/Preview.html
+**/fastlane/screenshots
+**/fastlane/test_output
+**/fastlane/README.md
+.bundle/
+vendor/bundle/
+
 # ============================================
 # 🔐 SENSITIVE / CREDENTIAL FILES
 # ============================================
@@ -94,5 +103,3 @@ secrets/
 
 pubspec.lock
 skills-lock.json
-pubspec.lock
-pubspec.lock
