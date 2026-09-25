@@ -76,7 +76,7 @@ jobs:
         run: flutter pub get
 
       - name: 🚀 Build Android Release via Fastlane
-        run: bundle exec fastlane android build_release
+        run: cd android && bundle exec fastlane android build_release
 
       - name: 📤 Upload Android Artifacts
         uses: actions/upload-artifact@v4
@@ -154,7 +154,7 @@ jobs:
           cd ios && pod install
 
       - name: 🚀 Build iOS Release via Fastlane
-        run: bundle exec fastlane ios build_release
+        run: cd ios && bundle exec fastlane ios build_release
         env:
           APPLE_CERTIFICATE_KEY_P12: ${{ secrets.APPLE_CERTIFICATE_KEY_P12 }}
 
