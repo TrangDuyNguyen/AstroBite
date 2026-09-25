@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "925552313324",
+    "project_id": "astrobite-dev",
+    "storage_bucket": "astrobite-dev.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:925552313324:android:31ea07eec9ad23375d36c9",
+        "android_client_info": {
+          "package_name": "com.solopreneur.astrobite"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "925552313324-lssil1rc7o4gvrj5f1gvf5vcqnt4ge9c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.solopreneur.astrobite",
+            "certificate_hash": "c45e12e3d6e1a1afc3f709c6cbfe275645b0856b"
+          }
+        },
+        {
+          "client_id": "925552313324-nge0ljq0ug1attkt02k49o7vqfvdeujd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAApa1jD5zbTxtR4VyBBEUzZMR8Sr5J3W4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "925552313324-nge0ljq0ug1attkt02k49o7vqfvdeujd.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "925552313324-he3hov1bd7o5u3h2egigtmhfd4t8s5cd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.solopreneur.astrobite"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

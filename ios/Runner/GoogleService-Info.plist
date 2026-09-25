@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyD1u7gh5nVQ3xIqgVyrhi9NdFKFv5n8GgU</string>
+	<key>GCM_SENDER_ID</key>
+	<string>925552313324</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.solopreneur.astrobite</string>
+	<key>PROJECT_ID</key>
+	<string>astrobite-dev</string>
+	<key>STORAGE_BUCKET</key>
+	<string>astrobite-dev.firebasestorage.app</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:925552313324:ios:d8bb8269224dff455d36c9</string>
+	<key>CLIENT_ID</key>
+	<string>925552313324-he3hov1bd7o5u3h2egigtmhfd4t8s5cd.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.925552313324-he3hov1bd7o5u3h2egigtmhfd4t8s5cd</string>
+</dict>
+</plist>

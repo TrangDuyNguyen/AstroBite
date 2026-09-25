@@ -56,10 +56,8 @@ vendor/bundle/
 # 🔐 SENSITIVE / CREDENTIAL FILES
 # ============================================
 
-# Firebase configuration (contains API keys, project IDs, client IDs)
-lib/firebase_options.dart
-**/google-services.json
-**/GoogleService-Info.plist
+# Firebase client configuration (required for Flutter compile & CI/CD)
+# Note: Firebase API keys identify the app project and are protected by App Check & Security Rules.
 
 # Environment variables
 .env
