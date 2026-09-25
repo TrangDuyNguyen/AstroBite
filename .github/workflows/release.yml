@@ -134,6 +134,9 @@ jobs:
           ruby-version: '3.3'
           bundler-cache: true
 
+      - name: 🍎 Set up CocoaPods for Ruby 3.3
+        run: gem install cocoapods --no-document
+
       - name: 🔐 Configure Environment & iOS Secrets
         run: |
           # 1. Environment file

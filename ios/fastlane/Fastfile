@@ -10,7 +10,7 @@ platform :ios do
   lane :build_ipa do
     UI.message("🚀 Building iOS IPA in release mode...")
     Dir.chdir(project_root) do
-      if ENV["NO_CODESIGN"] == "true" || (ENV["CI"] && !ENV["APPLE_CERTIFICATE_KEY_P12"])
+      if ENV["NO_CODESIGN"] == "true" || (ENV["CI"] && (ENV["APPLE_CERTIFICATE_KEY_P12"].nil? || ENV["APPLE_CERTIFICATE_KEY_P12"].strip.empty?))
         UI.important("⚠️ Building with --no-codesign (Unsigned CI build)...")
         sh("flutter", "build", "ipa", "--release", "--no-codesign")
       else
