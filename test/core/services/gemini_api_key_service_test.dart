@@ -47,15 +47,15 @@ void main() {
       expect(activeFromPref, AppKeys.defaultGeminiApiKey);
     });
 
-    test('GeminiApiKeyState prioritizes defaultKey (.env) over customKey', () {
+    test('GeminiApiKeyState prioritizes customKey if provided, falls back to defaultKey', () {
       const stateWithBoth = GeminiApiKeyState(
         customKey: 'AIzaCustomKey123',
         defaultKey: 'AIzaEnvKey456',
       );
 
-      expect(stateWithBoth.activeKey, 'AIzaEnvKey456');
-      expect(stateWithBoth.isUsingEnvKey, isTrue);
-      expect(stateWithBoth.isUsingCustomKey, isFalse);
+      expect(stateWithBoth.activeKey, 'AIzaCustomKey123');
+      expect(stateWithBoth.isUsingCustomKey, isTrue);
+      expect(stateWithBoth.isUsingEnvKey, isFalse);
 
       const stateEnvOnly = GeminiApiKeyState(
         customKey: '',

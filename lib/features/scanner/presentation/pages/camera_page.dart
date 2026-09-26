@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -22,10 +23,116 @@ class CameraPage extends ConsumerStatefulWidget {
   ConsumerState<CameraPage> createState() => _CameraPageState();
 }
 
-class _CameraPageState extends ConsumerState<CameraPage> {
+class _CameraPageState extends ConsumerState<CameraPage>
+    with WidgetsBindingObserver {
   final _imagePicker = ImagePicker();
+  CameraController? _cameraController;
+  bool _isCameraInitializing = true;
   Uint8List? _previewBytes;
   bool _isTorchOn = false;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    _initializeCamera();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    _cameraController?.dispose();
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    final controller = _cameraController;
+    if (controller == null || !controller.value.isInitialized) {
+      return;
+    }
+
+    if (state == AppLifecycleState.inactive) {
+      controller.dispose();
+      _cameraController = null;
+    } else if (state == AppLifecycleState.resumed) {
+      _initializeCamera();
+    }
+  }
+
+  Future<void> _initializeCamera() async {
+    try {
+      final cameras = await availableCameras();
+      if (!mounted) return;
+      if (cameras.isEmpty) {
+        setState(() => _isCameraInitializing = false);
+        return;
+      }
+
+      final camera = cameras.firstWhere(
+        (c) => c.lensDirection == CameraLensDirection.back,
+        orElse: () => cameras.first,
+      );
+
+      final controller = CameraController(
+        camera,
+        ResolutionPreset.medium,
+        enableAudio: false,
+        imageFormatGroup: ImageFormatGroup.jpeg,
+      );
+
+      await controller.initialize();
+      if (!mounted) {
+        await controller.dispose();
+        return;
+      }
+
+      setState(() {
+        _cameraController = controller;
+        _isCameraInitializing = false;
+      });
+    } catch (_) {
+      if (mounted) {
+        setState(() => _isCameraInitializing = false);
+      }
+    }
+  }
+
+  Future<void> _captureOrPickImage() async {
+    HapticFeedback.heavyImpact();
+    final controller = _cameraController;
+    if (controller != null && controller.value.isInitialized) {
+      try {
+        final XFile file = await controller.takePicture();
+        final bytes = await file.readAsBytes();
+        if (!mounted) return;
+        setState(() => _previewBytes = bytes);
+        await _processImage(bytes);
+        return;
+      } catch (_) {
+        // Fallback to ImagePicker if native capture fails
+      }
+    }
+    await _pickImage(ImageSource.camera);
+  }
+
+  Future<void> _toggleTorch() async {
+    HapticFeedback.selectionClick();
+    final controller = _cameraController;
+    if (controller != null && controller.value.isInitialized) {
+      try {
+        final nextTorch = !_isTorchOn;
+        await controller.setFlashMode(
+          nextTorch ? FlashMode.torch : FlashMode.off,
+        );
+        if (mounted) setState(() => _isTorchOn = nextTorch);
+        return;
+      } catch (_) {
+        // Ignored, fallback to local state toggle
+      }
+    }
+    setState(() => _isTorchOn = !_isTorchOn);
+  }
 
   Future<void> _pickImage(ImageSource source) async {
     HapticFeedback.selectionClick();
@@ -76,7 +183,10 @@ class _CameraPageState extends ConsumerState<CameraPage> {
             content: const Text(AppStrings.notFood),
             actions: [
               TextButton(
-                onPressed: () => Navigator.pop(ctx),
+                onPressed: () {
+                  Navigator.pop(ctx);
+                  setState(() => _previewBytes = null);
+                },
                 child: const Text('Chụp lại'),
               ),
               FilledButton(
@@ -299,10 +409,7 @@ class _CameraPageState extends ConsumerState<CameraPage> {
               color: _isTorchOn ? AppColors.tertiary : AppColors.onSurfaceVariant,
             ),
             tooltip: 'Đèn Flash',
-            onPressed: () {
-              HapticFeedback.selectionClick();
-              setState(() => _isTorchOn = !_isTorchOn);
-            },
+            onPressed: _toggleTorch,
           ),
           IconButton(
             icon: const Icon(Icons.help_outline),
@@ -391,12 +498,7 @@ class _CameraPageState extends ConsumerState<CameraPage> {
                     ? const ScanSkeletonLoader()
                     : ScanningViewfinder(
                         isScanning: isScanning,
-                        child: _previewBytes != null
-                            ? Image.memory(
-                                _previewBytes!,
-                                fit: BoxFit.cover,
-                              )
-                            : null,
+                        child: _buildViewfinderChild(),
                       ),
               ),
             ),
@@ -441,7 +543,7 @@ class _CameraPageState extends ConsumerState<CameraPage> {
 
                   // Big Glowing Shutter Button (COMP-01 / specs: 72pt diameter)
                   GestureDetector(
-                    onTap: isScanning ? null : () => _pickImage(ImageSource.camera),
+                    onTap: isScanning ? null : _captureOrPickImage,
                     child: Container(
                       width: 72,
                       height: 72,
@@ -493,6 +595,34 @@ class _CameraPageState extends ConsumerState<CameraPage> {
         ),
       ),
     );
+  }
+
+  Widget? _buildViewfinderChild() {
+    if (_previewBytes != null) {
+      return Image.memory(
+        _previewBytes!,
+        fit: BoxFit.cover,
+      );
+    }
+
+    final controller = _cameraController;
+    if (controller != null && controller.value.isInitialized) {
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(AppValues.radius12),
+        child: SizedBox.expand(
+          child: FittedBox(
+            fit: BoxFit.cover,
+            child: SizedBox(
+              width: controller.value.previewSize?.height ?? 1,
+              height: controller.value.previewSize?.width ?? 1,
+              child: CameraPreview(controller),
+            ),
+          ),
+        ),
+      );
+    }
+
+    return null;
   }
 }
 

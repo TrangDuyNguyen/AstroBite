@@ -10,7 +10,9 @@ platform :android do
   lane :build_apk do
     UI.message("🚀 Building Android APK in release mode...")
     Dir.chdir(project_root) do
-      sh("flutter", "build", "apk", "--release")
+      cmd = ["flutter", "build", "apk", "--release"]
+      cmd << "--dart-define-from-file=.env" if File.exist?(".env")
+      sh(*cmd)
     end
     UI.success("✅ Android APK built at: build/app/outputs/flutter-apk/app-release.apk")
   end
@@ -19,7 +21,9 @@ platform :android do
   lane :build_aab do
     UI.message("🚀 Building Android App Bundle (AAB) in release mode...")
     Dir.chdir(project_root) do
-      sh("flutter", "build", "appbundle", "--release")
+      cmd = ["flutter", "build", "appbundle", "--release"]
+      cmd << "--dart-define-from-file=.env" if File.exist?(".env")
+      sh(*cmd)
     end
     UI.success("✅ Android AAB built at: build/app/outputs/bundle/release/app-release.aab")
   end

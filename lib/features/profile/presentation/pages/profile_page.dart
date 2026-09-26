@@ -113,17 +113,19 @@ class ProfilePage extends ConsumerWidget {
                             ),
                           ),
                           title: Text(
-                            keyState.isUsingEnvKey
-                                ? 'Key hệ thống (.env): ${keyState.maskedActiveKey}'
-                                : keyState.isUsingCustomKey
-                                    ? 'Key cá nhân: ${keyState.maskedActiveKey}'
+                            keyState.isUsingCustomKey
+                                ? 'Key cá nhân: ${keyState.maskedActiveKey}'
+                                : keyState.hasKey
+                                    ? 'AstroBite AI: Đã kích hoạt'
                                     : 'Chưa cấu hình API Key',
                             style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
                           ),
                           subtitle: Text(
-                            keyState.hasKey
-                                ? 'Nhấn để thay đổi hoặc kiểm tra key'
-                                : 'Nhấn để thêm key miễn phí từ AI Studio',
+                            keyState.isUsingCustomKey
+                                ? 'Đang dùng key tùy chỉnh • Nhấn để thay đổi'
+                                : keyState.hasKey
+                                    ? 'Hệ thống AI tích hợp sẵn sàng • Tùy chọn nâng cao'
+                                    : 'Nhấn để thêm key miễn phí từ AI Studio',
                             style: TextStyle(
                               fontSize: 12,
                               color: Theme.of(context).colorScheme.onSurfaceVariant,

@@ -72,6 +72,7 @@ Contextual Rules:
     // Prioritize active fast vision models with automatic fallback on demand spikes (503) or rate limits
     const candidateModels = [
       'gemini-3-flash-preview',
+      'gemini-3.8-flash',
       'gemini-3.6-flash',
       'gemini-flash-latest',
       'gemini-3.5-flash',
