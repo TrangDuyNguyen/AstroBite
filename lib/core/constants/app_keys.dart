@@ -1,12 +1,15 @@
 /// Centralized application keys and environment variables.
 abstract final class AppKeys {
+  static const String _envKey = String.fromEnvironment('GEMINI_API_KEY');
+  static const String _fallbackKey =
+      'AQ.Ab8RN6I9cq6Jr_M2FXr9ogp-dmBKnvNhOdRMFAQoGgyin2dtXA';
+
   /// Default Gemini API Key loaded from environment variable at compile time:
   /// `flutter run --dart-define=GEMINI_API_KEY=your_api_key`
   /// or `--dart-define-from-file=.env`
   ///
-  /// Fallback to the project's built-in key so users never have to configure keys manually.
-  static const String defaultGeminiApiKey = String.fromEnvironment(
-    'GEMINI_API_KEY',
-    defaultValue: 'AQ.Ab8RN6I9cq6Jr_M2FXr9ogp-dmBKnvNhOdRMFAQoGgyin2dtXA',
-  );
+  /// Fallback to the project's built-in key so users never have to configure keys manually,
+  /// even when an empty GEMINI_API_KEY is supplied via .env or compile flags.
+  static const String defaultGeminiApiKey =
+      _envKey != '' ? _envKey : _fallbackKey;
 }

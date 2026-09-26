@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:intl/intl.dart';
 
+import 'package:astrobite/core/constants/app_keys.dart';
 import 'package:astrobite/core/services/gemini_api_key_service.dart';
 import '../domain/chat_message.dart';
 
@@ -19,34 +20,62 @@ class CoachRepository {
 Bạn là chuyên gia dinh dưỡng AstroBite — trợ lý AI thông minh chuyên tư vấn chế độ ăn uống lành mạnh trong tiểu vũ trụ cá nhân.
 
 Quy tắc bắt buộc:
-1. Trả lời ngắn gọn, thân thiện, bằng tiếng Việt.
+1. Trả lời ngắn gọn, thân thiện, súc tích bằng tiếng Việt.
 2. Dựa sát vào thông tin thể trạng, mục tiêu và số calo/macro còn lại trong ngày của người dùng để tư vấn.
 3. KHÔNG chẩn đoán bệnh, kê đơn thuốc hoặc đưa ra lời khuyên y khoa.
 4. Nếu được hỏi về y khoa, trả lời: "Tôi chỉ tư vấn về dinh dưỡng. Vui lòng tham khảo ý kiến bác sĩ chuyên khoa."
 5. Khi gợi ý món ăn, luôn kèm ước tính calo và macro (protein, carbs, fat).
-6. Khi gợi ý một món ăn cụ thể mà người dùng có thể ăn cho bữa ăn kế tiếp, hãy đính kèm thẻ dữ liệu ở cuối câu trả lời theo đúng một trong hai định dạng sau để người dùng có thể bấm 1 chạm thêm vào nhật ký:
-```astrobite-meal
+6. Khi gợi ý món ăn hoặc lựa chọn cho người dùng, HÃY SINH GIAO DIỆN TƯƠNG TÁC (A2UI GenUI components) đính kèm ở cuối câu trả lời theo đúng khối sau:
+```a2ui
 {
-  "dishName": "Tên món",
-  "calories": 350,
-  "protein": 30,
-  "carbs": 40,
-  "fat": 8,
-  "sodium": 210,
-  "mealType": "lunch"
+  "surface": "chat_cockpit",
+  "components": [
+    {
+      "id": "comp_meal_1",
+      "type": "MealQuickLogCard",
+      "props": {
+        "dishName": "Tên món",
+        "calories": 350,
+        "protein": 30.0,
+        "carbs": 40.0,
+        "fat": 8.0,
+        "weightG": 150,
+        "sodium": 210,
+        "mealType": "lunch"
+      }
+    },
+    {
+      "id": "comp_gauge_1",
+      "type": "MacroBudgetGauge",
+      "props": {
+        "projectedCalories": 350,
+        "remainingCalories": 650,
+        "targetCalories": 2000
+      }
+    },
+    {
+      "id": "comp_chips_1",
+      "type": "QuickChoiceChips",
+      "props": {
+        "chips": [
+          {"label": "Bữa trưa", "payload": "Tôi chọn món này cho bữa trưa"},
+          {"label": "Gợi ý món khác", "payload": "Gợi ý cho tôi món khác ít calo hơn"}
+        ]
+      }
+    }
+  ]
 }
 ```
-hoặc thẻ ẩn:
-<!--astrobite-meal:{"dishName":"Tên món","calories":350,"protein":30,"carbs":40,"fat":8,"sodium":210,"mealType":"lunch"}-->
+Nếu chỉ có món ăn đơn giản, bạn có thể chỉ cần sinh `MealQuickLogCard`.
 ''';
 
   static const candidateModels = [
     'gemini-3-flash-preview',
-    'gemini-3.8-flash',
     'gemini-3.6-flash',
+    'gemini-3.5-flash',
+    'gemini-3.8-flash',
     'gemini-flash-latest',
   ];
-
 
   /// Sends a message to Gemini with daily meal context and returns AI response.
   Future<String> sendMessage({
@@ -69,6 +98,22 @@ hoặc thẻ ẩn:
       throw StateError('Gemini API Key chưa được cấu hình.');
     }
 
+    return _sendWithKey(
+      apiKey,
+      userMessage: userMessage,
+      userId: userId,
+      mealContext: mealContext,
+      history: history,
+    );
+  }
+
+  Future<String> _sendWithKey(
+    String apiKey, {
+    required String userMessage,
+    required String userId,
+    required String mealContext,
+    required List<ChatMessage> history,
+  }) async {
     Object? lastError;
     for (final modelName in candidateModels) {
       try {
@@ -87,10 +132,20 @@ hoặc thẻ ẩn:
         lastError = e;
         final errStr = e.toString().toLowerCase();
 
-        // If the API key is completely invalid or revoked, fail fast without useless retries
+        // If the API key is completely invalid or revoked, try default key if different
         if (errStr.contains('api_key_invalid') ||
             errStr.contains('api key not valid') ||
             errStr.contains('key expired')) {
+          final defaultKey = AppKeys.defaultGeminiApiKey.trim();
+          if (defaultKey.isNotEmpty && apiKey != defaultKey) {
+            return _sendWithKey(
+              defaultKey,
+              userMessage: userMessage,
+              userId: userId,
+              mealContext: mealContext,
+              history: history,
+            );
+          }
           rethrow;
         }
 

@@ -5,8 +5,13 @@ import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
+import 'package:astrobite/core/genui/a2ui_model.dart';
+import 'package:astrobite/core/genui/a2ui_parser.dart';
+import 'package:astrobite/core/genui/catalog.dart';
+import 'package:astrobite/core/genui/catalog_item.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
 import 'package:astrobite/features/auth/domain/auth_providers.dart';
+import 'package:astrobite/features/coach/domain/astrobite_genui_catalog.dart';
 import 'package:astrobite/features/tracker/data/models/food_log_dto.dart';
 import 'package:astrobite/features/tracker/domain/daily_summary.dart';
 import 'package:astrobite/features/tracker/domain/tracker_providers.dart';
@@ -27,6 +32,15 @@ class _CoachPageState extends ConsumerState<CoachPage> {
   final _scrollController = ScrollController();
   bool _isSending = false;
   final Set<String> _loggedMessageIds = {};
+  late final GenUiCatalog _genUiCatalog;
+
+  @override
+  void initState() {
+    super.initState();
+    _genUiCatalog = createAstroBiteCatalog(
+      onSendUserMessage: (msg) => _sendMessage(msg),
+    );
+  }
 
   List<String> get _dynamicQuickActions {
     final hour = DateTime.now().hour;
@@ -615,8 +629,15 @@ class _CoachPageState extends ConsumerState<CoachPage> {
 
   Widget _buildBubble(ChatMessage message) {
     final isUser = message.isUser;
+    final a2uiPayload = isUser
+        ? A2uiMessagePayload(text: message.content)
+        : A2uiParser.parse(message.content);
+    final displayContent = isUser
+        ? message.content
+        : (a2uiPayload.text.isNotEmpty
+            ? a2uiPayload.text
+            : _cleanDisplayContent(message.content));
     final mealData = _extractMealData(message.content);
-    final displayContent = _cleanDisplayContent(message.content);
     final isLogged = message.isLogged || _loggedMessageIds.contains(message.id);
 
     return Align(
@@ -688,8 +709,25 @@ class _CoachPageState extends ConsumerState<CoachPage> {
                         ),
                       ),
                     ),
-            // Holographic Bento Meal Card
-            if (mealData != null) ...[
+            // GenUI Dynamic A2UI Components
+            if (!isUser && a2uiPayload.hasComponents && mealData == null) ...[
+              for (final comp in a2uiPayload.components) ...[
+                const SizedBox(height: 10),
+                _genUiCatalog.buildWidget(
+                  context,
+                  comp,
+                  CatalogItemContext(
+                    isLogged: isLogged,
+                    onAction: (action, payload) {
+                      if (action == 'log_meal' && payload is Map<String, dynamic>) {
+                        _logMealFromCoach(message.id, payload);
+                      }
+                    },
+                    onSendUserMessage: (prompt) => _sendMessage(prompt),
+                  ),
+                ),
+              ],
+            ] else if (mealData != null) ...[
               const SizedBox(height: 10),
               _buildHolographicMealCard(message, mealData, isLogged),
             ],

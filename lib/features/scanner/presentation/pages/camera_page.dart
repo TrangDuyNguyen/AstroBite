@@ -27,7 +27,6 @@ class _CameraPageState extends ConsumerState<CameraPage>
     with WidgetsBindingObserver {
   final _imagePicker = ImagePicker();
   CameraController? _cameraController;
-  bool _isCameraInitializing = true;
   Uint8List? _previewBytes;
   bool _isTorchOn = false;
 
@@ -65,7 +64,6 @@ class _CameraPageState extends ConsumerState<CameraPage>
       final cameras = await availableCameras();
       if (!mounted) return;
       if (cameras.isEmpty) {
-        setState(() => _isCameraInitializing = false);
         return;
       }
 
@@ -89,12 +87,9 @@ class _CameraPageState extends ConsumerState<CameraPage>
 
       setState(() {
         _cameraController = controller;
-        _isCameraInitializing = false;
       });
     } catch (_) {
-      if (mounted) {
-        setState(() => _isCameraInitializing = false);
-      }
+      // Ignored
     }
   }
 

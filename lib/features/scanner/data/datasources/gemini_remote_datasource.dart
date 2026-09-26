@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 import 'package:google_generative_ai/google_generative_ai.dart';
+import 'package:astrobite/core/constants/app_keys.dart';
 import 'package:astrobite/core/services/gemini_api_key_service.dart';
 import 'package:astrobite/core/utils/json_parser.dart';
 import '../models/scan_result_dto.dart';
@@ -69,13 +70,17 @@ Contextual Rules:
       );
     }
 
+    return _analyzeWithKey(apiKey, imageBytes);
+  }
+
+  Future<ScanResultDto?> _analyzeWithKey(String apiKey, Uint8List imageBytes) async {
     // Prioritize active fast vision models with automatic fallback on demand spikes (503) or rate limits
     const candidateModels = [
       'gemini-3-flash-preview',
-      'gemini-3.8-flash',
       'gemini-3.6-flash',
-      'gemini-flash-latest',
       'gemini-3.5-flash',
+      'gemini-3.8-flash',
+      'gemini-flash-latest',
     ];
 
     Object? lastError;
@@ -93,10 +98,14 @@ Contextual Rules:
         lastError = e;
         final errStr = e.toString().toLowerCase();
 
-        // If the API key is completely invalid or revoked, fail fast
+        // If the API key is completely invalid or revoked, try default key if different, else fail fast
         if (errStr.contains('api_key_invalid') ||
             errStr.contains('api key not valid') ||
             errStr.contains('key expired')) {
+          final defaultKey = AppKeys.defaultGeminiApiKey.trim();
+          if (defaultKey.isNotEmpty && apiKey != defaultKey) {
+            return _analyzeWithKey(defaultKey, imageBytes);
+          }
           rethrow;
         }
 
