@@ -132,8 +132,8 @@ Each stack in `_stacks/<name>` contains specialized Gate 4 Dev sub-agents and a 
 1. **Flutter**:
    - Framework: Flutter 3.x, Dart 3.x, Riverpod 2.x, AutoRoute, Freezed.
    - Sub-agents: `flutter-core-dev`, `flutter-native-dev`, `cloud-ai-dev`, `flutter-testing`, `flutter-animations`, `dart-best-practices`.
-2. **React Native**:
-   - Framework: React Native / Expo, TypeScript strict, Zustand / TanStack Query, Reanimated.
+2. **React Native (Standard / Bare React Native CLI)**:
+   - Framework: React Native Community CLI (không dùng Expo), TypeScript strict, Zustand / TanStack Query, Reanimated, CocoaPods, Android Gradle.
    - Sub-agents: `rn-core-dev`, `rn-native-dev`, `rn-testing`.
 3. **iOS Native**:
    - Framework: Swift, SwiftUI, UIKit interoperability, SwiftData / CoreData, async/await, Instruments.
