@@ -102,24 +102,27 @@ class _ClayButtonState extends State<ClayButton> {
               ),
               boxShadow: _isEnabled
                   ? [
-                      // Layer 1: Solid Chunky Matte Bottom Bevel
+                      // Layer 1: Soft Velvety Clay Contact Depth (Mềm mại, không sắc lẹm)
                       BoxShadow(
-                        color: _bevelColor,
+                        color: _bevelColor.withValues(alpha: 0.90),
                         offset: Offset(0, effectiveBevel),
-                        blurRadius: 0,
+                        blurRadius: 3.5,
+                        spreadRadius: -0.5,
                       ),
                       // Layer 2: Soft Ambient Colored Diffuse Glow
                       if (widget.variant != ClayButtonVariant.outline)
                         BoxShadow(
-                          color: _baseColor.withValues(alpha: 0.30),
+                          color: _baseColor.withValues(alpha: 0.28),
                           offset: Offset(0, _isPressed ? 2 : effectiveBevel + 4),
-                          blurRadius: _isPressed ? 5 : 14,
+                          blurRadius: _isPressed ? 4 : 14,
+                          spreadRadius: -1.0,
                         )
                       else
                         BoxShadow(
-                          color: const Color(0x161E2337),
+                          color: const Color(0x141E2337),
                           offset: Offset(0, _isPressed ? 2 : effectiveBevel + 3),
                           blurRadius: _isPressed ? 4 : 10,
+                          spreadRadius: -0.5,
                         ),
                     ]
                   : null,

@@ -78,11 +78,12 @@ class _ClayCardState extends State<ClayCard> {
           ),
           boxShadow: widget.elevation > 0
               ? [
-                  // Layer 1: Solid chunky 3D clay bottom bevel
+                  // Layer 1: Soft tactile 3D clay bottom bevel (Mềm mại, không sắc lẹm)
                   BoxShadow(
-                    color: bevelColor,
+                    color: bevelColor.withValues(alpha: 0.90),
                     offset: Offset(0, effectiveElevation),
-                    blurRadius: 0,
+                    blurRadius: 4.0,
+                    spreadRadius: -1.0,
                   ),
                   // Layer 2: Glossy top white reflection
                   const BoxShadow(
