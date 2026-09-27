@@ -5,6 +5,7 @@ import 'package:astrobite/core/constants/app_values.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
 import 'package:astrobite/shared/widgets/glass_card.dart';
 import 'package:astrobite/shared/widgets/skeleton_loader.dart';
+import 'package:astrobite/features/auth/domain/auth_providers.dart';
 import '../../domain/entities/recipe.dart';
 import '../controllers/recipe_builder_controller.dart';
 import 'package:astrobite/core/router/app_router.dart';
@@ -15,8 +16,8 @@ class RecipesPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // ponytail: userId '' — upgrade path: ref.watch(authStateProvider).valueOrNull?.uid ?? ''
-    const userId = '';
+    final user = ref.watch(authStateProvider).valueOrNull;
+    final userId = user?.uid ?? '';
     final recipesAsync = ref.watch(recipesProvider(userId));
 
     return Scaffold(
@@ -29,8 +30,15 @@ class RecipesPage extends ConsumerWidget {
       floatingActionButton: FloatingActionButton.extended(
         heroTag: 'recipe_builder_fab',
         backgroundColor: AppColors.primary,
-        icon: const Icon(Icons.add),
-        label: const Text('Tạo Công Thức'),
+        shape: const StadiumBorder(),
+        icon: const Icon(Icons.add, color: Colors.white),
+        label: const Text(
+          'Tạo Công Thức',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
         onPressed: () => context.router.push(const RecipeBuilderRoute()),
       ),
       body: recipesAsync.when(

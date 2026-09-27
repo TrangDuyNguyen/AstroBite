@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:astrobite/core/constants/app_values.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
 import '../../domain/tracker_providers.dart';
 
@@ -35,7 +34,7 @@ class DatePickerStrip extends ConsumerWidget {
     );
 
     return SizedBox(
-      height: 68,
+      height: 74,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: days.map((day) {
@@ -44,40 +43,60 @@ class DatePickerStrip extends ConsumerWidget {
 
           return Expanded(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 2),
+              padding: const EdgeInsets.symmetric(horizontal: 2.5),
               child: Material(
                 color: Colors.transparent,
                 child: InkWell(
                   onTap: () {
                     ref.read(selectedDateProvider.notifier).state = day;
                   },
-                  borderRadius: BorderRadius.circular(AppValues.radius12),
+                  borderRadius: BorderRadius.circular(16),
                   child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 200),
+                    duration: const Duration(milliseconds: 150),
                     curve: Curves.easeOutCubic,
-                    padding: const EdgeInsets.symmetric(vertical: AppValues.spacing8),
+                    padding: const EdgeInsets.symmetric(vertical: 8),
                     decoration: BoxDecoration(
                       color: isSelected
                           ? AppColors.primary
                           : AppColors.surfaceContainer,
-                      borderRadius: BorderRadius.circular(AppValues.radius12),
+                      borderRadius: BorderRadius.circular(16),
                       border: Border.all(
                         color: isSelected
-                            ? AppColors.primary
+                            ? const Color(0xFF1488C2)
                             : (isToday
-                                ? AppColors.primary.withValues(alpha: 0.5)
-                                : AppColors.outline.withValues(alpha: 0.2)),
-                        width: isSelected || isToday ? 1.5 : 1,
+                                ? AppColors.primary.withValues(alpha: 0.6)
+                                : const Color(0xFFEDE9E1)),
+                        width: isSelected || isToday ? 1.4 : 1.1,
                       ),
                       boxShadow: isSelected
-                          ? [
+                          ? const [
+                              // 3D Duolingo bottom bevel
                               BoxShadow(
-                                color: AppColors.primary.withValues(alpha: 0.35),
-                                blurRadius: 8,
-                                offset: const Offset(0, 2),
-                              )
+                                color: Color(0xFF1488C2),
+                                offset: Offset(0, 3.5),
+                                blurRadius: 0,
+                              ),
+                              // Floating blue glow
+                              BoxShadow(
+                                color: Color(0x351CB0F6),
+                                blurRadius: 10,
+                                offset: Offset(0, 5),
+                              ),
                             ]
-                          : null,
+                          : const [
+                              // Clay bottom bevel for unselected tiles
+                              BoxShadow(
+                                color: Color(0xFFDDD8CE),
+                                offset: Offset(0, 3),
+                                blurRadius: 0,
+                              ),
+                              // Ambient soft shadow
+                              BoxShadow(
+                                color: Color(0x0E1E2337),
+                                offset: Offset(0, 4),
+                                blurRadius: 6,
+                              ),
+                            ],
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -86,13 +105,14 @@ class DatePickerStrip extends ConsumerWidget {
                           _weekdayLabel(day),
                           style: Theme.of(context).textTheme.labelSmall?.copyWith(
                                 color: isSelected
-                                    ? AppColors.onSurface
+                                    ? Colors.white
                                     : (isToday
                                         ? AppColors.primary
                                         : AppColors.onSurfaceVariant),
                                 fontWeight: isSelected || isToday
                                     ? FontWeight.bold
-                                    : FontWeight.normal,
+                                    : FontWeight.w600,
+                                fontSize: 11,
                               ),
                         ),
                         const SizedBox(height: 2),
@@ -100,27 +120,26 @@ class DatePickerStrip extends ConsumerWidget {
                           '${day.day}',
                           style: Theme.of(context).textTheme.titleSmall?.copyWith(
                                 color: isSelected
-                                    ? AppColors.onSurface
-                                    : (isToday
-                                        ? AppColors.onSurface
-                                        : AppColors.onSurfaceVariant),
-                                fontWeight: FontWeight.bold,
+                                    ? Colors.white
+                                    : AppColors.onSurface,
+                                fontWeight: FontWeight.w800,
+                                fontSize: 15,
                               ),
                         ),
                         if (isToday)
                           Container(
-                            margin: const EdgeInsets.only(top: 2),
-                            width: 4,
-                            height: 4,
+                            margin: const EdgeInsets.only(top: 3),
+                            width: 5,
+                            height: 5,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               color: isSelected
-                                  ? AppColors.onSurface
+                                  ? Colors.white
                                   : AppColors.primary,
                             ),
                           )
                         else
-                          const SizedBox(height: 4),
+                          const SizedBox(height: 5),
                       ],
                     ),
                   ),

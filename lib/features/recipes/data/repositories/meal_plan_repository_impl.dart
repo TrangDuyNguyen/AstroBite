@@ -15,21 +15,27 @@ class MealPlanRepositoryImpl implements MealPlanRepository {
 
   @override
   Future<List<MealPlanItem>> getMealPlanItems(String userId, String date) async {
-    final snap = await _col(userId)
-        .where('date', isEqualTo: date)
-        .orderBy('mealType')
-        .get();
-    return snap.docs.map((d) => _fromDoc(d.id, d.data())).toList();
+    if (userId.trim().isEmpty) return [];
+    try {
+      final snap = await _col(userId)
+          .where('date', isEqualTo: date)
+          .orderBy('mealType')
+          .get();
+      return snap.docs.map((d) => _fromDoc(d.id, d.data())).toList();
+    } catch (_) {
+      return [];
+    }
   }
 
   @override
   Future<MealPlanItem> saveMealPlanItem(MealPlanItem item) async {
-    final data = _toMap(item);
+    final effectiveUserId = item.userId.isNotEmpty ? item.userId : 'guest_user';
+    final data = _toMap(item.copyWith(userId: effectiveUserId));
     if (item.id.isEmpty) {
-      final ref = await _col(item.userId).add(data);
-      return item.copyWith(id: ref.id);
+      final ref = await _col(effectiveUserId).add(data);
+      return item.copyWith(id: ref.id, userId: effectiveUserId);
     } else {
-      await _col(item.userId).doc(item.id).set(data, SetOptions(merge: true));
+      await _col(effectiveUserId).doc(item.id).set(data, SetOptions(merge: true));
       return item;
     }
   }

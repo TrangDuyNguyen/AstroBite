@@ -2,15 +2,14 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:astrobite/core/constants/app_strings.dart';
-import 'package:astrobite/core/constants/app_values.dart';
 import 'package:astrobite/core/router/app_router.dart';
-import 'package:astrobite/core/theme/app_colors.dart';
 import '../../domain/tracker_providers.dart';
 import '../widgets/celestial_offline_banner.dart';
 import '../widgets/celestial_time_avatar.dart';
 import '../widgets/daily_summary_card.dart';
 import '../widgets/date_picker_strip.dart';
 import '../widgets/meal_section.dart';
+import 'package:astrobite/shared/ui_kit/ui_kit.dart';
 
 import 'package:astrobite/features/gamification/presentation/controllers/streak_controller.dart';
 import 'package:astrobite/features/gamification/presentation/widgets/cosmic_streak_badge.dart';
@@ -137,9 +136,14 @@ class HomePage extends ConsumerWidget {
             ),
           ],
         ),
-        actions: const [
-          Center(child: CosmicStreakBadge()),
-          SizedBox(width: AppValues.screenPadding),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.menu_book_rounded, color: AppColors.onSurfaceVariant),
+            tooltip: 'Công thức món ăn',
+            onPressed: () => context.router.push(const RecipesRoute()),
+          ),
+          const Center(child: CosmicStreakBadge()),
+          const SizedBox(width: AppValues.screenPadding),
         ],
       ),
       body: SafeArea(
@@ -153,6 +157,8 @@ class HomePage extends ConsumerWidget {
                   const DatePickerStrip(),
                   const SizedBox(height: AppValues.spacing16),
                   DailySummaryCard(summary: summary),
+                  const SizedBox(height: AppValues.spacing12),
+                  const _QuickMealPlanActions(),
                   const SizedBox(height: AppValues.spacing20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -287,4 +293,99 @@ class HomePage extends ConsumerWidget {
 ),
 );
 }
+}
+
+class _QuickMealPlanActions extends StatelessWidget {
+  const _QuickMealPlanActions();
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: _ActionChipButton(
+            icon: Icons.menu_book_rounded,
+            label: 'Công thức món',
+            color: AppColors.primary,
+            onTap: () => context.router.push(const RecipesRoute()),
+          ),
+        ),
+        const SizedBox(width: AppValues.spacing12),
+        Expanded(
+          child: _ActionChipButton(
+            icon: Icons.calendar_month_rounded,
+            label: 'Kế hoạch 7 ngày',
+            color: AppColors.tertiary,
+            onTap: () => context.router.push(const MealPlannerRoute()),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _ActionChipButton extends StatelessWidget {
+  const _ActionChipButton({
+    required this.icon,
+    required this.label,
+    required this.color,
+    required this.onTap,
+  });
+
+  final IconData icon;
+  final String label;
+  final Color color;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final isPrimary = color == AppColors.primary;
+    final badgeBg = isPrimary ? const Color(0xFFE5F6FD) : const Color(0xFFFFF2D6);
+    final badgeBevel = isPrimary ? const Color(0xFFBCE3F7) : const Color(0xFFF7DEB0);
+
+    return ClayCard(
+      onTap: onTap,
+      elevation: 3.0,
+      borderRadius: 16,
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppValues.spacing12,
+        vertical: 10,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            width: 28,
+            height: 28,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: badgeBg,
+              boxShadow: [
+                BoxShadow(
+                  color: badgeBevel,
+                  offset: const Offset(0, 1.5),
+                  blurRadius: 0,
+                ),
+              ],
+            ),
+            alignment: Alignment.center,
+            child: Icon(icon, size: 15, color: color),
+          ),
+          const SizedBox(width: AppValues.spacing8),
+          Flexible(
+            child: Text(
+              label,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                color: AppColors.onSurface,
+                fontSize: 13,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }

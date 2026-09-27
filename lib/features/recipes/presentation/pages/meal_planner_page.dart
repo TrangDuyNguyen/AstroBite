@@ -6,6 +6,7 @@ import 'package:astrobite/core/theme/app_colors.dart';
 import 'package:astrobite/shared/widgets/glass_card.dart';
 import 'package:astrobite/shared/widgets/meal_type_chip.dart';
 import 'package:astrobite/shared/widgets/skeleton_loader.dart';
+import 'package:astrobite/features/auth/domain/auth_providers.dart';
 import '../../domain/entities/meal_plan_item.dart';
 import '../controllers/meal_plan_controller.dart';
 
@@ -119,8 +120,8 @@ class _MealSlots extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final date = ref.watch(selectedPlanDateProvider);
-    // ponytail: userId bridge — upgrade with real auth provider
-    const userId = '';
+    final user = ref.watch(authStateProvider).valueOrNull;
+    final userId = user?.uid ?? '';
     final key = (userId: userId, date: date);
     final itemsAsync = ref.watch(mealPlanItemsProvider(key));
 
@@ -287,7 +288,8 @@ class _MealItemCard extends ConsumerWidget {
   }
 
   Future<void> _log(BuildContext context, WidgetRef ref) async {
-    const userId = ''; // ponytail: upgrade with real auth provider
+    final user = ref.read(authStateProvider).valueOrNull;
+    final userId = (user?.uid.isNotEmpty == true) ? user!.uid : 'guest_user';
     await ref.read(mealPlanControllerProvider.notifier).logMealToDiary(
           userId: userId,
           item: item,

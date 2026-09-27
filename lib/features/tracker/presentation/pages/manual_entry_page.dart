@@ -3,14 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:astrobite/core/constants/app_strings.dart';
-import 'package:astrobite/core/constants/app_values.dart';
-import 'package:astrobite/core/theme/app_colors.dart';
+import 'package:astrobite/core/router/app_router.dart';
 import 'package:astrobite/features/auth/domain/auth_providers.dart';
 import 'package:astrobite/features/tracker/data/datasources/common_foods_dataset.dart';
 import 'package:astrobite/features/tracker/data/models/food_log_dto.dart';
 import 'package:astrobite/features/tracker/domain/tracker_providers.dart';
 import 'package:astrobite/shared/widgets/glass_card.dart';
-import 'package:astrobite/shared/widgets/meal_type_chip.dart';
+import 'package:astrobite/shared/ui_kit/ui_kit.dart';
 import '../widgets/custom_food_sheet.dart';
 import '../widgets/food_search_bar.dart';
 
@@ -168,6 +167,11 @@ class _ManualEntryPageState extends ConsumerState<ManualEntryPage> {
       appBar: AppBar(
         title: const Text(AppStrings.manualEntry),
         actions: [
+          IconButton(
+            tooltip: 'Công thức của tôi',
+            icon: const Icon(Icons.menu_book_rounded),
+            onPressed: () => context.router.push(const RecipesRoute()),
+          ),
           IconButton(
             tooltip: 'Thêm món tùy chỉnh',
             icon: const Icon(Icons.add_box_outlined),
@@ -557,31 +561,15 @@ class _ManualEntryPageState extends ConsumerState<ManualEntryPage> {
               ),
               const SizedBox(height: AppValues.spacing8),
               // Sticky Save CTA Button (52pt)
-              SizedBox(
+              ClayButton(
                 width: double.infinity,
-                height: 48,
-                child: FilledButton.icon(
-                  onPressed: (_isSaving || _selectedItem == null) ? null : _saveSelectedItem,
-                  style: FilledButton.styleFrom(
-                    backgroundColor: AppColors.primary,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(AppValues.radius12),
-                    ),
-                  ),
-                  icon: _isSaving
-                      ? const SizedBox(
-                          width: 18,
-                          height: 18,
-                          child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
-                        )
-                      : const Icon(Icons.bookmark_add_outlined),
-                  label: Text(
-                    _isSaving
-                        ? 'Đang lưu...'
-                        : 'Lưu vào ${_mealLabel(_selectedMeal)} (${_selectedItem != null ? _selectedItem!.calculateCalories(_currentWeightG) : 0} kcal)',
-                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                  ),
-                ),
+                height: 50,
+                isLoading: _isSaving,
+                onPressed: (_isSaving || _selectedItem == null) ? null : _saveSelectedItem,
+                icon: const Icon(Icons.bookmark_add_outlined, color: Colors.white, size: 20),
+                text: _isSaving
+                    ? 'Đang lưu...'
+                    : 'Lưu vào ${_mealLabel(_selectedMeal)} (${_selectedItem != null ? _selectedItem!.calculateCalories(_currentWeightG) : 0} kcal)',
               ),
             ],
           ),

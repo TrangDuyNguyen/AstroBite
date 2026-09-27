@@ -115,5 +115,18 @@ void main() {
       expect(find.text('+250 kcal'), findsOneWidget);
       expect(find.text(AppStrings.overBudget), findsOneWidget);
     });
+
+    testWidgets('renders quick action buttons for recipe and meal planner', (tester) async {
+      tester.view.physicalSize = const Size(800, 1600);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
+
+      await tester.pumpWidget(createWidgetUnderTest());
+      await tester.pumpAndSettle();
+
+      expect(find.text('Công thức món'), findsOneWidget);
+      expect(find.text('Kế hoạch 7 ngày'), findsOneWidget);
+      expect(find.byTooltip('Công thức món ăn'), findsOneWidget);
+    });
   });
 }

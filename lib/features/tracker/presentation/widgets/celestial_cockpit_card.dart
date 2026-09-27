@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:astrobite/core/constants/app_strings.dart';
-import 'package:astrobite/core/constants/app_values.dart';
-import 'package:astrobite/core/theme/app_colors.dart';
-import 'package:astrobite/shared/widgets/calorie_progress_arc.dart';
-import 'package:astrobite/shared/widgets/glass_card.dart';
-import 'package:astrobite/shared/widgets/macro_bar.dart';
+import 'package:astrobite/shared/ui_kit/ui_kit.dart';
 import '../../domain/daily_summary.dart';
 
 /// The signature Glanceable Celestial Cockpit Card.
@@ -30,10 +26,11 @@ class _CelestialCockpitCardState extends State<CelestialCockpitCard> {
     final summary = widget.summary;
     final isOverBudget = summary.totalCalories > summary.targetCalories;
 
-    return GlassCard(
+    return ClayCard(
+      borderRadius: 24,
       borderColor: isOverBudget
-          ? AppColors.tertiary.withValues(alpha: 0.8)
-          : AppColors.primary.withValues(alpha: 0.25),
+          ? AppColors.tertiary
+          : const Color(0xFFEDE9E1),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -43,18 +40,34 @@ class _CelestialCockpitCardState extends State<CelestialCockpitCard> {
             children: [
               Row(
                 children: [
-                  const Icon(
-                    Icons.rocket_launch_outlined,
-                    size: 14,
-                    color: AppColors.primary,
+                  Container(
+                    width: 26,
+                    height: 26,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Color(0xFFE5F6FD),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color(0xFFBCE3F7),
+                          offset: Offset(0, 1.5),
+                          blurRadius: 0,
+                        ),
+                      ],
+                    ),
+                    alignment: Alignment.center,
+                    child: const Icon(
+                      Icons.rocket_launch_rounded,
+                      size: 14,
+                      color: AppColors.primary,
+                    ),
                   ),
-                  const SizedBox(width: AppValues.spacing4),
+                  const SizedBox(width: AppValues.spacing8),
                   Text(
                     'CELESTIAL COCKPIT',
                     style: Theme.of(context).textTheme.labelSmall?.copyWith(
                           color: AppColors.primary,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 1.0,
+                          fontWeight: FontWeight.w800,
+                          letterSpacing: 0.8,
                         ),
                   ),
                 ],
@@ -114,7 +127,7 @@ class _CelestialCockpitCardState extends State<CelestialCockpitCard> {
           ),
 
           const SizedBox(height: AppValues.spacing12),
-          const Divider(height: 1, color: Color(0x1FFFFFFF)),
+          const Divider(height: 1, color: Color(0xFFEDE9E1)),
           const SizedBox(height: AppValues.spacing8),
 
           // Collapsible Micronutrients Pill / Button
@@ -130,8 +143,8 @@ class _CelestialCockpitCardState extends State<CelestialCockpitCard> {
                     child: Row(
                       children: [
                         const Icon(
-                          Icons.science_outlined,
-                          size: 14,
+                          Icons.science_rounded,
+                          size: 15,
                           color: AppColors.primary,
                         ),
                         const SizedBox(width: AppValues.spacing4),

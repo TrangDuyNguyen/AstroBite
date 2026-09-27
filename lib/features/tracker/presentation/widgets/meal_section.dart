@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:astrobite/core/constants/app_strings.dart';
-import 'package:astrobite/core/constants/app_values.dart';
-import 'package:astrobite/core/theme/app_colors.dart';
 import 'package:astrobite/features/auth/domain/auth_providers.dart';
 import '../../domain/daily_summary.dart';
 import '../../domain/entities/food_log.dart';
 import '../controllers/tracker_controller.dart';
 import 'sync_status_badge.dart';
 import 'package:astrobite/features/scanner/presentation/widgets/micronutrient_chips_row.dart';
+import 'package:astrobite/shared/ui_kit/ui_kit.dart';
 
 class MealSection extends ConsumerWidget {
   const MealSection({
@@ -54,6 +53,14 @@ class MealSection extends ConsumerWidget {
         _ => 200,
       };
 
+  Color get _pastelTint => switch (mealType) {
+        'breakfast' => AppColors.clayBreakfast,
+        'lunch' => AppColors.clayLunch,
+        'dinner' => AppColors.clayDinner,
+        'snack' => AppColors.claySnack,
+        _ => AppColors.surfaceContainer,
+      };
+
   Future<bool?> _showDeleteConfirmationDialog(
     BuildContext context,
     String dishName,
@@ -87,19 +94,12 @@ class MealSection extends ConsumerWidget {
     final totalFat = summary.getMealFat(mealType);
     final isCompleted = logs.isNotEmpty;
 
-    return Card(
-      margin: const EdgeInsets.only(bottom: AppValues.spacing12),
-      color: AppColors.surfaceContainer,
-      surfaceTintColor: Colors.transparent,
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppValues.cardRadius),
-        side: BorderSide(
-          color: AppColors.outline.withValues(alpha: 0.18),
-          width: 1,
-        ),
-      ),
-      child: Padding(
+    return Padding(
+      padding: const EdgeInsets.only(bottom: AppValues.spacing12),
+      child: ClayCard(
+        backgroundColor: _pastelTint,
+        elevation: 3.5,
+        borderRadius: 22,
         padding: const EdgeInsets.all(AppValues.cardPadding),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -108,31 +108,10 @@ class MealSection extends ConsumerWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // 1. Icon Avatar Box
-                Container(
-                  width: 44,
-                  height: 44,
-                  decoration: BoxDecoration(
-                    color: AppColors.surface,
-                    borderRadius: BorderRadius.circular(AppValues.radius12),
-                    border: Border.all(
-                      color: _iconColor.withValues(alpha: 0.3),
-                      width: 1,
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: _iconColor.withValues(alpha: 0.1),
-                        blurRadius: 8,
-                        offset: const Offset(0, 2),
-                      ),
-                    ],
-                  ),
-                  alignment: Alignment.center,
-                  child: Icon(
-                    _iconData,
-                    color: _iconColor,
-                    size: 22,
-                  ),
+                // 1. Icon Avatar Box (Clay 3D Badge)
+                _ClayMealBadge(
+                  mealType: mealType,
+                  icon: _iconData,
                 ),
                 const SizedBox(width: AppValues.spacing12),
 
@@ -283,55 +262,45 @@ class MealSection extends ConsumerWidget {
 
                 // 3. Trailing Action: Quick Add / Completed button
                 if (isCompleted) ...[
-                  IconButton(
-                    icon: const Icon(
-                      Icons.add_circle_outline,
-                      size: 22,
-                      color: AppColors.primary,
-                    ),
-                    constraints: const BoxConstraints(
-                      minWidth: 40,
-                      minHeight: 40,
-                    ),
-                    tooltip: 'Thêm món ăn',
+                  ClayIconButton(
+                    icon: Icons.add_circle_outline,
                     onPressed: onAddTap,
+                    backgroundColor: AppColors.surfaceContainer,
+                    iconColor: AppColors.primary,
+                    size: 38,
+                    borderRadius: 19,
+                    tooltip: 'Thêm món ăn',
                   ),
-                  const SizedBox(width: AppValues.spacing4),
+                  const SizedBox(width: AppValues.spacing8),
                   Container(
-                    width: 36,
-                    height: 36,
-                    decoration: BoxDecoration(
+                    width: 32,
+                    height: 32,
+                    decoration: const BoxDecoration(
                       shape: BoxShape.circle,
-                      color: AppColors.surface,
-                      border: Border.all(
-                        color: AppColors.outline.withValues(alpha: 0.3),
-                      ),
+                      color: AppColors.brandGreen,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color(0xFF46A302),
+                          offset: Offset(0, 2),
+                          blurRadius: 0,
+                        ),
+                      ],
                     ),
                     child: const Icon(
-                      Icons.check,
-                      color: AppColors.primary,
+                      Icons.check_rounded,
+                      color: Colors.white,
                       size: 18,
                     ),
                   ),
                 ] else ...[
-                  Material(
-                    color: AppColors.primary,
-                    shape: const CircleBorder(),
-                    elevation: 2,
-                    shadowColor: AppColors.primary.withValues(alpha: 0.4),
-                    child: InkWell(
-                      onTap: onAddTap,
-                      customBorder: const CircleBorder(),
-                      child: const SizedBox(
-                        width: AppValues.minTouchTarget,
-                        height: AppValues.minTouchTarget,
-                        child: Icon(
-                          Icons.add_circle_outline,
-                          color: Colors.white,
-                          size: 24,
-                        ),
-                      ),
-                    ),
+                  ClayIconButton(
+                    icon: Icons.add_circle_outline,
+                    onPressed: onAddTap,
+                    backgroundColor: AppColors.primary,
+                    iconColor: Colors.white,
+                    size: 44,
+                    borderRadius: 22,
+                    tooltip: 'Thêm món ăn',
                   ),
                 ],
               ],
@@ -932,6 +901,80 @@ class _MacroPill extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _ClayMealBadge extends StatelessWidget {
+  const _ClayMealBadge({
+    required this.mealType,
+    required this.icon,
+  });
+
+  final String mealType;
+  final IconData icon;
+
+  @override
+  Widget build(BuildContext context) {
+    final (gradientColors, bevelColor, iconColor) = switch (mealType) {
+      'breakfast' => (
+        [const Color(0xFFFFB74D), const Color(0xFFFF9800)],
+        const Color(0xFFE65100),
+        Colors.white,
+      ),
+      'lunch' => (
+        [const Color(0xFFFFD54F), const Color(0xFFFFA000)],
+        const Color(0xFFE68900),
+        Colors.white,
+      ),
+      'dinner' => (
+        [const Color(0xFF7986CB), const Color(0xFF5C6BC0)],
+        const Color(0xFF3949AB),
+        Colors.white,
+      ),
+      'snack' => (
+        [const Color(0xFFFF8A80), const Color(0xFFFF5252)],
+        const Color(0xFFD32F2F),
+        Colors.white,
+      ),
+      _ => (
+        [const Color(0xFF64B5F6), const Color(0xFF1CB0F6)],
+        const Color(0xFF1488C2),
+        Colors.white,
+      ),
+    };
+
+    return Container(
+      width: 48,
+      height: 48,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: gradientColors,
+        ),
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          // 3D tactile bottom bevel
+          BoxShadow(
+            color: bevelColor,
+            offset: const Offset(0, 3),
+            blurRadius: 0,
+          ),
+          // Ambient glow
+          BoxShadow(
+            color: gradientColors[1].withValues(alpha: 0.35),
+            offset: const Offset(0, 4),
+            blurRadius: 8,
+          ),
+        ],
+      ),
+      alignment: Alignment.center,
+      child: ClayMorphIcon(
+        icon: icon,
+        color: iconColor,
+        size: 24,
       ),
     );
   }

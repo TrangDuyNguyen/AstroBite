@@ -9,6 +9,7 @@ import '../../recipes_providers.dart';
 /// Loads and caches the user's saved recipes.
 final recipesProvider =
     FutureProvider.autoDispose.family<List<Recipe>, String>((ref, userId) {
+  if (userId.trim().isEmpty) return Future.value([]);
   return ref.read(recipeRepositoryProvider).getRecipes(userId);
 });
 

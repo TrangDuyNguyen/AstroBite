@@ -58,6 +58,10 @@ void main() {
 
       // Check BmrTdeeCard is rendered
       expect(find.byType(BmrTdeeCard), findsOneWidget);
+
+      // Check recipe and meal planner tiles are rendered
+      expect(find.text('Công thức món ăn'), findsOneWidget);
+      expect(find.text('Kế hoạch thực đơn 7 ngày'), findsOneWidget);
     });
   });
 }

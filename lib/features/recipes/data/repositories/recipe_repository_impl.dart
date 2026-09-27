@@ -16,20 +16,26 @@ class RecipeRepositoryImpl implements RecipeRepository {
 
   @override
   Future<List<Recipe>> getRecipes(String userId) async {
-    final snap = await _col(userId)
-        .orderBy('createdAt', descending: true)
-        .get();
-    return snap.docs.map((d) => _fromDoc(d.id, d.data())).toList();
+    if (userId.trim().isEmpty) return [];
+    try {
+      final snap = await _col(userId)
+          .orderBy('createdAt', descending: true)
+          .get();
+      return snap.docs.map((d) => _fromDoc(d.id, d.data())).toList();
+    } catch (_) {
+      return [];
+    }
   }
 
   @override
   Future<Recipe> saveRecipe(Recipe recipe) async {
-    final data = _toMap(recipe);
+    final effectiveUserId = recipe.userId.isNotEmpty ? recipe.userId : 'guest_user';
+    final data = _toMap(recipe.copyWith(userId: effectiveUserId));
     if (recipe.id.isEmpty) {
-      final ref = await _col(recipe.userId).add(data);
-      return recipe.copyWith(id: ref.id);
+      final ref = await _col(effectiveUserId).add(data);
+      return recipe.copyWith(id: ref.id, userId: effectiveUserId);
     } else {
-      await _col(recipe.userId).doc(recipe.id).set(data, SetOptions(merge: true));
+      await _col(effectiveUserId).doc(recipe.id).set(data, SetOptions(merge: true));
       return recipe;
     }
   }

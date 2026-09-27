@@ -190,6 +190,42 @@ class ProfilePage extends ConsumerWidget {
                       trailing: const Icon(Icons.chevron_right),
                       onTap: () => _showWidgetGuideSheet(context, ref),
                     ),
+                    const Divider(height: 1),
+                    ListTile(
+                      contentPadding: EdgeInsets.zero,
+                      leading: CircleAvatar(
+                        backgroundColor: AppColors.primary.withValues(alpha: 0.15),
+                        child: const Text('🍲', style: TextStyle(fontSize: 18)),
+                      ),
+                      title: const Text('Công thức món ăn', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14)),
+                      subtitle: Text(
+                        'Quản lý công thức cá nhân & co giãn khẩu phần',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
+                        ),
+                      ),
+                      trailing: const Icon(Icons.chevron_right),
+                      onTap: () => context.router.push(const RecipesRoute()),
+                    ),
+                    const Divider(height: 1),
+                    ListTile(
+                      contentPadding: EdgeInsets.zero,
+                      leading: CircleAvatar(
+                        backgroundColor: AppColors.tertiary.withValues(alpha: 0.15),
+                        child: const Text('📅', style: TextStyle(fontSize: 18)),
+                      ),
+                      title: const Text('Kế hoạch thực đơn 7 ngày', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14)),
+                      subtitle: Text(
+                        'Lên lịch bữa ăn & 1-chạm nạp nhật ký',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
+                        ),
+                      ),
+                      trailing: const Icon(Icons.chevron_right),
+                      onTap: () => context.router.push(const MealPlannerRoute()),
+                    ),
                   ],
                 ),
               ),

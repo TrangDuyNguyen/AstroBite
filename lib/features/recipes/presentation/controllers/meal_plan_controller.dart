@@ -24,8 +24,10 @@ typedef _DateUserKey = ({String userId, String date});
 
 final mealPlanItemsProvider =
     FutureProvider.autoDispose.family<List<MealPlanItem>, _DateUserKey>(
-  (ref, key) =>
-      ref.read(mealPlanRepositoryProvider).getMealPlanItems(key.userId, key.date),
+  (ref, key) {
+    if (key.userId.trim().isEmpty) return Future.value([]);
+    return ref.read(mealPlanRepositoryProvider).getMealPlanItems(key.userId, key.date);
+  },
 );
 
 // ── Meal Plan Controller ──────────────────────────────────────────────────────

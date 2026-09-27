@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:astrobite/core/constants/app_values.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
 import 'package:astrobite/shared/widgets/glass_card.dart';
+import 'package:astrobite/features/auth/domain/auth_providers.dart';
 import '../../domain/entities/recipe_ingredient.dart';
 import '../../recipes_providers.dart';
 import '../controllers/recipe_builder_controller.dart';
@@ -195,8 +196,8 @@ class _SaveButton extends ConsumerWidget {
 
     final controller = ref.read(recipeBuilderProvider.notifier);
     final repo = ref.read(recipeRepositoryProvider);
-    // ponytail: userId hardcoded '' — upgrade path: ref.read(authStateProvider).valueOrNull?.uid ?? ''
-    const userId = '';
+    final user = ref.read(authStateProvider).valueOrNull;
+    final userId = (user?.uid.isNotEmpty == true) ? user!.uid : 'guest_user';
 
     final saved = await controller.save(userId: userId, repo: repo);
     if (!context.mounted) return;
