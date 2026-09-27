@@ -10,6 +10,7 @@ import 'package:astrobite/shared/ui_kit/ui_kit.dart';
 import 'package:astrobite/shared/widgets/cosmic_logo_badge.dart';
 import '../controllers/login_controller.dart';
 import '../widgets/google_sign_in_button.dart';
+import '../widgets/zero_gravity_food_background.dart';
 
 @RoutePage()
 class LoginPage extends ConsumerStatefulWidget {
@@ -268,7 +269,10 @@ class _LoginPageState extends ConsumerState<LoginPage>
             ),
           ),
 
-          // 2. Content
+          // 2. Zero-Gravity Clay Food & Fruit Floating Background
+          const ZeroGravityFoodBackground(),
+
+          // 3. Content
           SafeArea(
             child: Center(
               child: SingleChildScrollView(

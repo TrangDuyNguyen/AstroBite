@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
+import 'package:astrobite/core/theme/app_icons.dart';
 import '../controllers/streak_controller.dart';
 import 'streak_detail_sheet.dart';
 
@@ -21,22 +22,22 @@ class CosmicStreakBadge extends ConsumerWidget {
           onTap: () => StreakDetailSheet.show(context, streak),
           borderRadius: BorderRadius.circular(20),
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+            padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 5),
             decoration: BoxDecoration(
               color: AppColors.surfaceContainer,
               borderRadius: BorderRadius.circular(20),
               border: Border.all(
                 color: hasStreak
-                    ? AppColors.tertiary.withValues(alpha: 0.6)
-                    : AppColors.outline.withValues(alpha: 0.2),
-                width: 1,
+                    ? const Color(0xFFFF9600)
+                    : AppColors.outline.withValues(alpha: 0.3),
+                width: 1.5,
               ),
               boxShadow: hasStreak
                   ? [
                       BoxShadow(
-                        color: AppColors.tertiary.withValues(alpha: 0.25),
-                        blurRadius: 8,
-                        offset: const Offset(0, 1),
+                        color: const Color(0xFFFF9600).withValues(alpha: 0.20),
+                        blurRadius: 10,
+                        offset: const Offset(0, 2),
                       ),
                     ]
                   : null,
@@ -48,38 +49,23 @@ class CosmicStreakBadge extends ConsumerWidget {
                   hasStreak ? '🔥' : '✨',
                   style: const TextStyle(fontSize: 14),
                 ),
-                const SizedBox(width: 4),
+                const SizedBox(width: 5),
                 Text(
                   '${streak.currentStreak}',
                   style: GoogleFonts.outfit(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w800,
                     color: hasStreak ? AppColors.onSurface : AppColors.onSurfaceVariant,
                   ),
                 ),
-                const SizedBox(width: 6),
-                Container(
-                  width: 1,
-                  height: 12,
-                  color: AppColors.outline.withValues(alpha: 0.3),
-                ),
-                const SizedBox(width: 6),
+                const SizedBox(width: 8),
                 Icon(
-                  Icons.shield_moon_rounded,
-                  size: 14,
-                  color: streak.hasShield ? AppColors.secondary : AppColors.onSurfaceVariant.withValues(alpha: 0.4),
+                  AppIcons.shield,
+                  size: 15,
+                  color: streak.hasShield
+                      ? const Color(0xFF9AA5B8)
+                      : AppColors.onSurfaceVariant.withValues(alpha: 0.4),
                 ),
-                if (streak.starlightShields > 0) ...[
-                  const SizedBox(width: 2),
-                  Text(
-                    '${streak.starlightShields}',
-                    style: GoogleFonts.inter(
-                      fontSize: 10,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.secondary,
-                    ),
-                  ),
-                ],
               ],
             ),
           ),

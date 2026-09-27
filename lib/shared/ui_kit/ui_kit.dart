@@ -11,6 +11,7 @@ library;
 // Theme & Tokens
 export 'package:astrobite/core/constants/app_values.dart';
 export 'package:astrobite/core/theme/app_colors.dart';
+export 'package:astrobite/core/theme/app_icons.dart';
 export 'package:astrobite/core/theme/app_theme.dart';
 
 // Surfaces

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:astrobite/core/theme/app_icons.dart';
 import 'package:astrobite/features/gamification/domain/streak_record.dart';
 import 'package:astrobite/features/gamification/presentation/controllers/streak_controller.dart';
 import 'package:astrobite/features/gamification/presentation/widgets/cosmic_streak_badge.dart';
@@ -37,7 +38,7 @@ void main() {
     // Verify badge content
     expect(find.text('5'), findsOneWidget);
     expect(find.text('🔥'), findsOneWidget);
-    expect(find.byIcon(Icons.shield_moon_rounded), findsOneWidget);
+    expect(find.byIcon(AppIcons.shield), findsOneWidget);
 
     // Tap to open sheet
     await tester.tap(find.byType(CosmicStreakBadge));

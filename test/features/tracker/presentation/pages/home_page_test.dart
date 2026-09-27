@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:astrobite/core/constants/app_strings.dart';
+import 'package:astrobite/core/theme/app_icons.dart';
 import 'package:astrobite/features/tracker/domain/daily_summary.dart';
 import 'package:astrobite/features/tracker/domain/entities/food_log.dart';
 import 'package:astrobite/features/tracker/domain/tracker_providers.dart';
@@ -68,7 +69,7 @@ void main() {
       expect(find.byType(CelestialTimeAvatar), findsOneWidget);
 
       // AppBar date picker trigger
-      expect(find.byIcon(Icons.arrow_drop_down_rounded), findsOneWidget);
+      expect(find.byIcon(AppIcons.arrowDown), findsOneWidget);
 
       // DailySummaryCard
       expect(find.byType(DailySummaryCard), findsOneWidget);

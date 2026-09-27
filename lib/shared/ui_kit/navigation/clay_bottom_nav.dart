@@ -5,6 +5,7 @@ import 'package:astrobite/core/constants/app_strings.dart';
 import 'package:astrobite/core/constants/app_values.dart';
 import 'package:astrobite/core/router/app_router.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
+import 'package:astrobite/core/theme/app_icons.dart';
 import '../indicators/clay_morph_icon.dart';
 
 /// Claymorphic × Duolingo 2D/3D Floating Dock Navigation Bar.
@@ -85,8 +86,8 @@ class ClayBottomNav extends StatelessWidget {
                               // Tab 1: Hôm nay
                               Expanded(
                                 child: _NavItem(
-                                  icon: Icons.nightlight_outlined,
-                                  selectedIcon: Icons.nightlight_outlined,
+                                  icon: AppIcons.navToday,
+                                  selectedIcon: AppIcons.navTodaySelected,
                                   label: AppStrings.navToday,
                                   isSelected: tabsRouter.activeIndex == 0,
                                   onTap: () => tabsRouter.setActiveIndex(0),
@@ -95,8 +96,8 @@ class ClayBottomNav extends StatelessWidget {
                               // Tab 2: AstroCoach
                               Expanded(
                                 child: _NavItem(
-                                  icon: Icons.smart_toy_outlined,
-                                  selectedIcon: Icons.smart_toy_rounded,
+                                  icon: AppIcons.navCoach,
+                                  selectedIcon: AppIcons.navCoachSelected,
                                   label: AppStrings.navCoach,
                                   isSelected: tabsRouter.activeIndex == 1,
                                   onTap: () => tabsRouter.setActiveIndex(1),
@@ -107,8 +108,8 @@ class ClayBottomNav extends StatelessWidget {
                               // Tab 3: Thống kê
                               Expanded(
                                 child: _NavItem(
-                                  icon: Icons.analytics_outlined,
-                                  selectedIcon: Icons.analytics_rounded,
+                                  icon: AppIcons.navAnalytics,
+                                  selectedIcon: AppIcons.navAnalyticsSelected,
                                   label: AppStrings.navInsights,
                                   isSelected: tabsRouter.activeIndex == 2,
                                   onTap: () => tabsRouter.setActiveIndex(2),
@@ -117,8 +118,8 @@ class ClayBottomNav extends StatelessWidget {
                               // Tab 4: Cá nhân
                               Expanded(
                                 child: _NavItem(
-                                  icon: Icons.person_outline_rounded,
-                                  selectedIcon: Icons.person_rounded,
+                                  icon: AppIcons.navProfile,
+                                  selectedIcon: AppIcons.navProfileSelected,
                                   label: AppStrings.navProfile,
                                   isSelected: tabsRouter.activeIndex == 3,
                                   onTap: () => tabsRouter.setActiveIndex(3),
@@ -193,7 +194,7 @@ class ClayBottomNav extends StatelessWidget {
                             ),
                           ),
                           const Icon(
-                            Icons.photo_camera_rounded,
+                            AppIcons.navCamera,
                             color: Colors.white,
                             size: 26,
                           ),

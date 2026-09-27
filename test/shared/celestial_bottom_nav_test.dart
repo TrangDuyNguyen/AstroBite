@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:astrobite/core/constants/app_strings.dart';
+import 'package:astrobite/core/theme/app_icons.dart';
 import 'package:astrobite/shared/widgets/celestial_bottom_nav.dart';
 
 class MockTabsRouter extends ChangeNotifier implements TabsRouter {
@@ -42,11 +43,11 @@ void main() {
       expect(find.text(AppStrings.navProfile), findsOneWidget);
 
       // Verify icons
-      expect(find.byIcon(Icons.nightlight_outlined), findsOneWidget);
-      expect(find.byIcon(Icons.smart_toy_outlined), findsOneWidget);
-      expect(find.byIcon(Icons.photo_camera_rounded), findsOneWidget);
-      expect(find.byIcon(Icons.analytics_outlined), findsOneWidget);
-      expect(find.byIcon(Icons.person_outline_rounded), findsOneWidget);
+      expect(find.byIcon(AppIcons.navTodaySelected), findsOneWidget);
+      expect(find.byIcon(AppIcons.navCoach), findsOneWidget);
+      expect(find.byIcon(AppIcons.navCamera), findsOneWidget);
+      expect(find.byIcon(AppIcons.navAnalytics), findsOneWidget);
+      expect(find.byIcon(AppIcons.navProfile), findsOneWidget);
     });
 
     testWidgets('tapping tab updates activeIndex on tabsRouter', (tester) async {
@@ -91,7 +92,7 @@ void main() {
       expect(find.byType(BackdropFilter), findsOneWidget);
 
       // Verify Camera FAB has inkwell & scanFood semantics
-      expect(find.byIcon(Icons.photo_camera_rounded), findsOneWidget);
+      expect(find.byIcon(AppIcons.navCamera), findsOneWidget);
       expect(find.bySemanticsLabel(AppStrings.scanFood), findsOneWidget);
     });
   });

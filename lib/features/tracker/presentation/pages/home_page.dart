@@ -5,14 +5,13 @@ import 'package:astrobite/core/constants/app_strings.dart';
 import 'package:astrobite/core/router/app_router.dart';
 import '../../domain/tracker_providers.dart';
 import '../widgets/celestial_offline_banner.dart';
-import '../widgets/celestial_time_avatar.dart';
 import '../widgets/daily_summary_card.dart';
+import '../widgets/dashboard_app_bar.dart';
 import '../widgets/date_picker_strip.dart';
 import '../widgets/meal_section.dart';
 import 'package:astrobite/shared/ui_kit/ui_kit.dart';
 
 import 'package:astrobite/features/gamification/presentation/controllers/streak_controller.dart';
-import 'package:astrobite/features/gamification/presentation/widgets/cosmic_streak_badge.dart';
 import 'package:astrobite/features/widgets/widget_sync_service.dart';
 
 @RoutePage()
@@ -39,113 +38,8 @@ class HomePage extends ConsumerWidget {
           );
     });
 
-    final selectedDate = ref.watch(selectedDateProvider);
-    final now = DateTime.now();
-    final isToday = selectedDate.year == now.year &&
-        selectedDate.month == now.month &&
-        selectedDate.day == now.day;
-    final weekdayStr = switch (selectedDate.weekday) {
-      DateTime.monday => 'Thứ Hai',
-      DateTime.tuesday => 'Thứ Ba',
-      DateTime.wednesday => 'Thứ Tư',
-      DateTime.thursday => 'Thứ Năm',
-      DateTime.friday => 'Thứ Sáu',
-      DateTime.saturday => 'Thứ Bảy',
-      DateTime.sunday => 'Chủ Nhật',
-      _ => '',
-    };
-    final dateSubtitle =
-        '$weekdayStr, ${selectedDate.day.toString().padLeft(2, '0')} Th${selectedDate.month.toString().padLeft(2, '0')}';
-
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        surfaceTintColor: Colors.transparent,
-        elevation: 0,
-        automaticallyImplyLeading: false,
-        centerTitle: false,
-        titleSpacing: AppValues.screenPadding,
-        title: Row(
-          children: [
-            CelestialTimeAvatar(
-              onTap: () => context.router.push(const ProfileRoute()),
-            ),
-            const SizedBox(width: AppValues.spacing12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        isToday ? AppStrings.todayOverview : 'Nhật ký dinh dưỡng',
-                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                              fontWeight: FontWeight.w800,
-                              letterSpacing: -0.2,
-                              color: AppColors.onSurface,
-                            ),
-                      ),
-                      const SizedBox(width: 5),
-                      Container(
-                        width: 6,
-                        height: 6,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: AppColors.primary,
-                        ),
-                      ),
-                    ],
-                  ),
-                  InkWell(
-                    onTap: () async {
-                      final picked = await showDatePicker(
-                        context: context,
-                        initialDate: selectedDate,
-                        firstDate: DateTime(2020),
-                        lastDate: DateTime.now().add(const Duration(days: 365)),
-                      );
-                      if (picked != null) {
-                        ref.read(selectedDateProvider.notifier).state = picked;
-                      }
-                    },
-                    borderRadius: BorderRadius.circular(AppValues.radius8),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          dateSubtitle,
-                          style:
-                              Theme.of(context).textTheme.labelSmall?.copyWith(
-                                    color: AppColors.onSurfaceVariant,
-                                    fontSize: 11,
-                                  ),
-                        ),
-                        const SizedBox(width: 2),
-                        const Icon(
-                          Icons.arrow_drop_down_rounded,
-                          size: 16,
-                          color: AppColors.onSurfaceVariant,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.menu_book_rounded, color: AppColors.onSurfaceVariant),
-            tooltip: 'Công thức món ăn',
-            onPressed: () => context.router.push(const RecipesRoute()),
-          ),
-          const Center(child: CosmicStreakBadge()),
-          const SizedBox(width: AppValues.screenPadding),
-        ],
-      ),
+      appBar: const DashboardAppBar(),
       body: SafeArea(
         child: Column(
           children: [
