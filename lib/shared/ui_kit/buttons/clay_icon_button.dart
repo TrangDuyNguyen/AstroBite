@@ -78,23 +78,21 @@ class _ClayIconButtonState extends State<ClayIconButton> {
                     colors: [Colors.white, Color(0xFFFAF7F2)],
                   ),
             borderRadius: BorderRadius.circular(widget.borderRadius),
-            border: Border.all(
-              color: isPrimary ? const Color(0xFF1278AE) : const Color(0xFFE2DDD5),
-              width: 1.2,
-            ),
             boxShadow: widget.onPressed != null
                 ? [
-                    // Layer 1: Solid 3D tactile bottom bevel
+                    // Layer 1: Soft tactile bottom bevel (Mềm mại, không sắc lẹm)
                     BoxShadow(
-                      color: bevelColor,
+                      color: bevelColor.withValues(alpha: 0.90),
                       offset: Offset(0, effectiveElevation),
-                      blurRadius: 0,
+                      blurRadius: 3.0,
+                      spreadRadius: -0.5,
                     ),
                     // Layer 2: Ambient shadow
                     BoxShadow(
                       color: isPrimary ? AppColors.primary.withValues(alpha: 0.32) : const Color(0x181E2337),
                       offset: Offset(0, _isPressed ? 2 : effectiveElevation + 3),
                       blurRadius: _isPressed ? 4 : 10,
+                      spreadRadius: -0.5,
                     ),
                   ]
                 : null,

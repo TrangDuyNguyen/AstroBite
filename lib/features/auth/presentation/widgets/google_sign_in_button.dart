@@ -69,10 +69,6 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
             child: Ink(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(radius),
-                border: Border.all(
-                  color: const Color(0xFFE2DDD4),
-                  width: 1.2,
-                ),
                 boxShadow: isInteractive
                     ? [
                         // Layer 1: Soft warm clay contact depth (Mềm mại, không sắc lẹm)
@@ -93,7 +89,7 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
                     : null,
               ),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(radius - 1.2),
+                borderRadius: BorderRadius.circular(radius),
                 child: Stack(
                   fit: StackFit.expand,
                   children: [

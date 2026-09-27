@@ -94,12 +94,12 @@ class _ClayButtonState extends State<ClayButton> {
             curve: Curves.easeOutCubic,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(widget.borderRadius),
-              border: Border.all(
-                color: widget.variant == ClayButtonVariant.outline
-                    ? const Color(0xFFE2DDD4)
-                    : Colors.white.withValues(alpha: 0.32),
-                width: 1.2,
-              ),
+              border: widget.variant == ClayButtonVariant.outline
+                  ? Border.all(
+                      color: const Color(0xFFE2DDD4),
+                      width: 1.2,
+                    )
+                  : null,
               boxShadow: _isEnabled
                   ? [
                       // Layer 1: Soft Velvety Clay Contact Depth (Mềm mại, không sắc lẹm)
@@ -128,7 +128,7 @@ class _ClayButtonState extends State<ClayButton> {
                   : null,
             ),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(widget.borderRadius - 1.2),
+              borderRadius: BorderRadius.circular(widget.borderRadius),
               child: Stack(
                 fit: StackFit.expand,
                 children: [
