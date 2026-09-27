@@ -3,17 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:astrobite/core/constants/app_strings.dart';
-import 'package:astrobite/core/constants/app_values.dart';
 import 'package:astrobite/core/router/app_router.dart';
-import 'package:astrobite/core/theme/app_colors.dart';
 import 'package:astrobite/features/auth/domain/auth_providers.dart';
 import 'package:astrobite/features/profile/domain/profile_providers.dart';
-import 'package:astrobite/shared/widgets/celestial_particle_background.dart';
+import 'package:astrobite/shared/ui_kit/ui_kit.dart';
 import 'package:astrobite/shared/widgets/cosmic_logo_badge.dart';
-import 'package:astrobite/shared/widgets/glass_card.dart';
 import '../controllers/login_controller.dart';
-import '../widgets/auth_submit_button.dart';
-import '../widgets/auth_text_field.dart';
 import '../widgets/google_sign_in_button.dart';
 
 @RoutePage()
@@ -138,8 +133,8 @@ class _LoginPageState extends ConsumerState<LoginPage>
         return AlertDialog(
           backgroundColor: AppColors.surfaceContainer,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(AppValues.cardRadius),
-            side: BorderSide(color: Colors.white.withValues(alpha: 0.15)),
+            borderRadius: BorderRadius.circular(AppValues.cardRadiusClay),
+            side: const BorderSide(color: AppColors.outline),
           ),
           title: const Text(
             AppStrings.resetPassword,
@@ -161,19 +156,13 @@ class _LoginPageState extends ConsumerState<LoginPage>
                   ),
                 ),
                 const SizedBox(height: AppValues.spacing16),
-                TextFormField(
+                ClayTextField(
                   controller: resetEmailController,
+                  labelText: AppStrings.email,
                   keyboardType: TextInputType.emailAddress,
-                  style: const TextStyle(color: AppColors.onSurface),
-                  decoration: InputDecoration(
-                    labelText: AppStrings.email,
-                    prefixIcon: const Icon(
-                      Icons.email_outlined,
-                      color: AppColors.onSurfaceVariant,
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(AppValues.cardRadius),
-                    ),
+                  prefixIcon: const Icon(
+                    Icons.email_outlined,
+                    color: AppColors.onSurfaceVariant,
                   ),
                   validator: (v) =>
                       v != null && v.contains('@') ? null : 'Email không hợp lệ',
@@ -233,208 +222,242 @@ class _LoginPageState extends ConsumerState<LoginPage>
     });
 
     final loginState = ref.watch(loginControllerProvider);
-    final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
       backgroundColor: AppColors.surface,
-      body: CelestialParticleBackground(
-        child: SafeArea(
-          child: Center(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(
-                horizontal: AppValues.screenPadding,
-                vertical: AppValues.spacing24,
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          // 1. Warm Clay Ambiance — subtle radial gradients
+          Positioned(
+            top: -80,
+            right: -80,
+            width: 320,
+            height: 320,
+            child: IgnorePointer(
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: RadialGradient(
+                    colors: [
+                      AppColors.primary.withValues(alpha: 0.08),
+                      AppColors.primary.withValues(alpha: 0.0),
+                    ],
+                  ),
+                ),
               ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // 1. Header with Hero Logo Badge
-                  SlideTransition(
-                    position: _slideHeaderAnimation,
-                    child: FadeTransition(
-                      opacity: _fadeHeaderAnimation,
-                      child: Column(
-                        children: [
-                          const CosmicLogoBadge(
-                            size: 80,
-                            heroTag: 'astrobite-brand-logo',
-                          ),
-                          const SizedBox(height: AppValues.spacing16),
-                          Text(
-                            AppStrings.appName,
-                            style: GoogleFonts.outfit(
-                              fontSize: 30,
-                              fontWeight: FontWeight.w700,
-                              letterSpacing: 1.0,
-                              color: AppColors.onSurface,
-                              shadows: [
-                                BoxShadow(
-                                  color: AppColors.primary.withValues(alpha: 0.4),
-                                  blurRadius: 16,
-                                  offset: const Offset(0, 2),
+            ),
+          ),
+          Positioned(
+            bottom: -60,
+            left: -60,
+            width: 280,
+            height: 280,
+            child: IgnorePointer(
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: RadialGradient(
+                    colors: [
+                      AppColors.secondary.withValues(alpha: 0.06),
+                      AppColors.secondary.withValues(alpha: 0.0),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+
+          // 2. Content
+          SafeArea(
+            child: Center(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppValues.screenPadding,
+                  vertical: AppValues.spacing24,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // 2a. Header with Hero Logo Badge
+                    SlideTransition(
+                      position: _slideHeaderAnimation,
+                      child: FadeTransition(
+                        opacity: _fadeHeaderAnimation,
+                        child: Column(
+                          children: [
+                            const CosmicLogoBadge(
+                              size: 80,
+                              heroTag: 'astrobite-brand-logo',
+                            ),
+                            const SizedBox(height: AppValues.spacing16),
+                            Text(
+                              AppStrings.appName,
+                              style: GoogleFonts.outfit(
+                                fontSize: 30,
+                                fontWeight: FontWeight.w700,
+                                letterSpacing: 1.0,
+                                color: AppColors.onSurface,
+                              ),
+                            ),
+                            const SizedBox(height: AppValues.spacing4),
+                            Text(
+                              'Đăng nhập để theo dõi mục tiêu dinh dưỡng',
+                              style: GoogleFonts.inter(
+                                fontSize: 14,
+                                color: AppColors.onSurfaceVariant,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+
+                    const SizedBox(height: AppValues.spacing24),
+
+                    // 2b. Form Container in ClayCard
+                    SlideTransition(
+                      position: _slideCardAnimation,
+                      child: FadeTransition(
+                        opacity: _fadeCardAnimation,
+                        child: ClayCard(
+                          padding: const EdgeInsets.all(AppValues.spacing24),
+                          borderRadius: AppValues.cardRadiusLarge,
+                          elevation: 6.0,
+                          child: Form(
+                            key: _formKey,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                ClayTextField(
+                                  controller: _emailController,
+                                  labelText: AppStrings.email,
+                                  keyboardType: TextInputType.emailAddress,
+                                  prefixIcon: const Icon(
+                                    Icons.email_outlined,
+                                    color: AppColors.onSurfaceVariant,
+                                  ),
+                                  validator: (v) => v != null && v.contains('@')
+                                      ? null
+                                      : 'Email không hợp lệ',
+                                ),
+                                const SizedBox(height: AppValues.spacing16),
+                                ClayTextField(
+                                  controller: _passwordController,
+                                  labelText: AppStrings.password,
+                                  obscureText: _obscurePassword,
+                                  prefixIcon: const Icon(
+                                    Icons.lock_outline,
+                                    color: AppColors.onSurfaceVariant,
+                                  ),
+                                  suffixIcon: IconButton(
+                                    icon: Icon(
+                                      _obscurePassword
+                                          ? Icons.visibility_off
+                                          : Icons.visibility,
+                                      color: AppColors.onSurfaceVariant,
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        _obscurePassword = !_obscurePassword;
+                                      });
+                                    },
+                                  ),
+                                  validator: (v) => v != null && v.length >= 6
+                                      ? null
+                                      : 'Mật khẩu tối thiểu 6 ký tự',
+                                ),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: TextButton(
+                                    onPressed: _showForgotPasswordDialog,
+                                    child: const Text(
+                                      AppStrings.forgotPassword,
+                                      style: TextStyle(
+                                        color: AppColors.onSurfaceVariant,
+                                        fontSize: 13,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(height: AppValues.spacing8),
+                                ClayButton(
+                                  text: AppStrings.login,
+                                  isLoading: loginState.isLoading,
+                                  onPressed: _handleLogin,
+                                  width: double.infinity,
+                                  height: 52,
+                                ),
+                                const SizedBox(height: AppValues.spacing20),
+                                Row(
+                                  children: [
+                                    const Expanded(
+                                      child: Divider(color: AppColors.outline),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: AppValues.spacing16,
+                                      ),
+                                      child: Text(
+                                        AppStrings.orDivider,
+                                        style: TextStyle(
+                                          color: AppColors.onSurfaceVariant,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                    ),
+                                    const Expanded(
+                                      child: Divider(color: AppColors.outline),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: AppValues.spacing20),
+                                GoogleSignInButton(
+                                  isLoading: loginState.isLoading,
+                                  onPressed: _handleGoogleLogin,
                                 ),
                               ],
                             ),
                           ),
-                          const SizedBox(height: 6),
-                          Text(
-                            'Đăng nhập để theo dõi mục tiêu dinh dưỡng',
-                            style: GoogleFonts.inter(
-                              fontSize: 14,
-                              color: AppColors.onSurfaceVariant,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
+                        ),
                       ),
                     ),
-                  ),
 
-                  const SizedBox(height: AppValues.spacing24),
+                    const SizedBox(height: AppValues.spacing20),
 
-                  // 2. Form Container in Celestial GlassCard
-                  SlideTransition(
-                    position: _slideCardAnimation,
-                    child: FadeTransition(
+                    // 2c. Register Redirect Link
+                    FadeTransition(
                       opacity: _fadeCardAnimation,
-                      child: GlassCard(
-                        padding: const EdgeInsets.all(AppValues.spacing20),
-                        borderRadius: AppValues.cardRadius * 1.5,
-                        borderColor: Colors.white.withValues(alpha: 0.12),
-                        child: Form(
-                          key: _formKey,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                      child: TextButton(
+                        onPressed: () => context.router.push(const RegisterRoute()),
+                        child: RichText(
+                          text: TextSpan(
+                            text: 'Chưa có tài khoản? ',
+                            style: GoogleFonts.inter(
+                              color: AppColors.onSurfaceVariant,
+                              fontSize: 14,
+                            ),
                             children: [
-                              AuthTextField(
-                                controller: _emailController,
-                                labelText: AppStrings.email,
-                                keyboardType: TextInputType.emailAddress,
-                                prefixIcon: const Icon(
-                                  Icons.email_outlined,
-                                  color: AppColors.onSurfaceVariant,
+                              TextSpan(
+                                text: AppStrings.register,
+                                style: GoogleFonts.inter(
+                                  color: AppColors.primary,
+                                  fontWeight: FontWeight.w700,
                                 ),
-                                validator: (v) => v != null && v.contains('@')
-                                    ? null
-                                    : 'Email không hợp lệ',
-                              ),
-                              const SizedBox(height: AppValues.spacing16),
-                              AuthTextField(
-                                controller: _passwordController,
-                                labelText: AppStrings.password,
-                                obscureText: _obscurePassword,
-                                prefixIcon: const Icon(
-                                  Icons.lock_outline,
-                                  color: AppColors.onSurfaceVariant,
-                                ),
-                                suffixIcon: IconButton(
-                                  icon: Icon(
-                                    _obscurePassword
-                                        ? Icons.visibility_off
-                                        : Icons.visibility,
-                                    color: AppColors.onSurfaceVariant,
-                                  ),
-                                  onPressed: () {
-                                    setState(() {
-                                      _obscurePassword = !_obscurePassword;
-                                    });
-                                  },
-                                ),
-                                validator: (v) => v != null && v.length >= 6
-                                    ? null
-                                    : 'Mật khẩu tối thiểu 6 ký tự',
-                              ),
-                              Align(
-                                alignment: Alignment.centerRight,
-                                child: TextButton(
-                                  onPressed: _showForgotPasswordDialog,
-                                  child: const Text(
-                                    AppStrings.forgotPassword,
-                                    style: TextStyle(
-                                      color: AppColors.onSurfaceVariant,
-                                      fontSize: 13,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: AppValues.spacing8),
-                              AuthSubmitButton(
-                                text: AppStrings.login,
-                                isLoading: loginState.isLoading,
-                                onPressed: _handleLogin,
-                              ),
-                              const SizedBox(height: AppValues.spacing20),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: Divider(
-                                      color: Colors.white.withValues(alpha: 0.12),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: AppValues.spacing16,
-                                    ),
-                                    child: Text(
-                                      AppStrings.orDivider,
-                                      style: TextStyle(
-                                        color: AppColors.onSurfaceVariant.withValues(alpha: 0.8),
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Divider(
-                                      color: Colors.white.withValues(alpha: 0.12),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: AppValues.spacing20),
-                              GoogleSignInButton(
-                                isLoading: loginState.isLoading,
-                                onPressed: _handleGoogleLogin,
                               ),
                             ],
                           ),
                         ),
                       ),
                     ),
-                  ),
-
-                  const SizedBox(height: AppValues.spacing20),
-
-                  // 3. Register Redirect Link
-                  FadeTransition(
-                    opacity: _fadeCardAnimation,
-                    child: TextButton(
-                      onPressed: () => context.router.push(const RegisterRoute()),
-                      child: RichText(
-                        text: TextSpan(
-                          text: 'Chưa có tài khoản? ',
-                          style: GoogleFonts.inter(
-                            color: AppColors.onSurfaceVariant,
-                            fontSize: 14,
-                          ),
-                          children: [
-                            TextSpan(
-                              text: AppStrings.register,
-                              style: GoogleFonts.inter(
-                                color: colorScheme.primary,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }

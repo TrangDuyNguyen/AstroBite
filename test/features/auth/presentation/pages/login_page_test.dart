@@ -7,6 +7,7 @@ import 'package:astrobite/features/auth/domain/auth_providers.dart';
 import 'package:astrobite/features/auth/domain/repositories/auth_repository.dart';
 import 'package:astrobite/features/auth/presentation/pages/login_page.dart';
 import 'package:astrobite/features/auth/presentation/widgets/google_sign_in_button.dart';
+import 'package:astrobite/shared/ui_kit/ui_kit.dart';
 
 class FakeUserCredential implements UserCredential {
   @override
@@ -73,7 +74,7 @@ void main() {
 
       // Check buttons and links
       expect(find.text(AppStrings.forgotPassword), findsOneWidget);
-      expect(find.widgetWithText(FilledButton, AppStrings.login), findsOneWidget);
+      expect(find.widgetWithText(ClayButton, AppStrings.login), findsOneWidget);
       expect(find.byType(GoogleSignInButton), findsOneWidget);
       expect(
         find.byWidgetPredicate(
@@ -113,7 +114,7 @@ void main() {
       await tester.pumpAndSettle();
 
       // Tap Login button with empty inputs
-      await tester.tap(find.widgetWithText(FilledButton, AppStrings.login));
+      await tester.tap(find.text(AppStrings.login));
       await tester.pumpAndSettle();
 
       expect(find.text('Email không hợp lệ'), findsOneWidget);
