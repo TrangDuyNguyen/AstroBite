@@ -5,7 +5,7 @@ import 'package:astrobite/core/constants/app_values.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
 
 /// Premium Google Sign-In button with authentic Google 4-color vector emblem,
-/// tactile Duolingo 3D mechanical press animation, and warm Claymorphic styling.
+/// tactile Duolingo 3D mechanical press animation, and puffy White Clay styling.
 class GoogleSignInButton extends StatefulWidget {
   const GoogleSignInButton({
     super.key,
@@ -44,110 +44,167 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
   @override
   Widget build(BuildContext context) {
     final bool isInteractive = !widget.isLoading && widget.onPressed != null;
-    const double bevelDepth = 4.5;
-    final effectiveBevel = _isPressed ? 1.0 : bevelDepth;
-    final downShift = _isPressed ? (bevelDepth - 1.0) : 0.0;
+    const double bevelDepth = 5.0;
+    const double radius = 24.0;
+    final effectiveBevel = _isPressed ? 1.2 : bevelDepth;
+    final downShift = _isPressed ? (bevelDepth - 1.2) : 0.0;
 
     return AnimatedContainer(
       duration: const Duration(milliseconds: 90),
       curve: Curves.easeOutCubic,
       transform: Matrix4.translationValues(0, isInteractive ? downShift : 0.0, 0),
       child: SizedBox(
-        height: 50,
+        height: 52,
         child: Material(
           color: Colors.transparent,
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(radius),
           child: InkWell(
             onTap: isInteractive ? widget.onPressed : null,
             onTapDown: _handleTapDown,
             onTapUp: _handleTapUp,
             onTapCancel: _handleTapCancel,
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(radius),
             splashColor: AppColors.primary.withValues(alpha: 0.06),
             highlightColor: AppColors.primary.withValues(alpha: 0.03),
             child: Ink(
               decoration: BoxDecoration(
-                color: Colors.white,
-                gradient: const LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [Colors.white, Color(0xFFF9F7F4)],
-                ),
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(radius),
                 border: Border.all(
                   color: const Color(0xFFE2DDD5),
-                  width: 1.2,
+                  width: 1.5,
                 ),
                 boxShadow: isInteractive
                     ? [
                         // Layer 1: Solid warm clay bottom bevel
                         BoxShadow(
-                          color: const Color(0xFFCEC8BD),
+                          color: const Color(0xFFCDC5B8),
                           offset: Offset(0, effectiveBevel),
                           blurRadius: 0,
                         ),
-                        // Layer 2: Glossy white top highlight sheen
-                        const BoxShadow(
-                          color: Colors.white,
-                          offset: Offset(0, 1.5),
-                          blurRadius: 0,
-                        ),
-                        // Layer 3: Soft ambient float
+                        // Layer 2: Soft warm ambient float
                         BoxShadow(
                           color: const Color(0x181E2337),
-                          offset: Offset(0, _isPressed ? 2 : effectiveBevel + 3),
-                          blurRadius: _isPressed ? 4 : 10,
+                          offset: Offset(0, _isPressed ? 2 : effectiveBevel + 4),
+                          blurRadius: _isPressed ? 4 : 14,
                         ),
                       ]
                     : null,
               ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: AppValues.spacing16),
-                child: widget.isLoading
-                    ? const Center(
-                        child: SizedBox(
-                          width: 20,
-                          height: 20,
-                          child: CircularProgressIndicator(
-                            strokeWidth: 2,
-                            valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(radius - 1.5),
+                child: Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    // 1. Base White Clay Body
+                    const DecoratedBox(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [Colors.white, Color(0xFFF7F4EF)],
+                        ),
+                      ),
+                    ),
+
+                    // 2. White Clay Specular Gloss Highlight Sheen
+                    Positioned(
+                      top: 2.5,
+                      left: 6.0,
+                      right: 6.0,
+                      height: 52 * 0.44,
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(radius - 4),
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              Colors.white.withValues(alpha: 0.95),
+                              Colors.white.withValues(alpha: 0.0),
+                            ],
                           ),
                         ),
-                      )
-                    : Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: 24,
-                            height: 24,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(6),
-                              boxShadow: const [
-                                BoxShadow(
-                                  color: Color(0x0C1E2337),
-                                  offset: Offset(0, 1),
-                                  blurRadius: 2,
+                      ),
+                    ),
+
+                    // 3. Bottom Inner Curvature Shade
+                    Positioned(
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      height: 52 * 0.30,
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              Colors.transparent,
+                              Colors.black.withValues(alpha: 0.05),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    // 4. Button Content
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: AppValues.spacing16),
+                      child: widget.isLoading
+                          ? const Center(
+                              child: SizedBox(
+                                width: 22,
+                                height: 22,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2.4,
+                                  valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
+                                ),
+                              ),
+                            )
+                          : Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  width: 24,
+                                  height: 24,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(6),
+                                    boxShadow: const [
+                                      BoxShadow(
+                                        color: Color(0x0E1E2337),
+                                        offset: Offset(0, 1),
+                                        blurRadius: 2,
+                                      ),
+                                    ],
+                                  ),
+                                  padding: const EdgeInsets.all(2.5),
+                                  child: const CustomPaint(
+                                    painter: _GoogleLogoPainter(),
+                                  ),
+                                ),
+                                const SizedBox(width: AppValues.spacing12),
+                                const Text(
+                                  AppStrings.googleSignIn,
+                                  style: TextStyle(
+                                    color: AppColors.onSurface,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w700,
+                                    letterSpacing: 0.2,
+                                    shadows: [
+                                      Shadow(
+                                        color: Colors.white,
+                                        offset: Offset(0, 1),
+                                        blurRadius: 1,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
-                            padding: const EdgeInsets.all(2.5),
-                            child: const CustomPaint(
-                              painter: _GoogleLogoPainter(),
-                            ),
-                          ),
-                          const SizedBox(width: AppValues.spacing12),
-                          const Text(
-                            AppStrings.googleSignIn,
-                            style: TextStyle(
-                              color: AppColors.onSurface,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w700,
-                              letterSpacing: 0.2,
-                            ),
-                          ),
-                        ],
-                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

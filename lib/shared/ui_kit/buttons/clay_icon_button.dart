@@ -90,26 +90,48 @@ class _ClayIconButtonState extends State<ClayIconButton> {
                       offset: Offset(0, effectiveElevation),
                       blurRadius: 0,
                     ),
-                    // Layer 2: Glossy white top highlight sheen
+                    // Layer 2: Ambient shadow
                     BoxShadow(
-                      color: Colors.white.withValues(alpha: isPrimary ? 0.35 : 0.8),
-                      offset: const Offset(0, 1.2),
-                      blurRadius: 0,
-                    ),
-                    // Layer 3: Ambient shadow
-                    BoxShadow(
-                      color: isPrimary ? AppColors.primary.withValues(alpha: 0.28) : const Color(0x181E2337),
-                      offset: Offset(0, _isPressed ? 2 : effectiveElevation + 2),
-                      blurRadius: _isPressed ? 3 : 8,
+                      color: isPrimary ? AppColors.primary.withValues(alpha: 0.32) : const Color(0x181E2337),
+                      offset: Offset(0, _isPressed ? 2 : effectiveElevation + 3),
+                      blurRadius: _isPressed ? 4 : 10,
                     ),
                   ]
                 : null,
           ),
-          child: Center(
-            child: ClayMorphIcon(
-              icon: widget.icon,
-              size: widget.size * 0.5,
-              color: widget.iconColor ?? (isPrimary ? Colors.white : AppColors.onSurface),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(widget.borderRadius - 1.2),
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                // Top Specular Gloss Highlight
+                Positioned(
+                  top: 2,
+                  left: 4,
+                  right: 4,
+                  height: widget.size * 0.42,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(widget.borderRadius - 3),
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Colors.white.withValues(alpha: isPrimary ? 0.55 : 0.9),
+                          Colors.white.withValues(alpha: 0.0),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                Center(
+                  child: ClayMorphIcon(
+                    icon: widget.icon,
+                    size: widget.size * 0.5,
+                    color: widget.iconColor ?? (isPrimary ? Colors.white : AppColors.onSurface),
+                  ),
+                ),
+              ],
             ),
           ),
         ),
