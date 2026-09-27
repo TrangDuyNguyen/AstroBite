@@ -5,7 +5,7 @@ import 'package:astrobite/core/constants/app_values.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
 
 /// Premium Google Sign-In button with authentic Google 4-color vector emblem,
-/// tactile Duolingo 3D mechanical press animation, and velvety Soft Matte White Clay styling.
+/// tactile Duolingo 3D mechanical press animation, and clean Marshmallow White Clay styling.
 class GoogleSignInButton extends StatefulWidget {
   const GoogleSignInButton({
     super.key,
@@ -44,10 +44,10 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
   @override
   Widget build(BuildContext context) {
     final bool isInteractive = !widget.isLoading && widget.onPressed != null;
-    const double bevelDepth = 4.2;
+    const double bevelDepth = 3.2;
     const double radius = 24.0;
-    final effectiveBevel = _isPressed ? 1.0 : bevelDepth;
-    final downShift = _isPressed ? (bevelDepth - 1.0) : 0.0;
+    final effectiveBevel = _isPressed ? 0.8 : bevelDepth;
+    final downShift = _isPressed ? (bevelDepth - 0.8) : 0.0;
 
     return AnimatedContainer(
       duration: const Duration(milliseconds: 90),
@@ -68,64 +68,51 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
             highlightColor: AppColors.primary.withValues(alpha: 0.03),
             child: Ink(
               decoration: BoxDecoration(
+                color: Colors.white,
                 borderRadius: BorderRadius.circular(radius),
+                border: Border.all(
+                  color: const Color(0xFFE8E5DF),
+                  width: 1.2,
+                ),
                 boxShadow: isInteractive
                     ? [
-                        // Layer 1: Soft warm clay contact depth (Mềm mại, không sắc lẹm)
+                        // Layer 1: Clean, soft warm clay bottom bevel (khử vệt tối lem nhem)
                         BoxShadow(
-                          color: const Color(0xFFC8BFB2).withValues(alpha: 0.90),
+                          color: const Color(0xFFDDD8CE).withValues(alpha: 0.80),
                           offset: Offset(0, effectiveBevel),
-                          blurRadius: 3.5,
+                          blurRadius: 2.0,
                           spreadRadius: -0.5,
                         ),
-                        // Layer 2: Soft warm ambient float
+                        // Layer 2: Soft clean ambient lift
                         BoxShadow(
-                          color: const Color(0x141E2337),
-                          offset: Offset(0, _isPressed ? 2 : effectiveBevel + 3),
-                          blurRadius: _isPressed ? 4 : 12,
-                          spreadRadius: -1.0,
+                          color: const Color(0x0C1E2337),
+                          offset: Offset(0, _isPressed ? 1.5 : effectiveBevel + 3),
+                          blurRadius: _isPressed ? 3 : 8,
+                          spreadRadius: -0.5,
                         ),
                       ]
                     : null,
               ),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(radius),
+                borderRadius: BorderRadius.circular(radius - 1.2),
                 child: Stack(
                   fit: StackFit.expand,
                   children: [
-                    // 1. Soft Matte White Clay Body — Continuous gentle gradient
+                    // 1. Clean White Marshmallow Clay Gradient
                     const DecoratedBox(
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          stops: [0.0, 0.5, 1.0],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
                           colors: [
                             Colors.white,
-                            Color(0xFFFAF7F2),
-                            Color(0xFFF0EBE0),
+                            Color(0xFFFAF9F6),
                           ],
                         ),
                       ),
                     ),
 
-                    // 2. Diffuse Soft Ambient Light Pool (Zero harsh cuts)
-                    Positioned.fill(
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          gradient: RadialGradient(
-                            center: const Alignment(-0.25, -0.75),
-                            radius: 1.15,
-                            colors: [
-                              Colors.white.withValues(alpha: 0.60),
-                              Colors.white.withValues(alpha: 0.0),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-
-                    // 3. Button Content
+                    // 2. Button Content
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: AppValues.spacing16),
                       child: widget.isLoading
@@ -142,22 +129,10 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
                           : Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Container(
-                                  width: 24,
-                                  height: 24,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(6),
-                                    boxShadow: const [
-                                      BoxShadow(
-                                        color: Color(0x0E1E2337),
-                                        offset: Offset(0, 1),
-                                        blurRadius: 2,
-                                      ),
-                                    ],
-                                  ),
-                                  padding: const EdgeInsets.all(2.5),
-                                  child: const CustomPaint(
+                                const SizedBox(
+                                  width: 20,
+                                  height: 20,
+                                  child: CustomPaint(
                                     painter: _GoogleLogoPainter(),
                                   ),
                                 ),
@@ -169,13 +144,6 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
                                     fontSize: 15,
                                     fontWeight: FontWeight.w700,
                                     letterSpacing: 0.2,
-                                    shadows: [
-                                      Shadow(
-                                        color: Colors.white,
-                                        offset: Offset(0, 1),
-                                        blurRadius: 1,
-                                      ),
-                                    ],
                                   ),
                                 ),
                               ],
