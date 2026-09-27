@@ -1,9 +1,9 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:astrobite/core/constants/app_values.dart';
-import 'package:astrobite/core/theme/app_colors.dart';
+import 'package:astrobite/shared/ui_kit/surfaces/clay_card.dart';
 
-/// A card with glassmorphism effect (backdrop blur + translucent background).
+/// Legacy card migrated to Claymorphic surface.
+/// // ponytail: legacy GlassCard migrated to ClayCard for 0 GPU strain & Claymorphic aesthetics
 class GlassCard extends StatelessWidget {
   const GlassCard({
     super.key,
@@ -22,26 +22,11 @@ class GlassCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(borderRadius),
-      child: BackdropFilter(
-        filter: ImageFilter.blur(
-          sigmaX: blurSigma,
-          sigmaY: blurSigma,
-        ),
-        child: Container(
-          padding: padding,
-          decoration: BoxDecoration(
-            color: AppColors.surfaceBlur,
-            borderRadius: BorderRadius.circular(borderRadius),
-            border: Border.all(
-              color: borderColor ?? AppColors.outline.withValues(alpha: 0.3),
-              width: borderColor != null ? 1.5 : 1,
-            ),
-          ),
-          child: child,
-        ),
-      ),
+    return ClayCard(
+      padding: padding,
+      borderRadius: borderRadius,
+      borderColor: borderColor,
+      child: child,
     );
   }
 }
