@@ -104,20 +104,15 @@ class _ClayIconButtonState extends State<ClayIconButton> {
             child: Stack(
               fit: StackFit.expand,
               children: [
-                // Top Specular Gloss Highlight
-                Positioned(
-                  top: 2,
-                  left: 4,
-                  right: 4,
-                  height: widget.size * 0.42,
+                // Soft Diffuse Radial Light Pool
+                Positioned.fill(
                   child: DecoratedBox(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(widget.borderRadius - 3),
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
+                      gradient: RadialGradient(
+                        center: const Alignment(-0.25, -0.75),
+                        radius: 1.15,
                         colors: [
-                          Colors.white.withValues(alpha: isPrimary ? 0.55 : 0.9),
+                          Colors.white.withValues(alpha: isPrimary ? 0.32 : 0.65),
                           Colors.white.withValues(alpha: 0.0),
                         ],
                       ),

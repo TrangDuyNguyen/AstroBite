@@ -5,7 +5,7 @@ import 'package:astrobite/core/constants/app_values.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
 
 /// Premium Google Sign-In button with authentic Google 4-color vector emblem,
-/// tactile Duolingo 3D mechanical press animation, and puffy White Clay styling.
+/// tactile Duolingo 3D mechanical press animation, and velvety Soft Matte White Clay styling.
 class GoogleSignInButton extends StatefulWidget {
   const GoogleSignInButton({
     super.key,
@@ -44,10 +44,10 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
   @override
   Widget build(BuildContext context) {
     final bool isInteractive = !widget.isLoading && widget.onPressed != null;
-    const double bevelDepth = 5.0;
+    const double bevelDepth = 4.2;
     const double radius = 24.0;
-    final effectiveBevel = _isPressed ? 1.2 : bevelDepth;
-    final downShift = _isPressed ? (bevelDepth - 1.2) : 0.0;
+    final effectiveBevel = _isPressed ? 1.0 : bevelDepth;
+    final downShift = _isPressed ? (bevelDepth - 1.0) : 0.0;
 
     return AnimatedContainer(
       duration: const Duration(milliseconds: 90),
@@ -70,56 +70,56 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(radius),
                 border: Border.all(
-                  color: const Color(0xFFE2DDD5),
-                  width: 1.5,
+                  color: const Color(0xFFE2DDD4),
+                  width: 1.2,
                 ),
                 boxShadow: isInteractive
                     ? [
-                        // Layer 1: Solid warm clay bottom bevel
+                        // Layer 1: Warm soft clay bottom bevel
                         BoxShadow(
-                          color: const Color(0xFFCDC5B8),
+                          color: const Color(0xFFD2CBC0),
                           offset: Offset(0, effectiveBevel),
                           blurRadius: 0,
                         ),
                         // Layer 2: Soft warm ambient float
                         BoxShadow(
-                          color: const Color(0x181E2337),
-                          offset: Offset(0, _isPressed ? 2 : effectiveBevel + 4),
-                          blurRadius: _isPressed ? 4 : 14,
+                          color: const Color(0x161E2337),
+                          offset: Offset(0, _isPressed ? 2 : effectiveBevel + 3),
+                          blurRadius: _isPressed ? 4 : 12,
                         ),
                       ]
                     : null,
               ),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(radius - 1.5),
+                borderRadius: BorderRadius.circular(radius - 1.2),
                 child: Stack(
                   fit: StackFit.expand,
                   children: [
-                    // 1. Base White Clay Body
+                    // 1. Soft Matte White Clay Body — Continuous gentle gradient
                     const DecoratedBox(
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [Colors.white, Color(0xFFF7F4EF)],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          stops: [0.0, 0.5, 1.0],
+                          colors: [
+                            Colors.white,
+                            Color(0xFFFAF7F2),
+                            Color(0xFFF0EBE0),
+                          ],
                         ),
                       ),
                     ),
 
-                    // 2. White Clay Specular Gloss Highlight Sheen
-                    Positioned(
-                      top: 2.5,
-                      left: 6.0,
-                      right: 6.0,
-                      height: 52 * 0.44,
+                    // 2. Diffuse Soft Ambient Light Pool (Zero harsh cuts)
+                    Positioned.fill(
                       child: DecoratedBox(
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(radius - 4),
-                          gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
+                          gradient: RadialGradient(
+                            center: const Alignment(-0.25, -0.75),
+                            radius: 1.15,
                             colors: [
-                              Colors.white.withValues(alpha: 0.95),
+                              Colors.white.withValues(alpha: 0.60),
                               Colors.white.withValues(alpha: 0.0),
                             ],
                           ),
@@ -127,27 +127,7 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
                       ),
                     ),
 
-                    // 3. Bottom Inner Curvature Shade
-                    Positioned(
-                      bottom: 0,
-                      left: 0,
-                      right: 0,
-                      height: 52 * 0.30,
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: [
-                              Colors.transparent,
-                              Colors.black.withValues(alpha: 0.05),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-
-                    // 4. Button Content
+                    // 3. Button Content
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: AppValues.spacing16),
                       child: widget.isLoading

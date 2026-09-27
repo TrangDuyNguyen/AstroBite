@@ -10,15 +10,14 @@ enum ClayButtonVariant {
   outline,
 }
 
-/// Tactile Claymorphic × Duolingo 2D/3D Puffy Mechanical Button.
+/// Tactile Soft Matte Claymorphic × Duolingo 2D/3D Button.
 /// 
 /// Features:
-/// - Puffy 3D clay body with fat 24pt rounded corners
-/// - Visible top specular gloss highlight sheen (the signature clay reflection)
-/// - Bottom inner curvature shading (debossed clay contour)
-/// - Solid chunky 3D bottom bevel (5.0pt) that physically sinks down 3.5px on press
-/// - Embossed text with depth shadow
-/// - Soft colored ambient glow
+/// - Velvety Soft Matte Clay body (smooth directional diffuse light, no harsh gloss cuts)
+/// - Puffy 3D volume via continuous 3-stop top-left to bottom-right lighting
+/// - Soft spherical radial highlight that smoothly bleeds into the clay
+/// - Solid warm 3D bottom bevel (4.2pt) with mechanical keycap down-shift on press
+/// - Embedded text depth shadow and soft ambient colored glow
 class ClayButton extends StatefulWidget {
   const ClayButton({
     super.key,
@@ -64,18 +63,18 @@ class _ClayButtonState extends State<ClayButton> {
   };
 
   Color get _bevelColor => switch (widget.variant) {
-    ClayButtonVariant.primary => const Color(0xFF106D9E), // Deep rich blue
-    ClayButtonVariant.success => const Color(0xFF357A02), // Deep lime
-    ClayButtonVariant.warning => const Color(0xFFA65D00), // Deep tangerine
-    ClayButtonVariant.danger  => const Color(0xFF8E1414), // Deep red
-    ClayButtonVariant.outline => const Color(0xFFCEC7BC), // Warm clay
+    ClayButtonVariant.primary => const Color(0xFF1172A2), // Deep velvety matte blue
+    ClayButtonVariant.success => const Color(0xFF388002), // Deep matte lime
+    ClayButtonVariant.warning => const Color(0xFFA86000), // Deep matte tangerine
+    ClayButtonVariant.danger  => const Color(0xFF941818), // Deep matte red
+    ClayButtonVariant.outline => const Color(0xFFD0C9BE), // Warm soft clay
   };
 
   @override
   Widget build(BuildContext context) {
-    const double bevelDepth = 5.0;
-    final effectiveBevel = _isPressed ? 1.2 : bevelDepth;
-    final downShift = _isPressed ? (bevelDepth - 1.2) : 0.0;
+    const double bevelDepth = 4.2;
+    final effectiveBevel = _isPressed ? 1.0 : bevelDepth;
+    final downShift = _isPressed ? (bevelDepth - 1.0) : 0.0;
 
     return AnimatedContainer(
       duration: const Duration(milliseconds: 90),
@@ -97,74 +96,76 @@ class _ClayButtonState extends State<ClayButton> {
               borderRadius: BorderRadius.circular(widget.borderRadius),
               border: Border.all(
                 color: widget.variant == ClayButtonVariant.outline
-                    ? const Color(0xFFE0DBD2)
-                    : Colors.white.withValues(alpha: 0.35),
-                width: 1.5,
+                    ? const Color(0xFFE2DDD4)
+                    : Colors.white.withValues(alpha: 0.32),
+                width: 1.2,
               ),
               boxShadow: _isEnabled
                   ? [
-                      // Layer 1: Solid Chunky 3D Bottom Bevel
+                      // Layer 1: Solid Chunky Matte Bottom Bevel
                       BoxShadow(
                         color: _bevelColor,
                         offset: Offset(0, effectiveBevel),
                         blurRadius: 0,
                       ),
-                      // Layer 2: Vibrant Ambient Colored 3D Glow
+                      // Layer 2: Soft Ambient Colored Diffuse Glow
                       if (widget.variant != ClayButtonVariant.outline)
                         BoxShadow(
-                          color: _baseColor.withValues(alpha: 0.36),
-                          offset: Offset(0, _isPressed ? 3 : effectiveBevel + 4),
-                          blurRadius: _isPressed ? 6 : 16,
+                          color: _baseColor.withValues(alpha: 0.30),
+                          offset: Offset(0, _isPressed ? 2 : effectiveBevel + 4),
+                          blurRadius: _isPressed ? 5 : 14,
                         )
                       else
                         BoxShadow(
-                          color: const Color(0x1A1E2337),
+                          color: const Color(0x161E2337),
                           offset: Offset(0, _isPressed ? 2 : effectiveBevel + 3),
-                          blurRadius: _isPressed ? 4 : 12,
+                          blurRadius: _isPressed ? 4 : 10,
                         ),
                     ]
                   : null,
             ),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(widget.borderRadius - 1.5),
+              borderRadius: BorderRadius.circular(widget.borderRadius - 1.2),
               child: Stack(
                 fit: StackFit.expand,
                 children: [
-                  // 1. Base Clay Body Gradient
+                  // 1. Soft Matte Clay Body — Continuous 3-stop directional gradient
                   DecoratedBox(
                     decoration: BoxDecoration(
                       gradient: widget.variant == ClayButtonVariant.outline
                           ? const LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [Colors.white, Color(0xFFF7F4EF)],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              stops: [0.0, 0.5, 1.0],
+                              colors: [
+                                Colors.white,
+                                Color(0xFFFAF7F2),
+                                Color(0xFFF0EBE0),
+                              ],
                             )
                           : LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              stops: const [0.0, 0.45, 1.0],
                               colors: [
-                                Color.lerp(_baseColor, Colors.white, 0.22)!,
+                                Color.lerp(_baseColor, Colors.white, 0.24)!,
                                 _baseColor,
+                                Color.lerp(_baseColor, Colors.black, 0.12)!,
                               ],
                             ),
                     ),
                   ),
 
-                  // 2. Clay Specular Gloss Highlight (The signature top shiny oval)
-                  Positioned(
-                    top: 2.5,
-                    left: 6.0,
-                    right: 6.0,
-                    height: widget.height * 0.44,
+                  // 2. Diffuse Soft Ambient Light Pool (Radial, velvety soft, zero harsh lines)
+                  Positioned.fill(
                     child: DecoratedBox(
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(widget.borderRadius - 4),
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
+                        gradient: RadialGradient(
+                          center: const Alignment(-0.25, -0.75),
+                          radius: 1.15,
                           colors: [
                             Colors.white.withValues(
-                              alpha: widget.variant == ClayButtonVariant.outline ? 0.95 : 0.55,
+                              alpha: widget.variant == ClayButtonVariant.outline ? 0.65 : 0.28,
                             ),
                             Colors.white.withValues(alpha: 0.0),
                           ],
@@ -173,29 +174,7 @@ class _ClayButtonState extends State<ClayButton> {
                     ),
                   ),
 
-                  // 3. Bottom Inner Curvature Shadow (The clay depth crease)
-                  Positioned(
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    height: widget.height * 0.32,
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Colors.transparent,
-                            (widget.variant == ClayButtonVariant.outline
-                                ? const Color(0xFFDDD7CE)
-                                : Colors.black).withValues(alpha: 0.20),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-
-                  // 4. Button Content (Icon + Text with Embossed Depth Shadow)
+                  // 3. Button Content (Text with subtle molded depth shadow)
                   Center(
                     child: widget.isLoading
                         ? SizedBox(
@@ -231,8 +210,8 @@ class _ClayButtonState extends State<ClayButton> {
                                         ]
                                       : [
                                           Shadow(
-                                            color: _bevelColor.withValues(alpha: 0.65),
-                                            offset: const Offset(0, 1.5),
+                                            color: _bevelColor.withValues(alpha: 0.50),
+                                            offset: const Offset(0, 1.2),
                                             blurRadius: 2,
                                           ),
                                         ],
