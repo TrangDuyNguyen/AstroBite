@@ -47,8 +47,15 @@ lib/
 │   ├── profile/                  # User profile & daily goals (data, domain, presentation)
 │   ├── scanner/                  # Food photo scanning via Gemini AI (data, domain, presentation)
 │   └── tracker/                  # Food diary, meal logs, macros (data, domain, presentation)
-├── shared/                       # Cross-feature reusable widgets
-│   └── widgets/                  # GlassCard, MacroBar, CalorieProgressArc, MealTypeChip, SkeletonLoader
+├── shared/                       # Cross-feature reusable widgets & Design System
+│   ├── ui_kit/                   # Central Claymorphic UI Kit (ui_kit.dart barrel)
+│   │   ├── surfaces/             # ClayCard, ClaySheet
+│   │   ├── buttons/              # ClayButton (Duolingo 3D), ClayIconButton
+│   │   ├── inputs/               # ClayTextField, ClaySearchBar
+│   │   ├── indicators/           # ChunkyMacroBar, CalorieProgressArc, ClaySkeletonLoader
+│   │   ├── chips/                # ClayMealChip
+│   │   └── navigation/           # ClayBottomNav
+│   └── widgets/                  # Legacy widgets & re-exports (backward compatibility)
 ├── app.dart                      # Root MaterialApp / AutoRoute configuration
 └── main.dart                     # App initialization (Firebase, App Check, ProviderScope)
 ```
@@ -66,28 +73,36 @@ lib/
    - Riverpod `@riverpod` controllers / Notifiers (`AsyncNotifier`).
    - Screens annotated with `@RoutePage()`.
    - UI widgets, dialogs, and sheets consuming providers via `ConsumerWidget` or `ConsumerStatefulWidget`.
-4. **Shared (`shared/widgets`)**:
-   - Stateless or purely visual reusable components without direct feature-specific domain couplings.
+4. **Shared (`shared/ui_kit` & `shared/widgets`)**:
+   - Reusable design system components importable via `import 'package:astrobite/shared/ui_kit/ui_kit.dart';`.
+   - Stateless or purely visual components with zero domain-specific coupling.
 
 ---
 
-## 4. UI & Design System Rules (Celestial Dark UI)
+## 4. UI & Design System Rules (Claymorphic × Duolingo 2D/3D)
 
 > [!IMPORTANT]
 > Always adhere to the tokens defined in `lib/core/theme/app_colors.dart` and `DESIGN.md`.
 
 - **Strict Nutrient Color Semantics (IMMUTABLE)**:
-  - 🔵 **Primary (`#1A73E8`)**: Carbohydrates indicator + active interactive states (FAB, tabs).
-  - 🩷 **Secondary (`#FF69B4`)**: Fat indicator + analytics trend lines.
-  - 🟡 **Tertiary (`#FFD700`)**: Protein indicator + calorie budget warning.
+  - 🩵 **Primary (`#1CB0F6`)**: Duolingo Sky Blue — Carbohydrates indicator + active interactive states (FAB, active tabs, primary CTAs).
+  - 🍓 **Secondary (`#FF5C8D`)**: Strawberry Cream Pink — Fat indicator + analytics trend lines.
+  - 🧡 **Tertiary (`#FF9600`)**: Honey Tangerine Orange — Protein indicator + calorie budget warning (high contrast on light canvas).
+  - 🥑 **BrandGreen (`#58CC02`)**: Duolingo Lime Green — Streaks, goals reached, and vitality.
   - **Do NOT** repurpose or invert these nutrient color associations.
-- **Backgrounds & Surfaces**:
-  - Midnight background: `AppColors.surface` (`#0A192F`).
-  - Elevated cards: `AppColors.surfaceContainer` (`#112240`).
-  - Glassmorphic overlays: `AppColors.surfaceBlur` (`0x99192A46`) with `BackdropFilter(filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20))`.
+- **Backgrounds & Claymorphic Surfaces**:
+  - Warm Milk Canvas: `AppColors.surface` (`#FAF8F5`) — warm, friendly, eye-soothing background.
+  - Pure White Clay Cards: `AppColors.surfaceContainer` (`#FFFFFF`) with `20pt` fat corner radius, 2-layer floating shadows (`Offset(0, 8), blur 16` + `Offset(0, 3.5), blur 0`), and tactile squash on tap (`0.98` scale).
+  - Clay Pastel Tints: `clayBreakfast` (`#FFF2D6`), `clayLunch` (`#E5F6FD`), `clayDinner` (`#F0E8FF`), `claySnack` (`#FFE8EE`), `clayMint` (`#E8F9D8`) for chips and badges.
+  - Light Control Overlays: Reserved for floating navigation bars and dialogs with clean white backdrop.
   - Always set `surfaceTintColor: Colors.transparent` on cards/appbars to avoid default Material 3 purple tinting.
-- **Ergonomics**:
+- **Typography & High Contrast (WCAG AAA/AA)**:
+  - Primary text: `AppColors.onSurface` (`#1E2337`) — Deep Slate Berry (contrast ratio > 13:1).
+  - Secondary text: `AppColors.onSurfaceVariant` (`#78829A`) — Cool Slate (contrast ratio > 4.8:1).
+  - Borders: `AppColors.outline` (`#E8E5DF`) — soft clay edges.
+- **Ergonomics & Tactile Feel**:
   - Follow the 4pt spacing grid (`AppValues.padding*`).
+  - Fat corner radii: `20pt` for cards (`SolarCard`/`ClayCard`), `24pt` for chips and pills.
   - Minimum touch target: `44x44pt` for all interactive elements.
 
 ---

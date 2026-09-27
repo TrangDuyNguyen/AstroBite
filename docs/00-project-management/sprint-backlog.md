@@ -1,51 +1,83 @@
 # Kế Hoạch Sprint Hiện Hành (Sprint Backlog)
 
 - **Quản lý bởi**: Sub-Agent Product Owner (PO) & Sub-Agent Project Manager (PM)
-- **Sprint hiện tại**: Sprint 11
-- **Tên Sprint**: Generative UI Chat Cockpit (Flutter GenUI SDK & Gemini 3.8 Flash)
-- **Mã Epic / Feature**: `EPIC-17` / `FEAT-18`
-- **Phiên bản mục tiêu**: `v2.0.0`
-- **Thời gian Sprint**: 26/09/2026 – 10/10/2026
-- **Trạng thái Sprint**: 🟢 **Sprint Completed & Closed — 8 Gates Cleared, Released v2.0.0**
-- **Tổng Story Points cam kết**: **14 SP** (Tiến độ: **14 / 14 SP — 100.0%**)
+- **Sprint hiện tại**: Sprint 13
+- **Tên Sprint**: Core Daily Loop — Navigation & Tracker Screen Overhaul
+- **Mã Epic / Feature**: `EPIC-UI-REFRESH` / `FEAT-S13-TRACKER-NAV`
+- **Phiên bản mục tiêu**: `v2.2.0`
+- **Thời gian Sprint**: 11/10/2026 – 24/10/2026
+- **Trạng thái Sprint**: 🟢 **DONE (10 / 10 SP — 100% Passed)**
+- **Tổng Story Points cam kết**: **10 SP** (Tiến độ: **10 / 10 SP — 100%**)
 
 ---
 
-## 🎯 Mục Tiêu Sprint 11
+## 🎯 Mục Tiêu Sprint 13: Core Daily Loop
 
-1. **A2UI Protocol & Gemini 3.8 Flash Adapter (`US-03`)**: Tích hợp luồng A2UI JSON streaming với `gemini-3.8-flash`, đảm bảo độ trễ First-Widget `< 1.2s`, 0% lỗi parsing schema.
-2. **CatalogItem MealQuickLogCard (`US-01`)**: Thẻ tương tác món ăn gồm tên món, calo, 3 màu Macro chuẩn bất biến (Carbs `#1A73E8`, Fat `#FF69B4`, Protein `#FFD700`), Stepper trọng lượng và nút [1-Tap Log to Diary] phản hồi < 100ms.
-3. **CatalogItem MacroBudgetGauge (`US-02`)**: Đồng hồ so sánh Calo nạp vào dự kiến vs Ngân sách calo còn lại trong ngày của người dùng.
-4. **CatalogItem QuickChoiceChips (`US-04`)**: Dải gợi ý hành động ngữ cảnh (chọn khung giờ ăn, loại món) cho phép tương tác phản hồi ngược lại cho AI.
-5. **Celestial Dark UI Integration & Zero-Bloat**: Render 60 FPS trong danh sách chat, kế thừa `GlassCard`, không gây rò rỉ bộ nhớ, tuân thủ kỷ luật Ponytail.
+1. **Shell Navigation Dock (`TSK-S13-01`)**: Di chuyển `ShellScreen` từ `CelestialBottomNav` sang `ClayBottomNav` (`lib/shared/ui_kit/navigation/clay_bottom_nav.dart`), hoàn thiện nút tròn Camera FAB 3D nhô cao với hiệu ứng đàn hồi `0.95` squash on press.
+2. **Home Cockpit Dashboard (`TSK-S13-02`)**: Nâng cấp `home_page.dart` tích hợp `CalorieProgressArc` và 3 thanh `ChunkyMacroBar` (Carbs 🩵, Fat 🍓, Protein 🧡) trên cùng thẻ Cockpit `ClayCard`. 4 thẻ bữa ăn dùng `ClayCard` kèm màu pastel tints (`clayBreakfast`, `clayLunch`, `clayDinner`, `claySnack`).
+3. **Manual Food Entry (`TSK-S13-03`)**: Tái cấu trúc `manual_entry_page.dart` sử dụng `ClaySearchBar`, `ClayTextField`, `ClayMealChip`, Quick Weight Steppers và nút lưu 3D `ClayButton`.
+4. **Meal Detail Sheet & Page (`TSK-S13-04`)**: Nâng cấp `meal_detail_page.dart` hiển thị danh sách món ăn chi tiết dưới dạng `ClayCard`, tích hợp `ChunkyMacroBar` con và các nút thao tác xóa/sửa `ClayIconButton`.
 
 ---
 
-## 📋 Bảng Kanban Trực Quan Sprint 11
+## 📋 Bảng Kanban Sprint 13
 
 ### 1. 📝 BACKLOG / QUEUED — [0 SP]
-*Tất cả task đã hoàn thành 100%.*
+*(Toàn bộ các task đã hoàn thành)*
 
-### 2. ⚡ READY / IN PROGRESS — [0 SP]
-*Không còn task in progress.*
+### 2. ⚡ IN PROGRESS — [0 SP]
+*(Không còn task đang thực hiện)*
 
-### 3. 🏁 DONE — [14 SP]
-| Mã Task | Feature | Gate | Mô Tả | Sub-Agent | SP | Trạng Thái |
+### 3. 🏁 DONE — [10 SP]
+
+| Mã Task | Màn Hình / File | Gate | Mô Tả | Sub-Agent | SP | Trạng Thái |
 |:---|:---|:---:|:---|:---:|:---:|:---|
-| `TSK-S11-01-TECH-FEASIBILITY` | `FEAT-18` | **G0** | Tech Spike GenUI & Dart 3.7.2 compatibility, ban hành ADR-06 | `tech-lead` | 1 | 🟢 **Gate 0 Approved** |
-| `TSK-S11-02-PRD-BDD` | `FEAT-18` | **G1** | PRD 4 User Stories BDD, Data Dictionary & Gate 1 Sign-Off | `business-analyst` | 2 | 🟢 **Gate 1 Signed Off** |
-| `TSK-S11-03-STITCH-DESIGN` | `FEAT-18` | **G2** | Sinh layout blueprint & 5 trạng thái cho 3 Catalog Items | `ui-ux-designer` | 2 | 🟢 **Gate 2 Signed Off** |
-| `TSK-S11-04-QA-TEST-PLAN` | `FEAT-18` | **G3** | Master Test Plan, kịch bản BDD Gherkin & ma trận EP/BVA cho GenUI | `qa-tester` | 2 | 🟢 **Gate 3 Approved** |
-| `TSK-S11-05-DEV-GENUI-CORE` | `FEAT-18` | **G4** | GenUI Core Engine (`Catalog`, `CatalogItem`, `SurfaceController`, `DataModel`) | `flutter-core-dev` | 3 | 🟢 **Gate 4 Implemented** |
-| `TSK-S11-06-DEV-MEAL-CARD` | `FEAT-18` | **G4** | UI Widget `MealQuickLogCard` (3 Macro chuẩn, Stepper, 1-Tap Log) | `flutter-core-dev` | 2 | 🟢 **Gate 4 Implemented** |
-| `TSK-S11-07-DEV-GAUGE-CHIPS` | `FEAT-18` | **G4** | UI Widgets `MacroBudgetGauge` & `QuickChoiceChips` | `flutter-core-dev` | 2 | 🟢 **Gate 4 Implemented** |
-| `TSK-S11-08-PONYTAIL-REVIEW` | `FEAT-18` | **G5** | Ponytail Code Review: 0 bloat, diff tối giản | `code-reviewer` | - | 🟢 **Gate 5 Approved** |
-| `TSK-S11-09-QA-VERIFICATION` | `FEAT-18` | **G6** | Automated test suite 100% pass (198/198), analyze 0 issues | `qa-tester` | - | 🟢 **Gate 6 Signed Off** |
-| `TSK-S11-10-RELEASE-GATE7` | `FEAT-18` | **G7** | PO & Tech Lead nghiệm thu toàn diện, phát hành `v2.0.0` | `product-owner` | - | 🟢 **Gate 7 Released** |
+| `TSK-S13-00-SPIKE` | Kiến trúc Navigation & Shell | **G0** | Tech Lead: Spike kiểm tra tích hợp `ClayBottomNav` vào `ShellScreen` không vỡ `AutoTabsScaffold` | `tech-lead` | 1 | 🟢 **DONE** |
+| `TSK-S13-00-PRD` | `prd-s13-tracker-nav.md` | **G1** | BA: Soạn PRD & User Stories BDD chi tiết cho 4 màn hình (Shell, Home, ManualEntry, MealDetail) | `business-analyst` | 1 | 🟢 **DONE** |
+| `TSK-S13-00-DESIGN` | Layout Blueprint 4pt | **G2** | UI/UX Designer: Thiết kế layout 4 màn hình, 5 trạng thái (Default, Shimmer, Empty, Error, Offline) | `ui-ux-designer` | 1 | 🟢 **DONE** |
+| `TSK-S13-00-TEST-PLAN` | Test Cases & Gherkin | **G3** | QA Tester: Thiết kế Master Test Plan, Manual TCs (EP & BVA) và kịch bản Gherkin | `qa-tester` | 1 | 🟢 **DONE** |
+| `TSK-S13-01-SHELL-NAV` | `ShellScreen` / `app_router.dart` | **G4** | Dev FE: Tích hợp `ClayBottomNav` vào `ShellScreen`, kiểm tra chuyển tab và Camera FAB | `flutter-core-dev` | 1 | 🟢 **DONE** |
+| `TSK-S13-02-HOME-PAGE` | `home_page.dart` | **G4** | Dev FE: Nâng cấp Home Dashboard với `CalorieProgressArc`, `ChunkyMacroBar`, thẻ bữa ăn `ClayCard` | `flutter-core-dev` | 2 | 🟢 **DONE** |
+| `TSK-S13-03-MANUAL-ENTRY` | `manual_entry_page.dart` | **G4** | Dev FE: Nâng cấp form tìm kiếm và ghi món với `ClaySearchBar`, `ClayTextField`, `ClayButton` | `flutter-core-dev` | 2 | 🟢 **DONE** |
+| `TSK-S13-04-MEAL-DETAIL` | `meal_detail_page.dart` | **G4** | Dev FE: Nâng cấp Meal Detail với danh sách món dạng `ClayCard`, macro bar và action buttons | `flutter-core-dev` | 1 | 🟢 **DONE** |
+| `TSK-S13-05-REVIEW` | Git diff Sprint 13 | **G5** | Reviewer: Ponytail Diff Review, triệt tiêu code rác, đảm bảo 0 bloat | `code-reviewer` | - | 🟢 **DONE** |
+| `TSK-S13-06-QA-VERIFY` | Automated Test Suite | **G6** | QA Tester: Chạy toàn bộ test suite, kiểm tra visual regression, đo đạc FPS >= 55 | `qa-tester` | - | 🟢 **DONE** |
+| `TSK-S13-07-RELEASE` | Tag release `v2.2.0` | **G7** | PO & Tech Lead: Thẩm định phát hành phiên bản thương mại `v2.2.0` | `product-owner` | - | 🟢 **DONE** |
+
+---
+
+## ✅ Định Nghĩa DONE Sprint 13
+
+- [x] `flutter analyze` 0 lỗi, 0 cảnh báo.
+- [x] `flutter test` pass 100% (216/216 tests passed).
+- [x] `ShellScreen` render đúng `ClayBottomNav` với 4 tabs và camera FAB nổi.
+- [x] `HomePage` hiển thị chuẩn `CalorieProgressArc` và 3 thanh `ChunkyMacroBar` với màu sắc bất biến (Carbs 🩵 `#1CB0F6`, Fat 🍓 `#FF5C8D`, Protein 🧡 `#FF9600`).
+- [x] `ManualEntryPage` và `MealDetailPage` thao tác mượt mà, Time-to-Log < 3.2s.
+- [x] QA Gate 6 ký duyệt release `v2.2.0`.
+
+## 🗺️ Lộ Trình Sprint Nâng Cấp Giao Diện Theo Màn Hình (Sprint 12–16)
+
+| Sprint | Version | Tên Sprint & Nhóm Màn Hình Trọng Tâm | SP | Màn Hình Chi Tiết | Timeline |
+|:--|:--:|:---|:--:|:---|:---|
+| **S12** | v2.1.0 | **Foundation & UI Kit Core** (Hoàn thành) | 10 SP | `lib/shared/ui_kit/*` (ClayCard, ClayButton, ChunkyMacroBar, CalorieProgressArc, ClayMealChip, ClayBottomNav, ClayTextField) | 27/09 – 10/10/2026 |
+| **S13** ← **KẾ TIẾP** | v2.2.0 | **Core Daily Loop (Navigation & Tracker)** | 10 SP | `ShellScreen` (ClayBottomNav), `HomePage`, `ManualEntryPage`, `MealDetailPage` | 11/10 – 24/10/2026 |
+| **S14** | v2.3.0 | **High-Value AI Experience (Scanner & Coach)** | 10 SP | `CameraPage` (AR HUD), `ScanReviewPage` (ClaySheet), `CoachPage` (GenUI Clay Cards) | 25/10 – 07/11/2026 |
+| **S15** | v2.4.0 | **First Impression & Identity (Auth & Profile)** | 11 SP | `SplashPage`, `OnboardingPage`, `LoginPage`, `RegisterPage`, `GoalSummaryPage`, `ProfilePage`, `ProfileEditPage`, `HealthConnectionPage` | 08/11 – 21/11/2026 |
+| **S16** | v2.5.0 | **Deep Domain & Power Users (Recipes & Analytics)** | 9 SP | `AnalyticsPage`, `RecipesPage`, `RecipeBuilderPage`, `MealPlannerPage` | 22/11 – 05/12/2026 |
 
 ---
 
 ## 🏛️ Lịch Sử Các Sprint Đã Hoàn Thành (Sprint Archive)
+
+### 🟢 Sprint 12 — AstroBite v2.1.0 Claymorphic UI Kit Foundation Reset (Hoàn tất 27/09/2026)
+- **Mục tiêu**: Xây dựng bộ UI Kit chuẩn (`lib/shared/ui_kit/`), tokens `AppColors` & `AppTheme` Light Theme, `SolarCard`, `ClayButton`, `ChunkyMacroBar`, `CalorieProgressArc`, `ClayMealChip`, `ClayBottomNav`.
+- **Kết quả**: **10 / 10 SP (100% Passed)** — 214/214 tests pass, `flutter analyze` 0 issues.
+- **Biên bản phát hành**: `docs/05-change-management/signoff-sprint-12.md`
+
+### 🟢 Sprint 11 — AstroBite v2.0.0 Generative UI Chat Cockpit (Hoàn tất 26/09/2026)
+- **Mục tiêu**: A2UI Protocol & Gemini 3.8 Flash Adapter, MealQuickLogCard, MacroBudgetGauge, QuickChoiceChips.
+- **Kết quả**: **14 / 14 SP (100% Passed)** — 198/198 tests pass, `flutter analyze` 0 issues.
+- **Biên bản phát hành**: `docs/05-change-management/release-v2.0.0.md`
 
 ### 🟢 Sprint 10 — AstroBite v1.9.0 Custom Recipes & Meal Planning Architecture (Hoàn tất 26/09/2026)
 - **Mục tiêu**: Interactive Recipe Builder (`US-01`), Dynamic Portion Scaler (`US-02`), Weekly Meal Planner Calendar (`US-03`), 1-Tap Log to Diary (`US-04`), Offline Resilience & Data Integrity.

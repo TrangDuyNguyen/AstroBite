@@ -1,9 +1,9 @@
 # Bản Đồ Lộ Trình Sản Phẩm AstroBite (Product Roadmap)
 
 - **Quản lý bởi**: Sub-Agent Product Owner (PO)
-- **Phiên bản hiện tại**: v1.8.2 (Sprint 09 Completed)
-- **Cập nhật lần cuối**: 2026-09-24
-- **Tình trạng tổng thể**: 🟢 Hoàn thành Sprint 09 — AstroCoach AI Intelligence v2 & Mascot Dock Navigation (v1.8.2)
+- **Phiên bản hiện tại**: v2.0.0 (Sprint 11 Completed)
+- **Cập nhật lần cuối**: 2026-09-27
+- **Tình trạng tổng thể**: 🟡 Sprint 12 IN PROGRESS — Solar Fresh × Duolingo 2D Design Overhaul (v2.1.0)
 
 ---
 
@@ -27,14 +27,18 @@
                                       │
                                       ▼
        ┌──────────────────────────────────────────────────────────────┐
-       │   🟡 CHÂN TRỜI 2: NOW (v1.9.0 — SPRINT 10 PLANNING)          │
-       │   - EPIC-12: Custom Recipes & Meal Planning Architecture     │
-       │   - EPIC-HEALTH-PRO: Deep Biometrics & Calorie Deficit Engine│
+       │   🟡 CHÂN TRỜI 2: NOW (v2.1.0 → v2.5.0 — SPRINT 12–16)       │
+       │   - EPIC-UI-REFRESH: Claymorphic × Duolingo 2D/3D Overhaul   │
+       │     Sprint 12: Foundation & UI Kit Reset (v2.1.0) — DONE     │
+       │     Sprint 13: Core Daily Loop (Shell, Home, Log, Detail)    │
+       │     Sprint 14: AI Experience (Camera AR, Review, AI Coach)   │
+       │     Sprint 15: FTUX & Identity (Auth, Onboarding, Profile)   │
+       │     Sprint 16: Deep Features (Analytics, Recipes, Meal Plan) │
        └──────────────────────────────┬───────────────────────────────┘
                                       │
                                       ▼
        ┌──────────────────────────────────────────────────────────────┐
-       │   🟣 CHÂN TRỜI 3: NEXT (v2.0.0 — Q1/2027)                     │
+       │   🟣 CHÂN TRỜI 3: NEXT (v3.0.0 — Q1/2027)                     │
        │   - EPIC-14: Social Guilds & Planetary Challenges            │
        │   - EPIC-GLOBAL: Multi-Region Food Culture Intelligence      │
        └──────────────────────────────────────────────────────────────┘
@@ -120,4 +124,10 @@
 | **v1.8.0** | **100%** (14/14 SP - 163/163 tests pass) | Đã phát hành chính thức (Release Tag `v1.8.0`) | 2026-09-24 | Sub-Agent PO & PM |
 | **v1.8.1** | **100%** (164/164 tests pass) | Đã phát hành chính thức (Release Tag `v1.8.1`) | 2026-09-24 | Sub-Agent PO & PM |
 | **v1.8.2** | **100%** (168/168 tests pass) | Đã phát hành chính thức (Release Tag `v1.8.2`) | 2026-09-24 | Sub-Agent PO & PM |
-| **v1.9.0+** | **0%** | Custom Recipes, Meal Planning & Biometrics Deficit | Q4/2026 | Sub-Agent PO |
+| **v1.9.0** | **100%** (175/175 tests pass) | Đã phát hành chính thức (Release Tag `v1.9.0`) | 2026-09-26 | Sub-Agent PO & PM |
+| **v2.0.0** | **100%** (198/198 tests pass) | Đã phát hành chính thức (Release Tag `v2.0.0`) | 2026-09-26 | Sub-Agent PO & PM |
+| **v2.1.0** | **100%** 🟢 DONE | EPIC-UI-REFRESH Sprint 12 — Foundation & UI Kit Reset | 27/09/2026 | Sub-Agent PO & PM |
+| **v2.2.0** | **100%** 🟢 DONE | EPIC-UI-REFRESH Sprint 13 — Core Daily Loop (Shell, Home, Log, Detail) | 27/09/2026 | Sub-Agent PO & PM |
+| **v2.3.0** | **0%** 🟡 QUEUED | EPIC-UI-REFRESH Sprint 14 — AI Experience (Camera AR, Review, Coach) | 07/11/2026 | Sub-Agent PO |
+| **v2.4.0** | **0%** | EPIC-UI-REFRESH Sprint 15 — FTUX & Identity (Auth, Onboarding, Profile) | 21/11/2026 | Sub-Agent PO |
+| **v2.5.0** | **0%** | EPIC-UI-REFRESH Sprint 16 — Deep Features (Analytics, Recipes, Meal Plan) | 05/12/2026 | Sub-Agent PO |
