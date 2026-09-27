@@ -232,18 +232,41 @@ class ManualEntryRouteArgs {
 
 /// generated route for
 /// [MealDetailPage]
-class MealDetailRoute extends PageRouteInfo<void> {
-  const MealDetailRoute({List<PageRouteInfo>? children})
-    : super(MealDetailRoute.name, initialChildren: children);
+class MealDetailRoute extends PageRouteInfo<MealDetailRouteArgs> {
+  MealDetailRoute({
+    Key? key,
+    String mealType = 'lunch',
+    List<PageRouteInfo>? children,
+  }) : super(
+         MealDetailRoute.name,
+         args: MealDetailRouteArgs(key: key, mealType: mealType),
+         initialChildren: children,
+       );
 
   static const String name = 'MealDetailRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const MealDetailPage();
+      final args = data.argsAs<MealDetailRouteArgs>(
+        orElse: () => const MealDetailRouteArgs(),
+      );
+      return MealDetailPage(key: args.key, mealType: args.mealType);
     },
   );
+}
+
+class MealDetailRouteArgs {
+  const MealDetailRouteArgs({this.key, this.mealType = 'lunch'});
+
+  final Key? key;
+
+  final String mealType;
+
+  @override
+  String toString() {
+    return 'MealDetailRouteArgs{key: $key, mealType: $mealType}';
+  }
 }
 
 /// generated route for

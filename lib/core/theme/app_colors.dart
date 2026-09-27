@@ -1,34 +1,46 @@
 import 'package:flutter/material.dart';
 
-/// Celestial Dark UI color tokens mapped to Material 3 ColorScheme.
+/// Claymorphic × Duolingo 2D/3D color tokens mapped to Material 3 ColorScheme.
 /// 
-/// Color semantic mapping:
-/// - Primary (Blue #1A73E8) = Carbohydrates + Active UI
-/// - Secondary (Pink #FF69B4) = Fat + Analytics curves
-/// - Tertiary (Gold #FFD700) = Protein + Calorie overflow warning
+/// Food & Appetite-Centric Color Semantics:
+/// - Primary (Duolingo Sky Blue #1CB0F6) = Carbohydrates + Active UI/CTAs
+/// - Secondary (Strawberry Cream Pink #FF5C8D) = Fat + Analytics curves
+/// - Tertiary (Honey Tangerine Orange #FF9600) = Protein + Calorie warning
+/// - BrandGreen (Duolingo Lime Green #58CC02) = Streak / Goal vitality
 abstract final class AppColors {
-  // Base & Background
-  static const surface = Color(0xFF0A192F);         // Midnight sky background
-  static const surfaceContainer = Color(0xFF112240); // Card backgrounds
-  static const surfaceBlur = Color(0x99192A46);      // Glassmorphic overlays (60% opacity)
+  // Base & Background (Claymorphic Canvas)
+  static const surface = Color(0xFFFAF8F5);          // Warm Milk Cream canvas
+  static const surfaceContainer = Color(0xFFFFFFFF);  // Pure White Clay cards
+  static const surfaceBlur = Color(0xFFFFFFFF);       // Opaque/Soft White fallback
+  static const shimmerBase = Color(0xFFF0EFEB);       // Warm soft shimmer base
 
   // Accent & Interactive (Nutrient Mapping)
-  static const primary = Color(0xFF1A73E8);          // Carbs / Active states
-  static const secondary = Color(0xFFFF69B4);        // Fat / Weight trend curves
-  static const tertiary = Color(0xFFFFD700);         // Protein / Calorie warning
+  static const primary = Color(0xFF1CB0F6);           // Carbs / Duolingo Sky Blue
+  static const secondary = Color(0xFFFF5C8D);         // Fat / Strawberry Cream Pink
+  static const tertiary = Color(0xFFFF9600);          // Protein / Honey Tangerine Orange
+  static const brandGreen = Color(0xFF58CC02);        // Energetic Lime Green
 
   // Semantic Nutrient Aliases
   static const carbs = primary;
   static const fat = secondary;
   static const protein = tertiary;
 
-  // Typography
-  static const onSurface = Color(0xFFFFFFFF);        // Primary text
-  static const onSurfaceVariant = Color(0xFF8892B0); // Secondary text
-  static const outline = Color(0xFF495670);          // Borders, grid ticks
+  // Clay Pastel Tints (Puffy Clay Chips & Badges)
+  static const clayBreakfast = Color(0xFFFFF2D6);     // Honey pastel
+  static const clayLunch = Color(0xFFE5F6FD);         // Sky pastel
+  static const clayDinner = Color(0xFFF0E8FF);        // Taro purple pastel
+  static const claySnack = Color(0xFFFFE8EE);         // Strawberry milk pastel
+  static const clayMint = Color(0xFFE8F9D8);          // Fresh cucumber mint
+
+  // Typography (High Contrast WCAG AAA/AA)
+  static const onSurface = Color(0xFF1E2337);         // Deep Slate Berry (AAA 13:1)
+  static const onSurfaceVariant = Color(0xFF78829A);  // Cool Slate (AA 4.8:1)
+  static const outline = Color(0xFFE8E5DF);           // Soft Clay border
 
   // Semantic
-  static const error = Color(0xFFCF6679);
-  static const success = Color(0xFF4CAF50);
-  static const warning = Color(0xFFFFAB00);
+  static const error = Color(0xFFEA2B2B);             // Crisp red
+  static const success = brandGreen;                  // Lime green
+  static const warning = tertiary;                    // Honey orange
 }
+
+

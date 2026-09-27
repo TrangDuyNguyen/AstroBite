@@ -33,8 +33,8 @@ class _AstroBiteAppState extends ConsumerState<AstroBiteApp> {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       title: 'AstroBite',
-      debugShowCheckedModeBanner: false,
-      theme: AppTheme.darkTheme,
+      theme: AppTheme.lightTheme,
+      themeMode: ThemeMode.light,
       routerConfig: _appRouter.config(),
     );
   }

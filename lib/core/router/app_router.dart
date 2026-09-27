@@ -22,7 +22,7 @@ import '../../features/health/presentation/health_connection_page.dart';
 import '../../features/recipes/presentation/pages/recipe_builder_page.dart';
 import '../../features/recipes/presentation/pages/recipes_page.dart';
 import '../../features/recipes/presentation/pages/meal_planner_page.dart';
-import '../../shared/widgets/celestial_bottom_nav.dart';
+import '../../shared/ui_kit/ui_kit.dart';
 
 part 'app_router.gr.dart';
 
@@ -71,7 +71,7 @@ class ShellScreen extends StatelessWidget {
         ProfileRoute(),
       ],
       bottomNavigationBuilder: (_, tabsRouter) {
-        return CelestialBottomNav(tabsRouter: tabsRouter);
+        return ClayBottomNav(tabsRouter: tabsRouter);
       },
     );
   }
