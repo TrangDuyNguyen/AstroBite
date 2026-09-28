@@ -37,6 +37,7 @@ export 'chips/clay_meal_chip.dart';
 
 // Navigation
 export 'navigation/clay_bottom_nav.dart';
+export 'navigation/clay_app_bar.dart';
 
 // 3D Clay Icons
 export 'icons/clay_3d_icons.dart';

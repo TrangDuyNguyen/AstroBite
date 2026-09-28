@@ -162,5 +162,32 @@ void main() {
 
       expect(find.text('Sheet Content'), findsOneWidget);
     });
+
+    testWidgets('ClayAppBar renders title, subtitle and custom actions', (tester) async {
+      var actionTapped = false;
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            appBar: ClayAppBar(
+              title: 'Hồ sơ cá nhân',
+              subtitle: 'Đồng bộ đám mây',
+              actions: [
+                ClayIconButton(
+                  icon: Icons.tune,
+                  onPressed: () => actionTapped = true,
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+
+      expect(find.text('Hồ sơ cá nhân'), findsOneWidget);
+      expect(find.text('Đồng bộ đám mây'), findsOneWidget);
+      expect(find.byType(ClayIconButton), findsOneWidget);
+
+      await tester.tap(find.byIcon(Icons.tune));
+      expect(actionTapped, isTrue);
+    });
   });
 }
