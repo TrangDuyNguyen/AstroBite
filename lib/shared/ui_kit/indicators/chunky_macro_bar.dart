@@ -29,12 +29,34 @@ class ChunkyMacroBar extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              label,
-              style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                color: color,
-                fontWeight: FontWeight.w700,
-              ),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // 3D Macro indicator gem
+                Container(
+                  width: 8,
+                  height: 8,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: color,
+                    boxShadow: [
+                      BoxShadow(
+                        color: color.withValues(alpha: 0.45),
+                        offset: const Offset(0, 1),
+                        blurRadius: 3,
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(width: 6),
+                Text(
+                  label,
+                  style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                    color: color,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ],
             ),
             Text(
               '${currentG}g / ${targetG}g',
@@ -46,19 +68,21 @@ class ChunkyMacroBar extends StatelessWidget {
           ],
         ),
         const SizedBox(height: AppValues.spacing8),
+        // Tactile 3D Clay Track with Neutral Grey Remaining Portion
         Container(
           height: 14,
           decoration: BoxDecoration(
-            color: color.withValues(alpha: 0.12),
+            color: const Color(0xFFEBE7DF), // Clean neutral clay grey for remaining portion
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
-              color: color.withValues(alpha: 0.2),
+              color: const Color(0xFFDDD7CD),
               width: 1,
             ),
-            boxShadow: [
+            boxShadow: const [
+              // 3D Inset bottom groove bevel shadow (Neutral grey)
               BoxShadow(
-                color: Color.lerp(color, Colors.black, 0.22) ?? color,
-                offset: const Offset(0, 2),
+                color: Color(0xFFD0C9BD),
+                offset: Offset(0, 2),
                 blurRadius: 0,
               ),
             ],

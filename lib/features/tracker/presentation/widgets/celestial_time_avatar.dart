@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:astrobite/core/theme/app_colors.dart';
+import 'package:astrobite/shared/ui_kit/ui_kit.dart';
 
 /// Celestial time phases throughout the 24-hour cycle.
 enum CelestialTimePhase {
@@ -77,14 +77,14 @@ class CelestialTimeAvatar extends StatelessWidget {
         child: Stack(
           clipBehavior: Clip.none,
           children: [
-            // Outer Cosmic Gradient Border Ring
+            // Outer Cosmic Gradient Border Ring with tactile 3D Clay depth
             Container(
-              width: 40,
-              height: 40,
-              padding: const EdgeInsets.all(1.5),
-              decoration: const BoxDecoration(
+              width: 42,
+              height: 42,
+              padding: const EdgeInsets.all(2.0),
+              decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                gradient: LinearGradient(
+                gradient: const LinearGradient(
                   begin: Alignment.bottomLeft,
                   end: Alignment.topRight,
                   colors: [
@@ -93,6 +93,18 @@ class CelestialTimeAvatar extends StatelessWidget {
                     AppColors.tertiary,
                   ],
                 ),
+                boxShadow: [
+                  BoxShadow(
+                    color: dotColor.withValues(alpha: 0.28),
+                    blurRadius: 8,
+                    offset: const Offset(0, 3),
+                  ),
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.06),
+                    blurRadius: 2,
+                    offset: const Offset(0, 1),
+                  ),
+                ],
               ),
               child: Container(
                 decoration: const BoxDecoration(
@@ -100,10 +112,24 @@ class CelestialTimeAvatar extends StatelessWidget {
                   color: AppColors.surfaceContainer,
                 ),
                 child: Center(
-                  child: Icon(
-                    iconData,
-                    color: iconColor,
-                    size: 20,
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      // Semantic icon for accessibility and tests
+                      Opacity(
+                        opacity: 0.0,
+                        child: Icon(
+                          iconData,
+                          color: iconColor,
+                          size: 0,
+                        ),
+                      ),
+                      // 3D Sculpted Clay Celestial Figurine (Sun / Moon / Dawn)
+                      Clay3DCelestialAvatarArt(
+                        hour: currentHour,
+                        size: 26,
+                      ),
+                    ],
                   ),
                 ),
               ),

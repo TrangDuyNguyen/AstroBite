@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:astrobite/core/constants/app_strings.dart';
 import 'package:astrobite/core/router/app_router.dart';
+import '../../domain/daily_summary.dart';
 import '../../domain/tracker_providers.dart';
 import '../widgets/celestial_offline_banner.dart';
 import '../widgets/daily_summary_card.dart';
@@ -56,36 +57,87 @@ class HomePage extends ConsumerWidget {
                   const SizedBox(height: AppValues.spacing20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.baseline,
-                    textBaseline: TextBaseline.alphabetic,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            AppStrings.nutritionLog,
-                            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  color: AppColors.onSurface,
+                      Expanded(
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 36,
+                              height: 36,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(11),
+                                border: Border.all(
+                                  color: const Color(0xFFEDE8DD),
+                                  width: 1.2,
                                 ),
-                          ),
-                          const SizedBox(height: 2),
-                          Text(
-                            '4 bữa • Cần nạp đủ để duy trì năng lượng',
-                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                  color: AppColors.onSurfaceVariant,
-                                  fontSize: 12,
-                                ),
-                          ),
-                        ],
-                      ),
-                      Text(
-                        '${summary.totalCalories} / ${summary.targetCalories} kcal',
-                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                              fontWeight: FontWeight.bold,
-                              color: AppColors.onSurfaceVariant,
-                              letterSpacing: 0.5,
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: Color(0x12000000),
+                                    offset: Offset(0, 2),
+                                    blurRadius: 0,
+                                  ),
+                                ],
+                              ),
+                              child: const Center(
+                                child: Clay3DCookbook(size: 22),
+                              ),
                             ),
+                            const SizedBox(width: AppValues.spacing8),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    AppStrings.nutritionLog,
+                                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                                          fontWeight: FontWeight.bold,
+                                          color: AppColors.onSurface,
+                                        ),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  const SizedBox(height: 2),
+                                  Text(
+                                    '4 bữa • Cần nạp đủ để duy trì năng lượng',
+                                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                          color: AppColors.onSurfaceVariant,
+                                          fontSize: 12,
+                                        ),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: AppValues.spacing8),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFF7F5EE),
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                            color: const Color(0xFFE8E3D7),
+                            width: 1.0,
+                          ),
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Color(0x10000000),
+                              offset: Offset(0, 1.5),
+                              blurRadius: 0,
+                            ),
+                          ],
+                        ),
+                        child: Text(
+                          '${summary.totalCalories} / ${summary.targetCalories} kcal',
+                          style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.onSurface,
+                                letterSpacing: 0.3,
+                              ),
+                        ),
                       ),
                     ],
                   ),
@@ -112,72 +164,7 @@ class HomePage extends ConsumerWidget {
                   ),
                   const SizedBox(height: AppValues.spacing8),
                   // AstroCoach Suggestion Card
-                  InkWell(
-                    onTap: () => context.router.push(const CoachRoute()),
-                    borderRadius: BorderRadius.circular(AppValues.radius12),
-                    child: Container(
-                      padding: const EdgeInsets.all(AppValues.spacing12),
-                      decoration: BoxDecoration(
-                        color: AppColors.surfaceContainer,
-                        borderRadius: BorderRadius.circular(AppValues.radius12),
-                        border: Border.all(
-                          color: AppColors.outline.withValues(alpha: 0.25),
-                          width: 0.8,
-                        ),
-                      ),
-                      child: Row(
-                        children: [
-                          Container(
-                            width: 36,
-                            height: 36,
-                            decoration: BoxDecoration(
-                              color: AppColors.tertiary.withValues(alpha: 0.15),
-                              borderRadius: BorderRadius.circular(AppValues.radius8),
-                            ),
-                            child: const Icon(
-                              Icons.auto_awesome,
-                              color: AppColors.tertiary,
-                              size: 18,
-                            ),
-                          ),
-                          const SizedBox(width: AppValues.spacing12),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  'Gợi ý từ AstroCoach',
-                                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                                        color: AppColors.onSurface,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 13,
-                                      ),
-                                ),
-                                const SizedBox(height: 2),
-                                Text(
-                                  summary.totalProteinG < summary.targetProteinG
-                                      ? 'Cần thêm ${(summary.targetProteinG - summary.totalProteinG)}g Protein để đạt mục tiêu...'
-                                      : 'Dinh dưỡng hôm nay đang rất cân bằng và tối ưu!',
-                                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                        color: AppColors.onSurfaceVariant,
-                                        fontSize: 12,
-                                      ),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ],
-                            ),
-                          ),
-                          const Icon(
-                            Icons.chevron_right,
-                            size: 20,
-                            color: AppColors.onSurfaceVariant,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                  _AstroCoachSuggestionCard(summary: summary),
                   const SizedBox(height: 100),
                 ],
               ),
@@ -276,6 +263,201 @@ class _ActionChipButton extends StatelessWidget {
                 fontSize: 13,
                 fontWeight: FontWeight.w700,
               ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _AstroCoachSuggestionCard extends StatelessWidget {
+  const _AstroCoachSuggestionCard({required this.summary});
+
+  final DailySummary summary;
+
+  @override
+  Widget build(BuildContext context) {
+    final needsProtein = summary.totalProteinG < summary.targetProteinG;
+    final proteinDiff = summary.targetProteinG - summary.totalProteinG;
+
+    return ClayCard(
+      elevation: 3.5,
+      borderRadius: 20.0,
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+      onTap: () => context.router.push(const CoachRoute()),
+      child: Row(
+        children: [
+          // 1. 3D Ceramic AstroCoach Badge (AstroBot)
+          Container(
+            width: 44,
+            height: 44,
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [Color(0xFFF0F9FF), Color(0xFFE0F2FE)],
+              ),
+              borderRadius: BorderRadius.circular(14),
+              border: Border.all(
+                color: const Color(0xFFBAE6FD),
+                width: 1.2,
+              ),
+              boxShadow: const [
+                // 3D bottom bevel
+                BoxShadow(
+                  color: Color(0xFF7DD3FC),
+                  offset: Offset(0, 2.5),
+                  blurRadius: 0,
+                ),
+                // Soft glow
+                BoxShadow(
+                  color: Color(0x200284C7),
+                  offset: Offset(0, 4),
+                  blurRadius: 8,
+                ),
+              ],
+            ),
+            alignment: Alignment.center,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                // Top inner specular gloss arc
+                Positioned(
+                  top: 2,
+                  child: Container(
+                    width: 26,
+                    height: 10,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Colors.white.withValues(alpha: 0.8),
+                          Colors.white.withValues(alpha: 0.0),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                const Clay3DAstroBot(size: 26),
+              ],
+            ),
+          ),
+          const SizedBox(width: AppValues.spacing12),
+
+          // 2. Title & Dynamic Nutritional Advice
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      'Gợi ý từ AstroCoach',
+                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                            color: AppColors.onSurface,
+                            fontWeight: FontWeight.w800,
+                            fontSize: 13.5,
+                            letterSpacing: -0.2,
+                          ),
+                    ),
+                    const SizedBox(width: 6),
+                    // 3D Mini AI Pill Badge
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 5.5, vertical: 1.5),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFF3E8FF),
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(
+                          color: const Color(0xFFDDD6FE),
+                          width: 1.0,
+                        ),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Color(0xFFC4B5FD),
+                            offset: Offset(0, 1.2),
+                            blurRadius: 0,
+                          ),
+                        ],
+                      ),
+                      child: const Text(
+                        'AI COACH',
+                        style: TextStyle(
+                          color: Color(0xFF7C3AED),
+                          fontWeight: FontWeight.w800,
+                          fontSize: 8.5,
+                          letterSpacing: 0.3,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 3),
+                RichText(
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  text: TextSpan(
+                    style: TextStyle(
+                      color: AppColors.onSurfaceVariant,
+                      fontSize: 12,
+                      fontFamily: Theme.of(context).textTheme.bodySmall?.fontFamily,
+                    ),
+                    children: needsProtein
+                        ? [
+                            const TextSpan(text: 'Cần thêm '),
+                            TextSpan(
+                              text: '${proteinDiff}g Protein',
+                              style: const TextStyle(
+                                color: AppColors.tertiary,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            const TextSpan(text: ' để đạt mục tiêu...'),
+                          ]
+                        : const [
+                            TextSpan(text: 'Dinh dưỡng hôm nay '),
+                            TextSpan(
+                              text: 'đang rất cân bằng',
+                              style: TextStyle(
+                                color: AppColors.brandGreen,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            TextSpan(text: ' và tối ưu! 🥑'),
+                          ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 8),
+
+          // 3. Tactile 3D Circular Arrow Button
+          Container(
+            width: 28,
+            height: 28,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: const Color(0xFFF8F6F2),
+              border: Border.all(
+                color: const Color(0xFFEDE8DD),
+                width: 1.2,
+              ),
+              boxShadow: const [
+                BoxShadow(
+                  color: Color(0xFFDDD8CE),
+                  offset: Offset(0, 1.5),
+                  blurRadius: 0,
+                ),
+              ],
+            ),
+            child: const Icon(
+              Icons.chevron_right_rounded,
+              size: 18,
+              color: Color(0xFF78829A),
             ),
           ),
         ],

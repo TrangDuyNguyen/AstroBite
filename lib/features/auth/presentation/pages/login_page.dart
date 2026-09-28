@@ -268,6 +268,25 @@ class _LoginPageState extends ConsumerState<LoginPage>
               ),
             ),
           ),
+          Positioned(
+            top: 240,
+            left: -80,
+            width: 260,
+            height: 260,
+            child: IgnorePointer(
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: RadialGradient(
+                    colors: [
+                      AppColors.tertiary.withValues(alpha: 0.05),
+                      AppColors.tertiary.withValues(alpha: 0.0),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
 
           // 2. Zero-Gravity Clay Food & Fruit Floating Background
           const ZeroGravityFoodBackground(),

@@ -135,29 +135,51 @@ class MealSection extends ConsumerWidget {
                           Container(
                             padding: const EdgeInsets.symmetric(
                               horizontal: 8,
-                              vertical: 2,
+                              vertical: 2.5,
                             ),
                             decoration: BoxDecoration(
                               color: isCompleted
-                                  ? AppColors.primary.withValues(alpha: 0.18)
-                                  : AppColors.surface.withValues(alpha: 0.7),
-                              borderRadius: BorderRadius.circular(AppValues.radius12),
+                                  ? const Color(0xFFE8F9D8)
+                                  : Colors.white.withValues(alpha: 0.85),
+                              borderRadius: BorderRadius.circular(10),
                               border: Border.all(
                                 color: isCompleted
-                                    ? AppColors.primary.withValues(alpha: 0.4)
-                                    : AppColors.outline.withValues(alpha: 0.25),
-                                width: 0.8,
+                                    ? const Color(0xFF58CC02)
+                                    : const Color(0xFFDDD8CE),
+                                width: isCompleted ? 1.0 : 0.8,
                               ),
+                              boxShadow: isCompleted
+                                  ? const [
+                                      BoxShadow(
+                                        color: Color(0xFF46A302),
+                                        offset: Offset(0, 1.2),
+                                        blurRadius: 0,
+                                      ),
+                                    ]
+                                  : null,
                             ),
-                            child: Text(
-                              isCompleted ? 'Đã hoàn thành' : 'Chưa ăn',
-                              style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                if (isCompleted) ...[
+                                  const Icon(
+                                    Icons.check_circle_rounded,
+                                    size: 11,
+                                    color: Color(0xFF46A302),
+                                  ),
+                                  const SizedBox(width: 3),
+                                ],
+                                Text(
+                                  isCompleted ? 'Đã hoàn thành' : 'Chưa ăn',
+                                  style: TextStyle(
                                     fontSize: 10,
-                                    fontWeight: FontWeight.w600,
+                                    fontWeight: FontWeight.w700,
                                     color: isCompleted
-                                        ? AppColors.primary
+                                        ? const Color(0xFF46A302)
                                         : AppColors.onSurfaceVariant,
                                   ),
+                                ),
+                              ],
                             ),
                           ),
                         ],
@@ -315,107 +337,203 @@ class MealSection extends ConsumerWidget {
               ),
               const SizedBox(height: AppValues.spacing8),
               ...logs.map((log) {
-                return Dismissible(
-                  key: ValueKey(log.id),
-                  direction: DismissDirection.endToStart,
-                  background: Container(
-                    alignment: Alignment.centerRight,
-                    padding: const EdgeInsets.only(right: AppValues.spacing16),
-                    margin: const EdgeInsets.symmetric(vertical: 3),
-                    decoration: BoxDecoration(
-                      color: AppColors.error,
-                      borderRadius: BorderRadius.circular(AppValues.radius8),
-                    ),
-                    child: const Icon(
-                      Icons.delete_outline,
-                      color: AppColors.onSurface,
-                      size: 22,
-                    ),
-                  ),
-                  confirmDismiss: (direction) =>
-                      _showDeleteConfirmationDialog(context, log.dishName),
-                  onDismissed: (direction) {
-                    final user = ref.read(authStateProvider).value;
-                    if (user != null) {
-                      ref.read(trackerControllerProvider.notifier).deleteFoodLog(
-                            userId: user.uid,
-                            logId: log.id,
-                          );
-                    }
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('Đã xóa món ${log.dishName}'),
-                        duration: const Duration(seconds: 2),
+                    return Dismissible(
+                      key: ValueKey(log.id),
+                      direction: DismissDirection.endToStart,
+                      background: Container(
+                        alignment: Alignment.centerRight,
+                        padding: const EdgeInsets.only(right: AppValues.spacing16),
+                        margin: const EdgeInsets.symmetric(vertical: 4),
+                        decoration: BoxDecoration(
+                          color: AppColors.error,
+                          borderRadius: BorderRadius.circular(14),
+                        ),
+                        child: const Icon(
+                          Icons.delete_outline,
+                          color: Colors.white,
+                          size: 22,
+                        ),
                       ),
-                    );
-                  },
-                  child: Material(
-                    color: Colors.transparent,
-                    child: InkWell(
-                      borderRadius: BorderRadius.circular(AppValues.radius8),
-                      onTap: () => _showFoodDetailSheet(context, ref, log),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 4),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.restaurant_menu_rounded,
-                                    size: 14,
-                                    color: AppColors.onSurfaceVariant.withValues(alpha: 0.6),
-                                  ),
-                                  const SizedBox(width: AppValues.spacing8),
-                                  Flexible(
-                                    child: Text(
-                                      '${log.dishName} (${log.estimatedWeightG}g)',
-                                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                            color: AppColors.onSurface,
-                                          ),
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ),
-                                  if (log.isHighSodium) ...[
-                                    const SizedBox(width: AppValues.spacing4),
-                                    const Icon(
-                                      Icons.warning_amber_rounded,
-                                      size: 14,
-                                      color: AppColors.warning,
-                                    ),
-                                  ],
-                                ],
-                              ),
-                            ),
-                            Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  '${log.calories} cal',
-                                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                        letterSpacing: AppValues.calorieLetterSpacing,
-                                        color: AppColors.onSurfaceVariant,
-                                      ),
-                                ),
-                                const SizedBox(width: AppValues.spacing4),
-                                SyncStatusBadge(syncStatus: log.syncStatus),
-                                const SizedBox(width: AppValues.spacing4),
-                                Icon(
-                                  Icons.chevron_right_rounded,
-                                  size: 16,
-                                  color: AppColors.onSurfaceVariant.withValues(alpha: 0.6),
-                                ),
-                              ],
+                      confirmDismiss: (direction) =>
+                          _showDeleteConfirmationDialog(context, log.dishName),
+                      onDismissed: (direction) {
+                        final user = ref.read(authStateProvider).value;
+                        if (user != null) {
+                          ref.read(trackerControllerProvider.notifier).deleteFoodLog(
+                                userId: user.uid,
+                                logId: log.id,
+                              );
+                        }
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Đã xóa món ${log.dishName}'),
+                            duration: const Duration(seconds: 2),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(vertical: 4),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(14),
+                          border: Border.all(
+                            color: const Color(0xFFEDE8DD),
+                            width: 1.0,
+                          ),
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Color(0x10000000),
+                              offset: Offset(0, 2),
+                              blurRadius: 0,
                             ),
                           ],
                         ),
+                        child: Material(
+                          color: Colors.transparent,
+                          child: InkWell(
+                            borderRadius: BorderRadius.circular(14),
+                            onTap: () => _showFoodDetailSheet(context, ref, log),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 9, horizontal: 10),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                          width: 32,
+                                          height: 32,
+                                          decoration: BoxDecoration(
+                                            color: _pastelTint,
+                                            borderRadius: BorderRadius.circular(9),
+                                            border: Border.all(
+                                              color: _iconColor.withValues(alpha: 0.25),
+                                              width: 0.8,
+                                            ),
+                                          ),
+                                          child: Center(
+                                            child: Icon(
+                                              Icons.restaurant_menu_rounded,
+                                              size: 16,
+                                              color: _iconColor,
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(width: AppValues.spacing8),
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Flexible(
+                                                    child: Text(
+                                                      '${log.dishName} (${log.estimatedWeightG}g)',
+                                                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                                            color: AppColors.onSurface,
+                                                            fontWeight: FontWeight.w700,
+                                                          ),
+                                                      overflow: TextOverflow.ellipsis,
+                                                    ),
+                                                  ),
+                                                  if (log.isHighSodium) ...[
+                                                    const SizedBox(width: AppValues.spacing4),
+                                                    Container(
+                                                      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 1.5),
+                                                      decoration: BoxDecoration(
+                                                        color: AppColors.error.withValues(alpha: 0.12),
+                                                        borderRadius: BorderRadius.circular(4),
+                                                      ),
+                                                      child: const Row(
+                                                        mainAxisSize: MainAxisSize.min,
+                                                        children: [
+                                                          Icon(
+                                                            Icons.warning_amber_rounded,
+                                                            size: 11,
+                                                            color: AppColors.error,
+                                                          ),
+                                                          SizedBox(width: 2),
+                                                          Text(
+                                                            'Muối cao',
+                                                            style: TextStyle(
+                                                              fontSize: 9,
+                                                              fontWeight: FontWeight.w700,
+                                                              color: AppColors.error,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ],
+                                              ),
+                                              const SizedBox(height: 2),
+                                              Row(
+                                                children: [
+                                                  _MiniMacroDot(color: AppColors.primary, label: '${log.carbsG}g C'),
+                                                  const SizedBox(width: 6),
+                                                  _MiniMacroDot(color: AppColors.tertiary, label: '${log.proteinG}g P'),
+                                                  const SizedBox(width: 6),
+                                                  _MiniMacroDot(color: AppColors.secondary, label: '${log.fatG}g F'),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  const SizedBox(width: AppValues.spacing8),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                        decoration: BoxDecoration(
+                                          color: const Color(0xFFF7F4EC),
+                                          borderRadius: BorderRadius.circular(8),
+                                          border: Border.all(color: const Color(0xFFE8E3D7), width: 0.8),
+                                        ),
+                                        child: Text(
+                                          '${log.calories} cal',
+                                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                                letterSpacing: AppValues.calorieLetterSpacing,
+                                                fontWeight: FontWeight.w800,
+                                                color: AppColors.onSurface,
+                                                fontSize: 12,
+                                              ),
+                                        ),
+                                      ),
+                                      const SizedBox(width: AppValues.spacing4),
+                                      SyncStatusBadge(syncStatus: log.syncStatus),
+                                      const SizedBox(width: 2),
+                                      Container(
+                                        width: 20,
+                                        height: 20,
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          shape: BoxShape.circle,
+                                          border: Border.all(color: const Color(0xFFEDE8DD), width: 0.8),
+                                        ),
+                                        child: const Icon(
+                                          Icons.chevron_right_rounded,
+                                          size: 14,
+                                          color: AppColors.onSurfaceVariant,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                );
-              }),
-            ],
+                    );
+                  }),
+                ],
           ],
         ),
       ),
@@ -853,12 +971,19 @@ class _MacroPill extends StatelessWidget {
         vertical: AppValues.spacing8,
       ),
       decoration: BoxDecoration(
-        color: AppColors.surface,
+        color: Colors.white,
         borderRadius: BorderRadius.circular(AppValues.radius12),
         border: Border.all(
-          color: color.withValues(alpha: 0.3),
-          width: 1,
+          color: color.withValues(alpha: 0.35),
+          width: 1.2,
         ),
+        boxShadow: [
+          BoxShadow(
+            color: color.withValues(alpha: 0.15),
+            offset: const Offset(0, 2),
+            blurRadius: 0,
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -866,9 +991,19 @@ class _MacroPill extends StatelessWidget {
           Row(
             children: [
               Container(
-                width: 6,
-                height: 6,
-                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+                width: 7,
+                height: 7,
+                decoration: BoxDecoration(
+                  color: color,
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: color.withValues(alpha: 0.4),
+                      offset: const Offset(0, 1),
+                      blurRadius: 1,
+                    ),
+                  ],
+                ),
               ),
               const SizedBox(width: 4),
               Expanded(
@@ -877,7 +1012,7 @@ class _MacroPill extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 11,
                     color: AppColors.onSurfaceVariant,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w600,
                   ),
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -889,7 +1024,7 @@ class _MacroPill extends StatelessWidget {
             value,
             style: TextStyle(
               fontSize: 15,
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w800,
               color: color,
             ),
           ),
@@ -897,11 +1032,45 @@ class _MacroPill extends StatelessWidget {
             percentage,
             style: TextStyle(
               fontSize: 10,
+              fontWeight: FontWeight.w600,
               color: AppColors.onSurfaceVariant.withValues(alpha: 0.8),
             ),
           ),
         ],
       ),
+    );
+  }
+}
+
+class _MiniMacroDot extends StatelessWidget {
+  const _MiniMacroDot({required this.color, required this.label});
+
+  final Color color;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          width: 5.5,
+          height: 5.5,
+          decoration: BoxDecoration(
+            color: color,
+            shape: BoxShape.circle,
+          ),
+        ),
+        const SizedBox(width: 3.5),
+        Text(
+          label,
+          style: const TextStyle(
+            fontSize: 10.5,
+            fontWeight: FontWeight.w600,
+            color: AppColors.onSurfaceVariant,
+          ),
+        ),
+      ],
     );
   }
 }
@@ -955,6 +1124,10 @@ class _ClayMealBadge extends StatelessWidget {
           colors: gradientColors,
         ),
         borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: Colors.white.withValues(alpha: 0.65),
+          width: 1.5,
+        ),
         boxShadow: [
           // 3D tactile bottom bevel
           BoxShadow(
@@ -971,10 +1144,34 @@ class _ClayMealBadge extends StatelessWidget {
         ],
       ),
       alignment: Alignment.center,
-      child: ClayMorphIcon(
-        icon: icon,
-        color: iconColor,
-        size: 24,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Positioned(
+            top: 2,
+            left: 5,
+            right: 5,
+            child: Container(
+              height: 12,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Colors.white.withValues(alpha: 0.50),
+                    Colors.white.withValues(alpha: 0.0),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          ClayMorphIcon(
+            icon: icon,
+            color: iconColor,
+            size: 24,
+          ),
+        ],
       ),
     );
   }

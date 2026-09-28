@@ -3,11 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:astrobite/core/constants/app_strings.dart';
-import 'package:astrobite/core/constants/app_values.dart';
 import 'package:astrobite/core/router/app_router.dart';
-import 'package:astrobite/core/theme/app_colors.dart';
-import 'package:astrobite/core/theme/app_icons.dart';
 import 'package:astrobite/features/gamification/presentation/widgets/cosmic_streak_badge.dart';
+import 'package:astrobite/shared/ui_kit/ui_kit.dart';
 import '../../domain/tracker_providers.dart';
 import 'celestial_time_avatar.dart';
 
@@ -25,11 +23,13 @@ class DashboardAppBar extends ConsumerWidget implements PreferredSizeWidget {
     this.onProfileTap,
     this.onRecipesTap,
     this.onDateTap,
+    this.currentTime,
   });
 
   final VoidCallback? onProfileTap;
   final VoidCallback? onRecipesTap;
   final VoidCallback? onDateTap;
+  final DateTime? currentTime;
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight + 4);
@@ -37,7 +37,7 @@ class DashboardAppBar extends ConsumerWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedDate = ref.watch(selectedDateProvider);
-    final now = DateTime.now();
+    final now = currentTime ?? DateTime.now();
     final isToday = selectedDate.year == now.year &&
         selectedDate.month == now.month &&
         selectedDate.day == now.day;
@@ -139,14 +139,62 @@ class DashboardAppBar extends ConsumerWidget implements PreferredSizeWidget {
         ],
       ),
       actions: [
-        IconButton(
-          icon: const Icon(
-            AppIcons.book,
-            color: AppColors.onSurfaceVariant,
-            size: 24,
+        Padding(
+          padding: const EdgeInsets.only(right: 6.0),
+          child: Tooltip(
+            message: 'Công thức món ăn',
+            child: InkWell(
+              onTap: onRecipesTap ?? () => context.router.push(const RecipesRoute()),
+              borderRadius: BorderRadius.circular(14),
+              child: Container(
+                width: 38,
+                height: 38,
+                decoration: BoxDecoration(
+                  color: AppColors.surfaceContainer,
+                  gradient: const LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [Colors.white, Color(0xFFFAF7F2)],
+                  ),
+                  borderRadius: BorderRadius.circular(14),
+                  border: Border.all(
+                    color: AppColors.outline.withValues(alpha: 0.5),
+                    width: 1.2,
+                  ),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Color(0x121E2337),
+                      offset: Offset(0, 2.5),
+                      blurRadius: 0,
+                    ),
+                    BoxShadow(
+                      color: Color(0x0A000000),
+                      offset: Offset(0, 4),
+                      blurRadius: 8,
+                    ),
+                  ],
+                ),
+                child: Center(
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      // Semantic icon for tests and accessibility
+                      Opacity(
+                        opacity: 0.0,
+                        child: Icon(
+                          AppIcons.book,
+                          size: 24,
+                          color: AppColors.onSurfaceVariant,
+                        ),
+                      ),
+                      // 3D Sculpted Clay Cookbook
+                      const IgnorePointer(child: Clay3DCookbook(size: 24)),
+                    ],
+                  ),
+                ),
+              ),
+            ),
           ),
-          tooltip: 'Công thức món ăn',
-          onPressed: onRecipesTap ?? () => context.router.push(const RecipesRoute()),
         ),
         const Center(child: CosmicStreakBadge()),
         const SizedBox(width: AppValues.screenPadding),

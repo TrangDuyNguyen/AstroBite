@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:astrobite/core/constants/app_strings.dart';
-import 'package:astrobite/core/theme/app_icons.dart';
 import 'package:astrobite/features/gamification/domain/streak_record.dart';
 import 'package:astrobite/features/gamification/presentation/controllers/streak_controller.dart';
 import 'package:astrobite/features/gamification/presentation/widgets/cosmic_streak_badge.dart';
 import 'package:astrobite/features/tracker/domain/tracker_providers.dart';
 import 'package:astrobite/features/tracker/presentation/widgets/celestial_time_avatar.dart';
 import 'package:astrobite/features/tracker/presentation/widgets/dashboard_app_bar.dart';
+import 'package:astrobite/shared/ui_kit/ui_kit.dart';
 
 void main() {
   group('DashboardAppBar Widget Tests', () {
@@ -42,6 +42,7 @@ void main() {
           child: MaterialApp(
             home: Scaffold(
               appBar: DashboardAppBar(
+                currentTime: sundayDate,
                 onProfileTap: () => profileTapped = true,
                 onRecipesTap: () => recipesTapped = true,
                 onDateTap: () => dateTapped = true,
@@ -63,14 +64,17 @@ void main() {
       expect(find.text('Chủ Nhật, 27 Th09'), findsOneWidget);
       expect(find.byIcon(AppIcons.arrowDown), findsOneWidget);
 
-      // 4. Recipe menu book icon
+      // 4. Recipe menu book icon (with 3D Clay Cookbook)
       expect(find.byIcon(AppIcons.book), findsOneWidget);
+      expect(find.byType(Clay3DCookbook), findsOneWidget);
 
-      // 5. CosmicStreakBadge with count 2 and shield
+      // 5. CosmicStreakBadge with count 2, 3D Clay Flame, and 3D Clay Shield
       expect(find.byType(CosmicStreakBadge), findsOneWidget);
       expect(find.text('2'), findsOneWidget);
       expect(find.text('🔥'), findsOneWidget);
       expect(find.byIcon(AppIcons.shield), findsOneWidget);
+      expect(find.byType(Clay3DFlame), findsOneWidget);
+      expect(find.byType(Clay3DShield), findsOneWidget);
 
       // 6. Test callback taps
       await tester.tap(find.byType(CelestialTimeAvatar));
