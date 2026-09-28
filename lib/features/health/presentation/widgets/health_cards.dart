@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:astrobite/core/theme/app_colors.dart';
-import 'package:astrobite/shared/widgets/glass_card.dart';
+import 'package:astrobite/shared/ui_kit/surfaces/clay_card.dart';
+import 'package:astrobite/shared/ui_kit/buttons/clay_button.dart';
 import '../../domain/health_activity.dart';
 import '../health_controller.dart';
 
@@ -27,16 +28,15 @@ class EnergyBalanceCard extends ConsumerWidget {
       loading: () => const SizedBox.shrink(),
       error: (_, __) => const SizedBox.shrink(),
       data: (connected) {
-        if (!connected) return _buildConnectPrompt(context);
+        if (!connected) return _buildConnectPrompt(context, ref);
         return activityAsync.when(
-          loading: () => const GlassCard(
-            child: Padding(
-              padding: EdgeInsets.all(16),
-              child: SizedBox(
-                height: 120,
-                child: Center(
-                  child: CircularProgressIndicator(color: AppColors.primary),
-                ),
+          loading: () => const ClayCard(
+            borderRadius: 20,
+            padding: EdgeInsets.all(16),
+            child: SizedBox(
+              height: 120,
+              child: Center(
+                child: CircularProgressIndicator(color: AppColors.primary),
               ),
             ),
           ),
@@ -47,52 +47,70 @@ class EnergyBalanceCard extends ConsumerWidget {
     );
   }
 
-  Widget _buildConnectPrompt(BuildContext context) {
-    return GlassCard(
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Row(
-          children: [
-            const Text('🏃', style: TextStyle(fontSize: 24)),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Text(
-                'Kết nối Apple Health để xem calo đốt cháy',
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: AppColors.onSurfaceVariant,
-                    ),
+  Widget _buildConnectPrompt(BuildContext context, WidgetRef ref) {
+    return ClayCard(
+      borderRadius: 20,
+      elevation: 4,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+      child: Row(
+        children: [
+          Container(
+            width: 44,
+            height: 44,
+            decoration: BoxDecoration(
+              color: AppColors.clayMint,
+              borderRadius: BorderRadius.circular(14),
+              border: Border.all(
+                color: AppColors.brandGreen.withValues(alpha: 0.3),
+                width: 1.2,
               ),
             ),
-            TextButton(
-              onPressed: () {
-                // ponytail: navigate to HealthConnectionPage
-              },
-              child: const Text('Kết nối'),
+            alignment: Alignment.center,
+            child: const Text('🏃', style: TextStyle(fontSize: 22)),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Text(
+              'Kết nối Apple Health để xem calo đốt cháy',
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: AppColors.onSurface,
+                    fontWeight: FontWeight.w600,
+                  ),
             ),
-          ],
-        ),
+          ),
+          const SizedBox(width: 8),
+          ClayButton(
+            text: 'Kết nối',
+            height: 38,
+            borderRadius: 14,
+            variant: ClayButtonVariant.primary,
+            onPressed: () {
+              ref.read(healthConnectionControllerProvider.notifier).connect();
+            },
+          ),
+        ],
       ),
     );
   }
 
   Widget _buildErrorState(BuildContext context) {
-    return GlassCard(
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Row(
-          children: [
-            const Icon(Icons.warning_amber, color: AppColors.tertiary),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Text(
-                'Không thể đọc dữ liệu Health — kiểm tra quyền truy cập',
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: AppColors.onSurfaceVariant,
-                    ),
-              ),
+    return ClayCard(
+      borderRadius: 20,
+      elevation: 4,
+      padding: const EdgeInsets.all(16),
+      child: Row(
+        children: [
+          const Icon(Icons.warning_amber, color: AppColors.tertiary),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Text(
+              'Không thể đọc dữ liệu Health — kiểm tra quyền truy cập',
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: AppColors.onSurfaceVariant,
+                  ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -103,12 +121,13 @@ class EnergyBalanceCard extends ConsumerWidget {
     final remaining = calorieTarget - netCalories;
     final progress = calorieTarget > 0 ? (netCalories / calorieTarget).clamp(0.0, 1.0) : 0.0;
 
-    return GlassCard(
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+    return ClayCard(
+      borderRadius: 20,
+      elevation: 4,
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
             Text(
               'Cân bằng Năng lượng',
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
@@ -186,7 +205,6 @@ class EnergyBalanceCard extends ConsumerWidget {
             ),
           ],
         ),
-      ),
     );
   }
 
@@ -252,18 +270,19 @@ class StepsActivityCard extends ConsumerWidget {
   }
 
   Widget _buildCard(BuildContext context, HealthActivity activity) {
-    return GlassCard(
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Vận Động Hôm Nay',
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    color: AppColors.onSurface,
-                  ),
-            ),
+    return ClayCard(
+      borderRadius: 20,
+      elevation: 4,
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Vận Động Hôm Nay',
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  color: AppColors.onSurface,
+                ),
+          ),
             const SizedBox(height: 12),
 
             // Steps and distance
@@ -320,7 +339,6 @@ class StepsActivityCard extends ConsumerWidget {
               ),
           ],
         ),
-      ),
     );
   }
 

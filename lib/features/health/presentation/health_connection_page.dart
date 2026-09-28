@@ -2,8 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:astrobite/core/theme/app_colors.dart';
-import 'package:astrobite/shared/widgets/glass_card.dart';
+import 'package:astrobite/shared/ui_kit/ui_kit.dart';
 import 'health_controller.dart';
 
 @RoutePage()
@@ -18,106 +17,108 @@ class HealthConnectionPage extends ConsumerWidget {
 
     return Scaffold(
       backgroundColor: AppColors.surface,
-      appBar: AppBar(
-        backgroundColor: AppColors.surface,
-        surfaceTintColor: Colors.transparent,
-        title: const Text('Kết nối Sức khỏe'),
+      appBar: const ClayAppBar(
+        title: 'Kết nối Sức khỏe',
+        centerTitle: true,
       ),
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
           // Connection Status Card
-          GlassCard(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      const Text('❤️', style: TextStyle(fontSize: 32)),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              repo.platformName,
-                              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                                    color: AppColors.onSurface,
-                                  ),
-                            ),
-                            const SizedBox(height: 4),
-                            connectionAsync.when(
-                              loading: () => const Text(
-                                'Đang kiểm tra...',
-                                style: TextStyle(color: AppColors.onSurfaceVariant),
-                              ),
-                              error: (_, __) => const Text(
-                                'Lỗi kết nối',
-                                style: TextStyle(color: AppColors.tertiary),
-                              ),
-                              data: (connected) => Text(
-                                connected ? 'Đã kết nối ✅' : 'Chưa kết nối',
-                                style: TextStyle(
-                                  color: connected
-                                      ? const Color(0xFF4CAF50)
-                                      : AppColors.onSurfaceVariant,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+          ClayCard(
+            borderRadius: 20,
+            elevation: 4,
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      width: 48,
+                      height: 48,
+                      decoration: BoxDecoration(
+                        color: AppColors.claySnack,
+                        borderRadius: BorderRadius.circular(14),
                       ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 52,
-                    child: connectionAsync.when(
-                      loading: () => const SizedBox.shrink(),
-                      error: (_, __) => const SizedBox.shrink(),
-                      data: (connected) => connected
-                          ? OutlinedButton(
-                              onPressed: () => _showDisconnectDialog(context, ref),
-                              style: OutlinedButton.styleFrom(
-                                side: const BorderSide(color: AppColors.outline),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                              ),
-                              child: const Text('Ngắt kết nối'),
-                            )
-                          : FilledButton(
-                              onPressed: () async {
-                                final success = await ref
-                                    .read(healthConnectionControllerProvider.notifier)
-                                    .connect();
-                                if (context.mounted) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        success
-                                            ? 'Đã kết nối ${repo.platformName} thành công'
-                                            : 'Cần cấp quyền truy cập Health',
-                                      ),
-                                    ),
-                                  );
-                                }
-                              },
-                              style: FilledButton.styleFrom(
-                                backgroundColor: AppColors.primary,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                              ),
-                              child: const Text('Kết nối'),
-                            ),
+                      alignment: Alignment.center,
+                      child: const Text('❤️', style: TextStyle(fontSize: 26)),
                     ),
-                  ),
-                ],
-              ),
+                    const SizedBox(width: 14),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            repo.platformName,
+                            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                  fontWeight: FontWeight.w800,
+                                  color: AppColors.onSurface,
+                                ),
+                          ),
+                          const SizedBox(height: 4),
+                          connectionAsync.when(
+                            loading: () => const Text(
+                              'Đang kiểm tra...',
+                              style: TextStyle(color: AppColors.onSurfaceVariant, fontSize: 13),
+                            ),
+                            error: (_, __) => const Text(
+                              'Lỗi kết nối',
+                              style: TextStyle(color: AppColors.tertiary, fontSize: 13),
+                            ),
+                            data: (connected) => Text(
+                              connected ? 'Đã kết nối ✅' : 'Chưa kết nối',
+                              style: TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.w700,
+                                color: connected
+                                    ? AppColors.brandGreen
+                                    : AppColors.onSurfaceVariant,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 18),
+                connectionAsync.when(
+                  loading: () => const SizedBox.shrink(),
+                  error: (_, __) => const SizedBox.shrink(),
+                  data: (connected) => connected
+                      ? ClayButton(
+                          text: 'Ngắt kết nối',
+                          height: 48,
+                          borderRadius: 16,
+                          variant: ClayButtonVariant.outline,
+                          onPressed: () => _showDisconnectDialog(context, ref),
+                        )
+                      : ClayButton(
+                          text: 'Kết nối ngay',
+                          height: 48,
+                          borderRadius: 16,
+                          variant: ClayButtonVariant.primary,
+                          onPressed: () async {
+                            final success = await ref
+                                .read(healthConnectionControllerProvider.notifier)
+                                .connect();
+                            if (context.mounted) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    success
+                                        ? 'Đã kết nối ${repo.platformName} thành công'
+                                        : 'Cần cấp quyền truy cập Health',
+                                  ),
+                                  behavior: SnackBarBehavior.floating,
+                                ),
+                              );
+                            }
+                          },
+                        ),
+                ),
+              ],
             ),
           ),
           const SizedBox(height: 16),
@@ -128,44 +129,45 @@ class HealthConnectionPage extends ConsumerWidget {
             error: (_, __) => const SizedBox.shrink(),
             data: (connected) {
               if (!connected) return const SizedBox.shrink();
-              return GlassCard(
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Đồng bộ calo sang Health',
-                              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                                    color: AppColors.onSurface,
-                                  ),
-                            ),
-                            const SizedBox(height: 4),
-                            Text(
-                              'Tự động ghi calo nạp vào ${repo.platformName} sau mỗi bữa ăn',
-                              style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                                    color: AppColors.onSurfaceVariant,
-                                  ),
-                            ),
-                          ],
-                        ),
+              return ClayCard(
+                borderRadius: 20,
+                elevation: 4,
+                padding: const EdgeInsets.all(16),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Đồng bộ calo sang Health',
+                            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                  fontWeight: FontWeight.w700,
+                                  color: AppColors.onSurface,
+                                ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            'Tự động ghi calo nạp vào ${repo.platformName} sau mỗi bữa ăn',
+                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                  color: AppColors.onSurfaceVariant,
+                                ),
+                          ),
+                        ],
                       ),
-                      writeAsync.when(
-                        loading: () => const SizedBox(width: 44, height: 44),
-                        error: (_, __) => const SizedBox.shrink(),
-                        data: (enabled) => Switch(
-                          value: enabled,
-                          onChanged: (_) => ref
-                              .read(healthWriteControllerProvider.notifier)
-                              .toggle(),
-                          activeColor: AppColors.primary,
-                        ),
+                    ),
+                    writeAsync.when(
+                      loading: () => const SizedBox(width: 44, height: 44),
+                      error: (_, __) => const SizedBox.shrink(),
+                      data: (enabled) => Switch(
+                        value: enabled,
+                        onChanged: (_) => ref
+                            .read(healthWriteControllerProvider.notifier)
+                            .toggle(),
+                        activeColor: AppColors.primary,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               );
             },
@@ -173,25 +175,26 @@ class HealthConnectionPage extends ConsumerWidget {
           const SizedBox(height: 16),
 
           // Data types info
-          GlassCard(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Dữ liệu truy cập',
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          color: AppColors.onSurface,
-                        ),
-                  ),
-                  const SizedBox(height: 12),
-                  _buildDataTypeRow('📊', 'Số bước đi (Steps)', 'Read'),
-                  _buildDataTypeRow('🔥', 'Calo tiêu hao (Active Energy)', 'Read'),
-                  _buildDataTypeRow('🏃', 'Bài tập (Workouts)', 'Read'),
-                  _buildDataTypeRow('🍽', 'Calo nạp vào (Dietary Energy)', 'Write'),
-                ],
-              ),
+          ClayCard(
+            borderRadius: 20,
+            elevation: 4,
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Dữ liệu truy cập',
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w700,
+                        color: AppColors.onSurface,
+                      ),
+                ),
+                const SizedBox(height: 12),
+                _buildDataTypeRow('📊', 'Số bước đi (Steps)', 'Read'),
+                _buildDataTypeRow('🔥', 'Calo tiêu hao (Active Energy)', 'Read'),
+                _buildDataTypeRow('🏃', 'Bài tập (Workouts)', 'Read'),
+                _buildDataTypeRow('🍽', 'Calo nạp vào (Dietary Energy)', 'Write'),
+              ],
             ),
           ),
         ],
@@ -219,7 +222,8 @@ class HealthConnectionPage extends ConsumerWidget {
             '✅ $access',
             style: const TextStyle(
               fontSize: 12,
-              color: Color(0xFF4CAF50),
+              fontWeight: FontWeight.w700,
+              color: AppColors.brandGreen,
             ),
           ),
         ],
@@ -232,24 +236,28 @@ class HealthConnectionPage extends ConsumerWidget {
       context: context,
       builder: (_) => AlertDialog(
         backgroundColor: AppColors.surfaceContainer,
-        title: const Text('Ngắt kết nối'),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        title: const Text('Ngắt kết nối', style: TextStyle(fontWeight: FontWeight.bold)),
         content: const Text(
           'Bạn có chắc muốn ngắt kết nối? Dữ liệu vận động sẽ không hiển thị trong AstroBite.',
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Hủy'),
+            child: const Text('Hủy', style: TextStyle(color: AppColors.onSurfaceVariant)),
           ),
           TextButton(
             onPressed: () {
               ref.read(healthConnectionControllerProvider.notifier).disconnect();
               Navigator.pop(context);
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Đã ngắt kết nối Health')),
+                const SnackBar(
+                  content: Text('Đã ngắt kết nối Health'),
+                  behavior: SnackBarBehavior.floating,
+                ),
               );
             },
-            child: const Text('Xác nhận'),
+            child: const Text('Xác nhận', style: TextStyle(color: AppColors.error, fontWeight: FontWeight.bold)),
           ),
         ],
       ),
