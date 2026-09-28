@@ -39,6 +39,21 @@ class UserProfile {
         activityLevel: activityLevel,
       );
 
+  double get bmi {
+    if (heightCm <= 0) return 0;
+    final heightM = heightCm / 100.0;
+    return weightKg / (heightM * heightM);
+  }
+
+  String get bmiCategory {
+    final val = bmi;
+    if (val <= 0) return 'Chưa rõ';
+    if (val < 18.5) return 'Gầy';
+    if (val < 24.9) return 'Bình thường';
+    if (val < 29.9) return 'Thừa cân';
+    return 'Béo phì';
+  }
+
   factory UserProfile.defaultProfile(String uid) {
     return UserProfile(
       uid: uid,

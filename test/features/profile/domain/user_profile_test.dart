@@ -46,5 +46,33 @@ void main() {
       expect(defaultProf.dailyTargetCalories, 2000);
       expect(defaultProf.isOnboardingCompleted, isFalse);
     });
+
+    test('calculates BMI and BMI category correctly', () {
+      final profile = UserProfile(
+        uid: 'user-bmi',
+        gender: 'male',
+        birthYear: 1995,
+        heightCm: 170,
+        weightKg: 65,
+        activityLevel: 'moderate',
+        dailyTargetCalories: 2000,
+      );
+
+      // BMI = 65 / (1.7 * 1.7) = 22.4913...
+      expect(profile.bmi, closeTo(22.49, 0.01));
+      expect(profile.bmiCategory, 'Bình thường');
+
+      final underweightProfile = UserProfile(
+        uid: 'user-uw',
+        gender: 'female',
+        birthYear: 2000,
+        heightCm: 165,
+        weightKg: 45,
+        activityLevel: 'light',
+        dailyTargetCalories: 1500,
+      );
+      // BMI = 45 / (1.65 * 1.65) = 16.528...
+      expect(underweightProfile.bmiCategory, 'Gầy');
+    });
   });
 }

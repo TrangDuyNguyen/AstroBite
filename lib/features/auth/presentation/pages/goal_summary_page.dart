@@ -8,7 +8,8 @@ import 'package:astrobite/core/utils/nutrition_calculator.dart';
 import 'package:astrobite/features/auth/domain/auth_providers.dart';
 import 'package:astrobite/features/profile/data/models/user_profile_dto.dart';
 import 'package:astrobite/features/profile/domain/profile_providers.dart';
-import 'package:astrobite/shared/widgets/glass_card.dart';
+import 'package:astrobite/shared/ui_kit/surfaces/clay_card.dart';
+import 'package:astrobite/shared/ui_kit/buttons/clay_button.dart';
 import 'package:astrobite/shared/widgets/macro_bar.dart';
 
 @RoutePage()
@@ -138,61 +139,57 @@ class _GoalSummaryPageState extends ConsumerState<GoalSummaryPage> {
               const SizedBox(height: AppValues.spacing24),
 
               // Main Calorie Target Card
-              Container(
-                padding: const EdgeInsets.all(AppValues.cardPadding * 1.5),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      AppColors.primary.withValues(alpha: 0.2),
-                      AppColors.surfaceContainer,
-                    ],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                  ),
-                  borderRadius: BorderRadius.circular(AppValues.cardRadius * 1.5),
-                  border: Border.all(
-                    color: AppColors.primary.withValues(alpha: 0.5),
-                    width: 1.5,
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppColors.primary.withValues(alpha: 0.2),
-                      blurRadius: 20,
-                      spreadRadius: 2,
-                    ),
-                  ],
-                ),
+              ClayCard(
+                borderRadius: 24,
+                elevation: 5,
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
                 child: Column(
                   children: [
-                    const Text(
-                      'MỤC TIÊU HÀNG NGÀY',
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                        letterSpacing: 1.2,
-                        color: AppColors.primary,
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: AppColors.clayLunch,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: const Text(
+                        'MỤC TIÊU HÀNG NGÀY',
+                        style: TextStyle(
+                          fontSize: 11,
+                          fontWeight: FontWeight.w800,
+                          letterSpacing: 1.1,
+                          color: AppColors.primary,
+                        ),
                       ),
                     ),
-                    const SizedBox(height: AppValues.spacing8),
-                    Text(
-                      '$targetCalories',
-                      style: const TextStyle(
-                        fontSize: 48,
-                        fontWeight: FontWeight.w900,
-                        color: AppColors.onSurface,
-                        letterSpacing: -1,
-                      ),
-                    ),
-                    const Text(
-                      'kcal / ngày',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: AppColors.onSurfaceVariant,
-                      ),
+                    const SizedBox(height: AppValues.spacing12),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.baseline,
+                      textBaseline: TextBaseline.alphabetic,
+                      children: [
+                        Text(
+                          '$targetCalories',
+                          style: const TextStyle(
+                            fontSize: 48,
+                            fontWeight: FontWeight.w900,
+                            color: AppColors.onSurface,
+                            letterSpacing: -1,
+                          ),
+                        ),
+                        const SizedBox(width: 6),
+                        const Text(
+                          'kcal / ngày',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.onSurfaceVariant,
+                          ),
+                        ),
+                      ],
                     ),
                     const SizedBox(height: AppValues.spacing16),
-                    const Divider(color: AppColors.outline),
-                    const SizedBox(height: AppValues.spacing8),
+                    const Divider(color: Color(0xFFF0EFEB), height: 1),
+                    const SizedBox(height: AppValues.spacing12),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -200,26 +197,34 @@ class _GoalSummaryPageState extends ConsumerState<GoalSummaryPage> {
                           children: [
                             const Text(
                               'BMR',
-                              style: TextStyle(fontSize: 12, color: AppColors.onSurfaceVariant),
+                              style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: AppColors.onSurfaceVariant),
                             ),
                             const SizedBox(height: 2),
                             Text(
                               '${bmr.round()} kcal',
-                              style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.onSurface),
+                              style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 15, color: AppColors.primary),
+                            ),
+                            const Text(
+                              'Năng lượng nghỉ',
+                              style: TextStyle(fontSize: 10, color: AppColors.onSurfaceVariant),
                             ),
                           ],
                         ),
-                        Container(width: 1, height: 28, color: AppColors.outline),
+                        Container(width: 1, height: 36, color: const Color(0xFFE8E5DF)),
                         Column(
                           children: [
                             const Text(
                               'TDEE',
-                              style: TextStyle(fontSize: 12, color: AppColors.onSurfaceVariant),
+                              style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: AppColors.onSurfaceVariant),
                             ),
                             const SizedBox(height: 2),
                             Text(
                               '${tdee.round()} kcal',
-                              style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.onSurface),
+                              style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 15, color: AppColors.tertiary),
+                            ),
+                            const Text(
+                              'Tiêu thụ/ngày',
+                              style: TextStyle(fontSize: 10, color: AppColors.onSurfaceVariant),
                             ),
                           ],
                         ),
@@ -234,8 +239,8 @@ class _GoalSummaryPageState extends ConsumerState<GoalSummaryPage> {
                 Container(
                   padding: const EdgeInsets.all(AppValues.spacing12),
                   decoration: BoxDecoration(
-                    color: AppColors.tertiary.withValues(alpha: 0.15),
-                    borderRadius: BorderRadius.circular(AppValues.cardRadius),
+                    color: AppColors.clayBreakfast,
+                    borderRadius: BorderRadius.circular(16),
                     border: Border.all(color: AppColors.tertiary.withValues(alpha: 0.4)),
                   ),
                   child: Row(
@@ -245,7 +250,7 @@ class _GoalSummaryPageState extends ConsumerState<GoalSummaryPage> {
                       Expanded(
                         child: Text(
                           'Mục tiêu calo đã được điều chỉnh về ngưỡng an toàn tối thiểu (${safetyFloor.round()} kcal) để bảo vệ sức khỏe của bạn.',
-                          style: const TextStyle(fontSize: 12, color: AppColors.tertiary),
+                          style: const TextStyle(fontSize: 12, color: AppColors.onSurface, fontWeight: FontWeight.w500),
                         ),
                       ),
                     ],
@@ -265,7 +270,10 @@ class _GoalSummaryPageState extends ConsumerState<GoalSummaryPage> {
                 ),
               ),
               const SizedBox(height: AppValues.spacing12),
-              GlassCard(
+              ClayCard(
+                borderRadius: 20,
+                elevation: 4,
+                padding: const EdgeInsets.all(16),
                 child: Column(
                   children: [
                     MacroBar(
@@ -295,31 +303,13 @@ class _GoalSummaryPageState extends ConsumerState<GoalSummaryPage> {
               const SizedBox(height: AppValues.spacing32),
 
               // CTA Button
-              SizedBox(
+              ClayButton(
+                text: 'Bắt Đầu Hành Trình AstroBite',
                 height: 52,
-                child: FilledButton(
-                  onPressed: _isSaving ? null : () => _handleStartJourney(targetCalories),
-                  style: FilledButton.styleFrom(
-                    backgroundColor: AppColors.primary,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(AppValues.cardRadius),
-                    ),
-                  ),
-                  child: _isSaving
-                      ? const SizedBox(
-                          width: 24,
-                          height: 24,
-                          child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2),
-                        )
-                      : const Text(
-                          'Bắt Đầu Hành Trình AstroBite',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
-                ),
+                borderRadius: 22,
+                variant: ClayButtonVariant.primary,
+                isLoading: _isSaving,
+                onPressed: _isSaving ? null : () => _handleStartJourney(targetCalories),
               ),
             ],
           ),
