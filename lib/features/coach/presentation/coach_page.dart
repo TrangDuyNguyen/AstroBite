@@ -1,8 +1,11 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 import 'package:astrobite/core/genui/a2ui_model.dart';
@@ -30,6 +33,7 @@ class CoachPage extends ConsumerStatefulWidget {
 class _CoachPageState extends ConsumerState<CoachPage> {
   final _textController = TextEditingController();
   final _scrollController = ScrollController();
+  Timer? _scrollTimer;
   bool _isSending = false;
   final Set<String> _loggedMessageIds = {};
   late final GenUiCatalog _genUiCatalog;
@@ -77,6 +81,7 @@ class _CoachPageState extends ConsumerState<CoachPage> {
 
   @override
   void dispose() {
+    _scrollTimer?.cancel();
     _textController.dispose();
     _scrollController.dispose();
     super.dispose();
@@ -87,6 +92,7 @@ class _CoachPageState extends ConsumerState<CoachPage> {
 
     _textController.clear();
     setState(() => _isSending = true);
+    _scrollToBottom();
 
     try {
       await ref.read(coachControllerProvider.notifier).sendMessage(text.trim());
@@ -107,9 +113,19 @@ class _CoachPageState extends ConsumerState<CoachPage> {
         _scrollController.animateTo(
           _scrollController.position.maxScrollExtent,
           duration: const Duration(milliseconds: 300),
-          curve: Curves.easeOut,
+          curve: Curves.easeOutCubic,
         );
       }
+      _scrollTimer?.cancel();
+      _scrollTimer = Timer(const Duration(milliseconds: 250), () {
+        if (mounted && _scrollController.hasClients) {
+          _scrollController.animateTo(
+            _scrollController.position.maxScrollExtent,
+            duration: const Duration(milliseconds: 200),
+            curve: Curves.easeOutCubic,
+          );
+        }
+      });
     });
   }
 
@@ -225,16 +241,22 @@ class _CoachPageState extends ConsumerState<CoachPage> {
     final messagesAsync = ref.watch(coachControllerProvider);
     final summary = ref.watch(todaySummaryProvider);
 
+    ref.listen(coachControllerProvider, (prev, next) {
+      final prevCount = prev?.valueOrNull?.length ?? 0;
+      final nextCount = next.valueOrNull?.length ?? 0;
+      if (nextCount > prevCount) {
+        _scrollToBottom();
+      }
+    });
+
     return Scaffold(
       backgroundColor: AppColors.surface,
       appBar: AppBar(
         backgroundColor: AppColors.surface,
         surfaceTintColor: Colors.transparent,
         elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.onSurface, size: 20),
-          onPressed: () => context.router.maybePop(),
-        ),
+        automaticallyImplyLeading: false,
+        titleSpacing: 16,
         title: Row(
           children: [
             Container(
@@ -296,33 +318,67 @@ class _CoachPageState extends ConsumerState<CoachPage> {
           ],
         ),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.delete_outline_rounded, color: AppColors.onSurfaceVariant, size: 22),
-            tooltip: 'Xoá cuộc trò chuyện',
-            onPressed: () => _confirmDeleteSession(),
+          Padding(
+            padding: const EdgeInsets.only(right: 16),
+            child: Tooltip(
+              message: 'Lịch sử hội thoại',
+              child: Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  onTap: () {
+                    HapticFeedback.lightImpact();
+                    _showHistorySheet();
+                  },
+                  borderRadius: BorderRadius.circular(20),
+                  child: Container(
+                    height: 36,
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(
+                        color: const Color(0xFFE2DDD5),
+                        width: 1.2,
+                      ),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Color(0xFFD4CEBF),
+                          offset: Offset(0, 2),
+                          blurRadius: 0,
+                        ),
+                      ],
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Icon(
+                          Icons.history_rounded,
+                          size: 17,
+                          color: AppColors.primary,
+                        ),
+                        const SizedBox(width: 5),
+                        Text(
+                          'Lịch sử',
+                          style: GoogleFonts.inter(
+                            fontSize: 12.5,
+                            fontWeight: FontWeight.w700,
+                            color: AppColors.onSurface,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
           ),
-          IconButton(
-            icon: const Icon(Icons.history_rounded, color: AppColors.onSurface, size: 22),
-            tooltip: 'Lịch sử hội thoại',
-            onPressed: _showHistorySheet,
-          ),
-          const SizedBox(width: 6),
         ],
       ),
       body: Stack(
         children: [
-          // Background Mascot Artwork
+          // Clean Warm Milk Canvas
           Positioned.fill(
-            child: IgnorePointer(
-              child: Opacity(
-                opacity: 0.15,
-                child: Image.asset(
-                  'assets/images/astrobot_mascot.png',
-                  fit: BoxFit.cover,
-                  alignment: Alignment.center,
-                ),
-              ),
-            ),
+            child: Container(color: AppColors.surface),
           ),
           Column(
             children: [
@@ -346,7 +402,7 @@ class _CoachPageState extends ConsumerState<CoachPage> {
                   Expanded(
                     child: Text(
                       'Đang xem lại phiên: ${ref.watch(coachControllerProvider.notifier).selectedDate}',
-                      style: const TextStyle(
+                      style: GoogleFonts.inter(
                         fontSize: 12,
                         color: AppColors.onSurface,
                         fontWeight: FontWeight.w600,
@@ -386,7 +442,7 @@ class _CoachPageState extends ConsumerState<CoachPage> {
                   ? _buildEmptyState(summary)
                   : ListView.builder(
                       controller: _scrollController,
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      padding: const EdgeInsets.fromLTRB(16, 8, 16, 96),
                       itemCount: messages.length + (_isSending ? 1 : 0),
                       itemBuilder: (context, index) {
                         if (index == messages.length && _isSending) {
@@ -401,16 +457,24 @@ class _CoachPageState extends ConsumerState<CoachPage> {
           // Dynamic Quick Actions
           if (!_isSending) _buildQuickActions(),
 
-          // Medical Disclaimer (Placed cleanly above Input Bar)
-          const Padding(
-            padding: EdgeInsets.only(top: 4, bottom: 2),
-            child: Text(
-              '⚕️ AI gợi ý tham khảo, không thay thế chuyên gia y tế',
-              style: TextStyle(
-                fontSize: 10,
-                color: AppColors.outline,
+          // Medical Disclaimer (Clean, high-contrast badge)
+          Center(
+            child: Container(
+              margin: const EdgeInsets.only(top: 6, bottom: 4),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 3),
+              decoration: BoxDecoration(
+                color: const Color(0x0C1E2337),
+                borderRadius: BorderRadius.circular(10),
               ),
-              textAlign: TextAlign.center,
+              child: Text(
+                '⚕️ AI gợi ý tham khảo, không thay thế chuyên gia y tế',
+                style: GoogleFonts.inter(
+                  fontSize: 10.5,
+                  color: AppColors.onSurfaceVariant,
+                  fontWeight: FontWeight.w500,
+                ),
+                textAlign: TextAlign.center,
+              ),
             ),
           ),
 
@@ -435,14 +499,26 @@ class _CoachPageState extends ConsumerState<CoachPage> {
 
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
       decoration: BoxDecoration(
-        color: AppColors.surfaceContainer,
-        borderRadius: BorderRadius.circular(14),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: Colors.white.withValues(alpha: 0.08),
-          width: 1,
+          color: const Color(0xFFE5E0D8),
+          width: 1.2,
         ),
+        boxShadow: const [
+          BoxShadow(
+            color: Color(0xFFD4CEBF),
+            offset: Offset(0, 2),
+            blurRadius: 0,
+          ),
+          BoxShadow(
+            color: Color(0x0A000000),
+            offset: Offset(0, 3),
+            blurRadius: 6,
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -450,20 +526,31 @@ class _CoachPageState extends ConsumerState<CoachPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
+              Text(
                 'Tổng quan dinh dưỡng hôm nay',
-                style: TextStyle(
+                style: GoogleFonts.inter(
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
                   color: AppColors.onSurfaceVariant,
                 ),
               ),
-              Text(
-                'Còn lại: ${remainingCalories.clamp(0, 9999)} kcal',
-                style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.bold,
-                  color: remainingCalories >= 0 ? AppColors.onSurface : AppColors.tertiary,
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFE0F2FE),
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(
+                    color: const Color(0xFFBAE6FD),
+                    width: 1,
+                  ),
+                ),
+                child: Text(
+                  'Còn lại: ${remainingCalories.clamp(0, 9999)} kcal',
+                  style: GoogleFonts.outfit(
+                    fontSize: 12.5,
+                    fontWeight: FontWeight.w800,
+                    color: remainingCalories >= 0 ? AppColors.primary : AppColors.tertiary,
+                  ),
                 ),
               ),
             ],
@@ -505,9 +592,9 @@ class _CoachPageState extends ConsumerState<CoachPage> {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
               decoration: BoxDecoration(
-                color: const Color(0x22FFB300),
-                borderRadius: BorderRadius.circular(6),
-                border: Border.all(color: AppColors.warning.withValues(alpha: 0.4)),
+                color: const Color(0xFFFFF8ED),
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: const Color(0xFFFFE2B3), width: 1.2),
               ),
               child: Row(
                 children: [
@@ -516,10 +603,10 @@ class _CoachPageState extends ConsumerState<CoachPage> {
                   Expanded(
                     child: Text(
                       'Cảnh báo Natri: ${summary.totalSodiumMg.toInt()}mg / ${summary.targetSodiumMg.toInt()}mg (sắp chạm ngưỡng khuyến nghị)',
-                      style: const TextStyle(
-                        fontSize: 10,
-                        color: AppColors.warning,
-                        fontWeight: FontWeight.w500,
+                      style: GoogleFonts.inter(
+                        fontSize: 10.5,
+                        color: const Color(0xFFB45309),
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),
@@ -548,11 +635,19 @@ class _CoachPageState extends ConsumerState<CoachPage> {
           children: [
             Text(
               label,
-              style: TextStyle(fontSize: 10, color: color, fontWeight: FontWeight.bold),
+              style: GoogleFonts.inter(
+                fontSize: 10.5,
+                color: color,
+                fontWeight: FontWeight.w700,
+              ),
             ),
             Text(
               '$current/${target}g',
-              style: const TextStyle(fontSize: 9, color: AppColors.onSurfaceVariant),
+              style: GoogleFonts.inter(
+                fontSize: 9.5,
+                fontWeight: FontWeight.w500,
+                color: AppColors.onSurfaceVariant,
+              ),
             ),
           ],
         ),
@@ -561,8 +656,8 @@ class _CoachPageState extends ConsumerState<CoachPage> {
           borderRadius: BorderRadius.circular(3),
           child: LinearProgressIndicator(
             value: progress,
-            minHeight: 4,
-            backgroundColor: AppColors.surface,
+            minHeight: 5,
+            backgroundColor: const Color(0xFFF1EFEA),
             valueColor: AlwaysStoppedAnimation<Color>(color),
           ),
         ),
@@ -650,21 +745,39 @@ class _CoachPageState extends ConsumerState<CoachPage> {
         ),
         decoration: BoxDecoration(
           color: isUser
-              ? AppColors.primary.withValues(alpha: 0.18)
-              : AppColors.surfaceContainer,
+              ? const Color(0xFFE0F2FE)
+              : Colors.white,
           border: Border.all(
             color: isUser
-                ? AppColors.primary.withValues(alpha: 0.45)
-                : message.isError
-                    ? AppColors.tertiary
-                    : Colors.white.withValues(alpha: 0.08),
-            width: 1,
+                ? const Color(0xFFBAE6FD)
+                : (message.isError ? AppColors.tertiary : const Color(0xFFE5E0D8)),
+            width: 1.2,
           ),
+          boxShadow: isUser
+              ? const [
+                  BoxShadow(
+                    color: Color(0xFFBAE6FD),
+                    offset: Offset(0, 2),
+                    blurRadius: 0,
+                  ),
+                ]
+              : const [
+                  BoxShadow(
+                    color: Color(0xFFD4CEBF),
+                    offset: Offset(0, 2.5),
+                    blurRadius: 0,
+                  ),
+                  BoxShadow(
+                    color: Color(0x081E2337),
+                    offset: Offset(0, 4),
+                    blurRadius: 10,
+                  ),
+                ],
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(isUser ? 16 : 4),
-            topRight: Radius.circular(isUser ? 4 : 16),
-            bottomLeft: const Radius.circular(16),
-            bottomRight: const Radius.circular(16),
+            topLeft: Radius.circular(isUser ? 18 : 4),
+            topRight: Radius.circular(isUser ? 4 : 18),
+            bottomLeft: const Radius.circular(18),
+            bottomRight: const Radius.circular(18),
           ),
         ),
         child: Column(
@@ -678,32 +791,40 @@ class _CoachPageState extends ConsumerState<CoachPage> {
               isUser || message.isError
                   ? Text(
                       displayContent,
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: AppColors.onSurface,
-                            height: 1.35,
-                          ),
+                      style: GoogleFonts.inter(
+                        color: AppColors.onSurface,
+                        fontSize: 14.5,
+                        fontWeight: isUser ? FontWeight.w600 : FontWeight.w400,
+                        height: 1.4,
+                      ),
                     )
                   : MarkdownBody(
                       data: displayContent,
                       shrinkWrap: true,
                       styleSheet: MarkdownStyleSheet(
-                        p: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              color: AppColors.onSurface,
-                              height: 1.45,
-                            ),
-                        h3: Theme.of(context).textTheme.titleSmall?.copyWith(
-                              color: AppColors.onSurface,
-                              fontWeight: FontWeight.bold,
-                            ),
-                        strong: const TextStyle(
+                        p: GoogleFonts.inter(
+                          color: AppColors.onSurface,
+                          fontSize: 14,
+                          height: 1.45,
+                        ),
+                        h3: GoogleFonts.outfit(
+                          color: AppColors.onSurface,
+                          fontWeight: FontWeight.w800,
+                          fontSize: 15,
+                        ),
+                        strong: GoogleFonts.inter(
                           fontWeight: FontWeight.w700,
                           color: AppColors.onSurface,
                         ),
-                        listBullet: const TextStyle(color: AppColors.onSurface),
-                        horizontalRuleDecoration: BoxDecoration(
+                        listBullet: GoogleFonts.inter(
+                          color: AppColors.onSurface,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        horizontalRuleDecoration: const BoxDecoration(
                           border: Border(
                             top: BorderSide(
-                              color: Colors.white.withValues(alpha: 0.12),
+                              color: Color(0xFFE5E0D8),
+                              width: 1,
                             ),
                           ),
                         ),
@@ -731,21 +852,27 @@ class _CoachPageState extends ConsumerState<CoachPage> {
               const SizedBox(height: 10),
               _buildHolographicMealCard(message, mealData, isLogged),
             ],
-            const SizedBox(height: 6),
+            const SizedBox(height: 12),
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
                   '${message.timestamp.hour}:${message.timestamp.minute.toString().padLeft(2, '0')}',
-                  style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                        color: AppColors.outline,
-                      ),
+                  style: GoogleFonts.inter(
+                    fontSize: 10.5,
+                    fontWeight: FontWeight.w500,
+                    color: AppColors.onSurfaceVariant,
+                  ),
                 ),
                 if (!isUser) ...[
                   const SizedBox(width: 6),
-                  const Text(
+                  Text(
                     '• AstroCoach',
-                    style: TextStyle(fontSize: 10, color: AppColors.outline),
+                    style: GoogleFonts.inter(
+                      fontSize: 10.5,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.primary,
+                    ),
                   ),
                 ],
               ],
@@ -1041,27 +1168,36 @@ class _CoachPageState extends ConsumerState<CoachPage> {
   Widget _buildQuickActions() {
     final actions = _dynamicQuickActions;
     return SizedBox(
-      height: 44,
+      height: 48,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
+        clipBehavior: Clip.none,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
         itemCount: actions.length,
         separatorBuilder: (_, __) => const SizedBox(width: 8),
         itemBuilder: (_, index) {
+          final action = actions[index];
           return ActionChip(
+            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
             label: Text(
-              actions[index],
-              style: const TextStyle(
-                fontSize: 12,
-                color: AppColors.onSurfaceVariant,
+              action,
+              style: GoogleFonts.inter(
+                fontSize: 12.5,
+                fontWeight: FontWeight.w600,
+                color: AppColors.onSurface,
               ),
             ),
-            backgroundColor: AppColors.surfaceContainer,
-            side: BorderSide(color: Colors.white.withValues(alpha: 0.1)),
+            backgroundColor: Colors.white,
+            side: const BorderSide(color: Color(0xFFE2DDD5), width: 1.2),
+            elevation: 1,
+            shadowColor: const Color(0x15000000),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(18),
             ),
-            onPressed: () => _sendMessage(actions[index]),
+            onPressed: () {
+              HapticFeedback.lightImpact();
+              _sendMessage(action);
+            },
           );
         },
       ),
@@ -1072,64 +1208,119 @@ class _CoachPageState extends ConsumerState<CoachPage> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       child: Row(
-          children: [
-            Expanded(
+        children: [
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(24),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Color(0x0E1E2337),
+                    offset: Offset(0, 2),
+                    blurRadius: 4,
+                  ),
+                ],
+              ),
               child: TextField(
                 controller: _textController,
                 enabled: !_isSending,
                 decoration: InputDecoration(
                   hintText: 'Hỏi AstroCoach về thực đơn, macros...',
-                  hintStyle: const TextStyle(color: AppColors.onSurfaceVariant, fontSize: 13),
+                  hintStyle: GoogleFonts.inter(
+                    color: AppColors.onSurfaceVariant.withValues(alpha: 0.8),
+                    fontSize: 13,
+                  ),
                   filled: true,
-                  fillColor: AppColors.surfaceContainer,
-                  prefixIcon: const Icon(Icons.auto_awesome, color: AppColors.primary, size: 18),
+                  fillColor: Colors.transparent,
+                  prefixIcon: const Icon(
+                    Icons.auto_awesome,
+                    color: AppColors.primary,
+                    size: 19,
+                  ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(24),
-                    borderSide: BorderSide(color: Colors.white.withValues(alpha: 0.1)),
+                    borderSide: const BorderSide(
+                      color: Color(0xFFE2DDD5),
+                      width: 1.2,
+                    ),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(24),
-                    borderSide: BorderSide(color: Colors.white.withValues(alpha: 0.1)),
+                    borderSide: const BorderSide(
+                      color: Color(0xFFE2DDD5),
+                      width: 1.2,
+                    ),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(24),
-                    borderSide: const BorderSide(color: AppColors.primary, width: 1.2),
+                    borderSide: const BorderSide(
+                      color: AppColors.primary,
+                      width: 2.0,
+                    ),
                   ),
                   contentPadding: const EdgeInsets.symmetric(
                     horizontal: 16,
                     vertical: 12,
                   ),
                 ),
-                style: const TextStyle(color: AppColors.onSurface, fontSize: 13),
+                style: GoogleFonts.inter(
+                  color: AppColors.onSurface,
+                  fontSize: 13.5,
+                  fontWeight: FontWeight.w500,
+                ),
                 onSubmitted: _sendMessage,
               ),
             ),
-            const SizedBox(width: 8),
-            SizedBox(
-              width: 44,
-              height: 44,
-              child: IconButton.filled(
-                onPressed: _isSending
-                    ? null
-                    : () => _sendMessage(_textController.text),
-                icon: const Icon(Icons.send_rounded, size: 20),
-                style: IconButton.styleFrom(
-                  backgroundColor: AppColors.primary,
+          ),
+          const SizedBox(width: 8),
+          Material(
+            color: Colors.transparent,
+            child: InkWell(
+              onTap: _isSending ? null : () => _sendMessage(_textController.text),
+              borderRadius: BorderRadius.circular(22),
+              child: Container(
+                width: 44,
+                height: 44,
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [Color(0xFF38BDF8), Color(0xFF0284C7)],
+                  ),
+                  shape: BoxShape.circle,
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Color(0xFF0369A1),
+                      offset: Offset(0, 3),
+                      blurRadius: 0,
+                    ),
+                    BoxShadow(
+                      color: Color(0x300284C7),
+                      offset: Offset(0, 4),
+                      blurRadius: 8,
+                    ),
+                  ],
+                ),
+                child: const Center(
+                  child: Icon(
+                    Icons.send_rounded,
+                    size: 19,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),
-          ],
-        ),
-      );
+          ),
+        ],
+      ),
+    );
   }
 
   void _showHistorySheet() {
     showModalBottomSheet(
       context: context,
-      backgroundColor: AppColors.surfaceContainer,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
+      backgroundColor: Colors.transparent,
       isScrollControlled: true,
       builder: (ctx) {
         return Consumer(
@@ -1139,153 +1330,336 @@ class _CoachPageState extends ConsumerState<CoachPage> {
                 ref.read(coachControllerProvider.notifier).selectedDate;
 
             return DraggableScrollableSheet(
-              initialChildSize: 0.6,
+              initialChildSize: 0.65,
               minChildSize: 0.35,
-              maxChildSize: 0.85,
+              maxChildSize: 0.88,
               expand: false,
               builder: (_, scrollController) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                  child: Column(
-                    children: [
-                      Container(
-                        width: 40,
-                        height: 4,
-                        decoration: BoxDecoration(
-                          color: AppColors.outline.withValues(alpha: 0.5),
-                          borderRadius: BorderRadius.circular(2),
-                        ),
-                      ),
-                      const SizedBox(height: 12),
-                      Row(
-                        children: [
-                          const Icon(Icons.history_rounded, color: AppColors.primary, size: 22),
-                          const SizedBox(width: 8),
-                          const Expanded(
-                            child: Text(
-                              'Lịch sử hội thoại AstroCoach',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.onSurface,
-                              ),
+                return Container(
+                  decoration: const BoxDecoration(
+                    color: AppColors.surface,
+                    borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    child: Column(
+                      children: [
+                        // Drag Handle
+                        Center(
+                          child: Container(
+                            width: 38,
+                            height: 4.5,
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFD4CEBF),
+                              borderRadius: BorderRadius.circular(3),
                             ),
                           ),
-                          IconButton(
-                            icon: const Icon(Icons.close_rounded, color: AppColors.onSurfaceVariant, size: 20),
-                            onPressed: () => Navigator.pop(context),
-                          ),
-                        ],
-                      ),
-                      const Divider(color: Colors.white10),
-                      Expanded(
-                        child: sessionsAsync.when(
-                          loading: () => const Center(
-                            child: CircularProgressIndicator(color: AppColors.primary),
-                          ),
-                          error: (e, _) => Center(
-                            child: Text('Lỗi tải lịch sử: $e', style: const TextStyle(color: AppColors.onSurfaceVariant)),
-                          ),
-                          data: (sessions) {
-                            if (sessions.isEmpty) {
-                              return const Center(
-                                child: Text(
-                                  'Chưa có cuộc trò chuyện nào trước đó.',
-                                  style: TextStyle(color: AppColors.onSurfaceVariant),
-                                ),
-                              );
-                            }
-                            return ListView.separated(
-                              controller: scrollController,
-                              itemCount: sessions.length,
-                              separatorBuilder: (_, __) => const SizedBox(height: 8),
-                              itemBuilder: (context, index) {
-                                final s = sessions[index];
-                                final dateStr = s['date'] as String? ?? '';
-                                final count = s['message_count'] as int? ?? 0;
-                                final lastMsg = s['last_message'] as String? ?? '';
-                                final todayStr = DateFormat('yyyy-MM-dd').format(DateTime.now());
-                                final isSelected = (currentSelected == null && dateStr == todayStr) ||
-                                    (currentSelected == dateStr);
+                        ),
+                        const SizedBox(height: 14),
 
-                                return InkWell(
-                                  onTap: () {
-                                    ref.read(coachControllerProvider.notifier).selectSessionDate(
-                                          dateStr == todayStr ? null : dateStr,
-                                        );
-                                    Navigator.pop(context);
-                                  },
-                                  borderRadius: BorderRadius.circular(12),
-                                  child: Container(
-                                    padding: const EdgeInsets.all(12),
-                                    decoration: BoxDecoration(
-                                      color: isSelected
-                                          ? AppColors.primary.withValues(alpha: 0.15)
-                                          : AppColors.surface,
-                                      borderRadius: BorderRadius.circular(12),
-                                      border: Border.all(
-                                        color: isSelected
-                                            ? AppColors.primary
-                                            : Colors.white.withValues(alpha: 0.08),
-                                      ),
+                        // Header with Icon, Title & Close Button
+                        Row(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFE0F2FE),
+                                borderRadius: BorderRadius.circular(12),
+                                border: Border.all(color: const Color(0xFFBAE6FD), width: 1.2),
+                              ),
+                              child: const Icon(Icons.history_rounded, color: AppColors.primary, size: 20),
+                            ),
+                            const SizedBox(width: 10),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Lịch sử hội thoại AstroCoach',
+                                    style: GoogleFonts.outfit(
+                                      fontSize: 16.5,
+                                      fontWeight: FontWeight.w800,
+                                      color: AppColors.onSurface,
                                     ),
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Expanded(
-                                              child: Text(
-                                                dateStr == todayStr ? 'Hôm nay ($dateStr)' : dateStr,
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 13,
-                                                  color: isSelected ? AppColors.primary : AppColors.onSurface,
-                                                ),
-                                              ),
+                                  ),
+                                  const SizedBox(height: 1),
+                                  Text(
+                                    'Xem lại hoặc chuyển phiên tư vấn dinh dưỡng',
+                                    style: GoogleFonts.inter(
+                                      fontSize: 11,
+                                      color: AppColors.onSurfaceVariant,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Material(
+                              color: Colors.white,
+                              shape: const CircleBorder(),
+                              elevation: 1,
+                              shadowColor: const Color(0x15000000),
+                              child: InkWell(
+                                onTap: () => Navigator.pop(context),
+                                customBorder: const CircleBorder(),
+                                child: const Padding(
+                                  padding: EdgeInsets.all(7),
+                                  child: Icon(Icons.close_rounded, size: 18, color: AppColors.onSurfaceVariant),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 12),
+                        const Divider(color: Color(0xFFE5E0D8), height: 1, thickness: 1),
+                        const SizedBox(height: 12),
+
+                        // Session Cards
+                        Expanded(
+                          child: sessionsAsync.when(
+                            loading: () => const Center(
+                              child: CircularProgressIndicator(color: AppColors.primary),
+                            ),
+                            error: (e, _) => Center(
+                              child: Text('Lỗi tải lịch sử: $e', style: const TextStyle(color: AppColors.onSurfaceVariant)),
+                            ),
+                            data: (sessions) {
+                              if (sessions.isEmpty) {
+                                return Center(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Container(
+                                        padding: const EdgeInsets.all(16),
+                                        decoration: BoxDecoration(
+                                          color: const Color(0xFFF0F9FF),
+                                          shape: BoxShape.circle,
+                                          border: Border.all(color: const Color(0xFFBAE6FD), width: 1.5),
+                                        ),
+                                        child: const Icon(
+                                          Icons.chat_bubble_outline_rounded,
+                                          size: 34,
+                                          color: AppColors.primary,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 12),
+                                      Text(
+                                        'Chưa có cuộc trò chuyện nào trước đó.',
+                                        style: GoogleFonts.outfit(
+                                          fontSize: 14.5,
+                                          fontWeight: FontWeight.w700,
+                                          color: AppColors.onSurface,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 4),
+                                      Text(
+                                        'Các phiên tư vấn dinh dưỡng hàng ngày sẽ tự động lưu tại đây.',
+                                        textAlign: TextAlign.center,
+                                        style: GoogleFonts.inter(
+                                          fontSize: 11.5,
+                                          color: AppColors.onSurfaceVariant,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              }
+                              return ListView.separated(
+                                controller: scrollController,
+                                itemCount: sessions.length,
+                                separatorBuilder: (_, __) => const SizedBox(height: 10),
+                                itemBuilder: (context, index) {
+                                  final s = sessions[index];
+                                  final dateStr = s['date'] as String? ?? '';
+                                  final count = s['message_count'] as int? ?? 0;
+                                  final lastMsg = s['last_message'] as String? ?? '';
+                                  final todayStr = DateFormat('yyyy-MM-dd').format(DateTime.now());
+                                  final isToday = dateStr == todayStr;
+                                  final isSelected = (currentSelected == null && isToday) ||
+                                      (currentSelected == dateStr);
+
+                                  return Material(
+                                    color: Colors.transparent,
+                                    child: InkWell(
+                                      onTap: () {
+                                        HapticFeedback.lightImpact();
+                                        ref.read(coachControllerProvider.notifier).selectSessionDate(
+                                              isToday ? null : dateStr,
+                                            );
+                                        Navigator.pop(context);
+                                      },
+                                      borderRadius: BorderRadius.circular(16),
+                                      child: Container(
+                                        padding: const EdgeInsets.all(13),
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.circular(16),
+                                          border: Border.all(
+                                            color: isSelected
+                                                ? AppColors.primary
+                                                : const Color(0xFFE5E0D8),
+                                            width: isSelected ? 1.8 : 1.2,
+                                          ),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: isSelected
+                                                  ? const Color(0xFFBAE6FD)
+                                                  : const Color(0xFFD4CEBF),
+                                              offset: const Offset(0, 2.5),
+                                              blurRadius: 0,
                                             ),
-                                            Container(
-                                              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                                              decoration: BoxDecoration(
-                                                color: AppColors.surfaceContainer,
-                                                borderRadius: BorderRadius.circular(8),
-                                              ),
-                                              child: Text(
-                                                '$count tin nhắn',
-                                                style: const TextStyle(fontSize: 10, color: AppColors.onSurfaceVariant),
-                                              ),
-                                            ),
-                                            const SizedBox(width: 4),
-                                            InkWell(
-                                              onTap: () => _confirmDeleteSession(dateStr),
-                                              borderRadius: BorderRadius.circular(6),
-                                              child: const Padding(
-                                                padding: EdgeInsets.all(4),
-                                                child: Icon(Icons.delete_outline_rounded, size: 18, color: AppColors.onSurfaceVariant),
-                                              ),
+                                            const BoxShadow(
+                                              color: Color(0x061E2337),
+                                              offset: Offset(0, 4),
+                                              blurRadius: 8,
                                             ),
                                           ],
                                         ),
-                                        if (lastMsg.isNotEmpty) ...[
-                                          const SizedBox(height: 4),
-                                          Text(
-                                            lastMsg,
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: const TextStyle(fontSize: 11, color: AppColors.onSurfaceVariant),
-                                          ),
-                                        ],
-                                      ],
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Container(
+                                                  padding: const EdgeInsets.all(6),
+                                                  decoration: BoxDecoration(
+                                                    color: isSelected
+                                                        ? const Color(0xFFE0F2FE)
+                                                        : const Color(0xFFFAF8F5),
+                                                    borderRadius: BorderRadius.circular(8),
+                                                  ),
+                                                  child: Icon(
+                                                    isToday ? Icons.today_rounded : Icons.calendar_today_rounded,
+                                                    size: 15,
+                                                    color: isSelected ? AppColors.primary : AppColors.onSurfaceVariant,
+                                                  ),
+                                                ),
+                                                const SizedBox(width: 8),
+                                                Expanded(
+                                                  child: Row(
+                                                    children: [
+                                                      Flexible(
+                                                        child: Text(
+                                                          isToday ? 'Hôm nay ($dateStr)' : dateStr,
+                                                          style: GoogleFonts.outfit(
+                                                            fontWeight: FontWeight.w800,
+                                                            fontSize: 13.5,
+                                                            color: isSelected ? AppColors.primary : AppColors.onSurface,
+                                                          ),
+                                                          overflow: TextOverflow.ellipsis,
+                                                        ),
+                                                      ),
+                                                      if (isSelected) ...[
+                                                        const SizedBox(width: 6),
+                                                        Container(
+                                                          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                                                          decoration: BoxDecoration(
+                                                            color: const Color(0xFFE0F2FE),
+                                                            borderRadius: BorderRadius.circular(6),
+                                                          ),
+                                                          child: Text(
+                                                            'Đang xem',
+                                                            style: GoogleFonts.inter(
+                                                              fontSize: 9.5,
+                                                              fontWeight: FontWeight.w700,
+                                                              color: const Color(0xFF0284C7),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ],
+                                                  ),
+                                                ),
+                                                Container(
+                                                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                                                  decoration: BoxDecoration(
+                                                    color: const Color(0xFFF0F9FF),
+                                                    borderRadius: BorderRadius.circular(8),
+                                                    border: Border.all(color: const Color(0xFFBAE6FD), width: 1),
+                                                  ),
+                                                  child: Text(
+                                                    '$count tin nhắn',
+                                                    style: GoogleFonts.inter(
+                                                      fontSize: 10.5,
+                                                      fontWeight: FontWeight.w600,
+                                                      color: const Color(0xFF0284C7),
+                                                    ),
+                                                  ),
+                                                ),
+                                                const SizedBox(width: 6),
+                                                Tooltip(
+                                                  message: 'Xoá cuộc trò chuyện',
+                                                  child: Material(
+                                                    color: Colors.transparent,
+                                                    child: InkWell(
+                                                      onTap: () {
+                                                        HapticFeedback.lightImpact();
+                                                        _confirmDeleteSession(dateStr);
+                                                      },
+                                                      borderRadius: BorderRadius.circular(8),
+                                                      child: Container(
+                                                        padding: const EdgeInsets.all(5),
+                                                        decoration: BoxDecoration(
+                                                          color: const Color(0xFFFFF1F2),
+                                                          borderRadius: BorderRadius.circular(8),
+                                                          border: Border.all(color: const Color(0xFFFECDD3), width: 1),
+                                                        ),
+                                                        child: const Icon(
+                                                          Icons.delete_outline_rounded,
+                                                          size: 16,
+                                                          color: AppColors.error,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            if (lastMsg.isNotEmpty) ...[
+                                              const SizedBox(height: 8),
+                                              Container(
+                                                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                                                decoration: BoxDecoration(
+                                                  color: const Color(0xFFFAF8F5),
+                                                  borderRadius: BorderRadius.circular(8),
+                                                  border: Border.all(color: const Color(0xFFF0EBE1), width: 1),
+                                                ),
+                                                child: Row(
+                                                  children: [
+                                                    const Icon(
+                                                      Icons.chat_bubble_outline_rounded,
+                                                      size: 12,
+                                                      color: AppColors.onSurfaceVariant,
+                                                    ),
+                                                    const SizedBox(width: 6),
+                                                    Expanded(
+                                                      child: Text(
+                                                        lastMsg,
+                                                        maxLines: 1,
+                                                        overflow: TextOverflow.ellipsis,
+                                                        style: GoogleFonts.inter(
+                                                          fontSize: 11.5,
+                                                          color: AppColors.onSurfaceVariant,
+                                                          fontWeight: FontWeight.w500,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ],
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                );
-                              },
-                            );
-                          },
+                                  );
+                                },
+                              );
+                            },
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 );
               },

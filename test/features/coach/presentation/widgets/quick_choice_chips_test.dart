@@ -35,5 +35,36 @@ void main() {
 
       expect(selectedPayload, 'chọn bữa trưa');
     });
+
+    testWidgets('differentiates primary combo action from secondary option', (tester) async {
+      final props = QuickChoiceChipsProps.fromMap({
+        'chips': [
+          {'label': 'Ghi nhận Ca cao & Ăn trưa ức gà', 'payload': 'combo'},
+          {'label': 'Chỉ ghi nhận Ca cao', 'payload': 'only_cacao'},
+        ]
+      });
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: SizedBox(
+              width: 320,
+              child: QuickChoiceChips(props: props),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.text('Ghi nhận Ca cao & Ăn trưa ức gà'), findsOneWidget);
+      expect(find.text('Chỉ ghi nhận Ca cao'), findsOneWidget);
+
+      // Verify Wrap is used instead of SingleChildScrollView
+      expect(find.byType(Wrap), findsOneWidget);
+      expect(find.byType(SingleChildScrollView), findsNothing);
+
+      // Primary confirm has solid check icon; secondary option has check outline icon
+      expect(find.byIcon(Icons.check_circle_rounded), findsOneWidget);
+      expect(find.byIcon(Icons.check_circle_outline_rounded), findsOneWidget);
+    });
   });
 }

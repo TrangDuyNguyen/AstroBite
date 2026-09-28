@@ -296,7 +296,7 @@ Hãy thưởng thức nhé!
       expect(find.textContaining('Đang xem lại phiên'), findsNothing);
     });
 
-    testWidgets('Tapping delete button in AppBar displays confirmation dialog and triggers deletion', (tester) async {
+    testWidgets('Tapping delete button in history sheet displays confirmation dialog and triggers deletion', (tester) async {
       final mockMessages = [
         ChatMessage(
           id: 'msg_1',
@@ -305,12 +305,20 @@ Hãy thưởng thức nhé!
           timestamp: DateTime.now(),
         ),
       ];
+      final mockSessions = [
+        {
+          'date': '2026-09-24',
+          'message_count': 1,
+          'last_message': 'Tư vấn bữa tối',
+        }
+      ];
       final mockController = _MockCoachController(mockMessages);
 
       await tester.pumpWidget(
         ProviderScope(
           overrides: [
             coachControllerProvider.overrideWith(() => mockController),
+            chatSessionsListProvider.overrideWith((ref) => Future.value(mockSessions)),
             todaySummaryProvider.overrideWithValue(
               const DailySummary(
                 date: '2026-09-24',
@@ -332,6 +340,12 @@ Hãy thưởng thức nhé!
         ),
       );
 
+      await tester.pumpAndSettle();
+
+      // Open history sheet
+      final historyBtn = find.byTooltip('Lịch sử hội thoại');
+      expect(historyBtn, findsOneWidget);
+      await tester.tap(historyBtn);
       await tester.pumpAndSettle();
 
       final deleteBtn = find.byTooltip('Xoá cuộc trò chuyện');

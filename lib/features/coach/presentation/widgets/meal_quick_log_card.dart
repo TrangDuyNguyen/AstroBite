@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:astrobite/core/constants/app_values.dart';
-import 'package:astrobite/core/theme/app_colors.dart';
-import 'package:astrobite/shared/widgets/glass_card.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:astrobite/shared/ui_kit/ui_kit.dart';
 
 /// Props for [MealQuickLogCard].
 class MealQuickLogProps {
@@ -138,10 +137,28 @@ class _MealQuickLogCardState extends State<MealQuickLogCard> {
   Widget build(BuildContext context) {
     final logged = widget.isLogged || _isOptimisticallyLogged;
 
-    return GlassCard(
-      padding: const EdgeInsets.all(AppValues.cardPadding),
-      borderRadius: 16,
-      borderColor: AppColors.primary.withValues(alpha: 0.3),
+    return Container(
+      padding: const EdgeInsets.all(AppValues.spacing12),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(18),
+        border: Border.all(
+          color: const Color(0xFFBAE6FD),
+          width: 1.2,
+        ),
+        boxShadow: const [
+          BoxShadow(
+            color: Color(0xFF7DD3FC),
+            offset: Offset(0, 3),
+            blurRadius: 0,
+          ),
+          BoxShadow(
+            color: Color(0x100284C7),
+            offset: Offset(0, 4),
+            blurRadius: 10,
+          ),
+        ],
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
@@ -153,10 +170,14 @@ class _MealQuickLogCardState extends State<MealQuickLogCard> {
               Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: AppColors.primary.withValues(alpha: 0.15),
-                  borderRadius: BorderRadius.circular(10),
+                  color: const Color(0xFFE0F2FE),
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
+                    color: const Color(0xFFBAE6FD),
+                    width: 1,
+                  ),
                 ),
-                child: const Text('🍲', style: TextStyle(fontSize: 18)),
+                child: const Text('🍲', style: TextStyle(fontSize: 20)),
               ),
               const SizedBox(width: 10),
               Expanded(
@@ -165,9 +186,9 @@ class _MealQuickLogCardState extends State<MealQuickLogCard> {
                   children: [
                     Text(
                       widget.props.dishName,
-                      style: const TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
+                      style: GoogleFonts.outfit(
+                        fontSize: 15.5,
+                        fontWeight: FontWeight.w800,
                         color: AppColors.onSurface,
                         letterSpacing: -0.2,
                       ),
@@ -175,9 +196,9 @@ class _MealQuickLogCardState extends State<MealQuickLogCard> {
                     const SizedBox(height: 2),
                     Text(
                       '$_scaledCalories kcal',
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w800,
+                      style: GoogleFonts.outfit(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w900,
                         color: AppColors.primary,
                       ),
                     ),
@@ -188,18 +209,20 @@ class _MealQuickLogCardState extends State<MealQuickLogCard> {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
-                  color: AppColors.surfaceBlur,
+                  color: AppColors.surface,
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(
-                    color: Colors.white.withValues(alpha: 0.1),
+                    color: AppColors.outline,
+                    width: 1,
                   ),
                 ),
                 child: Text(
                   widget.props.mealType.toUpperCase(),
-                  style: const TextStyle(
+                  style: GoogleFonts.inter(
                     fontSize: 10,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w700,
                     color: AppColors.onSurfaceVariant,
+                    letterSpacing: 0.5,
                   ),
                 ),
               ),
@@ -210,17 +233,22 @@ class _MealQuickLogCardState extends State<MealQuickLogCard> {
 
           // Portion Stepper Bar
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
             decoration: BoxDecoration(
-              color: AppColors.surfaceContainer,
-              borderRadius: BorderRadius.circular(10),
+              color: AppColors.surface,
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: AppColors.outline, width: 1),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
+                Text(
                   'Khẩu phần:',
-                  style: TextStyle(fontSize: 12, color: AppColors.onSurfaceVariant),
+                  style: GoogleFonts.inter(
+                    fontSize: 12.5,
+                    fontWeight: FontWeight.w500,
+                    color: AppColors.onSurfaceVariant,
+                  ),
                 ),
                 Row(
                   children: [
@@ -229,12 +257,12 @@ class _MealQuickLogCardState extends State<MealQuickLogCard> {
                       onTap: logged ? null : () => _adjustWeight(-20),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      padding: const EdgeInsets.symmetric(horizontal: 14),
                       child: Text(
                         '${_currentWeightG}g',
-                        style: const TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold,
+                        style: GoogleFonts.outfit(
+                          fontSize: 14.5,
+                          fontWeight: FontWeight.w800,
                           color: AppColors.onSurface,
                         ),
                       ),
@@ -258,7 +286,10 @@ class _MealQuickLogCardState extends State<MealQuickLogCard> {
                 child: _buildMacroBadge(
                   label: 'Carbs',
                   valG: _scaledCarbs,
-                  color: AppColors.primary, // #1A73E8
+                  color: AppColors.primary,
+                  bgColor: const Color(0xFFF0F9FF),
+                  borderColor: const Color(0xFFBAE6FD),
+                  bevelColor: const Color(0xFF7DD3FC),
                 ),
               ),
               const SizedBox(width: 8),
@@ -266,7 +297,10 @@ class _MealQuickLogCardState extends State<MealQuickLogCard> {
                 child: _buildMacroBadge(
                   label: 'Protein',
                   valG: _scaledProtein,
-                  color: AppColors.tertiary, // #FFD700
+                  color: AppColors.tertiary,
+                  bgColor: const Color(0xFFFFF8ED),
+                  borderColor: const Color(0xFFFFE2B3),
+                  bevelColor: const Color(0xFFFDBA74),
                 ),
               ),
               const SizedBox(width: 8),
@@ -274,7 +308,10 @@ class _MealQuickLogCardState extends State<MealQuickLogCard> {
                 child: _buildMacroBadge(
                   label: 'Fat',
                   valG: _scaledFat,
-                  color: AppColors.secondary, // #FF69B4
+                  color: AppColors.secondary,
+                  bgColor: const Color(0xFFFFF1F5),
+                  borderColor: const Color(0xFFFECDD3),
+                  bevelColor: const Color(0xFFFDA4AF),
                 ),
               ),
             ],
@@ -283,41 +320,12 @@ class _MealQuickLogCardState extends State<MealQuickLogCard> {
           const SizedBox(height: 14),
 
           // 1-Tap Log CTA
-          SizedBox(
-            width: double.infinity,
-            height: 44,
-            child: ElevatedButton(
-              onPressed: logged ? null : _handleLog,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: logged
-                    ? AppColors.surfaceBlur
-                    : AppColors.primary,
-                foregroundColor: Colors.white,
-                elevation: logged ? 0 : 2,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    logged ? Icons.check_circle_rounded : Icons.bolt_rounded,
-                    size: 18,
-                    color: logged ? AppColors.success : Colors.white,
-                  ),
-                  const SizedBox(width: 6),
-                  Text(
-                    logged ? '✓ Đã ghi vào nhật ký' : '⚡ Ghi vào nhật ký ngay',
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold,
-                      color: logged ? AppColors.success : Colors.white,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+          ClayButton(
+            text: logged ? '✓ Đã ghi vào nhật ký' : '⚡ Ghi vào nhật ký ngay',
+            variant: logged ? ClayButtonVariant.success : ClayButtonVariant.primary,
+            height: 46,
+            borderRadius: 20,
+            onPressed: logged ? null : _handleLog,
           ),
         ],
       ),
@@ -325,16 +333,22 @@ class _MealQuickLogCardState extends State<MealQuickLogCard> {
   }
 
   Widget _buildStepperBtn({required IconData icon, VoidCallback? onTap}) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(6),
-      child: Container(
-        padding: const EdgeInsets.all(4),
-        decoration: BoxDecoration(
-          color: AppColors.surfaceBlur,
-          borderRadius: BorderRadius.circular(6),
+    return Material(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(8),
+      elevation: 1,
+      shadowColor: const Color(0x20000000),
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(8),
+        child: Container(
+          padding: const EdgeInsets.all(5),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: const Color(0xFFE2DDD5), width: 1),
+          ),
+          child: Icon(icon, size: 16, color: AppColors.onSurface),
         ),
-        child: Icon(icon, size: 16, color: AppColors.onSurface),
       ),
     );
   }
@@ -343,30 +357,40 @@ class _MealQuickLogCardState extends State<MealQuickLogCard> {
     required String label,
     required double valG,
     required Color color,
+    required Color bgColor,
+    required Color borderColor,
+    required Color bevelColor,
   }) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+      padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 6),
       decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: color.withValues(alpha: 0.25)),
+        color: bgColor,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: borderColor, width: 1.2),
+        boxShadow: [
+          BoxShadow(
+            color: bevelColor,
+            offset: const Offset(0, 2),
+            blurRadius: 0,
+          ),
+        ],
       ),
       child: Column(
         children: [
           Text(
             label,
-            style: TextStyle(
-              fontSize: 10,
-              fontWeight: FontWeight.w600,
+            style: GoogleFonts.outfit(
+              fontSize: 10.5,
+              fontWeight: FontWeight.w700,
               color: color,
             ),
           ),
           const SizedBox(height: 2),
           Text(
             '${valG.toStringAsFixed(1)}g',
-            style: const TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.bold,
+            style: GoogleFonts.outfit(
+              fontSize: 12.5,
+              fontWeight: FontWeight.w800,
               color: AppColors.onSurface,
             ),
           ),

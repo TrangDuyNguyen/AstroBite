@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:astrobite/core/constants/app_values.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
-import 'package:astrobite/shared/widgets/glass_card.dart';
 
 /// Props for [MacroBudgetGauge].
 class MacroBudgetGaugeProps {
@@ -52,12 +52,28 @@ class MacroBudgetGauge extends StatelessWidget {
         ? (props.projectedCalories / props.targetCalories).clamp(0.0, 1.0)
         : 0.0;
 
-    return GlassCard(
+    return Container(
       padding: const EdgeInsets.all(AppValues.cardPadding),
-      borderRadius: 14,
-      borderColor: isExceeded
-          ? AppColors.tertiary.withValues(alpha: 0.4)
-          : AppColors.primary.withValues(alpha: 0.25),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: isExceeded ? const Color(0xFFFFE2B3) : const Color(0xFFBAE6FD),
+          width: 1.2,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: isExceeded ? const Color(0xFFFDBA74) : const Color(0xFF7DD3FC),
+            offset: const Offset(0, 2.5),
+            blurRadius: 0,
+          ),
+          const BoxShadow(
+            color: Color(0x0A000000),
+            offset: Offset(0, 3),
+            blurRadius: 6,
+          ),
+        ],
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
@@ -73,9 +89,9 @@ class MacroBudgetGauge extends StatelessWidget {
                     color: isExceeded ? AppColors.tertiary : AppColors.primary,
                   ),
                   const SizedBox(width: 6),
-                  const Text(
+                  Text(
                     'TÁC ĐỘNG NGÂN SÁCH NGÀY',
-                    style: TextStyle(
+                    style: GoogleFonts.inter(
                       fontSize: 11,
                       fontWeight: FontWeight.w700,
                       color: AppColors.onSurfaceVariant,
@@ -86,9 +102,9 @@ class MacroBudgetGauge extends StatelessWidget {
               ),
               Text(
                 '+${props.projectedCalories} kcal',
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
+                style: GoogleFonts.outfit(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w800,
                   color: isExceeded ? AppColors.tertiary : AppColors.primary,
                 ),
               ),
@@ -98,12 +114,12 @@ class MacroBudgetGauge extends StatelessWidget {
 
           // Double Layer Progress Bar
           ClipRRect(
-            borderRadius: BorderRadius.circular(6),
+            borderRadius: BorderRadius.circular(4),
             child: SizedBox(
-              height: 8,
+              height: 7,
               child: LinearProgressIndicator(
                 value: progress,
-                backgroundColor: AppColors.surfaceBlur,
+                backgroundColor: const Color(0xFFF1EFEA),
                 valueColor: AlwaysStoppedAnimation<Color>(
                   isExceeded ? AppColors.tertiary : AppColors.primary,
                 ),
@@ -120,17 +136,18 @@ class MacroBudgetGauge extends StatelessWidget {
                 isExceeded
                     ? '⚠️ Vượt ${afterEatingRemaining.abs()} kcal mục tiêu'
                     : 'Còn lại sau bữa: $afterEatingRemaining kcal',
-                style: TextStyle(
-                  fontSize: 11,
+                style: GoogleFonts.inter(
+                  fontSize: 11.5,
                   fontWeight: FontWeight.w600,
-                  color: isExceeded ? AppColors.tertiary : AppColors.onSurfaceVariant,
+                  color: isExceeded ? AppColors.tertiary : AppColors.onSurface,
                 ),
               ),
               Text(
                 'Mục tiêu: ${props.targetCalories} kcal',
-                style: const TextStyle(
+                style: GoogleFonts.inter(
                   fontSize: 11,
-                  color: AppColors.outline,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.onSurfaceVariant,
                 ),
               ),
             ],
