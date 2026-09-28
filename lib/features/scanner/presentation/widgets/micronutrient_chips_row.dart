@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:astrobite/core/constants/app_values.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:astrobite/shared/ui_kit/ui_kit.dart';
 
+/// Claymorphic Micronutrient Chips Row displaying Sodium, Fiber, and Sugar
+/// with 3D Clay volumetric icons and WCAG high-contrast labels.
 class MicronutrientChipsRow extends StatelessWidget {
   const MicronutrientChipsRow({
     super.key,
@@ -28,23 +31,28 @@ class MicronutrientChipsRow extends StatelessWidget {
           runSpacing: AppValues.spacing8,
           children: [
             _MicroChip(
-              icon: Icons.grain_rounded,
+              iconWidget: const Clay3DSaltShaker(size: 17),
               label: 'Muối: ${sodiumMg.toStringAsFixed(0)} mg',
-              color: isHighSodium
-                  ? const Color(0xFFFF9100)
-                  : const Color(0xFF00E5FF),
+              textColor: isHighSodium ? const Color(0xFFC2410C) : AppColors.onSurface,
+              bgColor: isHighSodium ? const Color(0xFFFFF7ED) : const Color(0xFFF0F9FF),
+              borderColor: isHighSodium ? const Color(0xFFFFEDD5) : const Color(0xFFBAE6FD),
+              bevelColor: isHighSodium ? const Color(0xFFFDBA74) : const Color(0xFF7DD3FC),
             ),
             _MicroChip(
-              icon: Icons.eco_rounded,
+              iconWidget: const Clay3DSprout(size: 17),
               label: 'Xơ: ${fiberG.toStringAsFixed(1)} g',
-              color: const Color(0xFF00E676),
+              textColor: AppColors.onSurface,
+              bgColor: const Color(0xFFF0FDF4),
+              borderColor: const Color(0xFFBBF7D0),
+              bevelColor: const Color(0xFF86EFAC),
             ),
             _MicroChip(
-              icon: Icons.water_drop_rounded,
+              iconWidget: const Clay3DSugarCube(size: 17),
               label: 'Đường: ${sugarG.toStringAsFixed(1)} g',
-              color: isHighSugar
-                  ? const Color(0xFFFF9100)
-                  : const Color(0xFFE0E0E0),
+              textColor: isHighSugar ? const Color(0xFFC2410C) : AppColors.onSurface,
+              bgColor: isHighSugar ? const Color(0xFFFFF7ED) : const Color(0xFFF8FAFC),
+              borderColor: isHighSugar ? const Color(0xFFFFEDD5) : const Color(0xFFE2E8F0),
+              bevelColor: isHighSugar ? const Color(0xFFFDBA74) : const Color(0xFFCBD5E1),
             ),
           ],
         ),
@@ -59,42 +67,62 @@ class MicronutrientChipsRow extends StatelessWidget {
 
 class _MicroChip extends StatelessWidget {
   const _MicroChip({
-    required this.icon,
+    required this.iconWidget,
     required this.label,
-    required this.color,
+    required this.textColor,
+    required this.bgColor,
+    required this.borderColor,
+    required this.bevelColor,
   });
 
-  final IconData icon;
+  final Widget iconWidget;
   final String label;
-  final Color color;
+  final Color textColor;
+  final Color bgColor;
+  final Color borderColor;
+  final Color bevelColor;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(
-        horizontal: AppValues.spacing8 + 2,
-        vertical: AppValues.spacing4,
+        horizontal: 10,
+        vertical: 6,
       ),
       decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.05),
-        borderRadius: BorderRadius.circular(AppValues.radius8),
+        color: bgColor,
+        borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: color.withValues(alpha: 0.4),
-          width: 1,
+          color: borderColor,
+          width: 1.2,
         ),
+        boxShadow: [
+          // 3D bottom bevel
+          BoxShadow(
+            color: bevelColor.withValues(alpha: 0.8),
+            offset: const Offset(0, 2),
+            blurRadius: 0,
+          ),
+          // Ambient soft glow
+          BoxShadow(
+            color: bevelColor.withValues(alpha: 0.2),
+            offset: const Offset(0, 3),
+            blurRadius: 5,
+          ),
+        ],
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, size: 14, color: color),
-          const SizedBox(width: AppValues.spacing4),
+          iconWidget,
+          const SizedBox(width: 6),
           Text(
             label,
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white,
-                  fontSize: 11,
-                ),
+            style: GoogleFonts.inter(
+              fontWeight: FontWeight.w700,
+              color: textColor,
+              fontSize: 11.5,
+            ),
           ),
         ],
       ),
@@ -111,30 +139,37 @@ class HighSodiumAlertBadge extends StatelessWidget {
       message:
           'Món ăn chứa hơn 800mg Natri (>1/3 hạn mức khuyến nghị cả ngày). Hãy chú ý uống đủ nước nhé!',
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
         decoration: BoxDecoration(
-          color: const Color(0x26FF9100), // rgba(255, 145, 0, 0.15)
-          borderRadius: BorderRadius.circular(4),
+          color: const Color(0xFFFFF7ED),
+          borderRadius: BorderRadius.circular(8),
           border: Border.all(
-            color: const Color(0xFFFF9100),
+            color: const Color(0xFFFFB74D),
             width: 1,
           ),
+          boxShadow: const [
+            BoxShadow(
+              color: Color(0x20FF9600),
+              offset: Offset(0, 2),
+              blurRadius: 4,
+            ),
+          ],
         ),
         child: const Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(
               Icons.warning_amber_rounded,
-              color: Color(0xFFFF9100),
-              size: 12,
+              color: Color(0xFFEA580C),
+              size: 13,
             ),
             SizedBox(width: 4),
             Text(
-              'Muối cao',
+              'Muối cao (>800mg)',
               style: TextStyle(
-                color: Color(0xFFFFB74D),
-                fontSize: 10,
-                fontWeight: FontWeight.bold,
+                color: Color(0xFFC2410C),
+                fontSize: 10.5,
+                fontWeight: FontWeight.w800,
               ),
             ),
           ],
