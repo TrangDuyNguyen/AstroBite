@@ -29,5 +29,6 @@ export 'clay_3d_flask.dart';
 export 'clay_3d_salt_shaker.dart';
 export 'clay_3d_shield.dart';
 export 'clay_3d_sprout.dart';
+export 'clay_3d_star.dart';
 export 'clay_3d_sugar_cube.dart';
 export 'clay_3d_wand.dart';
