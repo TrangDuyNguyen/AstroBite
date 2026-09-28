@@ -19,6 +19,7 @@ import 'package:astrobite/features/tracker/data/models/food_log_dto.dart';
 import 'package:astrobite/features/tracker/domain/daily_summary.dart';
 import 'package:astrobite/features/tracker/domain/tracker_providers.dart';
 import 'package:astrobite/features/tracker/presentation/controllers/tracker_controller.dart';
+import 'package:astrobite/shared/widgets/gemini_api_key_dialog.dart';
 import '../domain/chat_message.dart';
 import 'coach_controller.dart';
 
@@ -877,21 +878,46 @@ class _CoachPageState extends ConsumerState<CoachPage> {
                 ],
               ],
             ),
-            if (message.isError)
-              TextButton(
-                onPressed: () {
-                  final messages = ref.read(coachControllerProvider).valueOrNull ?? [];
-                  final lastUserMsg = messages.lastWhere(
-                    (m) => m.isUser,
-                    orElse: () => message,
-                  );
-                  if (lastUserMsg.isUser) {
-                    ref.read(coachControllerProvider.notifier).removeErrors();
-                    _sendMessage(lastUserMsg.content);
-                  }
-                },
-                child: const Text('Thử lại', style: TextStyle(color: AppColors.primary)),
+            if (message.isError) ...[
+              const SizedBox(height: 6),
+              Wrap(
+                spacing: 8,
+                runSpacing: 6,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                children: [
+                  TextButton.icon(
+                    onPressed: () {
+                      final messages = ref.read(coachControllerProvider).valueOrNull ?? [];
+                      final lastUserMsg = messages.lastWhere(
+                        (m) => m.isUser,
+                        orElse: () => message,
+                      );
+                      if (lastUserMsg.isUser) {
+                        ref.read(coachControllerProvider.notifier).removeErrors();
+                        _sendMessage(lastUserMsg.content);
+                      }
+                    },
+                    icon: const Icon(Icons.refresh_rounded, size: 16),
+                    label: const Text('Thử lại'),
+                    style: TextButton.styleFrom(
+                      foregroundColor: AppColors.primary,
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                    ),
+                  ),
+                  if (message.content.contains('API Key'))
+                    FilledButton.tonalIcon(
+                      onPressed: () => GeminiApiKeyDialog.show(context),
+                      icon: const Icon(Icons.vpn_key_rounded, size: 16),
+                      label: const Text('Cài đặt API Key'),
+                      style: FilledButton.styleFrom(
+                        backgroundColor: const Color(0xFFFFF7ED),
+                        foregroundColor: AppColors.tertiary,
+                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                      ),
+                    ),
+                ],
               ),
+            ],
           ],
         ),
       ),

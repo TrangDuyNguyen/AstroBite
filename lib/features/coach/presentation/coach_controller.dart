@@ -158,10 +158,21 @@ class CoachController extends _$CoachController {
         }
         _addErrorMessage('Phản hồi quá lâu. Vui lòng thử lại.');
       } on InvalidApiKey {
-        _addErrorMessage('API Key không hợp lệ. Kiểm tra cài đặt.');
+        _addErrorMessage('Gemini API Key không hợp lệ. Vui lòng kiểm tra lại API Key.');
         return; // No point retrying
       } on ServerException catch (e) {
         debugPrint('Gemini ServerException: ${e.message}');
+        final msgLower = e.message.toLowerCase();
+        if (msgLower.contains('invalid authentication') ||
+            msgLower.contains('api_key_invalid') ||
+            msgLower.contains('api key not valid') ||
+            msgLower.contains('unauthenticated') ||
+            msgLower.contains('oauth 2') ||
+            msgLower.contains('401') ||
+            msgLower.contains('403')) {
+          _addErrorMessage('Gemini API Key không hợp lệ hoặc chưa được cấu hình. Vui lòng kiểm tra lại API Key.');
+          return; // No point retrying invalid auth credentials
+        }
         if (attempt < maxRetries) {
           await Future<void>.delayed(Duration(seconds: 1 << attempt));
           continue;
@@ -169,7 +180,16 @@ class CoachController extends _$CoachController {
         _addErrorMessage('Máy chủ AI đang quá tải. Vui lòng thử lại sau.');
       } on GenerativeAIException catch (e) {
         debugPrint('GenerativeAIException: ${e.message}');
-        _addErrorMessage('Lỗi AI: ${e.message}');
+        final msgLower = e.message.toLowerCase();
+        if (msgLower.contains('invalid authentication') ||
+            msgLower.contains('api_key_invalid') ||
+            msgLower.contains('api key not valid') ||
+            msgLower.contains('unauthenticated') ||
+            msgLower.contains('oauth 2')) {
+          _addErrorMessage('Gemini API Key không hợp lệ hoặc chưa được cấu hình. Vui lòng kiểm tra lại API Key.');
+        } else {
+          _addErrorMessage('Lỗi AI: ${e.message}');
+        }
         return; // Likely a non-retryable config error
       } catch (e, st) {
         debugPrint('Coach unexpected error: $e\n$st');

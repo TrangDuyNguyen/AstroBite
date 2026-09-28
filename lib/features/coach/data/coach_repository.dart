@@ -70,11 +70,9 @@ Nếu chỉ có món ăn đơn giản, bạn có thể chỉ cần sinh `MealQui
 ''';
 
   static const candidateModels = [
-    'gemini-3-flash-preview',
-    'gemini-3.6-flash',
-    'gemini-3.5-flash',
-    'gemini-3.8-flash',
+    'gemini-3.1-flash-lite-preview',
     'gemini-flash-latest',
+    'gemini-3.8-flash',
   ];
 
   /// Sends a message to Gemini with daily meal context and returns AI response.
@@ -132,10 +130,13 @@ Nếu chỉ có món ăn đơn giản, bạn có thể chỉ cần sinh `MealQui
         lastError = e;
         final errStr = e.toString().toLowerCase();
 
-        // If the API key is completely invalid or revoked, try default key if different
+        // If the API key is completely invalid or revoked, try default key if different, else fail fast
         if (errStr.contains('api_key_invalid') ||
             errStr.contains('api key not valid') ||
-            errStr.contains('key expired')) {
+            errStr.contains('key expired') ||
+            errStr.contains('invalid authentication') ||
+            errStr.contains('unauthenticated') ||
+            errStr.contains('oauth 2')) {
           final defaultKey = AppKeys.defaultGeminiApiKey.trim();
           if (defaultKey.isNotEmpty && apiKey != defaultKey) {
             return _sendWithKey(
