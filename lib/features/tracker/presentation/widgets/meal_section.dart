@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:astrobite/core/constants/app_strings.dart';
 import 'package:astrobite/features/auth/domain/auth_providers.dart';
 import '../../domain/daily_summary.dart';
@@ -559,38 +560,40 @@ class MealSection extends ConsumerWidget {
           constraints: BoxConstraints(
             maxHeight: MediaQuery.of(ctx).size.height * 0.85,
           ),
-          decoration: BoxDecoration(
-            color: AppColors.surfaceContainer,
-            borderRadius: const BorderRadius.vertical(
-              top: Radius.circular(AppValues.cardRadius),
+          decoration: const BoxDecoration(
+            color: AppColors.surface, // Warm milk canvas
+            borderRadius: BorderRadius.vertical(
+              top: Radius.circular(28),
             ),
-            border: Border.all(
-              color: AppColors.outline.withValues(alpha: 0.25),
-              width: 1,
+            border: Border(
+              top: BorderSide(
+                color: AppColors.outline,
+                width: 1.2,
+              ),
             ),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withValues(alpha: 0.5),
-                blurRadius: 20,
-                offset: const Offset(0, -5),
+                color: Color(0x1F1E2337),
+                blurRadius: 24,
+                offset: Offset(0, -6),
               ),
             ],
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              // 1. Drag Handle
+              // 1. Chunky Drag Handle
               Center(
                 child: Container(
                   margin: const EdgeInsets.only(
                     top: AppValues.spacing12,
                     bottom: AppValues.spacing8,
                   ),
-                  width: 40,
-                  height: 4,
+                  width: 44,
+                  height: 5,
                   decoration: BoxDecoration(
-                    color: AppColors.outline.withValues(alpha: 0.4),
-                    borderRadius: BorderRadius.circular(2),
+                    color: AppColors.outline,
+                    borderRadius: BorderRadius.circular(2.5),
                   ),
                 ),
               ),
@@ -607,7 +610,7 @@ class MealSection extends ConsumerWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      // Header: Title & Close Button
+                      // Header: Category/Source Pills & Close Button
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -619,28 +622,27 @@ class MealSection extends ConsumerWidget {
                                   children: [
                                     Container(
                                       padding: const EdgeInsets.symmetric(
-                                        horizontal: AppValues.spacing8,
-                                        vertical: 3,
+                                        horizontal: 10,
+                                        vertical: 4,
                                       ),
                                       decoration: BoxDecoration(
                                         color: _iconColor.withValues(alpha: 0.15),
-                                        borderRadius:
-                                            BorderRadius.circular(AppValues.radius8),
+                                        borderRadius: BorderRadius.circular(12),
                                         border: Border.all(
-                                          color: _iconColor.withValues(alpha: 0.3),
-                                          width: 1,
+                                          color: _iconColor.withValues(alpha: 0.35),
+                                          width: 1.2,
                                         ),
                                       ),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
-                                          Icon(_iconData, size: 12, color: _iconColor),
+                                          Icon(_iconData, size: 13, color: _iconColor),
                                           const SizedBox(width: AppValues.spacing4),
                                           Text(
                                             _title,
                                             style: TextStyle(
-                                              fontSize: 11,
-                                              fontWeight: FontWeight.bold,
+                                              fontSize: 11.5,
+                                              fontWeight: FontWeight.w800,
                                               color: _iconColor,
                                             ),
                                           ),
@@ -650,17 +652,23 @@ class MealSection extends ConsumerWidget {
                                     const SizedBox(width: AppValues.spacing8),
                                     Container(
                                       padding: const EdgeInsets.symmetric(
-                                        horizontal: AppValues.spacing8,
-                                        vertical: 3,
+                                        horizontal: 10,
+                                        vertical: 4,
                                       ),
                                       decoration: BoxDecoration(
-                                        color: AppColors.surface,
-                                        borderRadius:
-                                            BorderRadius.circular(AppValues.radius8),
+                                        color: AppColors.surfaceContainer,
+                                        borderRadius: BorderRadius.circular(12),
                                         border: Border.all(
-                                          color: AppColors.outline.withValues(alpha: 0.2),
-                                          width: 1,
+                                          color: AppColors.outline,
+                                          width: 1.2,
                                         ),
+                                        boxShadow: const [
+                                          BoxShadow(
+                                            color: Color(0x0A000000),
+                                            offset: Offset(0, 1.5),
+                                            blurRadius: 0,
+                                          ),
+                                        ],
                                       ),
                                       child: Text(
                                         log.source == 'multi_scan'
@@ -668,9 +676,9 @@ class MealSection extends ConsumerWidget {
                                             : (log.source == 'ai_scan'
                                                 ? '✦ AI Vision'
                                                 : '✍ Nhập tay'),
-                                        style: const TextStyle(
-                                          fontSize: 11,
-                                          fontWeight: FontWeight.w500,
+                                        style: GoogleFonts.inter(
+                                          fontSize: 11.5,
+                                          fontWeight: FontWeight.w600,
                                           color: AppColors.onSurfaceVariant,
                                         ),
                                       ),
@@ -680,36 +688,31 @@ class MealSection extends ConsumerWidget {
                                 const SizedBox(height: AppValues.spacing8),
                                 Text(
                                   log.dishName,
-                                  style: Theme.of(ctx).textTheme.titleLarge?.copyWith(
-                                        fontWeight: FontWeight.bold,
-                                        color: AppColors.onSurface,
-                                      ),
+                                  style: GoogleFonts.outfit(
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.w800,
+                                    color: AppColors.onSurface,
+                                    letterSpacing: -0.3,
+                                  ),
                                 ),
                               ],
                             ),
                           ),
-                          IconButton(
-                            icon: const Icon(
-                              Icons.close,
-                              color: AppColors.onSurfaceVariant,
-                            ),
+                          ClayIconButton(
+                            icon: Icons.close_rounded,
+                            size: 36,
+                            borderRadius: 12,
+                            iconColor: AppColors.onSurfaceVariant,
                             onPressed: () => Navigator.of(ctx).pop(),
                           ),
                         ],
                       ),
                       const SizedBox(height: AppValues.spacing16),
 
-                      // Calorie & Portion GlassCard
-                      Container(
-                        padding: const EdgeInsets.all(AppValues.cardPadding),
-                        decoration: BoxDecoration(
-                          color: AppColors.surface,
-                          borderRadius: BorderRadius.circular(AppValues.cardRadius),
-                          border: Border.all(
-                            color: AppColors.primary.withValues(alpha: 0.3),
-                            width: 1,
-                          ),
-                        ),
+                      // Calorie & Portion ClayCard
+                      ClayCard(
+                        padding: const EdgeInsets.all(AppValues.spacing16),
+                        borderRadius: 20,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -718,9 +721,9 @@ class MealSection extends ConsumerWidget {
                               children: [
                                 Text(
                                   '${log.calories} kcal',
-                                  style: const TextStyle(
+                                  style: GoogleFonts.outfit(
                                     fontSize: 32,
-                                    fontWeight: FontWeight.bold,
+                                    fontWeight: FontWeight.w900,
                                     color: AppColors.primary,
                                     letterSpacing: AppValues.calorieLetterSpacing,
                                   ),
@@ -728,8 +731,9 @@ class MealSection extends ConsumerWidget {
                                 const SizedBox(height: 2),
                                 Text(
                                   'Khẩu phần ước lượng: ${log.estimatedWeightG}g',
-                                  style: const TextStyle(
+                                  style: GoogleFonts.inter(
                                     fontSize: 13,
+                                    fontWeight: FontWeight.w500,
                                     color: AppColors.onSurfaceVariant,
                                   ),
                                 ),
@@ -738,12 +742,27 @@ class MealSection extends ConsumerWidget {
                             Container(
                               padding: const EdgeInsets.symmetric(
                                 horizontal: AppValues.spacing12,
-                                vertical: AppValues.spacing4,
+                                vertical: 6,
                               ),
                               decoration: BoxDecoration(
-                                color: AppColors.primary.withValues(alpha: 0.15),
-                                borderRadius:
-                                    BorderRadius.circular(AppValues.radius12),
+                                gradient: const LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: [Color(0xFF38BDF8), Color(0xFF0284C7)],
+                                ),
+                                borderRadius: BorderRadius.circular(14),
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: Color(0xFF0369A1),
+                                    offset: Offset(0, 2.5),
+                                    blurRadius: 0,
+                                  ),
+                                  BoxShadow(
+                                    color: Color(0x300284C7),
+                                    offset: Offset(0, 4),
+                                    blurRadius: 8,
+                                  ),
+                                ],
                               ),
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
@@ -751,15 +770,15 @@ class MealSection extends ConsumerWidget {
                                   const Icon(
                                     Icons.bolt_rounded,
                                     size: 16,
-                                    color: AppColors.primary,
+                                    color: Colors.white,
                                   ),
                                   const SizedBox(width: 4),
                                   Text(
                                     '${((log.calories / (summary.targetCalories > 0 ? summary.targetCalories : 2000)) * 100).round()}% Ngày',
-                                    style: const TextStyle(
-                                      color: AppColors.primary,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 12,
+                                    style: GoogleFonts.outfit(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w900,
+                                      fontSize: 12.5,
                                     ),
                                   ),
                                 ],
@@ -778,7 +797,10 @@ class MealSection extends ConsumerWidget {
                               label: 'Tinh bột',
                               value: '${log.carbsG}g',
                               percentage: '$carbsPct%',
-                              color: AppColors.primary, // #1A73E8
+                              color: AppColors.primary,
+                              bgColor: const Color(0xFFF0F9FF),
+                              borderColor: const Color(0xFFBAE6FD),
+                              bevelColor: const Color(0xFF7DD3FC),
                             ),
                           ),
                           const SizedBox(width: AppValues.spacing8),
@@ -787,7 +809,10 @@ class MealSection extends ConsumerWidget {
                               label: 'Chất đạm',
                               value: '${log.proteinG}g',
                               percentage: '$proteinPct%',
-                              color: AppColors.tertiary, // #FFD700
+                              color: AppColors.tertiary,
+                              bgColor: const Color(0xFFFFF8ED),
+                              borderColor: const Color(0xFFFFE2B3),
+                              bevelColor: const Color(0xFFFDBA74),
                             ),
                           ),
                           const SizedBox(width: AppValues.spacing8),
@@ -796,7 +821,10 @@ class MealSection extends ConsumerWidget {
                               label: 'Chất béo',
                               value: '${log.fatG}g',
                               percentage: '$fatPct%',
-                              color: AppColors.secondary, // #FF69B4
+                              color: AppColors.secondary,
+                              bgColor: const Color(0xFFFFF1F5),
+                              borderColor: const Color(0xFFFECDD3),
+                              bevelColor: const Color(0xFFFDA4AF),
                             ),
                           ),
                         ],
@@ -823,10 +851,11 @@ class MealSection extends ConsumerWidget {
                             const SizedBox(width: AppValues.spacing4),
                             Text(
                               'Thành phần trong bữa (${dishesList.length} món)',
-                              style: Theme.of(ctx).textTheme.titleSmall?.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: AppColors.onSurface,
-                                  ),
+                              style: GoogleFonts.outfit(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w800,
+                                color: AppColors.onSurface,
+                              ),
                             ),
                           ],
                         ),
@@ -843,16 +872,22 @@ class MealSection extends ConsumerWidget {
                             margin: const EdgeInsets.only(bottom: AppValues.spacing8),
                             padding: const EdgeInsets.symmetric(
                               horizontal: AppValues.spacing12,
-                              vertical: AppValues.spacing8,
+                              vertical: 10,
                             ),
                             decoration: BoxDecoration(
-                              color: AppColors.surface,
-                              borderRadius:
-                                  BorderRadius.circular(AppValues.radius8),
+                              color: AppColors.surfaceContainer,
+                              borderRadius: BorderRadius.circular(14),
                               border: Border.all(
-                                color: AppColors.outline.withValues(alpha: 0.15),
-                                width: 1,
+                                color: const Color(0xFFE5E0D8),
+                                width: 1.2,
                               ),
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: Color(0xFFD4CEBF),
+                                  offset: Offset(0, 2),
+                                  blurRadius: 0,
+                                ),
+                              ],
                             ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -863,29 +898,37 @@ class MealSection extends ConsumerWidget {
                                     children: [
                                       Text(
                                         name,
-                                        style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 13,
+                                        style: GoogleFonts.outfit(
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 13.5,
                                           color: AppColors.onSurface,
                                         ),
                                       ),
                                       const SizedBox(height: 2),
                                       Text(
                                         'Khối lượng: ${weight}g • C: ${c}g • P: ${p}g • F: ${f}g',
-                                        style: const TextStyle(
-                                          fontSize: 11,
+                                        style: GoogleFonts.inter(
+                                          fontSize: 11.5,
                                           color: AppColors.onSurfaceVariant,
                                         ),
                                       ),
                                     ],
                                   ),
                                 ),
-                                Text(
-                                  '$cal cal',
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 13,
-                                    color: AppColors.primary,
+                                Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xFFE0F2FE),
+                                    borderRadius: BorderRadius.circular(8),
+                                    border: Border.all(color: const Color(0xFFBAE6FD), width: 1),
+                                  ),
+                                  child: Text(
+                                    '$cal cal',
+                                    style: GoogleFonts.outfit(
+                                      fontWeight: FontWeight.w800,
+                                      fontSize: 12.5,
+                                      color: AppColors.primary,
+                                    ),
                                   ),
                                 ),
                               ],
@@ -896,21 +939,13 @@ class MealSection extends ConsumerWidget {
 
                       const SizedBox(height: AppValues.spacing20),
 
-                      // Delete Button Action
-                      OutlinedButton.icon(
-                        style: OutlinedButton.styleFrom(
-                          foregroundColor: AppColors.error,
-                          side: BorderSide(
-                            color: AppColors.error.withValues(alpha: 0.5),
-                          ),
-                          minimumSize: const Size.fromHeight(44),
-                          shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.circular(AppValues.radius12),
-                          ),
-                        ),
-                        icon: const Icon(Icons.delete_outline, size: 18),
-                        label: const Text('Xóa món này khỏi nhật ký'),
+                      // Delete Button Action (Duolingo 3D Button)
+                      ClayButton(
+                        text: 'Xóa món này khỏi nhật ký',
+                        variant: ClayButtonVariant.danger,
+                        height: 50,
+                        width: double.infinity,
+                        icon: const Icon(Icons.delete_outline_rounded, color: Colors.white, size: 20),
                         onPressed: () async {
                           final confirm = await _showDeleteConfirmationDialog(
                             ctx,
@@ -956,31 +991,42 @@ class _MacroPill extends StatelessWidget {
     required this.value,
     required this.percentage,
     required this.color,
+    this.bgColor,
+    this.borderColor,
+    this.bevelColor,
   });
 
   final String label;
   final String value;
   final String percentage;
   final Color color;
+  final Color? bgColor;
+  final Color? borderColor;
+  final Color? bevelColor;
 
   @override
   Widget build(BuildContext context) {
+    final bg = bgColor ?? Colors.white;
+    final border = borderColor ?? color.withValues(alpha: 0.35);
+    final bevel = bevelColor ?? color.withValues(alpha: 0.25);
+
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: AppValues.spacing8,
         vertical: AppValues.spacing8,
       ),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(AppValues.radius12),
+        color: bg,
+        borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: color.withValues(alpha: 0.35),
+          color: border,
           width: 1.2,
         ),
         boxShadow: [
+          // 3D tactile bottom bevel
           BoxShadow(
-            color: color.withValues(alpha: 0.15),
-            offset: const Offset(0, 2),
+            color: bevel,
+            offset: const Offset(0, 2.5),
             blurRadius: 0,
           ),
         ],
@@ -1000,7 +1046,7 @@ class _MacroPill extends StatelessWidget {
                     BoxShadow(
                       color: color.withValues(alpha: 0.4),
                       offset: const Offset(0, 1),
-                      blurRadius: 1,
+                      blurRadius: 2,
                     ),
                   ],
                 ),
@@ -1009,7 +1055,7 @@ class _MacroPill extends StatelessWidget {
               Expanded(
                 child: Text(
                   label,
-                  style: const TextStyle(
+                  style: GoogleFonts.inter(
                     fontSize: 11,
                     color: AppColors.onSurfaceVariant,
                     fontWeight: FontWeight.w600,
@@ -1022,17 +1068,17 @@ class _MacroPill extends StatelessWidget {
           const SizedBox(height: 4),
           Text(
             value,
-            style: TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.w800,
+            style: GoogleFonts.outfit(
+              fontSize: 16.5,
+              fontWeight: FontWeight.w900,
               color: color,
             ),
           ),
           Text(
             percentage,
-            style: TextStyle(
-              fontSize: 10,
-              fontWeight: FontWeight.w600,
+            style: GoogleFonts.inter(
+              fontSize: 10.5,
+              fontWeight: FontWeight.w700,
               color: AppColors.onSurfaceVariant.withValues(alpha: 0.8),
             ),
           ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:astrobite/core/constants/app_strings.dart';
+import 'package:astrobite/shared/ui_kit/ui_kit.dart';
 
+/// Claymorphic Food Search Bar styled in signature Duolingo 2D/3D (Solar Fresh) aesthetic.
 class FoodSearchBar extends StatelessWidget {
   const FoodSearchBar({
     super.key,
@@ -13,10 +15,9 @@ class FoodSearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SearchBar(
+    return ClaySearchBar(
       controller: controller,
       hintText: AppStrings.searchFood,
-      leading: const Icon(Icons.search),
       onChanged: onChanged,
     );
   }
