@@ -4,7 +4,7 @@ import 'package:astrobite/features/scanner/presentation/widgets/scanning_viewfin
 
 void main() {
   group('ScanningViewfinder AR HUD Widget Tests', () {
-    testWidgets('renders telemetry telemetry coordinates and focal lock badge', (tester) async {
+    testWidgets('renders AI food detection status badge and reticle', (tester) async {
       await tester.pumpWidget(
         const MaterialApp(
           home: Scaffold(
@@ -16,14 +16,8 @@ void main() {
       );
       await tester.pump();
 
-      // Telemetry focal lock badge
-      expect(find.text('[FOCAL LOCK: 98.4% CONFIDENCE]'), findsOneWidget);
-
-      // Coordinates
-      expect(find.text('X: 104.2'), findsOneWidget);
-      expect(find.text('Y: 382.7'), findsOneWidget);
-      expect(find.text('Z: 0.84m'), findsOneWidget);
-      expect(find.text('FPS: 60'), findsOneWidget);
+      // Modern AI detection badge
+      expect(find.text('✨ ĐANG ĐỊNH VỊ MÓN ĂN'), findsOneWidget);
     });
 
     testWidgets('renders floating AI verified dish tag when detectedDishName provided', (tester) async {

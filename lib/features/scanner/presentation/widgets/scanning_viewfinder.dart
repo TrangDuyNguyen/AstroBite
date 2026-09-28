@@ -116,72 +116,14 @@ class _ScanningViewfinderState extends State<ScanningViewfinder>
                     ),
                   ),
 
-                // 2. Sci-Fi Micro Grid Overlay
+                // 2. Sci-Fi Micro Grid Overlay (Subtle)
                 Positioned.fill(
                   child: CustomPaint(
                     painter: _HudGridPainter(),
                   ),
                 ),
 
-                // 3. Telemetry Coordinates Overlay
-                // Left Axis
-                Positioned(
-                  left: -12,
-                  top: boxSize / 2 - 16,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'X: 104.2',
-                        style: TextStyle(
-                          fontSize: 9,
-                          fontFamily: 'monospace',
-                          color: AppColors.primary.withValues(alpha: 0.7),
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      Text(
-                        'Y: 382.7',
-                        style: TextStyle(
-                          fontSize: 9,
-                          fontFamily: 'monospace',
-                          color: AppColors.primary.withValues(alpha: 0.7),
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                // Right Axis
-                Positioned(
-                  right: -12,
-                  top: boxSize / 2 - 16,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text(
-                        'Z: 0.84m',
-                        style: TextStyle(
-                          fontSize: 9,
-                          fontFamily: 'monospace',
-                          color: AppColors.primary.withValues(alpha: 0.7),
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      Text(
-                        'FPS: 60',
-                        style: TextStyle(
-                          fontSize: 9,
-                          fontFamily: 'monospace',
-                          color: AppColors.primary.withValues(alpha: 0.7),
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
-                // 4. Central Rotating Holographic Reticle
+                // 3. Central Rotating Holographic Reticle
                 Center(
                   child: RotationTransition(
                     turns: _reticleController,
@@ -192,7 +134,7 @@ class _ScanningViewfinderState extends State<ScanningViewfinder>
                   ),
                 ),
 
-                // 5. Inner Precision Crosshair
+                // 4. Inner Precision Crosshair
                 Center(
                   child: CustomPaint(
                     size: const Size(48, 48),
@@ -200,18 +142,18 @@ class _ScanningViewfinderState extends State<ScanningViewfinder>
                   ),
                 ),
 
-                // 6. Double Corner Brackets in Electric Blue (#1A73E8)
+                // 5. Smooth Rounded Corner Brackets in Duolingo Sky Blue (#1CB0F6)
                 Positioned.fill(
                   child: CustomPaint(
                     painter: _ViewfinderCornerPainter(
                       color: AppColors.primary,
                       strokeWidth: 3.5,
-                      cornerLength: 28,
+                      cornerLength: 32,
                     ),
                   ),
                 ),
 
-                // 7. Telemetry Focal Lock Badge (Top Center)
+                // 6. AI Detection Status Badge (Top Center)
                 Positioned(
                   top: -18,
                   left: 0,
@@ -219,20 +161,26 @@ class _ScanningViewfinderState extends State<ScanningViewfinder>
                   child: Center(
                     child: Container(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: AppValues.spacing12,
-                        vertical: AppValues.spacing4,
+                        horizontal: AppValues.spacing16,
+                        vertical: 6,
                       ),
                       decoration: BoxDecoration(
-                        color: AppColors.surface.withValues(alpha: 0.85),
+                        color: AppColors.surfaceContainer.withValues(alpha: 0.95),
                         borderRadius: BorderRadius.circular(AppValues.spacing48),
                         border: Border.all(
-                          color: AppColors.primary.withValues(alpha: 0.4),
-                          width: 1,
+                          color: AppColors.primary.withValues(alpha: 0.5),
+                          width: 1.2,
                         ),
                         boxShadow: [
                           BoxShadow(
                             color: AppColors.primary.withValues(alpha: 0.25),
-                            blurRadius: 10,
+                            blurRadius: 12,
+                            offset: const Offset(0, 2),
+                          ),
+                          const BoxShadow(
+                            color: Color(0x121E2337),
+                            blurRadius: 6,
+                            offset: Offset(0, 2),
                           ),
                         ],
                       ),
@@ -242,22 +190,27 @@ class _ScanningViewfinderState extends State<ScanningViewfinder>
                           FadeTransition(
                             opacity: _pulseAnimation,
                             child: Container(
-                              width: 6,
-                              height: 6,
+                              width: 8,
+                              height: 8,
                               decoration: const BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: AppColors.primary,
+                                color: AppColors.brandGreen,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: AppColors.brandGreen,
+                                    blurRadius: 6,
+                                  ),
+                                ],
                               ),
                             ),
                           ),
                           const SizedBox(width: AppValues.spacing8),
-                          Text(
-                            '[FOCAL LOCK: 98.4% CONFIDENCE]',
+                          const Text(
+                            '✨ ĐANG ĐỊNH VỊ MÓN ĂN',
                             style: TextStyle(
-                              fontSize: 10,
-                              fontFamily: 'monospace',
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: 0.8,
+                              fontSize: 11,
+                              fontWeight: FontWeight.w700,
+                              letterSpacing: 0.5,
                               color: AppColors.primary,
                             ),
                           ),
@@ -267,7 +220,7 @@ class _ScanningViewfinderState extends State<ScanningViewfinder>
                   ),
                 ),
 
-                // 8. Animated glowing laser scanner line
+                // 7. Animated glowing laser scanner line
                 if (widget.isScanning)
                   AnimatedBuilder(
                     animation: _laserAnimation,
@@ -305,28 +258,29 @@ class _ScanningViewfinderState extends State<ScanningViewfinder>
                             ),
                           ),
                         ),
-                        // Glass Pill Tag
+                        // Clay White Card Tag
                         Container(
                           padding: const EdgeInsets.symmetric(
                             horizontal: AppValues.spacing12,
                             vertical: AppValues.spacing8,
                           ),
                           decoration: BoxDecoration(
-                            color: AppColors.surfaceContainer.withValues(alpha: 0.95),
-                            borderRadius: BorderRadius.circular(AppValues.radius12),
+                            color: AppColors.surfaceContainer,
+                            borderRadius: BorderRadius.circular(AppValues.cardRadius),
                             border: Border.all(
-                              color: AppColors.primary.withValues(alpha: 0.6),
-                              width: 1,
+                              color: AppColors.primary.withValues(alpha: 0.5),
+                              width: 1.2,
                             ),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withValues(alpha: 0.5),
+                                color: const Color(0x181E2337),
                                 blurRadius: 16,
-                                offset: const Offset(0, 4),
+                                offset: const Offset(0, 6),
                               ),
                               BoxShadow(
-                                color: AppColors.primary.withValues(alpha: 0.2),
-                                blurRadius: 12,
+                                color: AppColors.primary.withValues(alpha: 0.15),
+                                blurRadius: 10,
+                                offset: const Offset(0, 2),
                               ),
                             ],
                           ),
@@ -336,10 +290,17 @@ class _ScanningViewfinderState extends State<ScanningViewfinder>
                               Expanded(
                                 child: Row(
                                   children: [
-                                    Icon(
-                                      Icons.restaurant_rounded,
-                                      size: 16,
-                                      color: AppColors.primary,
+                                    Container(
+                                      padding: const EdgeInsets.all(4),
+                                      decoration: BoxDecoration(
+                                        color: AppColors.primary.withValues(alpha: 0.12),
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: const Icon(
+                                        Icons.restaurant_rounded,
+                                        size: 16,
+                                        color: AppColors.primary,
+                                      ),
                                     ),
                                     const SizedBox(width: AppValues.spacing8),
                                     Flexible(
@@ -350,7 +311,7 @@ class _ScanningViewfinderState extends State<ScanningViewfinder>
                                         style: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 13,
-                                          color: Colors.white,
+                                          color: AppColors.onSurface,
                                         ),
                                       ),
                                     ),
@@ -361,10 +322,10 @@ class _ScanningViewfinderState extends State<ScanningViewfinder>
                                         vertical: 2,
                                       ),
                                       decoration: BoxDecoration(
-                                        color: AppColors.tertiary.withValues(alpha: 0.2),
+                                        color: const Color(0xFFE8F9D8),
                                         borderRadius: BorderRadius.circular(4),
                                         border: Border.all(
-                                          color: AppColors.tertiary.withValues(alpha: 0.5),
+                                          color: AppColors.brandGreen.withValues(alpha: 0.5),
                                           width: 0.8,
                                         ),
                                       ),
@@ -373,7 +334,7 @@ class _ScanningViewfinderState extends State<ScanningViewfinder>
                                         style: TextStyle(
                                           fontSize: 9,
                                           fontWeight: FontWeight.bold,
-                                          color: AppColors.tertiary,
+                                          color: Color(0xFF2E7D32),
                                         ),
                                       ),
                                     ),
@@ -382,12 +343,22 @@ class _ScanningViewfinderState extends State<ScanningViewfinder>
                               ),
                               if (widget.detectedCalories != null) ...[
                                 const SizedBox(width: AppValues.spacing8),
-                                Text(
-                                  '${widget.detectedCalories} kcal',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12,
-                                    color: AppColors.primary,
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 8,
+                                    vertical: 3,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: AppColors.primary.withValues(alpha: 0.1),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: Text(
+                                    '${widget.detectedCalories} kcal',
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12,
+                                      color: AppColors.primary,
+                                    ),
                                   ),
                                 ),
                               ],
@@ -406,7 +377,7 @@ class _ScanningViewfinderState extends State<ScanningViewfinder>
   }
 }
 
-/// Custom painter for the 4 glowing double corner brackets of the viewfinder.
+/// Custom painter for the 4 glowing rounded corner brackets of the viewfinder.
 class _ViewfinderCornerPainter extends CustomPainter {
   _ViewfinderCornerPainter({
     required this.color,
@@ -427,45 +398,51 @@ class _ViewfinderCornerPainter extends CustomPainter {
       ..style = PaintingStyle.stroke;
 
     final glowPaint = Paint()
-      ..color = color.withValues(alpha: 0.4)
+      ..color = color.withValues(alpha: 0.35)
       ..strokeWidth = strokeWidth + 4
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke;
 
-    final innerCornerPaint = Paint()
-      ..color = color.withValues(alpha: 0.5)
-      ..strokeWidth = 1.5
-      ..strokeCap = StrokeCap.round
-      ..style = PaintingStyle.stroke;
-
-    void drawCorner(Offset corner, Offset hDir, Offset vDir, Offset innerOffset) {
-      // 1. Soft glow outer
-      canvas.drawLine(corner, corner + hDir, glowPaint);
-      canvas.drawLine(corner, corner + vDir, glowPaint);
-      // 2. Crisp outer bracket
-      canvas.drawLine(corner, corner + hDir, paint);
-      canvas.drawLine(corner, corner + vDir, paint);
-
-      // 3. Double-layer sci-fi inner accent bracket
-      final inner = corner + innerOffset;
-      final innerH = hDir * 0.45;
-      final innerV = vDir * 0.45;
-      canvas.drawLine(inner, inner + innerH, innerCornerPaint);
-      canvas.drawLine(inner, inner + innerV, innerCornerPaint);
-    }
-
+    const cornerRadius = 14.0;
     final l = cornerLength;
     final w = size.width;
     final h = size.height;
 
-    // Top-Left
-    drawCorner(Offset.zero, Offset(l, 0), Offset(0, l), const Offset(5, 5));
-    // Top-Right
-    drawCorner(Offset(w, 0), Offset(-l, 0), Offset(0, l), const Offset(-5, 5));
-    // Bottom-Left
-    drawCorner(Offset(0, h), Offset(l, 0), Offset(0, -l), const Offset(5, -5));
-    // Bottom-Right
-    drawCorner(Offset(w, h), Offset(-l, 0), Offset(0, -l), const Offset(-5, -5));
+    // 1. Top-Left: from (l, 0) -> (cornerRadius, 0) -> (0, cornerRadius) -> (0, l)
+    final pathTL = Path()
+      ..moveTo(l, 0)
+      ..lineTo(cornerRadius, 0)
+      ..arcToPoint(const Offset(0, cornerRadius), radius: const Radius.circular(cornerRadius))
+      ..lineTo(0, l);
+    canvas.drawPath(pathTL, glowPaint);
+    canvas.drawPath(pathTL, paint);
+
+    // 2. Top-Right: from (w - l, 0) -> (w - cornerRadius, 0) -> (w, cornerRadius) -> (w, l)
+    final pathTR = Path()
+      ..moveTo(w - l, 0)
+      ..lineTo(w - cornerRadius, 0)
+      ..arcToPoint(Offset(w, cornerRadius), radius: const Radius.circular(cornerRadius), clockwise: true)
+      ..lineTo(w, l);
+    canvas.drawPath(pathTR, glowPaint);
+    canvas.drawPath(pathTR, paint);
+
+    // 3. Bottom-Left: from (0, h - l) -> (0, h - cornerRadius) -> (cornerRadius, h) -> (l, h)
+    final pathBL = Path()
+      ..moveTo(0, h - l)
+      ..lineTo(0, h - cornerRadius)
+      ..arcToPoint(Offset(cornerRadius, h), radius: const Radius.circular(cornerRadius), clockwise: false)
+      ..lineTo(l, h);
+    canvas.drawPath(pathBL, glowPaint);
+    canvas.drawPath(pathBL, paint);
+
+    // 4. Bottom-Right: from (w, h - l) -> (w, h - cornerRadius) -> (w - cornerRadius, h) -> (w - l, h)
+    final pathBR = Path()
+      ..moveTo(w, h - l)
+      ..lineTo(w, h - cornerRadius)
+      ..arcToPoint(Offset(w - cornerRadius, h), radius: const Radius.circular(cornerRadius), clockwise: true)
+      ..lineTo(w - l, h);
+    canvas.drawPath(pathBR, glowPaint);
+    canvas.drawPath(pathBR, paint);
   }
 
   @override

@@ -5,6 +5,8 @@ import 'package:astrobite/core/constants/app_strings.dart';
 import 'package:astrobite/features/scanner/presentation/pages/camera_page.dart';
 import 'package:astrobite/features/scanner/presentation/widgets/scanning_viewfinder.dart';
 
+import 'package:astrobite/shared/ui_kit/ui_kit.dart';
+
 void main() {
   Widget createWidgetUnderTest() {
     return const ProviderScope(
@@ -35,11 +37,11 @@ void main() {
       // Scanning Viewfinder
       expect(find.byType(ScanningViewfinder), findsOneWidget);
 
-      // Bottom action buttons: Gallery icon, Shutter camera icon, Manual entry icon
-      expect(find.byIcon(Icons.photo_library_outlined), findsOneWidget);
-      expect(find.byIcon(Icons.camera_alt), findsOneWidget);
-      expect(find.byIcon(Icons.edit_note_outlined), findsOneWidget);
-      expect(find.byIcon(Icons.help_outline), findsOneWidget);
+      // Bottom action buttons: Modern rounded gallery & edit icons + 3D Camera Shutter
+      expect(find.byIcon(Icons.photo_library_rounded), findsOneWidget);
+      expect(find.byType(Clay3DCamera), findsOneWidget);
+      expect(find.byIcon(Icons.edit_note_rounded), findsOneWidget);
+      expect(find.byIcon(Icons.help_outline_rounded), findsOneWidget);
     });
 
     testWidgets('tapping help icon opens tips bottom sheet', (tester) async {
@@ -50,7 +52,7 @@ void main() {
       await tester.pumpWidget(createWidgetUnderTest());
       await tester.pump();
 
-      await tester.tap(find.byIcon(Icons.help_outline));
+      await tester.tap(find.byIcon(Icons.help_outline_rounded));
       await tester.pumpAndSettle();
 
       expect(find.text('Mẹo chụp ảnh món ăn chuẩn AI'), findsOneWidget);
