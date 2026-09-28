@@ -1,4 +1,6 @@
+import 'dart:io' show Platform;
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthRemoteDatasource {
@@ -8,8 +10,9 @@ class AuthRemoteDatasource {
   })  : _auth = auth ?? FirebaseAuth.instance,
         _googleSignIn = googleSignIn ??
             GoogleSignIn(
-              clientId:
-                  '925552313324-he3hov1bd7o5u3h2egigtmhfd4t8s5cd.apps.googleusercontent.com',
+              clientId: (!kIsWeb && Platform.isIOS)
+                  ? '925552313324-he3hov1bd7o5u3h2egigtmhfd4t8s5cd.apps.googleusercontent.com'
+                  : null,
               serverClientId:
                   '925552313324-nge0ljq0ug1attkt02k49o7vqfvdeujd.apps.googleusercontent.com',
             );

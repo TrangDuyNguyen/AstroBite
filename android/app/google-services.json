@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "925552313324-uv62in0449t97cauq512rivertvsu5eq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.solopreneur.astrobite",
+            "certificate_hash": "7f467b4d1ea7a8728abbdb40e11287580f7b1433"
+          }
+        },
+        {
           "client_id": "925552313324-nge0ljq0ug1attkt02k49o7vqfvdeujd.apps.googleusercontent.com",
           "client_type": 3
         }
