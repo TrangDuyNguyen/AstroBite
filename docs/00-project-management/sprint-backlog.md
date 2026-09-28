@@ -57,13 +57,13 @@
 
 ## 🗺️ Lộ Trình Sprint Nâng Cấp Giao Diện Theo Màn Hình (Sprint 12–16)
 
-| Sprint | Version | Tên Sprint & Nhóm Màn Hình Trọng Tâm | SP | Màn Hình Chi Tiết | Timeline |
+| Sprint | Version | Tên Sprint & Nhóm Màn Hình Trọng Tâm | SP | Màn Hình Chi Tiết | Trạng Thái |
 |:--|:--:|:---|:--:|:---|:---|
-| **S12** | v2.1.0 | **Foundation & UI Kit Core** (Hoàn thành) | 10 SP | `lib/shared/ui_kit/*` (ClayCard, ClayButton, ChunkyMacroBar, CalorieProgressArc, ClayMealChip, ClayBottomNav, ClayTextField) | 27/09 – 10/10/2026 |
-| **S13** ← **KẾ TIẾP** | v2.2.0 | **Core Daily Loop (Navigation & Tracker)** | 10 SP | `ShellScreen` (ClayBottomNav), `HomePage`, `ManualEntryPage`, `MealDetailPage` | 11/10 – 24/10/2026 |
-| **S14** | v2.3.0 | **High-Value AI Experience (Scanner & Coach)** | 10 SP | `CameraPage` (AR HUD), `ScanReviewPage` (ClaySheet), `CoachPage` (GenUI Clay Cards) | 25/10 – 07/11/2026 |
-| **S15** | v2.4.0 | **First Impression & Identity (Auth & Profile)** | 11 SP | `SplashPage`, `OnboardingPage`, `LoginPage`, `RegisterPage`, `GoalSummaryPage`, `ProfilePage`, `ProfileEditPage`, `HealthConnectionPage` | 08/11 – 21/11/2026 |
-| **S16** | v2.5.0 | **Deep Domain & Power Users (Recipes & Analytics)** | 9 SP | `AnalyticsPage`, `RecipesPage`, `RecipeBuilderPage`, `MealPlannerPage` | 22/11 – 05/12/2026 |
+| **S12** | v2.1.0 | **Foundation & UI Kit Core** | 10 SP | `lib/shared/ui_kit/*` (ClayCard, ClayButton, ChunkyMacroBar, CalorieProgressArc, ClayMealChip, ClayBottomNav, ClayTextField) | 🟢 **DONE** |
+| **S13** | v2.2.0 | **Core Daily Loop (Navigation & Tracker)** | 10 SP | `ShellScreen` (ClayBottomNav), `HomePage`, `ManualEntryPage`, `MealDetailPage` | 🟢 **DONE** |
+| **S14** | v2.3.0 | **High-Value AI Experience (Scanner & Coach)** | 10 SP | `CameraPage` (AR HUD), `ScanReviewPage` (ClaySheet), `CoachPage` (GenUI Clay Cards) | 🟢 **DONE** |
+| **S15** | v2.4.0 | **First Impression & Identity (Auth & Profile)** | 11 SP | `GoalSummaryPage`, `ProfilePage`, `ProfileEditPage`, `HealthConnectionPage` | 🟢 **DONE** |
+| **S16** | v2.5.0 | **Deep Domain, Analytics & OS Widgets** | 9 SP | `AnalyticsPage`, `CalorieTrendChart`, `WeightTrendChart`, Android & iOS Home Widgets | 🟢 **DONE** |
 
 ---
 
