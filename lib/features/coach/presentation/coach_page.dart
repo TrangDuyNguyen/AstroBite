@@ -38,6 +38,7 @@ class _CoachPageState extends ConsumerState<CoachPage> with WidgetsBindingObserv
   Timer? _scrollTimer;
   bool _isSending = false;
   bool _showSuggestions = true;
+  bool _wasKeyboardOpen = false;
   final Set<String> _loggedMessageIds = {};
   late final GenUiCatalog _genUiCatalog;
 
@@ -184,7 +185,13 @@ class _CoachPageState extends ConsumerState<CoachPage> with WidgetsBindingObserv
     if (!mounted) return;
     final bottomInset = View.of(context).viewInsets.bottom;
     if (bottomInset > 0) {
+      _wasKeyboardOpen = true;
       _scrollToBottom();
+    } else if (bottomInset == 0 && _wasKeyboardOpen) {
+      _wasKeyboardOpen = false;
+      if (_focusNode.hasFocus) {
+        _focusNode.unfocus();
+      }
     }
     setState(() {});
   }
@@ -192,6 +199,7 @@ class _CoachPageState extends ConsumerState<CoachPage> with WidgetsBindingObserv
   Future<void> _sendMessage(String text) async {
     if (text.trim().isEmpty || _isSending) return;
 
+    _focusNode.unfocus();
     _textController.clear();
     setState(() => _isSending = true);
     _scrollToBottom();
@@ -344,7 +352,8 @@ class _CoachPageState extends ConsumerState<CoachPage> with WidgetsBindingObserv
     final summary = ref.watch(todaySummaryProvider);
     final viewInsetsBottom = MediaQuery.viewInsetsOf(context).bottom;
     final rawViewInsetsBottom = View.of(context).viewInsets.bottom;
-    final isKeyboardOpen = viewInsetsBottom > 0 || rawViewInsetsBottom > 0 || _focusNode.hasFocus;
+    final hasPhysicalKeyboard = viewInsetsBottom > 0 || rawViewInsetsBottom > 0;
+    final isKeyboardOpen = hasPhysicalKeyboard || _focusNode.hasFocus;
 
     bool isInTabs = false;
     try {
@@ -561,7 +570,7 @@ class _CoachPageState extends ConsumerState<CoachPage> with WidgetsBindingObserv
                         16,
                         8,
                         16,
-                        isKeyboardOpen ? 16 : (isInTabs ? 96 : 24),
+                        hasPhysicalKeyboard ? 16 : (isInTabs ? 96 : 24),
                       ),
                       itemCount: messages.length + (_isSending ? 1 : 0),
                       itemBuilder: (context, index) {
@@ -580,7 +589,7 @@ class _CoachPageState extends ConsumerState<CoachPage> with WidgetsBindingObserv
           // Input bar + Floating Dock Clearance
           Padding(
             padding: EdgeInsets.only(
-              bottom: isKeyboardOpen ? 6 : (isInTabs ? 106 : (MediaQuery.paddingOf(context).bottom + 8)),
+              bottom: hasPhysicalKeyboard ? 6 : (isInTabs ? 106 : (MediaQuery.paddingOf(context).bottom + 8)),
             ),
             child: _buildInputBar(),
           ),
