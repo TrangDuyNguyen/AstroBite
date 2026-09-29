@@ -64,6 +64,7 @@ class ShellScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return AutoTabsScaffold(
       extendBody: true,
+      resizeToAvoidBottomInset: false,
       routes: const [
         HomeRoute(),
         CoachRoute(),

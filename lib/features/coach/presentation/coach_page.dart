@@ -34,6 +34,7 @@ class CoachPage extends ConsumerStatefulWidget {
 class _CoachPageState extends ConsumerState<CoachPage> with WidgetsBindingObserver {
   final _textController = TextEditingController();
   final _scrollController = ScrollController();
+  final _focusNode = FocusNode();
   Timer? _scrollTimer;
   bool _isSending = false;
   bool _showSuggestions = true;
@@ -43,10 +44,20 @@ class _CoachPageState extends ConsumerState<CoachPage> with WidgetsBindingObserv
   @override
   void initState() {
     super.initState();
+    _focusNode.addListener(_onFocusChange);
     WidgetsBinding.instance.addObserver(this);
     _genUiCatalog = createAstroBiteCatalog(
       onSendUserMessage: (msg) => _sendMessage(msg),
     );
+  }
+
+  void _onFocusChange() {
+    if (mounted) {
+      setState(() {});
+      if (_focusNode.hasFocus) {
+        _scrollToBottom();
+      }
+    }
   }
 
   int _suggestionShuffleIndex = 0;
@@ -158,6 +169,8 @@ class _CoachPageState extends ConsumerState<CoachPage> with WidgetsBindingObserv
 
   @override
   void dispose() {
+    _focusNode.removeListener(_onFocusChange);
+    _focusNode.dispose();
     WidgetsBinding.instance.removeObserver(this);
     _scrollTimer?.cancel();
     _textController.dispose();
@@ -170,9 +183,12 @@ class _CoachPageState extends ConsumerState<CoachPage> with WidgetsBindingObserv
     super.didChangeMetrics();
     if (!mounted) return;
     final bottomInset = View.of(context).viewInsets.bottom;
-    if (bottomInset > 0) {
+    if (bottomInset == 0 && _focusNode.hasFocus) {
+      _focusNode.unfocus();
+    } else if (bottomInset > 0) {
       _scrollToBottom();
     }
+    setState(() {});
   }
 
   Future<void> _sendMessage(String text) async {
@@ -328,7 +344,17 @@ class _CoachPageState extends ConsumerState<CoachPage> with WidgetsBindingObserv
   Widget build(BuildContext context) {
     final messagesAsync = ref.watch(coachControllerProvider);
     final summary = ref.watch(todaySummaryProvider);
-    final isKeyboardOpen = MediaQuery.viewInsetsOf(context).bottom > 0;
+    final viewInsetsBottom = MediaQuery.viewInsetsOf(context).bottom;
+    final rawViewInsetsBottom = View.of(context).viewInsets.bottom;
+    final isKeyboardOpen = viewInsetsBottom > 0 || rawViewInsetsBottom > 0 || _focusNode.hasFocus;
+
+    bool isInTabs = false;
+    try {
+      AutoTabsRouter.of(context, watch: false);
+      isInTabs = true;
+    } catch (_) {
+      isInTabs = false;
+    }
 
     ref.listen(coachControllerProvider, (prev, next) {
       final prevCount = prev?.valueOrNull?.length ?? 0;
@@ -340,6 +366,7 @@ class _CoachPageState extends ConsumerState<CoachPage> with WidgetsBindingObserv
 
     return Scaffold(
       backgroundColor: AppColors.surface,
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         backgroundColor: AppColors.surface,
         surfaceTintColor: Colors.transparent,
@@ -532,7 +559,12 @@ class _CoachPageState extends ConsumerState<CoachPage> with WidgetsBindingObserv
                   : ListView.builder(
                       controller: _scrollController,
                       keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-                      padding: EdgeInsets.fromLTRB(16, 8, 16, isKeyboardOpen ? 16 : 96),
+                      padding: EdgeInsets.fromLTRB(
+                        16,
+                        8,
+                        16,
+                        isKeyboardOpen ? 16 : (isInTabs ? 96 : 24),
+                      ),
                       itemCount: messages.length + (_isSending ? 1 : 0),
                       itemBuilder: (context, index) {
                         if (index == messages.length && _isSending) {
@@ -550,7 +582,7 @@ class _CoachPageState extends ConsumerState<CoachPage> with WidgetsBindingObserv
           // Input bar + Floating Dock Clearance
           Padding(
             padding: EdgeInsets.only(
-              bottom: isKeyboardOpen ? 8 : 106,
+              bottom: isKeyboardOpen ? 6 : (isInTabs ? 106 : (MediaQuery.paddingOf(context).bottom + 8)),
             ),
             child: _buildInputBar(),
           ),
@@ -1468,6 +1500,7 @@ class _CoachPageState extends ConsumerState<CoachPage> with WidgetsBindingObserv
               ),
               child: TextField(
                 controller: _textController,
+                focusNode: _focusNode,
                 enabled: !_isSending,
                 onTap: _scrollToBottom,
                 decoration: InputDecoration(

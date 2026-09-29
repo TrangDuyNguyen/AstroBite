@@ -310,6 +310,46 @@ Hãy thưởng thức nhé!
       expect(listView.keyboardDismissBehavior, ScrollViewKeyboardDismissBehavior.onDrag);
     });
 
+    testWidgets('Focusing text field collapses suggestions and toggle pill immediately to maximize viewport', (tester) async {
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            todaySummaryProvider.overrideWith(
+              (ref) => const DailySummary(
+                date: '2026-09-24',
+                totalCalories: 1200,
+                targetCalories: 2000,
+                totalProteinG: 70,
+                targetProteinG: 120,
+                totalCarbsG: 120,
+                targetCarbsG: 200,
+                totalFatG: 40,
+                targetFatG: 60,
+                logs: [],
+              ),
+            ),
+          ],
+          child: const MaterialApp(
+            home: CoachPage(),
+          ),
+        ),
+      );
+
+      await tester.pumpAndSettle();
+
+      // Suggestions exist initially
+      expect(find.byType(ActionChip), findsWidgets);
+
+      // Focus text field
+      await tester.tap(find.byType(TextField));
+      await tester.pumpAndSettle();
+
+      // Suggestions and toggle pill are completely collapsed
+      expect(find.byType(ActionChip), findsNothing);
+      expect(find.textContaining('Gợi ý câu hỏi'), findsNothing);
+      expect(find.textContaining('AI gợi ý tham khảo, không thay thế chuyên gia y tế'), findsNothing);
+    });
+
     testWidgets('Tapping collapse button hides chips and disclaimer, and tapping toggle pill or prefix icon re-expands them', (tester) async {
       await tester.pumpWidget(
         ProviderScope(
