@@ -31,7 +31,7 @@ class CoachPage extends ConsumerStatefulWidget {
   ConsumerState<CoachPage> createState() => _CoachPageState();
 }
 
-class _CoachPageState extends ConsumerState<CoachPage> {
+class _CoachPageState extends ConsumerState<CoachPage> with WidgetsBindingObserver {
   final _textController = TextEditingController();
   final _scrollController = ScrollController();
   Timer? _scrollTimer;
@@ -42,6 +42,7 @@ class _CoachPageState extends ConsumerState<CoachPage> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _genUiCatalog = createAstroBiteCatalog(
       onSendUserMessage: (msg) => _sendMessage(msg),
     );
@@ -82,10 +83,21 @@ class _CoachPageState extends ConsumerState<CoachPage> {
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     _scrollTimer?.cancel();
     _textController.dispose();
     _scrollController.dispose();
     super.dispose();
+  }
+
+  @override
+  void didChangeMetrics() {
+    super.didChangeMetrics();
+    if (!mounted) return;
+    final bottomInset = View.of(context).viewInsets.bottom;
+    if (bottomInset > 0) {
+      _scrollToBottom();
+    }
   }
 
   Future<void> _sendMessage(String text) async {
@@ -241,6 +253,7 @@ class _CoachPageState extends ConsumerState<CoachPage> {
   Widget build(BuildContext context) {
     final messagesAsync = ref.watch(coachControllerProvider);
     final summary = ref.watch(todaySummaryProvider);
+    final isKeyboardOpen = MediaQuery.viewInsetsOf(context).bottom > 0;
 
     ref.listen(coachControllerProvider, (prev, next) {
       final prevCount = prev?.valueOrNull?.length ?? 0;
@@ -443,7 +456,8 @@ class _CoachPageState extends ConsumerState<CoachPage> {
                   ? _buildEmptyState(summary)
                   : ListView.builder(
                       controller: _scrollController,
-                      padding: const EdgeInsets.fromLTRB(16, 8, 16, 96),
+                      keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+                      padding: EdgeInsets.fromLTRB(16, 8, 16, isKeyboardOpen ? 16 : 96),
                       itemCount: messages.length + (_isSending ? 1 : 0),
                       itemBuilder: (context, index) {
                         if (index == messages.length && _isSending) {
@@ -455,34 +469,35 @@ class _CoachPageState extends ConsumerState<CoachPage> {
             ),
           ),
 
-          // Dynamic Quick Actions
-          if (!_isSending) _buildQuickActions(),
+          // Dynamic Quick Actions (hidden when keyboard is open to preserve chat viewport)
+          if (!_isSending && !isKeyboardOpen) _buildQuickActions(),
 
-          // Medical Disclaimer (Clean, high-contrast badge)
-          Center(
-            child: Container(
-              margin: const EdgeInsets.only(top: 6, bottom: 4),
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 3),
-              decoration: BoxDecoration(
-                color: const Color(0x0C1E2337),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Text(
-                '⚕️ AI gợi ý tham khảo, không thay thế chuyên gia y tế',
-                style: GoogleFonts.inter(
-                  fontSize: 10.5,
-                  color: AppColors.onSurfaceVariant,
-                  fontWeight: FontWeight.w500,
+          // Medical Disclaimer (hidden when keyboard is open for ergonomics)
+          if (!isKeyboardOpen)
+            Center(
+              child: Container(
+                margin: const EdgeInsets.only(top: 6, bottom: 4),
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 3),
+                decoration: BoxDecoration(
+                  color: const Color(0x0C1E2337),
+                  borderRadius: BorderRadius.circular(10),
                 ),
-                textAlign: TextAlign.center,
+                child: Text(
+                  '⚕️ AI gợi ý tham khảo, không thay thế chuyên gia y tế',
+                  style: GoogleFonts.inter(
+                    fontSize: 10.5,
+                    color: AppColors.onSurfaceVariant,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
               ),
             ),
-          ),
 
           // Input bar + Floating Dock Clearance
           Padding(
             padding: EdgeInsets.only(
-              bottom: (MediaQuery.viewInsetsOf(context).bottom > 0) ? 8 : 106,
+              bottom: isKeyboardOpen ? 8 : 106,
             ),
             child: _buildInputBar(),
           ),
@@ -1251,6 +1266,7 @@ class _CoachPageState extends ConsumerState<CoachPage> {
               child: TextField(
                 controller: _textController,
                 enabled: !_isSending,
+                onTap: _scrollToBottom,
                 decoration: InputDecoration(
                   hintText: 'Hỏi AstroCoach về thực đơn, macros...',
                   hintStyle: GoogleFonts.inter(

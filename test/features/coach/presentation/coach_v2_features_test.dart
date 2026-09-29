@@ -221,6 +221,58 @@ Hãy thưởng thức nhé!
       expect(find.textContaining('AI gợi ý tham khảo, không thay thế chuyên gia y tế'), findsOneWidget);
     });
 
+    testWidgets('When keyboard is opened, quick action chips and disclaimer hide to expand chat viewport', (tester) async {
+      tester.view.viewInsets = const FakeViewPadding(bottom: 300);
+      addTearDown(() => tester.view.resetViewInsets());
+
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            coachControllerProvider.overrideWith(
+              () => _MockCoachController([
+                ChatMessage(
+                  id: '1',
+                  role: 'user',
+                  content: 'Gợi ý bữa sáng',
+                  timestamp: DateTime(2026, 9, 29, 8, 30),
+                ),
+              ]),
+            ),
+            todaySummaryProvider.overrideWith(
+              (ref) => const DailySummary(
+                date: '2026-09-24',
+                totalCalories: 1200,
+                targetCalories: 2000,
+                totalProteinG: 70,
+                targetProteinG: 120,
+                totalCarbsG: 120,
+                targetCarbsG: 200,
+                totalFatG: 40,
+                targetFatG: 60,
+                logs: [],
+              ),
+            ),
+          ],
+          child: const MaterialApp(
+            home: CoachPage(),
+          ),
+        ),
+      );
+
+      await tester.pumpAndSettle();
+
+      // Quick action chips and disclaimer are hidden
+      expect(find.byType(ActionChip), findsNothing);
+      expect(find.textContaining('AI gợi ý tham khảo, không thay thế chuyên gia y tế'), findsNothing);
+
+      // Input bar still exists
+      expect(find.byType(TextField), findsOneWidget);
+
+      // Verify ListView has keyboard dismiss behavior
+      final listView = tester.widget<ListView>(find.byType(ListView));
+      expect(listView.keyboardDismissBehavior, ScrollViewKeyboardDismissBehavior.onDrag);
+    });
+
     testWidgets('Tapping History button opens bottom sheet with past conversation sessions and switches session', (tester) async {
       final mockSessions = [
         {
