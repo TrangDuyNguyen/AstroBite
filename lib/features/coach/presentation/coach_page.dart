@@ -183,9 +183,7 @@ class _CoachPageState extends ConsumerState<CoachPage> with WidgetsBindingObserv
     super.didChangeMetrics();
     if (!mounted) return;
     final bottomInset = View.of(context).viewInsets.bottom;
-    if (bottomInset == 0 && _focusNode.hasFocus) {
-      _focusNode.unfocus();
-    } else if (bottomInset > 0) {
+    if (bottomInset > 0) {
       _scrollToBottom();
     }
     setState(() {});
@@ -1502,7 +1500,6 @@ class _CoachPageState extends ConsumerState<CoachPage> with WidgetsBindingObserv
                 controller: _textController,
                 focusNode: _focusNode,
                 enabled: !_isSending,
-                onTap: _scrollToBottom,
                 decoration: InputDecoration(
                   hintText: 'Hỏi AstroCoach về thực đơn, macros...',
                   hintStyle: GoogleFonts.inter(
