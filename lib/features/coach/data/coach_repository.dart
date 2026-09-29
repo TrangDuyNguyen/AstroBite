@@ -166,10 +166,7 @@ Nếu chỉ có món ăn đơn giản, bạn có thể chỉ cần sinh `MealQui
     required List<ChatMessage> history,
   }) async {
     // Build sliding window history for multi-turn (only previous messages, filter out error bubbles)
-    final cleanHistory = history.where((m) => !m.isError).toList();
-    final recentHistory = cleanHistory.length > _slidingWindowSize
-        ? cleanHistory.sublist(cleanHistory.length - _slidingWindowSize)
-        : cleanHistory;
+    final recentHistory = sanitizeHistory(history);
 
     _chatSession = model.startChat(
       history: [
@@ -295,5 +292,14 @@ Nếu chỉ có món ăn đơn giản, bạn có thể chỉ cần sinh `MealQui
         .delete();
   }
 
+  /// Filters error bubbles and limits history to the most recent [_slidingWindowSize] messages (RSK-006 mitigation).
+  static List<ChatMessage> sanitizeHistory(List<ChatMessage> history) {
+    final cleanHistory = history.where((m) => !m.isError).toList();
+    return cleanHistory.length > _slidingWindowSize
+        ? cleanHistory.sublist(cleanHistory.length - _slidingWindowSize)
+        : cleanHistory;
+  }
+
   int get maxMessagesPerDay => _maxMessagesPerDay;
+  int get slidingWindowSize => _slidingWindowSize;
 }
