@@ -49,37 +49,111 @@ class _CoachPageState extends ConsumerState<CoachPage> with WidgetsBindingObserv
     );
   }
 
-  List<String> get _dynamicQuickActions {
+  int _suggestionShuffleIndex = 0;
+
+  List<String> _getDynamicQuickActions(DailySummary summary) {
     final hour = DateTime.now().hour;
+    final contextSuggestions = <String>[];
+
+    // 1. Dynamic Context-Aware Insights based on user's real-time nutrition
+    final remainingCal = summary.targetCalories - summary.totalCalories;
+    if (remainingCal > 800) {
+      contextSuggestions.add('🔥 Còn $remainingCal kcal, ăn gì no lâu?');
+    } else if (remainingCal > 0 && remainingCal <= 400) {
+      contextSuggestions.add('🥗 Còn $remainingCal kcal, món nhẹ dưới 300 kcal?');
+    } else if (remainingCal <= 0 && summary.totalCalories > 0) {
+      contextSuggestions.add('⚠️ Vượt ${summary.totalCalories - summary.targetCalories} kcal, mẹo cân bằng?');
+    }
+
+    final remainingProtein = summary.targetProteinG - summary.totalProteinG;
+    if (remainingProtein > 20) {
+      contextSuggestions.add('🥩 Thiếu ${remainingProtein}g đạm, ăn gì bù nhanh?');
+    } else if (remainingProtein <= 0 && summary.totalProteinG > 0) {
+      contextSuggestions.add('💪 Đã đủ đạm, ăn gì tiếp không thừa calo?');
+    }
+
+    if (summary.totalSodiumMg >= 1500) {
+      contextSuggestions.add('🧂 Lượng natri cao, cách giảm tích nước?');
+    }
+
+    if (summary.totalFiberG < 10 && summary.logs.isNotEmpty) {
+      contextSuggestions.add('🥦 Gợi ý món nhiều chất xơ dễ tiêu hóa');
+    }
+
+    // 2. Time-of-Day Rich Pools
+    final List<String> timePool;
     if (hour >= 5 && hour < 11) {
-      return const [
-        '🥣 Bữa sáng giàu năng lượng',
-        '☕ Cà phê & Calo',
-        '🥩 Bữa sáng giàu đạm',
-        '⚡ Mục tiêu calo hôm nay',
+      timePool = const [
+        '🍳 Bữa sáng giàu đạm dưới 400 kcal',
+        '☕ Cà phê sáng & calo cần lưu ý',
+        '🥣 Bữa sáng nhanh 5 phút eat clean',
+        '⚡ Nạp năng lượng khởi động ngày mới',
+        '🥑 Thực phẩm giảm mỡ bụng buổi sáng',
+        '🥪 Gợi ý bánh mì ngũ cốc & trứng',
       ];
     } else if (hour >= 11 && hour < 14) {
-      return const [
-        '🍱 Gợi ý bữa trưa cân bằng',
-        '🥩 Bữa trưa giàu đạm',
-        '🥗 Món ăn ít dầu mỡ',
-        '⚡ Phân tích calo sáng',
+      timePool = const [
+        '🍱 Gợi ý bữa trưa eat clean văn phòng',
+        '🥩 Bữa trưa giàu đạm ít tinh bột',
+        '🥗 Món trưa no lâu không gây buồn ngủ',
+        '🍜 Bún bò/phở chứa bao nhiêu calo?',
+        '🍚 Nên ăn cơm trắng hay gạo lứt?',
+        '🍗 Cách chế biến ức gà mềm ngon',
       ];
     } else if (hour >= 14 && hour < 17) {
-      return const [
-        '🍎 Ăn xế dưới 150 kcal',
-        '💧 Nhắc nhở uống nước',
-        '⚡ Năng lượng trước tập gym',
-        '🍵 Trà xanh ít calo',
+      timePool = const [
+        '🍎 Ăn xế chống đói dưới 150 kcal',
+        '💧 Nhắc nhở uống nước & điện giải',
+        '⚡ Ăn gì trước giờ tập gym 30 phút?',
+        '🍵 Trà xanh ít calo giúp tỉnh táo',
+        '🥜 Các loại hạt tốt cho giảm cân',
+        '🥛 Sữa chua Hy Lạp và hoa quả',
+      ];
+    } else if (hour >= 17 && hour < 21) {
+      timePool = const [
+        '🥗 Bữa tối nhẹ bụng giàu protein',
+        '🥩 Phục hồi cơ sau tập gym tối',
+        '🍲 Món ăn tối ít carbs hỗ trợ giảm cân',
+        '🌙 Ăn tối mấy giờ để không tích mỡ?',
+        '🐟 Cá hồi & rau củ áp chảo lành mạnh',
+        '🥑 Bổ sung chất béo tốt vào bữa tối',
       ];
     } else {
-      return const [
-        '🥗 Gợi ý bữa tối giàu protein',
-        '⚡ Phân tích natri hôm nay',
-        '🥩 Phục hồi cơ sau tập gym',
-        '💧 Lượng nước cần bù',
+      timePool = const [
+        '🌙 Đói đêm ăn gì không sợ béo?',
+        '🍵 Thức uống ấm giúp ngủ sâu giấc',
+        '💤 Mẹo dập tắt cơn thèm ăn khuya',
+        '📊 Nhận xét thực đơn hôm nay của tôi',
+        '🥛 Uống sữa không đường trước khi ngủ?',
+        '⚡ Chuẩn bị dinh dưỡng cho ngày mai',
       ];
     }
+
+    // 3. Nutrition Science & Fitness Lifestyle Pool
+    const generalPool = [
+      '🏋️ Ăn trước hay sau khi tập gym tốt hơn?',
+      '🔥 Cách tính thâm hụt calo chuẩn khoa học',
+      '🥑 Tỷ lệ Macro chuẩn để giảm mỡ tăng cơ',
+      '💧 Uống bao nhiêu lít nước mỗi ngày theo cân nặng?',
+      '🧂 Tác hại của ăn mặn đối với mỡ thừa',
+      '🍳 So sánh trứng luộc và trứng chiên',
+      '🏃 30 phút chạy bộ đốt bao nhiêu calo?',
+      '🥩 Nguồn đạm thực vật tốt cho người ăn chay',
+    ];
+
+    // Combine time pool and general pool, rotate by _suggestionShuffleIndex
+    final combinedPool = [...timePool, ...generalPool];
+    final startIndex = (_suggestionShuffleIndex * 4) % combinedPool.length;
+    final selectedQuestions = <String>[];
+    for (var i = 0; i < 4; i++) {
+      selectedQuestions.add(combinedPool[(startIndex + i) % combinedPool.length]);
+    }
+
+    return [
+      '🎲 Đổi gợi ý khác',
+      ...contextSuggestions.take(2),
+      ...selectedQuestions,
+    ];
   }
 
   @override
@@ -471,7 +545,7 @@ class _CoachPageState extends ConsumerState<CoachPage> with WidgetsBindingObserv
           ),
 
           // Collapsible Dynamic Quick Actions & Disclaimer (never blocks chat view)
-          _buildCollapsibleSuggestionsSection(isKeyboardOpen),
+          _buildCollapsibleSuggestionsSection(isKeyboardOpen, summary),
 
           // Input bar + Floating Dock Clearance
           Padding(
@@ -1185,8 +1259,9 @@ class _CoachPageState extends ConsumerState<CoachPage> with WidgetsBindingObserv
     );
   }
 
-  Widget _buildCollapsibleSuggestionsSection(bool isKeyboardOpen) {
+  Widget _buildCollapsibleSuggestionsSection(bool isKeyboardOpen, DailySummary summary) {
     if (_isSending || isKeyboardOpen) return const SizedBox.shrink();
+    final actions = _getDynamicQuickActions(summary);
 
     return AnimatedSize(
       duration: const Duration(milliseconds: 250),
@@ -1195,15 +1270,15 @@ class _CoachPageState extends ConsumerState<CoachPage> with WidgetsBindingObserv
           ? Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                _buildQuickActions(),
+                _buildQuickActions(actions),
                 _buildMedicalDisclaimer(),
               ],
             )
-          : _buildSuggestionsTogglePill(),
+          : _buildSuggestionsTogglePill(actions.length - 1),
     );
   }
 
-  Widget _buildSuggestionsTogglePill() {
+  Widget _buildSuggestionsTogglePill(int count) {
     return Center(
       child: Padding(
         padding: const EdgeInsets.only(bottom: 6),
@@ -1239,7 +1314,7 @@ class _CoachPageState extends ConsumerState<CoachPage> with WidgetsBindingObserv
                   ),
                   const SizedBox(width: 6),
                   Text(
-                    'Gợi ý câu hỏi (${_dynamicQuickActions.length})',
+                    'Gợi ý câu hỏi ($count)',
                     style: GoogleFonts.inter(
                       fontSize: 11.5,
                       fontWeight: FontWeight.w700,
@@ -1283,8 +1358,7 @@ class _CoachPageState extends ConsumerState<CoachPage> with WidgetsBindingObserv
     );
   }
 
-  Widget _buildQuickActions() {
-    final actions = _dynamicQuickActions;
+  Widget _buildQuickActions(List<String> actions) {
     return SizedBox(
       height: 48,
       child: Row(
@@ -1298,18 +1372,23 @@ class _CoachPageState extends ConsumerState<CoachPage> with WidgetsBindingObserv
               separatorBuilder: (_, __) => const SizedBox(width: 8),
               itemBuilder: (_, index) {
                 final action = actions[index];
+                final isShuffle = action == '🎲 Đổi gợi ý khác';
+
                 return ActionChip(
                   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   label: Text(
                     action,
                     style: GoogleFonts.inter(
                       fontSize: 12.5,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.onSurface,
+                      fontWeight: isShuffle ? FontWeight.w700 : FontWeight.w600,
+                      color: isShuffle ? AppColors.primary : AppColors.onSurface,
                     ),
                   ),
-                  backgroundColor: Colors.white,
-                  side: const BorderSide(color: Color(0xFFE2DDD5), width: 1.2),
+                  backgroundColor: isShuffle ? const Color(0xFFE5F6FD) : Colors.white,
+                  side: BorderSide(
+                    color: isShuffle ? const Color(0xFFBAE6FD) : const Color(0xFFE2DDD5),
+                    width: 1.2,
+                  ),
                   elevation: 1,
                   shadowColor: const Color(0x15000000),
                   shape: RoundedRectangleBorder(
@@ -1317,7 +1396,11 @@ class _CoachPageState extends ConsumerState<CoachPage> with WidgetsBindingObserv
                   ),
                   onPressed: () {
                     HapticFeedback.lightImpact();
-                    _sendMessage(action);
+                    if (isShuffle) {
+                      setState(() => _suggestionShuffleIndex++);
+                    } else {
+                      _sendMessage(action);
+                    }
                   },
                 );
               },

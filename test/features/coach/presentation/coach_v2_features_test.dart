@@ -214,11 +214,48 @@ Hãy thưởng thức nhé!
 
       // Quick action chips exist
       expect(find.byType(ActionChip), findsWidgets);
+      expect(find.text('🎲 Đổi gợi ý khác'), findsOneWidget);
 
       // Input bar exists
       expect(find.byType(TextField), findsOneWidget);
       expect(find.byIcon(Icons.send_rounded), findsOneWidget);
       expect(find.textContaining('AI gợi ý tham khảo, không thay thế chuyên gia y tế'), findsOneWidget);
+    });
+
+    testWidgets('Tapping shuffle chip rotates through diverse suggestions', (tester) async {
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            todaySummaryProvider.overrideWith(
+              (ref) => const DailySummary(
+                date: '2026-09-24',
+                totalCalories: 1200,
+                targetCalories: 2000,
+                totalProteinG: 70,
+                targetProteinG: 120,
+                totalCarbsG: 120,
+                targetCarbsG: 200,
+                totalFatG: 40,
+                targetFatG: 60,
+                logs: [],
+              ),
+            ),
+          ],
+          child: const MaterialApp(
+            home: CoachPage(),
+          ),
+        ),
+      );
+
+      await tester.pumpAndSettle();
+
+      final shuffleFinder = find.text('🎲 Đổi gợi ý khác');
+      expect(shuffleFinder, findsOneWidget);
+
+      await tester.tap(shuffleFinder);
+      await tester.pumpAndSettle();
+
+      expect(find.text('🎲 Đổi gợi ý khác'), findsOneWidget);
     });
 
     testWidgets('When keyboard is opened, quick action chips and disclaimer hide to expand chat viewport', (tester) async {
