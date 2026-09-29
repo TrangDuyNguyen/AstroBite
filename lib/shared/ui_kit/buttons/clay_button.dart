@@ -28,6 +28,8 @@ class ClayButton extends StatefulWidget {
     this.icon,
     this.height = 52.0,
     this.width,
+    this.padding,
+    this.fontSize,
     this.borderRadius = 24.0,
   });
 
@@ -38,6 +40,8 @@ class ClayButton extends StatefulWidget {
   final Widget? icon;
   final double height;
   final double? width;
+  final EdgeInsetsGeometry? padding;
+  final double? fontSize;
   final double borderRadius;
 
   @override
@@ -130,32 +134,35 @@ class _ClayButtonState extends State<ClayButton> {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(widget.borderRadius),
               child: Stack(
-                fit: StackFit.expand,
+                fit: StackFit.loose,
+                alignment: Alignment.center,
                 children: [
                   // 1. Soft Matte Clay Body — Continuous 3-stop directional gradient
-                  DecoratedBox(
-                    decoration: BoxDecoration(
-                      gradient: widget.variant == ClayButtonVariant.outline
-                          ? const LinearGradient(
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                              stops: [0.0, 0.5, 1.0],
-                              colors: [
-                                Colors.white,
-                                Color(0xFFFAF7F2),
-                                Color(0xFFF0EBE0),
-                              ],
-                            )
-                          : LinearGradient(
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                              stops: const [0.0, 0.45, 1.0],
-                              colors: [
-                                Color.lerp(_baseColor, Colors.white, 0.24)!,
-                                _baseColor,
-                                Color.lerp(_baseColor, Colors.black, 0.12)!,
-                              ],
-                            ),
+                  Positioned.fill(
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        gradient: widget.variant == ClayButtonVariant.outline
+                            ? const LinearGradient(
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                                stops: [0.0, 0.5, 1.0],
+                                colors: [
+                                  Colors.white,
+                                  Color(0xFFFAF7F2),
+                                  Color(0xFFF0EBE0),
+                                ],
+                              )
+                            : LinearGradient(
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                                stops: const [0.0, 0.45, 1.0],
+                                colors: [
+                                  Color.lerp(_baseColor, Colors.white, 0.24)!,
+                                  _baseColor,
+                                  Color.lerp(_baseColor, Colors.black, 0.12)!,
+                                ],
+                              ),
+                      ),
                     ),
                   ),
 
@@ -178,8 +185,14 @@ class _ClayButtonState extends State<ClayButton> {
                   ),
 
                   // 3. Button Content (Text with subtle molded depth shadow)
-                  Center(
-                    child: widget.isLoading
+                  Padding(
+                    padding: widget.padding ??
+                        (widget.width != null
+                            ? const EdgeInsets.symmetric(horizontal: AppValues.spacing8)
+                            : const EdgeInsets.symmetric(horizontal: AppValues.spacing16)),
+                    child: Center(
+                      widthFactor: widget.width != null ? null : 1.0,
+                      child: widget.isLoading
                         ? SizedBox(
                             width: 22,
                             height: 22,
@@ -196,33 +209,38 @@ class _ClayButtonState extends State<ClayButton> {
                                 widget.icon!,
                                 const SizedBox(width: AppValues.spacing8),
                               ],
-                              Text(
-                                widget.text,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w800,
-                                  color: _textColor,
-                                  letterSpacing: 0.3,
-                                  shadows: widget.variant == ClayButtonVariant.outline
-                                      ? const [
-                                          Shadow(
-                                            color: Colors.white,
-                                            offset: Offset(0, 1),
-                                            blurRadius: 1,
-                                          ),
-                                        ]
-                                      : [
-                                          Shadow(
-                                            color: _bevelColor.withValues(alpha: 0.50),
-                                            offset: const Offset(0, 1.2),
-                                            blurRadius: 2,
-                                          ),
-                                        ],
+                              Flexible(
+                                child: Text(
+                                  widget.text,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    fontSize: widget.fontSize ?? (widget.height < 42 ? 13.5 : 16.0),
+                                    fontWeight: FontWeight.w800,
+                                    color: _textColor,
+                                    letterSpacing: 0.3,
+                                    shadows: widget.variant == ClayButtonVariant.outline
+                                        ? const [
+                                            Shadow(
+                                              color: Colors.white,
+                                              offset: Offset(0, 1),
+                                              blurRadius: 1,
+                                            ),
+                                          ]
+                                        : [
+                                            Shadow(
+                                              color: _bevelColor.withValues(alpha: 0.50),
+                                              offset: const Offset(0, 1.2),
+                                              blurRadius: 2,
+                                            ),
+                                          ],
+                                  ),
                                 ),
                               ),
                             ],
                           ),
-                  ),
+                      ),
+                    ),
                 ],
               ),
             ),

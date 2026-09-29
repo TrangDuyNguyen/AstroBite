@@ -22,6 +22,127 @@ void main() {
       expect(tapped, isTrue);
     });
 
+    testWidgets('Static ClayCard renders lightweight Container without GestureDetector', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: ClayCard(
+              child: Text('Static Card Content'),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.text('Static Card Content'), findsOneWidget);
+      expect(find.byType(GestureDetector), findsNothing);
+      expect(find.byType(AnimatedContainer), findsNothing);
+    });
+
+    testWidgets('ClayCard renders without error in complex layouts (Row, Expanded, SlideTransition)', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: ClayCard(
+                          onTap: () {},
+                          child: const Text('Row Card 1'),
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: ClayCard(
+                          child: const Text('Row Card 2'),
+                        ),
+                      ),
+                    ],
+                  ),
+                  ClayCard(
+                    elevation: 6.0,
+                    child: const Text('Form Container Card'),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+
+      await tester.pumpAndSettle();
+      expect(find.text('Row Card 1'), findsOneWidget);
+      expect(find.text('Row Card 2'), findsOneWidget);
+      expect(find.text('Form Container Card'), findsOneWidget);
+    });
+
+    testWidgets('ClayButton sizes properly inside Row with Expanded text without unbounded errors', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Center(
+              child: SizedBox(
+                width: 360,
+                child: ClayCard(
+                  child: Row(
+                    children: [
+                      const SizedBox(width: 44, height: 44),
+                      const SizedBox(width: 12),
+                      const Expanded(
+                        child: Text('Kết nối Apple Health để xem calo đốt cháy'),
+                      ),
+                      const SizedBox(width: 8),
+                      ClayButton(
+                        text: 'Kết nối',
+                        height: 38,
+                        onPressed: () {},
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+      expect(find.text('Kết nối Apple Health để xem calo đốt cháy'), findsOneWidget);
+      expect(find.widgetWithText(ClayButton, 'Kết nối'), findsOneWidget);
+
+      final textSize = tester.getSize(find.text('Kết nối Apple Health để xem calo đốt cháy'));
+      final buttonSize = tester.getSize(find.byType(ClayButton));
+      expect(textSize.width, greaterThan(50));
+      expect(buttonSize.width, greaterThan(50));
+      expect(buttonSize.height, equals(38.0));
+    });
+
+    testWidgets('ClayButton centers text vertically and horizontally', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Center(
+              child: ClayButton(
+                text: 'Kết nối',
+                height: 38,
+                onPressed: () {},
+              ),
+            ),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      final buttonRect = tester.getRect(find.byType(ClayButton));
+      final textRect = tester.getRect(find.text('Kết nối'));
+
+      // Vertical center difference should be within 1.5 pixels
+      expect((buttonRect.center.dy - textRect.center.dy).abs(), lessThan(1.5));
+      // Horizontal center difference should be within 1.5 pixels
+      expect((buttonRect.center.dx - textRect.center.dx).abs(), lessThan(1.5));
+    });
+
     testWidgets('ClayButton renders text and responds to press', (tester) async {
       var pressed = false;
       await tester.pumpWidget(

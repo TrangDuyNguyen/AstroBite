@@ -48,6 +48,10 @@ class EnergyBalanceCard extends ConsumerWidget {
   }
 
   Widget _buildConnectPrompt(BuildContext context, WidgetRef ref) {
+    final serviceName = Theme.of(context).platform == TargetPlatform.iOS
+        ? 'Apple Health'
+        : 'Health Connect';
+
     return ClayCard(
       borderRadius: 20,
       elevation: 4,
@@ -71,17 +75,18 @@ class EnergyBalanceCard extends ConsumerWidget {
           const SizedBox(width: 12),
           Expanded(
             child: Text(
-              'Kết nối Apple Health để xem calo đốt cháy',
+              'Kết nối $serviceName để xem calo đốt cháy',
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: AppColors.onSurface,
                     fontWeight: FontWeight.w600,
                   ),
             ),
           ),
-          const SizedBox(width: 8),
+          const SizedBox(width: 10),
           ClayButton(
             text: 'Kết nối',
             height: 38,
+            padding: const EdgeInsets.symmetric(horizontal: 14),
             borderRadius: 14,
             variant: ClayButtonVariant.primary,
             onPressed: () {
