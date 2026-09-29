@@ -36,6 +36,7 @@ class _CoachPageState extends ConsumerState<CoachPage> with WidgetsBindingObserv
   final _scrollController = ScrollController();
   Timer? _scrollTimer;
   bool _isSending = false;
+  bool _showSuggestions = true;
   final Set<String> _loggedMessageIds = {};
   late final GenUiCatalog _genUiCatalog;
 
@@ -469,30 +470,8 @@ class _CoachPageState extends ConsumerState<CoachPage> with WidgetsBindingObserv
             ),
           ),
 
-          // Dynamic Quick Actions (hidden when keyboard is open to preserve chat viewport)
-          if (!_isSending && !isKeyboardOpen) _buildQuickActions(),
-
-          // Medical Disclaimer (hidden when keyboard is open for ergonomics)
-          if (!isKeyboardOpen)
-            Center(
-              child: Container(
-                margin: const EdgeInsets.only(top: 6, bottom: 4),
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 3),
-                decoration: BoxDecoration(
-                  color: const Color(0x0C1E2337),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Text(
-                  '⚕️ AI gợi ý tham khảo, không thay thế chuyên gia y tế',
-                  style: GoogleFonts.inter(
-                    fontSize: 10.5,
-                    color: AppColors.onSurfaceVariant,
-                    fontWeight: FontWeight.w500,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ),
+          // Collapsible Dynamic Quick Actions & Disclaimer (never blocks chat view)
+          _buildCollapsibleSuggestionsSection(isKeyboardOpen),
 
           // Input bar + Floating Dock Clearance
           Padding(
@@ -1206,41 +1185,182 @@ class _CoachPageState extends ConsumerState<CoachPage> with WidgetsBindingObserv
     );
   }
 
+  Widget _buildCollapsibleSuggestionsSection(bool isKeyboardOpen) {
+    if (_isSending || isKeyboardOpen) return const SizedBox.shrink();
+
+    return AnimatedSize(
+      duration: const Duration(milliseconds: 250),
+      curve: Curves.easeInOutCubic,
+      child: _showSuggestions
+          ? Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                _buildQuickActions(),
+                _buildMedicalDisclaimer(),
+              ],
+            )
+          : _buildSuggestionsTogglePill(),
+    );
+  }
+
+  Widget _buildSuggestionsTogglePill() {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 6),
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            onTap: () {
+              HapticFeedback.lightImpact();
+              setState(() => _showSuggestions = true);
+            },
+            borderRadius: BorderRadius.circular(16),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: const Color(0xFFE2DDD5), width: 1.2),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Color(0x10000000),
+                    offset: Offset(0, 1.5),
+                    blurRadius: 3,
+                  ),
+                ],
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(
+                    Icons.auto_awesome,
+                    size: 14,
+                    color: AppColors.primary,
+                  ),
+                  const SizedBox(width: 6),
+                  Text(
+                    'Gợi ý câu hỏi (${_dynamicQuickActions.length})',
+                    style: GoogleFonts.inter(
+                      fontSize: 11.5,
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.onSurface,
+                    ),
+                  ),
+                  const SizedBox(width: 4),
+                  const Icon(
+                    Icons.keyboard_arrow_up_rounded,
+                    size: 16,
+                    color: AppColors.onSurfaceVariant,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildMedicalDisclaimer() {
+    return Center(
+      child: Container(
+        margin: const EdgeInsets.only(top: 4, bottom: 4),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 3),
+        decoration: BoxDecoration(
+          color: const Color(0x0C1E2337),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Text(
+          '⚕️ AI gợi ý tham khảo, không thay thế chuyên gia y tế',
+          style: GoogleFonts.inter(
+            fontSize: 10.5,
+            color: AppColors.onSurfaceVariant,
+            fontWeight: FontWeight.w500,
+          ),
+          textAlign: TextAlign.center,
+        ),
+      ),
+    );
+  }
+
   Widget _buildQuickActions() {
     final actions = _dynamicQuickActions;
     return SizedBox(
       height: 48,
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        clipBehavior: Clip.none,
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-        itemCount: actions.length,
-        separatorBuilder: (_, __) => const SizedBox(width: 8),
-        itemBuilder: (_, index) {
-          final action = actions[index];
-          return ActionChip(
-            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            label: Text(
-              action,
-              style: GoogleFonts.inter(
-                fontSize: 12.5,
-                fontWeight: FontWeight.w600,
-                color: AppColors.onSurface,
+      child: Row(
+        children: [
+          Expanded(
+            child: ListView.separated(
+              scrollDirection: Axis.horizontal,
+              clipBehavior: Clip.none,
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+              itemCount: actions.length,
+              separatorBuilder: (_, __) => const SizedBox(width: 8),
+              itemBuilder: (_, index) {
+                final action = actions[index];
+                return ActionChip(
+                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  label: Text(
+                    action,
+                    style: GoogleFonts.inter(
+                      fontSize: 12.5,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.onSurface,
+                    ),
+                  ),
+                  backgroundColor: Colors.white,
+                  side: const BorderSide(color: Color(0xFFE2DDD5), width: 1.2),
+                  elevation: 1,
+                  shadowColor: const Color(0x15000000),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(18),
+                  ),
+                  onPressed: () {
+                    HapticFeedback.lightImpact();
+                    _sendMessage(action);
+                  },
+                );
+              },
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 14),
+            child: Tooltip(
+              message: 'Thu gọn gợi ý',
+              child: Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  onTap: () {
+                    HapticFeedback.lightImpact();
+                    setState(() => _showSuggestions = false);
+                  },
+                  borderRadius: BorderRadius.circular(14),
+                  child: Container(
+                    width: 32,
+                    height: 32,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(14),
+                      border: Border.all(color: const Color(0xFFE2DDD5), width: 1.2),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Color(0x10000000),
+                          offset: Offset(0, 1),
+                          blurRadius: 2,
+                        ),
+                      ],
+                    ),
+                    child: const Icon(
+                      Icons.keyboard_arrow_down_rounded,
+                      size: 20,
+                      color: AppColors.onSurfaceVariant,
+                    ),
+                  ),
+                ),
               ),
             ),
-            backgroundColor: Colors.white,
-            side: const BorderSide(color: Color(0xFFE2DDD5), width: 1.2),
-            elevation: 1,
-            shadowColor: const Color(0x15000000),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(18),
-            ),
-            onPressed: () {
-              HapticFeedback.lightImpact();
-              _sendMessage(action);
-            },
-          );
-        },
+          ),
+        ],
       ),
     );
   }
@@ -1275,10 +1395,17 @@ class _CoachPageState extends ConsumerState<CoachPage> with WidgetsBindingObserv
                   ),
                   filled: true,
                   fillColor: Colors.transparent,
-                  prefixIcon: const Icon(
-                    Icons.auto_awesome,
-                    color: AppColors.primary,
-                    size: 19,
+                  prefixIcon: IconButton(
+                    icon: Icon(
+                      Icons.auto_awesome,
+                      color: _showSuggestions ? AppColors.primary : AppColors.onSurfaceVariant.withValues(alpha: 0.6),
+                      size: 19,
+                    ),
+                    tooltip: _showSuggestions ? 'Thu gọn gợi ý' : 'Mở gợi ý câu hỏi',
+                    onPressed: () {
+                      HapticFeedback.lightImpact();
+                      setState(() => _showSuggestions = !_showSuggestions);
+                    },
                   ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(24),

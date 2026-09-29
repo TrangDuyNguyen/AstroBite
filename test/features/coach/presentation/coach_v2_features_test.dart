@@ -273,6 +273,64 @@ Hãy thưởng thức nhé!
       expect(listView.keyboardDismissBehavior, ScrollViewKeyboardDismissBehavior.onDrag);
     });
 
+    testWidgets('Tapping collapse button hides chips and disclaimer, and tapping toggle pill or prefix icon re-expands them', (tester) async {
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            todaySummaryProvider.overrideWith(
+              (ref) => const DailySummary(
+                date: '2026-09-24',
+                totalCalories: 1200,
+                targetCalories: 2000,
+                totalProteinG: 70,
+                targetProteinG: 120,
+                totalCarbsG: 120,
+                targetCarbsG: 200,
+                totalFatG: 40,
+                targetFatG: 60,
+                logs: [],
+              ),
+            ),
+          ],
+          child: const MaterialApp(
+            home: CoachPage(),
+          ),
+        ),
+      );
+
+      await tester.pumpAndSettle();
+
+      // Initially expanded
+      expect(find.byType(ActionChip), findsWidgets);
+      expect(find.textContaining('AI gợi ý tham khảo'), findsOneWidget);
+
+      // Tap collapse button
+      final collapseBtn = find.byTooltip('Thu gọn gợi ý').first;
+      await tester.tap(collapseBtn);
+      await tester.pumpAndSettle();
+
+      // Now collapsed: chips & disclaimer hidden, toggle pill shown
+      expect(find.byType(ActionChip), findsNothing);
+      expect(find.textContaining('AI gợi ý tham khảo'), findsNothing);
+      expect(find.textContaining('Gợi ý câu hỏi'), findsOneWidget);
+
+      // Tap toggle pill to re-expand
+      await tester.tap(find.textContaining('Gợi ý câu hỏi'));
+      await tester.pumpAndSettle();
+
+      // Re-expanded
+      expect(find.byType(ActionChip), findsWidgets);
+      expect(find.textContaining('AI gợi ý tham khảo'), findsOneWidget);
+
+      // Tap prefix icon on input bar to toggle again
+      final prefixIconBtn = find.byTooltip('Thu gọn gợi ý').first;
+      await tester.tap(prefixIconBtn);
+      await tester.pumpAndSettle();
+
+      // Collapsed again
+      expect(find.byType(ActionChip), findsNothing);
+    });
+
     testWidgets('Tapping History button opens bottom sheet with past conversation sessions and switches session', (tester) async {
       final mockSessions = [
         {
