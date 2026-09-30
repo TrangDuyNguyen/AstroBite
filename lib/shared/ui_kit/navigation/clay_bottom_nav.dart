@@ -30,16 +30,18 @@ class ClayBottomNav extends StatelessWidget {
     const fabElevation = 12.0;
     final bottomMargin = (bottomPadding > 0 ? bottomPadding : 12.0) + 8.0;
 
-    return Padding(
-      padding: EdgeInsets.fromLTRB(
-        AppValues.screenPadding,
-        0,
-        AppValues.screenPadding,
-        bottomMargin,
-      ),
-      child: SizedBox(
-        height: dockHeight + fabElevation,
-        child: Stack(
+    return Material(
+      color: Colors.transparent,
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(
+          AppValues.screenPadding,
+          0,
+          AppValues.screenPadding,
+          bottomMargin,
+        ),
+        child: SizedBox(
+          height: dockHeight + fabElevation,
+          child: Stack(
           clipBehavior: Clip.none,
           alignment: Alignment.bottomCenter,
           children: [
@@ -162,6 +164,7 @@ class ClayBottomNav extends StatelessWidget {
           ],
         ),
       ),
+    ),
     );
   }
 }

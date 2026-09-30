@@ -868,7 +868,12 @@ class _TactileShutterButtonState extends State<_TactileShutterButton> {
     final downShift = _isPressed ? 3.0 : 0.0;
 
     return GestureDetector(
-      onTapDown: widget.isScanning ? null : (_) => setState(() => _isPressed = true),
+      onTapDown: widget.isScanning
+          ? null
+          : (_) {
+              HapticFeedback.mediumImpact();
+              setState(() => _isPressed = true);
+            },
       onTapUp: widget.isScanning ? null : (_) => setState(() => _isPressed = false),
       onTapCancel: widget.isScanning ? null : () => setState(() => _isPressed = false),
       onTap: widget.isScanning ? null : widget.onTap,
@@ -876,7 +881,10 @@ class _TactileShutterButtonState extends State<_TactileShutterButton> {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 80),
         curve: Curves.easeOutCubic,
-        transform: Matrix4.translationValues(0, downShift, 0),
+        transformAlignment: Alignment.center,
+        transform: Matrix4.identity()
+          ..translate(0.0, downShift)
+          ..scale(_isPressed ? 0.92 : 1.0),
         width: 78,
         height: 78,
         decoration: BoxDecoration(

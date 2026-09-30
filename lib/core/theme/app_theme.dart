@@ -114,7 +114,7 @@ abstract final class AppTheme {
         ),
       ),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-        backgroundColor: AppColors.surfaceContainer,
+        backgroundColor: Colors.transparent,
         elevation: 0,
       ),
       bottomSheetTheme: const BottomSheetThemeData(

@@ -48,6 +48,7 @@ class _AnalyticsPageState extends ConsumerState<AnalyticsPage> {
         centerTitle: true,
       ),
       body: SafeArea(
+        bottom: false,
         child: ListView(
           padding: const EdgeInsets.symmetric(horizontal: AppValues.screenPadding),
           children: [

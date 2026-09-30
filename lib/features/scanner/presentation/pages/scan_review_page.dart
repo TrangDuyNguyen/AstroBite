@@ -3,15 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:astrobite/core/constants/app_strings.dart';
-import 'package:astrobite/core/constants/app_values.dart';
-import 'package:astrobite/core/theme/app_colors.dart';
 import 'package:astrobite/features/auth/domain/auth_providers.dart';
 import 'package:astrobite/features/scanner/domain/entities/scan_result.dart';
 import 'package:astrobite/features/scanner/domain/usecases/scan_food_usecase.dart';
 import 'package:astrobite/features/scanner/presentation/controllers/scanner_controller.dart';
 import 'package:astrobite/features/tracker/data/models/food_log_dto.dart';
 import 'package:astrobite/features/tracker/domain/tracker_providers.dart';
-import 'package:astrobite/shared/widgets/meal_type_chip.dart';
+import 'package:astrobite/shared/ui_kit/ui_kit.dart';
 import '../widgets/micronutrient_chips_row.dart';
 
 @RoutePage()
@@ -309,11 +307,31 @@ class _ScanReviewPageState extends ConsumerState<ScanReviewPage> {
         : (baseResult.totalWeightG > 0 ? baseResult.totalWeightG : 350);
 
     return Scaffold(
+      backgroundColor: AppColors.surface,
       appBar: AppBar(
-        title: const Text('Kết quả phân tích AI'),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => context.router.popForced(),
+        backgroundColor: AppColors.surface,
+        surfaceTintColor: Colors.transparent,
+        elevation: 0,
+        centerTitle: true,
+        title: const Text(
+          'Kết quả phân tích AI',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+            color: AppColors.onSurface,
+          ),
+        ),
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 12),
+          child: Center(
+            child: ClayIconButton(
+              icon: Icons.arrow_back_ios_new_rounded,
+              size: 40,
+              borderRadius: 14,
+              tooltip: 'Quay lại',
+              onPressed: () => context.router.popForced(),
+            ),
+          ),
         ),
       ),
       body: SafeArea(
@@ -810,18 +828,37 @@ class _ScanReviewPageState extends ConsumerState<ScanReviewPage> {
                   ),
                   const SizedBox(width: AppValues.spacing12),
                   Expanded(
-                    child: SizedBox(
-                      height: 50,
+                    child: Container(
+                      height: 52,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(24),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Color(0xFF388002),
+                            offset: Offset(0, 4),
+                            blurRadius: 0,
+                          ),
+                          BoxShadow(
+                            color: Color(0x18000000),
+                            offset: Offset(0, 6),
+                            blurRadius: 10,
+                          ),
+                        ],
+                      ),
                       child: FilledButton(
-                        onPressed: _isSaving ? null : () => _saveFoodLog(scaled),
+                        onPressed: _isSaving
+                            ? null
+                            : () {
+                                HapticFeedback.lightImpact();
+                                _saveFoodLog(scaled);
+                              },
                         style: FilledButton.styleFrom(
                           backgroundColor: AppColors.brandGreen,
                           foregroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(AppValues.spacing48),
+                            borderRadius: BorderRadius.circular(24),
                           ),
-                          elevation: 3,
-                          shadowColor: const Color(0xFF3EA002),
+                          elevation: 0,
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,

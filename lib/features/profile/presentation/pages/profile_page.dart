@@ -59,6 +59,7 @@ class ProfilePage extends ConsumerWidget {
         ],
       ),
       body: SafeArea(
+        bottom: false,
         child: ListView(
           padding: const EdgeInsets.symmetric(horizontal: AppValues.screenPadding),
           children: [

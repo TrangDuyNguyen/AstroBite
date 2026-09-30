@@ -128,6 +128,6 @@
 | **v2.0.0** | **100%** (198/198 tests pass) | Đã phát hành chính thức (Release Tag `v2.0.0`) | 2026-09-26 | Sub-Agent PO & PM |
 | **v2.1.0** | **100%** 🟢 DONE | EPIC-UI-REFRESH Sprint 12 — Foundation & UI Kit Reset | 27/09/2026 | Sub-Agent PO & PM |
 | **v2.2.0** | **100%** 🟢 DONE | EPIC-UI-REFRESH Sprint 13 — Core Daily Loop (Shell, Home, Log, Detail) | 27/09/2026 | Sub-Agent PO & PM |
-| **v2.3.0** | **0%** 🟡 QUEUED | EPIC-UI-REFRESH Sprint 14 — AI Experience (Camera AR, Review, Coach) | 07/11/2026 | Sub-Agent PO |
+| **v2.3.0** | **100%** 🟢 DONE | EPIC-UI-REFRESH Sprint 14 — AI Experience (Camera AR, Review, Coach) | 29/09/2026 | Sub-Agent PO & PM |
 | **v2.4.0** | **0%** | EPIC-UI-REFRESH Sprint 15 — FTUX & Identity (Auth, Onboarding, Profile) | 21/11/2026 | Sub-Agent PO |
 | **v2.5.0** | **0%** | EPIC-UI-REFRESH Sprint 16 — Deep Features (Analytics, Recipes, Meal Plan) | 05/12/2026 | Sub-Agent PO |

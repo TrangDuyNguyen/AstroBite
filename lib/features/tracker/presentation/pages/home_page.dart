@@ -40,8 +40,10 @@ class HomePage extends ConsumerWidget {
     });
 
     return Scaffold(
+      backgroundColor: AppColors.surface,
       appBar: const DashboardAppBar(),
       body: SafeArea(
+        bottom: false,
         child: Column(
           children: [
             const CelestialOfflineBanner(),
@@ -165,7 +167,7 @@ class HomePage extends ConsumerWidget {
                   const SizedBox(height: AppValues.spacing8),
                   // AstroCoach Suggestion Card
                   _AstroCoachSuggestionCard(summary: summary),
-                  const SizedBox(height: 100),
+                  const SizedBox(height: 120),
                 ],
               ),
       ),
