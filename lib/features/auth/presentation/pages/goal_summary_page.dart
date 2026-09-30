@@ -1,16 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:astrobite/core/constants/app_values.dart';
 import 'package:astrobite/core/router/app_router.dart';
-import 'package:astrobite/core/theme/app_colors.dart';
 import 'package:astrobite/core/utils/nutrition_calculator.dart';
 import 'package:astrobite/features/auth/domain/auth_providers.dart';
 import 'package:astrobite/features/profile/data/models/user_profile_dto.dart';
 import 'package:astrobite/features/profile/domain/profile_providers.dart';
-import 'package:astrobite/shared/ui_kit/surfaces/clay_card.dart';
-import 'package:astrobite/shared/ui_kit/buttons/clay_button.dart';
-import 'package:astrobite/shared/widgets/macro_bar.dart';
+import 'package:astrobite/shared/ui_kit/ui_kit.dart';
 
 @RoutePage()
 class GoalSummaryPage extends ConsumerStatefulWidget {
@@ -106,6 +102,7 @@ class _GoalSummaryPageState extends ConsumerState<GoalSummaryPage> {
       backgroundColor: AppColors.surface,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
+        surfaceTintColor: Colors.transparent,
         elevation: 0,
         title: const Text(
           'Kế Hoạch Dinh Dưỡng',
@@ -140,8 +137,8 @@ class _GoalSummaryPageState extends ConsumerState<GoalSummaryPage> {
 
               // Main Calorie Target Card
               ClayCard(
-                borderRadius: 24,
-                elevation: 5,
+                borderRadius: 20,
+                elevation: 4,
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
                 child: Column(
                   children: [
@@ -276,21 +273,21 @@ class _GoalSummaryPageState extends ConsumerState<GoalSummaryPage> {
                 padding: const EdgeInsets.all(16),
                 child: Column(
                   children: [
-                    MacroBar(
+                    ChunkyMacroBar(
                       label: 'Carbohydrates (45%)',
                       currentG: macros.carbsG,
                       targetG: macros.carbsG,
                       color: AppColors.primary,
                     ),
                     const SizedBox(height: AppValues.spacing16),
-                    MacroBar(
+                    ChunkyMacroBar(
                       label: 'Protein (30%)',
                       currentG: macros.proteinG,
                       targetG: macros.proteinG,
                       color: AppColors.tertiary,
                     ),
                     const SizedBox(height: AppValues.spacing16),
-                    MacroBar(
+                    ChunkyMacroBar(
                       label: 'Chất Béo / Fat (25%)',
                       currentG: macros.fatG,
                       targetG: macros.fatG,
