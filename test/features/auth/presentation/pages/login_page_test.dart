@@ -6,7 +6,6 @@ import 'package:astrobite/core/constants/app_strings.dart';
 import 'package:astrobite/features/auth/domain/auth_providers.dart';
 import 'package:astrobite/features/auth/domain/repositories/auth_repository.dart';
 import 'package:astrobite/features/auth/presentation/pages/login_page.dart';
-import 'package:astrobite/features/auth/presentation/widgets/google_sign_in_button.dart';
 import 'package:astrobite/shared/ui_kit/ui_kit.dart';
 
 class FakeUserCredential implements UserCredential {
@@ -75,7 +74,7 @@ void main() {
       // Check buttons and links
       expect(find.text(AppStrings.forgotPassword), findsOneWidget);
       expect(find.widgetWithText(ClayButton, AppStrings.login), findsOneWidget);
-      expect(find.byType(GoogleSignInButton), findsOneWidget);
+      expect(find.byType(ClayIconButton), findsNWidgets(2)); // Google and Apple
       expect(
         find.byWidgetPredicate(
           (widget) =>

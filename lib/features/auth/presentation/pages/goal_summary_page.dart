@@ -158,33 +158,13 @@ class _GoalSummaryPageState extends ConsumerState<GoalSummaryPage> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: AppValues.spacing12),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.baseline,
-                      textBaseline: TextBaseline.alphabetic,
-                      children: [
-                        Text(
-                          '$targetCalories',
-                          style: const TextStyle(
-                            fontSize: 48,
-                            fontWeight: FontWeight.w900,
-                            color: AppColors.onSurface,
-                            letterSpacing: -1,
-                          ),
-                        ),
-                        const SizedBox(width: 6),
-                        const Text(
-                          'kcal / ngày',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.onSurfaceVariant,
-                          ),
-                        ),
-                      ],
+                    const SizedBox(height: AppValues.spacing24),
+                    CalorieProgressArc(
+                      consumed: 0,
+                      target: targetCalories,
+                      size: 240,
                     ),
-                    const SizedBox(height: AppValues.spacing16),
+                    const SizedBox(height: AppValues.spacing24),
                     const Divider(color: Color(0xFFF0EFEB), height: 1),
                     const SizedBox(height: AppValues.spacing12),
                     Row(

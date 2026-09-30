@@ -193,25 +193,28 @@ class _CameraPageState extends ConsumerState<CameraPage>
           ),
         );
       case ScanError(:final message):
-        if (message.contains('Chưa cấu hình Gemini API Key') ||
-            message.contains('API_KEY_INVALID') ||
+        final isMissingKey = message.contains('Chưa cấu hình Gemini API Key');
+        final isInvalidKey = message.contains('API_KEY_INVALID') ||
             message.contains('API key not valid') ||
             message.contains('firebasevertexai') ||
             message.contains('Firebase AI Logic API') ||
-            message.contains('disabled')) {
+            message.contains('disabled');
+            
+        if (isMissingKey || isInvalidKey) {
           showDialog(
             context: context,
             builder: (ctx) => AlertDialog(
-              title: const Row(
+              title: Row(
                 children: [
-                  Icon(Icons.vpn_key_rounded, color: AppColors.tertiary),
-                  SizedBox(width: AppValues.spacing8),
-                  Text('Cần Gemini API Key'),
+                  const Icon(Icons.vpn_key_rounded, color: AppColors.tertiary),
+                  const SizedBox(width: AppValues.spacing8),
+                  Text(isInvalidKey ? 'Gemini API Key Không Hợp Lệ' : 'Cần Gemini API Key'),
                 ],
               ),
-              content: const Text(
-                'Để quét món ăn bằng AI miễn phí (không cần thẻ tín dụng), bạn cần cài đặt Gemini API Key từ Google AI Studio (aistudio.google.com).\n\n'
-                'Bạn có thể dán Key ngay bây giờ hoặc sử dụng tính năng Nhập tay.',
+              content: Text(
+                isInvalidKey 
+                    ? 'Key API bạn đang sử dụng không hợp lệ hoặc đã hết hạn.\n\nVui lòng kiểm tra lại Key trong file .env hoặc tạo Key mới (phải bắt đầu bằng AIzaSy...) từ Google AI Studio.'
+                    : 'Để quét món ăn bằng AI miễn phí (không cần thẻ tín dụng), bạn cần cài đặt Gemini API Key từ Google AI Studio (aistudio.google.com).\n\nBạn có thể dán Key ngay bây giờ hoặc sử dụng tính năng Nhập tay.',
               ),
               actions: [
                 TextButton(

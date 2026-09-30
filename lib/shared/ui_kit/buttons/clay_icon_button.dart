@@ -7,16 +7,18 @@ import '../indicators/clay_morph_icon.dart';
 class ClayIconButton extends StatefulWidget {
   const ClayIconButton({
     super.key,
-    required this.icon,
+    this.icon,
+    this.customIcon,
     required this.onPressed,
     this.size = 44.0,
     this.backgroundColor,
     this.iconColor,
     this.borderRadius = 14.0,
     this.tooltip,
-  });
+  }) : assert(icon != null || customIcon != null, 'Must provide icon or customIcon');
 
-  final IconData icon;
+  final IconData? icon;
+  final Widget? customIcon;
   final VoidCallback? onPressed;
   final double size;
   final Color? backgroundColor;
@@ -118,8 +120,8 @@ class _ClayIconButtonState extends State<ClayIconButton> {
                   ),
                 ),
                 Center(
-                  child: ClayMorphIcon(
-                    icon: widget.icon,
+                  child: widget.customIcon ?? ClayMorphIcon(
+                    icon: widget.icon!,
                     size: widget.size * 0.5,
                     color: widget.iconColor ?? (isPrimary ? Colors.white : AppColors.onSurface),
                   ),

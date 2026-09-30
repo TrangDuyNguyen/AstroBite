@@ -32,55 +32,29 @@ class HealthConnectionPage extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  children: [
-                    Container(
-                      width: 48,
-                      height: 48,
-                      decoration: BoxDecoration(
-                        color: AppColors.claySnack,
-                        borderRadius: BorderRadius.circular(14),
-                      ),
-                      alignment: Alignment.center,
-                      child: const Text('❤️', style: TextStyle(fontSize: 26)),
-                    ),
-                    const SizedBox(width: 14),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            repo.platformName,
-                            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                                  fontWeight: FontWeight.w800,
-                                  color: AppColors.onSurface,
-                                ),
-                          ),
-                          const SizedBox(height: 4),
-                          connectionAsync.when(
-                            loading: () => const Text(
-                              'Đang kiểm tra...',
-                              style: TextStyle(color: AppColors.onSurfaceVariant, fontSize: 13),
-                            ),
-                            error: (_, __) => const Text(
-                              'Lỗi kết nối',
-                              style: TextStyle(color: AppColors.tertiary, fontSize: 13),
-                            ),
-                            data: (connected) => Text(
-                              connected ? 'Đã kết nối ✅' : 'Chưa kết nối',
-                              style: TextStyle(
-                                fontSize: 13,
-                                fontWeight: FontWeight.w700,
-                                color: connected
-                                    ? AppColors.brandGreen
-                                    : AppColors.onSurfaceVariant,
-                              ),
-                            ),
-                          ),
-                        ],
+                connectionAsync.when(
+                  loading: () => _buildHeaderRow(repo.platformName, '❤️', const Text(
+                    'Đang kiểm tra...',
+                    style: TextStyle(color: AppColors.onSurfaceVariant, fontSize: 13),
+                  )),
+                  error: (_, __) => _buildHeaderRow(repo.platformName, '⚠️', const Text(
+                    'Lỗi kết nối',
+                    style: TextStyle(color: AppColors.tertiary, fontSize: 13),
+                  )),
+                  data: (connected) => _buildHeaderRow(
+                    repo.platformName,
+                    connected ? '❤️' : '🔌',
+                    Text(
+                      connected ? 'Đã kết nối ✅' : 'Chưa có thiết bị nào kết nối',
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w700,
+                        color: connected
+                            ? AppColors.brandGreen
+                            : AppColors.onSurfaceVariant,
                       ),
                     ),
-                  ],
+                  ),
                 ),
                 const SizedBox(height: 18),
                 connectionAsync.when(
@@ -261,6 +235,41 @@ class HealthConnectionPage extends ConsumerWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildHeaderRow(String title, String icon, Widget subtitle) {
+    return Row(
+      children: [
+        Container(
+          width: 48,
+          height: 48,
+          decoration: BoxDecoration(
+            color: AppColors.claySnack,
+            borderRadius: BorderRadius.circular(14),
+          ),
+          alignment: Alignment.center,
+          child: Text(icon, style: const TextStyle(fontSize: 26)),
+        ),
+        const SizedBox(width: 14),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w800,
+                  fontSize: 16,
+                  color: AppColors.onSurface,
+                ),
+              ),
+              const SizedBox(height: 4),
+              subtitle,
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

@@ -1,9 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:astrobite/core/constants/app_values.dart';
 import 'package:astrobite/core/router/app_router.dart';
-import 'package:astrobite/core/theme/app_colors.dart';
-import 'package:astrobite/shared/widgets/glass_card.dart';
+import 'package:astrobite/shared/ui_kit/ui_kit.dart';
 
 @RoutePage()
 class OnboardingPage extends StatefulWidget {
@@ -26,9 +24,18 @@ class _OnboardingPageState extends State<OnboardingPage> {
   String _activityLevel = 'light';
   String _fitnessGoal = 'lose_weight';
 
+  late final TextEditingController _birthYearController = TextEditingController(text: _birthYear.toString());
+  late final TextEditingController _heightController = TextEditingController(text: _heightCm.round().toString());
+  late final TextEditingController _weightController = TextEditingController(text: _weightKg.toStringAsFixed(1));
+  late final TextEditingController _targetWeightController = TextEditingController(text: _targetWeightKg.toStringAsFixed(1));
+
   @override
   void dispose() {
     _pageController.dispose();
+    _birthYearController.dispose();
+    _heightController.dispose();
+    _weightController.dispose();
+    _targetWeightController.dispose();
     super.dispose();
   }
 
@@ -140,22 +147,13 @@ class _OnboardingPageState extends State<OnboardingPage> {
               child: SizedBox(
                 width: double.infinity,
                 height: 52,
-                child: FilledButton(
+                child: ClayButton(
                   onPressed: _nextStep,
-                  style: FilledButton.styleFrom(
-                    backgroundColor: AppColors.primary,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(AppValues.cardRadius),
-                    ),
-                  ),
-                  child: Text(
-                    _currentStep == 4 ? 'Xem Kế Hoạch Cá Nhân' : 'Tiếp tục',
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
+                  text: _currentStep == 4 ? 'Xem Kế Hoạch Cá Nhân' : 'Tiếp tục',
+                  height: 52,
+                  width: double.infinity,
+                  borderRadius: 22,
+                  variant: ClayButtonVariant.primary,
                 ),
               ),
             ),
@@ -268,55 +266,43 @@ class _OnboardingPageState extends State<OnboardingPage> {
             style: TextStyle(fontSize: 14, color: AppColors.onSurfaceVariant),
           ),
           const SizedBox(height: AppValues.spacing32),
-          GlassCard(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text('Năm sinh', style: TextStyle(color: AppColors.onSurfaceVariant)),
-                    Text(
-                      '$_birthYear (${DateTime.now().year - _birthYear} tuổi)',
-                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.onSurface),
-                    ),
-                  ],
-                ),
-                Slider(
-                  value: _birthYear.toDouble(),
-                  min: 1950,
-                  max: DateTime.now().year.toDouble() - 10,
-                  divisions: DateTime.now().year - 1960,
-                  activeColor: AppColors.primary,
-                  onChanged: (v) => setState(() => _birthYear = v.round()),
-                ),
-              ],
+          ClayCard(
+            padding: const EdgeInsets.all(AppValues.spacing16),
+            elevation: 4.0,
+            borderRadius: AppValues.cardRadiusLarge,
+            child: ClayTextField(
+              controller: _birthYearController,
+              labelText: 'Năm sinh',
+              keyboardType: TextInputType.number,
+              prefixIcon: const Icon(Icons.cake_outlined, color: AppColors.onSurfaceVariant),
+              suffixIcon: Padding(
+                padding: const EdgeInsets.only(top: 14, right: 16),
+                child: Text('(${DateTime.now().year - _birthYear} tuổi)', style: const TextStyle(color: AppColors.primary, fontWeight: FontWeight.bold, fontSize: 16)),
+              ),
+              onChanged: (v) {
+                final val = int.tryParse(v);
+                if (val != null) setState(() => _birthYear = val);
+              },
             ),
           ),
           const SizedBox(height: AppValues.spacing16),
-          GlassCard(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text('Chiều cao', style: TextStyle(color: AppColors.onSurfaceVariant)),
-                    Text(
-                      '${_heightCm.round()} cm',
-                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.primary),
-                    ),
-                  ],
-                ),
-                Slider(
-                  value: _heightCm,
-                  min: 120,
-                  max: 220,
-                  divisions: 100,
-                  activeColor: AppColors.primary,
-                  onChanged: (v) => setState(() => _heightCm = v),
-                ),
-              ],
+          ClayCard(
+            padding: const EdgeInsets.all(AppValues.spacing16),
+            elevation: 4.0,
+            borderRadius: AppValues.cardRadiusLarge,
+            child: ClayTextField(
+              controller: _heightController,
+              labelText: 'Chiều cao',
+              keyboardType: TextInputType.number,
+              prefixIcon: const Icon(Icons.height_outlined, color: AppColors.onSurfaceVariant),
+              suffixIcon: const Padding(
+                padding: EdgeInsets.only(top: 14, right: 16),
+                child: Text('cm', style: TextStyle(color: AppColors.onSurfaceVariant, fontSize: 16)),
+              ),
+              onChanged: (v) {
+                final val = double.tryParse(v);
+                if (val != null) setState(() => _heightCm = val);
+              },
             ),
           ),
         ],
@@ -365,55 +351,43 @@ class _OnboardingPageState extends State<OnboardingPage> {
             style: const TextStyle(fontSize: 14, color: AppColors.primary, fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: AppValues.spacing24),
-          GlassCard(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text('Cân nặng hiện tại', style: TextStyle(color: AppColors.onSurfaceVariant)),
-                    Text(
-                      '${_weightKg.toStringAsFixed(1)} kg',
-                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.onSurface),
-                    ),
-                  ],
-                ),
-                Slider(
-                  value: _weightKg,
-                  min: 35,
-                  max: 180,
-                  divisions: 290,
-                  activeColor: AppColors.primary,
-                  onChanged: (v) => setState(() => _weightKg = v),
-                ),
-              ],
+          ClayCard(
+            padding: const EdgeInsets.all(AppValues.spacing16),
+            elevation: 4.0,
+            borderRadius: AppValues.cardRadiusLarge,
+            child: ClayTextField(
+              controller: _weightController,
+              labelText: 'Cân nặng hiện tại',
+              keyboardType: const TextInputType.numberWithOptions(decimal: true),
+              prefixIcon: const Icon(Icons.monitor_weight_outlined, color: AppColors.onSurfaceVariant),
+              suffixIcon: const Padding(
+                padding: EdgeInsets.only(top: 14, right: 16),
+                child: Text('kg', style: TextStyle(color: AppColors.onSurfaceVariant, fontSize: 16)),
+              ),
+              onChanged: (v) {
+                final val = double.tryParse(v);
+                if (val != null) setState(() => _weightKg = val);
+              },
             ),
           ),
           const SizedBox(height: AppValues.spacing16),
-          GlassCard(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text('Cân nặng mục tiêu', style: TextStyle(color: AppColors.onSurfaceVariant)),
-                    Text(
-                      '${_targetWeightKg.toStringAsFixed(1)} kg',
-                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.tertiary),
-                    ),
-                  ],
-                ),
-                Slider(
-                  value: _targetWeightKg,
-                  min: 35,
-                  max: 180,
-                  divisions: 290,
-                  activeColor: AppColors.tertiary,
-                  onChanged: (v) => setState(() => _targetWeightKg = v),
-                ),
-              ],
+          ClayCard(
+            padding: const EdgeInsets.all(AppValues.spacing16),
+            elevation: 4.0,
+            borderRadius: AppValues.cardRadiusLarge,
+            child: ClayTextField(
+              controller: _targetWeightController,
+              labelText: 'Cân nặng mục tiêu',
+              keyboardType: const TextInputType.numberWithOptions(decimal: true),
+              prefixIcon: const Icon(Icons.flag_outlined, color: AppColors.onSurfaceVariant),
+              suffixIcon: const Padding(
+                padding: EdgeInsets.only(top: 14, right: 16),
+                child: Text('kg', style: TextStyle(color: AppColors.onSurfaceVariant, fontSize: 16)),
+              ),
+              onChanged: (v) {
+                final val = double.tryParse(v);
+                if (val != null) setState(() => _targetWeightKg = val);
+              },
             ),
           ),
         ],

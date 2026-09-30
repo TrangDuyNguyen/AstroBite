@@ -65,6 +65,34 @@ class ProfilePage extends ConsumerWidget {
           children: [
             const SizedBox(height: AppValues.spacing8),
 
+            // Offline Banner
+            if (profileAsync.hasError && profileAsync.hasValue)
+              Container(
+                margin: const EdgeInsets.only(bottom: AppValues.spacing16),
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: AppColors.clayBreakfast,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: AppColors.tertiary.withValues(alpha: 0.3)),
+                ),
+                child: Row(
+                  children: [
+                    const Icon(Icons.wifi_off_rounded, color: AppColors.tertiary, size: 20),
+                    const SizedBox(width: 8),
+                    const Expanded(
+                      child: Text(
+                        'Đang xem dữ liệu ngoại tuyến',
+                        style: TextStyle(
+                          color: AppColors.onSurface,
+                          fontSize: 13,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
             // 1. Hero Profile Clay Card
             ClayCard(
               borderRadius: 22,
@@ -184,7 +212,7 @@ class ProfilePage extends ConsumerWidget {
                     borderRadius: 16,
                     variant: ClayButtonVariant.outline,
                     icon: const Icon(Icons.tune_rounded, size: 16, color: AppColors.onSurface),
-                    onPressed: () => context.router.push(const ProfileEditRoute()),
+                    onPressed: profileAsync.hasError ? null : () => context.router.push(const ProfileEditRoute()),
                   ),
                 ],
               ),
@@ -216,16 +244,16 @@ class ProfilePage extends ConsumerWidget {
                             ),
                       ),
                       InkWell(
-                        onTap: () => context.router.push(const ProfileEditRoute()),
+                        onTap: profileAsync.hasError ? null : () => context.router.push(const ProfileEditRoute()),
                         borderRadius: BorderRadius.circular(8),
-                        child: const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                           child: Text(
                             'Sửa',
                             style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w700,
-                              color: AppColors.primary,
+                              color: profileAsync.hasError ? AppColors.onSurfaceVariant : AppColors.primary,
                             ),
                           ),
                         ),

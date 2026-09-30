@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'app_colors.dart';
-
 /// AstroBite Material 3 theme configuration.
 /// Solar Fresh × Duolingo 2D Theme mapped to M3 ColorScheme.
 abstract final class AppTheme {
@@ -72,6 +72,11 @@ abstract final class AppTheme {
         surfaceTintColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
+        systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.dark, // Android (dark icons)
+          statusBarBrightness: Brightness.light, // iOS (dark icons)
+        ),
         titleTextStyle: GoogleFonts.inter(
           fontSize: 18,
           fontWeight: FontWeight.w700,

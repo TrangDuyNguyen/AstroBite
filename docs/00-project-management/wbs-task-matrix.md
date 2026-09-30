@@ -6,6 +6,24 @@
 
 ---
 
+## 🏗️ 1. Bảng Ma Trận Phân Rã WBS Sprint 15 (v2.4.0 FTUX & Identity — Active)
+
+### EPIC-UI-REFRESH: First Impression & Identity (`FEAT-S15` — 11 SP)
+
+| Mã Task | Feature / Epic | Cổng Chất Lượng | Mô Tả Nhiệm Vụ Kỹ Thuật | Sub-Agent Đảm Nhiệm | SP | Phụ Thuộc | Trạng Thái |
+| :--- | :--- | :---: | :--- | :---: | :---: | :---: | :---: |
+| **`TSK-S15-SPIKE`** | Kiến trúc FTUX | **Gate 0** | Tech Lead: Spike kiến trúc tích hợp `ClayCard` cho luồng Auth & Onboarding | `tech-lead` | 1 | None | 🟢 **Gate 0 Approved** |
+| **`TSK-S15-PRD`** | `prd-s15.md` | **Gate 1** | BA: Soạn PRD & User Stories BDD; PO ký Gate 1 Sign-Off | `business-analyst` | 1 | TSK-S15-SPIKE | 🟢 **Gate 1 Approved** |
+| **`TSK-S15-DESIGN`** | `ui-ux-design.md`| **Gate 2** | UI/UX Designer: Layout Blueprint lưới 4pt, 5 trạng thái Auth & Profile | `ui-ux-designer` | 1 | TSK-S15-PRD | 🟢 **Gate 2 Approved** |
+| **`TSK-S15-TEST-PLAN`**| `gate-3-test.md` | **Gate 3** | QA Tester: Thiết kế Master Test Plan, Manual TCs | `qa-tester` | 1 | TSK-S15-DESIGN | 🟢 **Gate 3 Approved** |
+| **`TSK-S15-AUTH`** | `auth_page.dart` | **Gate 4** | Dev FE: Nâng cấp UI Đăng nhập/Đăng ký với `ClayCard` & Duolingo buttons | `flutter-core-dev` | 3 | TSK-S15-TEST-PLAN | 🟢 **Gate 4 Auth Done** |
+| **`TSK-S15-ONBOARD`** | `onboarding.dart`| **Gate 4** | Dev FE: Luồng thiết lập BMR/TDEE, GoalSummaryPage | `flutter-core-dev` | 4 | TSK-S15-TEST-PLAN | 🟢 **Gate 4 Onboard Done** |
+| **`TSK-S15-PROFILE`** | `profile_page.dart`| **Gate 4** | Dev FE: ProfilePage, HealthConnectionPage UI refresh | `flutter-core-dev` | 3 | TSK-S15-TEST-PLAN | 🟢 **Gate 4 Profile Done** |
+| **`TSK-S15-REVIEW`** | Quality Gate | **Gate 5** | Reviewer: Ponytail Diff Review, triệt tiêu code rác | `code-reviewer` | - | Gate 4 | 🟢 **Gate 5 Approved** |
+| **`TSK-S15-QA-VERIFY`**| Quality Gate | **Gate 6** | QA Tester: Automated Test Suite pass 100%, 0 memory leak | `qa-tester` | - | Gate 5 | 🟢 **Gate 6 Signed Off** |
+| **`TSK-S15-RELEASE`** | Milestone | **Gate 7** | PO & PM nghiệm thu toàn diện, phát hành `v2.4.0` | `product-owner` & `project-manager` | - | Gate 6 | 🟢 **Gate 7 Released** |
+
+
 ## 🏗️ 1. Bảng Ma Trận Phân Rã WBS Sprint 10 (v1.9.0 Custom Recipes & Meal Planning — Active)
 
 ### EPIC-12: Custom Recipes & Meal Planning Architecture (`FEAT-17` — 14 SP)

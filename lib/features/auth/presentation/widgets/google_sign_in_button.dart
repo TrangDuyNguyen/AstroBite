@@ -133,7 +133,7 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
                                   width: 20,
                                   height: 20,
                                   child: CustomPaint(
-                                    painter: _GoogleLogoPainter(),
+                                    painter: GoogleLogoPainter(),
                                   ),
                                 ),
                                 const SizedBox(width: AppValues.spacing12),
@@ -161,8 +161,8 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
 }
 
 /// Official 4-color Google "G" logo vector painter.
-class _GoogleLogoPainter extends CustomPainter {
-  const _GoogleLogoPainter();
+class GoogleLogoPainter extends CustomPainter {
+  const GoogleLogoPainter();
 
   @override
   void paint(Canvas canvas, Size size) {

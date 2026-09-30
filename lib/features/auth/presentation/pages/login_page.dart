@@ -437,9 +437,26 @@ class _LoginPageState extends ConsumerState<LoginPage>
                                   ],
                                 ),
                                 const SizedBox(height: AppValues.spacing20),
-                                GoogleSignInButton(
-                                  isLoading: loginState.isLoading,
-                                  onPressed: _handleGoogleLogin,
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    ClayIconButton(
+                                      size: 56.0,
+                                      customIcon: const SizedBox(
+                                        width: 24,
+                                        height: 24,
+                                        child: CustomPaint(painter: GoogleLogoPainter()),
+                                      ),
+                                      onPressed: loginState.isLoading ? null : _handleGoogleLogin,
+                                    ),
+                                    const SizedBox(width: AppValues.spacing16),
+                                    ClayIconButton(
+                                      size: 56.0,
+                                      icon: Icons.apple,
+                                      iconColor: Colors.black,
+                                      onPressed: loginState.isLoading ? null : () {},
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
