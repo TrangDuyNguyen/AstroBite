@@ -1,4 +1,4 @@
-# Release Notes — AstroBite v2.4.0 (Sprint 15)
+# Release Notes — AstroBite v2.5.2 (Sprint 15)
 
 - **Release Date**: 30/09/2026
 - **Epic**: `EPIC-UI-REFRESH` (First Impression & Identity)

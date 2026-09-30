@@ -1,7 +1,7 @@
 # 🛡️ Gate 1 Sign-Off Dossier: Sprint 15 — FTUX & Identity
 
 - **Feature / Epic**: `FEAT-S15-FTUX` / `EPIC-UI-REFRESH`
-- **Phiên bản**: `v2.4.0`
+- **Phiên bản**: `v2.5.2`
 - **Ngày đệ trình**: 2026-09-30
 - **Ngày phê duyệt**: 2026-09-30
 

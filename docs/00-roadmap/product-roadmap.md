@@ -3,7 +3,7 @@
 - **Quản lý bởi**: Sub-Agent Product Owner (PO)
 - **Phiên bản hiện tại**: v2.0.0 (Sprint 11 Completed)
 - **Cập nhật lần cuối**: 2026-09-27
-- **Tình trạng tổng thể**: 🟡 Sprint 15 IN PROGRESS — First Impression & Identity (Auth, Onboarding, Profile) (v2.4.0)
+- **Tình trạng tổng thể**: 🟡 Sprint 15 IN PROGRESS — First Impression & Identity (Auth, Onboarding, Profile) (v2.5.2)
 
 ---
 
@@ -129,5 +129,5 @@
 | **v2.1.0** | **100%** 🟢 DONE | EPIC-UI-REFRESH Sprint 12 — Foundation & UI Kit Reset | 27/09/2026 | Sub-Agent PO & PM |
 | **v2.2.0** | **100%** 🟢 DONE | EPIC-UI-REFRESH Sprint 13 — Core Daily Loop (Shell, Home, Log, Detail) | 27/09/2026 | Sub-Agent PO & PM |
 | **v2.3.0** | **100%** 🟢 DONE | EPIC-UI-REFRESH Sprint 14 — AI Experience (Camera AR, Review, Coach) | 29/09/2026 | Sub-Agent PO & PM |
-| **v2.4.0** | **⚡ IN PROGRESS** | EPIC-UI-REFRESH Sprint 15 — FTUX & Identity (Auth, Onboarding, Profile) | 21/11/2026 | Sub-Agent PO |
+| **v2.5.2** | **⚡ IN PROGRESS** | EPIC-UI-REFRESH Sprint 15 — FTUX & Identity (Auth, Onboarding, Profile) | 21/11/2026 | Sub-Agent PO |
 | **v2.5.0** | **0%** | EPIC-UI-REFRESH Sprint 16 — Deep Features (Analytics, Recipes, Meal Plan) | 05/12/2026 | Sub-Agent PO |

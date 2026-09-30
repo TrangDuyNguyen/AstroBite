@@ -6,7 +6,7 @@
 
 ---
 
-## 🏗️ 1. Bảng Ma Trận Phân Rã WBS Sprint 15 (v2.4.0 FTUX & Identity — Active)
+## 🏗️ 1. Bảng Ma Trận Phân Rã WBS Sprint 15 (v2.5.2 FTUX & Identity — Active)
 
 ### EPIC-UI-REFRESH: First Impression & Identity (`FEAT-S15` — 11 SP)
 
@@ -21,7 +21,7 @@
 | **`TSK-S15-PROFILE`** | `profile_page.dart`| **Gate 4** | Dev FE: ProfilePage, HealthConnectionPage UI refresh | `flutter-core-dev` | 3 | TSK-S15-TEST-PLAN | 🟢 **Gate 4 Profile Done** |
 | **`TSK-S15-REVIEW`** | Quality Gate | **Gate 5** | Reviewer: Ponytail Diff Review, triệt tiêu code rác | `code-reviewer` | - | Gate 4 | 🟢 **Gate 5 Approved** |
 | **`TSK-S15-QA-VERIFY`**| Quality Gate | **Gate 6** | QA Tester: Automated Test Suite pass 100%, 0 memory leak | `qa-tester` | - | Gate 5 | 🟢 **Gate 6 Signed Off** |
-| **`TSK-S15-RELEASE`** | Milestone | **Gate 7** | PO & PM nghiệm thu toàn diện, phát hành `v2.4.0` | `product-owner` & `project-manager` | - | Gate 6 | 🟢 **Gate 7 Released** |
+| **`TSK-S15-RELEASE`** | Milestone | **Gate 7** | PO & PM nghiệm thu toàn diện, phát hành `v2.5.2` | `product-owner` & `project-manager` | - | Gate 6 | 🟢 **Gate 7 Released** |
 
 
 ## 🏗️ 1. Bảng Ma Trận Phân Rã WBS Sprint 10 (v1.9.0 Custom Recipes & Meal Planning — Active)

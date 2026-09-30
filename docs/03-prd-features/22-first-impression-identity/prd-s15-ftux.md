@@ -2,7 +2,7 @@
 
 - **Feature Code**: `FEAT-S15-FTUX`
 - **Epic**: `EPIC-UI-REFRESH` (Solar Fresh × Duolingo 2D/3D Claymorphic)
-- **Sprint**: Sprint 15 (`v2.4.0`)
+- **Sprint**: Sprint 15 (`v2.5.2`)
 - **Author**: Sub-Agent Business Analyst (`business-analyst`) — *"The Pedantic Logician"*
 - **Reviewer**: Sub-Agent Product Owner (`product-owner`) & Sub-Agent Tech Lead (`tech-lead`)
 - **Status**: 🟡 **Gate 1 SUBMITTED FOR PO SIGN-OFF**

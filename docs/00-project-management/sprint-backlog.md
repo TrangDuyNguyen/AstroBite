@@ -4,7 +4,7 @@
 - **Sprint hiện tại**: Sprint 15
 - **Tên Sprint**: First Impression & Identity (Auth, Onboarding, Profile)
 - **Mã Epic / Feature**: `EPIC-UI-REFRESH` / `FEAT-S15-FTUX`
-- **Phiên bản mục tiêu**: `v2.4.0`
+- **Phiên bản mục tiêu**: `v2.5.2`
 - **Thời gian Sprint**: 30/09/2026 – 14/10/2026
 - **Trạng thái Sprint**: 🏁 **DONE**
 - **Tổng Story Points cam kết**: **14 SP** (Tiến độ: **14 / 14 SP — 100%**)
@@ -43,7 +43,7 @@
 | `TSK-S15-PROFILE` | `profile_page.dart` | **G4** | Dev FE: ProfilePage, HealthConnectionPage | `flutter-core-dev` | 3 | 🟢 **DONE** |
 | `TSK-S15-04-REVIEW` | Git diff Sprint 15 | **G5** | Reviewer: Ponytail Diff Review | `code-reviewer` | - | 🟢 **DONE** |
 | `TSK-S15-05-QA-VERIFY` | Automated Test Suite | **G6** | QA Tester: Test pass 100%, FPS $\ge 55$, 0 memory leak | `qa-tester` | - | 🟢 **DONE** |
-| `TSK-S15-06-RELEASE` | Tag release `v2.4.0` | **G7** | PO, Tech Lead & PM: Thông cáo phát hành | `product-owner` | - | 🟢 **DONE** |
+| `TSK-S15-06-RELEASE` | Tag release `v2.5.2` | **G7** | PO, Tech Lead & PM: Thông cáo phát hành | `product-owner` | - | 🟢 **DONE** |
 
 ---
 
@@ -52,7 +52,7 @@
 - [x] `flutter analyze` 0 lỗi, 0 cảnh báo.
 - [x] `flutter test` pass 100%.
 - [x] Các màn hình Auth, Onboarding, Profile hiển thị đúng chuẩn Claymorphic Celestial.
-- [x] QA Gate 6 và Security Auditor Gate 6.5 ký duyệt release `v2.4.0`.
+- [x] QA Gate 6 và Security Auditor Gate 6.5 ký duyệt release `v2.5.2`.
 
 ---
 
@@ -63,17 +63,17 @@
 | **S12** | v2.1.0 | **Foundation & UI Kit Core** | 10 SP | `lib/shared/ui_kit/*` | 🟢 **DONE** |
 | **S13** | v2.2.0 | **Core Daily Loop (Navigation & Tracker)** | 10 SP | `ShellScreen`, `HomePage`, `ManualEntryPage` | 🟢 **DONE** |
 | **S14** | v2.3.0 | **High-Value AI Experience (Scanner & Coach)** | 10 SP | `CameraPage`, `ScanReviewPage`, `CoachPage` | 🟢 **DONE** |
-| **S15** | v2.4.0 | **First Impression & Identity (Auth & Profile)** | 14 SP | `GoalSummaryPage`, `ProfilePage`, `ProfileEditPage` | 🟢 **DONE** |
+| **S15** | v2.5.2 | **First Impression & Identity (Auth & Profile)** | 14 SP | `GoalSummaryPage`, `ProfilePage`, `ProfileEditPage` | 🟢 **DONE** |
 | **S16** | v2.5.0 | **Deep Domain, Analytics & OS Widgets** | 9 SP | `AnalyticsPage`, `CalorieTrendChart` | ⏳ Queued |
 
 ---
 
 ## 🏛️ Lịch Sử Các Sprint Đã Hoàn Thành (Sprint Archive)
 
-### 🟢 Sprint 15 — AstroBite v2.4.0 First Impression & Identity (Hoàn tất 30/09/2026)
+### 🟢 Sprint 15 — AstroBite v2.5.2 First Impression & Identity (Hoàn tất 30/09/2026)
 - **Mục tiêu**: Nâng cấp trải nghiệm FTUX (First Time User Experience), Auth, Onboarding, và Profile với UI Kit `ClayCard` và nút bấm Duolingo.
 - **Kết quả**: **14 / 14 SP (100% Passed)** — 242/242 tests pass, `flutter analyze` 0 issues.
-- **Biên bản phát hành**: `docs/05-change-management/release-v2.4.0.md`
+- **Biên bản phát hành**: `docs/05-change-management/release-v2.5.2.md`
 
 ### 🟢 Sprint 14 — AstroBite v2.3.0 High-Value AI Experience (Hoàn tất 29/09/2026)
 - **Mục tiêu**: Nâng cấp `CameraPage` (Viewfinder bo góc 24pt, nút Shutter 3D tactile squash 0.92, haptic feedback), `ScanReviewPage` (ClaySheet, ChunkyMacroBar, ClayMealChip, nút lưu 3D Duolingo), `CoachPage` (bong bóng ClayCard, GenUI 1-Tap Log < 150ms).
