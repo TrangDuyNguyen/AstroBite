@@ -8,6 +8,7 @@ import '../../domain/analytics_providers.dart';
 import '../widgets/calorie_trend_chart.dart';
 import '../widgets/weight_trend_chart.dart';
 import '../../../health/presentation/widgets/health_cards.dart';
+import 'package:astrobite/core/services/share_image_service.dart';
 
 @RoutePage()
 class AnalyticsPage extends ConsumerStatefulWidget {
@@ -19,6 +20,7 @@ class AnalyticsPage extends ConsumerStatefulWidget {
 
 class _AnalyticsPageState extends ConsumerState<AnalyticsPage> {
   int _days = 7;
+  final GlobalKey _globalKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -43,14 +45,24 @@ class _AnalyticsPageState extends ConsumerState<AnalyticsPage> {
 
     return Scaffold(
       backgroundColor: AppColors.surface,
-      appBar: const ClayAppBar(
+      appBar: ClayAppBar(
         title: AppStrings.analytics,
         centerTitle: true,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.ios_share, color: AppColors.primary),
+            onPressed: () => ShareImageService.captureAndShare(_globalKey),
+          ),
+        ],
       ),
       body: SafeArea(
         bottom: false,
-        child: ListView(
-          padding: const EdgeInsets.symmetric(horizontal: AppValues.screenPadding),
+        child: RepaintBoundary(
+          key: _globalKey,
+          child: Container(
+            color: AppColors.surface,
+            child: ListView(
+              padding: const EdgeInsets.symmetric(horizontal: AppValues.screenPadding),
           children: [
             const SizedBox(height: AppValues.spacing8),
 
@@ -401,7 +413,9 @@ class _AnalyticsPageState extends ConsumerState<AnalyticsPage> {
           ],
         ),
       ),
-    );
+    ),
+  ),
+);
   }
 
   Widget _buildKpiCard({

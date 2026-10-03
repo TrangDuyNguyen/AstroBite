@@ -22,6 +22,7 @@ import '../../features/health/presentation/health_connection_page.dart';
 import '../../features/recipes/presentation/pages/recipe_builder_page.dart';
 import '../../features/recipes/presentation/pages/recipes_page.dart';
 import '../../features/recipes/presentation/pages/meal_planner_page.dart';
+import '../../features/social/presentation/pages/leaderboard_page.dart';
 import '../../shared/ui_kit/ui_kit.dart';
 
 part 'app_router.gr.dart';
@@ -53,6 +54,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: RecipesRoute.page),
     AutoRoute(page: RecipeBuilderRoute.page),
     AutoRoute(page: MealPlannerRoute.page),
+    AutoRoute(page: LeaderboardRoute.page),
   ];
 }
 

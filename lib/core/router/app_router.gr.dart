@@ -173,6 +173,22 @@ class HomeRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [LeaderboardPage]
+class LeaderboardRoute extends PageRouteInfo<void> {
+  const LeaderboardRoute({List<PageRouteInfo>? children})
+    : super(LeaderboardRoute.name, initialChildren: children);
+
+  static const String name = 'LeaderboardRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const LeaderboardPage();
+    },
+  );
+}
+
+/// generated route for
 /// [LoginPage]
 class LoginRoute extends PageRouteInfo<void> {
   const LoginRoute({List<PageRouteInfo>? children})

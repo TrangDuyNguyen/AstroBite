@@ -196,6 +196,48 @@ class DashboardAppBar extends ConsumerWidget implements PreferredSizeWidget {
             ),
           ),
         ),
+        Padding(
+          padding: const EdgeInsets.only(right: 6.0),
+          child: Tooltip(
+            message: 'Bảng xếp hạng',
+            child: InkWell(
+              onTap: () => context.router.push(const LeaderboardRoute()),
+              borderRadius: BorderRadius.circular(14),
+              child: Container(
+                width: 38,
+                height: 38,
+                decoration: BoxDecoration(
+                  color: AppColors.surfaceContainer,
+                  gradient: const LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [Colors.white, Color(0xFFFAF7F2)],
+                  ),
+                  borderRadius: BorderRadius.circular(14),
+                  border: Border.all(
+                    color: AppColors.outline.withValues(alpha: 0.5),
+                    width: 1.2,
+                  ),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Color(0x121E2337),
+                      offset: Offset(0, 2.5),
+                      blurRadius: 0,
+                    ),
+                    BoxShadow(
+                      color: Color(0x0A000000),
+                      offset: Offset(0, 4),
+                      blurRadius: 8,
+                    ),
+                  ],
+                ),
+                child: const Center(
+                  child: Text('🏆', style: TextStyle(fontSize: 18)),
+                ),
+              ),
+            ),
+          ),
+        ),
         const Center(child: CosmicStreakBadge()),
         const SizedBox(width: AppValues.screenPadding),
       ],

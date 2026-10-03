@@ -2,11 +2,47 @@
 
 - **Quản lý bởi**: Sub-Agent Project Manager (PM) & Sub-Agent Product Owner (PO)
 - **Ánh xạ quy trình**: 8-Gate Delivery Flow (Tech Spike ➔ BA ➔ UI/UX Designer ➔ QA ➔ Dev FE ➔ Code Review ➔ Verification ➔ Release)
-- **Cập nhật lần cuối**: 2026-09-25
+- **Cập nhật lần cuối**: 2026-10-04
 
 ---
 
-## 🏗️ 1. Bảng Ma Trận Phân Rã WBS Sprint 15 (v2.5.2 FTUX & Identity — Active)
+## 🏗️ 1. Bảng Ma Trận Phân Rã WBS Sprint 17 (v2.7.0 Social & Leaderboard — Active)
+
+### EPIC-COMMUNITY: Social Accountability & Astro Leaderboard (`FEAT-S17-SOCIAL` — 11 SP)
+
+| Mã Task | Feature / Epic | Cổng Chất Lượng | Mô Tả Nhiệm Vụ Kỹ Thuật | Sub-Agent Đảm Nhiệm | SP | Phụ Thuộc | Trạng Thái |
+| :--- | :--- | :---: | :--- | :---: | :---: | :---: | :---: |
+| **`TSK-S17-SPIKE`** | Kiến trúc Share UI | **Gate 0** | Tech Lead: Khảo sát kiến trúc `RepaintBoundary` chuyển Widget thành Image và Cloud Functions | `tech-lead` | 1 | None | 🟢 **Gate 0 Approved** |
+| **`TSK-S17-PRD`** | `prd-s17.md` | **Gate 1** | BA: Soạn PRD BDD Social Share & Leaderboard | `business-analyst` | 1 | TSK-S17-SPIKE | 🟢 **Gate 1 Approved** |
+| **`TSK-S17-DESIGN`** | `ui-ux-design.md`| **Gate 2** | UI/UX Designer: Layout Blueprint cho Share Card và Bảng Xếp Hạng | `ui-ux-designer` | 2 | TSK-S17-PRD | 🟢 **Gate 2 Approved** |
+| **`TSK-S17-TEST-PLAN`**| `gate-3-test.md` | **Gate 3** | QA Tester: Test Plan cho các Permission thư viện ảnh, Edge cases bạn bè | `qa-tester` | 1 | TSK-S17-DESIGN | 🟢 **Gate 3 Approved** |
+| **`TSK-S17-RANKING`**| `leaderboard.dart`| **Gate 4** | Dev FE: Xây dựng UI Leaderboard kết nối Firestore Stream | `flutter-core-dev` | 3 | TSK-S17-TEST-PLAN | 🟢 **Gate 4 Ranking Done** |
+| **`TSK-S17-SHARE`** | `share_service` | **Gate 4** | Dev Native: Tích hợp `path_provider`, `share_plus` xuất ảnh Native | `flutter-native-dev` | 3 | TSK-S17-TEST-PLAN | 🟢 **Gate 4 Share Done** |
+| **`TSK-S17-REVIEW`** | Quality Gate | **Gate 5** | Reviewer: Ponytail Diff Review | `code-reviewer` | - | Gate 4 | 🟢 **Gate 5 Approved** |
+| **`TSK-S17-QA-VERIFY`**| Quality Gate | **Gate 6** | QA Tester: Test pass 100%, check Share Native dialog | `qa-tester` | - | Gate 5 | 🟢 **Gate 6 Signed Off** |
+| **`TSK-S17-RELEASE`** | Milestone | **Gate 7** | PO & PM nghiệm thu, phát hành `v2.7.0` | `product-owner` | - | Gate 6 | 🟢 **Gate 7 Released** |
+
+---
+
+## 🏛️ 2. Lưu Trữ Ma Trận Phân Rã WBS Sprint 16 (v2.6.0 Analytics & OS Widgets — 100% Done)
+
+### EPIC-ANALYTICS: Deep Domain, Analytics & OS Widgets (`FEAT-S16-WIDGETS` — 9 SP)
+
+| Mã Task | Feature / Epic | Cổng Chất Lượng | Mô Tả Nhiệm Vụ Kỹ Thuật | Sub-Agent Đảm Nhiệm | SP | Phụ Thuộc | Trạng Thái |
+| :--- | :--- | :---: | :--- | :---: | :---: | :---: | :---: |
+| **`TSK-S16-SPIKE`** | Kiến trúc Analytics | **Gate 0** | Tech Lead: Spike kiến trúc FL Chart `RepaintBoundary` & Native Widget Channel | `tech-lead` | 1 | None | 🟢 **Gate 0 Approved** |
+| **`TSK-S16-PRD`** | `prd-s16.md` | **Gate 1** | BA: Soạn PRD & User Stories BDD Analytics; PO ký Gate 1 Sign-Off | `business-analyst` | 1 | TSK-S16-SPIKE | 🟢 **Gate 1 Approved** |
+| **`TSK-S16-DESIGN`** | `ui-ux-design.md`| **Gate 2** | UI/UX Designer: Layout Blueprint 4pt cho biểu đồ & Mockup Native Widget | `ui-ux-designer` | 1 | TSK-S16-PRD | 🟢 **Gate 2 Approved** |
+| **`TSK-S16-TEST-PLAN`**| `gate-3-test.md` | **Gate 3** | QA Tester: Thiết kế Master Test Plan, kịch bản test cuộn FPS | `qa-tester` | 1 | TSK-S16-DESIGN | 🟢 **Gate 3 Approved** |
+| **`TSK-S16-ANALYTICS`**| `analytics_page.dart`| **Gate 4** | Dev FE: Xây dựng biểu đồ `CalorieTrendChart`, `WeightTrendChart` | `flutter-core-dev` | 3 | TSK-S16-TEST-PLAN | 🟢 **Gate 4 Analytics Done** |
+| **`TSK-S16-WIDGET`** | `home_widget` | **Gate 4** | Dev Native: Tích hợp Native Widget (Android AppWidget / iOS WidgetKit) | `flutter-native-dev` | 2 | TSK-S16-TEST-PLAN | 🟢 **Gate 4 Widget Done** |
+| **`TSK-S16-REVIEW`** | Quality Gate | **Gate 5** | Reviewer: Ponytail Diff Review, cắt code rác | `code-reviewer` | - | Gate 4 | 🟢 **Gate 5 Approved** |
+| **`TSK-S16-QA-VERIFY`**| Quality Gate | **Gate 6** | QA Tester: Test pass 100%, 60 FPS | `qa-tester` | - | Gate 5 | 🟢 **Gate 6 Signed Off** |
+| **`TSK-S16-RELEASE`** | Milestone | **Gate 7** | PO & PM nghiệm thu toàn diện, phát hành `v2.6.0` | `product-owner` & `project-manager` | - | Gate 6 | 🟢 **Gate 7 Released** |
+
+---
+
+## 🏛️ 2. Lưu Trữ Ma Trận Phân Rã WBS Sprint 15 (v2.5.2 FTUX & Identity — 100% Done)
 
 ### EPIC-UI-REFRESH: First Impression & Identity (`FEAT-S15` — 11 SP)
 

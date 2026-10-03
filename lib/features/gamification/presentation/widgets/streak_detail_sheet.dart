@@ -1,5 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:astrobite/core/router/app_router.dart';
 import 'package:astrobite/shared/ui_kit/ui_kit.dart';
 import '../../domain/streak_record.dart';
 
@@ -298,7 +300,19 @@ class StreakDetailSheet extends StatelessWidget {
               ),
               const SizedBox(height: AppValues.spacing16),
 
-              // 9. Primary Action Button
+              // 9. Leaderboard Button
+              ClayButton(
+                text: '🏆 Bảng Xếp Hạng Bạn Bè',
+                variant: ClayButtonVariant.primary,
+                width: double.infinity,
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  context.router.push(const LeaderboardRoute());
+                },
+              ),
+              const SizedBox(height: AppValues.spacing12),
+
+              // 10. Primary Action Button
               ClayButton(
                 text: 'Tiếp Tục Kỷ Luật',
                 width: double.infinity,
