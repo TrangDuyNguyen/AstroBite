@@ -133,6 +133,7 @@
 | **v2.6.0** | **100%** 🟢 DONE | EPIC-UI-REFRESH Sprint 16 — Deep Features (Analytics & Mobile Widgets) | 03/10/2026 | Sub-Agent PO & PM |
 | **v2.7.0** | **100%** 🟢 DONE | EPIC-COMMUNITY Sprint 17 — Social Accountability & Leaderboard (Phase 1) | 04/10/2026 | Sub-Agent PO & PM |
 | **v2.8.0** | **100%** 🟢 DONE | EPIC-COMMUNITY Sprint 18 — Live Social Sync & Streak Nudge (Phase 2) | 04/10/2026 | Sub-Agent PO & PM |
-| **v2.9.0** | **8%** (1/13 SP) 🟡 IN PROGRESS | EPIC-GLOBAL Sprint 19 — Multi-Region Food Culture Intelligence (Broth & Topping Engine) | 19/10/2026 | Sub-Agent PO & PM |
+| **v2.9.0** | **100%** 🟢 DONE | EPIC-GLOBAL Sprint 19 — Multi-Region Food Culture Intelligence (Broth & Topping Engine) | 05/10/2026 | Sub-Agent PO & PM |
+| **v3.0.0** | **0%** (0/13 SP) 🟡 IN PROGRESS | EPIC-VOICE Sprint 20 — Hands-Free Voice Logging (AstroVoice AI) | 19/10/2026 | Sub-Agent PO & PM |
 
 

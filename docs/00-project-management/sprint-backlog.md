@@ -1,57 +1,61 @@
 # Kế Hoạch Sprint Hiện Hành (Sprint Backlog)
 
 - **Quản lý bởi**: Sub-Agent Product Owner (PO) & Sub-Agent Project Manager (PM)
-- **Sprint hiện tại**: Sprint 19 (Đã hoàn thành) ➔ Chuẩn bị Sprint 20 (AstroVoice AI)
-- **Tên Sprint**: Multi-Region Food Culture Intelligence (Vietnamese Culinary Decomposition & Broth/Topping Engine)
-- **Mã Epic / Feature**: `EPIC-GLOBAL` / `FEAT-S19-GLOBAL-CUISINE`
-- **Phiên bản mục tiêu**: `v2.9.0`
+- **Sprint hiện tại**: Sprint 20
+- **Tên Sprint**: Hands-Free Voice Logging (AstroVoice AI & Gemini NLU Engine)
+- **Mã Epic / Feature**: `EPIC-VOICE` / `FEAT-S20-VOICE-LOG`
+- **Phiên bản mục tiêu**: `v3.0.0`
 - **Thời gian Sprint**: 05/10/2026 – 19/10/2026
-- **Trạng thái Sprint**: 🟢 **CLOSED (RELEASED v2.9.0)**
-- **Tổng Story Points cam kết**: **13 SP** (Tiến độ: **13 / 13 SP — 100% Hoàn Tất**)
+- **Trạng thái Sprint**: 🟡 **IN PROGRESS (Gate 0: Tech Spike & Brainstorming)**
+- **Tổng Story Points cam kết**: **13 SP** (Tiến độ: **1 / 13 SP — 8%**)
 
 ---
 
-## 🎯 Mục Tiêu Sprint 19: Multi-Region Food Culture Intelligence
+## 🎯 Mục Tiêu Sprint 20: Hands-Free Voice Logging (AstroVoice AI)
 
-1. **One-Pass Vietnamese Food Vision Prompt (`TSK-S19-04-BACKEND-AI` — 3 SP)**: Tinh chỉnh Gemini 2.0 Flash System Prompt và mở rộng `DishDto`, `SubDishDto` để bóc tách nước dùng (`has_broth`, `broth_calories`, `broth_sodium_mg`) và các topping món combo (`sub_items`) trong 1 lượt gọi duy nhất (độ trễ < 2.2s).
-2. **Interactive Broth Toggle & Topping Checklist (`TSK-S19-05-CLIENT-UI` — 4 SP)**: Tích hợp công tắc 1 chạm `[🍜 Ăn cả nước] ⟷ [🥢 Chỉ ăn cái]` và danh sách chọn/bỏ topping ngay trên thẻ món ăn tại `ScanReviewPage`, trừ trực tiếp calo/sodium theo thời gian thực.
-3. **Nutrition Engine Zero-Drift Calculation**: Cập nhật logic trừ calo, chất béo và natri khi người dùng không ăn nước dùng hoặc bỏ topping, phản ánh ngay lập tức lên `ChunkyMacroBar` và `CalorieProgressArc`.
+1. **On-Device Speech-to-Text Pipeline (`TSK-S20-04-VOICE-SERVICE` — 3 SP)**: Tích hợp engine nhận diện giọng nói tiếng Việt on-device (`vi-VN`), stream chữ trực tiếp theo thời gian thực (Live Transcript Feedback), kèm abstract service kháng lỗi trong test.
+2. **Gemini 2.0 Flash NLU Natural Language Parser**: Tinh chỉnh prompt phân tích câu nói tiếng Việt tự nhiên, bóc tách món ăn, đơn vị dân dã (bát, tô, quả, cái, cốc), suy luận bữa ăn theo khung giờ và tính toán dinh dưỡng trong vòng $\le 1.0s$.
+3. **Interactive AstroVoiceSheet & GenUI 1-Tap Log (`TSK-S20-05-VOICE-UI` — 4 SP)**: Trải nghiệm 5 trạng thái với hiệu ứng sóng âm/pulsing ripple, tự động hiển thị thẻ `MealQuickLogCard` để xác nhận và lưu nhật ký 1 chạm trong tích tắc.
 
 ---
 
-## 📋 Bảng Kanban Sprint 19 (Hoàn Tất 100%)
+## 📋 Bảng Kanban Sprint 20
 
-### 1. 📝 BACKLOG / QUEUED — [0 SP]
-*Không còn task tồn đọng. Toàn bộ 8 Cổng đã được nghiệm thu.*
-
-### 2. ⚡ IN PROGRESS — [0 SP]
-*Không có task đang chạy.*
-
-### 3. 🏁 DONE — [13 SP]
+### 1. 📝 BACKLOG / QUEUED — [10 SP]
 | Mã Task | Màn Hình / File | Gate | Mô Tả | Sub-Agent Phụ Trách | SP | Trạng Thái |
 |:---|:---|:---:|:---|:---:|:---:|:---|
-| `TSK-S19-00-SPIKE` | `docs/superpowers/specs/2026-10-05-multi-region-food-culture-intelligence-design.md` | **G0** | PO & Tech Lead: Brainstorming & Architectural Design Spec bóc tách món Việt | `product-owner` | 1 | 🟢 **DONE** |
-| `TSK-S19-01-PRD` | `docs/03-prd-features/26-multi-region-food-intelligence/` | **G1** | BA: Soạn PRD & User Stories BDD cho Broth Toggle & Topping Checklist | `business-analyst` | 2 | 🟢 **DONE** |
-| `TSK-S19-02-DESIGN` | `docs/03-prd-features/26-multi-region-food-intelligence/ui-ux-design.md` | **G2** | UI/UX Designer: Thiết kế Claymorphic Broth Toggle & Topping Chips 5 States | `ui-ux-designer` | 2 | 🟢 **DONE** |
-| `TSK-S19-03-TEST-PLAN` | `docs/03-prd-features/26-multi-region-food-intelligence/gate-3-test.md` | **G3** | QA Tester: Thiết kế test biên BVA và kịch bản BDD Gherkin món Việt | `qa-tester` | 1 | 🟢 **DONE** |
-| `TSK-S19-04-BACKEND-AI` | `gemini_remote_datasource.dart`, `scan_result_dto.dart` | **G4** | Cloud Dev: Mở rộng DTO, tinh chỉnh One-Pass Prompt bóc tách món Việt | `cloud-ai-dev` | 3 | 🟢 **DONE** |
-| `TSK-S19-05-CLIENT-UI` | `scan_review_page.dart` | **G4** | Dev FE: Tích hợp Broth Toggle & Topping Checklist tương tác thời gian thực | `flutter-core-dev` | 4 | 🟢 **DONE** |
-| `TSK-S19-06-REVIEW` | Git diff Sprint 19 | **G5** | Reviewer: Ponytail Diff Review & Zero Doc-Code Drift Check | `code-reviewer` | - | 🟢 **DONE** |
-| `TSK-S19-07-VERIFY` | Automated Test Suite | **G6** | QA Tester: 100% test pass, 0 analyze error, 0 memory leak, latency < 2.2s | `qa-tester` | - | 🟢 **DONE** |
-| `TSK-S19-08-SECURITY` | Security Audit & Rules | **G6.5** | Security Auditor: Kiểm toán parsing JSON, Prompt Injection & Trust boundary | `security-auditor` | - | 🟢 **DONE** |
-| `TSK-S19-09-RELEASE` | Tag release `v2.9.0` | **G7** | Hội đồng PO, PM, Tech Lead & Security: Thông cáo phát hành v2.9.0 | `product-owner` | - | 🟢 **DONE** |
+| `TSK-S20-01-PRD` | `docs/03-prd-features/27-hands-free-voice-logging/` | **G1** | BA: Soạn PRD & User Stories BDD cho luồng giọng nói tự nhiên | `business-analyst` | 2 | 🟡 **QUEUED** |
+| `TSK-S20-02-DESIGN` | `docs/03-prd-features/27-hands-free-voice-logging/ui-ux-design.md` | **G2** | UI/UX Designer: Thiết kế AstroVoiceSheet, Pulsing Mic & 5 States | `ui-ux-designer` | 2 | 🟡 **QUEUED** |
+| `TSK-S20-03-TEST-PLAN` | `docs/03-prd-features/27-hands-free-voice-logging/gate-3-test.md` | **G3** | QA Tester: Thiết kế test biên BVA và kịch bản BDD Gherkin âm thanh | `qa-tester` | 1 | 🟡 **QUEUED** |
+| `TSK-S20-04-VOICE-SERVICE` | `features/voice/data/datasources/`, `pubspec.yaml` | **G4** | Native Dev: Cấu hình `speech_to_text`, cấp quyền Mic, Mockable Service | `flutter-native-dev` | 3 | 🟡 **QUEUED** |
+| `TSK-S20-05-VOICE-UI` | `features/voice/presentation/`, `home_page.dart` | **G4** | Dev FE: Dựng AstroVoiceSheet, tích hợp GenUI MealQuickLogCard 1-Tap Log | `flutter-core-dev` | 4 | 🟡 **QUEUED** |
+| `TSK-S20-06-REVIEW` | Git diff Sprint 20 | **G5** | Reviewer: Ponytail Diff Review & Zero Doc-Code Drift Check | `code-reviewer` | - | 🟡 **QUEUED** |
+| `TSK-S20-07-VERIFY` | Automated Test Suite | **G6** | QA Tester: 100% test pass, 0 analyze error, 0 memory leak, latency $\le 1.5s$ | `qa-tester` | - | 🟡 **QUEUED** |
+| `TSK-S20-08-SECURITY` | Security Audit & Rules | **G6.5** | Security Auditor: Kiểm toán quyền Mic PII & Prompt Injection qua giọng nói | `security-auditor` | - | 🟡 **QUEUED** |
+| `TSK-S20-09-RELEASE` | Tag release `v3.0.0` | **G7** | Hội đồng PO, PM, Tech Lead & Security: Thông cáo phát hành v3.0.0 | `product-owner` | - | 🟡 **QUEUED** |
+
+### 2. ⚡ IN PROGRESS — [0 SP]
+| Mã Task | Màn Hình / File | Gate | Mô Tả | Sub-Agent Phụ Trách | SP | Trạng Thái |
+|:---|:---|:---:|:---|:---:|:---:|:---|
+| Không có task | | | | | | |
+
+### 3. 🏁 DONE — [1 SP]
+| Mã Task | Màn Hình / File | Gate | Mô Tả | Sub-Agent Phụ Trách | SP | Trạng Thái |
+|:---|:---|:---:|:---|:---:|:---:|:---|
+| `TSK-S20-00-SPIKE` | `docs/superpowers/specs/2026-10-05-hands-free-voice-logging-design.md` | **G0** | Tech Lead & PO: Brainstorming & Architectural Spec AstroVoice AI | `tech-lead` | 1 | 🟢 **DONE** |
 
 ---
 
-## ✅ Định Nghĩa DONE Sprint 19
+## ✅ Định Nghĩa DONE Sprint 20
 
 - [ ] `flutter analyze` 0 lỗi, 0 cảnh báo.
-- [ ] `flutter test` pass 100% (bao gồm regression tests hiện hữu và tests mới).
-- [ ] Gemini Vision bóc tách được nước dùng và toppings món Việt trong 1 request duy nhất (độ trễ AI ≤ 2.2s).
-- [ ] Công tắc `[🍜 Ăn cả nước] ⟷ [🥢 Chỉ ăn cái]` hoạt động mượt mà, trừ chính xác calo và natri.
-- [ ] Checklist Topping cho phép chọn/bỏ topping và cập nhật Macro bar tức thì.
-- [ ] Giao diện 5 trạng thái đạt chuẩn Claymorphic, không vỡ layout trên bất kỳ kích thước màn hình nào.
-- [ ] Quy tắc Docs-as-Code (Zero Doc-Code Drift): Toàn bộ tài liệu trong `docs/` được cập nhật đồng bộ trước khi đóng Gate 7.
+- [ ] `flutter test` pass 100% (bao gồm headless unit/widget tests cho audio & voice).
+- [ ] Tổng thời gian phản hồi: Từ lúc ngừng nói đến khi GenUI card render $\le 1.5$ giây.
+- [ ] Nhận diện chuẩn xác tiếng Việt có dấu (`vi-VN`) với streaming transcript theo thời gian thực.
+- [ ] Gemini NLU bóc tách chuẩn xác các đơn vị ước tính dân dã (bát, tô, cái, ly, cốc, hộp) và tự động suy luận bữa ăn.
+- [ ] Thẻ `MealQuickLogCard` cho phép 1-Tap Log ghi nhận vào Food Diary trong $< 150ms$.
+- [ ] Giao diện 5 trạng thái đạt chuẩn Claymorphic Duolingo 2D/3D (Listening, Parsing, Ready, Empty, Error).
+- [ ] Zero Doc-Code Drift: Cập nhật đồng bộ toàn bộ tài liệu trong `docs/` trước khi đóng Gate 7.
 
 
 ---
