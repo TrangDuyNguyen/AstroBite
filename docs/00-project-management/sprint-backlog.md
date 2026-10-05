@@ -6,8 +6,8 @@
 - **Mã Epic / Feature**: `EPIC-VOICE` / `FEAT-S20-VOICE-LOG`
 - **Phiên bản mục tiêu**: `v3.0.0`
 - **Thời gian Sprint**: 05/10/2026 – 19/10/2026
-- **Trạng thái Sprint**: 🟡 **IN PROGRESS (Gate 2: UI/UX Design)**
-- **Tổng Story Points cam kết**: **13 SP** (Tiến độ: **3 / 13 SP — 23%**)
+- **Trạng thái Sprint**: 🟡 **IN PROGRESS (Gate 3: QA Test Design)**
+- **Tổng Story Points cam kết**: **13 SP** (Tiến độ: **5 / 13 SP — 38%**)
 
 ---
 
@@ -21,10 +21,9 @@
 
 ## 📋 Bảng Kanban Sprint 20
 
-### 1. 📝 BACKLOG / QUEUED — [8 SP]
+### 1. 📝 BACKLOG / QUEUED — [7 SP]
 | Mã Task | Màn Hình / File | Gate | Mô Tả | Sub-Agent Phụ Trách | SP | Trạng Thái |
 |:---|:---|:---:|:---|:---:|:---:|:---|
-| `TSK-S20-03-TEST-PLAN` | `docs/03-prd-features/27-hands-free-voice-logging/gate-3-test.md` | **G3** | QA Tester: Thiết kế test biên BVA và kịch bản BDD Gherkin âm thanh | `qa-tester` | 1 | 🟡 **QUEUED** |
 | `TSK-S20-04-VOICE-SERVICE` | `features/voice/data/datasources/`, `pubspec.yaml` | **G4** | Native Dev: Cấu hình `speech_to_text`, cấp quyền Mic, Mockable Service | `flutter-native-dev` | 3 | 🟡 **QUEUED** |
 | `TSK-S20-05-VOICE-UI` | `features/voice/presentation/`, `home_page.dart` | **G4** | Dev FE: Dựng AstroVoiceSheet, tích hợp GenUI MealQuickLogCard 1-Tap Log | `flutter-core-dev` | 4 | 🟡 **QUEUED** |
 | `TSK-S20-06-REVIEW` | Git diff Sprint 20 | **G5** | Reviewer: Ponytail Diff Review & Zero Doc-Code Drift Check | `code-reviewer` | - | 🟡 **QUEUED** |
@@ -32,16 +31,17 @@
 | `TSK-S20-08-SECURITY` | Security Audit & Rules | **G6.5** | Security Auditor: Kiểm toán quyền Mic PII & Prompt Injection qua giọng nói | `security-auditor` | - | 🟡 **QUEUED** |
 | `TSK-S20-09-RELEASE` | Tag release `v3.0.0` | **G7** | Hội đồng PO, PM, Tech Lead & Security: Thông cáo phát hành v3.0.0 | `product-owner` | - | 🟡 **QUEUED** |
 
-### 2. ⚡ IN PROGRESS — [2 SP]
+### 2. ⚡ IN PROGRESS — [1 SP]
 | Mã Task | Màn Hình / File | Gate | Mô Tả | Sub-Agent Phụ Trách | SP | Trạng Thái |
 |:---|:---|:---:|:---|:---:|:---:|:---|
-| `TSK-S20-02-DESIGN` | `docs/03-prd-features/27-hands-free-voice-logging/ui-ux-design.md` | **G2** | UI/UX Designer: Thiết kế AstroVoiceSheet, Pulsing Mic & 5 States | `ui-ux-designer` | 2 | ⚡ **IN PROGRESS** |
+| `TSK-S20-03-TEST-PLAN` | `docs/03-prd-features/27-hands-free-voice-logging/gate-3-test.md` | **G3** | QA Tester: Thiết kế test biên BVA và kịch bản BDD Gherkin âm thanh | `qa-tester` | 1 | ⚡ **IN PROGRESS** |
 
-### 3. 🏁 DONE — [3 SP]
+### 3. 🏁 DONE — [5 SP]
 | Mã Task | Màn Hình / File | Gate | Mô Tả | Sub-Agent Phụ Trách | SP | Trạng Thái |
-|:---|:---|:---:|:---|:---|:---:|:---|
+|:---|:---|:---:|:---|---|:---:|:---|
 | `TSK-S20-00-SPIKE` | `docs/superpowers/specs/2026-10-05-hands-free-voice-logging-design.md` | **G0** | Tech Lead & PO: Brainstorming & Architectural Spec AstroVoice AI | `tech-lead` | 1 | 🟢 **DONE** |
 | `TSK-S20-01-PRD` | `docs/03-prd-features/27-hands-free-voice-logging/` | **G1** | BA: Soạn PRD & User Stories BDD cho luồng giọng nói tự nhiên | `business-analyst` | 2 | 🟢 **DONE** |
+| `TSK-S20-02-DESIGN` | `docs/03-prd-features/27-hands-free-voice-logging/ui-ux-design.md` | **G2** | UI/UX Designer: Thiết kế AstroVoiceSheet, Pulsing Mic & 5 States | `ui-ux-designer` | 2 | 🟢 **DONE** |
 
 ---
 
