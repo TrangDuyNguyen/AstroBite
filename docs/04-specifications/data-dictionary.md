@@ -52,7 +52,7 @@ Lưu trữ các lần ghi nhận món ăn theo từng ngày.
 | `sugar_g` | Number (double) | Không | Hàm lượng Đường (g) (Mặc định 0.0 nếu chưa có) |
 | `dishes` | Array<Map> | Không | Danh sách các món con chi tiết trong bữa ăn đa món (Xem bảng 2.1) |
 | `image_url` | String | Không | Đường dẫn ảnh trên Firebase Storage |
-| `source` | String | Có | `"ai_scan"`, `"multi_scan"`, hoặc `"manual_entry"` |
+| `source` | String | Có | `"ai_scan"`, `"multi_scan"`, `"manual_entry"`, hoặc `"voice_log"` |
 | `sync_status` | String | Có | Trạng thái đồng bộ: `"synced"`, `"pending_sync"`, `"failed"` |
 | `last_modified_at`| Timestamp | Có | Thời điểm chỉnh sửa gần nhất (Dùng cho Last-Write-Wins sync) |
 | `logged_at` | Timestamp | Có | Thời gian ăn (dùng để nhóm theo ngày) |
@@ -148,4 +148,23 @@ Lưu trữ lịch sử hội thoại AI Coach theo ngày. Mỗi ngày tạo 1 do
 | `health_write_enabled` | Boolean | Không | `true`: Bật đồng bộ calo nạp ngược về Health Platform; mặc định `false` |
 | `health_platform` | String | Không | `"apple_healthkit"`, `"health_connect"`, hoặc `null` |
 | `health_connected_at` | Timestamp | Không | Thời gian kết nối lần gần nhất |
+
+---
+
+## 6. Thực Thể Bộ Nhớ Tạm Client: `VoiceLogResult` (Sprint 20 — EPIC-VOICE)
+Lưu trữ kết quả nhận diện giọng nói và bóc tách NLU từ Gemini 2.0 Flash trước khi ghi xuống `meal_logs`.
+
+| Tên trường | Kiểu dữ liệu | Bắt buộc | Mô tả & Giá trị hợp lệ |
+| :--- | :--- | :---: | :--- |
+| `raw_transcript` | String | Có | Văn bản gốc nhận diện từ Speech-to-Text (VD: "Sáng nay ăn 1 tô phở bò") |
+| `meal_type` | String | Có | `"breakfast"`, `"lunch"`, `"dinner"`, `"snack"` |
+| `total_calories` | Number (int) | Có | Tổng calo nạp vào (kcal) |
+| `protein_g` | Number (double) | Có | Lượng đạm (gam) |
+| `carbs_g` | Number (double) | Có | Lượng tinh bột (gam) |
+| `fat_g` | Number (double) | Có | Lượng chất béo (gam) |
+| `sodium_mg` | Number (double) | Không | Hàm lượng Natri (mg) |
+| `dishes` | List<DishItem> | Có | Danh sách chi tiết từng món con kèm gram và calo |
+| `confidence_score`| Number (double)| Có | Điểm tin cậy NLU từ Gemini (0.0 – 1.0) |
+| `created_at` | DateTime | Có | Thời điểm nhận diện |
+
 
