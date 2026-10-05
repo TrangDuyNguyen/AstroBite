@@ -27,7 +27,10 @@
 | **`EPIC-16`** | **Zero-Friction Ergonomic Food Logging** | Khay Recent Foods 1 chạm, Quick Weight Steppers (-50g, +50g, 1 Bát, 1 Đĩa), Sticky Bottom Action Bar công thái học trong Thumb Zone, Celestial Radar Pulse Viewfinder. | Cắt giảm Time-to-Log < 3.5s, giảm ma sát ghi chép hằng ngày. | **Must-have** | HISTORICAL (v1.6) | 🟢 **Done** (Released v1.6.0) |
 | **`EPIC-12`** | **Custom Recipes & Meal Plans** | Tùy chỉnh công thức món ăn cá nhân và lập kế hoạch bữa ăn hàng tuần. | Phục vụ nhóm người dùng nấu ăn tại nhà và meal prep. | **Must-have** | HISTORICAL (v1.9) | 🟢 **Done** (Released v1.9.0) |
 | **`EPIC-17`** | **Generative UI Chat Experience** | Chuyển hóa toàn diện AstroCoach Chat sang kiến trúc Flutter GenUI & A2UI Protocol với Gemini 3.8 Flash. Tự động sinh thẻ MealQuickLogCard, MacroBudgetGauge và QuickChoiceChips. | Nâng cao D30 Retention, cắt giảm Time-to-Log < 3.0s. | **Must-have** | HISTORICAL (v2.0) | 🟢 **Done** (Released v2.0.0) |
+| **`EPIC-COMMUNITY`** | **Social Accountability & Leaderboard** | Cạnh tranh lành mạnh với bạn bè qua Cosmic Streak, xuất ảnh thành tích 3D (Native Share), Bảng xếp hạng Cloud Stream và cơ chế cứu Streak bạn bè (Streak Nudge). | Trực tiếp nâng cao D30 Retention (+20%), tạo động lực qua Peer Pressure. | **Must-have** | NOW (Sprint 17–18) | 🟢 **Done** (Released v2.8.0) |
 | **`EPIC-99`** | **Online Food Ordering** | Đặt món ăn eat-clean giao tận nơi từ các đối tác nhà hàng. | Chưa phù hợp với giai đoạn tập trung công nghệ AI dinh dưỡng. | **Won't-have** | OUT OF SCOPE | 🔴 **Rejected (v1.x)** |
+
+
 
 ---
 

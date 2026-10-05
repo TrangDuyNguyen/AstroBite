@@ -30,7 +30,9 @@ class ShareImageService {
 
       // 5. Kích hoạt Native Share Dialog (Android/iOS)
       final xFile = XFile(file.path);
-      await Share.shareXFiles([xFile], text: shareText);
+      await SharePlus.instance.share(ShareParams(files: [xFile], text: shareText));
+
+
 
       // 6. Ponytail Clean-up: Xóa file ảnh sau khi share để triệt tiêu Memory Leak & rác Storage
       if (await file.exists()) {

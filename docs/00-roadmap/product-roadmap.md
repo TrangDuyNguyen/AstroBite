@@ -129,5 +129,9 @@
 | **v2.1.0** | **100%** 🟢 DONE | EPIC-UI-REFRESH Sprint 12 — Foundation & UI Kit Reset | 27/09/2026 | Sub-Agent PO & PM |
 | **v2.2.0** | **100%** 🟢 DONE | EPIC-UI-REFRESH Sprint 13 — Core Daily Loop (Shell, Home, Log, Detail) | 27/09/2026 | Sub-Agent PO & PM |
 | **v2.3.0** | **100%** 🟢 DONE | EPIC-UI-REFRESH Sprint 14 — AI Experience (Camera AR, Review, Coach) | 29/09/2026 | Sub-Agent PO & PM |
-| **v2.5.2** | **⚡ IN PROGRESS** | EPIC-UI-REFRESH Sprint 15 — FTUX & Identity (Auth, Onboarding, Profile) | 21/11/2026 | Sub-Agent PO |
-| **v2.5.0** | **0%** | EPIC-UI-REFRESH Sprint 16 — Deep Features (Analytics, Recipes, Meal Plan) | 05/12/2026 | Sub-Agent PO |
+| **v2.5.2** | **100%** 🟢 DONE | EPIC-UI-REFRESH Sprint 15 — FTUX & Identity (Auth, Onboarding, Profile) | 01/10/2026 | Sub-Agent PO & PM |
+| **v2.6.0** | **100%** 🟢 DONE | EPIC-UI-REFRESH Sprint 16 — Deep Features (Analytics & Mobile Widgets) | 03/10/2026 | Sub-Agent PO & PM |
+| **v2.7.0** | **100%** 🟢 DONE | EPIC-COMMUNITY Sprint 17 — Social Accountability & Leaderboard (Phase 1) | 04/10/2026 | Sub-Agent PO & PM |
+| **v2.8.0** | **100%** 🟢 DONE | EPIC-COMMUNITY Sprint 18 — Live Social Sync & Streak Nudge (Phase 2) | 04/10/2026 | Sub-Agent PO & PM |
+
+

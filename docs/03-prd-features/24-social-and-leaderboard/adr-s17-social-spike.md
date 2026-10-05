@@ -21,16 +21,20 @@ Sprint 17 yêu cầu xây dựng tính năng Social Sharing (xuất thẻ thành
 
 **Chi phí & Hiệu năng**: Quá trình render diễn ra dưới 300ms. Rất an toàn và không cần cài thêm thư viện nặng nào ngoài `share_plus` và `path_provider`.
 
-### B. Kiến trúc Astro Leaderboard
+### B. Kiến trúc Astro Leaderboard & Lộ trình Triển khai (Staging)
 **Vấn đề**: Việc sắp xếp hạng (Rank) cho hàng ngàn User theo điểm "Cosmic Streak" realtime bằng thao tác `.orderBy('streak').get()` mỗi khi có ai mở Leaderboard sẽ gây bùng nổ số lượt đọc (Reads) trên Firestore ➔ Vượt ngân sách ngay lập tức.
-**Giải pháp khả thi (Được chọn)**:
-1. **Cron Job (Cloud Functions)**: Viết một hàm Firebase Cloud Functions chạy `onSchedule` mỗi 1 giờ (hoặc ngày 1 lần).
-2. Hàm này đọc tập hợp Users, sắp xếp và tính toán Rank.
-3. Ghi kết quả vào một Document tĩnh duy nhất (VD: `leaderboard/weekly_top_100`).
-4. Khi App mở Bảng xếp hạng, thiết bị CHỈ ĐỌC đúng 1 Document duy nhất này. Cực kỳ tối ưu chi phí.
+
+**Quyết định phân kỳ kỹ thuật (Technical Phasing)**:
+1. **Phase 1 (v2.7.0 — Hiện tại)**:
+   - Triển khai **In-Memory Client State** tại `LeaderboardPage` kèm mock bạn bè và cơ chế thêm bạn tức thì (local sort).
+   - Mục đích: Thẩm định nhanh phản ứng của người dùng đối với trải nghiệm cạnh tranh xã hội và UI Claymorphic trước khi tốn tài nguyên hạ tầng backend.
+2. **Phase 2 (v2.8.0 — Triển khai tiếp theo)**:
+   - **Cron Job (Cloud Functions)**: Viết hàm Firebase Cloud Functions chạy `onSchedule` định kỳ 1 giờ / lần để tính toán và lưu snapshot vào `leaderboard/weekly_top_100`.
+   - **Client Data Layer**: Tạo `LeaderboardRepository` và `StreamProvider` trong Riverpod để đọc snapshot tĩnh từ Firestore, đảm bảo chi phí 1 Read / lần mở app.
 
 ## 3. Hệ quả (Consequences)
-- **Tích cực**: Giải pháp cực kỳ tiết kiệm chi phí, dễ mở rộng (Scalable), tuân thủ triết lý Ponytail.
-- **Tiêu cực**: Leaderboard không phải realtime đến từng giây, mà có độ trễ 1 giờ (Near-Realtime). Chấp nhận được trong UX thiết kế.
+- **Tích cực**: Giải pháp cực kỳ tiết kiệm chi phí, dễ mở rộng (Scalable), tuân thủ triết lý Ponytail (làm rõ UX trước khi over-engineer backend).
+- **Tiêu cực**: Phase 1 v2.7.0 chưa đồng bộ được bạn bè giữa 2 thiết bị khác nhau; Phase 2 giải quyết triệt để vấn đề này với độ trễ tối đa 1 giờ (Near-Realtime).
 
-> 🟢 **Tech Lead Sign-off**: Kỹ thuật hoàn toàn khả thi. Đủ điều kiện bàn giao cho BA tại Gate 1 để viết PRD.
+> 🟢 **Tech Lead Sign-off**: Kỹ thuật hoàn toàn khả thi. Thống nhất phân kỳ Phase 1 (Client Mock) cho v2.7.0 và Phase 2 (Cloud Functions) cho v2.8.0.
+

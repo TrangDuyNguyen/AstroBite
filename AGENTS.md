@@ -289,6 +289,34 @@ Dev FE (`flutter-core-dev`) nhận trực tiếp mockup hình ảnh và cấu tr
 - ❌ **Never** merge code without passing Gate 2 (Design Sign-off), Gate 5 (Ponytail Code Review), Gate 6 (Automated Test Verification), and Gate 6.5 (Security Clearance).
 - ❌ **Never** "du di" or accept fake green tests (`expect(true, isTrue)`), skipped tests, or degraded performance (FPS < 55, latency > 2.5s).
 - ❌ **Never** merge or release code with unmitigated Critical/High security vulnerabilities, committed production secrets/API keys, or insecure open Firestore/Storage security rules.
+- ❌ **Never** modify feature scope, data models, or technical architecture without immediately updating the corresponding documentation in `docs/` (Zero Doc-Code Drift).
+
+---
+
+## 8. Mandatory Docs-as-Code Synchronization Rule (Zero Doc-Code Drift)
+
+> [!IMPORTANT]
+> **Quy Tắc Tối Thượng**: Mọi thay đổi về tính năng hoặc kỹ thuật bắt buộc phải được phản ánh ngay lập tức vào tài liệu trong CÙNG phiên làm việc / commit.
+
+1. **Nguyên tắc "Code đổi là Doc phải đổi" (Backward Sync)**:
+   - Khi Dev hoặc Tech Lead thay đổi giải pháp kỹ thuật, đổi schema dữ liệu, đổi endpoint, hoặc cắt giảm phạm vi (ví dụ: làm Mock UI trước, dời Cloud Functions / Firestore sang sprint sau), **BẮT BUỘC phải cập nhật đồng bộ các tài liệu liên quan**:
+     - Đặc tả nghiệp vụ & User Stories: `docs/03-prd-features/<feature>/user-stories.md` & `prd-<feature>.md`.
+     - Quyết định kiến trúc & Spikes: `docs/03-prd-features/<feature>/adr-*.md` hoặc `docs/04-specifications/`.
+     - Kế hoạch & Trạng thái Task: `docs/00-project-management/sprint-backlog.md` & `wbs-task-matrix.md`.
+     - Nhật ký thay đổi & Release: `docs/05-change-management/` & release notes.
+2. **Minh bạch hóa Trạng thái Triển khai (Feature State Badges)**:
+   - Tuyệt đối cấm đánh dấu "DONE" hoặc công bố phát hành tính năng trọn vẹn nếu mới chỉ xong một phần.
+   - Mọi User Story và Task bắt buộc phải mang một trong các nhãn minh bạch:
+     - 🟡 `[Phase 1: Mock / In-Memory UI]` (Chỉ mới dựng UI và dữ liệu tĩnh để duyệt trải nghiệm).
+     - 🔵 `[Client-Only / Local DB]` (Đã lưu trữ local SQLite/Hive/Prefs nhưng chưa đồng bộ Cloud).
+     - 🟣 `[Backend Integration In-Progress]` (Đang kết nối Firestore / Cloud Functions).
+     - 🟢 `[Full-Stack E2E Production-Ready]` (Đầy đủ Backend, Cloud Functions, Security Rules, Test E2E 100%).
+3. **Trách nhiệm gác cổng của các Sub-Agents (Zero Tolerance)**:
+   - **Dev**: Tự giác cập nhật doc ngay khi quyết định thay đổi cách làm hoặc phạm vi kỹ thuật.
+   - **Gate 5 (Reviewer)**: Kiểm tra git diff cả code LẪN doc. Nếu code thay đổi logic/model mà không có file markdown nào trong `docs/` được cập nhật tương ứng ➔ **REJECT PR**.
+   - **Gate 6 (QA)**: Đối chiếu từng kịch bản Given-When-Then trong `user-stories.md`. Nếu tính năng đang chạy mock mà doc ghi "Firestore stream" ➔ **REJECT nghiệm thu**.
+   - **Gate 7 (PO & Tech Lead)**: Chỉ ký duyệt thông cáo Release khi tài liệu Release Notes phản ánh chính xác 100% hiện trạng sản phẩm thật, không phóng đại hoặc làm sai lệch thông tin cho người dùng/stakeholders.
+
 
 
 

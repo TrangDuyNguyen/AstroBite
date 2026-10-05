@@ -1,57 +1,22 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:astrobite/features/social/domain/entities/leaderboard_entry.dart';
+import 'package:astrobite/features/social/presentation/controllers/social_controller.dart';
 import 'package:astrobite/shared/ui_kit/ui_kit.dart';
 
-/// Giao diện Bảng Xếp Hạng Bạn Bè (Astro Leaderboard) & Thêm Bạn - Gate 4
+/// Giao diện Bảng Xếp Hạng Bạn Bè (Astro Leaderboard) & Streak Nudge — Gate 4
 @RoutePage()
-class LeaderboardPage extends StatefulWidget {
+class LeaderboardPage extends ConsumerStatefulWidget {
   const LeaderboardPage({super.key});
 
   @override
-  State<LeaderboardPage> createState() => _LeaderboardPageState();
+  ConsumerState<LeaderboardPage> createState() => _LeaderboardPageState();
 }
 
-class _LeaderboardPageState extends State<LeaderboardPage> {
-  // Mã Astro ID của chính người dùng
+class _LeaderboardPageState extends ConsumerState<LeaderboardPage> {
   final String _myAstroId = '#ASTRO-8821';
-
-  // Danh sách bạn bè trên Leaderboard (có thể thêm mới)
-  final List<Map<String, dynamic>> _leaderboard = [
-    {'name': 'AlexD', 'streak': 45, 'rank': 1, 'astroId': '#AST-0042'},
-    {'name': 'TrangNguyen (Bạn)', 'streak': 42, 'rank': 2, 'astroId': '#ASTRO-8821'},
-    {'name': 'JohnSmith', 'streak': 30, 'rank': 3, 'astroId': '#AST-9912'},
-    {'name': 'AstroDev', 'streak': 12, 'rank': 4, 'astroId': '#AST-3310'},
-    {'name': 'LazyPanda', 'streak': 5, 'rank': 5, 'astroId': '#AST-1002'},
-  ];
-
-  void _addFriend(String astroId) {
-    final cleanId = astroId.trim().toUpperCase();
-    if (cleanId.isEmpty) return;
-
-    setState(() {
-      _leaderboard.add({
-        'name': 'Phi hành gia $cleanId',
-        'streak': 1,
-        'rank': _leaderboard.length + 1,
-        'astroId': cleanId.startsWith('#') ? cleanId : '#$cleanId',
-      });
-      // Sắp xếp lại theo streak giảm dần
-      _leaderboard.sort((a, b) => (b['streak'] as int).compareTo(a['streak'] as int));
-      for (int i = 0; i < _leaderboard.length; i++) {
-        _leaderboard[i]['rank'] = i + 1;
-      }
-    });
-
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        backgroundColor: AppColors.brandGreen,
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        content: Text('🎉 Đã kết bạn thành công với $cleanId!'),
-      ),
-    );
-  }
 
   void _showAddFriendSheet() {
     final textController = TextEditingController();
@@ -103,7 +68,7 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
             ),
             const SizedBox(height: 6),
             const Text(
-              'Nhập mã Astro ID của bạn bè để cùng theo dõi tiến độ kỷ luật.',
+              'Nhập mã Astro ID của bạn bè để cùng đua chuỗi và nhắc nhở nhau kỷ luật.',
               style: TextStyle(
                 fontSize: 13,
                 color: AppColors.onSurfaceVariant,
@@ -140,10 +105,10 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
               variant: ClayButtonVariant.primary,
               width: double.infinity,
               onPressed: () {
-                final id = textController.text;
-                if (id.trim().isNotEmpty) {
+                final id = textController.text.trim();
+                if (id.isNotEmpty) {
                   Navigator.of(ctx).pop();
-                  _addFriend(id);
+                  ref.read(socialControllerProvider.notifier).addFriend(id);
                 }
               },
             ),
@@ -153,8 +118,131 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
     );
   }
 
+  void _showNudgeConfirmationSheet(LeaderboardEntry user) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (ctx) => Container(
+        decoration: const BoxDecoration(
+          color: AppColors.surface,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
+          boxShadow: [
+            BoxShadow(
+              color: Color(0x20000000),
+              offset: Offset(0, -4),
+              blurRadius: 20,
+            ),
+          ],
+        ),
+        padding: const EdgeInsets.fromLTRB(20, 16, 20, 28),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+              child: Container(
+                width: 40,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: AppColors.outline,
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+            Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFFFF2D6),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: const Text('🔥', style: TextStyle(fontSize: 20)),
+                ),
+                const SizedBox(width: 12),
+                const Expanded(
+                  child: Text(
+                    'Cứu Streak Bạn Bè',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w800,
+                      color: AppColors.onSurface,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
+            Text(
+              'Gửi một tín hiệu nhắc nhở tới ${user.name} để bảo vệ chuỗi kỷ luật 🔥 ${user.streak} ngày trước khi hết ngày hôm nay!',
+              style: const TextStyle(
+                fontSize: 14,
+                color: AppColors.onSurfaceVariant,
+                height: 1.4,
+              ),
+            ),
+            const SizedBox(height: 24),
+            Row(
+              children: [
+                Expanded(
+                  child: ClayButton(
+                    text: 'Hủy',
+                    variant: ClayButtonVariant.outline,
+                    onPressed: () => Navigator.of(ctx).pop(),
+                  ),
+                ),
+
+                const SizedBox(width: 12),
+                Expanded(
+                  child: ClayButton(
+                    text: 'Gửi Tín Hiệu',
+                    variant: ClayButtonVariant.primary,
+                    onPressed: () {
+                      Navigator.of(ctx).pop();
+                      ref
+                          .read(socialControllerProvider.notifier)
+                          .nudgeFriend(user.astroId, user.name);
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    // Lắng nghe thông báo lỗi hoặc thành công từ Controller
+    ref.listen<SocialActionState>(socialControllerProvider, (prev, next) {
+      if (next.errorMessage != null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: AppColors.secondary,
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+            content: Text(next.errorMessage!),
+          ),
+        );
+        ref.read(socialControllerProvider.notifier).clearMessages();
+      } else if (next.successMessage != null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: AppColors.brandGreen,
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+            content: Text(next.successMessage!),
+          ),
+        );
+        ref.read(socialControllerProvider.notifier).clearMessages();
+      }
+    });
+
+    final leaderboardAsync = ref.watch(leaderboardStreamProvider);
+
     return Scaffold(
       backgroundColor: AppColors.surface,
       appBar: ClayAppBar(
@@ -180,43 +268,93 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
           const SizedBox(width: 8),
         ],
       ),
-      body: ListView(
-        padding: const EdgeInsets.all(16),
-        children: [
-          // 1. Thẻ hiển thị Astro ID của tôi
-          _buildMyAstroIdCard(),
-          const SizedBox(height: 16),
+      body: leaderboardAsync.when(
+        loading: () => _buildLoadingState(),
+        error: (error, _) => _buildErrorState(error),
+        data: (leaderboard) => ListView(
+          padding: const EdgeInsets.all(16),
+          children: [
+            // 1. Thẻ hiển thị Astro ID của tôi
+            _buildMyAstroIdCard(),
+            const SizedBox(height: 16),
 
-          // 2. Tiêu đề danh sách
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(
-                'Thành Viên Thử Thách',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w800,
-                  color: AppColors.onSurface,
+            // 2. Tiêu đề danh sách
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  'Thành Viên Thử Thách',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w800,
+                    color: AppColors.onSurface,
+                  ),
                 ),
-              ),
-              Text(
-                '${_leaderboard.length} người',
-                style: const TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.onSurfaceVariant,
+                Text(
+                  '${leaderboard.length} người',
+                  style: const TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.onSurfaceVariant,
+                  ),
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 12),
+              ],
+            ),
+            const SizedBox(height: 12),
 
-          // 3. Danh sách xếp hạng
-          if (_leaderboard.isEmpty)
-            _buildEmptyState()
-          else
-            ..._leaderboard.map((user) => _buildLeaderboardCard(user)),
-        ],
+            // 3. Danh sách xếp hạng
+            if (leaderboard.isEmpty)
+              _buildEmptyState()
+            else
+              ...leaderboard.map((user) => _buildLeaderboardCard(user)),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildLoadingState() {
+    return ListView(
+      padding: const EdgeInsets.all(16),
+      children: [
+        _buildMyAstroIdCard(),
+        const SizedBox(height: 24),
+        ...List.generate(
+          5,
+          (index) => const ClaySkeletonLoader(height: 76, borderRadius: 20),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildErrorState(Object error) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(Icons.wifi_off_rounded, size: 48, color: AppColors.secondary),
+            const SizedBox(height: 16),
+            const Text(
+              'Không thể tải Bảng Xếp Hạng',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: AppColors.onSurface),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              error.toString(),
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 13, color: AppColors.onSurfaceVariant),
+            ),
+            const SizedBox(height: 20),
+            ClayButton(
+              text: 'Thử Lại',
+              variant: ClayButtonVariant.primary,
+              width: 140,
+              onPressed: () => ref.refresh(leaderboardStreamProvider),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -340,10 +478,10 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
     );
   }
 
-  Widget _buildLeaderboardCard(Map<String, dynamic> user) {
-    final rank = user['rank'] as int;
+  Widget _buildLeaderboardCard(LeaderboardEntry user) {
+    final rank = user.rank;
     final isTop1 = rank == 1;
-    final isMe = (user['name'] as String).contains('(Bạn)');
+    final isMe = user.isMe;
 
     Color bgColor = isMe
         ? const Color(0xFFF0F9FF)
@@ -394,36 +532,36 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  user['name'] as String,
+                  user.name,
                   style: TextStyle(
                     color: AppColors.onSurface,
                     fontSize: 15,
                     fontWeight: (isTop1 || isMe) ? FontWeight.bold : FontWeight.w600,
                   ),
                 ),
-                if (user['astroId'] != null)
-                  Text(
-                    user['astroId'] as String,
-                    style: const TextStyle(
-                      color: AppColors.onSurfaceVariant,
-                      fontSize: 11,
-                    ),
+                Text(
+                  user.astroId,
+                  style: const TextStyle(
+                    color: AppColors.onSurfaceVariant,
+                    fontSize: 11,
                   ),
+                ),
               ],
             ),
           ),
+          // Chỉ báo Streak
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
             decoration: BoxDecoration(
               color: AppColors.primary.withValues(alpha: 0.15),
               borderRadius: BorderRadius.circular(16),
             ),
             child: Row(
               children: [
-                const Text('🔥', style: TextStyle(fontSize: 14)),
+                const Text('🔥', style: TextStyle(fontSize: 13)),
                 const SizedBox(width: 4),
                 Text(
-                  '${user['streak']} ngày',
+                  '${user.streak}d',
                   style: const TextStyle(
                     color: AppColors.primary,
                     fontWeight: FontWeight.bold,
@@ -433,6 +571,70 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
               ],
             ),
           ),
+          const SizedBox(width: 8),
+
+          // Tương tác: Đạt chuẩn vs Nudge (Cứu Streak)
+          if (isMe)
+            const SizedBox.shrink()
+          else if (user.goalAchievedToday)
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+              decoration: BoxDecoration(
+                color: const Color(0xFFE8F9D8),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: const Text(
+                'Đạt chuẩn ✨',
+                style: TextStyle(
+                  color: Color(0xFF2E7D32),
+                  fontSize: 11,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            )
+          else if (user.isNudgedToday)
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+              decoration: BoxDecoration(
+                color: const Color(0xFFF1EEE8),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: const Text(
+                'Đã nhắc',
+                style: TextStyle(
+                  color: AppColors.onSurfaceVariant,
+                  fontSize: 11,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            )
+          else
+            InkWell(
+              onTap: () => _showNudgeConfirmationSheet(user),
+              borderRadius: BorderRadius.circular(12),
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFFFF2D6),
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: const Color(0xFFFFD580)),
+                ),
+                child: const Row(
+                  children: [
+                    Text('⚡', style: TextStyle(fontSize: 12)),
+                    SizedBox(width: 2),
+                    Text(
+                      'Nhắc',
+                      style: TextStyle(
+                        color: Color(0xFFB45309),
+                        fontSize: 11,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
         ],
       ),
     );

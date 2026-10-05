@@ -1,7 +1,8 @@
 name: astrobite
 description: "AstroBite - AI Food Scanner & Calorie Tracker"
 publish_to: 'none'
-version: 2.5.3+16
+version: 2.8.0+17
+
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
