@@ -72,6 +72,22 @@ Lưu trữ các lần ghi nhận món ăn theo từng ngày.
 | `sugar_g` | Number (double)| Không | Đường của món con (g) |
 | `confidence_score` | Number (double)| Có | Độ tin cậy AI nhận diện (0.0 - 1.0) |
 | `is_selected` | Boolean | Có | `true`: Được tính vào bữa; `false`: Bỏ chọn không ăn |
+| `has_broth` | Boolean | Không | `true`: Món nước (Phở, Bún bò...); mặc định `false` |
+| `broth_calories` | Number (int) | Không | Calo riêng của phần nước dùng (mặc định 0) |
+| `broth_sodium_mg`| Number (double)| Không | Natri riêng của phần nước dùng (mg, mặc định 0.0) |
+| `include_broth` | Boolean | Không | `true`: Người dùng ăn cả nước; `false`: Chỉ ăn cái (mặc định `true`) |
+| `sub_items` | Array<Map> | Không | Danh sách toppings / món phụ con trong combo (Xem bảng 2.2) |
+
+### 2.2. Cấu trúc phần tử trong mảng `sub_items` (Topping / Món phụ con)
+
+| Tên trường | Kiểu dữ liệu | Bắt buộc | Mô tả |
+| :--- | :--- | :---: | :--- |
+| `name` | String | Có | Tên topping/món phụ (VD: "Mỡ hành", "Chả trứng", "Bì heo") |
+| `calories` | Number (int) | Có | Lượng calo riêng của topping |
+| `carbs_g` | Number (int) | Không | Lượng Carbs của topping (g, mặc định 0) |
+| `protein_g` | Number (int) | Không | Lượng Protein của topping (g, mặc định 0) |
+| `fat_g` | Number (int) | Không | Lượng Chất béo của topping (g, mặc định 0) |
+| `is_selected` | Boolean | Có | `true`: Chọn ăn; `false`: Bỏ chọn (mặc định `true`) |
 
 ---
 
