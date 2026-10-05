@@ -44,6 +44,10 @@
 	<string>AstroBite needs camera access to scan food and analyze nutritional content with AI.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>AstroBite needs photo library access to select food photos for nutritional analysis.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>AstroBite cần truy cập Microphone để nhận diện giọng nói khi ghi chép bữa ăn nhanh (AstroVoice AI).</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>AstroBite cần sử dụng tính năng nhận diện giọng nói để chuyển lời nói của bạn thành món ăn và dinh dưỡng.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

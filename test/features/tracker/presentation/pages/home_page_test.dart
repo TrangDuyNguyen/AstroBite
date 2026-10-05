@@ -123,7 +123,7 @@ void main() {
       addTearDown(tester.view.resetPhysicalSize);
 
       await tester.pumpWidget(createWidgetUnderTest());
-      await tester.pumpAndSettle();
+      await tester.pump();
 
       expect(find.text('Công thức món'), findsOneWidget);
       expect(find.text('Kế hoạch 7 ngày'), findsOneWidget);

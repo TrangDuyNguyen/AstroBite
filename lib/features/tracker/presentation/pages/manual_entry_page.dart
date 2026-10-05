@@ -12,6 +12,7 @@ import 'package:astrobite/features/tracker/domain/tracker_providers.dart';
 import 'package:astrobite/shared/ui_kit/ui_kit.dart';
 import '../widgets/custom_food_sheet.dart';
 import '../widgets/food_search_bar.dart';
+import 'package:astrobite/features/voice/presentation/widgets/astro_voice_sheet.dart';
 
 @RoutePage()
 class ManualEntryPage extends ConsumerStatefulWidget {
@@ -219,8 +220,20 @@ class _ManualEntryPageState extends ConsumerState<ManualEntryPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // 1. Search Bar
-              FoodSearchBar(onChanged: (q) => setState(() => _query = q)),
+              // 1. Search Bar with AstroVoice mic
+              Row(
+                children: [
+                  Expanded(
+                    child: FoodSearchBar(onChanged: (q) => setState(() => _query = q)),
+                  ),
+                  const SizedBox(width: AppValues.spacing8),
+                  ClayIconButton(
+                    icon: Icons.mic_rounded,
+                    iconColor: AppColors.primary,
+                    onPressed: () => AstroVoiceSheet.show(context),
+                  ),
+                ],
+              ),
               const SizedBox(height: AppValues.spacing12),
 
               // 2. Recent & Favorite Foods Tray (US-01 / 1-Tap populate)

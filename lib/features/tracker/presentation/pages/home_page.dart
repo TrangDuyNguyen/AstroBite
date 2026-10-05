@@ -15,6 +15,9 @@ import 'package:astrobite/shared/ui_kit/ui_kit.dart';
 import 'package:astrobite/features/gamification/presentation/controllers/streak_controller.dart';
 import 'package:astrobite/features/widgets/widget_sync_service.dart';
 
+import 'package:astrobite/features/voice/presentation/widgets/astro_voice_sheet.dart';
+import 'package:astrobite/features/voice/presentation/widgets/voice_pulsing_mic_button.dart';
+
 @RoutePage()
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
@@ -42,6 +45,9 @@ class HomePage extends ConsumerWidget {
     return Scaffold(
       backgroundColor: AppColors.surface,
       appBar: const DashboardAppBar(),
+      floatingActionButton: VoicePulsingMicButton(
+        onTap: () => AstroVoiceSheet.show(context),
+      ),
       body: SafeArea(
         bottom: false,
         child: Column(
