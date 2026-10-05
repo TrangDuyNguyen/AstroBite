@@ -7,7 +7,7 @@
 - **Phiên bản mục tiêu**: `v2.9.0`
 - **Thời gian Sprint**: 05/10/2026 – 19/10/2026
 - **Trạng thái Sprint**: 🟡 **IN PROGRESS**
-- **Tổng Story Points cam kết**: **13 SP** (Tiến độ: **1 / 13 SP — 8%**)
+- **Tổng Story Points cam kết**: **13 SP** (Tiến độ: **3 / 13 SP — 23%**)
 
 ---
 
@@ -21,10 +21,9 @@
 
 ## 📋 Bảng Kanban Sprint 19
 
-### 1. 📝 BACKLOG / QUEUED — [12 SP]
+### 1. 📝 BACKLOG / QUEUED — [10 SP]
 | Mã Task | Màn Hình / File | Gate | Mô Tả | Sub-Agent Phụ Trách | SP | Trạng Thái |
 |:---|:---|:---:|:---|:---:|:---:|:---|
-| `TSK-S19-01-PRD` | `docs/03-prd-features/26-multi-region-food-intelligence/` | **G1** | BA: Soạn PRD & User Stories BDD cho Broth Toggle & Topping Checklist | `business-analyst` | 2 | 🟡 **QUEUED** |
 | `TSK-S19-02-DESIGN` | UI Blueprint Broth Chip & Topping Checklist | **G2** | UI/UX Designer: Thiết kế Claymorphic Broth Toggle & Topping Chips 5 States | `ui-ux-designer` | 2 | 🟡 **QUEUED** |
 | `TSK-S19-03-TEST-PLAN` | Master Test Plan Sprint 19 | **G3** | QA Tester: Thiết kế test biên BVA và kịch bản BDD Gherkin món Việt | `qa-tester` | 1 | 🟡 **QUEUED** |
 | `TSK-S19-04-BACKEND-AI` | `gemini_remote_datasource.dart`, `scan_result_dto.dart` | **G4** | Cloud Dev: Mở rộng DTO, tinh chỉnh One-Pass Prompt bóc tách món Việt | `cloud-ai-dev` | 3 | 🟡 **QUEUED** |
@@ -39,10 +38,11 @@
 |:---|:---|:---:|:---|:---:|:---:|:---|
 | Không có task | | | | | | |
 
-### 3. 🏁 DONE — [1 SP]
+### 3. 🏁 DONE — [3 SP]
 | Mã Task | Màn Hình / File | Gate | Mô Tả | Sub-Agent Phụ Trách | SP | Trạng Thái |
 |:---|:---|:---:|:---|:---:|:---:|:---|
 | `TSK-S19-00-SPIKE` | `docs/superpowers/specs/2026-10-05-multi-region-food-culture-intelligence-design.md` | **G0** | PO & Tech Lead: Brainstorming & Architectural Design Spec bóc tách món Việt | `product-owner` | 1 | 🟢 **DONE** |
+| `TSK-S19-01-PRD` | `docs/03-prd-features/26-multi-region-food-intelligence/` | **G1** | BA: Soạn PRD & User Stories BDD cho Broth Toggle & Topping Checklist | `business-analyst` | 2 | 🟢 **DONE** |
 
 ---
 
