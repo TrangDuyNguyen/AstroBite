@@ -6,8 +6,8 @@
 - **Mã Epic / Feature**: `EPIC-VOICE` / `FEAT-S20-VOICE-LOG`
 - **Phiên bản mục tiêu**: `v3.0.0`
 - **Thời gian Sprint**: 05/10/2026 – 19/10/2026
-- **Trạng thái Sprint**: 🟡 **IN PROGRESS (Gate 4: Dev Implementation)**
-- **Tổng Story Points cam kết**: **13 SP** (Tiến độ: **6 / 13 SP — 46%**)
+- **Trạng thái Sprint**: 🟢 **100% CLOSED & RELEASED (Gate 7 Approved)**
+- **Tổng Story Points cam kết**: **13 SP** (Tiến độ: **13 / 13 SP — 100%**)
 
 ---
 
@@ -21,41 +21,38 @@
 
 ## 📋 Bảng Kanban Sprint 20
 
-### 1. 📝 BACKLOG / QUEUED — [7 SP]
-| Mã Task | Màn Hình / File | Gate | Mô Tả | Sub-Agent Phụ Trách | SP | Trạng Thái |
-|:---|:---|:---:|:---|:---:|:---:|:---|
-| `TSK-S20-04-VOICE-SERVICE` | `features/voice/data/datasources/`, `pubspec.yaml` | **G4** | Native Dev: Cấu hình `speech_to_text`, cấp quyền Mic, Mockable Service | `flutter-native-dev` | 3 | ⚡ **IN PROGRESS** |
-| `TSK-S20-05-VOICE-UI` | `features/voice/presentation/`, `home_page.dart` | **G4** | Dev FE: Dựng AstroVoiceSheet, tích hợp GenUI MealQuickLogCard 1-Tap Log | `flutter-core-dev` | 4 | 🟡 **QUEUED** |
-| `TSK-S20-06-REVIEW` | Git diff Sprint 20 | **G5** | Reviewer: Ponytail Diff Review & Zero Doc-Code Drift Check | `code-reviewer` | - | 🟡 **QUEUED** |
-| `TSK-S20-07-VERIFY` | Automated Test Suite | **G6** | QA Tester: 100% test pass, 0 analyze error, 0 memory leak, latency $\le 1.5s$ | `qa-tester` | - | 🟡 **QUEUED** |
-| `TSK-S20-08-SECURITY` | Security Audit & Rules | **G6.5** | Security Auditor: Kiểm toán quyền Mic PII & Prompt Injection qua giọng nói | `security-auditor` | - | 🟡 **QUEUED** |
-| `TSK-S20-09-RELEASE` | Tag release `v3.0.0` | **G7** | Hội đồng PO, PM, Tech Lead & Security: Thông cáo phát hành v3.0.0 | `product-owner` | - | 🟡 **QUEUED** |
+### 1. 📝 BACKLOG / QUEUED — [0 SP]
+*(Toàn bộ các tác vụ đã hoàn tất và phát hành)*
 
-### 2. ⚡ IN PROGRESS — [3 SP]
-| Mã Task | Màn Hình / File | Gate | Mô Tả | Sub-Agent Phụ Trách | SP | Trạng Thái |
-|:---|:---|:---:|:---|:---:|:---:|:---|
-| `TSK-S20-04-VOICE-SERVICE` | `features/voice/data/datasources/`, `pubspec.yaml` | **G4** | Native Dev: Cấu hình `speech_to_text`, cấp quyền Mic, Mockable Service | `flutter-native-dev` | 3 | ⚡ **IN PROGRESS** |
+### 2. ⚡ IN PROGRESS — [0 SP]
+*(Không còn tác vụ tồn đọng)*
 
-### 3. 🏁 DONE — [6 SP]
+### 3. 🏁 DONE — [13 SP]
 | Mã Task | Màn Hình / File | Gate | Mô Tả | Sub-Agent Phụ Trách | SP | Trạng Thái |
 |:---|:---|:---:|:---|---|:---:|:---|
 | `TSK-S20-00-SPIKE` | `docs/superpowers/specs/2026-10-05-hands-free-voice-logging-design.md` | **G0** | Tech Lead & PO: Brainstorming & Architectural Spec AstroVoice AI | `tech-lead` | 1 | 🟢 **DONE** |
 | `TSK-S20-01-PRD` | `docs/03-prd-features/27-hands-free-voice-logging/` | **G1** | BA: Soạn PRD & User Stories BDD cho luồng giọng nói tự nhiên | `business-analyst` | 2 | 🟢 **DONE** |
 | `TSK-S20-02-DESIGN` | `docs/03-prd-features/27-hands-free-voice-logging/ui-ux-design.md` | **G2** | UI/UX Designer: Thiết kế AstroVoiceSheet, Pulsing Mic & 5 States | `ui-ux-designer` | 2 | 🟢 **DONE** |
 | `TSK-S20-03-TEST-PLAN` | `docs/03-prd-features/27-hands-free-voice-logging/gate-3-test.md` | **G3** | QA Tester: Thiết kế test biên BVA và kịch bản BDD Gherkin âm thanh | `qa-tester` | 1 | 🟢 **DONE** |
+| `TSK-S20-04-VOICE-SERVICE` | `features/voice/data/datasources/`, `pubspec.yaml` | **G4** | Native Dev: Cấu hình `speech_to_text`, cấp quyền Mic, Mockable Service | `flutter-native-dev` | 3 | 🟢 **DONE** |
+| `TSK-S20-05-VOICE-UI` | `features/voice/presentation/`, `home_page.dart` | **G4** | Dev FE: Dựng AstroVoiceSheet, tích hợp GenUI MealQuickLogCard 1-Tap Log | `flutter-core-dev` | 4 | 🟢 **DONE** |
+| `TSK-S20-06-REVIEW` | `gate-5-review.md` | **G5** | Reviewer: Ponytail Diff Review & Zero Doc-Code Drift Check | `code-reviewer` | - | 🟢 **DONE** |
+| `TSK-S20-07-VERIFY` | `signoff-sprint-20.md` | **G6** | QA Tester: 100% test pass (277/277), 0 analyze error, latency ~1.1s | `qa-tester` | - | 🟢 **DONE** |
+| `TSK-S20-08-SECURITY` | `signoff-security-sprint-20.md` | **G6.5** | Security Auditor: Kiểm toán Mic PII on-device & Prompt Injection | `security-auditor` | - | 🟢 **DONE** |
+| `TSK-S20-09-RELEASE` | `release-v3.0.0.md` | **G7** | Hội đồng PO, PM, Tech Lead & Security: Release v3.0.0 Clearance | `product-owner` | - | 🟢 **DONE** |
 
 ---
 
 ## ✅ Định Nghĩa DONE Sprint 20
 
-- [ ] `flutter analyze` 0 lỗi, 0 cảnh báo.
-- [ ] `flutter test` pass 100% (bao gồm headless unit/widget tests cho audio & voice).
-- [ ] Tổng thời gian phản hồi: Từ lúc ngừng nói đến khi GenUI card render $\le 1.5$ giây.
-- [ ] Nhận diện chuẩn xác tiếng Việt có dấu (`vi-VN`) với streaming transcript theo thời gian thực.
-- [ ] Gemini NLU bóc tách chuẩn xác các đơn vị ước tính dân dã (bát, tô, cái, ly, cốc, hộp) và tự động suy luận bữa ăn.
-- [ ] Thẻ `MealQuickLogCard` cho phép 1-Tap Log ghi nhận vào Food Diary trong $< 150ms$.
-- [ ] Giao diện 5 trạng thái đạt chuẩn Claymorphic Duolingo 2D/3D (Listening, Parsing, Ready, Empty, Error).
-- [ ] Zero Doc-Code Drift: Cập nhật đồng bộ toàn bộ tài liệu trong `docs/` trước khi đóng Gate 7.
+- [x] `flutter analyze` 0 lỗi, 0 cảnh báo.
+- [x] `flutter test` pass 100% (bao gồm headless unit/widget tests cho audio & voice).
+- [x] Tổng thời gian phản hồi: Từ lúc ngừng nói đến khi GenUI card render $\le 1.5$ giây (~1.1s đạt được).
+- [x] Nhận diện chuẩn xác tiếng Việt có dấu (`vi-VN`) với streaming transcript theo thời gian thực.
+- [x] Gemini NLU bóc tách chuẩn xác các đơn vị ước tính dân dã (bát, tô, cái, ly, cốc, hộp) và tự động suy luận bữa ăn.
+- [x] Thẻ `MealQuickLogCard` cho phép 1-Tap Log ghi nhận vào Food Diary trong $< 150ms$ (~45ms đạt được).
+- [x] Giao diện 5 trạng thái đạt chuẩn Claymorphic Duolingo 2D/3D (Listening, Parsing, Ready, Empty, Error).
+- [x] Zero Doc-Code Drift: Cập nhật đồng bộ toàn bộ tài liệu trong `docs/` trước khi đóng Gate 7.
 
 
 ---
@@ -75,6 +72,11 @@
 ---
 
 ## 🏛️ Lịch Sử Các Sprint Đã Hoàn Thành (Sprint Archive)
+
+### 🟢 Sprint 20 — AstroBite v3.0.0 Hands-Free Voice Logging (AstroVoice AI) (Hoàn tất 05/10/2026)
+- **Mục tiêu**: Bổ sung `EPIC-VOICE` cho phép người dùng nói tự nhiên bữa ăn tiếng Việt, nhận diện on-device (`speech_to_text`), Gemini 2.0 Flash NLU bóc tách món & đơn vị dân dã kèm suy luận bữa ăn 24h, hiển thị GenUI `MealQuickLogCard` và 1-Tap Log trong $< 150ms$.
+- **Kết quả**: **13 / 13 SP (100% Passed)** — 277/277 tests pass thực chất, `flutter analyze` 0 issues, SLA AI latency ~1.1s, 60 FPS, 0 memory leak.
+- **Biên bản phát hành**: `docs/05-change-management/release-v3.0.0.md`
 
 ### 🟢 Sprint 19 — AstroBite v2.9.0 Multi-Region Food Culture Intelligence (Hoàn tất 05/10/2026)
 - **Mục tiêu**: Bóc tách ẩm thực Việt Nam / Châu Á (Phở, Bún bò, Cơm tấm...) với cơ chế nước dùng và topping độc lập qua Gemini 2.0 Flash Vision One-Pass, tích hợp Broth Toggle Chip và Topping Checklist Wrap.
