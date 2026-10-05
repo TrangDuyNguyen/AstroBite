@@ -74,6 +74,21 @@ class ScanFoodUseCase {
                   fiberG: d.fiberG ?? 0.0,
                   sugarG: d.sugarG ?? 0.0,
                   isSelected: true,
+                  hasBroth: d.hasBroth ?? false,
+                  brothCalories: d.brothCalories ?? 0,
+                  brothSodiumMg: d.brothSodiumMg ?? 0.0,
+                  includeBroth: d.includeBroth ?? true,
+                  subItems: d.subItems
+                          ?.map((s) => SubDishItem(
+                                name: s.name,
+                                calories: s.calories,
+                                carbsG: s.carbsG ?? 0,
+                                proteinG: s.proteinG ?? 0,
+                                fatG: s.fatG ?? 0,
+                                isSelected: s.isSelected ?? true,
+                              ))
+                          .toList() ??
+                      [],
                 ))
             .toList(),
       );

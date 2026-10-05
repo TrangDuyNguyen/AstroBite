@@ -11,6 +11,8 @@ import 'package:astrobite/features/tracker/data/models/food_log_dto.dart';
 import 'package:astrobite/features/tracker/domain/tracker_providers.dart';
 import 'package:astrobite/shared/ui_kit/ui_kit.dart';
 import '../widgets/micronutrient_chips_row.dart';
+import '../widgets/broth_toggle_chip.dart';
+import '../widgets/topping_checklist_wrap.dart';
 
 @RoutePage()
 class ScanReviewPage extends ConsumerStatefulWidget {
@@ -77,7 +79,16 @@ class _ScanReviewPageState extends ConsumerState<ScanReviewPage> {
       final effectiveWeight = _currentWeightG > 0
           ? _currentWeightG
           : (base.totalWeightG > 0 ? base.totalWeightG : 350);
-      return base.scaleToWeight(effectiveWeight);
+      final scaled = base.scaleToWeight(effectiveWeight);
+      if (_dishes.isNotEmpty && scaled.dishes.isNotEmpty) {
+        final d = _dishes.first;
+        scaled.dishes.first.hasBroth = d.hasBroth;
+        scaled.dishes.first.brothCalories = d.brothCalories;
+        scaled.dishes.first.brothSodiumMg = d.brothSodiumMg;
+        scaled.dishes.first.includeBroth = d.includeBroth;
+        scaled.dishes.first.subItems = d.subItems;
+      }
+      return scaled;
     }
 
     return ScanResult(
@@ -133,15 +144,29 @@ class _ScanReviewPageState extends ConsumerState<ScanReviewPage> {
             .map((d) => {
                   'dish_name': d.dishName,
                   'estimated_weight_g': d.estimatedWeightG,
-                  'calories': d.calories,
-                  'carbs_g': d.carbsG,
-                  'protein_g': d.proteinG,
-                  'fat_g': d.fatG,
-                  'sodium_mg': d.sodiumMg,
+                  'calories': d.effectiveCalories,
+                  'carbs_g': d.effectiveCarbsG,
+                  'protein_g': d.effectiveProteinG,
+                  'fat_g': d.effectiveFatG,
+                  'sodium_mg': d.effectiveSodiumMg,
                   'fiber_g': d.fiberG,
                   'sugar_g': d.sugarG,
                   'confidence_score': d.confidenceScore,
                   'is_selected': d.isSelected,
+                  'has_broth': d.hasBroth,
+                  'broth_calories': d.brothCalories,
+                  'broth_sodium_mg': d.brothSodiumMg,
+                  'include_broth': d.includeBroth,
+                  'sub_items': d.subItems
+                      .map((s) => {
+                            'name': s.name,
+                            'calories': s.calories,
+                            'carbs_g': s.carbsG,
+                            'protein_g': s.proteinG,
+                            'fat_g': s.fatG,
+                            'is_selected': s.isSelected,
+                          })
+                      .toList(),
                 })
             .toList(),
       );
@@ -697,6 +722,28 @@ class _ScanReviewPageState extends ConsumerState<ScanReviewPage> {
                     ],
                   ),
                 ),
+                if (_dishes.isNotEmpty && (_dishes.first.hasBroth || _dishes.first.subItems.isNotEmpty)) ...[
+                  const SizedBox(height: AppValues.spacing12),
+                  BrothToggleChip(
+                    hasBroth: _dishes.first.hasBroth,
+                    includeBroth: _dishes.first.includeBroth,
+                    brothCalories: _dishes.first.brothCalories,
+                    brothSodiumMg: _dishes.first.brothSodiumMg,
+                    onToggle: (val) {
+                      setState(() {
+                        _dishes.first.includeBroth = val;
+                      });
+                    },
+                  ),
+                  ToppingChecklistWrap(
+                    subItems: _dishes.first.subItems,
+                    onToggleSubItem: (idx, isSel) {
+                      setState(() {
+                        _dishes.first.subItems[idx].isSelected = isSel;
+                      });
+                    },
+                  ),
+                ],
                 const SizedBox(height: AppValues.spacing16),
               ],
 
@@ -726,6 +773,16 @@ class _ScanReviewPageState extends ConsumerState<ScanReviewPage> {
                     onToggle: (val) {
                       setState(() {
                         dish.isSelected = val ?? true;
+                      });
+                    },
+                    onBrothToggle: (val) {
+                      setState(() {
+                        dish.includeBroth = val;
+                      });
+                    },
+                    onSubItemToggle: (subIdx, isSel) {
+                      setState(() {
+                        dish.subItems[subIdx].isSelected = isSel;
                       });
                     },
                     onWeightChanged: (newWeight) {
@@ -902,12 +959,16 @@ class _DishItemCard extends StatelessWidget {
     required this.onToggle,
     required this.onWeightChanged,
     required this.onRemove,
+    this.onBrothToggle,
+    this.onSubItemToggle,
   });
 
   final DishItem dish;
   final ValueChanged<bool?> onToggle;
   final ValueChanged<int> onWeightChanged;
   final VoidCallback onRemove;
+  final ValueChanged<bool>? onBrothToggle;
+  final void Function(int index, bool isSelected)? onSubItemToggle;
 
   @override
   Widget build(BuildContext context) {
@@ -1033,6 +1094,21 @@ class _DishItemCard extends StatelessWidget {
                     },
                   ),
                 ),
+                if (dish.hasBroth) ...[
+                  BrothToggleChip(
+                    hasBroth: dish.hasBroth,
+                    includeBroth: dish.includeBroth,
+                    brothCalories: dish.brothCalories,
+                    brothSodiumMg: dish.brothSodiumMg,
+                    onToggle: onBrothToggle ?? (_) {},
+                  ),
+                ],
+                if (dish.subItems.isNotEmpty) ...[
+                  ToppingChecklistWrap(
+                    subItems: dish.subItems,
+                    onToggleSubItem: onSubItemToggle ?? (_, __) {},
+                  ),
+                ],
               ],
             ],
           ),

@@ -44,8 +44,28 @@ abstract class DishDto with _$DishDto {
     @JsonKey(name: 'sodium_mg', defaultValue: 0.0) double? sodiumMg,
     @JsonKey(name: 'fiber_g', defaultValue: 0.0) double? fiberG,
     @JsonKey(name: 'sugar_g', defaultValue: 0.0) double? sugarG,
+    @JsonKey(name: 'has_broth', defaultValue: false) bool? hasBroth,
+    @JsonKey(name: 'broth_calories', defaultValue: 0) int? brothCalories,
+    @JsonKey(name: 'broth_sodium_mg', defaultValue: 0.0) double? brothSodiumMg,
+    @JsonKey(name: 'include_broth', defaultValue: true) bool? includeBroth,
+    @JsonKey(name: 'sub_items', defaultValue: []) List<SubDishDto>? subItems,
   }) = _DishDto;
 
   factory DishDto.fromJson(Map<String, dynamic> json) =>
       _$DishDtoFromJson(json);
+}
+
+@freezed
+abstract class SubDishDto with _$SubDishDto {
+  const factory SubDishDto({
+    required String name,
+    required int calories,
+    @JsonKey(name: 'carbs_g', defaultValue: 0) int? carbsG,
+    @JsonKey(name: 'protein_g', defaultValue: 0) int? proteinG,
+    @JsonKey(name: 'fat_g', defaultValue: 0) int? fatG,
+    @JsonKey(name: 'is_selected', defaultValue: true) bool? isSelected,
+  }) = _SubDishDto;
+
+  factory SubDishDto.fromJson(Map<String, dynamic> json) =>
+      _$SubDishDtoFromJson(json);
 }

@@ -18,7 +18,7 @@ class GeminiRemoteDatasource {
   final Future<String> Function() _apiKeyResolver;
 
   static const _systemPrompt = '''
-You are an expert nutritionist and computer vision AI specialized in Vietnamese cuisine and global food mapping.
+You are an expert nutritionist and computer vision AI specialized in Vietnamese cuisine and Asian culinary decomposition.
 Analyze the attached image and extract all identifiable food items, their estimated weights, and calculated nutritional profiles.
 
 You MUST return a valid, minified JSON object matching the schema below. Do NOT wrap the JSON in markdown code blocks, do NOT include any introductory or concluding text.
@@ -46,15 +46,39 @@ Schema Definition:
       "fat_g": integer,
       "sodium_mg": float,
       "fiber_g": float,
-      "sugar_g": float
+      "sugar_g": float,
+      "has_broth": boolean,
+      "broth_calories": integer,
+      "broth_sodium_mg": float,
+      "include_broth": boolean,
+      "sub_items": [
+        {
+          "name": "string",
+          "calories": integer,
+          "carbs_g": integer,
+          "protein_g": integer,
+          "fat_g": integer,
+          "is_selected": boolean
+        }
+      ]
     }
   ]
 }
 
 Contextual Rules:
-1. Prioritize Vietnamese traditional food profiles and default ingredients.
-2. If multiple items exist on one plate or tray, segment each distinct item into the "dishes" array.
-3. Provide accurate estimates for sodium (mg), dietary fiber (g), and sugars (g).
+1. Prioritize Vietnamese traditional food profiles, street food, and authentic regional culinary ingredients.
+2. For noodle soups or dishes with broth (e.g., Phở, Bún bò Huế, Hủ tiếu, Canh chua, Bánh canh, Mì Quảng):
+   - Set "has_broth": true.
+   - Separate "broth_calories" (bone broth, fat, simmered aromatics; usually 35-45% of total calories).
+   - Separate "broth_sodium_mg" (seasoning, fish sauce, MSG in broth; usually 65-80% of total sodium).
+   - "calories" is the total calories including broth.
+   - Set "include_broth": true.
+3. For dry or non-broth dishes, set "has_broth": false, "broth_calories": 0, "broth_sodium_mg": 0.0.
+4. For composite / combo dishes with multiple customizable toppings (e.g., Cơm tấm sườn bì chả mỡ hành, Bánh mì kẹp thịt, Xôi mặn, Trà sữa trân châu):
+   - Decompose distinct key toppings into the "sub_items" array with their individual calories and macros.
+   - Set "is_selected": true for each sub-item.
+5. If multiple items exist on one table or tray, segment each distinct item into the "dishes" array.
+6. Provide accurate estimates for sodium (mg), dietary fiber (g), and sugars (g).
 ''';
 
   Future<ScanResultDto?> analyzeFoodImage(Uint8List imageBytes) async {

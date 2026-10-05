@@ -53,6 +53,14 @@ _DishDto _$DishDtoFromJson(Map<String, dynamic> json) => _DishDto(
       sodiumMg: (json['sodium_mg'] as num?)?.toDouble() ?? 0.0,
       fiberG: (json['fiber_g'] as num?)?.toDouble() ?? 0.0,
       sugarG: (json['sugar_g'] as num?)?.toDouble() ?? 0.0,
+      hasBroth: json['has_broth'] as bool? ?? false,
+      brothCalories: (json['broth_calories'] as num?)?.toInt() ?? 0,
+      brothSodiumMg: (json['broth_sodium_mg'] as num?)?.toDouble() ?? 0.0,
+      includeBroth: json['include_broth'] as bool? ?? true,
+      subItems: (json['sub_items'] as List<dynamic>?)
+              ?.map((e) => SubDishDto.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
     );
 
 Map<String, dynamic> _$DishDtoToJson(_DishDto instance) => <String, dynamic>{
@@ -66,4 +74,28 @@ Map<String, dynamic> _$DishDtoToJson(_DishDto instance) => <String, dynamic>{
       'sodium_mg': instance.sodiumMg,
       'fiber_g': instance.fiberG,
       'sugar_g': instance.sugarG,
+      'has_broth': instance.hasBroth,
+      'broth_calories': instance.brothCalories,
+      'broth_sodium_mg': instance.brothSodiumMg,
+      'include_broth': instance.includeBroth,
+      'sub_items': instance.subItems,
+    };
+
+_SubDishDto _$SubDishDtoFromJson(Map<String, dynamic> json) => _SubDishDto(
+      name: json['name'] as String,
+      calories: (json['calories'] as num).toInt(),
+      carbsG: (json['carbs_g'] as num?)?.toInt() ?? 0,
+      proteinG: (json['protein_g'] as num?)?.toInt() ?? 0,
+      fatG: (json['fat_g'] as num?)?.toInt() ?? 0,
+      isSelected: json['is_selected'] as bool? ?? true,
+    );
+
+Map<String, dynamic> _$SubDishDtoToJson(_SubDishDto instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'calories': instance.calories,
+      'carbs_g': instance.carbsG,
+      'protein_g': instance.proteinG,
+      'fat_g': instance.fatG,
+      'is_selected': instance.isSelected,
     };

@@ -875,6 +875,16 @@ mixin _$DishDto {
   double? get fiberG;
   @JsonKey(name: 'sugar_g', defaultValue: 0.0)
   double? get sugarG;
+  @JsonKey(name: 'has_broth', defaultValue: false)
+  bool? get hasBroth;
+  @JsonKey(name: 'broth_calories', defaultValue: 0)
+  int? get brothCalories;
+  @JsonKey(name: 'broth_sodium_mg', defaultValue: 0.0)
+  double? get brothSodiumMg;
+  @JsonKey(name: 'include_broth', defaultValue: true)
+  bool? get includeBroth;
+  @JsonKey(name: 'sub_items', defaultValue: [])
+  List<SubDishDto>? get subItems;
 
   /// Create a copy of DishDto
   /// with the given fields replaced by the non-null parameter values.
@@ -906,7 +916,16 @@ mixin _$DishDto {
             (identical(other.sodiumMg, sodiumMg) ||
                 other.sodiumMg == sodiumMg) &&
             (identical(other.fiberG, fiberG) || other.fiberG == fiberG) &&
-            (identical(other.sugarG, sugarG) || other.sugarG == sugarG));
+            (identical(other.sugarG, sugarG) || other.sugarG == sugarG) &&
+            (identical(other.hasBroth, hasBroth) ||
+                other.hasBroth == hasBroth) &&
+            (identical(other.brothCalories, brothCalories) ||
+                other.brothCalories == brothCalories) &&
+            (identical(other.brothSodiumMg, brothSodiumMg) ||
+                other.brothSodiumMg == brothSodiumMg) &&
+            (identical(other.includeBroth, includeBroth) ||
+                other.includeBroth == includeBroth) &&
+            const DeepCollectionEquality().equals(other.subItems, subItems));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -922,11 +941,16 @@ mixin _$DishDto {
       fatG,
       sodiumMg,
       fiberG,
-      sugarG);
+      sugarG,
+      hasBroth,
+      brothCalories,
+      brothSodiumMg,
+      includeBroth,
+      const DeepCollectionEquality().hash(subItems));
 
   @override
   String toString() {
-    return 'DishDto(dishName: $dishName, confidenceScore: $confidenceScore, estimatedWeightG: $estimatedWeightG, calories: $calories, carbsG: $carbsG, proteinG: $proteinG, fatG: $fatG, sodiumMg: $sodiumMg, fiberG: $fiberG, sugarG: $sugarG)';
+    return 'DishDto(dishName: $dishName, confidenceScore: $confidenceScore, estimatedWeightG: $estimatedWeightG, calories: $calories, carbsG: $carbsG, proteinG: $proteinG, fatG: $fatG, sodiumMg: $sodiumMg, fiberG: $fiberG, sugarG: $sugarG, hasBroth: $hasBroth, brothCalories: $brothCalories, brothSodiumMg: $brothSodiumMg, includeBroth: $includeBroth, subItems: $subItems)';
   }
 }
 
@@ -945,7 +969,14 @@ abstract mixin class $DishDtoCopyWith<$Res> {
       @JsonKey(name: 'fat_g', defaultValue: 0) int? fatG,
       @JsonKey(name: 'sodium_mg', defaultValue: 0.0) double? sodiumMg,
       @JsonKey(name: 'fiber_g', defaultValue: 0.0) double? fiberG,
-      @JsonKey(name: 'sugar_g', defaultValue: 0.0) double? sugarG});
+      @JsonKey(name: 'sugar_g', defaultValue: 0.0) double? sugarG,
+      @JsonKey(name: 'has_broth', defaultValue: false) bool? hasBroth,
+      @JsonKey(name: 'broth_calories', defaultValue: 0) int? brothCalories,
+      @JsonKey(name: 'broth_sodium_mg', defaultValue: 0.0)
+      double? brothSodiumMg,
+      @JsonKey(name: 'include_broth', defaultValue: true) bool? includeBroth,
+      @JsonKey(name: 'sub_items', defaultValue: [])
+      List<SubDishDto>? subItems});
 }
 
 /// @nodoc
@@ -970,6 +1001,11 @@ class _$DishDtoCopyWithImpl<$Res> implements $DishDtoCopyWith<$Res> {
     Object? sodiumMg = freezed,
     Object? fiberG = freezed,
     Object? sugarG = freezed,
+    Object? hasBroth = freezed,
+    Object? brothCalories = freezed,
+    Object? brothSodiumMg = freezed,
+    Object? includeBroth = freezed,
+    Object? subItems = freezed,
   }) {
     return _then(_self.copyWith(
       dishName: null == dishName
@@ -1012,6 +1048,26 @@ class _$DishDtoCopyWithImpl<$Res> implements $DishDtoCopyWith<$Res> {
           ? _self.sugarG
           : sugarG // ignore: cast_nullable_to_non_nullable
               as double?,
+      hasBroth: freezed == hasBroth
+          ? _self.hasBroth
+          : hasBroth // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      brothCalories: freezed == brothCalories
+          ? _self.brothCalories
+          : brothCalories // ignore: cast_nullable_to_non_nullable
+              as int?,
+      brothSodiumMg: freezed == brothSodiumMg
+          ? _self.brothSodiumMg
+          : brothSodiumMg // ignore: cast_nullable_to_non_nullable
+              as double?,
+      includeBroth: freezed == includeBroth
+          ? _self.includeBroth
+          : includeBroth // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      subItems: freezed == subItems
+          ? _self.subItems
+          : subItems // ignore: cast_nullable_to_non_nullable
+              as List<SubDishDto>?,
     ));
   }
 }
@@ -1119,7 +1175,16 @@ extension DishDtoPatterns on DishDto {
             @JsonKey(name: 'fat_g', defaultValue: 0) int? fatG,
             @JsonKey(name: 'sodium_mg', defaultValue: 0.0) double? sodiumMg,
             @JsonKey(name: 'fiber_g', defaultValue: 0.0) double? fiberG,
-            @JsonKey(name: 'sugar_g', defaultValue: 0.0) double? sugarG)?
+            @JsonKey(name: 'sugar_g', defaultValue: 0.0) double? sugarG,
+            @JsonKey(name: 'has_broth', defaultValue: false) bool? hasBroth,
+            @JsonKey(name: 'broth_calories', defaultValue: 0)
+            int? brothCalories,
+            @JsonKey(name: 'broth_sodium_mg', defaultValue: 0.0)
+            double? brothSodiumMg,
+            @JsonKey(name: 'include_broth', defaultValue: true)
+            bool? includeBroth,
+            @JsonKey(name: 'sub_items', defaultValue: [])
+            List<SubDishDto>? subItems)?
         $default, {
     required TResult orElse(),
   }) {
@@ -1136,7 +1201,12 @@ extension DishDtoPatterns on DishDto {
             _that.fatG,
             _that.sodiumMg,
             _that.fiberG,
-            _that.sugarG);
+            _that.sugarG,
+            _that.hasBroth,
+            _that.brothCalories,
+            _that.brothSodiumMg,
+            _that.includeBroth,
+            _that.subItems);
       case _:
         return orElse();
     }
@@ -1167,7 +1237,16 @@ extension DishDtoPatterns on DishDto {
             @JsonKey(name: 'fat_g', defaultValue: 0) int? fatG,
             @JsonKey(name: 'sodium_mg', defaultValue: 0.0) double? sodiumMg,
             @JsonKey(name: 'fiber_g', defaultValue: 0.0) double? fiberG,
-            @JsonKey(name: 'sugar_g', defaultValue: 0.0) double? sugarG)
+            @JsonKey(name: 'sugar_g', defaultValue: 0.0) double? sugarG,
+            @JsonKey(name: 'has_broth', defaultValue: false) bool? hasBroth,
+            @JsonKey(name: 'broth_calories', defaultValue: 0)
+            int? brothCalories,
+            @JsonKey(name: 'broth_sodium_mg', defaultValue: 0.0)
+            double? brothSodiumMg,
+            @JsonKey(name: 'include_broth', defaultValue: true)
+            bool? includeBroth,
+            @JsonKey(name: 'sub_items', defaultValue: [])
+            List<SubDishDto>? subItems)
         $default,
   ) {
     final _that = this;
@@ -1183,7 +1262,12 @@ extension DishDtoPatterns on DishDto {
             _that.fatG,
             _that.sodiumMg,
             _that.fiberG,
-            _that.sugarG);
+            _that.sugarG,
+            _that.hasBroth,
+            _that.brothCalories,
+            _that.brothSodiumMg,
+            _that.includeBroth,
+            _that.subItems);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -1213,7 +1297,16 @@ extension DishDtoPatterns on DishDto {
             @JsonKey(name: 'fat_g', defaultValue: 0) int? fatG,
             @JsonKey(name: 'sodium_mg', defaultValue: 0.0) double? sodiumMg,
             @JsonKey(name: 'fiber_g', defaultValue: 0.0) double? fiberG,
-            @JsonKey(name: 'sugar_g', defaultValue: 0.0) double? sugarG)?
+            @JsonKey(name: 'sugar_g', defaultValue: 0.0) double? sugarG,
+            @JsonKey(name: 'has_broth', defaultValue: false) bool? hasBroth,
+            @JsonKey(name: 'broth_calories', defaultValue: 0)
+            int? brothCalories,
+            @JsonKey(name: 'broth_sodium_mg', defaultValue: 0.0)
+            double? brothSodiumMg,
+            @JsonKey(name: 'include_broth', defaultValue: true)
+            bool? includeBroth,
+            @JsonKey(name: 'sub_items', defaultValue: [])
+            List<SubDishDto>? subItems)?
         $default,
   ) {
     final _that = this;
@@ -1229,7 +1322,12 @@ extension DishDtoPatterns on DishDto {
             _that.fatG,
             _that.sodiumMg,
             _that.fiberG,
-            _that.sugarG);
+            _that.sugarG,
+            _that.hasBroth,
+            _that.brothCalories,
+            _that.brothSodiumMg,
+            _that.includeBroth,
+            _that.subItems);
       case _:
         return null;
     }
@@ -1249,7 +1347,14 @@ class _DishDto implements DishDto {
       @JsonKey(name: 'fat_g', defaultValue: 0) this.fatG,
       @JsonKey(name: 'sodium_mg', defaultValue: 0.0) this.sodiumMg,
       @JsonKey(name: 'fiber_g', defaultValue: 0.0) this.fiberG,
-      @JsonKey(name: 'sugar_g', defaultValue: 0.0) this.sugarG});
+      @JsonKey(name: 'sugar_g', defaultValue: 0.0) this.sugarG,
+      @JsonKey(name: 'has_broth', defaultValue: false) this.hasBroth,
+      @JsonKey(name: 'broth_calories', defaultValue: 0) this.brothCalories,
+      @JsonKey(name: 'broth_sodium_mg', defaultValue: 0.0) this.brothSodiumMg,
+      @JsonKey(name: 'include_broth', defaultValue: true) this.includeBroth,
+      @JsonKey(name: 'sub_items', defaultValue: [])
+      final List<SubDishDto>? subItems})
+      : _subItems = subItems;
   factory _DishDto.fromJson(Map<String, dynamic> json) =>
       _$DishDtoFromJson(json);
 
@@ -1282,6 +1387,28 @@ class _DishDto implements DishDto {
   @override
   @JsonKey(name: 'sugar_g', defaultValue: 0.0)
   final double? sugarG;
+  @override
+  @JsonKey(name: 'has_broth', defaultValue: false)
+  final bool? hasBroth;
+  @override
+  @JsonKey(name: 'broth_calories', defaultValue: 0)
+  final int? brothCalories;
+  @override
+  @JsonKey(name: 'broth_sodium_mg', defaultValue: 0.0)
+  final double? brothSodiumMg;
+  @override
+  @JsonKey(name: 'include_broth', defaultValue: true)
+  final bool? includeBroth;
+  final List<SubDishDto>? _subItems;
+  @override
+  @JsonKey(name: 'sub_items', defaultValue: [])
+  List<SubDishDto>? get subItems {
+    final value = _subItems;
+    if (value == null) return null;
+    if (_subItems is EqualUnmodifiableListView) return _subItems;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   /// Create a copy of DishDto
   /// with the given fields replaced by the non-null parameter values.
@@ -1318,7 +1445,16 @@ class _DishDto implements DishDto {
             (identical(other.sodiumMg, sodiumMg) ||
                 other.sodiumMg == sodiumMg) &&
             (identical(other.fiberG, fiberG) || other.fiberG == fiberG) &&
-            (identical(other.sugarG, sugarG) || other.sugarG == sugarG));
+            (identical(other.sugarG, sugarG) || other.sugarG == sugarG) &&
+            (identical(other.hasBroth, hasBroth) ||
+                other.hasBroth == hasBroth) &&
+            (identical(other.brothCalories, brothCalories) ||
+                other.brothCalories == brothCalories) &&
+            (identical(other.brothSodiumMg, brothSodiumMg) ||
+                other.brothSodiumMg == brothSodiumMg) &&
+            (identical(other.includeBroth, includeBroth) ||
+                other.includeBroth == includeBroth) &&
+            const DeepCollectionEquality().equals(other._subItems, _subItems));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -1334,11 +1470,16 @@ class _DishDto implements DishDto {
       fatG,
       sodiumMg,
       fiberG,
-      sugarG);
+      sugarG,
+      hasBroth,
+      brothCalories,
+      brothSodiumMg,
+      includeBroth,
+      const DeepCollectionEquality().hash(_subItems));
 
   @override
   String toString() {
-    return 'DishDto(dishName: $dishName, confidenceScore: $confidenceScore, estimatedWeightG: $estimatedWeightG, calories: $calories, carbsG: $carbsG, proteinG: $proteinG, fatG: $fatG, sodiumMg: $sodiumMg, fiberG: $fiberG, sugarG: $sugarG)';
+    return 'DishDto(dishName: $dishName, confidenceScore: $confidenceScore, estimatedWeightG: $estimatedWeightG, calories: $calories, carbsG: $carbsG, proteinG: $proteinG, fatG: $fatG, sodiumMg: $sodiumMg, fiberG: $fiberG, sugarG: $sugarG, hasBroth: $hasBroth, brothCalories: $brothCalories, brothSodiumMg: $brothSodiumMg, includeBroth: $includeBroth, subItems: $subItems)';
   }
 }
 
@@ -1358,7 +1499,14 @@ abstract mixin class _$DishDtoCopyWith<$Res> implements $DishDtoCopyWith<$Res> {
       @JsonKey(name: 'fat_g', defaultValue: 0) int? fatG,
       @JsonKey(name: 'sodium_mg', defaultValue: 0.0) double? sodiumMg,
       @JsonKey(name: 'fiber_g', defaultValue: 0.0) double? fiberG,
-      @JsonKey(name: 'sugar_g', defaultValue: 0.0) double? sugarG});
+      @JsonKey(name: 'sugar_g', defaultValue: 0.0) double? sugarG,
+      @JsonKey(name: 'has_broth', defaultValue: false) bool? hasBroth,
+      @JsonKey(name: 'broth_calories', defaultValue: 0) int? brothCalories,
+      @JsonKey(name: 'broth_sodium_mg', defaultValue: 0.0)
+      double? brothSodiumMg,
+      @JsonKey(name: 'include_broth', defaultValue: true) bool? includeBroth,
+      @JsonKey(name: 'sub_items', defaultValue: [])
+      List<SubDishDto>? subItems});
 }
 
 /// @nodoc
@@ -1383,6 +1531,11 @@ class __$DishDtoCopyWithImpl<$Res> implements _$DishDtoCopyWith<$Res> {
     Object? sodiumMg = freezed,
     Object? fiberG = freezed,
     Object? sugarG = freezed,
+    Object? hasBroth = freezed,
+    Object? brothCalories = freezed,
+    Object? brothSodiumMg = freezed,
+    Object? includeBroth = freezed,
+    Object? subItems = freezed,
   }) {
     return _then(_DishDto(
       dishName: null == dishName
@@ -1425,6 +1578,457 @@ class __$DishDtoCopyWithImpl<$Res> implements _$DishDtoCopyWith<$Res> {
           ? _self.sugarG
           : sugarG // ignore: cast_nullable_to_non_nullable
               as double?,
+      hasBroth: freezed == hasBroth
+          ? _self.hasBroth
+          : hasBroth // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      brothCalories: freezed == brothCalories
+          ? _self.brothCalories
+          : brothCalories // ignore: cast_nullable_to_non_nullable
+              as int?,
+      brothSodiumMg: freezed == brothSodiumMg
+          ? _self.brothSodiumMg
+          : brothSodiumMg // ignore: cast_nullable_to_non_nullable
+              as double?,
+      includeBroth: freezed == includeBroth
+          ? _self.includeBroth
+          : includeBroth // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      subItems: freezed == subItems
+          ? _self._subItems
+          : subItems // ignore: cast_nullable_to_non_nullable
+              as List<SubDishDto>?,
+    ));
+  }
+}
+
+/// @nodoc
+mixin _$SubDishDto {
+  String get name;
+  int get calories;
+  @JsonKey(name: 'carbs_g', defaultValue: 0)
+  int? get carbsG;
+  @JsonKey(name: 'protein_g', defaultValue: 0)
+  int? get proteinG;
+  @JsonKey(name: 'fat_g', defaultValue: 0)
+  int? get fatG;
+  @JsonKey(name: 'is_selected', defaultValue: true)
+  bool? get isSelected;
+
+  /// Create a copy of SubDishDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $SubDishDtoCopyWith<SubDishDto> get copyWith =>
+      _$SubDishDtoCopyWithImpl<SubDishDto>(this as SubDishDto, _$identity);
+
+  /// Serializes this SubDishDto to a JSON map.
+  Map<String, dynamic> toJson();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is SubDishDto &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.calories, calories) ||
+                other.calories == calories) &&
+            (identical(other.carbsG, carbsG) || other.carbsG == carbsG) &&
+            (identical(other.proteinG, proteinG) ||
+                other.proteinG == proteinG) &&
+            (identical(other.fatG, fatG) || other.fatG == fatG) &&
+            (identical(other.isSelected, isSelected) ||
+                other.isSelected == isSelected));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, name, calories, carbsG, proteinG, fatG, isSelected);
+
+  @override
+  String toString() {
+    return 'SubDishDto(name: $name, calories: $calories, carbsG: $carbsG, proteinG: $proteinG, fatG: $fatG, isSelected: $isSelected)';
+  }
+}
+
+/// @nodoc
+abstract mixin class $SubDishDtoCopyWith<$Res> {
+  factory $SubDishDtoCopyWith(
+          SubDishDto value, $Res Function(SubDishDto) _then) =
+      _$SubDishDtoCopyWithImpl;
+  @useResult
+  $Res call(
+      {String name,
+      int calories,
+      @JsonKey(name: 'carbs_g', defaultValue: 0) int? carbsG,
+      @JsonKey(name: 'protein_g', defaultValue: 0) int? proteinG,
+      @JsonKey(name: 'fat_g', defaultValue: 0) int? fatG,
+      @JsonKey(name: 'is_selected', defaultValue: true) bool? isSelected});
+}
+
+/// @nodoc
+class _$SubDishDtoCopyWithImpl<$Res> implements $SubDishDtoCopyWith<$Res> {
+  _$SubDishDtoCopyWithImpl(this._self, this._then);
+
+  final SubDishDto _self;
+  final $Res Function(SubDishDto) _then;
+
+  /// Create a copy of SubDishDto
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? calories = null,
+    Object? carbsG = freezed,
+    Object? proteinG = freezed,
+    Object? fatG = freezed,
+    Object? isSelected = freezed,
+  }) {
+    return _then(_self.copyWith(
+      name: null == name
+          ? _self.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      calories: null == calories
+          ? _self.calories
+          : calories // ignore: cast_nullable_to_non_nullable
+              as int,
+      carbsG: freezed == carbsG
+          ? _self.carbsG
+          : carbsG // ignore: cast_nullable_to_non_nullable
+              as int?,
+      proteinG: freezed == proteinG
+          ? _self.proteinG
+          : proteinG // ignore: cast_nullable_to_non_nullable
+              as int?,
+      fatG: freezed == fatG
+          ? _self.fatG
+          : fatG // ignore: cast_nullable_to_non_nullable
+              as int?,
+      isSelected: freezed == isSelected
+          ? _self.isSelected
+          : isSelected // ignore: cast_nullable_to_non_nullable
+              as bool?,
+    ));
+  }
+}
+
+/// Adds pattern-matching-related methods to [SubDishDto].
+extension SubDishDtoPatterns on SubDishDto {
+  /// A variant of `map` that fallback to returning `orElse`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_SubDishDto value)? $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _SubDishDto() when $default != null:
+        return $default(_that);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// Callbacks receives the raw object, upcasted.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case final Subclass2 value:
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_SubDishDto value) $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _SubDishDto():
+        return $default(_that);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `map` that fallback to returning `null`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_SubDishDto value)? $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _SubDishDto() when $default != null:
+        return $default(_that);
+      case _:
+        return null;
+    }
+  }
+
+  /// A variant of `when` that fallback to an `orElse` callback.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(
+            String name,
+            int calories,
+            @JsonKey(name: 'carbs_g', defaultValue: 0) int? carbsG,
+            @JsonKey(name: 'protein_g', defaultValue: 0) int? proteinG,
+            @JsonKey(name: 'fat_g', defaultValue: 0) int? fatG,
+            @JsonKey(name: 'is_selected', defaultValue: true) bool? isSelected)?
+        $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _SubDishDto() when $default != null:
+        return $default(_that.name, _that.calories, _that.carbsG,
+            _that.proteinG, _that.fatG, _that.isSelected);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// As opposed to `map`, this offers destructuring.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case Subclass2(:final field2):
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(
+            String name,
+            int calories,
+            @JsonKey(name: 'carbs_g', defaultValue: 0) int? carbsG,
+            @JsonKey(name: 'protein_g', defaultValue: 0) int? proteinG,
+            @JsonKey(name: 'fat_g', defaultValue: 0) int? fatG,
+            @JsonKey(name: 'is_selected', defaultValue: true) bool? isSelected)
+        $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _SubDishDto():
+        return $default(_that.name, _that.calories, _that.carbsG,
+            _that.proteinG, _that.fatG, _that.isSelected);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `when` that fallback to returning `null`
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(
+            String name,
+            int calories,
+            @JsonKey(name: 'carbs_g', defaultValue: 0) int? carbsG,
+            @JsonKey(name: 'protein_g', defaultValue: 0) int? proteinG,
+            @JsonKey(name: 'fat_g', defaultValue: 0) int? fatG,
+            @JsonKey(name: 'is_selected', defaultValue: true) bool? isSelected)?
+        $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _SubDishDto() when $default != null:
+        return $default(_that.name, _that.calories, _that.carbsG,
+            _that.proteinG, _that.fatG, _that.isSelected);
+      case _:
+        return null;
+    }
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _SubDishDto implements SubDishDto {
+  const _SubDishDto(
+      {required this.name,
+      required this.calories,
+      @JsonKey(name: 'carbs_g', defaultValue: 0) this.carbsG,
+      @JsonKey(name: 'protein_g', defaultValue: 0) this.proteinG,
+      @JsonKey(name: 'fat_g', defaultValue: 0) this.fatG,
+      @JsonKey(name: 'is_selected', defaultValue: true) this.isSelected});
+  factory _SubDishDto.fromJson(Map<String, dynamic> json) =>
+      _$SubDishDtoFromJson(json);
+
+  @override
+  final String name;
+  @override
+  final int calories;
+  @override
+  @JsonKey(name: 'carbs_g', defaultValue: 0)
+  final int? carbsG;
+  @override
+  @JsonKey(name: 'protein_g', defaultValue: 0)
+  final int? proteinG;
+  @override
+  @JsonKey(name: 'fat_g', defaultValue: 0)
+  final int? fatG;
+  @override
+  @JsonKey(name: 'is_selected', defaultValue: true)
+  final bool? isSelected;
+
+  /// Create a copy of SubDishDto
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$SubDishDtoCopyWith<_SubDishDto> get copyWith =>
+      __$SubDishDtoCopyWithImpl<_SubDishDto>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$SubDishDtoToJson(
+      this,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _SubDishDto &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.calories, calories) ||
+                other.calories == calories) &&
+            (identical(other.carbsG, carbsG) || other.carbsG == carbsG) &&
+            (identical(other.proteinG, proteinG) ||
+                other.proteinG == proteinG) &&
+            (identical(other.fatG, fatG) || other.fatG == fatG) &&
+            (identical(other.isSelected, isSelected) ||
+                other.isSelected == isSelected));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, name, calories, carbsG, proteinG, fatG, isSelected);
+
+  @override
+  String toString() {
+    return 'SubDishDto(name: $name, calories: $calories, carbsG: $carbsG, proteinG: $proteinG, fatG: $fatG, isSelected: $isSelected)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$SubDishDtoCopyWith<$Res>
+    implements $SubDishDtoCopyWith<$Res> {
+  factory _$SubDishDtoCopyWith(
+          _SubDishDto value, $Res Function(_SubDishDto) _then) =
+      __$SubDishDtoCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {String name,
+      int calories,
+      @JsonKey(name: 'carbs_g', defaultValue: 0) int? carbsG,
+      @JsonKey(name: 'protein_g', defaultValue: 0) int? proteinG,
+      @JsonKey(name: 'fat_g', defaultValue: 0) int? fatG,
+      @JsonKey(name: 'is_selected', defaultValue: true) bool? isSelected});
+}
+
+/// @nodoc
+class __$SubDishDtoCopyWithImpl<$Res> implements _$SubDishDtoCopyWith<$Res> {
+  __$SubDishDtoCopyWithImpl(this._self, this._then);
+
+  final _SubDishDto _self;
+  final $Res Function(_SubDishDto) _then;
+
+  /// Create a copy of SubDishDto
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? name = null,
+    Object? calories = null,
+    Object? carbsG = freezed,
+    Object? proteinG = freezed,
+    Object? fatG = freezed,
+    Object? isSelected = freezed,
+  }) {
+    return _then(_SubDishDto(
+      name: null == name
+          ? _self.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      calories: null == calories
+          ? _self.calories
+          : calories // ignore: cast_nullable_to_non_nullable
+              as int,
+      carbsG: freezed == carbsG
+          ? _self.carbsG
+          : carbsG // ignore: cast_nullable_to_non_nullable
+              as int?,
+      proteinG: freezed == proteinG
+          ? _self.proteinG
+          : proteinG // ignore: cast_nullable_to_non_nullable
+              as int?,
+      fatG: freezed == fatG
+          ? _self.fatG
+          : fatG // ignore: cast_nullable_to_non_nullable
+              as int?,
+      isSelected: freezed == isSelected
+          ? _self.isSelected
+          : isSelected // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
