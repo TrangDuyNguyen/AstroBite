@@ -1,61 +1,60 @@
 # Kế Hoạch Sprint Hiện Hành (Sprint Backlog)
 
 - **Quản lý bởi**: Sub-Agent Product Owner (PO) & Sub-Agent Project Manager (PM)
-- **Sprint hiện tại**: Sprint 18
-- **Tên Sprint**: Live Social Sync & Streak Nudge
-- **Mã Epic / Feature**: `EPIC-COMMUNITY` / `FEAT-S18-LIVE-SOCIAL`
-- **Phiên bản mục tiêu**: `v2.8.0`
-- **Thời gian Sprint**: 04/10/2026 – 18/10/2026
-- **Trạng thái Sprint**: 🏁 **DONE**
-- **Tổng Story Points cam kết**: **13 SP** (Tiến độ: **13 / 13 SP — 100%**)
+- **Sprint hiện tại**: Sprint 19
+- **Tên Sprint**: Multi-Region Food Culture Intelligence (Vietnamese Culinary Decomposition & Broth/Topping Engine)
+- **Mã Epic / Feature**: `EPIC-GLOBAL` / `FEAT-S19-GLOBAL-CUISINE`
+- **Phiên bản mục tiêu**: `v2.9.0`
+- **Thời gian Sprint**: 05/10/2026 – 19/10/2026
+- **Trạng thái Sprint**: 🟡 **IN PROGRESS**
+- **Tổng Story Points cam kết**: **13 SP** (Tiến độ: **1 / 13 SP — 8%**)
 
 ---
 
-## 🎯 Mục Tiêu Sprint 18: Live Social Sync & Streak Nudge
+## 🎯 Mục Tiêu Sprint 19: Multi-Region Food Culture Intelligence
 
-1. **Live Leaderboard Stream (`TSK-S18-05-CLIENT` & `TSK-S18-04-BACKEND` — 7 SP)**: Chuyển hóa toàn bộ Leaderboard sang kiến trúc Stream cập nhật thời gian thực qua `SocialRepository` và Riverpod `leaderboardStreamProvider` (1 Read / session).
-2. **Real Friend Connection (`social_addFriend` — 3 SP)**: Xử lý logic kết bạn với validation chặt chẽ (chống kết bạn chính mình, chống trùng lặp, chống input rác).
-3. **Streak Nudge / Peer Accountability (`TSK-S18-NUDGE` — 3 SP)**: Nút "⚡ Nhắc" (Streak Nudge) kèm hộp thoại xác nhận ClaySheet và cơ chế Anti-Spam (chỉ cho phép nhắc 1 lần / bạn bè / ngày).
+1. **One-Pass Vietnamese Food Vision Prompt (`TSK-S19-04-BACKEND-AI` — 3 SP)**: Tinh chỉnh Gemini 2.0 Flash System Prompt và mở rộng `DishDto`, `SubDishDto` để bóc tách nước dùng (`has_broth`, `broth_calories`, `broth_sodium_mg`) và các topping món combo (`sub_items`) trong 1 lượt gọi duy nhất (độ trễ < 2.2s).
+2. **Interactive Broth Toggle & Topping Checklist (`TSK-S19-05-CLIENT-UI` — 4 SP)**: Tích hợp công tắc 1 chạm `[🍜 Ăn cả nước] ⟷ [🥢 Chỉ ăn cái]` và danh sách chọn/bỏ topping ngay trên thẻ món ăn tại `ScanReviewPage`, trừ trực tiếp calo/sodium theo thời gian thực.
+3. **Nutrition Engine Zero-Drift Calculation**: Cập nhật logic trừ calo, chất béo và natri khi người dùng không ăn nước dùng hoặc bỏ topping, phản ánh ngay lập tức lên `ChunkyMacroBar` và `CalorieProgressArc`.
 
 ---
 
-## 📋 Bảng Kanban Sprint 18
+## 📋 Bảng Kanban Sprint 19
 
-### 1. 📝 BACKLOG / QUEUED — [0 SP]
+### 1. 📝 BACKLOG / QUEUED — [12 SP]
 | Mã Task | Màn Hình / File | Gate | Mô Tả | Sub-Agent Phụ Trách | SP | Trạng Thái |
 |:---|:---|:---:|:---|:---:|:---:|:---|
-| Không có task | | | | | | |
+| `TSK-S19-01-PRD` | `docs/03-prd-features/26-multi-region-food-intelligence/` | **G1** | BA: Soạn PRD & User Stories BDD cho Broth Toggle & Topping Checklist | `business-analyst` | 2 | 🟡 **QUEUED** |
+| `TSK-S19-02-DESIGN` | UI Blueprint Broth Chip & Topping Checklist | **G2** | UI/UX Designer: Thiết kế Claymorphic Broth Toggle & Topping Chips 5 States | `ui-ux-designer` | 2 | 🟡 **QUEUED** |
+| `TSK-S19-03-TEST-PLAN` | Master Test Plan Sprint 19 | **G3** | QA Tester: Thiết kế test biên BVA và kịch bản BDD Gherkin món Việt | `qa-tester` | 1 | 🟡 **QUEUED** |
+| `TSK-S19-04-BACKEND-AI` | `gemini_remote_datasource.dart`, `scan_result_dto.dart` | **G4** | Cloud Dev: Mở rộng DTO, tinh chỉnh One-Pass Prompt bóc tách món Việt | `cloud-ai-dev` | 3 | 🟡 **QUEUED** |
+| `TSK-S19-05-CLIENT-UI` | `scan_review_page.dart` | **G4** | Dev FE: Tích hợp Broth Toggle & Topping Checklist tương tác thời gian thực | `flutter-core-dev` | 4 | 🟡 **QUEUED** |
+| `TSK-S19-06-REVIEW` | Git diff Sprint 19 | **G5** | Reviewer: Ponytail Diff Review & Zero Doc-Code Drift Check | `code-reviewer` | - | 🟡 **QUEUED** |
+| `TSK-S19-07-VERIFY` | Automated Test Suite | **G6** | QA Tester: 100% test pass, 0 analyze error, 0 memory leak, latency < 2.2s | `qa-tester` | - | 🟡 **QUEUED** |
+| `TSK-S19-08-SECURITY` | Security Audit & Rules | **G6.5** | Security Auditor: Kiểm toán parsing JSON, Prompt Injection & Trust boundary | `security-auditor` | - | 🟡 **QUEUED** |
+| `TSK-S19-09-RELEASE` | Tag release `v2.9.0` | **G7** | Hội đồng PO, PM, Tech Lead & Security: Thông cáo phát hành v2.9.0 | `product-owner` | - | 🟡 **QUEUED** |
 
 ### 2. ⚡ IN PROGRESS — [0 SP]
 | Mã Task | Màn Hình / File | Gate | Mô Tả | Sub-Agent Phụ Trách | SP | Trạng Thái |
 |:---|:---|:---:|:---|:---:|:---:|:---|
 | Không có task | | | | | | |
 
-### 3. 🏁 DONE — [13 SP]
+### 3. 🏁 DONE — [1 SP]
 | Mã Task | Màn Hình / File | Gate | Mô Tả | Sub-Agent Phụ Trách | SP | Trạng Thái |
 |:---|:---|:---:|:---|:---:|:---:|:---|
-| `TSK-S18-00-SPIKE` | Kiến trúc Live Stream & FCM Nudge | **G0** | Tech Lead: Nghiên cứu cấu trúc Document tĩnh cho Firestore Reads & FCM Payload | `tech-lead` | 1 | 🟢 **DONE** |
-| `TSK-S18-01-PRD` | `docs/03-prd-features/25-live-social-and-streak-nudge/` | **G1** | BA: Soạn PRD & User Stories BDD cho Live Leaderboard & Streak Nudge | `business-analyst` | 2 | 🟢 **DONE** |
-| `TSK-S18-02-DESIGN` | UI Blueprint Modal Nudge & Live Badges | **G2** | UI/UX Designer: Thiết kế ClayBadge, Modal Nudge & 5 UI States | `ui-ux-designer` | 2 | 🟢 **DONE** |
-| `TSK-S18-03-TEST-PLAN` | Master Test Plan Sprint 18 | **G3** | QA Tester: Thiết kế 8 kịch bản test biên BVA và kiểm thử phá hoại | `qa-tester` | 1 | 🟢 **DONE** |
-| `TSK-S18-04-BACKEND` | `social_repository.dart` | **G4** | Cloud Dev: Triển khai luồng dữ liệu Stream, validation chống trùng & anti-spam | `cloud-ai-dev` | 3 | 🟢 **DONE** |
-| `TSK-S18-05-CLIENT` | `leaderboard_page.dart` | **G4** | Dev FE: Tích hợp Riverpod `leaderboardStreamProvider`, Nudge Modal, Shimmer 5 States | `flutter-core-dev` | 4 | 🟢 **DONE** |
-| `TSK-S18-06-REVIEW` | Git diff Sprint 18 | **G5** | Reviewer: Ponytail Diff Review & Zero Doc-Code Drift Check | `code-reviewer` | - | 🟢 **DONE** |
-| `TSK-S18-07-VERIFY` | Automated Test Suite | **G6** | QA Tester: 256/256 tests pass 100%, 0 analyze error, 0 memory leak | `qa-tester` | - | 🟢 **DONE** |
-| `TSK-S18-08-SECURITY` | Security Audit & Rules | **G6.5** | Security Auditor: Kiểm toán bảo mật Anti-Spam & Trust boundaries | `security-auditor` | - | 🟢 **DONE** |
-| `TSK-S18-09-RELEASE` | Tag release `v2.8.0` | **G7** | Hội đồng PO, PM, Tech Lead & Security: Thông cáo phát hành v2.8.0 | `product-owner` | - | 🟢 **DONE** |
-
+| `TSK-S19-00-SPIKE` | `docs/superpowers/specs/2026-10-05-multi-region-food-culture-intelligence-design.md` | **G0** | PO & Tech Lead: Brainstorming & Architectural Design Spec bóc tách món Việt | `product-owner` | 1 | 🟢 **DONE** |
 
 ---
 
-## ✅ Định Nghĩa DONE Sprint 18
+## ✅ Định Nghĩa DONE Sprint 19
 
-- [x] `flutter analyze` 0 lỗi, 0 cảnh báo.
-- [x] `flutter test` pass 100% (256/256 tests pass).
-- [x] Leaderboard đồng bộ dữ liệu qua Riverpod StreamProvider với chi phí tối ưu (1 Read / session).
-- [x] Kết bạn 2 chiều qua Astro ID hoạt động thành công kèm validation chuẩn.
-- [x] Tính năng Streak Nudge gửi được thông báo tới bạn bè kèm cơ chế Anti-Spam (1 lần/ngày).
-- [x] Quy tắc Docs-as-Code (Zero Doc-Code Drift): Toàn bộ tài liệu trong `docs/` được cập nhật đồng bộ trước khi đóng Gate 7.
+- [ ] `flutter analyze` 0 lỗi, 0 cảnh báo.
+- [ ] `flutter test` pass 100% (bao gồm regression tests hiện hữu và tests mới).
+- [ ] Gemini Vision bóc tách được nước dùng và toppings món Việt trong 1 request duy nhất (độ trễ AI ≤ 2.2s).
+- [ ] Công tắc `[🍜 Ăn cả nước] ⟷ [🥢 Chỉ ăn cái]` hoạt động mượt mà, trừ chính xác calo và natri.
+- [ ] Checklist Topping cho phép chọn/bỏ topping và cập nhật Macro bar tức thì.
+- [ ] Giao diện 5 trạng thái đạt chuẩn Claymorphic, không vỡ layout trên bất kỳ kích thước màn hình nào.
+- [ ] Quy tắc Docs-as-Code (Zero Doc-Code Drift): Toàn bộ tài liệu trong `docs/` được cập nhật đồng bộ trước khi đóng Gate 7.
 
 
 ---

@@ -1,9 +1,9 @@
 # Bản Đồ Lộ Trình Sản Phẩm AstroBite (Product Roadmap)
 
 - **Quản lý bởi**: Sub-Agent Product Owner (PO)
-- **Phiên bản hiện tại**: v2.0.0 (Sprint 11 Completed)
-- **Cập nhật lần cuối**: 2026-09-27
-- **Tình trạng tổng thể**: 🟡 Sprint 15 IN PROGRESS — First Impression & Identity (Auth, Onboarding, Profile) (v2.5.2)
+- **Phiên bản hiện tại**: v2.8.0 (Sprint 18 Completed)
+- **Cập nhật lần cuối**: 2026-10-05
+- **Tình trạng tổng thể**: 🟡 Sprint 19 IN PROGRESS — Multi-Region Food Culture Intelligence (v2.9.0)
 
 ---
 
@@ -133,5 +133,6 @@
 | **v2.6.0** | **100%** 🟢 DONE | EPIC-UI-REFRESH Sprint 16 — Deep Features (Analytics & Mobile Widgets) | 03/10/2026 | Sub-Agent PO & PM |
 | **v2.7.0** | **100%** 🟢 DONE | EPIC-COMMUNITY Sprint 17 — Social Accountability & Leaderboard (Phase 1) | 04/10/2026 | Sub-Agent PO & PM |
 | **v2.8.0** | **100%** 🟢 DONE | EPIC-COMMUNITY Sprint 18 — Live Social Sync & Streak Nudge (Phase 2) | 04/10/2026 | Sub-Agent PO & PM |
+| **v2.9.0** | **8%** (1/13 SP) 🟡 IN PROGRESS | EPIC-GLOBAL Sprint 19 — Multi-Region Food Culture Intelligence (Broth & Topping Engine) | 19/10/2026 | Sub-Agent PO & PM |
 
 
