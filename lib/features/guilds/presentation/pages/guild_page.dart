@@ -46,6 +46,14 @@ class GuildPage extends ConsumerWidget {
         subtitle: 'Cùng đồng đội chinh phục dinh dưỡng',
         actions: [
           IconButton(
+            key: const Key('guild_create_action_button'),
+            icon: const Icon(Icons.group_add_rounded, color: AppColors.primary),
+            tooltip: 'Tạo hoặc đổi Bang hội',
+            onPressed: () {
+              _showCreateOrJoinMenu(context);
+            },
+          ),
+          IconButton(
             key: const Key('guild_info_button'),
             icon: const Icon(Icons.help_outline_rounded, color: AppColors.onSurfaceVariant),
             tooltip: 'Thể lệ thử thách',
@@ -417,6 +425,68 @@ class GuildPage extends ConsumerWidget {
             child: const Text('Đã Hiểu'),
           ),
         ],
+      ),
+    );
+  }
+
+  void _showCreateOrJoinMenu(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (ctx) => Container(
+        decoration: const BoxDecoration(
+          color: AppColors.surface,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
+        ),
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+              child: Container(
+                width: 44,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: AppColors.outline,
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              'Tùy Chọn Bang Hội 🪐',
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.onSurface,
+                  ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'Khởi tạo bang hội mới hoặc gia nhập cùng nhóm bạn khác.',
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: AppColors.onSurfaceVariant,
+                  ),
+            ),
+            const SizedBox(height: 20),
+            ClayButton(
+              text: '🚀 Khởi Tạo Bang Hội Của Riêng Bạn',
+              onPressed: () {
+                Navigator.of(ctx).pop();
+                GuildCreateSheet.show(context);
+              },
+            ),
+            const SizedBox(height: 12),
+            ClayButton(
+              text: '🔑 Nhập Mã Mời Của Bạn Bè',
+              variant: ClayButtonVariant.outline,
+              onPressed: () {
+                Navigator.of(ctx).pop();
+                GuildJoinSheet.show(context);
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

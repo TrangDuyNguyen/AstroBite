@@ -129,10 +129,10 @@ class MockGuildRepository implements GuildRepository {
       throw ArgumentError('Tên bang hội phải từ 3 đến 30 ký tự');
     }
 
-    // Check if user is already in a guild
+    // If user is already in a guild, leave previous guild to create new one
     final existing = await getUserGuild(ownerId);
     if (existing != null) {
-      throw StateError('Bạn đã tham gia bang hội ${existing.name}');
+      await leaveGuild(guildId: existing.id, userId: ownerId);
     }
 
     final code = _generateInviteCode();
