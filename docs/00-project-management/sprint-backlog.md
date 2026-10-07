@@ -1,58 +1,58 @@
 # Kế Hoạch Sprint Hiện Hành (Sprint Backlog)
 
 - **Quản lý bởi**: Sub-Agent Product Owner (PO) & Sub-Agent Project Manager (PM)
-- **Sprint hiện tại**: Sprint 20
-- **Tên Sprint**: Hands-Free Voice Logging (AstroVoice AI & Gemini NLU Engine)
-- **Mã Epic / Feature**: `EPIC-VOICE` / `FEAT-S20-VOICE-LOG`
-- **Phiên bản mục tiêu**: `v3.0.0`
-- **Thời gian Sprint**: 05/10/2026 – 19/10/2026
-- **Trạng thái Sprint**: 🟢 **100% CLOSED & RELEASED (Gate 7 Approved)**
-- **Tổng Story Points cam kết**: **13 SP** (Tiến độ: **13 / 13 SP — 100%**)
+- **Sprint hiện tại**: Sprint 21
+- **Tên Sprint**: Social Guilds & Planetary Challenges (Bang Hội Vũ Trụ & Thử Thách Đồng Đội)
+- **Mã Epic / Feature**: `EPIC-14` / `FEAT-S21-GUILDS`
+- **Phiên bản mục tiêu**: `v3.1.0`
+- **Thời gian Sprint**: 07/10/2026 – 21/10/2026
+- **Trạng thái Sprint**: 🟡 **IN PROGRESS (Gate 0 Completed ➔ Sẵn sàng Gate 1)**
+- **Tổng Story Points cam kết**: **13 SP** (Tiến độ: **1 / 13 SP — 7.7%**)
 
 ---
 
-## 🎯 Mục Tiêu Sprint 20: Hands-Free Voice Logging (AstroVoice AI)
+## 🎯 Mục Tiêu Sprint 21: Social Guilds & Planetary Challenges
 
-1. **On-Device Speech-to-Text Pipeline (`TSK-S20-04-VOICE-SERVICE` — 3 SP)**: Tích hợp engine nhận diện giọng nói tiếng Việt on-device (`vi-VN`), stream chữ trực tiếp theo thời gian thực (Live Transcript Feedback), kèm abstract service kháng lỗi trong test.
-2. **Gemini 2.0 Flash NLU Natural Language Parser**: Tinh chỉnh prompt phân tích câu nói tiếng Việt tự nhiên, bóc tách món ăn, đơn vị dân dã (bát, tô, quả, cái, cốc), suy luận bữa ăn theo khung giờ và tính toán dinh dưỡng trong vòng $\le 1.0s$.
-3. **Interactive AstroVoiceSheet & GenUI 1-Tap Log (`TSK-S20-05-VOICE-UI` — 4 SP)**: Trải nghiệm 5 trạng thái với hiệu ứng sóng âm/pulsing ripple, tự động hiển thị thẻ `MealQuickLogCard` để xác nhận và lưu nhật ký 1 chạm trong tích tắc.
+1. **Kiến Trúc & Quản Trị Bang Hội (Gate 0 & Gate 1 — 3 SP)**: Thiết lập cấu trúc Firestore Collections đa tầng (`guilds/{guildId}/members`), cơ chế mời bằng mã Invite Code 6 ký tự, chống race condition bằng `FieldValue.increment()`.
+2. **Thử Thách Hành Tinh & Auto Contribution (4 SP)**: Thiết kế tiến độ chung nhóm (Team Goal: 50,000 kcal sạch hoặc 100 bữa ăn đúng hạn) với cơ chế tự động tích lũy Starlight XP mỗi khi thành viên log đồ ăn.
+3. **Giao Diện Claymorphic Guild Dashboard & Member List (6 SP)**: Trải nghiệm 5 trạng thái với thẻ ClayCard bo góc 24pt, avatar hành tinh nổi 3D, vòng cung tiến độ nhóm và danh sách thành viên hiển thị streak.
 
 ---
 
-## 📋 Bảng Kanban Sprint 20
+## 📋 Bảng Kanban Sprint 21
 
-### 1. 📝 BACKLOG / QUEUED — [0 SP]
-*(Toàn bộ các tác vụ đã hoàn tất và phát hành)*
-
-### 2. ⚡ IN PROGRESS — [0 SP]
-*(Không còn tác vụ tồn đọng)*
-
-### 3. 🏁 DONE — [13 SP]
+### 1. 📝 BACKLOG / QUEUED — [12 SP]
 | Mã Task | Màn Hình / File | Gate | Mô Tả | Sub-Agent Phụ Trách | SP | Trạng Thái |
 |:---|:---|:---:|:---|---|:---:|:---|
-| `TSK-S20-00-SPIKE` | `docs/superpowers/specs/2026-10-05-hands-free-voice-logging-design.md` | **G0** | Tech Lead & PO: Brainstorming & Architectural Spec AstroVoice AI | `tech-lead` | 1 | 🟢 **DONE** |
-| `TSK-S20-01-PRD` | `docs/03-prd-features/27-hands-free-voice-logging/` | **G1** | BA: Soạn PRD & User Stories BDD cho luồng giọng nói tự nhiên | `business-analyst` | 2 | 🟢 **DONE** |
-| `TSK-S20-02-DESIGN` | `docs/03-prd-features/27-hands-free-voice-logging/ui-ux-design.md` | **G2** | UI/UX Designer: Thiết kế AstroVoiceSheet, Pulsing Mic & 5 States | `ui-ux-designer` | 2 | 🟢 **DONE** |
-| `TSK-S20-03-TEST-PLAN` | `docs/03-prd-features/27-hands-free-voice-logging/gate-3-test.md` | **G3** | QA Tester: Thiết kế test biên BVA và kịch bản BDD Gherkin âm thanh | `qa-tester` | 1 | 🟢 **DONE** |
-| `TSK-S20-04-VOICE-SERVICE` | `features/voice/data/datasources/`, `pubspec.yaml` | **G4** | Native Dev: Cấu hình `speech_to_text`, cấp quyền Mic, Mockable Service | `flutter-native-dev` | 3 | 🟢 **DONE** |
-| `TSK-S20-05-VOICE-UI` | `features/voice/presentation/`, `home_page.dart` | **G4** | Dev FE: Dựng AstroVoiceSheet, tích hợp GenUI MealQuickLogCard 1-Tap Log | `flutter-core-dev` | 4 | 🟢 **DONE** |
-| `TSK-S20-06-REVIEW` | `gate-5-review.md` | **G5** | Reviewer: Ponytail Diff Review & Zero Doc-Code Drift Check | `code-reviewer` | - | 🟢 **DONE** |
-| `TSK-S20-07-VERIFY` | `signoff-sprint-20.md` | **G6** | QA Tester: 100% test pass (277/277), 0 analyze error, latency ~1.1s | `qa-tester` | - | 🟢 **DONE** |
-| `TSK-S20-08-SECURITY` | `signoff-security-sprint-20.md` | **G6.5** | Security Auditor: Kiểm toán Mic PII on-device & Prompt Injection | `security-auditor` | - | 🟢 **DONE** |
-| `TSK-S20-09-RELEASE` | `release-v3.0.0.md` | **G7** | Hội đồng PO, PM, Tech Lead & Security: Release v3.0.0 Clearance | `product-owner` | - | 🟢 **DONE** |
+| `TSK-S21-01-PRD` | `docs/03-prd-features/28-social-guilds-planetary-challenges/` | **G1** | BA: Soạn PRD & User Stories BDD luồng Bang hội & Thử thách | `business-analyst` | 2 | ⏳ **QUEUED** |
+| `TSK-S21-02-DESIGN` | `docs/03-prd-features/28-social-guilds-planetary-challenges/ui-ux-design.md` | **G2** | UI/UX Designer: Thiết kế Guild Dashboard, Planetary Arc & 5 States | `ui-ux-designer` | 2 | ⏳ **QUEUED** |
+| `TSK-S21-03-TEST-PLAN` | `docs/03-prd-features/28-social-guilds-planetary-challenges/gate-3-test.md` | **G3** | QA Tester: Thiết kế test biên BVA, concurrency & kịch bản Gherkin | `qa-tester` | 1 | ⏳ **QUEUED** |
+| `TSK-S21-04-DATA` | `features/guilds/data/`, `features/guilds/domain/` | **G4** | Cloud Dev: Freezed Guild Models, Firestore Datasource & Atomic XP | `cloud-ai-dev` | 3 | ⏳ **QUEUED** |
+| `TSK-S21-05-UI` | `features/guilds/presentation/` | **G4** | Dev FE: Xây dựng GuildScreen, PlanetaryChallengeCard & MemberList | `flutter-core-dev` | 4 | ⏳ **QUEUED** |
+| `TSK-S21-06-REVIEW` | `gate-5-review.md` | **G5** | Reviewer: Ponytail Diff Review & Zero Doc-Code Drift Check | `code-reviewer` | - | ⏳ **QUEUED** |
+| `TSK-S21-07-VERIFY` | `signoff-sprint-21.md` | **G6** | QA Tester: 100% test pass, 0 analyze error, 60 FPS, 0 memory leak | `qa-tester` | - | ⏳ **QUEUED** |
+| `TSK-S21-08-SECURITY` | `signoff-security-sprint-21.md` | **G6.5** | Security Auditor: Kiểm toán Firestore Security Rules & Anti-Abuse | `security-auditor` | - | ⏳ **QUEUED** |
+| `TSK-S21-09-RELEASE` | `release-v3.1.0.md` | **G7** | Hội đồng PO, PM, Tech Lead & Security: Release v3.1.0 Clearance | `product-owner` | - | ⏳ **QUEUED** |
+
+### 2. ⚡ IN PROGRESS — [0 SP]
+*(Đang chuẩn bị kích hoạt Gate 1)*
+
+### 3. 🏁 DONE — [1 SP]
+| Mã Task | Màn Hình / File | Gate | Mô Tả | Sub-Agent Phụ Trách | SP | Trạng Thái |
+|:---|:---|:---:|:---|---|:---:|:---|
+| `TSK-S21-00-SPIKE` | `docs/superpowers/specs/2026-10-07-social-guilds-planetary-challenges-design.md` | **G0** | Tech Lead & PO: Architectural Spec, Data Model & Feasibility Sign-Off | `tech-lead` | 1 | 🟢 **DONE** |
 
 ---
 
-## ✅ Định Nghĩa DONE Sprint 20
+## ✅ Định Nghĩa DONE Sprint 21
 
-- [x] `flutter analyze` 0 lỗi, 0 cảnh báo.
-- [x] `flutter test` pass 100% (bao gồm headless unit/widget tests cho audio & voice).
-- [x] Tổng thời gian phản hồi: Từ lúc ngừng nói đến khi GenUI card render $\le 1.5$ giây (~1.1s đạt được).
-- [x] Nhận diện chuẩn xác tiếng Việt có dấu (`vi-VN`) với streaming transcript theo thời gian thực.
-- [x] Gemini NLU bóc tách chuẩn xác các đơn vị ước tính dân dã (bát, tô, cái, ly, cốc, hộp) và tự động suy luận bữa ăn.
-- [x] Thẻ `MealQuickLogCard` cho phép 1-Tap Log ghi nhận vào Food Diary trong $< 150ms$ (~45ms đạt được).
-- [x] Giao diện 5 trạng thái đạt chuẩn Claymorphic Duolingo 2D/3D (Listening, Parsing, Ready, Empty, Error).
-- [x] Zero Doc-Code Drift: Cập nhật đồng bộ toàn bộ tài liệu trong `docs/` trước khi đóng Gate 7.
+- [ ] `flutter analyze` 0 lỗi, 0 cảnh báo.
+- [ ] `flutter test` pass 100% (bao gồm unit test Guild repository & widget test Guild screen).
+- [ ] Race condition ghi điểm: Sử dụng `FieldValue.increment()` không bị lệch điểm.
+- [ ] Tốc độ truy vấn dữ liệu Bang hội: $\le 800ms$ (Firestore stream + local cache).
+- [ ] Tham gia bang hội thành công bằng Invite Code 6 ký tự.
+- [ ] Giao diện 5 trạng thái đạt chuẩn Claymorphic Duolingo 2D/3D (Active, Loading Shimmer, Empty, Error, Offline).
+- [ ] Zero Doc-Code Drift: Hoàn tất tài liệu từ Gate 0 đến Gate 7 trước khi đóng Sprint.
 
 
 ---
