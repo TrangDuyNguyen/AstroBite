@@ -189,23 +189,100 @@ class _QuickMealPlanActions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
       children: [
-        Expanded(
-          child: _ActionChipButton(
-            icon: Icons.menu_book_rounded,
-            label: 'Công thức món',
-            color: AppColors.primary,
-            onTap: () => context.router.push(const RecipesRoute()),
-          ),
+        Row(
+          children: [
+            Expanded(
+              child: _ActionChipButton(
+                icon: Icons.menu_book_rounded,
+                label: 'Công thức món',
+                color: AppColors.primary,
+                onTap: () => context.router.push(const RecipesRoute()),
+              ),
+            ),
+            const SizedBox(width: AppValues.spacing12),
+            Expanded(
+              child: _ActionChipButton(
+                icon: Icons.calendar_month_rounded,
+                label: 'Kế hoạch 7 ngày',
+                color: AppColors.tertiary,
+                onTap: () => context.router.push(const MealPlannerRoute()),
+              ),
+            ),
+          ],
         ),
-        const SizedBox(width: AppValues.spacing12),
-        Expanded(
-          child: _ActionChipButton(
-            icon: Icons.calendar_month_rounded,
-            label: 'Kế hoạch 7 ngày',
-            color: AppColors.tertiary,
-            onTap: () => context.router.push(const MealPlannerRoute()),
+        const SizedBox(height: AppValues.spacing8),
+        ClayCard(
+          key: const Key('home_guild_banner_card'),
+          borderRadius: 16,
+          elevation: 2.5,
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+          onTap: () => context.router.push(const GuildRoute()),
+          child: Row(
+            children: [
+              Container(
+                width: 32,
+                height: 32,
+                decoration: const BoxDecoration(
+                  color: AppColors.clayMint,
+                  shape: BoxShape.circle,
+                ),
+                alignment: Alignment.center,
+                child: const Text('🪐', style: TextStyle(fontSize: 16)),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        const Text(
+                          'Bang Hội Vũ Trụ',
+                          style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w800,
+                            color: AppColors.onSurface,
+                          ),
+                        ),
+                        const SizedBox(width: 6),
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 1),
+                          decoration: BoxDecoration(
+                            color: AppColors.brandGreen.withValues(alpha: 0.15),
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                          child: const Text(
+                            'Thử thách tuần',
+                            style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.brandGreen,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 1),
+                    const Text(
+                      'Lập đội thi đua & cùng nhau gánh vác mục tiêu dinh dưỡng',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: AppColors.onSurfaceVariant,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const Icon(
+                Icons.arrow_forward_ios_rounded,
+                size: 13,
+                color: AppColors.onSurfaceVariant,
+              ),
+            ],
           ),
         ),
       ],

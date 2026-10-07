@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:astrobite/core/router/app_router.dart';
 import 'package:astrobite/features/social/domain/entities/leaderboard_entry.dart';
 import 'package:astrobite/features/social/presentation/controllers/social_controller.dart';
 import 'package:astrobite/shared/ui_kit/ui_kit.dart';
@@ -249,6 +250,18 @@ class _LeaderboardPageState extends ConsumerState<LeaderboardPage> {
         title: 'Bảng Xếp Hạng',
         centerTitle: true,
         actions: [
+          IconButton(
+            tooltip: 'Bang Hội Vũ Trụ',
+            icon: Container(
+              padding: const EdgeInsets.all(6),
+              decoration: BoxDecoration(
+                color: AppColors.brandGreen.withValues(alpha: 0.15),
+                shape: BoxShape.circle,
+              ),
+              child: const Text('🪐', style: TextStyle(fontSize: 16)),
+            ),
+            onPressed: () => context.router.push(const GuildRoute()),
+          ),
           IconButton(
             tooltip: 'Thêm bạn bè',
             icon: Container(

@@ -440,6 +440,20 @@ class ProfilePage extends ConsumerWidget {
                     iconBg: AppColors.clayBreakfast,
                     onTap: () => context.router.push(const MealPlannerRoute()),
                   ),
+
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 4),
+                    child: Divider(color: Color(0xFFF0EFEB), height: 1),
+                  ),
+
+                  // Social Guilds
+                  _buildMenuTile(
+                    icon: '🪐',
+                    title: 'Bang Hội Vũ Trụ',
+                    subtitle: 'Lập đội thi đua & Thử thách hành tinh tuần',
+                    iconBg: AppColors.clayMint,
+                    onTap: () => context.router.push(const GuildRoute()),
+                  ),
                 ],
               ),
             ),
