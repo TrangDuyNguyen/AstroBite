@@ -20,6 +20,8 @@ import 'package:astrobite/features/tracker/domain/daily_summary.dart';
 import 'package:astrobite/features/tracker/domain/tracker_providers.dart';
 import 'package:astrobite/features/tracker/presentation/controllers/tracker_controller.dart';
 import 'package:astrobite/shared/widgets/gemini_api_key_dialog.dart';
+import 'package:astrobite/features/voice/presentation/controllers/voice_log_controller.dart';
+import 'package:astrobite/features/voice/presentation/widgets/astro_voice_sheet.dart';
 import '../domain/chat_message.dart';
 import 'coach_controller.dart';
 
@@ -39,6 +41,7 @@ class _CoachPageState extends ConsumerState<CoachPage> with WidgetsBindingObserv
   bool _isSending = false;
   bool _showSuggestions = true;
   bool _wasKeyboardOpen = false;
+  bool _isListeningVoice = false;
   final Set<String> _loggedMessageIds = {};
   late final GenUiCatalog _genUiCatalog;
 
@@ -59,6 +62,52 @@ class _CoachPageState extends ConsumerState<CoachPage> with WidgetsBindingObserv
         _scrollToBottom();
       }
     }
+  }
+
+  Future<void> _toggleVoiceDictation() async {
+    final voiceService = ref.read(voiceRecognitionServiceProvider);
+
+    if (_isListeningVoice) {
+      await voiceService.stopListening();
+      if (mounted) {
+        setState(() => _isListeningVoice = false);
+      }
+      return;
+    }
+
+    HapticFeedback.mediumImpact();
+    final hasPermission = await voiceService.initialize();
+    if (!hasPermission) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Không thể truy cập Microphone để nhận diện giọng nói'),
+            duration: Duration(seconds: 2),
+          ),
+        );
+      }
+      return;
+    }
+
+    if (!mounted) return;
+    setState(() => _isListeningVoice = true);
+
+    await voiceService.startListening(
+      onResult: (words, isFinal) {
+        if (!mounted) return;
+        setState(() {
+          _textController.text = words;
+          _textController.selection = TextSelection.fromPosition(
+            TextPosition(offset: words.length),
+          );
+        });
+
+        if (isFinal) {
+          setState(() => _isListeningVoice = false);
+          HapticFeedback.lightImpact();
+        }
+      },
+    );
   }
 
   int _suggestionShuffleIndex = 0;
@@ -176,6 +225,9 @@ class _CoachPageState extends ConsumerState<CoachPage> with WidgetsBindingObserv
     _scrollTimer?.cancel();
     _textController.dispose();
     _scrollController.dispose();
+    if (_isListeningVoice) {
+      ref.read(voiceRecognitionServiceProvider).stopListening();
+    }
     super.dispose();
   }
 
@@ -1528,6 +1580,57 @@ class _CoachPageState extends ConsumerState<CoachPage> with WidgetsBindingObserv
                       HapticFeedback.lightImpact();
                       setState(() => _showSuggestions = !_showSuggestions);
                     },
+                  ),
+                  suffixIcon: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      ValueListenableBuilder<TextEditingValue>(
+                        valueListenable: _textController,
+                        builder: (context, value, _) {
+                          if (value.text.isEmpty || _isListeningVoice) {
+                            return const SizedBox.shrink();
+                          }
+                          return IconButton(
+                            icon: const Icon(
+                              Icons.close_rounded,
+                              size: 18,
+                              color: AppColors.onSurfaceVariant,
+                            ),
+                            tooltip: 'Xóa nội dung',
+                            onPressed: () => _textController.clear(),
+                          );
+                        },
+                      ),
+                      GestureDetector(
+                        onLongPress: () {
+                          HapticFeedback.heavyImpact();
+                          AstroVoiceSheet.show(context);
+                        },
+                        child: IconButton(
+                          key: const Key('coach_voice_mic_button'),
+                          icon: AnimatedSwitcher(
+                            duration: const Duration(milliseconds: 200),
+                            child: _isListeningVoice
+                                ? const Icon(
+                                    Icons.mic_rounded,
+                                    key: ValueKey('mic_active'),
+                                    color: Color(0xFFEF4444),
+                                    size: 21,
+                                  )
+                                : Icon(
+                                    Icons.mic_none_rounded,
+                                    key: const ValueKey('mic_idle'),
+                                    color: AppColors.primary,
+                                    size: 21,
+                                  ),
+                          ),
+                          tooltip: _isListeningVoice
+                              ? 'Đang nghe... Bấm để dừng'
+                              : 'Nói tiếng Việt (Nhấn giữ để mở AstroVoice)',
+                          onPressed: _isSending ? null : _toggleVoiceDictation,
+                        ),
+                      ),
+                    ],
                   ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(24),

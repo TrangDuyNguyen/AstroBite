@@ -218,6 +218,8 @@ Hãy thưởng thức nhé!
 
       // Input bar exists
       expect(find.byType(TextField), findsOneWidget);
+      expect(find.byKey(const Key('coach_voice_mic_button')), findsOneWidget);
+      expect(find.byIcon(Icons.mic_none_rounded), findsOneWidget);
       expect(find.byIcon(Icons.send_rounded), findsOneWidget);
       expect(find.textContaining('AI gợi ý tham khảo, không thay thế chuyên gia y tế'), findsOneWidget);
     });

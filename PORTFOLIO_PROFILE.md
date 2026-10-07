@@ -36,7 +36,7 @@ Dưới đây là mô tả chi tiết 12 tính năng của AstroBite bằng ngô
 
 ### 2. 🎙️ Ghi Chép Rảnh Tay Bằng Giọng Nói Tiếng Việt (AstroVoice AI — Mới Nhất v3.0.0)
 * **Người dùng trải nghiệm thế nào?**  
-  Khi tay đang ướt, đang nấu nướng, bưng bê hoặc lái xe, bạn chỉ cần chạm nhẹ vào biểu tượng Micro sóng âm trên màn hình và nói một câu tự nhiên như tâm sự với bạn bè:
+  Khi tay đang ướt, đang nấu nướng, bưng bê hoặc lái xe, bạn chỉ cần chạm nhẹ vào biểu tượng Micro sóng âm trên màn hình hoặc trực tiếp trong ô chat và nói một câu tự nhiên như tâm sự với bạn bè:
   > *"Sáng nay mình ăn một tô bún bò giò heo với hai cái quẩy"*  
   > hoặc *"Trưa nay uống 1 ly cà phê sữa đá ít đường và 1 cái bánh mì chả lụa"*.
 * **Hệ thống xử lý ra sao?**  
@@ -44,6 +44,7 @@ Dưới đây là mô tả chi tiết 12 tính năng của AstroBite bằng ngô
   - Bộ não Gemini NLU tự động bóc tách các đơn vị ước lượng dân dã của người Việt (*tô, bát, đĩa, cái, quả, ly, cốc, hộp...*).
   - Tự động đoán bữa ăn theo đồng hồ 24 giờ (nói lúc 7h sáng tự hiểu là bữa Sáng, 12h tự vào bữa Trưa).
   - Một thẻ xác nhận **MealQuickLogCard** tự động hiện lên, bạn chỉ cần chạm 1 cái là bữa ăn được lưu vào nhật ký chỉ trong **45 mili-giây**.
+  - **Tích hợp đa điểm chạm linh hoạt**: Trải nghiệm Voice xuất hiện đồng bộ ở cả nút nổi ngoài Trang chủ (Dashboard) lẫn nút Micro tương tác ngay bên trong thanh chat của trợ lý AstroCoach.
 * **Giá trị mang lại**: Giảm ma sát nhập liệu về con số 0; không cần chạm gõ bàn phím.
 
 ### 3. 🍜 Trí Tuệ Ẩm Thực Á Đông — Tách Nước Dùng & Topping (Multi-Region Food Intelligence)
@@ -57,13 +58,16 @@ Dưới đây là mô tả chi tiết 12 tính năng của AstroBite bằng ngô
 
 ### 4. 💬 Trò Chuyện Cùng Trợ Lý Dinh Dưỡng AstroCoach (Interactive GenUI Chat)
 * **Người dùng trải nghiệm thế nào?**  
-  Giống như bạn có một huấn luyện viên dinh dưỡng túc trực 24/7 trong túi. Bạn có thể hỏi bất cứ điều gì:
+  Giống như bạn có một huấn luyện viên dinh dưỡng túc trực 24/7 trong túi. Bạn có thể hỏi bất cứ điều gì bằng bàn phím hoặc **nói trực tiếp bằng giọng nói tiếng Việt**:
   > *"Tối nay mình còn 350 calo thì nên ăn gì nhẹ bụng mà no lâu?"*  
   > *"Vừa uống 1 cốc trà sữa trân châu full đường thì chiều nay phải tập gì để bù?"*
 * **Hệ thống xử lý ra sao?**  
+  - **Nhập liệu giọng nói 2 trong 1 ngay trong ô chat**: Tích hợp nút Micro thông minh trực tiếp trong TextField chat:
+    - *Chạm 1 lần (Tap)*: Bật Live Speech-to-Text tiếng Việt, nhận diện lời nói thành chữ điền thẳng vào ô chat trong tích tắc.
+    - *Nhấn giữ (Long-press)*: Mở ngay modal AstroVoice Sheet để bóc tách món ăn và ghi nhật ký bữa ăn 1-chạm mà không cần chuyển màn hình.
   - AI không trả lời bằng những đoạn văn bản dài dòng nhàm chán. AI hiểu thể trạng của bạn (chiều cao, cân nặng, dị ứng, mục tiêu) và **vẽ ra ngay các thẻ món ăn tương tác thực thụ** ngay trong khung chat.
   - Trên thẻ món ăn có sẵn thanh bấm tăng/giảm khẩu phần (+/- 20g) và nút **[Lưu 1 Chạm]**. Bạn ưng ý món nào, bấm nút ngay trong chat là món ăn tự động nhảy vào nhật ký trong ngày.
-* **Giá trị mang lại**: Trải nghiệm tư vấn chủ động, giải đáp thắc mắc dinh dưỡng tức thì theo ngữ cảnh cá nhân hóa.
+* **Giá trị mang lại**: Trải nghiệm tư vấn chủ động, giải đáp thắc mắc dinh dưỡng tức thì theo ngữ cảnh cá nhân hóa, nói hoặc gõ đều siêu tốc.
 
 ### 5. 🧸 Giao Diện Đất Nặn 3D Đàn Hồi Vui Vẻ (Claymorphic Solar Fresh UI)
 * **Người dùng trải nghiệm thế nào?**  

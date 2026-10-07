@@ -1,9 +1,9 @@
 # Bản Đồ Lộ Trình Sản Phẩm AstroBite (Product Roadmap)
 
 - **Quản lý bởi**: Sub-Agent Product Owner (PO)
-- **Phiên bản hiện tại**: v2.8.0 (Sprint 18 Completed)
-- **Cập nhật lần cuối**: 2026-10-05
-- **Tình trạng tổng thể**: 🟡 Sprint 19 IN PROGRESS — Multi-Region Food Culture Intelligence (v2.9.0)
+- **Phiên bản hiện tại**: v3.0.0 (Sprint 20 Completed)
+- **Cập nhật lần cuối**: 2026-10-07
+- **Tình trạng tổng thể**: 🟢 Sprint 20 CLOSED & RELEASED — Hands-Free Voice Logging (v3.0.0)
 
 ---
 
@@ -134,6 +134,6 @@
 | **v2.7.0** | **100%** 🟢 DONE | EPIC-COMMUNITY Sprint 17 — Social Accountability & Leaderboard (Phase 1) | 04/10/2026 | Sub-Agent PO & PM |
 | **v2.8.0** | **100%** 🟢 DONE | EPIC-COMMUNITY Sprint 18 — Live Social Sync & Streak Nudge (Phase 2) | 04/10/2026 | Sub-Agent PO & PM |
 | **v2.9.0** | **100%** 🟢 DONE | EPIC-GLOBAL Sprint 19 — Multi-Region Food Culture Intelligence (Broth & Topping Engine) | 05/10/2026 | Sub-Agent PO & PM |
-| **v3.0.0** | **0%** (0/13 SP) 🟡 IN PROGRESS | EPIC-VOICE Sprint 20 — Hands-Free Voice Logging (AstroVoice AI) | 19/10/2026 | Sub-Agent PO & PM |
+| **v3.0.0** | **100%** (13/13 SP) 🟢 DONE | EPIC-VOICE Sprint 20 — Hands-Free Voice Logging (AstroVoice AI) | 05/10/2026 | Sub-Agent PO & PM |
 
 
