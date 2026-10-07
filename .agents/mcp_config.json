@@ -3,6 +3,13 @@
     "flutter-preview": {
       "command": "/Users/nguyenduytrang/.antigravity-ide/extensions/felipefontes.flutter-widget-preview-0.1.15-universal/.mcp-scripts/run-mcp-preview.sh",
       "args": []
+    },
+    "lottiefiles-creator": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@lottiefiles/creator-mcp@latest"
+      ]
     }
   }
 }
