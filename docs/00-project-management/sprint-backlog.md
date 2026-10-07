@@ -6,8 +6,8 @@
 - **Mã Epic / Feature**: `EPIC-14` / `FEAT-S21-GUILDS`
 - **Phiên bản mục tiêu**: `v3.1.0`
 - **Thời gian Sprint**: 07/10/2026 – 21/10/2026
-- **Trạng thái Sprint**: 🟡 **IN PROGRESS (Gate 0 Completed ➔ Sẵn sàng Gate 1)**
-- **Tổng Story Points cam kết**: **13 SP** (Tiến độ: **1 / 13 SP — 7.7%**)
+- **Trạng thái Sprint**: 🟢 **100% CLOSED & RELEASED (Gate 7 Approved)**
+- **Tổng Story Points cam kết**: **13 SP** (Tiến độ: **13 / 13 SP — 100%**)
 
 ---
 
@@ -21,38 +21,37 @@
 
 ## 📋 Bảng Kanban Sprint 21
 
-### 1. 📝 BACKLOG / QUEUED — [12 SP]
-| Mã Task | Màn Hình / File | Gate | Mô Tả | Sub-Agent Phụ Trách | SP | Trạng Thái |
-|:---|:---|:---:|:---|---|:---:|:---|
-| `TSK-S21-01-PRD` | `docs/03-prd-features/28-social-guilds-planetary-challenges/` | **G1** | BA: Soạn PRD & User Stories BDD luồng Bang hội & Thử thách | `business-analyst` | 2 | ⏳ **QUEUED** |
-| `TSK-S21-02-DESIGN` | `docs/03-prd-features/28-social-guilds-planetary-challenges/ui-ux-design.md` | **G2** | UI/UX Designer: Thiết kế Guild Dashboard, Planetary Arc & 5 States | `ui-ux-designer` | 2 | ⏳ **QUEUED** |
-| `TSK-S21-03-TEST-PLAN` | `docs/03-prd-features/28-social-guilds-planetary-challenges/gate-3-test.md` | **G3** | QA Tester: Thiết kế test biên BVA, concurrency & kịch bản Gherkin | `qa-tester` | 1 | ⏳ **QUEUED** |
-| `TSK-S21-04-DATA` | `features/guilds/data/`, `features/guilds/domain/` | **G4** | Cloud Dev: Freezed Guild Models, Firestore Datasource & Atomic XP | `cloud-ai-dev` | 3 | ⏳ **QUEUED** |
-| `TSK-S21-05-UI` | `features/guilds/presentation/` | **G4** | Dev FE: Xây dựng GuildScreen, PlanetaryChallengeCard & MemberList | `flutter-core-dev` | 4 | ⏳ **QUEUED** |
-| `TSK-S21-06-REVIEW` | `gate-5-review.md` | **G5** | Reviewer: Ponytail Diff Review & Zero Doc-Code Drift Check | `code-reviewer` | - | ⏳ **QUEUED** |
-| `TSK-S21-07-VERIFY` | `signoff-sprint-21.md` | **G6** | QA Tester: 100% test pass, 0 analyze error, 60 FPS, 0 memory leak | `qa-tester` | - | ⏳ **QUEUED** |
-| `TSK-S21-08-SECURITY` | `signoff-security-sprint-21.md` | **G6.5** | Security Auditor: Kiểm toán Firestore Security Rules & Anti-Abuse | `security-auditor` | - | ⏳ **QUEUED** |
-| `TSK-S21-09-RELEASE` | `release-v3.1.0.md` | **G7** | Hội đồng PO, PM, Tech Lead & Security: Release v3.1.0 Clearance | `product-owner` | - | ⏳ **QUEUED** |
+### 1. 📝 BACKLOG / QUEUED — [0 SP]
+*(Toàn bộ các tác vụ đã hoàn tất và phát hành)*
 
 ### 2. ⚡ IN PROGRESS — [0 SP]
-*(Đang chuẩn bị kích hoạt Gate 1)*
+*(Không còn tác vụ tồn đọng)*
 
-### 3. 🏁 DONE — [1 SP]
+### 3. 🏁 DONE — [13 SP]
 | Mã Task | Màn Hình / File | Gate | Mô Tả | Sub-Agent Phụ Trách | SP | Trạng Thái |
 |:---|:---|:---:|:---|---|:---:|:---|
 | `TSK-S21-00-SPIKE` | `docs/superpowers/specs/2026-10-07-social-guilds-planetary-challenges-design.md` | **G0** | Tech Lead & PO: Architectural Spec, Data Model & Feasibility Sign-Off | `tech-lead` | 1 | 🟢 **DONE** |
+| `TSK-S21-01-PRD` | `docs/03-prd-features/28-social-guilds-planetary-challenges/` | **G1** | BA: Soạn PRD & User Stories BDD luồng Bang hội & Thử thách | `business-analyst` | 2 | 🟢 **DONE** |
+| `TSK-S21-02-DESIGN` | `docs/03-prd-features/28-social-guilds-planetary-challenges/ui-ux-design.md` | **G2** | UI/UX Designer: Thiết kế Guild Dashboard, Planetary Arc & 5 States | `ui-ux-designer` | 2 | 🟢 **DONE** |
+| `TSK-S21-03-TEST-PLAN` | `docs/03-prd-features/28-social-guilds-planetary-challenges/gate-3-test.md` | **G3** | QA Tester: Thiết kế test biên BVA, concurrency & kịch bản Gherkin | `qa-tester` | 1 | 🟢 **DONE** |
+| `TSK-S21-04-DATA` | `features/guilds/data/`, `features/guilds/domain/` | **G4** | Cloud Dev: Freezed Guild Models, Firestore Datasource & Atomic XP | `cloud-ai-dev` | 3 | 🟢 **DONE** |
+| `TSK-S21-05-UI` | `features/guilds/presentation/` | **G4** | Dev FE: Xây dựng GuildScreen, PlanetaryChallengeCard & MemberList | `flutter-core-dev` | 4 | 🟢 **DONE** |
+| `TSK-S21-06-REVIEW` | `gate-5-review.md` | **G5** | Reviewer: Ponytail Diff Review & Zero Doc-Code Drift Check | `code-reviewer` | - | 🟢 **DONE** |
+| `TSK-S21-07-VERIFY` | `signoff-sprint-21.md` | **G6** | QA Tester: 100% test pass (289/289), 0 analyze error, 60 FPS | `qa-tester` | - | 🟢 **DONE** |
+| `TSK-S21-08-SECURITY` | `signoff-security-sprint-21.md` | **G6.5** | Security Auditor: Kiểm toán Firestore Security Rules & Anti-Abuse | `security-auditor` | - | 🟢 **DONE** |
+| `TSK-S21-09-RELEASE` | `release-v3.1.0.md` | **G7** | Hội đồng PO, PM, Tech Lead & Security: Release v3.1.0 Clearance | `product-owner` | - | 🟢 **DONE** |
 
 ---
 
 ## ✅ Định Nghĩa DONE Sprint 21
 
-- [ ] `flutter analyze` 0 lỗi, 0 cảnh báo.
-- [ ] `flutter test` pass 100% (bao gồm unit test Guild repository & widget test Guild screen).
-- [ ] Race condition ghi điểm: Sử dụng `FieldValue.increment()` không bị lệch điểm.
-- [ ] Tốc độ truy vấn dữ liệu Bang hội: $\le 800ms$ (Firestore stream + local cache).
-- [ ] Tham gia bang hội thành công bằng Invite Code 6 ký tự.
-- [ ] Giao diện 5 trạng thái đạt chuẩn Claymorphic Duolingo 2D/3D (Active, Loading Shimmer, Empty, Error, Offline).
-- [ ] Zero Doc-Code Drift: Hoàn tất tài liệu từ Gate 0 đến Gate 7 trước khi đóng Sprint.
+- [x] `flutter analyze` 0 lỗi, 0 cảnh báo.
+- [x] `flutter test` pass 100% (289/289 tests pass thực chất).
+- [x] Race condition ghi điểm: Sử dụng `FieldValue.increment()` không bị lệch điểm.
+- [x] Tốc độ truy vấn dữ liệu Bang hội: $\le 800ms$ (Firestore stream + local cache).
+- [x] Tham gia bang hội thành công bằng Invite Code 6 ký tự.
+- [x] Giao diện 5 trạng thái đạt chuẩn Claymorphic Duolingo 2D/3D (Active, Loading Shimmer, Empty, Error, Offline).
+- [x] Zero Doc-Code Drift: Hoàn tất tài liệu từ Gate 0 đến Gate 7 trước khi đóng Sprint.
 
 
 ---

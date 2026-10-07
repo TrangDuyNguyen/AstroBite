@@ -141,6 +141,22 @@ class GoalSummaryRouteArgs {
 }
 
 /// generated route for
+/// [GuildPage]
+class GuildRoute extends PageRouteInfo<void> {
+  const GuildRoute({List<PageRouteInfo>? children})
+    : super(GuildRoute.name, initialChildren: children);
+
+  static const String name = 'GuildRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const GuildPage();
+    },
+  );
+}
+
+/// generated route for
 /// [HealthConnectionPage]
 class HealthConnectionRoute extends PageRouteInfo<void> {
   const HealthConnectionRoute({List<PageRouteInfo>? children})

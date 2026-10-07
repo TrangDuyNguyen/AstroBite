@@ -23,9 +23,9 @@ AstroBite kết hợp sức mạnh của **Google Gemini Vision & NLU AI** cùng
 
 ---
 
-## 🥑 2. MÔ TẢ 12 TÍNH NĂNG CỐT LÕI BẰNG NGÔN NGỮ TỰ NHIÊN (USER EXPERIENCE)
+## 🥑 2. MÔ TẢ 13 TÍNH NĂNG CỐT LÕI BẰNG NGÔN NGỮ TỰ NHIÊN (USER EXPERIENCE)
 
-Dưới đây là mô tả chi tiết 12 tính năng của AstroBite bằng ngôn ngữ đời thường, gần gũi, làm nổi bật trải nghiệm người dùng và giá trị thực tế:
+Dưới đây là mô tả chi tiết 13 tính năng của AstroBite bằng ngôn ngữ đời thường, gần gũi, làm nổi bật trải nghiệm người dùng và giá trị thực tế:
 
 ### 1. 📸 Quét Món Ăn Bằng Camera AI (Gemini Vision Scanner)
 * **Người dùng trải nghiệm thế nào?**  
@@ -136,6 +136,16 @@ Dưới đây là mô tả chi tiết 12 tính năng của AstroBite bằng ngô
   - Đồng bộ 2 chiều với **Apple Health** (trên iOS) và **Health Connect** (trên Android).
   - Lượng calo năng lượng bạn đốt cháy trong ngày khi vận động sẽ tự động bù trừ vào ngân sách calo ăn uống, giúp bạn biết mình có thể thưởng thức thêm một món ăn nhẹ mà không lo vượt calo.
 * **Giá trị mang lại**: Kết nối liền mạch vào hệ sinh thái thiết bị đeo thông minh của người dùng.
+
+### 13. 🪐 Bang Hội Vũ Trụ & Thử Thách Đồng Đội (Social Guilds & Planetary Challenges — Mới Nhất v3.1.0)
+* **Người dùng trải nghiệm thế nào?**  
+  Theo đuổi mục tiêu một mình rất dễ nản lòng sau vài ngày. Với Bang Hội Vũ Trụ, bạn có thể lập một nhóm nhỏ 5 - 20 người cùng bạn bè, gia đình hoặc đồng nghiệp để cùng thi đua ăn uống lành mạnh.
+* **Hệ thống xử lý ra sao?**  
+  - Gia nhập hoặc tạo Bang hội siêu tốc thông qua **Mã Mời 6 ký tự độc bản** (`MARS01`, `ASTRO9`...).
+  - Mỗi khi bạn ghi nhận bữa ăn hoặc duy trì chuỗi Streak, hệ thống **tự động tích lũy +50 Starlight XP** vào quỹ điểm chung của Bang hội mà không cần bấm thêm nút nào.
+  - Cả đội cùng chung tay hoàn thành **Chiến Dịch Tuần Hành Tinh** (Ví dụ: Thử thách Sao Hỏa 50,000 calo lành mạnh) với vòng cung tiến độ nhóm sinh động.
+  - Bảng xếp hạng nội bộ tôn vinh thành viên tích cực nhất làm **MVP của tuần**, kèm nút **Nudge 1-chạm** để gửi lời nhắc nhở thân thiện đến đồng đội chưa ghi bữa ăn hôm nay.
+* **Giá trị mang lại**: Chuyển đổi nỗ lực đơn độc thành sức mạnh tập thể (Social Peer Accountability), nâng cao tỷ lệ gắn bó D30 Retention vượt bậc.
 
 ---
 
