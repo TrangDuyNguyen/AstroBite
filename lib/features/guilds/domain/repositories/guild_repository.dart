@@ -29,4 +29,31 @@ abstract class GuildRepository {
     required String senderId,
     required String targetUserId,
   });
+  Future<Guild> updateGuildInfo({
+    required String guildId,
+    required String actorId,
+    required String name,
+    required String description,
+    required String avatarPlanet,
+  });
+  Future<void> disbandGuild({
+    required String guildId,
+    required String actorId,
+  });
+  Future<void> kickMember({
+    required String guildId,
+    required String actorId,
+    required String targetUserId,
+  });
+  Future<void> updateMemberRole({
+    required String guildId,
+    required String actorId,
+    required String targetUserId,
+    required String newRole,
+  });
+  Future<void> transferLeadership({
+    required String guildId,
+    required String currentLeaderId,
+    required String newLeaderId,
+  });
 }

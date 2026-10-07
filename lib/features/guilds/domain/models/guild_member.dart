@@ -23,6 +23,19 @@ class GuildMember {
   });
 
   bool get isLeader => role == 'leader';
+  bool get isElder => role == 'elder';
+  bool get canManageMembers => isLeader || isElder;
+
+  String get roleDisplayName {
+    switch (role) {
+      case 'leader':
+        return 'Bang Chủ';
+      case 'elder':
+        return 'Phó Bang';
+      default:
+        return 'Thành viên';
+    }
+  }
 
   GuildMember copyWith({
     String? userId,

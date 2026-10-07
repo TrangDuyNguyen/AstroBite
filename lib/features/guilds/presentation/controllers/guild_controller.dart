@@ -126,6 +126,133 @@ class GuildController extends StateNotifier<GuildUiState> {
     );
   }
 
+  Future<bool> updateGuildInfo({
+    required String name,
+    required String description,
+    required String avatarPlanet,
+  }) async {
+    final guild = await _repository.getUserGuild(_currentUserId);
+    if (guild == null) return false;
+    state = state.copyWith(isLoading: true, errorMessage: null);
+    try {
+      await _repository.updateGuildInfo(
+        guildId: guild.id,
+        actorId: _currentUserId,
+        name: name,
+        description: description,
+        avatarPlanet: avatarPlanet,
+      );
+      state = state.copyWith(
+        isLoading: false,
+        successMessage: 'Cập nhật thông tin bang hội thành công!',
+      );
+      return true;
+    } catch (e) {
+      state = state.copyWith(
+        isLoading: false,
+        errorMessage: e.toString().replaceAll('Exception: ', '').replaceAll('ArgumentError: ', '').replaceAll('StateError: ', ''),
+      );
+      return false;
+    }
+  }
+
+  Future<bool> disbandGuild() async {
+    final guild = await _repository.getUserGuild(_currentUserId);
+    if (guild == null) return false;
+    state = state.copyWith(isLoading: true, errorMessage: null);
+    try {
+      await _repository.disbandGuild(guildId: guild.id, actorId: _currentUserId);
+      state = state.copyWith(
+        isLoading: false,
+        successMessage: 'Đã giải tán bang hội!',
+      );
+      return true;
+    } catch (e) {
+      state = state.copyWith(
+        isLoading: false,
+        errorMessage: e.toString().replaceAll('Exception: ', '').replaceAll('ArgumentError: ', '').replaceAll('StateError: ', ''),
+      );
+      return false;
+    }
+  }
+
+  Future<bool> kickMember(String memberId) async {
+    final guild = await _repository.getUserGuild(_currentUserId);
+    if (guild == null) return false;
+    state = state.copyWith(isLoading: true, errorMessage: null);
+    try {
+      await _repository.kickMember(
+        guildId: guild.id,
+        actorId: _currentUserId,
+        targetUserId: memberId,
+      );
+      state = state.copyWith(
+        isLoading: false,
+        successMessage: 'Đã mời thành viên rời bang hội!',
+      );
+      return true;
+    } catch (e) {
+      state = state.copyWith(
+        isLoading: false,
+        errorMessage: e.toString().replaceAll('Exception: ', '').replaceAll('ArgumentError: ', '').replaceAll('StateError: ', ''),
+      );
+      return false;
+    }
+  }
+
+  Future<bool> updateMemberRole({
+    required String targetUserId,
+    required String newRole,
+  }) async {
+    final guild = await _repository.getUserGuild(_currentUserId);
+    if (guild == null) return false;
+    state = state.copyWith(isLoading: true, errorMessage: null);
+    try {
+      await _repository.updateMemberRole(
+        guildId: guild.id,
+        actorId: _currentUserId,
+        targetUserId: targetUserId,
+        newRole: newRole,
+      );
+      final roleText = newRole == 'elder' ? 'Phó Bang' : 'Thành viên';
+      state = state.copyWith(
+        isLoading: false,
+        successMessage: 'Đã đổi chức vụ thành $roleText!',
+      );
+      return true;
+    } catch (e) {
+      state = state.copyWith(
+        isLoading: false,
+        errorMessage: e.toString().replaceAll('Exception: ', '').replaceAll('ArgumentError: ', '').replaceAll('StateError: ', ''),
+      );
+      return false;
+    }
+  }
+
+  Future<bool> transferLeadership(String newLeaderId) async {
+    final guild = await _repository.getUserGuild(_currentUserId);
+    if (guild == null) return false;
+    state = state.copyWith(isLoading: true, errorMessage: null);
+    try {
+      await _repository.transferLeadership(
+        guildId: guild.id,
+        currentLeaderId: _currentUserId,
+        newLeaderId: newLeaderId,
+      );
+      state = state.copyWith(
+        isLoading: false,
+        successMessage: 'Đã chuyển nhượng chức Bang Chủ thành công!',
+      );
+      return true;
+    } catch (e) {
+      state = state.copyWith(
+        isLoading: false,
+        errorMessage: e.toString().replaceAll('Exception: ', '').replaceAll('ArgumentError: ', '').replaceAll('StateError: ', ''),
+      );
+      return false;
+    }
+  }
+
   Future<void> leaveGuild() async {
     final guild = await _repository.getUserGuild(_currentUserId);
     if (guild == null) return;

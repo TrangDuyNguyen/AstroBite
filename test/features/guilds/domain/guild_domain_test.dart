@@ -85,5 +85,82 @@ void main() {
       final notFullGuild = guild.copyWith(memberCount: 19);
       expect(notFullGuild.isFull, isFalse);
     });
+
+    test('Guild Member role hierarchy & permission matrix', () {
+      final now = DateTime.now();
+      final leader = GuildMember(
+        userId: 'u_leader',
+        displayName: 'Leader User',
+        role: 'leader',
+        joinedAt: now,
+        lastLoggedAt: now,
+      );
+      final elder = GuildMember(
+        userId: 'u_elder',
+        displayName: 'Elder User',
+        role: 'elder',
+        joinedAt: now,
+        lastLoggedAt: now,
+      );
+      final member = GuildMember(
+        userId: 'u_member',
+        displayName: 'Member User',
+        role: 'member',
+        joinedAt: now,
+        lastLoggedAt: now,
+      );
+
+      final guild = Guild(
+        id: 'g1',
+        name: 'Vệ Binh Sao Hỏa',
+        description: 'Mô tả bang',
+        inviteCode: 'MARS01',
+        ownerId: 'u_leader',
+        memberCount: 3,
+        members: [leader, elder, member],
+        memberIds: ['u_leader', 'u_elder', 'u_member'],
+        createdAt: now,
+      );
+
+      // Check role getters
+      expect(leader.isLeader, isTrue);
+      expect(leader.canManageMembers, isTrue);
+      expect(leader.roleDisplayName, equals('Bang Chủ'));
+
+      expect(elder.isElder, isTrue);
+      expect(elder.canManageMembers, isTrue);
+      expect(elder.roleDisplayName, equals('Phó Bang'));
+
+      expect(member.isLeader, isFalse);
+      expect(member.isElder, isFalse);
+      expect(member.canManageMembers, isFalse);
+      expect(member.roleDisplayName, equals('Thành viên'));
+
+      // Check guild governance permissions
+      expect(guild.canEditGuild('u_leader'), isTrue);
+      expect(guild.canEditGuild('u_elder'), isTrue);
+      expect(guild.canEditGuild('u_member'), isFalse);
+
+      expect(guild.canDisbandGuild('u_leader'), isTrue);
+      expect(guild.canDisbandGuild('u_elder'), isFalse);
+      expect(guild.canDisbandGuild('u_member'), isFalse);
+
+      expect(guild.canTransferLeadership('u_leader'), isTrue);
+      expect(guild.canTransferLeadership('u_elder'), isFalse);
+
+      expect(guild.canPromoteOrDemote('u_leader'), isTrue);
+      expect(guild.canPromoteOrDemote('u_elder'), isFalse);
+
+      // Kick permissions
+      expect(guild.canKick('u_leader', 'u_elder'), isTrue);
+      expect(guild.canKick('u_leader', 'u_member'), isTrue);
+      expect(guild.canKick('u_leader', 'u_leader'), isFalse); // Cannot kick self
+
+      expect(guild.canKick('u_elder', 'u_member'), isTrue);
+      expect(guild.canKick('u_elder', 'u_leader'), isFalse); // Cannot kick leader
+      expect(guild.canKick('u_elder', 'u_elder'), isFalse); // Cannot kick elder
+
+      expect(guild.canKick('u_member', 'u_elder'), isFalse);
+    });
   });
 }

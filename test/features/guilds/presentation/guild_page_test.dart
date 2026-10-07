@@ -99,5 +99,55 @@ void main() {
 
       expect(find.text('Thể Lệ Thử Thách Vũ Trụ 🪐'), findsNothing);
     });
+
+    testWidgets('opens guild governance settings sheet when settings button tapped',
+        (tester) async {
+      final repo = MockGuildRepository(seedDefaultData: true);
+
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            guildRepositoryProvider.overrideWithValue(repo),
+            currentUserIdProvider.overrideWithValue('user_001'),
+          ],
+          child: const MaterialApp(
+            home: GuildPage(),
+          ),
+        ),
+      );
+
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byKey(const Key('guild_settings_button')));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Cài Đặt Bang Hội ⚙️'), findsOneWidget);
+      expect(find.text('Chỉnh sửa thông tin Bang Hội'), findsOneWidget);
+      expect(find.text('Sao chép mã mời bạn bè'), findsOneWidget);
+    });
+
+    testWidgets('opens member action sheet when member tile tapped', (tester) async {
+      final repo = MockGuildRepository(seedDefaultData: true);
+
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            guildRepositoryProvider.overrideWithValue(repo),
+          ],
+          child: const MaterialApp(
+            home: GuildPage(),
+          ),
+        ),
+      );
+
+      await tester.pumpAndSettle();
+
+      // Tap on member "Lan (Leader)"
+      await tester.tap(find.text('Lan (Leader)'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Nhắc nhở giữ streak'), findsOneWidget);
+      expect(find.text('🔥 12 ngày streak  •  ⚡ 850 XP tuần'), findsOneWidget);
+    });
   });
 }

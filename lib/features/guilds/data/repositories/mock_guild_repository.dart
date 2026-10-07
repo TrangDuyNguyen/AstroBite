@@ -305,6 +305,136 @@ class MockGuildRepository implements GuildRepository {
     await Future.delayed(const Duration(milliseconds: 50));
   }
 
+  @override
+  Future<Guild> updateGuildInfo({
+    required String guildId,
+    required String actorId,
+    required String name,
+    required String description,
+    required String avatarPlanet,
+  }) async {
+    final guild = _guilds[guildId];
+    if (guild == null) {
+      throw ArgumentError('Không tìm thấy bang hội');
+    }
+    if (!guild.canEditGuild(actorId)) {
+      throw StateError('Chỉ Trưởng Bang hoặc Phó Bang mới có quyền chỉnh sửa thông tin');
+    }
+    final trimmedName = name.trim();
+    if (trimmedName.length < 3 || trimmedName.length > 30) {
+      throw ArgumentError('Tên bang hội phải từ 3 đến 30 ký tự');
+    }
+
+    final updated = guild.copyWith(
+      name: trimmedName,
+      description: description.trim(),
+      avatarPlanet: avatarPlanet,
+    );
+    _guilds[guildId] = updated;
+    _guildStreamController.add(updated);
+    return updated;
+  }
+
+  @override
+  Future<void> disbandGuild({
+    required String guildId,
+    required String actorId,
+  }) async {
+    final guild = _guilds[guildId];
+    if (guild == null) return;
+    if (!guild.canDisbandGuild(actorId)) {
+      throw StateError('Chỉ Trưởng Bang mới có quyền giải tán bang hội');
+    }
+
+    _guilds.remove(guildId);
+    _guildStreamController.add(null);
+  }
+
+  @override
+  Future<void> kickMember({
+    required String guildId,
+    required String actorId,
+    required String targetUserId,
+  }) async {
+    final guild = _guilds[guildId];
+    if (guild == null) return;
+    if (!guild.canKick(actorId, targetUserId)) {
+      throw StateError('Bạn không có quyền trục xuất thành viên này');
+    }
+
+    final updatedMembers =
+        guild.members.where((m) => m.userId != targetUserId).toList();
+    final updatedIds =
+        guild.memberIds.where((id) => id != targetUserId).toList();
+
+    final updated = guild.copyWith(
+      memberCount: updatedMembers.length,
+      memberIds: updatedIds,
+      members: updatedMembers,
+    );
+    _guilds[guildId] = updated;
+    _guildStreamController.add(updated);
+  }
+
+  @override
+  Future<void> updateMemberRole({
+    required String guildId,
+    required String actorId,
+    required String targetUserId,
+    required String newRole,
+  }) async {
+    final guild = _guilds[guildId];
+    if (guild == null) return;
+    if (!guild.canPromoteOrDemote(actorId)) {
+      throw StateError('Chỉ Trưởng Bang mới có quyền bổ nhiệm chức vụ');
+    }
+
+    final updatedMembers = guild.members.map((m) {
+      if (m.userId == targetUserId) {
+        return m.copyWith(role: newRole);
+      }
+      return m;
+    }).toList();
+
+    final updated = guild.copyWith(members: updatedMembers);
+    _guilds[guildId] = updated;
+    _guildStreamController.add(updated);
+  }
+
+  @override
+  Future<void> transferLeadership({
+    required String guildId,
+    required String currentLeaderId,
+    required String newLeaderId,
+  }) async {
+    final guild = _guilds[guildId];
+    if (guild == null) return;
+    if (!guild.canTransferLeadership(currentLeaderId)) {
+      throw StateError('Chỉ Trưởng Bang đương nhiệm mới có quyền kế thừa bang hội');
+    }
+
+    final newLeaderMember = guild.findMember(newLeaderId);
+    if (newLeaderMember == null) {
+      throw ArgumentError('Thành viên kế nhiệm không thuộc bang hội này');
+    }
+
+    final updatedMembers = guild.members.map((m) {
+      if (m.userId == newLeaderId) {
+        return m.copyWith(role: 'leader');
+      } else if (m.userId == currentLeaderId) {
+        return m.copyWith(role: 'elder'); // Cựu thủ lĩnh lùi về làm Phó Bang / Trưởng lão
+      }
+      return m;
+    }).toList();
+
+    final updated = guild.copyWith(
+      ownerId: newLeaderId,
+      members: updatedMembers,
+    );
+    _guilds[guildId] = updated;
+    _guildStreamController.add(updated);
+  }
+
   String _generateInviteCode() {
     const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
     final random = Random();

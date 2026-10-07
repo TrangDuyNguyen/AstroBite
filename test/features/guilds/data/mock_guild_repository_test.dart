@@ -114,5 +114,129 @@ void main() {
       final guildAfterLeave = await repository.getUserGuild('current_user');
       expect(guildAfterLeave, isNull);
     });
+
+    test('updateGuildInfo allows leader to edit info, forbids ordinary member', () async {
+      final guild = (await repository.getUserGuild('current_user'))!;
+
+      // Ordinary member tries to edit
+      expect(
+        () => repository.updateGuildInfo(
+          guildId: guild.id,
+          actorId: 'current_user', // ordinary member
+          name: 'Tên Mới',
+          description: 'Mô tả mới',
+          avatarPlanet: 'jupiter',
+        ),
+        throwsA(isA<StateError>()),
+      );
+
+      // Leader edits successfully
+      await repository.updateGuildInfo(
+        guildId: guild.id,
+        actorId: 'user_001', // leader
+        name: 'Vệ Binh Sao Mộc',
+        description: 'Mô tả mới toanh',
+        avatarPlanet: 'jupiter',
+      );
+
+      final updated = (await repository.getUserGuild('current_user'))!;
+      expect(updated.name, equals('Vệ Binh Sao Mộc'));
+      expect(updated.description, equals('Mô tả mới toanh'));
+      expect(updated.avatarPlanet, equals('jupiter'));
+    });
+
+    test('updateMemberRole promotes member to elder and demotes back', () async {
+      final guild = (await repository.getUserGuild('current_user'))!;
+
+      // Leader promotes current_user to elder
+      await repository.updateMemberRole(
+        guildId: guild.id,
+        actorId: 'user_001',
+        targetUserId: 'current_user',
+        newRole: 'elder',
+      );
+
+      var updated = (await repository.getUserGuild('current_user'))!;
+      var myMember = updated.findMember('current_user')!;
+      expect(myMember.role, equals('elder'));
+      expect(myMember.isElder, isTrue);
+
+      // Leader demotes current_user back to member
+      await repository.updateMemberRole(
+        guildId: guild.id,
+        actorId: 'user_001',
+        targetUserId: 'current_user',
+        newRole: 'member',
+      );
+
+      updated = (await repository.getUserGuild('current_user'))!;
+      myMember = updated.findMember('current_user')!;
+      expect(myMember.role, equals('member'));
+      expect(myMember.isElder, isFalse);
+    });
+
+    test('transferLeadership transfers leader role and steps actor down to elder', () async {
+      final guild = (await repository.getUserGuild('current_user'))!;
+
+      await repository.transferLeadership(
+        guildId: guild.id,
+        currentLeaderId: 'user_001',
+        newLeaderId: 'current_user',
+      );
+
+      final updated = (await repository.getUserGuild('current_user'))!;
+      expect(updated.ownerId, equals('current_user'));
+      expect(updated.findMember('current_user')!.isLeader, isTrue);
+      expect(updated.findMember('user_001')!.isElder, isTrue);
+      expect(updated.findMember('user_001')!.isLeader, isFalse);
+    });
+
+    test('kickMember removes member with permission checks', () async {
+      final guild = (await repository.getUserGuild('current_user'))!;
+
+      // Ordinary member cannot kick
+      expect(
+        () => repository.kickMember(
+          guildId: guild.id,
+          actorId: 'current_user',
+          targetUserId: 'user_003',
+        ),
+        throwsA(isA<StateError>()),
+      );
+
+      // Leader kicks user_004
+      await repository.kickMember(
+        guildId: guild.id,
+        actorId: 'user_001',
+        targetUserId: 'user_004',
+      );
+
+      final updated = (await repository.getUserGuild('current_user'))!;
+      expect(updated.memberIds.contains('user_004'), isFalse);
+      expect(updated.findMember('user_004'), isNull);
+      expect(updated.memberCount, equals(4));
+    });
+
+    test('disbandGuild deletes guild completely for all members', () async {
+      final guild = (await repository.getUserGuild('current_user'))!;
+
+      // Ordinary member cannot disband
+      expect(
+        () => repository.disbandGuild(
+          guildId: guild.id,
+          actorId: 'current_user',
+        ),
+        throwsA(isA<StateError>()),
+      );
+
+      // Leader disbands guild
+      await repository.disbandGuild(
+        guildId: guild.id,
+        actorId: 'user_001',
+      );
+
+      final guildAfterDisband = await repository.getUserGuild('current_user');
+      expect(guildAfterDisband, isNull);
+    });
   });
 }

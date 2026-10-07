@@ -42,6 +42,31 @@ class Guild {
     }
   }
 
+  bool isLeader(String userId) => ownerId == userId;
+
+  bool isElder(String userId) {
+    final member = findMember(userId);
+    return member != null && member.isElder;
+  }
+
+  bool canEditGuild(String userId) => isLeader(userId) || isElder(userId);
+
+  bool canDisbandGuild(String userId) => isLeader(userId);
+
+  bool canTransferLeadership(String userId) => isLeader(userId);
+
+  bool canKick(String actorId, String targetUserId) {
+    if (actorId == targetUserId) return false;
+    if (isLeader(actorId)) return true;
+    if (isElder(actorId)) {
+      final target = findMember(targetUserId);
+      return target != null && !target.isLeader && !target.isElder;
+    }
+    return false;
+  }
+
+  bool canPromoteOrDemote(String actorId) => isLeader(actorId);
+
   Guild copyWith({
     String? id,
     String? name,
