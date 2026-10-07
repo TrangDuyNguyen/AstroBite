@@ -26,6 +26,7 @@ export 'clay_3d_celestial_avatar.dart';
 export 'clay_3d_cookbook.dart';
 export 'clay_3d_flame.dart';
 export 'clay_3d_flask.dart';
+export 'clay_3d_planet.dart';
 export 'clay_3d_salt_shaker.dart';
 export 'clay_3d_shield.dart';
 export 'clay_3d_sprout.dart';

@@ -35,23 +35,23 @@ class GuildMemberTile extends StatelessWidget {
               : AppColors.surfaceContainer,
           child: Row(
             children: [
-              // Rank badge
+              // Rank badge / 3D Star for Top 1
               Container(
                 width: 32,
                 height: 32,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   color: isTop1
-                      ? AppColors.tertiary.withValues(alpha: 0.2)
+                      ? AppColors.tertiary.withValues(alpha: 0.15)
                       : AppColors.surface,
                   shape: BoxShape.circle,
                 ),
                 child: isTop1
-                    ? const Text('👑', style: TextStyle(fontSize: 16))
+                    ? const Clay3DStar(size: 18)
                     : Text(
                         '#$rank',
                         style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.w800,
                               color: AppColors.onSurfaceVariant,
                             ),
                       ),
@@ -69,6 +69,14 @@ class GuildMemberTile extends StatelessWidget {
                           ? AppColors.clayLunch
                           : (isTop1 ? AppColors.clayBreakfast : AppColors.clayMint),
                   shape: BoxShape.circle,
+                  border: Border.all(
+                    color: member.isLeader
+                        ? const Color(0xFFC084FC)
+                        : member.isElder
+                            ? const Color(0xFF7DD3FC)
+                            : Colors.transparent,
+                    width: 1.2,
+                  ),
                 ),
                 child: Center(
                   child: Text(
@@ -76,7 +84,7 @@ class GuildMemberTile extends StatelessWidget {
                         ? member.displayName[0].toUpperCase()
                         : '?',
                     style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                          fontWeight: FontWeight.w800,
+                          fontWeight: FontWeight.w900,
                           color: AppColors.onSurface,
                         ),
                   ),
@@ -98,88 +106,88 @@ class GuildMemberTile extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                                   fontWeight: isCurrentUser || isTop1
-                                      ? FontWeight.bold
-                                      : FontWeight.w600,
+                                      ? FontWeight.w800
+                                      : FontWeight.w700,
                                   color: AppColors.onSurface,
                                 ),
                           ),
                         ),
                         if (member.isLeader) ...[
-                          const SizedBox(width: 4),
+                          const SizedBox(width: 6),
                           Container(
                             padding: const EdgeInsets.symmetric(
-                              horizontal: 6,
-                              vertical: 1,
+                              horizontal: 7,
+                              vertical: 2,
                             ),
                             decoration: BoxDecoration(
                               color: AppColors.clayDinner,
                               borderRadius: BorderRadius.circular(8),
+                              border: Border.all(color: const Color(0xFFD8B4FE), width: 1),
                             ),
-                            child: Text(
+                            child: const Text(
                               'Bang Chủ',
-                              style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                                    color: const Color(0xFF7C3AED),
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                              style: TextStyle(
+                                color: Color(0xFF6B21A8),
+                                fontSize: 10,
+                                fontWeight: FontWeight.w800,
+                              ),
                             ),
                           ),
                         ] else if (member.isElder) ...[
-                          const SizedBox(width: 4),
+                          const SizedBox(width: 6),
                           Container(
                             padding: const EdgeInsets.symmetric(
-                              horizontal: 6,
-                              vertical: 1,
+                              horizontal: 7,
+                              vertical: 2,
                             ),
                             decoration: BoxDecoration(
                               color: AppColors.clayLunch,
                               borderRadius: BorderRadius.circular(8),
+                              border: Border.all(color: const Color(0xFFBAE6FD), width: 1),
                             ),
-                            child: Text(
+                            child: const Text(
                               'Phó Bang',
-                              style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                                    color: AppColors.primary,
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                              style: TextStyle(
+                                color: Color(0xFF0369A1),
+                                fontSize: 10,
+                                fontWeight: FontWeight.w800,
+                              ),
                             ),
                           ),
                         ] else if (isTop1) ...[
-                          const SizedBox(width: 4),
+                          const SizedBox(width: 6),
                           Container(
                             padding: const EdgeInsets.symmetric(
-                              horizontal: 6,
-                              vertical: 1,
+                              horizontal: 7,
+                              vertical: 2,
                             ),
                             decoration: BoxDecoration(
                               color: AppColors.clayBreakfast,
                               borderRadius: BorderRadius.circular(8),
+                              border: Border.all(color: const Color(0xFFFDE68A), width: 1),
                             ),
-                            child: Text(
+                            child: const Text(
                               'MVP',
-                              style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                                    color: AppColors.tertiary,
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                              style: TextStyle(
+                                color: Color(0xFFB45309),
+                                fontSize: 10,
+                                fontWeight: FontWeight.w800,
+                              ),
                             ),
                           ),
                         ],
                       ],
                     ),
-                    const SizedBox(height: 2),
+                    const SizedBox(height: 3),
                     Row(
                       children: [
-                        const Icon(
-                          Icons.local_fire_department_rounded,
-                          color: Color(0xFFEF4444),
-                          size: 14,
-                        ),
-                        const SizedBox(width: 2),
+                        const Clay3DFlame(size: 13),
+                        const SizedBox(width: 4),
                         Text(
                           '${member.currentStreak} ngày streak',
                           style: Theme.of(context).textTheme.labelSmall?.copyWith(
                                 color: AppColors.onSurfaceVariant,
+                                fontWeight: FontWeight.w600,
                               ),
                         ),
                       ],
@@ -195,7 +203,7 @@ class GuildMemberTile extends StatelessWidget {
                   Text(
                     '${member.weeklyContributionXp} XP',
                     style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w900,
                           color: AppColors.brandGreen,
                         ),
                   ),

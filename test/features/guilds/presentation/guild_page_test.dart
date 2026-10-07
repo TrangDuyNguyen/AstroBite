@@ -4,7 +4,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:astrobite/features/guilds/data/repositories/mock_guild_repository.dart';
 import 'package:astrobite/features/guilds/presentation/controllers/guild_controller.dart';
 import 'package:astrobite/features/guilds/presentation/pages/guild_page.dart';
+import 'package:astrobite/features/guilds/presentation/widgets/member_action_sheet.dart';
 import 'package:astrobite/features/guilds/presentation/widgets/planetary_challenge_card.dart';
+import 'package:astrobite/shared/ui_kit/ui_kit.dart';
 
 void main() {
   group('GuildPage Widget Tests (Gate 4 & Gate 6 Visual Verification)', () {
@@ -39,7 +41,7 @@ void main() {
       expect(find.text('BẢNG XẾP HẠNG ĐÓNG GÓP'), findsOneWidget);
       expect(find.text('Lan (Leader)'), findsOneWidget);
       expect(find.text('Bạn (Me)'), findsOneWidget);
-      expect(find.text('👑'), findsOneWidget); // MVP crown
+      expect(find.byType(Clay3DStar), findsWidgets); // MVP 3D clay star
       expect(find.text('850 XP'), findsOneWidget);
 
       // Verify Nudge button exists for other member
@@ -91,13 +93,13 @@ void main() {
       await tester.tap(find.byKey(const Key('guild_info_button')));
       await tester.pumpAndSettle();
 
-      expect(find.text('Thể Lệ Thử Thách Vũ Trụ 🪐'), findsOneWidget);
+      expect(find.text('Thể Lệ Thử Thách'), findsOneWidget);
       expect(find.text('Đã Hiểu'), findsOneWidget);
 
       await tester.tap(find.text('Đã Hiểu'));
       await tester.pumpAndSettle();
 
-      expect(find.text('Thể Lệ Thử Thách Vũ Trụ 🪐'), findsNothing);
+      expect(find.text('Thể Lệ Thử Thách'), findsNothing);
     });
 
     testWidgets('opens guild governance settings sheet when settings button tapped',
@@ -121,7 +123,7 @@ void main() {
       await tester.tap(find.byKey(const Key('guild_settings_button')));
       await tester.pumpAndSettle();
 
-      expect(find.text('Cài Đặt Bang Hội ⚙️'), findsOneWidget);
+      expect(find.text('Cài Đặt Bang Hội'), findsOneWidget);
       expect(find.text('Chỉnh sửa thông tin Bang Hội'), findsOneWidget);
       expect(find.text('Sao chép mã mời bạn bè'), findsOneWidget);
     });
@@ -147,7 +149,14 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text('Nhắc nhở giữ streak'), findsOneWidget);
-      expect(find.text('🔥 12 ngày streak  •  ⚡ 850 XP tuần'), findsOneWidget);
+      expect(
+        find.descendant(
+          of: find.byType(MemberActionSheet),
+          matching: find.text('12 ngày streak'),
+        ),
+        findsOneWidget,
+      );
+      expect(find.text('850 XP tuần'), findsOneWidget);
     });
   });
 }

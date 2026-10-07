@@ -48,7 +48,7 @@ class _GuildJoinSheetState extends ConsumerState<GuildJoinSheet> {
       Navigator.of(context).pop();
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Đã gia nhập bang hội thành công! 🎉'),
+          content: Text('Đã gia nhập bang hội thành công!'),
           backgroundColor: AppColors.brandGreen,
         ),
       );
@@ -74,6 +74,7 @@ class _GuildJoinSheetState extends ConsumerState<GuildJoinSheet> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Drag handle
           Center(
             child: Container(
               width: 44,
@@ -84,20 +85,51 @@ class _GuildJoinSheetState extends ConsumerState<GuildJoinSheet> {
               ),
             ),
           ),
-          const SizedBox(height: 16),
-          Text(
-            'Nhập Mã Mời Bang Hội 🔑',
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.onSurface,
+          const SizedBox(height: 18),
+
+          // Header with 3D Shield Figurine
+          Row(
+            children: [
+              Container(
+                width: 48,
+                height: 48,
+                decoration: BoxDecoration(
+                  color: AppColors.clayLunch,
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: AppColors.primary.withValues(alpha: 0.25),
+                    width: 1.5,
+                  ),
                 ),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            'Nhập mã 6 ký tự do Trưởng bang hoặc đồng đội của bạn chia sẻ.',
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: AppColors.onSurfaceVariant,
+                child: const Center(
+                  child: Clay3DShield(size: 28),
                 ),
+              ),
+              const SizedBox(width: 14),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Nhập Mã Mời Bang Hội',
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.w900,
+                            color: AppColors.onSurface,
+                            fontSize: 18,
+                          ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      'Nhập mã 6 ký tự do Bang chủ hoặc đồng đội chia sẻ.',
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: AppColors.onSurfaceVariant,
+                            fontWeight: FontWeight.w500,
+                          ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: 20),
 
@@ -109,8 +141,10 @@ class _GuildJoinSheetState extends ConsumerState<GuildJoinSheet> {
           ),
           const SizedBox(height: 24),
 
-          // Submit button
+          // Full-width Chunky 3D Submit button
           ClayButton(
+            width: double.infinity,
+            height: 52,
             text: 'Gia Nhập Ngay',
             isLoading: uiState.isLoading,
             onPressed: _submit,

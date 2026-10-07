@@ -118,12 +118,28 @@ class MemberActionSheet extends ConsumerWidget {
                           _buildRoleBadge(context, member.role),
                         ],
                       ),
-                      const SizedBox(height: 4),
-                      Text(
-                        '🔥 ${member.currentStreak} ngày streak  •  ⚡ ${member.weeklyContributionXp} XP tuần',
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              color: AppColors.onSurfaceVariant,
-                            ),
+                      Row(
+                        children: [
+                          const Clay3DFlame(size: 14),
+                          const SizedBox(width: 4),
+                          Text(
+                            '${member.currentStreak} ngày streak',
+                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                  color: AppColors.onSurfaceVariant,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                          ),
+                          const SizedBox(width: 8),
+                          Container(width: 3, height: 3, decoration: const BoxDecoration(color: AppColors.outline, shape: BoxShape.circle)),
+                          const SizedBox(width: 8),
+                          Text(
+                            '${member.weeklyContributionXp} XP tuần',
+                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                  color: AppColors.brandGreen,
+                                  fontWeight: FontWeight.w800,
+                                ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -245,22 +261,26 @@ class MemberActionSheet extends ConsumerWidget {
   Widget _buildRoleBadge(BuildContext context, String role) {
     Color bg;
     Color fg;
+    Color border;
     String label;
 
     switch (role) {
       case 'leader':
         bg = AppColors.clayDinner;
-        fg = const Color(0xFF7C3AED);
+        fg = const Color(0xFF6B21A8);
+        border = const Color(0xFFD8B4FE);
         label = 'Bang Chủ';
         break;
       case 'elder':
         bg = AppColors.clayLunch;
-        fg = AppColors.primary;
+        fg = const Color(0xFF0369A1);
+        border = const Color(0xFFBAE6FD);
         label = 'Phó Bang';
         break;
       default:
-        bg = AppColors.surface;
-        fg = AppColors.onSurfaceVariant;
+        bg = const Color(0xFFF3F4F6);
+        fg = const Color(0xFF4B5563);
+        border = const Color(0xFFE5E7EB);
         label = 'Thành viên';
     }
 
@@ -269,14 +289,15 @@ class MemberActionSheet extends ConsumerWidget {
       decoration: BoxDecoration(
         color: bg,
         borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: border, width: 1),
       ),
       child: Text(
         label,
-        style: Theme.of(context).textTheme.labelSmall?.copyWith(
-              color: fg,
-              fontWeight: FontWeight.bold,
-              fontSize: 10,
-            ),
+        style: TextStyle(
+          color: fg,
+          fontWeight: FontWeight.w800,
+          fontSize: 10,
+        ),
       ),
     );
   }
@@ -285,7 +306,7 @@ class MemberActionSheet extends ConsumerWidget {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Chuyển Giao Bang Chủ 👑'),
+        title: const Text('Chuyển Giao Bang Chủ', style: TextStyle(fontWeight: FontWeight.w900)),
         content: Text(
           'Bạn có chắc chắn muốn chuyển giao toàn bộ quyền Bang Chủ cho "${member.displayName}"? '
           'Sau khi chuyển giao, bạn sẽ trở thành Phó Bang.',

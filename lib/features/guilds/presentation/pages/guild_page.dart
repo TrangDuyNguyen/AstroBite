@@ -154,10 +154,10 @@ class GuildPage extends ConsumerWidget {
               decoration: BoxDecoration(
                 color: AppColors.clayLunch,
                 shape: BoxShape.circle,
-                border: Border.all(color: AppColors.primary.withValues(alpha: 0.3), width: 3),
+                border: Border.all(color: AppColors.primary.withValues(alpha: 0.25), width: 2.5),
               ),
               child: const Center(
-                child: Text('🛸', style: TextStyle(fontSize: 54)),
+                child: Clay3DCarrotRocket(size: 64),
               ),
             ),
             const SizedBox(height: 24),
@@ -180,14 +180,20 @@ class GuildPage extends ConsumerWidget {
             const SizedBox(height: 32),
             ClayButton(
               key: const Key('create_guild_button'),
-              text: '🚀 Khởi Tạo Bang Hội Mới',
+              width: double.infinity,
+              height: 52,
+              icon: const Clay3DCarrotRocket(size: 22),
+              text: 'Khởi Tạo Bang Hội Mới',
               onPressed: () => GuildCreateSheet.show(context),
             ),
             const SizedBox(height: 12),
             ClayButton(
               key: const Key('join_guild_button'),
-              text: '🔑 Nhập Mã Mời Của Bạn Bè',
+              width: double.infinity,
+              height: 52,
               variant: ClayButtonVariant.outline,
+              icon: const Clay3DShield(size: 20),
+              text: 'Nhập Mã Mời Của Bạn Bè',
               onPressed: () => GuildJoinSheet.show(context),
             ),
           ],
@@ -227,10 +233,7 @@ class GuildPage extends ConsumerWidget {
                     ),
                   ),
                   child: Center(
-                    child: Text(
-                      _getPlanetIcon(guild.avatarPlanet),
-                      style: const TextStyle(fontSize: 28),
-                    ),
+                    child: Clay3DPlanet(planet: guild.avatarPlanet, size: 36),
                   ),
                 ),
                 const SizedBox(width: 14),
@@ -462,18 +465,25 @@ class GuildPage extends ConsumerWidget {
               ),
             ),
             const SizedBox(height: 16),
-            Text(
-              'Cài Đặt Bang Hội ⚙️',
-              style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.onSurface,
-                  ),
+            Row(
+              children: [
+                const Clay3DShield(size: 26),
+                const SizedBox(width: 10),
+                Text(
+                  'Cài Đặt Bang Hội',
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.w900,
+                        color: AppColors.onSurface,
+                      ),
+                ),
+              ],
             ),
             const SizedBox(height: 4),
             Text(
               'Quản trị thông tin và quyền hạn trong bang.',
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     color: AppColors.onSurfaceVariant,
+                    fontWeight: FontWeight.w500,
                   ),
             ),
             const SizedBox(height: 16),
@@ -481,7 +491,7 @@ class GuildPage extends ConsumerWidget {
             if (canEdit) ...[
               ListTile(
                 leading: const Icon(Icons.edit_rounded, color: AppColors.primary),
-                title: const Text('Chỉnh sửa thông tin Bang Hội'),
+                title: const Text('Chỉnh sửa thông tin Bang Hội', style: TextStyle(fontWeight: FontWeight.w700)),
                 subtitle: const Text('Đổi tên, biểu tượng hành tinh và tuyên ngôn'),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                 tileColor: AppColors.surfaceContainer,
@@ -495,7 +505,7 @@ class GuildPage extends ConsumerWidget {
 
             ListTile(
               leading: const Icon(Icons.share_rounded, color: AppColors.brandGreen),
-              title: const Text('Sao chép mã mời bạn bè'),
+              title: const Text('Sao chép mã mời bạn bè', style: TextStyle(fontWeight: FontWeight.w700)),
               subtitle: Text('Mã: ${guild.inviteCode}'),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
               tileColor: AppColors.surfaceContainer,
@@ -514,7 +524,7 @@ class GuildPage extends ConsumerWidget {
                 leading: const Icon(Icons.delete_forever_rounded, color: Color(0xFFEF4444)),
                 title: const Text(
                   'Giải tán Bang Hội',
-                  style: TextStyle(color: Color(0xFFEF4444), fontWeight: FontWeight.bold),
+                  style: TextStyle(color: Color(0xFFEF4444), fontWeight: FontWeight.w800),
                 ),
                 subtitle: const Text('Hành động này không thể hoàn tác'),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -537,7 +547,7 @@ class GuildPage extends ConsumerWidget {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Giải Tán Bang Hội? ⚠️'),
+        title: const Text('Giải Tán Bang Hội?', style: TextStyle(fontWeight: FontWeight.w900)),
         content: Text(
           'Bạn đang là Bang Chủ. Nếu giải tán "${guild.name}", toàn bộ thành viên sẽ bị loại bỏ và bang hội sẽ bị xoá vĩnh viễn. Bạn có chắc chắn?',
         ),
@@ -551,7 +561,7 @@ class GuildPage extends ConsumerWidget {
               Navigator.of(ctx).pop();
               ref.read(guildControllerProvider.notifier).disbandGuild();
             },
-            child: const Text('Giải Tán', style: TextStyle(color: Color(0xFFEF4444))),
+            child: const Text('Giải Tán', style: TextStyle(color: Color(0xFFEF4444), fontWeight: FontWeight.bold)),
           ),
         ],
       ),
@@ -566,7 +576,7 @@ class GuildPage extends ConsumerWidget {
       showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
-          title: const Text('Không Thể Rời Bang! 👑'),
+          title: const Text('Không Thể Rời Bang!', style: TextStyle(fontWeight: FontWeight.w900)),
           content: const Text(
             'Bạn đang giữ chức Bang Chủ. Vui lòng chuyển giao chức Bang Chủ cho thành viên khác trước khi rời bang, hoặc chọn Giải tán bang hội.',
           ),
@@ -584,7 +594,7 @@ class GuildPage extends ConsumerWidget {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Rời Bang Hội?'),
+        title: const Text('Rời Bang Hội?', style: TextStyle(fontWeight: FontWeight.w900)),
         content: const Text(
           'Bạn sẽ không còn cùng tiến độ với đồng đội trong thử thách tuần này. Bạn có chắc chắn muốn rời?',
         ),
@@ -598,7 +608,7 @@ class GuildPage extends ConsumerWidget {
               Navigator.of(ctx).pop();
               ref.read(guildControllerProvider.notifier).leaveGuild();
             },
-            child: const Text('Rời Đi', style: TextStyle(color: Color(0xFFEF4444))),
+            child: const Text('Rời Đi', style: TextStyle(color: Color(0xFFEF4444), fontWeight: FontWeight.bold)),
           ),
         ],
       ),
@@ -609,7 +619,13 @@ class GuildPage extends ConsumerWidget {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Thể Lệ Thử Thách Vũ Trụ 🪐'),
+        title: const Row(
+          children: [
+            Clay3DPlanet(planet: 'saturn', size: 24),
+            SizedBox(width: 8),
+            Text('Thể Lệ Thử Thách', style: TextStyle(fontWeight: FontWeight.w900)),
+          ],
+        ),
         content: const Text(
           '1. Mỗi bữa ăn bạn ghi nhận hợp lệ sẽ đóng góp +50 Starlight XP vào quỹ điểm chung của Bang Hội.\n\n'
           '2. Hoàn thành mục tiêu tuần (50,000 XP) trước Chủ Nhật để mở khóa Huy Hiệu Hành Tinh cho toàn đội.\n\n'
@@ -650,23 +666,33 @@ class GuildPage extends ConsumerWidget {
               ),
             ),
             const SizedBox(height: 16),
-            Text(
-              'Tùy Chọn Bang Hội 🪐',
-              style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.onSurface,
-                  ),
+            Row(
+              children: [
+                const Clay3DPlanet(planet: 'saturn', size: 28),
+                const SizedBox(width: 10),
+                Text(
+                  'Tùy Chọn Bang Hội',
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.w900,
+                        color: AppColors.onSurface,
+                      ),
+                ),
+              ],
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 6),
             Text(
               'Khởi tạo bang hội mới hoặc gia nhập cùng nhóm bạn khác.',
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     color: AppColors.onSurfaceVariant,
+                    fontWeight: FontWeight.w500,
                   ),
             ),
             const SizedBox(height: 20),
             ClayButton(
-              text: '🚀 Khởi Tạo Bang Hội Của Riêng Bạn',
+              width: double.infinity,
+              height: 52,
+              icon: const Clay3DCarrotRocket(size: 22),
+              text: 'Khởi Tạo Bang Hội Mới',
               onPressed: () {
                 Navigator.of(ctx).pop();
                 GuildCreateSheet.show(context);
@@ -674,8 +700,11 @@ class GuildPage extends ConsumerWidget {
             ),
             const SizedBox(height: 12),
             ClayButton(
-              text: '🔑 Nhập Mã Mời Của Bạn Bè',
+              width: double.infinity,
+              height: 52,
               variant: ClayButtonVariant.outline,
+              icon: const Clay3DShield(size: 20),
+              text: 'Nhập Mã Mời Của Bạn Bè',
               onPressed: () {
                 Navigator.of(ctx).pop();
                 GuildJoinSheet.show(context);
@@ -685,22 +714,5 @@ class GuildPage extends ConsumerWidget {
         ),
       ),
     );
-  }
-
-  String _getPlanetIcon(String planet) {
-    switch (planet.toLowerCase()) {
-      case 'mars':
-        return '🔴';
-      case 'venus':
-        return '🟡';
-      case 'jupiter':
-        return '🟠';
-      case 'saturn':
-        return '🪐';
-      case 'neptune':
-        return '🔵';
-      default:
-        return '🚀';
-    }
   }
 }

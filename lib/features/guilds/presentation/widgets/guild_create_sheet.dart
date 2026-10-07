@@ -24,12 +24,12 @@ class _GuildCreateSheetState extends ConsumerState<GuildCreateSheet> {
   final _descController = TextEditingController();
   String _selectedPlanet = 'mars';
 
-  final List<Map<String, String>> _planets = [
-    {'id': 'mars', 'name': 'Sao Hỏa', 'icon': '🔴'},
-    {'id': 'venus', 'name': 'Sao Kim', 'icon': '🟡'},
-    {'id': 'jupiter', 'name': 'Sao Mộc', 'icon': '🟠'},
-    {'id': 'saturn', 'name': 'Sao Thổ', 'icon': '🪐'},
-    {'id': 'neptune', 'name': 'Sao Hải Vương', 'icon': '🔵'},
+  final List<Map<String, String>> _planets = const [
+    {'id': 'mars', 'name': 'Sao Hỏa'},
+    {'id': 'venus', 'name': 'Sao Kim'},
+    {'id': 'jupiter', 'name': 'Sao Mộc'},
+    {'id': 'saturn', 'name': 'Sao Thổ'},
+    {'id': 'neptune', 'name': 'Sao Hải Vương'},
   ];
 
   @override
@@ -87,6 +87,7 @@ class _GuildCreateSheetState extends ConsumerState<GuildCreateSheet> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Drag handle
           Center(
             child: Container(
               width: 44,
@@ -97,55 +98,86 @@ class _GuildCreateSheetState extends ConsumerState<GuildCreateSheet> {
               ),
             ),
           ),
-          const SizedBox(height: 16),
-          Text(
-            'Khởi Tạo Bang Hội Vũ Trụ 🚀',
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.onSurface,
+          const SizedBox(height: 18),
+
+          // Header with 3D Rocket Figurine
+          Row(
+            children: [
+              Container(
+                width: 48,
+                height: 48,
+                decoration: BoxDecoration(
+                  color: AppColors.clayLunch,
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: AppColors.primary.withValues(alpha: 0.25),
+                    width: 1.5,
+                  ),
                 ),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            'Tập hợp đồng đội cùng chinh phục mục tiêu dinh dưỡng lành mạnh.',
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: AppColors.onSurfaceVariant,
+                child: const Center(
+                  child: Clay3DCarrotRocket(size: 28),
                 ),
+              ),
+              const SizedBox(width: 14),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Khởi Tạo Bang Hội Vũ Trụ',
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.w900,
+                            color: AppColors.onSurface,
+                            fontSize: 18,
+                          ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      'Tập hợp đồng đội cùng chinh phục mục tiêu dinh dưỡng lành mạnh.',
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: AppColors.onSurfaceVariant,
+                            fontWeight: FontWeight.w500,
+                          ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: 20),
 
-          // Planet Selection
+          // Planet Selection Header
           Text(
             'Chọn Hành Tinh Đại Diện:',
             style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w800,
                   color: AppColors.onSurface,
                 ),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 10),
+
+          // Tactile 3D Clay Planet Chips
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
+            clipBehavior: Clip.none,
             child: Row(
               children: _planets.map((planet) {
                 final isSelected = _selectedPlanet == planet['id'];
                 return Padding(
-                  padding: const EdgeInsets.only(right: 8),
-                  child: ChoiceChip(
-                    label: Text('${planet['icon']} ${planet['name']}'),
-                    selected: isSelected,
-                    selectedColor: AppColors.clayLunch,
-                    backgroundColor: AppColors.surfaceContainer,
-                    onSelected: (selected) {
-                      if (selected) {
-                        setState(() => _selectedPlanet = planet['id']!);
-                      }
+                  padding: const EdgeInsets.only(right: 10),
+                  child: ClayPlanetChip(
+                    planetId: planet['id']!,
+                    label: planet['name']!,
+                    isSelected: isSelected,
+                    onTap: () {
+                      setState(() => _selectedPlanet = planet['id']!);
                     },
                   ),
                 );
               }).toList(),
             ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 18),
 
           // Guild Name
           ClayTextField(
@@ -163,8 +195,10 @@ class _GuildCreateSheetState extends ConsumerState<GuildCreateSheet> {
           ),
           const SizedBox(height: 24),
 
-          // Submit button
+          // Full-width Chunky 3D Submit button
           ClayButton(
+            width: double.infinity,
+            height: 52,
             text: 'Khởi Tạo Bang Hội Ngay',
             isLoading: uiState.isLoading,
             onPressed: _submit,

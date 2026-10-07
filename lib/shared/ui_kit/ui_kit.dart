@@ -34,6 +34,7 @@ export 'indicators/clay_morph_icon.dart';
 
 // Chips
 export 'chips/clay_meal_chip.dart';
+export 'chips/clay_planet_chip.dart';
 
 // Navigation
 export 'navigation/clay_bottom_nav.dart';
