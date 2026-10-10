@@ -1,7 +1,8 @@
-import 'dart:math' as math;
 import 'package:flutter/material.dart';
-import 'package:astrobite/core/constants/app_values.dart';
-import 'package:astrobite/core/theme/app_colors.dart';
+import 'package:astrobite/shared/ui_kit/ui_kit.dart';
+import 'viewfinder_detected_tag.dart';
+import 'viewfinder_hud_painters.dart';
+import 'viewfinder_laser_scanner.dart';
 
 /// Holographic Sci-Fi AR HUD Viewfinder matching Stitch MCP Design.
 /// Features double-layered corner brackets, rotating reticle, telemetry,
@@ -116,10 +117,10 @@ class _ScanningViewfinderState extends State<ScanningViewfinder>
                     ),
                   ),
 
-                // 2. Sci-Fi Micro Grid Overlay (Subtle)
+                // 2. Sci-Fi Micro Grid Overlay
                 Positioned.fill(
                   child: CustomPaint(
-                    painter: _HudGridPainter(),
+                    painter: HudGridPainter(),
                   ),
                 ),
 
@@ -129,7 +130,7 @@ class _ScanningViewfinderState extends State<ScanningViewfinder>
                     turns: _reticleController,
                     child: CustomPaint(
                       size: const Size(120, 120),
-                      painter: _HolographicReticlePainter(),
+                      painter: HolographicReticlePainter(),
                     ),
                   ),
                 ),
@@ -138,14 +139,14 @@ class _ScanningViewfinderState extends State<ScanningViewfinder>
                 Center(
                   child: CustomPaint(
                     size: const Size(48, 48),
-                    painter: _PrecisionCrosshairPainter(),
+                    painter: PrecisionCrosshairPainter(),
                   ),
                 ),
 
-                // 5. Smooth Rounded Corner Brackets in Duolingo Sky Blue (#1CB0F6)
+                // 5. Smooth Rounded Corner Brackets in Duolingo Sky Blue
                 Positioned.fill(
                   child: CustomPaint(
-                    painter: _ViewfinderCornerPainter(
+                    painter: ViewfinderCornerPainter(
                       color: AppColors.primary,
                       strokeWidth: 3.5,
                       cornerLength: 32,
@@ -229,143 +230,20 @@ class _ScanningViewfinderState extends State<ScanningViewfinder>
                         top: _laserAnimation.value * (boxSize - 4),
                         left: 8,
                         right: 8,
-                        child: const _LaserScannerLine(),
+                        child: const ViewfinderLaserScannerLine(),
                       );
                     },
                   ),
 
-                // 9. Floating Detected Food Holographic Tag (if dish identified)
+                // 8. Floating Detected Food Holographic Tag (if dish identified)
                 if (widget.detectedDishName != null)
                   Positioned(
                     bottom: -54,
                     left: 16,
                     right: 16,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        // Vertical connector line
-                        Container(
-                          width: 1.5,
-                          height: 12,
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [
-                                AppColors.primary,
-                                AppColors.primary.withValues(alpha: 0.2),
-                              ],
-                            ),
-                          ),
-                        ),
-                        // Clay White Card Tag
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: AppValues.spacing12,
-                            vertical: AppValues.spacing8,
-                          ),
-                          decoration: BoxDecoration(
-                            color: AppColors.surfaceContainer,
-                            borderRadius: BorderRadius.circular(AppValues.cardRadius),
-                            border: Border.all(
-                              color: AppColors.primary.withValues(alpha: 0.5),
-                              width: 1.2,
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: const Color(0x181E2337),
-                                blurRadius: 16,
-                                offset: const Offset(0, 6),
-                              ),
-                              BoxShadow(
-                                color: AppColors.primary.withValues(alpha: 0.15),
-                                blurRadius: 10,
-                                offset: const Offset(0, 2),
-                              ),
-                            ],
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      padding: const EdgeInsets.all(4),
-                                      decoration: BoxDecoration(
-                                        color: AppColors.primary.withValues(alpha: 0.12),
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: const Icon(
-                                        Icons.restaurant_rounded,
-                                        size: 16,
-                                        color: AppColors.primary,
-                                      ),
-                                    ),
-                                    const SizedBox(width: AppValues.spacing8),
-                                    Flexible(
-                                      child: Text(
-                                        widget.detectedDishName!,
-                                        overflow: TextOverflow.ellipsis,
-                                        maxLines: 1,
-                                        style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 13,
-                                          color: AppColors.onSurface,
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(width: AppValues.spacing8),
-                                    Container(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 6,
-                                        vertical: 2,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        color: const Color(0xFFE8F9D8),
-                                        borderRadius: BorderRadius.circular(4),
-                                        border: Border.all(
-                                          color: AppColors.brandGreen.withValues(alpha: 0.5),
-                                          width: 0.8,
-                                        ),
-                                      ),
-                                      child: const Text(
-                                        'AI VERIFIED',
-                                        style: TextStyle(
-                                          fontSize: 9,
-                                          fontWeight: FontWeight.bold,
-                                          color: Color(0xFF2E7D32),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              if (widget.detectedCalories != null) ...[
-                                const SizedBox(width: AppValues.spacing8),
-                                Container(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 8,
-                                    vertical: 3,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: AppColors.primary.withValues(alpha: 0.1),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: Text(
-                                    '${widget.detectedCalories} kcal',
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 12,
-                                      color: AppColors.primary,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ],
-                          ),
-                        ),
-                      ],
+                    child: ViewfinderDetectedTag(
+                      detectedDishName: widget.detectedDishName!,
+                      detectedCalories: widget.detectedCalories,
                     ),
                   ),
               ],
@@ -373,244 +251,6 @@ class _ScanningViewfinderState extends State<ScanningViewfinder>
           ),
         );
       },
-    );
-  }
-}
-
-/// Custom painter for the 4 glowing rounded corner brackets of the viewfinder.
-class _ViewfinderCornerPainter extends CustomPainter {
-  _ViewfinderCornerPainter({
-    required this.color,
-    required this.strokeWidth,
-    required this.cornerLength,
-  });
-
-  final Color color;
-  final double strokeWidth;
-  final double cornerLength;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = color
-      ..strokeWidth = strokeWidth
-      ..strokeCap = StrokeCap.round
-      ..style = PaintingStyle.stroke;
-
-    final glowPaint = Paint()
-      ..color = color.withValues(alpha: 0.35)
-      ..strokeWidth = strokeWidth + 4
-      ..strokeCap = StrokeCap.round
-      ..style = PaintingStyle.stroke;
-
-    const cornerRadius = 14.0;
-    final l = cornerLength;
-    final w = size.width;
-    final h = size.height;
-
-    // 1. Top-Left: from (l, 0) -> (cornerRadius, 0) -> (0, cornerRadius) -> (0, l)
-    final pathTL = Path()
-      ..moveTo(l, 0)
-      ..lineTo(cornerRadius, 0)
-      ..arcToPoint(const Offset(0, cornerRadius), radius: const Radius.circular(cornerRadius))
-      ..lineTo(0, l);
-    canvas.drawPath(pathTL, glowPaint);
-    canvas.drawPath(pathTL, paint);
-
-    // 2. Top-Right: from (w - l, 0) -> (w - cornerRadius, 0) -> (w, cornerRadius) -> (w, l)
-    final pathTR = Path()
-      ..moveTo(w - l, 0)
-      ..lineTo(w - cornerRadius, 0)
-      ..arcToPoint(Offset(w, cornerRadius), radius: const Radius.circular(cornerRadius), clockwise: true)
-      ..lineTo(w, l);
-    canvas.drawPath(pathTR, glowPaint);
-    canvas.drawPath(pathTR, paint);
-
-    // 3. Bottom-Left: from (0, h - l) -> (0, h - cornerRadius) -> (cornerRadius, h) -> (l, h)
-    final pathBL = Path()
-      ..moveTo(0, h - l)
-      ..lineTo(0, h - cornerRadius)
-      ..arcToPoint(Offset(cornerRadius, h), radius: const Radius.circular(cornerRadius), clockwise: false)
-      ..lineTo(l, h);
-    canvas.drawPath(pathBL, glowPaint);
-    canvas.drawPath(pathBL, paint);
-
-    // 4. Bottom-Right: from (w, h - l) -> (w, h - cornerRadius) -> (w - cornerRadius, h) -> (w - l, h)
-    final pathBR = Path()
-      ..moveTo(w, h - l)
-      ..lineTo(w, h - cornerRadius)
-      ..arcToPoint(Offset(w - cornerRadius, h), radius: const Radius.circular(cornerRadius), clockwise: true)
-      ..lineTo(w - l, h);
-    canvas.drawPath(pathBR, glowPaint);
-    canvas.drawPath(pathBR, paint);
-  }
-
-  @override
-  bool shouldRepaint(covariant _ViewfinderCornerPainter oldDelegate) {
-    return oldDelegate.color != color ||
-        oldDelegate.strokeWidth != strokeWidth ||
-        oldDelegate.cornerLength != cornerLength;
-  }
-}
-
-/// Custom painter for the rotating holographic reticle with dashed circular arcs.
-class _HolographicReticlePainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final center = Offset(size.width / 2, size.height / 2);
-    final radius = size.width / 2 - 2;
-
-    final arcPaint = Paint()
-      ..color = AppColors.primary.withValues(alpha: 0.6)
-      ..strokeWidth = 1.5
-      ..style = PaintingStyle.stroke;
-
-    // Draw 4 dashed segments around the circle
-    const segmentCount = 6;
-    const sweep = (2 * math.pi) / segmentCount;
-    for (int i = 0; i < segmentCount; i++) {
-      final startAngle = i * sweep;
-      canvas.drawArc(
-        Rect.fromCircle(center: center, radius: radius),
-        startAngle,
-        sweep * 0.55,
-        false,
-        arcPaint,
-      );
-    }
-  }
-
-  @override
-  bool shouldRepaint(covariant _HolographicReticlePainter oldDelegate) => false;
-}
-
-/// Custom painter for precision crosshairs and center dot.
-class _PrecisionCrosshairPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final center = Offset(size.width / 2, size.height / 2);
-    final paint = Paint()
-      ..color = AppColors.primary.withValues(alpha: 0.75)
-      ..strokeWidth = 1.2
-      ..style = PaintingStyle.stroke;
-
-    final dotPaint = Paint()
-      ..color = AppColors.primary
-      ..style = PaintingStyle.fill;
-
-    const crossLength = 8.0;
-    const gap = 6.0;
-
-    // Crosshairs lines
-    canvas.drawLine(Offset(center.dx - gap - crossLength, center.dy), Offset(center.dx - gap, center.dy), paint);
-    canvas.drawLine(Offset(center.dx + gap, center.dy), Offset(center.dx + gap + crossLength, center.dy), paint);
-    canvas.drawLine(Offset(center.dx, center.dy - gap - crossLength), Offset(center.dx, center.dy - gap), paint);
-    canvas.drawLine(Offset(center.dx, center.dy + gap), Offset(center.dx, center.dy + gap + crossLength), paint);
-
-    // Center focal dot
-    canvas.drawCircle(center, 2.5, dotPaint);
-  }
-
-  @override
-  bool shouldRepaint(covariant _PrecisionCrosshairPainter oldDelegate) => false;
-}
-
-/// Subtle sci-fi grid inside the viewfinder box.
-class _HudGridPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = AppColors.primary.withValues(alpha: 0.06)
-      ..strokeWidth = 0.8
-      ..style = PaintingStyle.stroke;
-
-    const step = 24.0;
-    for (double x = step; x < size.width; x += step) {
-      canvas.drawLine(Offset(x, 0), Offset(x, size.height), paint);
-    }
-    for (double y = step; y < size.height; y += step) {
-      canvas.drawLine(Offset(0, y), Offset(size.width, y), paint);
-    }
-  }
-
-  @override
-  bool shouldRepaint(covariant _HudGridPainter oldDelegate) => false;
-}
-
-/// Glowing laser horizontal scan line with radar pulse trail.
-class _LaserScannerLine extends StatelessWidget {
-  const _LaserScannerLine();
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        // Upper soft glow
-        Container(
-          height: 1.5,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Colors.transparent,
-                AppColors.primary.withValues(alpha: 0.5),
-                Colors.transparent,
-              ],
-            ),
-          ),
-        ),
-        // Bright core laser line
-        Container(
-          height: 2.5,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(2),
-            gradient: const LinearGradient(
-              colors: [
-                Colors.transparent,
-                AppColors.primary,
-                Colors.white,
-                AppColors.primary,
-                Colors.transparent,
-              ],
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: AppColors.primary.withValues(alpha: 0.8),
-                blurRadius: 8,
-                spreadRadius: 2,
-              ),
-            ],
-          ),
-        ),
-        // Lower soft glow
-        Container(
-          height: 1.5,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Colors.transparent,
-                AppColors.primary.withValues(alpha: 0.5),
-                Colors.transparent,
-              ],
-            ),
-          ),
-        ),
-        // Celestial Radar Pulse Trail
-        Container(
-          height: 32,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                AppColors.primary.withValues(alpha: 0.25),
-                AppColors.primary.withValues(alpha: 0.05),
-                Colors.transparent,
-              ],
-            ),
-          ),
-        ),
-      ],
     );
   }
 }
