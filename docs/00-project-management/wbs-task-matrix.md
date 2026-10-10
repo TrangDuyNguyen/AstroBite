@@ -4,7 +4,27 @@
 - **Ánh xạ quy trình**: 8-Gate Delivery Flow (Tech Spike ➔ BA ➔ UI/UX Designer ➔ QA ➔ Dev FE ➔ Code Review ➔ Verification ➔ Release)
 - **Cập nhật lần cuối**: 2026-10-10
 
-## 🏗️ 1. Bảng Ma Trận Phân Rã WBS Sprint 27 (v3.7.0 Auth & Onboarding — 🟢 100% Done)
+## 🏗️ 1. Bảng Ma Trận Phân Rã WBS Sprint 28 (v3.8.0 Tracker & Dashboard — 🟢 100% Done)
+
+### EPIC-REF-07: Daily Tracker & Dashboard Modular Clean Architecture (`FEAT-S28-TRACKER-DASHBOARD` — 13 SP)
+
+| Mã Task | Feature / Epic | Cổng Chất Lượng | Mô Tả Nhiệm Vụ Kỹ Thuật | Sub-Agent Đảm Nhiệm | SP | Phụ Thuộc | Trạng Thái |
+| :--- | :--- | :---: | :--- | :---: | :---: | :---: | :---: |
+| **`TSK-S28-00-SPIKE`** | Kiến trúc Bóc Tách | **Gate 0** | Tech Lead: Architectural Spec & ADR-034 cho Tracker Dashboard | `tech-lead` | 1 | None | 🟢 **Gate 0 Approved** |
+| **`TSK-S28-01-PRD`** | `prd-s28.md` | **Gate 1** | BA: Soạn PRD & User Stories BDD luồng Tracker Dashboard | `business-analyst` | 2 | TSK-S28-00-SPIKE | 🟢 **Gate 1 Approved** |
+| **`TSK-S28-02-DESIGN`** | `ui-ux-design.md`| **Gate 2** | UI/UX Designer: Component Layout Blueprint lưới 4pt | `ui-ux-designer` | 2 | TSK-S28-01-PRD | 🟢 **Gate 2 Approved** |
+| **`TSK-S28-03-TEST-PLAN`**| `gate-3-test.md` | **Gate 3** | QA Tester: Regression Test Plan cho Tracker Dashboard | `qa-tester` | 1 | TSK-S28-02-DESIGN | 🟢 **Gate 3 Approved** |
+| **`TSK-S28-04-CUSTOM-FOOD`**| `custom_food_sheet.dart` | **Gate 4** | Dev FE: Bóc tách custom_food_sheet.dart (682 ➔ 157 dòng) | `flutter-core-dev` | 3 | TSK-S28-03-TEST-PLAN | 🟢 **Gate 4 Done** |
+| **`TSK-S28-05-HOME-PAGE`**| `home_page.dart` | **Gate 4** | Dev FE: Bóc tách home_page.dart (552 ➔ 96 dòng) | `flutter-core-dev` | 2 | TSK-S28-03-TEST-PLAN | 🟢 **Gate 4 Done** |
+| **`TSK-S28-06-COCKPIT-MEAL`**| `celestial_cockpit_card.dart` & `meal_detail_page.dart` | **Gate 4** | Dev FE: Bóc tách cockpit (452 ➔ 137) & meal detail (435 ➔ 166) | `flutter-core-dev` | 2 | TSK-S28-03-TEST-PLAN | 🟢 **Gate 4 Done** |
+| **`TSK-S28-07-REVIEW`** | Quality Gate | **Gate 5** | Reviewer: Ponytail Diff Review, check hard cap < 350 dòng | `code-reviewer` | - | Gate 4 | 🟢 **Gate 5 Approved** |
+| **`TSK-S28-08-QA-VERIFY`**| Quality Gate | **Gate 6** | QA Tester: Test pass 322/322 (100%), analyze 0 issues | `qa-tester` | - | Gate 5 | 🟢 **Gate 6 Signed Off** |
+| **`TSK-S28-09-SECURITY`** | Security Gate | **Gate 6.5** | Security Auditor: Rà soát PII & Food logging permissions | `security-auditor` | - | Gate 6 | 🟢 **Gate 6.5 Approved** |
+| **`TSK-S28-10-RELEASE`** | Milestone | **Gate 7** | PO, PM & Tech Lead: Release Clearance v3.8.0 | `product-owner` | - | Gate 6.5 | 🟢 **Gate 7 Released** |
+
+---
+
+## 🏛️ 2. Lưu Trữ Ma Trận Phân Rã WBS Sprint 27 (v3.7.0 Auth & Onboarding — 🟢 100% Done)
 
 ### EPIC-REF-06: Auth & Onboarding Flow Clean Architecture (`FEAT-S27-AUTH-ONBOARDING` — 13 SP)
 
