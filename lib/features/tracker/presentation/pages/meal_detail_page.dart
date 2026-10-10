@@ -4,10 +4,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:astrobite/core/constants/app_strings.dart';
 import 'package:astrobite/core/router/app_router.dart';
 import 'package:astrobite/features/auth/domain/auth_providers.dart';
-import 'package:astrobite/features/tracker/domain/entities/food_log.dart';
 import 'package:astrobite/features/tracker/domain/tracker_providers.dart';
 import 'package:astrobite/features/tracker/presentation/controllers/tracker_controller.dart';
 import 'package:astrobite/shared/ui_kit/ui_kit.dart';
+import '../widgets/meal_detail_components/meal_detail_empty_state.dart';
+import '../widgets/meal_detail_components/meal_detail_food_card.dart';
+import '../widgets/meal_detail_components/meal_detail_overview_card.dart';
 
 @RoutePage()
 class MealDetailPage extends ConsumerWidget {
@@ -86,10 +88,6 @@ class MealDetailPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final summary = ref.watch(todaySummaryProvider);
     final logs = summary.getMealLogs(mealType);
-    final totalCalories = summary.getMealCalories(mealType);
-    final totalCarbs = summary.getMealCarbs(mealType);
-    final totalProtein = summary.getMealProtein(mealType);
-    final totalFat = summary.getMealFat(mealType);
 
     return Scaffold(
       backgroundColor: AppColors.surface,
@@ -129,78 +127,15 @@ class MealDetailPage extends ConsumerWidget {
         child: ListView(
           padding: const EdgeInsets.all(AppValues.screenPadding),
           children: [
-            // 1. Header Overview Card
-            ClayCard(
-              backgroundColor: _mealTint,
-              padding: const EdgeInsets.all(AppValues.spacing16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Icon(_mealIcon, color: AppColors.primary, size: 24),
-                          const SizedBox(width: AppValues.spacing8),
-                          Text(
-                            'Tổng quan dinh dưỡng',
-                            style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  color: AppColors.onSurface,
-                                ),
-                          ),
-                        ],
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                        decoration: BoxDecoration(
-                          color: AppColors.primary.withValues(alpha: 0.15),
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(
-                            color: AppColors.primary.withValues(alpha: 0.3),
-                            width: 1,
-                          ),
-                        ),
-                        child: Text(
-                          '$totalCalories kcal',
-                          style: const TextStyle(
-                            fontWeight: FontWeight.w800,
-                            color: AppColors.primary,
-                            fontSize: 14,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: AppValues.spacing12),
-                  // 3 Macro distribution
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      _MacroPill(
-                        label: AppStrings.carbs,
-                        grams: totalCarbs,
-                        color: AppColors.primary,
-                      ),
-                      _MacroPill(
-                        label: AppStrings.fat,
-                        grams: totalFat,
-                        color: AppColors.secondary,
-                      ),
-                      _MacroPill(
-                        label: AppStrings.protein,
-                        grams: totalProtein,
-                        color: AppColors.tertiary,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+            MealDetailOverviewCard(
+              mealTint: _mealTint,
+              mealIcon: _mealIcon,
+              totalCalories: summary.getMealCalories(mealType),
+              totalCarbs: summary.getMealCarbs(mealType),
+              totalFat: summary.getMealFat(mealType),
+              totalProtein: summary.getMealProtein(mealType),
             ),
             const SizedBox(height: AppValues.spacing16),
-
-            // 2. Section Title
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -221,48 +156,15 @@ class MealDetailPage extends ConsumerWidget {
               ],
             ),
             const SizedBox(height: AppValues.spacing8),
-
-            // 3. Food items or Empty State
             if (logs.isEmpty)
-              ClayCard(
-                padding: const EdgeInsets.all(AppValues.spacing24),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(
-                      Icons.lunch_dining_outlined,
-                      size: 48,
-                      color: AppColors.onSurfaceVariant,
-                    ),
-                    const SizedBox(height: AppValues.spacing12),
-                    Text(
-                      'Chưa có món ăn nào trong $_mealTitle',
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.onSurface,
-                      ),
-                    ),
-                    const SizedBox(height: AppValues.spacing4),
-                    const Text(
-                      'Hãy thêm món để theo dõi calo và macro nhé!',
-                      style: TextStyle(
-                        color: AppColors.onSurfaceVariant,
-                        fontSize: 12,
-                      ),
-                    ),
-                    const SizedBox(height: AppValues.spacing16),
-                    ClayButton(
-                      text: 'Thêm món ngay',
-                      icon: const Icon(Icons.add_rounded, color: Colors.white, size: 20),
-                      onPressed: () => context.router.push(
-                        ManualEntryRoute(initialMealType: mealType),
-                      ),
-                    ),
-                  ],
+              MealDetailEmptyState(
+                mealTitle: _mealTitle,
+                onAddTap: () => context.router.push(
+                  ManualEntryRoute(initialMealType: mealType),
                 ),
               )
             else
-              ...logs.map((log) => _MealFoodCard(
+              ...logs.map((log) => MealDetailFoodCard(
                     log: log,
                     onDelete: () async {
                       final confirmed = await _showDeleteConfirmation(
@@ -282,150 +184,13 @@ class MealDetailPage extends ConsumerWidget {
                       }
                     },
                   )),
-
             const SizedBox(height: AppValues.spacing24),
-            // Bottom Action
             ClayButton(
               text: 'Thêm món vào $_mealTitle',
               icon: const Icon(Icons.add_circle_outline_rounded, color: Colors.white, size: 20),
               onPressed: () => context.router.push(
                 ManualEntryRoute(initialMealType: mealType),
               ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _MacroPill extends StatelessWidget {
-  const _MacroPill({
-    required this.label,
-    required this.grams,
-    required this.color,
-  });
-
-  final String label;
-  final int grams;
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-      decoration: BoxDecoration(
-        color: AppColors.surfaceContainer,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: color.withValues(alpha: 0.3), width: 1),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 11,
-              fontWeight: FontWeight.w600,
-              color: color,
-            ),
-          ),
-          const SizedBox(height: 2),
-          Text(
-            '${grams}g',
-            style: const TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.bold,
-              color: AppColors.onSurface,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _MealFoodCard extends StatelessWidget {
-  const _MealFoodCard({
-    required this.log,
-    required this.onDelete,
-  });
-
-  final FoodLog log;
-  final VoidCallback onDelete;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: AppValues.spacing12),
-      child: ClayCard(
-        padding: const EdgeInsets.all(AppValues.spacing12),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            // Left Dish Icon Container
-            Container(
-              width: 44,
-              height: 44,
-              decoration: BoxDecoration(
-                color: AppColors.primary.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: const Icon(
-                Icons.restaurant_rounded,
-                color: AppColors.primary,
-                size: 22,
-              ),
-            ),
-            const SizedBox(width: AppValues.spacing12),
-
-            // Middle: Name, weight, calories, mini macro
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    log.dishName,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                      color: AppColors.onSurface,
-                    ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  const SizedBox(height: 2),
-                  Row(
-                    children: [
-                      Text(
-                        '${log.estimatedWeightG}g • ${log.calories} kcal',
-                        style: const TextStyle(
-                          fontSize: 12,
-                          color: AppColors.onSurfaceVariant,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      // Mini macro preview
-                      Text(
-                        'C:${log.carbsG} F:${log.fatG} P:${log.proteinG}',
-                        style: const TextStyle(
-                          fontSize: 10,
-                          color: AppColors.onSurfaceVariant,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-
-            // Right Delete Button
-            ClayIconButton(
-              icon: Icons.delete_outline_rounded,
-              iconColor: AppColors.error,
-              onPressed: onDelete,
             ),
           ],
         ),
