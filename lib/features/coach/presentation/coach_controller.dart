@@ -248,23 +248,23 @@ class CoachController extends _$CoachController {
       final streakDays = streak?.currentStreak ?? 0;
 
       final mealLogsText = summary.logs.isEmpty
-          ? 'Hôm nay chưa ghi nhận món ăn nào.'
+          ? 'Hôm nay chưa ghi nhận món ăn nào / No meals logged today yet.'
           : summary.logs
               .map((l) => '${l.dishName} (${l.calories} kcal, ${l.mealType})')
               .join(', ');
 
       return '''
-[Hồ Sơ Tiểu Vũ Trụ Người Dùng]
-- Mục tiêu cá nhân: $goal (Cân nặng: ${weight}kg, TDEE: $tdee kcal).
-- Chuỗi ngày ăn sạch liên tiếp: $streakDays ngày.
-- Tình trạng dinh dưỡng hôm nay (${summary.date}):
-  + Đã nạp: ${summary.totalCalories} kcal / Chỉ tiêu: ${summary.targetCalories} kcal (Ngân sách calo còn lại: $remaining kcal).
-  + Macro đã nạp: Protein ${summary.totalProteinG}g/${summary.targetProteinG}g, Carbs ${summary.totalCarbsG}g/${summary.targetCarbsG}g, Fat ${summary.totalFatG}g/${summary.targetFatG}g.
-  + Vi chất đã nạp: Natri ${summary.totalSodiumMg.toInt()}mg / ${summary.targetSodiumMg.toInt()}mg.
-  + Món đã ăn hôm nay: $mealLogsText
+[Hồ Sơ Tiểu Vũ Trụ Người Dùng / User Profile Context]
+- Mục tiêu / Personal Goal: $goal (Cân nặng / Weight: ${weight}kg, TDEE: $tdee kcal).
+- Chuỗi ngày ăn sạch / Healthy streak: $streakDays ngày / days.
+- Tình trạng dinh dưỡng hôm nay / Today's nutrition (${summary.date}):
+  + Đã nạp / Consumed: ${summary.totalCalories} kcal / Chỉ tiêu / Target: ${summary.targetCalories} kcal (Còn lại / Remaining: $remaining kcal).
+  + Macro: Protein ${summary.totalProteinG}g/${summary.targetProteinG}g, Carbs ${summary.totalCarbsG}g/${summary.targetCarbsG}g, Fat ${summary.totalFatG}g/${summary.targetFatG}g.
+  + Vi chất / Micronutrients: Natri/Sodium ${summary.totalSodiumMg.toInt()}mg / ${summary.targetSodiumMg.toInt()}mg.
+  + Món đã ăn hôm nay / Meals logged today: $mealLogsText
 ''';
     } catch (_) {
-      return 'Chưa có dữ liệu bữa ăn hôm nay.';
+      return 'Chưa có dữ liệu bữa ăn hôm nay / No meal data available today.';
     }
   }
 }

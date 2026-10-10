@@ -1,7 +1,7 @@
 # Graph Report - AstroBite  (2026-10-11)
 
 ## Corpus Check
-- 870 files · ~576,559 words
+- 870 files · ~576,732 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 85 file(s) not represented in the graph (top: .xml 26, (none) 21, .feature 15)
 
@@ -11,7 +11,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `6b19af6c`
+- Built from commit: `1e3c5d19`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -157,7 +157,7 @@
 - chat_message.dart
 - coach_input_bar.dart
 - Common Testing Errors
-- voice_log_repository_impl.dart
+- food_log_local_datasource.dart
 - clay_3d_sugar_cube.dart
 - Unit Testing Guide
 - 📄 PRD: Core Daily Loop — Navigation & Food Tracker UI Overhaul (`FEAT-S13-TRACKER-NAV`)
@@ -165,7 +165,7 @@
 - profile_providers.dart
 - State & Feedback Patterns
 - _
-- food_log_local_datasource.dart
+- voice_log_repository_impl.dart
 - AstroBiteWidgetProvider.kt
 - Ma Trận Phân Rã Công Việc 8 Cổng (WBS Task Matrix)
 - meal_detail_page.dart
@@ -173,8 +173,8 @@
 - scanner_controller_test.dart
 - analytics_providers.dart
 - meal_section.dart
+- share_image_service.dart
 - streak_repository.dart
-- ManualEntryRoute
 - clay_3d_celestial_avatar.dart
 - login_form_card.dart
 - double get
@@ -605,9 +605,9 @@
 - Feature: Camera & Viewfinder Scanner Pipeline (Modular Architecture)
 - Sprint 25: Camera Scanner Pipeline Modular Clean Architecture
 - Sprint 25 Architectural Spec & ADR-031: Camera Scanner Pipeline Refactoring
-- package:astrobite/l10n/app_localizations.dart
-- Biên Bản Nghiệm Thu Độc Lập Gate 6: Sprint 24 (v3.4.0)
 - Riverpod State Management
+- Biên Bản Nghiệm Thu Độc Lập Gate 6: Sprint 24 (v3.4.0)
+- ManualEntryRoute
 - 2. Đặc Tả Chức Năng & BDD Scenarios
 - Regression Test Plan: Sprint 25 — Camera Scanner Pipeline Refactoring
 - Feature: Quản lý Công Thức Món Ăn (Modular Architecture)
@@ -626,9 +626,9 @@
 - Sprint 26: Gamification, Guilds & Social Modular Architecture
 - macro_pill.dart
 - CameraRoute
-- Widget
+- package:astrobite/l10n/app_localizations.dart
 - Gate 6 QA Independent Sign-off: Sprint 27 — Auth & Onboarding Flow Clean Architecture (v3.7.0)
-- typedef
+- Widget
 - clay_3d_carrot_rocket.dart
 - 2. Quyết Định Kiến Trúc (Architecture Decisions - ADR-035)
 - meal_planner_page.dart
@@ -644,6 +644,8 @@
 - package:astrobite/shared/ui_kit/ui_kit.dart
 - enforceJsonTextLimits
 - 1. Rà Soát Bảo Mật Độc Lập
+- typedef
+- build
 - leaderboard_entry.dart
 - 2. Quyết Định Kiến Trúc (Architecture Decisions - ADR-034)
 - clay_3d_calendar.dart
@@ -672,13 +674,11 @@
 - State
 - AppLocalizations
 - PRD: Nền Tảng Đa Ngôn Ngữ Song Ngữ (VI + EN) — AstroBite
-- share_image_service.dart
 - language_settings_card.dart
 - UI/UX Specification: Language Selection Experience — Sprint 31
 - User Stories (BDD Given-When-Then) — Sprint 31: Đa Ngôn Ngữ i18n
 - Test Plan & Traceability Matrix (Gate 3) — Sprint 31: Đa Ngôn Ngữ i18n
 - catalog_item.dart
-- build
 - AppRouter
 
 ## God Nodes (most connected - your core abstractions)
@@ -1274,9 +1274,9 @@ Nodes (11): build, CoachInputBar, focusNode, isListeningVoice, isSending, onSend
 Cohesion: 0.07
 Nodes (28): 'A RenderFlex overflowed...', 'An InputDecorator...cannot have an unbounded width', Async Errors, Check Before Actions, Common Testing Errors, Data Errors, Debugging Tips, Enable Verbose Logging (+20 more)
 
-### Community 142 - "voice_log_repository_impl.dart"
-Cohesion: 0.15
-Nodes (7): GeminiVoiceNluDatasource, _datasource, parseVoiceTranscript, VoiceLogRepositoryImpl, parseVoiceTranscript, VoiceLogRepository, _MockVoiceLogRepository
+### Community 142 - "food_log_local_datasource.dart"
+Cohesion: 0.14
+Nodes (13): addToPendingQueue, _dateKey, deleteCachedLog, deleteCachedLogById, getCachedLogs, getPendingSyncLogs, _getPrefs, _prefs (+5 more)
 
 ### Community 143 - "clay_3d_sugar_cube.dart"
 Cohesion: 0.25
@@ -1306,9 +1306,9 @@ Nodes (23): Button Press, Checkmark Success, Confirmation Badge, Corporate, Disa
 Cohesion: 0.18
 Nodes (8): A2uiParser, parse, _parseFromMap, _, _extractJsonObject, JsonParser, _stripMarkdownFences, tryParseGeminiResponse
 
-### Community 150 - "food_log_local_datasource.dart"
-Cohesion: 0.14
-Nodes (13): addToPendingQueue, _dateKey, deleteCachedLog, deleteCachedLogById, getCachedLogs, getPendingSyncLogs, _getPrefs, _prefs (+5 more)
+### Community 150 - "voice_log_repository_impl.dart"
+Cohesion: 0.15
+Nodes (7): GeminiVoiceNluDatasource, _datasource, parseVoiceTranscript, VoiceLogRepositoryImpl, parseVoiceTranscript, VoiceLogRepository, _MockVoiceLogRepository
 
 ### Community 152 - "Ma Trận Phân Rã Công Việc 8 Cổng (WBS Task Matrix)"
 Cohesion: 0.05
@@ -1334,13 +1334,13 @@ Nodes (15): AnalyticsRepositoryImpl, analyticsRepositoryProvider, endDate, getDa
 Cohesion: 0.18
 Nodes (5): mealType, _mealTypeEnum, onAddTap, _showDeleteConfirmationDialog, summary
 
-### Community 158 - "streak_repository.dart"
+### Community 158 - "share_image_service.dart"
+Cohesion: 0.20
+Nodes (3): captureAndShare, ShareImageService, main
+
+### Community 159 - "streak_repository.dart"
 Cohesion: 0.20
 Nodes (7): clearCache, _db, _firestore, getStreak, _localCache, saveStreak, StreakRepository
-
-### Community 159 - "ManualEntryRoute"
-Cohesion: 0.40
-Nodes (5): build, _showApiKeyDialog, _showNotFoodDialog, ManualEntryRoute, ManualEntryRouteArgs
 
 ### Community 160 - "clay_3d_celestial_avatar.dart"
 Cohesion: 0.18
@@ -2974,13 +2974,17 @@ Nodes (5): 1. Tóm Tắt Giá Trị Phát Hành (Executive Summary), 2. Các Th�
 Cohesion: 0.33
 Nodes (5): 1. Bối Cảnh & Vấn Đề (Context & Problem Statement), 2. Quyết Định Kiến Trúc (Architecture Decision Record - ADR-031), 3. SLA & Tiêu Chuẩn Kỹ Thuật, Cấu Trúc Bóc Tách:, Sprint 25 Architectural Spec & ADR-031: Camera Scanner Pipeline Refactoring
 
+### Community 609 - "Riverpod State Management"
+Cohesion: 0.33
+Nodes (5): Notifier Pattern (Riverpod 2.0), Provider Types, Quick Reference, Riverpod State Management, Usage in Widgets
+
 ### Community 610 - "Biên Bản Nghiệm Thu Độc Lập Gate 6: Sprint 24 (v3.4.0)"
 Cohesion: 0.25
 Nodes (7): 1. Kết Quả Kiểm Thử Tự Động (Automated Test Execution), 2. Kiểm Tra Giới Hạn Kích Thước Tệp (File Length Thresholds), 3. Xác Nhận Không Gãy Nghiệp Vụ (Zero Functional Regression), 4. Phán Quyết Gate 6, Biên Bản Nghiệm Thu Độc Lập Gate 6: Sprint 24 (v3.4.0), Danh mục Sub-Widgets Độc Lập Mới Tạo (Đạt Chuẩn Ponytail):, Danh mục Test Suite Chuyên Biệt Được Bảo Toàn 100%:
 
-### Community 611 - "Riverpod State Management"
-Cohesion: 0.33
-Nodes (5): Notifier Pattern (Riverpod 2.0), Provider Types, Quick Reference, Riverpod State Management, Usage in Widgets
+### Community 611 - "ManualEntryRoute"
+Cohesion: 0.40
+Nodes (5): build, _showApiKeyDialog, _showNotFoodDialog, ManualEntryRoute, ManualEntryRouteArgs
 
 ### Community 612 - "2. Đặc Tả Chức Năng & BDD Scenarios"
 Cohesion: 0.29
@@ -3094,6 +3098,10 @@ Nodes (3): enforceJsonTextLimits(), markArrayItem(), JsonStructureError
 Cohesion: 0.29
 Nodes (6): 1. Rà Soát Bảo Mật Độc Lập, 2. Kết Luận Của Security Auditor, Gate 6.5 Security Audit Sign-Off — Sprint 30 (v3.10.0), Phase 1: Phân tích rò rỉ Secrets & Credentials, Phase 2: Role-based Access Control (RBAC) & Trust Boundaries, Phase 3: Input Validation
 
+### Community 649 - "build"
+Cohesion: 0.67
+Nodes (3): recipesProvider, build, RecipeBuilderRoute
+
 ### Community 650 - "leaderboard_entry.dart"
 Cohesion: 0.17
 Nodes (11): astroId, copyWith, fromMap, goalAchievedToday, isMe, isNudgedToday, name, rank (+3 more)
@@ -3198,10 +3206,6 @@ Nodes (5): AppLocalizations, _AppLocalizationsDelegate, AppLocalizationsEn, of, 
 Cohesion: 0.40
 Nodes (4): 1. Mục Tiêu Sản Phẩm & Chỉ Số Đo Lường (Metrics & SLAs), 2. Phạm Vi Tính Năng (Scope & MoSCoW), 3. Quy Tắc Nghiệp Vụ (Business Rules), PRD: Nền Tảng Đa Ngôn Ngữ Song Ngữ (VI + EN) — AstroBite
 
-### Community 688 - "share_image_service.dart"
-Cohesion: 0.20
-Nodes (3): captureAndShare, ShareImageService, main
-
 ### Community 689 - "language_settings_card.dart"
 Cohesion: 0.24
 Nodes (9): appLanguageProvider, build, flag, isSelected, _LanguageOptionTile, LanguageSettingsCard, onTap, _showLanguagePicker (+1 more)
@@ -3217,10 +3221,6 @@ Nodes (3): US-01: Tự Động Nhận Diện Ngôn Ngữ Thiết Bị Khi Khởi
 ### Community 695 - "catalog_item.dart"
 Cohesion: 0.15
 Nodes (8): buildFromRawProps, CatalogItem, CatalogItemContext, description, isLogged, type, AppLocalizationsX, l10n
-
-### Community 697 - "build"
-Cohesion: 0.67
-Nodes (3): recipesProvider, build, RecipeBuilderRoute
 
 ## Knowledge Gaps
 - **3389 isolated node(s):** `RFC-6455`, `_controller`, `_animation`, `child`, `_opacityTween` (+3384 more)

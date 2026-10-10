@@ -142,7 +142,7 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 630,
+      "community": 632,
       "community_name": "Widget",
       "file_type": "code",
       "norm_label": "astrobitewidget",
@@ -18092,147 +18092,158 @@
       "source_location": "L238"
     },
     {
-      "id": "datasources_gemini_voice_nlu_datasource_dart",
-      "label": "../datasources/gemini_voice_nlu_datasource.dart",
+      "id": "lib_features_tracker_data_datasources_food_log_local_datasource",
+      "label": "food_log_local_datasource.dart",
       "_origin": "ast",
       "community": 142,
-      "community_name": "voice_log_repository_impl.dart",
+      "community_name": "food_log_local_datasource.dart",
       "file_type": "code",
-      "norm_label": "../datasources/gemini_voice_nlu_datasource.dart",
-      "source_file": null,
+      "norm_label": "food_log_local_datasource.dart",
+      "source_file": "lib/features/tracker/data/datasources/food_log_local_datasource.dart",
       "source_location": null
     },
     {
-      "id": "domain_entities_voice_log_result_dart",
-      "label": "../../domain/entities/voice_log_result.dart",
+      "id": "lib_features_tracker_data_datasources_food_log_local_datasource_addtopendingqueue",
+      "label": "addToPendingQueue",
       "_origin": "ast",
       "community": 142,
-      "community_name": "voice_log_repository_impl.dart",
+      "community_name": "food_log_local_datasource.dart",
       "file_type": "code",
-      "norm_label": "../../domain/entities/voice_log_result.dart",
-      "source_file": null,
-      "source_location": null
+      "norm_label": "addtopendingqueue",
+      "source_file": "lib/features/tracker/data/datasources/food_log_local_datasource.dart",
+      "source_location": "L88"
     },
     {
-      "id": "domain_repositories_voice_log_repository_dart",
-      "label": "../../domain/repositories/voice_log_repository.dart",
+      "id": "lib_features_tracker_data_datasources_food_log_local_datasource_datekey",
+      "label": "_dateKey",
       "_origin": "ast",
       "community": 142,
-      "community_name": "voice_log_repository_impl.dart",
+      "community_name": "food_log_local_datasource.dart",
       "file_type": "code",
-      "norm_label": "../../domain/repositories/voice_log_repository.dart",
-      "source_file": null,
-      "source_location": null
+      "norm_label": "_datekey",
+      "source_file": "lib/features/tracker/data/datasources/food_log_local_datasource.dart",
+      "source_location": "L14"
     },
     {
-      "id": "entities_voice_log_result_dart",
-      "label": "../entities/voice_log_result.dart",
+      "id": "lib_features_tracker_data_datasources_food_log_local_datasource_deletecachedlog",
+      "label": "deleteCachedLog",
       "_origin": "ast",
       "community": 142,
-      "community_name": "voice_log_repository_impl.dart",
+      "community_name": "food_log_local_datasource.dart",
       "file_type": "code",
-      "norm_label": "../entities/voice_log_result.dart",
-      "source_file": null,
-      "source_location": null
+      "norm_label": "deletecachedlog",
+      "source_file": "lib/features/tracker/data/datasources/food_log_local_datasource.dart",
+      "source_location": "L62"
     },
     {
-      "id": "lib_features_voice_data_datasources_gemini_voice_nlu_datasource_geminivoicenludatasource",
-      "label": "GeminiVoiceNluDatasource",
+      "id": "lib_features_tracker_data_datasources_food_log_local_datasource_deletecachedlogbyid",
+      "label": "deleteCachedLogById",
       "_origin": "ast",
       "community": 142,
-      "community_name": "voice_log_repository_impl.dart",
+      "community_name": "food_log_local_datasource.dart",
       "file_type": "code",
-      "norm_label": "geminivoicenludatasource",
-      "source_file": "lib/features/voice/data/datasources/gemini_voice_nlu_datasource.dart",
-      "source_location": "L7"
+      "norm_label": "deletecachedlogbyid",
+      "source_file": "lib/features/tracker/data/datasources/food_log_local_datasource.dart",
+      "source_location": "L115"
     },
     {
-      "id": "lib_features_voice_data_repositories_voice_log_repository_impl",
-      "label": "voice_log_repository_impl.dart",
+      "id": "lib_features_tracker_data_datasources_food_log_local_datasource_getcachedlogs",
+      "label": "getCachedLogs",
       "_origin": "ast",
       "community": 142,
-      "community_name": "voice_log_repository_impl.dart",
+      "community_name": "food_log_local_datasource.dart",
       "file_type": "code",
-      "norm_label": "voice_log_repository_impl.dart",
-      "source_file": "lib/features/voice/data/repositories/voice_log_repository_impl.dart",
-      "source_location": null
+      "norm_label": "getcachedlogs",
+      "source_file": "lib/features/tracker/data/datasources/food_log_local_datasource.dart",
+      "source_location": "L19"
     },
     {
-      "id": "lib_features_voice_data_repositories_voice_log_repository_impl_datasource",
-      "label": "_datasource",
+      "id": "lib_features_tracker_data_datasources_food_log_local_datasource_getpendingsynclogs",
+      "label": "getPendingSyncLogs",
       "_origin": "ast",
       "community": 142,
-      "community_name": "voice_log_repository_impl.dart",
+      "community_name": "food_log_local_datasource.dart",
       "file_type": "code",
-      "norm_label": "_datasource",
-      "source_file": "lib/features/voice/data/repositories/voice_log_repository_impl.dart",
-      "source_location": "L9"
+      "norm_label": "getpendingsynclogs",
+      "source_file": "lib/features/tracker/data/datasources/food_log_local_datasource.dart",
+      "source_location": "L72"
     },
     {
-      "id": "lib_features_voice_data_repositories_voice_log_repository_impl_parsevoicetranscript",
-      "label": "parseVoiceTranscript",
+      "id": "lib_features_tracker_data_datasources_food_log_local_datasource_getprefs",
+      "label": "_getPrefs",
       "_origin": "ast",
       "community": 142,
-      "community_name": "voice_log_repository_impl.dart",
+      "community_name": "food_log_local_datasource.dart",
       "file_type": "code",
-      "norm_label": "parsevoicetranscript",
-      "source_file": "lib/features/voice/data/repositories/voice_log_repository_impl.dart",
-      "source_location": "L12"
+      "norm_label": "_getprefs",
+      "source_file": "lib/features/tracker/data/datasources/food_log_local_datasource.dart",
+      "source_location": "L10"
     },
     {
-      "id": "lib_features_voice_data_repositories_voice_log_repository_impl_voicelogrepositoryimpl",
-      "label": "VoiceLogRepositoryImpl",
+      "id": "lib_features_tracker_data_datasources_food_log_local_datasource_prefs",
+      "label": "_prefs",
       "_origin": "ast",
       "community": 142,
-      "community_name": "voice_log_repository_impl.dart",
+      "community_name": "food_log_local_datasource.dart",
       "file_type": "code",
-      "norm_label": "voicelogrepositoryimpl",
-      "source_file": "lib/features/voice/data/repositories/voice_log_repository_impl.dart",
-      "source_location": "L5"
+      "norm_label": "_prefs",
+      "source_file": "lib/features/tracker/data/datasources/food_log_local_datasource.dart",
+      "source_location": "L8"
     },
     {
-      "id": "lib_features_voice_domain_repositories_voice_log_repository",
-      "label": "voice_log_repository.dart",
+      "id": "lib_features_tracker_data_datasources_food_log_local_datasource_queuekey",
+      "label": "_queueKey",
       "_origin": "ast",
       "community": 142,
-      "community_name": "voice_log_repository_impl.dart",
+      "community_name": "food_log_local_datasource.dart",
       "file_type": "code",
-      "norm_label": "voice_log_repository.dart",
-      "source_file": "lib/features/voice/domain/repositories/voice_log_repository.dart",
-      "source_location": null
+      "norm_label": "_queuekey",
+      "source_file": "lib/features/tracker/data/datasources/food_log_local_datasource.dart",
+      "source_location": "L17"
     },
     {
-      "id": "lib_features_voice_domain_repositories_voice_log_repository_parsevoicetranscript",
-      "label": "parseVoiceTranscript",
+      "id": "lib_features_tracker_data_datasources_food_log_local_datasource_removeduplicatependinglogs",
+      "label": "removeDuplicatePendingLogs",
       "_origin": "ast",
       "community": 142,
-      "community_name": "voice_log_repository_impl.dart",
+      "community_name": "food_log_local_datasource.dart",
       "file_type": "code",
-      "norm_label": "parsevoicetranscript",
-      "source_file": "lib/features/voice/domain/repositories/voice_log_repository.dart",
-      "source_location": "L4"
+      "norm_label": "removeduplicatependinglogs",
+      "source_file": "lib/features/tracker/data/datasources/food_log_local_datasource.dart",
+      "source_location": "L136"
     },
     {
-      "id": "lib_features_voice_domain_repositories_voice_log_repository_voicelogrepository",
-      "label": "VoiceLogRepository",
+      "id": "lib_features_tracker_data_datasources_food_log_local_datasource_removefrompendingqueue",
+      "label": "removeFromPendingQueue",
       "_origin": "ast",
       "community": 142,
-      "community_name": "voice_log_repository_impl.dart",
+      "community_name": "food_log_local_datasource.dart",
       "file_type": "code",
-      "norm_label": "voicelogrepository",
-      "source_file": "lib/features/voice/domain/repositories/voice_log_repository.dart",
-      "source_location": "L3"
+      "norm_label": "removefrompendingqueue",
+      "source_file": "lib/features/tracker/data/datasources/food_log_local_datasource.dart",
+      "source_location": "L102"
     },
     {
-      "id": "test_features_voice_voice_logging_test_mockvoicelogrepository",
-      "label": "_MockVoiceLogRepository",
+      "id": "lib_features_tracker_data_datasources_food_log_local_datasource_savecachedlogs",
+      "label": "saveCachedLogs",
       "_origin": "ast",
       "community": 142,
-      "community_name": "voice_log_repository_impl.dart",
+      "community_name": "food_log_local_datasource.dart",
       "file_type": "code",
-      "norm_label": "_mockvoicelogrepository",
-      "source_file": "test/features/voice/voice_logging_test.dart",
-      "source_location": "L55"
+      "norm_label": "savecachedlogs",
+      "source_file": "lib/features/tracker/data/datasources/food_log_local_datasource.dart",
+      "source_location": "L36"
+    },
+    {
+      "id": "lib_features_tracker_data_datasources_food_log_local_datasource_upsertcachedlog",
+      "label": "upsertCachedLog",
+      "_origin": "ast",
+      "community": 142,
+      "community_name": "food_log_local_datasource.dart",
+      "file_type": "code",
+      "norm_label": "upsertcachedlog",
+      "source_file": "lib/features/tracker/data/datasources/food_log_local_datasource.dart",
+      "source_location": "L48"
     },
     {
       "id": "lib_shared_ui_kit_icons_clay_3d_sugar_cube",
@@ -20156,158 +20167,147 @@
       "source_location": null
     },
     {
-      "id": "lib_features_tracker_data_datasources_food_log_local_datasource",
-      "label": "food_log_local_datasource.dart",
+      "id": "datasources_gemini_voice_nlu_datasource_dart",
+      "label": "../datasources/gemini_voice_nlu_datasource.dart",
       "_origin": "ast",
       "community": 150,
-      "community_name": "food_log_local_datasource.dart",
+      "community_name": "voice_log_repository_impl.dart",
       "file_type": "code",
-      "norm_label": "food_log_local_datasource.dart",
-      "source_file": "lib/features/tracker/data/datasources/food_log_local_datasource.dart",
+      "norm_label": "../datasources/gemini_voice_nlu_datasource.dart",
+      "source_file": null,
       "source_location": null
     },
     {
-      "id": "lib_features_tracker_data_datasources_food_log_local_datasource_addtopendingqueue",
-      "label": "addToPendingQueue",
+      "id": "domain_entities_voice_log_result_dart",
+      "label": "../../domain/entities/voice_log_result.dart",
       "_origin": "ast",
       "community": 150,
-      "community_name": "food_log_local_datasource.dart",
+      "community_name": "voice_log_repository_impl.dart",
       "file_type": "code",
-      "norm_label": "addtopendingqueue",
-      "source_file": "lib/features/tracker/data/datasources/food_log_local_datasource.dart",
-      "source_location": "L88"
+      "norm_label": "../../domain/entities/voice_log_result.dart",
+      "source_file": null,
+      "source_location": null
     },
     {
-      "id": "lib_features_tracker_data_datasources_food_log_local_datasource_datekey",
-      "label": "_dateKey",
+      "id": "domain_repositories_voice_log_repository_dart",
+      "label": "../../domain/repositories/voice_log_repository.dart",
       "_origin": "ast",
       "community": 150,
-      "community_name": "food_log_local_datasource.dart",
+      "community_name": "voice_log_repository_impl.dart",
       "file_type": "code",
-      "norm_label": "_datekey",
-      "source_file": "lib/features/tracker/data/datasources/food_log_local_datasource.dart",
-      "source_location": "L14"
+      "norm_label": "../../domain/repositories/voice_log_repository.dart",
+      "source_file": null,
+      "source_location": null
     },
     {
-      "id": "lib_features_tracker_data_datasources_food_log_local_datasource_deletecachedlog",
-      "label": "deleteCachedLog",
+      "id": "entities_voice_log_result_dart",
+      "label": "../entities/voice_log_result.dart",
       "_origin": "ast",
       "community": 150,
-      "community_name": "food_log_local_datasource.dart",
+      "community_name": "voice_log_repository_impl.dart",
       "file_type": "code",
-      "norm_label": "deletecachedlog",
-      "source_file": "lib/features/tracker/data/datasources/food_log_local_datasource.dart",
-      "source_location": "L62"
+      "norm_label": "../entities/voice_log_result.dart",
+      "source_file": null,
+      "source_location": null
     },
     {
-      "id": "lib_features_tracker_data_datasources_food_log_local_datasource_deletecachedlogbyid",
-      "label": "deleteCachedLogById",
+      "id": "lib_features_voice_data_datasources_gemini_voice_nlu_datasource_geminivoicenludatasource",
+      "label": "GeminiVoiceNluDatasource",
       "_origin": "ast",
       "community": 150,
-      "community_name": "food_log_local_datasource.dart",
+      "community_name": "voice_log_repository_impl.dart",
       "file_type": "code",
-      "norm_label": "deletecachedlogbyid",
-      "source_file": "lib/features/tracker/data/datasources/food_log_local_datasource.dart",
-      "source_location": "L115"
+      "norm_label": "geminivoicenludatasource",
+      "source_file": "lib/features/voice/data/datasources/gemini_voice_nlu_datasource.dart",
+      "source_location": "L7"
     },
     {
-      "id": "lib_features_tracker_data_datasources_food_log_local_datasource_getcachedlogs",
-      "label": "getCachedLogs",
+      "id": "lib_features_voice_data_repositories_voice_log_repository_impl",
+      "label": "voice_log_repository_impl.dart",
       "_origin": "ast",
       "community": 150,
-      "community_name": "food_log_local_datasource.dart",
+      "community_name": "voice_log_repository_impl.dart",
       "file_type": "code",
-      "norm_label": "getcachedlogs",
-      "source_file": "lib/features/tracker/data/datasources/food_log_local_datasource.dart",
-      "source_location": "L19"
+      "norm_label": "voice_log_repository_impl.dart",
+      "source_file": "lib/features/voice/data/repositories/voice_log_repository_impl.dart",
+      "source_location": null
     },
     {
-      "id": "lib_features_tracker_data_datasources_food_log_local_datasource_getpendingsynclogs",
-      "label": "getPendingSyncLogs",
+      "id": "lib_features_voice_data_repositories_voice_log_repository_impl_datasource",
+      "label": "_datasource",
       "_origin": "ast",
       "community": 150,
-      "community_name": "food_log_local_datasource.dart",
+      "community_name": "voice_log_repository_impl.dart",
       "file_type": "code",
-      "norm_label": "getpendingsynclogs",
-      "source_file": "lib/features/tracker/data/datasources/food_log_local_datasource.dart",
-      "source_location": "L72"
+      "norm_label": "_datasource",
+      "source_file": "lib/features/voice/data/repositories/voice_log_repository_impl.dart",
+      "source_location": "L9"
     },
     {
-      "id": "lib_features_tracker_data_datasources_food_log_local_datasource_getprefs",
-      "label": "_getPrefs",
+      "id": "lib_features_voice_data_repositories_voice_log_repository_impl_parsevoicetranscript",
+      "label": "parseVoiceTranscript",
       "_origin": "ast",
       "community": 150,
-      "community_name": "food_log_local_datasource.dart",
+      "community_name": "voice_log_repository_impl.dart",
       "file_type": "code",
-      "norm_label": "_getprefs",
-      "source_file": "lib/features/tracker/data/datasources/food_log_local_datasource.dart",
-      "source_location": "L10"
+      "norm_label": "parsevoicetranscript",
+      "source_file": "lib/features/voice/data/repositories/voice_log_repository_impl.dart",
+      "source_location": "L12"
     },
     {
-      "id": "lib_features_tracker_data_datasources_food_log_local_datasource_prefs",
-      "label": "_prefs",
+      "id": "lib_features_voice_data_repositories_voice_log_repository_impl_voicelogrepositoryimpl",
+      "label": "VoiceLogRepositoryImpl",
       "_origin": "ast",
       "community": 150,
-      "community_name": "food_log_local_datasource.dart",
+      "community_name": "voice_log_repository_impl.dart",
       "file_type": "code",
-      "norm_label": "_prefs",
-      "source_file": "lib/features/tracker/data/datasources/food_log_local_datasource.dart",
-      "source_location": "L8"
+      "norm_label": "voicelogrepositoryimpl",
+      "source_file": "lib/features/voice/data/repositories/voice_log_repository_impl.dart",
+      "source_location": "L5"
     },
     {
-      "id": "lib_features_tracker_data_datasources_food_log_local_datasource_queuekey",
-      "label": "_queueKey",
+      "id": "lib_features_voice_domain_repositories_voice_log_repository",
+      "label": "voice_log_repository.dart",
       "_origin": "ast",
       "community": 150,
-      "community_name": "food_log_local_datasource.dart",
+      "community_name": "voice_log_repository_impl.dart",
       "file_type": "code",
-      "norm_label": "_queuekey",
-      "source_file": "lib/features/tracker/data/datasources/food_log_local_datasource.dart",
-      "source_location": "L17"
+      "norm_label": "voice_log_repository.dart",
+      "source_file": "lib/features/voice/domain/repositories/voice_log_repository.dart",
+      "source_location": null
     },
     {
-      "id": "lib_features_tracker_data_datasources_food_log_local_datasource_removeduplicatependinglogs",
-      "label": "removeDuplicatePendingLogs",
+      "id": "lib_features_voice_domain_repositories_voice_log_repository_parsevoicetranscript",
+      "label": "parseVoiceTranscript",
       "_origin": "ast",
       "community": 150,
-      "community_name": "food_log_local_datasource.dart",
+      "community_name": "voice_log_repository_impl.dart",
       "file_type": "code",
-      "norm_label": "removeduplicatependinglogs",
-      "source_file": "lib/features/tracker/data/datasources/food_log_local_datasource.dart",
-      "source_location": "L136"
+      "norm_label": "parsevoicetranscript",
+      "source_file": "lib/features/voice/domain/repositories/voice_log_repository.dart",
+      "source_location": "L4"
     },
     {
-      "id": "lib_features_tracker_data_datasources_food_log_local_datasource_removefrompendingqueue",
-      "label": "removeFromPendingQueue",
+      "id": "lib_features_voice_domain_repositories_voice_log_repository_voicelogrepository",
+      "label": "VoiceLogRepository",
       "_origin": "ast",
       "community": 150,
-      "community_name": "food_log_local_datasource.dart",
+      "community_name": "voice_log_repository_impl.dart",
       "file_type": "code",
-      "norm_label": "removefrompendingqueue",
-      "source_file": "lib/features/tracker/data/datasources/food_log_local_datasource.dart",
-      "source_location": "L102"
+      "norm_label": "voicelogrepository",
+      "source_file": "lib/features/voice/domain/repositories/voice_log_repository.dart",
+      "source_location": "L3"
     },
     {
-      "id": "lib_features_tracker_data_datasources_food_log_local_datasource_savecachedlogs",
-      "label": "saveCachedLogs",
+      "id": "test_features_voice_voice_logging_test_mockvoicelogrepository",
+      "label": "_MockVoiceLogRepository",
       "_origin": "ast",
       "community": 150,
-      "community_name": "food_log_local_datasource.dart",
+      "community_name": "voice_log_repository_impl.dart",
       "file_type": "code",
-      "norm_label": "savecachedlogs",
-      "source_file": "lib/features/tracker/data/datasources/food_log_local_datasource.dart",
-      "source_location": "L36"
-    },
-    {
-      "id": "lib_features_tracker_data_datasources_food_log_local_datasource_upsertcachedlog",
-      "label": "upsertCachedLog",
-      "_origin": "ast",
-      "community": 150,
-      "community_name": "food_log_local_datasource.dart",
-      "file_type": "code",
-      "norm_label": "upsertcachedlog",
-      "source_file": "lib/features/tracker/data/datasources/food_log_local_datasource.dart",
-      "source_location": "L48"
+      "norm_label": "_mockvoicelogrepository",
+      "source_file": "test/features/voice/voice_logging_test.dart",
+      "source_location": "L55"
     },
     {
       "id": "android_app_src_main_kotlin_com_solopreneur_astrobite_astrobitewidgetprovider",
@@ -22299,10 +22299,120 @@
       "source_location": null
     },
     {
+      "id": "dart_io",
+      "label": "dart:io",
+      "_origin": "ast",
+      "community": 158,
+      "community_name": "share_image_service.dart",
+      "file_type": "code",
+      "norm_label": "dart:io",
+      "source_file": null,
+      "source_location": null
+    },
+    {
+      "id": "lib_core_services_share_image_service",
+      "label": "share_image_service.dart",
+      "_origin": "ast",
+      "community": 158,
+      "community_name": "share_image_service.dart",
+      "file_type": "code",
+      "norm_label": "share_image_service.dart",
+      "source_file": "lib/core/services/share_image_service.dart",
+      "source_location": null
+    },
+    {
+      "id": "lib_core_services_share_image_service_captureandshare",
+      "label": "captureAndShare",
+      "_origin": "ast",
+      "community": 158,
+      "community_name": "share_image_service.dart",
+      "file_type": "code",
+      "norm_label": "captureandshare",
+      "source_file": "lib/core/services/share_image_service.dart",
+      "source_location": "L11"
+    },
+    {
+      "id": "lib_core_services_share_image_service_shareimageservice",
+      "label": "ShareImageService",
+      "_origin": "ast",
+      "community": 158,
+      "community_name": "share_image_service.dart",
+      "file_type": "code",
+      "norm_label": "shareimageservice",
+      "source_file": "lib/core/services/share_image_service.dart",
+      "source_location": "L9"
+    },
+    {
+      "id": "package_astrobite_features_health_data_health_repository_dart",
+      "label": "package:astrobite/features/health/data/health_repository.dart",
+      "_origin": "ast",
+      "community": 158,
+      "community_name": "share_image_service.dart",
+      "file_type": "code",
+      "norm_label": "package:astrobite/features/health/data/health_repository.dart",
+      "source_file": null,
+      "source_location": null
+    },
+    {
+      "id": "package_flutter_rendering_dart",
+      "label": "package:flutter/rendering.dart",
+      "_origin": "ast",
+      "community": 158,
+      "community_name": "share_image_service.dart",
+      "file_type": "code",
+      "norm_label": "package:flutter/rendering.dart",
+      "source_file": null,
+      "source_location": null
+    },
+    {
+      "id": "package_path_provider_path_provider_dart",
+      "label": "package:path_provider/path_provider.dart",
+      "_origin": "ast",
+      "community": 158,
+      "community_name": "share_image_service.dart",
+      "file_type": "code",
+      "norm_label": "package:path_provider/path_provider.dart",
+      "source_file": null,
+      "source_location": null
+    },
+    {
+      "id": "package_share_plus_share_plus_dart",
+      "label": "package:share_plus/share_plus.dart",
+      "_origin": "ast",
+      "community": 158,
+      "community_name": "share_image_service.dart",
+      "file_type": "code",
+      "norm_label": "package:share_plus/share_plus.dart",
+      "source_file": null,
+      "source_location": null
+    },
+    {
+      "id": "test_features_health_health_repository_test",
+      "label": "health_repository_test.dart",
+      "_origin": "ast",
+      "community": 158,
+      "community_name": "share_image_service.dart",
+      "file_type": "code",
+      "norm_label": "health_repository_test.dart",
+      "source_file": "test/features/health/health_repository_test.dart",
+      "source_location": null
+    },
+    {
+      "id": "test_features_health_health_repository_test_main",
+      "label": "main",
+      "_origin": "ast",
+      "community": 158,
+      "community_name": "share_image_service.dart",
+      "file_type": "code",
+      "norm_label": "main",
+      "source_file": "test/features/health/health_repository_test.dart",
+      "source_location": "L5"
+    },
+    {
       "id": "firebasefirestore",
       "label": "FirebaseFirestore",
       "_origin": "ast",
-      "community": 158,
+      "community": 159,
       "community_name": "streak_repository.dart",
       "file_type": "code",
       "norm_label": "firebasefirestore",
@@ -22313,7 +22423,7 @@
       "id": "firebasefirestore_get",
       "label": "FirebaseFirestore get",
       "_origin": "ast",
-      "community": 158,
+      "community": 159,
       "community_name": "streak_repository.dart",
       "file_type": "code",
       "norm_label": "firebasefirestore get",
@@ -22324,7 +22434,7 @@
       "id": "lib_features_gamification_data_streak_repository",
       "label": "streak_repository.dart",
       "_origin": "ast",
-      "community": 158,
+      "community": 159,
       "community_name": "streak_repository.dart",
       "file_type": "code",
       "norm_label": "streak_repository.dart",
@@ -22335,7 +22445,7 @@
       "id": "lib_features_gamification_data_streak_repository_clearcache",
       "label": "clearCache",
       "_origin": "ast",
-      "community": 158,
+      "community": 159,
       "community_name": "streak_repository.dart",
       "file_type": "code",
       "norm_label": "clearcache",
@@ -22346,7 +22456,7 @@
       "id": "lib_features_gamification_data_streak_repository_db",
       "label": "_db",
       "_origin": "ast",
-      "community": 158,
+      "community": 159,
       "community_name": "streak_repository.dart",
       "file_type": "code",
       "norm_label": "_db",
@@ -22357,7 +22467,7 @@
       "id": "lib_features_gamification_data_streak_repository_firestore",
       "label": "_firestore",
       "_origin": "ast",
-      "community": 158,
+      "community": 159,
       "community_name": "streak_repository.dart",
       "file_type": "code",
       "norm_label": "_firestore",
@@ -22368,7 +22478,7 @@
       "id": "lib_features_gamification_data_streak_repository_getstreak",
       "label": "getStreak",
       "_origin": "ast",
-      "community": 158,
+      "community": 159,
       "community_name": "streak_repository.dart",
       "file_type": "code",
       "norm_label": "getstreak",
@@ -22379,7 +22489,7 @@
       "id": "lib_features_gamification_data_streak_repository_localcache",
       "label": "_localCache",
       "_origin": "ast",
-      "community": 158,
+      "community": 159,
       "community_name": "streak_repository.dart",
       "file_type": "code",
       "norm_label": "_localcache",
@@ -22390,7 +22500,7 @@
       "id": "lib_features_gamification_data_streak_repository_savestreak",
       "label": "saveStreak",
       "_origin": "ast",
-      "community": 158,
+      "community": 159,
       "community_name": "streak_repository.dart",
       "file_type": "code",
       "norm_label": "savestreak",
@@ -22401,67 +22511,12 @@
       "id": "lib_features_gamification_data_streak_repository_streakrepository",
       "label": "StreakRepository",
       "_origin": "ast",
-      "community": 158,
+      "community": 159,
       "community_name": "streak_repository.dart",
       "file_type": "code",
       "norm_label": "streakrepository",
       "source_file": "lib/features/gamification/data/streak_repository.dart",
       "source_location": "L5"
-    },
-    {
-      "id": "lib_features_scanner_presentation_widgets_camera_dock_controls_build",
-      "label": "build",
-      "_origin": "ast",
-      "community": 159,
-      "community_name": "ManualEntryRoute",
-      "file_type": "code",
-      "norm_label": "build",
-      "source_file": "lib/features/scanner/presentation/widgets/camera_dock_controls.dart",
-      "source_location": "L23"
-    },
-    {
-      "id": "lib_features_scanner_presentation_widgets_camera_error_dialog_handler_showapikeydialog",
-      "label": "_showApiKeyDialog",
-      "_origin": "ast",
-      "community": 159,
-      "community_name": "ManualEntryRoute",
-      "file_type": "code",
-      "norm_label": "_showapikeydialog",
-      "source_file": "lib/features/scanner/presentation/widgets/camera_error_dialog_handler.dart",
-      "source_location": "L107"
-    },
-    {
-      "id": "lib_features_scanner_presentation_widgets_camera_error_dialog_handler_shownotfooddialog",
-      "label": "_showNotFoodDialog",
-      "_origin": "ast",
-      "community": 159,
-      "community_name": "ManualEntryRoute",
-      "file_type": "code",
-      "norm_label": "_shownotfooddialog",
-      "source_file": "lib/features/scanner/presentation/widgets/camera_error_dialog_handler.dart",
-      "source_location": "L35"
-    },
-    {
-      "id": "users_nguyenduytrang_flutter_project_astrobite_lib_core_router_app_router_manualentryroute",
-      "label": "ManualEntryRoute",
-      "_origin": "ast",
-      "community": 159,
-      "community_name": "ManualEntryRoute",
-      "file_type": "code",
-      "norm_label": "manualentryroute",
-      "source_file": "lib/core/router/app_router.gr.dart",
-      "source_location": "L225"
-    },
-    {
-      "id": "users_nguyenduytrang_flutter_project_astrobite_lib_core_router_app_router_manualentryrouteargs",
-      "label": "ManualEntryRouteArgs",
-      "_origin": "ast",
-      "community": 159,
-      "community_name": "ManualEntryRoute",
-      "file_type": "code",
-      "norm_label": "manualentryrouteargs",
-      "source_file": "lib/core/router/app_router.gr.dart",
-      "source_location": "L252"
     },
     {
       "id": "chatsession",
@@ -22494,7 +22549,7 @@
       "file_type": "code",
       "norm_label": "candidatemodels",
       "source_file": "lib/features/coach/data/coach_repository.dart",
-      "source_location": "L72"
+      "source_location": "L74"
     },
     {
       "id": "lib_features_coach_data_coach_repository_chatsession",
@@ -22527,7 +22582,7 @@
       "file_type": "code",
       "norm_label": "deletesession",
       "source_file": "lib/features/coach/data/coach_repository.dart",
-      "source_location": "L286"
+      "source_location": "L288"
     },
     {
       "id": "lib_features_coach_data_coach_repository_gettodaymessagecount",
@@ -22538,7 +22593,7 @@
       "file_type": "code",
       "norm_label": "gettodaymessagecount",
       "source_file": "lib/features/coach/data/coach_repository.dart",
-      "source_location": "L232"
+      "source_location": "L234"
     },
     {
       "id": "lib_features_coach_data_coach_repository_loadchatsessionslist",
@@ -22549,7 +22604,7 @@
       "file_type": "code",
       "norm_label": "loadchatsessionslist",
       "source_file": "lib/features/coach/data/coach_repository.dart",
-      "source_location": "L262"
+      "source_location": "L264"
     },
     {
       "id": "lib_features_coach_data_coach_repository_loadsessionbydate",
@@ -22560,7 +22615,7 @@
       "file_type": "code",
       "norm_label": "loadsessionbydate",
       "source_file": "lib/features/coach/data/coach_repository.dart",
-      "source_location": "L245"
+      "source_location": "L247"
     },
     {
       "id": "lib_features_coach_data_coach_repository_loadtodaysession",
@@ -22571,7 +22626,7 @@
       "file_type": "code",
       "norm_label": "loadtodaysession",
       "source_file": "lib/features/coach/data/coach_repository.dart",
-      "source_location": "L193"
+      "source_location": "L195"
     },
     {
       "id": "lib_features_coach_data_coach_repository_maxmessagesperday",
@@ -22604,7 +22659,7 @@
       "file_type": "code",
       "norm_label": "sanitizehistory",
       "source_file": "lib/features/coach/data/coach_repository.dart",
-      "source_location": "L296"
+      "source_location": "L298"
     },
     {
       "id": "lib_features_coach_data_coach_repository_savemessage",
@@ -22615,7 +22670,7 @@
       "file_type": "code",
       "norm_label": "savemessage",
       "source_file": "lib/features/coach/data/coach_repository.dart",
-      "source_location": "L211"
+      "source_location": "L213"
     },
     {
       "id": "lib_features_coach_data_coach_repository_sendmessage",
@@ -22626,7 +22681,7 @@
       "file_type": "code",
       "norm_label": "sendmessage",
       "source_file": "lib/features/coach/data/coach_repository.dart",
-      "source_location": "L79"
+      "source_location": "L81"
     },
     {
       "id": "lib_features_coach_data_coach_repository_sendwithkey",
@@ -22637,7 +22692,7 @@
       "file_type": "code",
       "norm_label": "_sendwithkey",
       "source_file": "lib/features/coach/data/coach_repository.dart",
-      "source_location": "L108"
+      "source_location": "L110"
     },
     {
       "id": "lib_features_coach_data_coach_repository_sendwithmodel",
@@ -22648,7 +22703,7 @@
       "file_type": "code",
       "norm_label": "_sendwithmodel",
       "source_file": "lib/features/coach/data/coach_repository.dart",
-      "source_location": "L162"
+      "source_location": "L164"
     },
     {
       "id": "lib_features_coach_data_coach_repository_slidingwindowsize",
@@ -86264,48 +86319,76 @@
       "source_location": "L1"
     },
     {
-      "id": "dart_ui",
-      "label": "dart:ui",
+      "id": "agents_skills_flutter_expert_references_riverpod_state",
+      "label": "riverpod-state.md",
       "_origin": "ast",
       "community": 609,
-      "community_name": "package:astrobite/l10n/app_localizations.dart",
-      "file_type": "code",
-      "norm_label": "dart:ui",
-      "source_file": null,
-      "source_location": null
+      "community_name": "Riverpod State Management",
+      "file_type": "document",
+      "node_kind": "page",
+      "norm_label": "riverpod-state.md",
+      "source_file": ".agents/skills/flutter-expert/references/riverpod-state.md",
+      "source_location": "L1"
     },
     {
-      "id": "package_astrobite_l10n_app_localizations_dart",
-      "label": "package:astrobite/l10n/app_localizations.dart",
+      "id": "agents_skills_flutter_expert_references_riverpod_state_notifier_pattern_riverpod_2_0",
+      "label": "Notifier Pattern (Riverpod 2.0)",
       "_origin": "ast",
       "community": 609,
-      "community_name": "package:astrobite/l10n/app_localizations.dart",
-      "file_type": "code",
-      "norm_label": "package:astrobite/l10n/app_localizations.dart",
-      "source_file": null,
-      "source_location": null
+      "community_name": "Riverpod State Management",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "notifier pattern (riverpod 2.0)",
+      "source_file": ".agents/skills/flutter-expert/references/riverpod-state.md",
+      "source_location": "L23"
     },
     {
-      "id": "test_helpers_test_l10n",
-      "label": "test_l10n.dart",
+      "id": "agents_skills_flutter_expert_references_riverpod_state_provider_types",
+      "label": "Provider Types",
       "_origin": "ast",
       "community": 609,
-      "community_name": "package:astrobite/l10n/app_localizations.dart",
-      "file_type": "code",
-      "norm_label": "test_l10n.dart",
-      "source_file": "test/helpers/test_l10n.dart",
-      "source_location": null
+      "community_name": "Riverpod State Management",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "provider types",
+      "source_file": ".agents/skills/flutter-expert/references/riverpod-state.md",
+      "source_location": "L3"
     },
     {
-      "id": "test_helpers_test_l10n_testl10n",
-      "label": "testL10n",
+      "id": "agents_skills_flutter_expert_references_riverpod_state_quick_reference",
+      "label": "Quick Reference",
       "_origin": "ast",
       "community": 609,
-      "community_name": "package:astrobite/l10n/app_localizations.dart",
-      "file_type": "code",
-      "norm_label": "testl10n",
-      "source_file": "test/helpers/test_l10n.dart",
-      "source_location": "L5"
+      "community_name": "Riverpod State Management",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "quick reference",
+      "source_file": ".agents/skills/flutter-expert/references/riverpod-state.md",
+      "source_location": "L121"
+    },
+    {
+      "id": "agents_skills_flutter_expert_references_riverpod_state_riverpod_state_management",
+      "label": "Riverpod State Management",
+      "_origin": "ast",
+      "community": 609,
+      "community_name": "Riverpod State Management",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "riverpod state management",
+      "source_file": ".agents/skills/flutter-expert/references/riverpod-state.md",
+      "source_location": "L1"
+    },
+    {
+      "id": "agents_skills_flutter_expert_references_riverpod_state_usage_in_widgets",
+      "label": "Usage in Widgets",
+      "_origin": "ast",
+      "community": 609,
+      "community_name": "Riverpod State Management",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "usage in widgets",
+      "source_file": ".agents/skills/flutter-expert/references/riverpod-state.md",
+      "source_location": "L65"
     },
     {
       "id": "data_models_food_log_dto_dart",
@@ -86811,76 +86894,59 @@
       "source_location": "L19"
     },
     {
-      "id": "agents_skills_flutter_expert_references_riverpod_state",
-      "label": "riverpod-state.md",
+      "id": "lib_features_scanner_presentation_widgets_camera_dock_controls_build",
+      "label": "build",
       "_origin": "ast",
       "community": 611,
-      "community_name": "Riverpod State Management",
-      "file_type": "document",
-      "node_kind": "page",
-      "norm_label": "riverpod-state.md",
-      "source_file": ".agents/skills/flutter-expert/references/riverpod-state.md",
-      "source_location": "L1"
-    },
-    {
-      "id": "agents_skills_flutter_expert_references_riverpod_state_notifier_pattern_riverpod_2_0",
-      "label": "Notifier Pattern (Riverpod 2.0)",
-      "_origin": "ast",
-      "community": 611,
-      "community_name": "Riverpod State Management",
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "notifier pattern (riverpod 2.0)",
-      "source_file": ".agents/skills/flutter-expert/references/riverpod-state.md",
+      "community_name": "ManualEntryRoute",
+      "file_type": "code",
+      "norm_label": "build",
+      "source_file": "lib/features/scanner/presentation/widgets/camera_dock_controls.dart",
       "source_location": "L23"
     },
     {
-      "id": "agents_skills_flutter_expert_references_riverpod_state_provider_types",
-      "label": "Provider Types",
+      "id": "lib_features_scanner_presentation_widgets_camera_error_dialog_handler_showapikeydialog",
+      "label": "_showApiKeyDialog",
       "_origin": "ast",
       "community": 611,
-      "community_name": "Riverpod State Management",
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "provider types",
-      "source_file": ".agents/skills/flutter-expert/references/riverpod-state.md",
-      "source_location": "L3"
+      "community_name": "ManualEntryRoute",
+      "file_type": "code",
+      "norm_label": "_showapikeydialog",
+      "source_file": "lib/features/scanner/presentation/widgets/camera_error_dialog_handler.dart",
+      "source_location": "L107"
     },
     {
-      "id": "agents_skills_flutter_expert_references_riverpod_state_quick_reference",
-      "label": "Quick Reference",
+      "id": "lib_features_scanner_presentation_widgets_camera_error_dialog_handler_shownotfooddialog",
+      "label": "_showNotFoodDialog",
       "_origin": "ast",
       "community": 611,
-      "community_name": "Riverpod State Management",
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "quick reference",
-      "source_file": ".agents/skills/flutter-expert/references/riverpod-state.md",
-      "source_location": "L121"
+      "community_name": "ManualEntryRoute",
+      "file_type": "code",
+      "norm_label": "_shownotfooddialog",
+      "source_file": "lib/features/scanner/presentation/widgets/camera_error_dialog_handler.dart",
+      "source_location": "L35"
     },
     {
-      "id": "agents_skills_flutter_expert_references_riverpod_state_riverpod_state_management",
-      "label": "Riverpod State Management",
+      "id": "users_nguyenduytrang_flutter_project_astrobite_lib_core_router_app_router_manualentryroute",
+      "label": "ManualEntryRoute",
       "_origin": "ast",
       "community": 611,
-      "community_name": "Riverpod State Management",
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "riverpod state management",
-      "source_file": ".agents/skills/flutter-expert/references/riverpod-state.md",
-      "source_location": "L1"
+      "community_name": "ManualEntryRoute",
+      "file_type": "code",
+      "norm_label": "manualentryroute",
+      "source_file": "lib/core/router/app_router.gr.dart",
+      "source_location": "L225"
     },
     {
-      "id": "agents_skills_flutter_expert_references_riverpod_state_usage_in_widgets",
-      "label": "Usage in Widgets",
+      "id": "users_nguyenduytrang_flutter_project_astrobite_lib_core_router_app_router_manualentryrouteargs",
+      "label": "ManualEntryRouteArgs",
       "_origin": "ast",
       "community": 611,
-      "community_name": "Riverpod State Management",
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "usage in widgets",
-      "source_file": ".agents/skills/flutter-expert/references/riverpod-state.md",
-      "source_location": "L65"
+      "community_name": "ManualEntryRoute",
+      "file_type": "code",
+      "norm_label": "manualentryrouteargs",
+      "source_file": "lib/core/router/app_router.gr.dart",
+      "source_location": "L252"
     },
     {
       "id": "docs_03_prd_features_31_recipes_refactoring_prd_recipes_refactoring",
@@ -88700,37 +88766,48 @@
       "source_location": "L9"
     },
     {
-      "id": "ios_astrobitewidget_astrobitewidget_astrobitewidget_body",
-      "label": ".body",
+      "id": "dart_ui",
+      "label": "dart:ui",
       "_origin": "ast",
       "community": 630,
-      "community_name": "Widget",
+      "community_name": "package:astrobite/l10n/app_localizations.dart",
       "file_type": "code",
-      "norm_label": ".body",
-      "source_file": "ios/AstroBiteWidget/AstroBiteWidget.swift",
-      "source_location": "L199"
+      "norm_label": "dart:ui",
+      "source_file": null,
+      "source_location": null
     },
     {
-      "id": "widget",
-      "label": "Widget",
+      "id": "package_astrobite_l10n_app_localizations_dart",
+      "label": "package:astrobite/l10n/app_localizations.dart",
       "_origin": "ast",
       "community": 630,
-      "community_name": "Widget",
+      "community_name": "package:astrobite/l10n/app_localizations.dart",
       "file_type": "code",
-      "norm_label": "widget",
-      "source_file": "",
-      "source_location": ""
+      "norm_label": "package:astrobite/l10n/app_localizations.dart",
+      "source_file": null,
+      "source_location": null
     },
     {
-      "id": "widgetconfiguration",
-      "label": "WidgetConfiguration",
+      "id": "test_helpers_test_l10n",
+      "label": "test_l10n.dart",
       "_origin": "ast",
       "community": 630,
-      "community_name": "Widget",
+      "community_name": "package:astrobite/l10n/app_localizations.dart",
       "file_type": "code",
-      "norm_label": "widgetconfiguration",
-      "source_file": "",
-      "source_location": ""
+      "norm_label": "test_l10n.dart",
+      "source_file": "test/helpers/test_l10n.dart",
+      "source_location": null
+    },
+    {
+      "id": "test_helpers_test_l10n_testl10n",
+      "label": "testL10n",
+      "_origin": "ast",
+      "community": 630,
+      "community_name": "package:astrobite/l10n/app_localizations.dart",
+      "file_type": "code",
+      "norm_label": "testl10n",
+      "source_file": "test/helpers/test_l10n.dart",
+      "source_location": "L5"
     },
     {
       "id": "docs_03_prd_features_34_auth_onboarding_refactoring_signoff_sprint_27",
@@ -88817,48 +88894,37 @@
       "source_location": "L1"
     },
     {
-      "id": "lib_shared_widgets_solar_card",
-      "label": "solar_card.dart",
+      "id": "ios_astrobitewidget_astrobitewidget_astrobitewidget_body",
+      "label": ".body",
       "_origin": "ast",
       "community": 632,
-      "community_name": "typedef",
+      "community_name": "Widget",
       "file_type": "code",
-      "norm_label": "solar_card.dart",
-      "source_file": "lib/shared/widgets/solar_card.dart",
-      "source_location": null
+      "norm_label": ".body",
+      "source_file": "ios/AstroBiteWidget/AstroBiteWidget.swift",
+      "source_location": "L199"
     },
     {
-      "id": "lib_shared_widgets_solar_card_solarcard",
-      "label": "SolarCard",
+      "id": "widget",
+      "label": "Widget",
       "_origin": "ast",
       "community": 632,
-      "community_name": "typedef",
+      "community_name": "Widget",
       "file_type": "code",
-      "norm_label": "solarcard",
-      "source_file": "lib/shared/widgets/solar_card.dart",
-      "source_location": "L7"
+      "norm_label": "widget",
+      "source_file": "",
+      "source_location": ""
     },
     {
-      "id": "package_astrobite_shared_ui_kit_surfaces_clay_card_dart",
-      "label": "package:astrobite/shared/ui_kit/surfaces/clay_card.dart",
+      "id": "widgetconfiguration",
+      "label": "WidgetConfiguration",
       "_origin": "ast",
       "community": 632,
-      "community_name": "typedef",
+      "community_name": "Widget",
       "file_type": "code",
-      "norm_label": "package:astrobite/shared/ui_kit/surfaces/clay_card.dart",
-      "source_file": null,
-      "source_location": null
-    },
-    {
-      "id": "typedef",
-      "label": "typedef",
-      "_origin": "ast",
-      "community": 632,
-      "community_name": "typedef",
-      "file_type": "code",
-      "norm_label": "typedef",
-      "source_file": null,
-      "source_location": null
+      "norm_label": "widgetconfiguration",
+      "source_file": "",
+      "source_location": ""
     },
     {
       "id": "lib_shared_ui_kit_icons_clay_3d_carrot_rocket",
@@ -91853,6 +91919,83 @@
       "norm_label": "phase 3: input validation",
       "source_file": "docs/03-prd-features/37-ultimate-warning-cleanout/signoff-security-sprint-30.md",
       "source_location": "L21"
+    },
+    {
+      "id": "lib_shared_widgets_solar_card",
+      "label": "solar_card.dart",
+      "_origin": "ast",
+      "community": 648,
+      "community_name": "typedef",
+      "file_type": "code",
+      "norm_label": "solar_card.dart",
+      "source_file": "lib/shared/widgets/solar_card.dart",
+      "source_location": null
+    },
+    {
+      "id": "lib_shared_widgets_solar_card_solarcard",
+      "label": "SolarCard",
+      "_origin": "ast",
+      "community": 648,
+      "community_name": "typedef",
+      "file_type": "code",
+      "norm_label": "solarcard",
+      "source_file": "lib/shared/widgets/solar_card.dart",
+      "source_location": "L7"
+    },
+    {
+      "id": "package_astrobite_shared_ui_kit_surfaces_clay_card_dart",
+      "label": "package:astrobite/shared/ui_kit/surfaces/clay_card.dart",
+      "_origin": "ast",
+      "community": 648,
+      "community_name": "typedef",
+      "file_type": "code",
+      "norm_label": "package:astrobite/shared/ui_kit/surfaces/clay_card.dart",
+      "source_file": null,
+      "source_location": null
+    },
+    {
+      "id": "typedef",
+      "label": "typedef",
+      "_origin": "ast",
+      "community": 648,
+      "community_name": "typedef",
+      "file_type": "code",
+      "norm_label": "typedef",
+      "source_file": null,
+      "source_location": null
+    },
+    {
+      "id": "lib_features_recipes_presentation_controllers_recipe_builder_controller_recipesprovider",
+      "label": "recipesProvider",
+      "_origin": "ast",
+      "community": 649,
+      "community_name": "build",
+      "file_type": "code",
+      "norm_label": "recipesprovider",
+      "source_file": "lib/features/recipes/presentation/controllers/recipe_builder_controller.dart",
+      "source_location": "L10"
+    },
+    {
+      "id": "lib_features_recipes_presentation_pages_recipes_page_build",
+      "label": "build",
+      "_origin": "ast",
+      "community": 649,
+      "community_name": "build",
+      "file_type": "code",
+      "norm_label": "build",
+      "source_file": "lib/features/recipes/presentation/pages/recipes_page.dart",
+      "source_location": "L24"
+    },
+    {
+      "id": "users_nguyenduytrang_flutter_project_astrobite_lib_core_router_app_router_recipebuilderroute",
+      "label": "RecipeBuilderRoute",
+      "_origin": "ast",
+      "community": 649,
+      "community_name": "build",
+      "file_type": "code",
+      "norm_label": "recipebuilderroute",
+      "source_file": "lib/core/router/app_router.gr.dart",
+      "source_location": "L370"
     },
     {
       "id": "coach_meal_card_dart",
@@ -95942,116 +96085,6 @@
       "source_location": "L1"
     },
     {
-      "id": "dart_io",
-      "label": "dart:io",
-      "_origin": "ast",
-      "community": 688,
-      "community_name": "share_image_service.dart",
-      "file_type": "code",
-      "norm_label": "dart:io",
-      "source_file": null,
-      "source_location": null
-    },
-    {
-      "id": "lib_core_services_share_image_service",
-      "label": "share_image_service.dart",
-      "_origin": "ast",
-      "community": 688,
-      "community_name": "share_image_service.dart",
-      "file_type": "code",
-      "norm_label": "share_image_service.dart",
-      "source_file": "lib/core/services/share_image_service.dart",
-      "source_location": null
-    },
-    {
-      "id": "lib_core_services_share_image_service_captureandshare",
-      "label": "captureAndShare",
-      "_origin": "ast",
-      "community": 688,
-      "community_name": "share_image_service.dart",
-      "file_type": "code",
-      "norm_label": "captureandshare",
-      "source_file": "lib/core/services/share_image_service.dart",
-      "source_location": "L11"
-    },
-    {
-      "id": "lib_core_services_share_image_service_shareimageservice",
-      "label": "ShareImageService",
-      "_origin": "ast",
-      "community": 688,
-      "community_name": "share_image_service.dart",
-      "file_type": "code",
-      "norm_label": "shareimageservice",
-      "source_file": "lib/core/services/share_image_service.dart",
-      "source_location": "L9"
-    },
-    {
-      "id": "package_astrobite_features_health_data_health_repository_dart",
-      "label": "package:astrobite/features/health/data/health_repository.dart",
-      "_origin": "ast",
-      "community": 688,
-      "community_name": "share_image_service.dart",
-      "file_type": "code",
-      "norm_label": "package:astrobite/features/health/data/health_repository.dart",
-      "source_file": null,
-      "source_location": null
-    },
-    {
-      "id": "package_flutter_rendering_dart",
-      "label": "package:flutter/rendering.dart",
-      "_origin": "ast",
-      "community": 688,
-      "community_name": "share_image_service.dart",
-      "file_type": "code",
-      "norm_label": "package:flutter/rendering.dart",
-      "source_file": null,
-      "source_location": null
-    },
-    {
-      "id": "package_path_provider_path_provider_dart",
-      "label": "package:path_provider/path_provider.dart",
-      "_origin": "ast",
-      "community": 688,
-      "community_name": "share_image_service.dart",
-      "file_type": "code",
-      "norm_label": "package:path_provider/path_provider.dart",
-      "source_file": null,
-      "source_location": null
-    },
-    {
-      "id": "package_share_plus_share_plus_dart",
-      "label": "package:share_plus/share_plus.dart",
-      "_origin": "ast",
-      "community": 688,
-      "community_name": "share_image_service.dart",
-      "file_type": "code",
-      "norm_label": "package:share_plus/share_plus.dart",
-      "source_file": null,
-      "source_location": null
-    },
-    {
-      "id": "test_features_health_health_repository_test",
-      "label": "health_repository_test.dart",
-      "_origin": "ast",
-      "community": 688,
-      "community_name": "share_image_service.dart",
-      "file_type": "code",
-      "norm_label": "health_repository_test.dart",
-      "source_file": "test/features/health/health_repository_test.dart",
-      "source_location": null
-    },
-    {
-      "id": "test_features_health_health_repository_test_main",
-      "label": "main",
-      "_origin": "ast",
-      "community": 688,
-      "community_name": "share_image_service.dart",
-      "file_type": "code",
-      "norm_label": "main",
-      "source_file": "test/features/health/health_repository_test.dart",
-      "source_location": "L5"
-    },
-    {
       "id": "lib_core_services_locale_service_applanguageprovider",
       "label": "appLanguageProvider",
       "_origin": "ast",
@@ -96754,39 +96787,6 @@
       "norm_label": "package:flutter/widgets.dart",
       "source_file": null,
       "source_location": null
-    },
-    {
-      "id": "lib_features_recipes_presentation_controllers_recipe_builder_controller_recipesprovider",
-      "label": "recipesProvider",
-      "_origin": "ast",
-      "community": 697,
-      "community_name": "build",
-      "file_type": "code",
-      "norm_label": "recipesprovider",
-      "source_file": "lib/features/recipes/presentation/controllers/recipe_builder_controller.dart",
-      "source_location": "L10"
-    },
-    {
-      "id": "lib_features_recipes_presentation_pages_recipes_page_build",
-      "label": "build",
-      "_origin": "ast",
-      "community": 697,
-      "community_name": "build",
-      "file_type": "code",
-      "norm_label": "build",
-      "source_file": "lib/features/recipes/presentation/pages/recipes_page.dart",
-      "source_location": "L24"
-    },
-    {
-      "id": "users_nguyenduytrang_flutter_project_astrobite_lib_core_router_app_router_recipebuilderroute",
-      "label": "RecipeBuilderRoute",
-      "_origin": "ast",
-      "community": 697,
-      "community_name": "build",
-      "file_type": "code",
-      "norm_label": "recipebuilderroute",
-      "source_file": "lib/core/router/app_router.gr.dart",
-      "source_location": "L370"
     },
     {
       "id": "app_localizations_en_dart",
@@ -118589,7 +118589,7 @@
       "confidence_score": 1.0,
       "context": "variable_type",
       "source_file": "lib/features/coach/data/coach_repository.dart",
-      "source_location": "L304",
+      "source_location": "L306",
       "weight": 1.0
     },
     {
@@ -118601,7 +118601,7 @@
       "confidence_score": 1.0,
       "context": "variable_type",
       "source_file": "lib/features/coach/data/coach_repository.dart",
-      "source_location": "L72",
+      "source_location": "L74",
       "weight": 1.0
     },
     {
@@ -175547,7 +175547,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "lib/features/coach/data/coach_repository.dart",
-      "source_location": "L108",
+      "source_location": "L110",
       "weight": 1.0
     },
     {
@@ -175580,7 +175580,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "lib/features/coach/data/coach_repository.dart",
-      "source_location": "L162",
+      "source_location": "L164",
       "weight": 1.0
     },
     {
@@ -175602,7 +175602,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "lib/features/coach/data/coach_repository.dart",
-      "source_location": "L193",
+      "source_location": "L195",
       "weight": 1.0
     },
     {
@@ -175613,7 +175613,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "lib/features/coach/data/coach_repository.dart",
-      "source_location": "L211",
+      "source_location": "L213",
       "weight": 1.0
     },
     {
@@ -175624,7 +175624,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "lib/features/coach/data/coach_repository.dart",
-      "source_location": "L232",
+      "source_location": "L234",
       "weight": 1.0
     },
     {
@@ -175635,7 +175635,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "lib/features/coach/data/coach_repository.dart",
-      "source_location": "L245",
+      "source_location": "L247",
       "weight": 1.0
     },
     {
@@ -175646,7 +175646,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "lib/features/coach/data/coach_repository.dart",
-      "source_location": "L262",
+      "source_location": "L264",
       "weight": 1.0
     },
     {
@@ -175657,7 +175657,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "lib/features/coach/data/coach_repository.dart",
-      "source_location": "L286",
+      "source_location": "L288",
       "weight": 1.0
     },
     {
@@ -175668,7 +175668,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "lib/features/coach/data/coach_repository.dart",
-      "source_location": "L296",
+      "source_location": "L298",
       "weight": 1.0
     },
     {
@@ -175679,7 +175679,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "lib/features/coach/data/coach_repository.dart",
-      "source_location": "L303",
+      "source_location": "L305",
       "weight": 1.0
     },
     {
@@ -175690,7 +175690,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "lib/features/coach/data/coach_repository.dart",
-      "source_location": "L304",
+      "source_location": "L306",
       "weight": 1.0
     },
     {
@@ -175701,7 +175701,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "lib/features/coach/data/coach_repository.dart",
-      "source_location": "L72",
+      "source_location": "L74",
       "weight": 1.0
     },
     {
@@ -175712,7 +175712,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "lib/features/coach/data/coach_repository.dart",
-      "source_location": "L79",
+      "source_location": "L81",
       "weight": 1.0
     },
     {
@@ -241902,5 +241902,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "6b19af6cbe336de5c8304c5f036abe5ce7fd9b9c"
+  "built_at_commit": "1e3c5d1916ab221f954a5aed15401768d74ee75e"
 }
