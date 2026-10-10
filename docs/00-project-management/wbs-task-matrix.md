@@ -6,7 +6,26 @@
 
 ---
 
-## 🏗️ 1. Bảng Ma Trận Phân Rã WBS Sprint 22 (v3.2.0 Core Tracker Refactoring — 🟢 100% Done)
+## 🏗️ 1. Bảng Ma Trận Phân Rã WBS Sprint 23 (v3.3.0 AI Coach & Scanner Elimination — 🟢 100% Done)
+
+### EPIC-REF-02: AI Coach & Scanner God Files Elimination (`FEAT-S23-COACH-SCANNER` — 13 SP)
+
+| Mã Task | Feature / Epic | Cổng Chất Lượng | Mô Tả Nhiệm Vụ Kỹ Thuật | Sub-Agent Đảm Nhiệm | SP | Phụ Thuộc | Trạng Thái |
+| :--- | :--- | :---: | :--- | :---: | :---: | :---: | :---: |
+| **`TSK-S23-00-SPIKE`** | Kiến trúc Bóc Tách | **Gate 0** | Tech Lead: Architectural Spec & ADR-029 cho Coach & Scan Review | `tech-lead` | 1 | None | 🟢 **Gate 0 Approved** |
+| **`TSK-S23-01-PRD`** | `prd-s23.md` | **Gate 1** | BA: Soạn PRD & User Stories BDD luồng Chat Coach & Scan Review | `business-analyst` | 2 | TSK-S23-00-SPIKE | 🟢 **Gate 1 Approved** |
+| **`TSK-S23-02-DESIGN`** | `ui-ux-design.md`| **Gate 2** | UI/UX Designer: Component Blueprint lưới 4pt cho Coach & Scan Review | `ui-ux-designer` | 2 | TSK-S23-01-PRD | 🟢 **Gate 2 Approved** |
+| **`TSK-S23-03-TEST-PLAN`**| `gate-3-test.md` | **Gate 3** | QA Tester: Regression Test Plan cho Chat Coach & Scan Review Multi-dish | `qa-tester` | 1 | TSK-S23-02-DESIGN | 🟢 **Gate 3 Approved** |
+| **`TSK-S23-04-COACH`** | `coach_page.dart` | **Gate 4** | Dev FE: Bóc tách coach_page.dart (2,153 ➔ 344 dòng) thành 10 sub-widgets | `flutter-core-dev` | 4 | TSK-S23-03-TEST-PLAN | 🟢 **Gate 4 Done** |
+| **`TSK-S23-05-SCANREVIEW`**| `scan_review_page.dart`| **Gate 4** | Dev FE: Bóc tách scan_review_page.dart (1,482 ➔ 340 dòng) thành 9 sub-widgets | `flutter-core-dev` | 3 | TSK-S23-03-TEST-PLAN | 🟢 **Gate 4 Done** |
+| **`TSK-S23-06-REVIEW`** | Quality Gate | **Gate 5** | Reviewer: Ponytail Diff Review, check hard cap < 350 dòng | `code-reviewer` | - | Gate 4 | 🟢 **Gate 5 Approved** |
+| **`TSK-S23-07-QA-VERIFY`**| Quality Gate | **Gate 6** | QA Tester: Test pass 320/320 (100%), analyze 0 issues | `qa-tester` | - | Gate 5 | 🟢 **Gate 6 Signed Off** |
+| **`TSK-S23-08-SECURITY`** | Security Gate | **Gate 6.5** | Security Auditor: Rà soát Prompt Injection & Food Log Write permissions | `security-auditor` | - | Gate 6 | 🟢 **Gate 6.5 Approved** |
+| **`TSK-S23-09-RELEASE`** | Milestone | **Gate 7** | PO, PM & Tech Lead: Release Clearance v3.3.0 | `product-owner` | - | Gate 6.5 | 🟢 **Gate 7 Released** |
+
+---
+
+## 🏛️ 2. Lưu Trữ Ma Trận Phân Rã WBS Sprint 22 (v3.2.0 Core Tracker Refactoring — 🟢 100% Done)
 
 ### EPIC-REF-01: Core Tracker Clean Architecture & O(1) Meal Enums Overhaul (`FEAT-S22-TRACKER` — 13 SP)
 
