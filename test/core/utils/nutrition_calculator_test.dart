@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:astrobite/core/constants/profile_enums.dart';
 import 'package:astrobite/core/utils/nutrition_calculator.dart';
 
 void main() {
@@ -133,6 +134,31 @@ void main() {
         expect(macros.carbsG, 225);
         expect(macros.proteinG, 150);
         expect(macros.fatG, 56);
+      });
+    });
+
+    group('Enhanced Enums O(1) Calculation', () {
+      test('calculates BMR, TDEE, and Target Calories using typed Enums', () {
+        final bmr = NutritionCalculator.calculateBMR(
+          weightKg: 70,
+          heightCm: 175,
+          age: 28,
+          gender: Gender.male,
+        );
+        expect(bmr, 1658.75);
+
+        final tdee = NutritionCalculator.calculateTDEE(
+          bmr: bmr,
+          activityLevel: ActivityLevel.active,
+        );
+        expect(tdee, 1658.75 * 1.725);
+
+        final target = NutritionCalculator.calculateTargetCalories(
+          tdee: tdee,
+          goal: FitnessGoal.loseWeight,
+          gender: Gender.male,
+        );
+        expect(target, (tdee - 500).round());
       });
     });
   });
