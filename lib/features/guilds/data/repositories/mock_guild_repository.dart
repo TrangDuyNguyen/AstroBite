@@ -1,9 +1,8 @@
 import 'dart:async';
-import 'dart:math';
 import '../../domain/models/guild.dart';
-import '../../domain/models/guild_member.dart';
 import '../../domain/models/planetary_challenge.dart';
 import '../../domain/repositories/guild_repository.dart';
+import 'guild_mock_seeds.dart';
 
 class MockGuildRepository implements GuildRepository {
   final Map<String, Guild> _guilds = {};
@@ -12,103 +11,21 @@ class MockGuildRepository implements GuildRepository {
 
   MockGuildRepository({bool seedDefaultData = true}) {
     if (seedDefaultData) {
-      _seedDefaultGuild();
+      final guild = GuildMockSeeds.buildDefaultGuild();
+      _guilds[guild.id] = guild;
     }
-  }
-
-  void _seedDefaultGuild() {
-    final now = DateTime.now();
-    final defaultMembers = [
-      GuildMember(
-        userId: 'user_001',
-        displayName: 'Lan (Leader)',
-        role: 'leader',
-        weeklyContributionXp: 850,
-        currentStreak: 12,
-        lastLoggedAt: now.subtract(const Duration(hours: 2)),
-        joinedAt: now.subtract(const Duration(days: 14)),
-      ),
-      GuildMember(
-        userId: 'current_user',
-        displayName: 'Bạn (Me)',
-        role: 'member',
-        weeklyContributionXp: 600,
-        currentStreak: 7,
-        lastLoggedAt: now.subtract(const Duration(hours: 4)),
-        joinedAt: now.subtract(const Duration(days: 10)),
-      ),
-      GuildMember(
-        userId: 'user_003',
-        displayName: 'Hoàng Dev',
-        role: 'member',
-        weeklyContributionXp: 450,
-        currentStreak: 5,
-        lastLoggedAt: now.subtract(const Duration(hours: 1)),
-        joinedAt: now.subtract(const Duration(days: 8)),
-      ),
-      GuildMember(
-        userId: 'user_004',
-        displayName: 'Minh Tuấn',
-        role: 'member',
-        weeklyContributionXp: 300,
-        currentStreak: 3,
-        lastLoggedAt: now.subtract(const Duration(days: 1)),
-        joinedAt: now.subtract(const Duration(days: 5)),
-      ),
-      GuildMember(
-        userId: 'user_005',
-        displayName: 'Hải Yến',
-        role: 'member',
-        weeklyContributionXp: 150,
-        currentStreak: 2,
-        lastLoggedAt: now.subtract(const Duration(hours: 18)),
-        joinedAt: now.subtract(const Duration(days: 3)),
-      ),
-    ];
-
-    final challenge = PlanetaryChallenge(
-      id: 'challenge_sprint_21',
-      planetTheme: 'mars',
-      title: 'Chiến Dịch Sao Hỏa: 50,000 Kcal Lành Mạnh',
-      targetMetric: 'clean_calories',
-      targetValue: 50000,
-      currentValue: 34500,
-      startDate: now.subtract(const Duration(days: 3)),
-      endDate: now.add(const Duration(days: 4)),
-      status: 'active',
-    );
-
-    final guild = Guild(
-      id: 'guild_mars_explorers',
-      name: 'Vệ Binh Sao Hỏa',
-      description: 'Cùng nhau giảm cân, tích cực ăn sạch và không bỏ bữa!',
-      avatarPlanet: 'mars',
-      inviteCode: 'MARS01',
-      ownerId: 'user_001',
-      memberCount: defaultMembers.length,
-      memberIds: defaultMembers.map((m) => m.userId).toList(),
-      totalStarlightXp: 2350,
-      activeChallenge: challenge,
-      members: defaultMembers,
-      createdAt: now.subtract(const Duration(days: 14)),
-    );
-
-    _guilds[guild.id] = guild;
   }
 
   @override
   Future<Guild?> getUserGuild(String userId) async {
     for (final guild in _guilds.values) {
-      if (guild.memberIds.contains(userId)) {
-        return guild;
-      }
+      if (guild.memberIds.contains(userId)) return guild;
     }
     return null;
   }
 
   @override
   Stream<Guild?> watchUserGuild(String userId) {
-    // Emit initial
     Future.microtask(() async {
       final guild = await getUserGuild(userId);
       _guildStreamController.add(guild);
@@ -124,43 +41,31 @@ class MockGuildRepository implements GuildRepository {
     required String ownerId,
     required String ownerDisplayName,
   }) async {
-    final trimmedName = name.trim();
-    if (trimmedName.length < 3 || trimmedName.length > 30) {
-      throw ArgumentError('Tên bang hội phải từ 3 đến 30 ký tự');
-    }
+    GuildMockSeeds.validateGuildName(name);
 
-    // If user is already in a guild, leave previous guild to create new one
     final existing = await getUserGuild(ownerId);
     if (existing != null) {
       await leaveGuild(guildId: existing.id, userId: ownerId);
     }
 
-    final code = _generateInviteCode();
+    final code = GuildMockSeeds.generateInviteCode();
     final now = DateTime.now();
-    final leader = GuildMember(
+    final leader = GuildMockSeeds.buildNewMember(
       userId: ownerId,
       displayName: ownerDisplayName,
+      now: now,
       role: 'leader',
-      weeklyContributionXp: 50,
-      currentStreak: 1,
-      lastLoggedAt: now,
-      joinedAt: now,
+      xp: 50,
     );
 
-    final challenge = PlanetaryChallenge(
-      id: 'challenge_${DateTime.now().millisecondsSinceEpoch}',
-      planetTheme: avatarPlanet,
-      title: 'Khám Phá Hành Tinh: 50,000 Kcal Lành Mạnh',
-      targetValue: 50000,
-      currentValue: 50,
-      startDate: now,
-      endDate: now.add(const Duration(days: 7)),
-      status: 'active',
+    final challenge = GuildMockSeeds.buildInitialChallenge(
+      avatarPlanet: avatarPlanet,
+      now: now,
     );
 
     final newGuild = Guild(
-      id: 'guild_${DateTime.now().millisecondsSinceEpoch}',
-      name: trimmedName,
+      id: 'guild_${now.millisecondsSinceEpoch}',
+      name: name.trim(),
       description: description.trim(),
       avatarPlanet: avatarPlanet,
       inviteCode: code,
@@ -200,24 +105,16 @@ class MockGuildRepository implements GuildRepository {
     if (targetGuild == null) {
       throw ArgumentError('Không tìm thấy Bang hội với mã mời này');
     }
-
     if (targetGuild.isFull) {
       throw StateError('Bang hội đã đạt tối đa 20 thành viên');
     }
-
-    if (targetGuild.memberIds.contains(userId)) {
-      return targetGuild;
-    }
+    if (targetGuild.memberIds.contains(userId)) return targetGuild;
 
     final now = DateTime.now();
-    final newMember = GuildMember(
+    final newMember = GuildMockSeeds.buildNewMember(
       userId: userId,
       displayName: userDisplayName,
-      role: 'member',
-      weeklyContributionXp: 0,
-      currentStreak: 1,
-      lastLoggedAt: now,
-      joinedAt: now,
+      now: now,
     );
 
     final updatedMembers = [...targetGuild.members, newMember];
@@ -301,7 +198,6 @@ class MockGuildRepository implements GuildRepository {
     required String senderId,
     required String targetUserId,
   }) async {
-    // Simulate nudge action
     await Future.delayed(const Duration(milliseconds: 50));
   }
 
@@ -314,19 +210,14 @@ class MockGuildRepository implements GuildRepository {
     required String avatarPlanet,
   }) async {
     final guild = _guilds[guildId];
-    if (guild == null) {
-      throw ArgumentError('Không tìm thấy bang hội');
-    }
+    if (guild == null) throw ArgumentError('Không tìm thấy bang hội');
     if (!guild.canEditGuild(actorId)) {
       throw StateError('Chỉ Trưởng Bang hoặc Phó Bang mới có quyền chỉnh sửa thông tin');
     }
-    final trimmedName = name.trim();
-    if (trimmedName.length < 3 || trimmedName.length > 30) {
-      throw ArgumentError('Tên bang hội phải từ 3 đến 30 ký tự');
-    }
+    GuildMockSeeds.validateGuildName(name);
 
     final updated = guild.copyWith(
-      name: trimmedName,
+      name: name.trim(),
       description: description.trim(),
       avatarPlanet: avatarPlanet,
     );
@@ -422,7 +313,7 @@ class MockGuildRepository implements GuildRepository {
       if (m.userId == newLeaderId) {
         return m.copyWith(role: 'leader');
       } else if (m.userId == currentLeaderId) {
-        return m.copyWith(role: 'elder'); // Cựu thủ lĩnh lùi về làm Phó Bang / Trưởng lão
+        return m.copyWith(role: 'elder');
       }
       return m;
     }).toList();
@@ -433,12 +324,6 @@ class MockGuildRepository implements GuildRepository {
     );
     _guilds[guildId] = updated;
     _guildStreamController.add(updated);
-  }
-
-  String _generateInviteCode() {
-    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-    final random = Random();
-    return List.generate(6, (index) => chars[random.nextInt(chars.length)]).join();
   }
 
   void dispose() {

@@ -5,6 +5,8 @@ import 'package:astrobite/shared/ui_kit/ui_kit.dart';
 import '../../domain/models/guild.dart';
 import '../../domain/models/guild_member.dart';
 import '../controllers/guild_controller.dart';
+import 'member_action_dialogs.dart';
+import 'member_action_header_card.dart';
 
 class MemberActionSheet extends ConsumerWidget {
   final GuildMember member;
@@ -66,87 +68,7 @@ class MemberActionSheet extends ConsumerWidget {
           const SizedBox(height: 18),
 
           // Member Header Card
-          ClayCard(
-            borderRadius: 20,
-            padding: const EdgeInsets.all(16),
-            backgroundColor: AppColors.surfaceContainer,
-            child: Row(
-              children: [
-                // Avatar
-                Container(
-                  width: 52,
-                  height: 52,
-                  decoration: BoxDecoration(
-                    color: member.isLeader
-                        ? AppColors.clayDinner
-                        : member.isElder
-                            ? AppColors.clayLunch
-                            : AppColors.clayMint,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Center(
-                    child: Text(
-                      member.displayName.isNotEmpty
-                          ? member.displayName[0].toUpperCase()
-                          : '?',
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                            fontWeight: FontWeight.w800,
-                            color: AppColors.onSurface,
-                          ),
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 14),
-
-                // Info
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Flexible(
-                            child: Text(
-                              member.displayName,
-                              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: AppColors.onSurface,
-                                  ),
-                            ),
-                          ),
-                          const SizedBox(width: 6),
-                          _buildRoleBadge(context, member.role),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          const Clay3DFlame(size: 14),
-                          const SizedBox(width: 4),
-                          Text(
-                            '${member.currentStreak} ngày streak',
-                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                  color: AppColors.onSurfaceVariant,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                          ),
-                          const SizedBox(width: 8),
-                          Container(width: 3, height: 3, decoration: const BoxDecoration(color: AppColors.outline, shape: BoxShape.circle)),
-                          const SizedBox(width: 8),
-                          Text(
-                            '${member.weeklyContributionXp} XP tuần',
-                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                  color: AppColors.brandGreen,
-                                  fontWeight: FontWeight.w800,
-                                ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
+          MemberActionHeaderCard(member: member),
           const SizedBox(height: 18),
 
           // Actions
@@ -214,7 +136,11 @@ class MemberActionSheet extends ConsumerWidget {
                 tileColor: AppColors.surfaceContainer,
                 onTap: () {
                   Navigator.of(context).pop();
-                  _confirmTransfer(context, ref);
+                  MemberActionDialogs.confirmTransfer(
+                    context: context,
+                    ref: ref,
+                    member: member,
+                  );
                 },
               ),
               const SizedBox(height: 10),
@@ -233,7 +159,11 @@ class MemberActionSheet extends ConsumerWidget {
                 tileColor: AppColors.surfaceContainer,
                 onTap: () {
                   Navigator.of(context).pop();
-                  _confirmKick(context, ref);
+                  MemberActionDialogs.confirmKick(
+                    context: context,
+                    ref: ref,
+                    member: member,
+                  );
                 },
               ),
             ],
@@ -253,99 +183,6 @@ class MemberActionSheet extends ConsumerWidget {
               tileColor: AppColors.surfaceContainer,
             ),
           ],
-        ],
-      ),
-    );
-  }
-
-  Widget _buildRoleBadge(BuildContext context, String role) {
-    Color bg;
-    Color fg;
-    Color border;
-    String label;
-
-    switch (role) {
-      case 'leader':
-        bg = AppColors.clayDinner;
-        fg = const Color(0xFF6B21A8);
-        border = const Color(0xFFD8B4FE);
-        label = 'Bang Chủ';
-        break;
-      case 'elder':
-        bg = AppColors.clayLunch;
-        fg = const Color(0xFF0369A1);
-        border = const Color(0xFFBAE6FD);
-        label = 'Phó Bang';
-        break;
-      default:
-        bg = const Color(0xFFF3F4F6);
-        fg = const Color(0xFF4B5563);
-        border = const Color(0xFFE5E7EB);
-        label = 'Thành viên';
-    }
-
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 2),
-      decoration: BoxDecoration(
-        color: bg,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: border, width: 1),
-      ),
-      child: Text(
-        label,
-        style: TextStyle(
-          color: fg,
-          fontWeight: FontWeight.w800,
-          fontSize: 10,
-        ),
-      ),
-    );
-  }
-
-  void _confirmTransfer(BuildContext context, WidgetRef ref) {
-    showDialog(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: const Text('Chuyển Giao Bang Chủ', style: TextStyle(fontWeight: FontWeight.w900)),
-        content: Text(
-          'Bạn có chắc chắn muốn chuyển giao toàn bộ quyền Bang Chủ cho "${member.displayName}"? '
-          'Sau khi chuyển giao, bạn sẽ trở thành Phó Bang.',
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(),
-            child: const Text('Hủy'),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.of(ctx).pop();
-              ref.read(guildControllerProvider.notifier).transferLeadership(member.userId);
-            },
-            child: const Text('Xác Nhận Chuyển Giao', style: TextStyle(color: Color(0xFF7C3AED))),
-          ),
-        ],
-      ),
-    );
-  }
-
-  void _confirmKick(BuildContext context, WidgetRef ref) {
-    showDialog(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: const Text('Mời Rời Bang Hội'),
-        content: Text('Bạn có chắc chắn muốn loại thành viên "${member.displayName}" khỏi bang hội?'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(),
-            child: const Text('Hủy'),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.of(ctx).pop();
-              ref.read(guildControllerProvider.notifier).kickMember(member.userId);
-            },
-            child: const Text('Đồng Ý Loại', style: TextStyle(color: Color(0xFFEF4444))),
-          ),
         ],
       ),
     );
