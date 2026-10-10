@@ -1,25 +1,25 @@
 # Kế Hoạch Sprint Hiện Hành (Sprint Backlog)
 
 - **Quản lý bởi**: Sub-Agent Product Owner (PO) & Sub-Agent Project Manager (PM)
-- **Sprint hiện tại**: Sprint 23
-- **Tên Sprint**: AI Coach & Scanner God Files Elimination
-- **Mã Epic / Feature**: `EPIC-REF-02` / `FEAT-S23-COACH-SCANNER`
-- **Phiên bản mục tiêu**: `v3.3.0`
+- **Sprint hiện tại**: Sprint 24
+- **Tên Sprint**: Recipes & Meal Planning God Files Elimination
+- **Mã Epic / Feature**: `EPIC-REF-03` / `FEAT-S24-RECIPES`
+- **Phiên bản mục tiêu**: `v3.4.0`
 - **Thời gian Sprint**: 10/10/2026 – 24/10/2026
 - **Trạng thái Sprint**: 🏁 **COMPLETED**
 - **Tổng Story Points cam kết**: **13 SP** (Tiến độ: **13 / 13 SP — 100%**)
 
 ---
 
-## 🎯 Mục Tiêu Sprint 23: AI Coach & Scanner God Files Elimination
+## 🎯 Mục Tiêu Sprint 24: Recipes & Meal Planning God Files Elimination
 
-1. **Kiến Trúc & Bóc Tách Coach & Scanner (Gate 0 & Gate 1 — 3 SP)**: Ban hành Architectural Spec & PRD giải phẫu 2 God Files lớn nhất dự án: `coach_page.dart` (2,153 dòng) và `scan_review_page.dart` (1,482 dòng).
-2. **Giải Phẫu God File `coach_page.dart` (2,153 dòng — 5 SP)**: Bóc tách thành 10 sub-widgets chuyên trách, đưa file chính về **344 dòng** (< 350 dòng, -84.0%).
-3. **Giải Phẫu God File `scan_review_page.dart` (1,482 dòng — 5 SP)**: Bóc tách thành 9 sub-widgets chuyên biệt, đưa file chính về **340 dòng** (< 350 dòng, -77.1%).
+1. **Kiến Trúc & Bóc Tách Recipes Feature (Gate 0 & Gate 1 — 3 SP)**: Ban hành Architectural Spec ADR-030 & PRD giải phẫu 2 God Files lớn nhất: `recipe_builder_page.dart` (984 dòng) và `recipes_page.dart` (646 dòng).
+2. **Giải Phẫu God File `recipe_builder_page.dart` (984 dòng — 5 SP)**: Bóc tách thành 5 sub-widgets chuyên trách, đưa file chính về **245 dòng** (< 350 dòng, -75.1%).
+3. **Giải Phẫu God File `recipes_page.dart` (646 dòng — 5 SP)**: Bóc tách thành 3 sub-widgets chuyên biệt, đưa file chính về **161 dòng** (< 350 dòng, -75.1%).
 
 ---
 
-## 📋 Bảng Kanban Sprint 23
+## 📋 Bảng Kanban Sprint 24
 
 ### 1. 📝 BACKLOG / QUEUED — [0 SP]
 
@@ -28,12 +28,21 @@
 ### 3. 🏁 DONE — [13 SP]
 | Mã Task | Màn Hình / File | Gate | Mô Tả | Sub-Agent Phụ Trách | SP | Trạng Thái |
 |:---|:---|:---:|:---|---|:---:|:---|
-| `TSK-S23-00-SPIKE` | `docs/superpowers/specs/2026-10-10-sprint-23-coach-scanner-refactoring-design.md` | **G0** | Tech Lead: Architectural Spec & ADR-029 cho Coach & Scanner | `tech-lead` | 1 | 🏁 **DONE** |
-| `TSK-S23-01-PRD` | `docs/03-prd-features/30-coach-scanner-refactoring/` | **G1** | BA: Soạn PRD & User Stories BDD luồng Coach & Scan Review | `business-analyst` | 2 | 🏁 **DONE** |
-| `TSK-S23-02-DESIGN` | `docs/03-prd-features/30-coach-scanner-refactoring/ui-design.md` | **G2** | UI/UX Designer: Component Layout Blueprint lưới 4pt | `ui-ux-designer` | 2 | 🏁 **DONE** |
-| `TSK-S23-03-TEST-PLAN` | `docs/03-prd-features/30-coach-scanner-refactoring/gate-3-test.md` | **G3** | QA Tester: Regression Test Plan cho Coach & Scanner | `qa-tester` | 1 | 🏁 **DONE** |
-| `TSK-S23-04-COACH` | `features/coach/presentation/coach_page.dart` | **G4** | Dev FE: Bóc tách `coach_page.dart` (2,153 ➔ 344 dòng) | `flutter-core-dev` | 4 | 🏁 **DONE** |
-| `TSK-S23-05-SCANREVIEW` | `features/scanner/presentation/pages/scan_review_page.dart` | **G4** | Dev FE: Bóc tách `scan_review_page.dart` (1,482 ➔ 340 dòng) | `flutter-core-dev` | 3 | 🏁 **DONE** |
+| `TSK-S24-00-SPIKE` | `docs/superpowers/specs/2026-10-10-sprint-24-recipes-refactoring-design.md` | **G0** | Tech Lead: Architectural Spec & ADR-030 cho Recipes Refactoring | `tech-lead` | 1 | 🏁 **DONE** |
+| `TSK-S24-01-PRD` | `docs/03-prd-features/31-recipes-refactoring/` | **G1** | BA: Soạn PRD & User Stories BDD luồng Recipe & Ingredients | `business-analyst` | 2 | 🏁 **DONE** |
+| `TSK-S24-02-DESIGN` | `docs/03-prd-features/31-recipes-refactoring/ui-design.md` | **G2** | UI/UX Designer: Component Layout Blueprint lưới 4pt | `ui-ux-designer` | 2 | 🏁 **DONE** |
+| `TSK-S24-03-TEST-PLAN` | `docs/03-prd-features/31-recipes-refactoring/gate-3-test.md` | **G3** | QA Tester: Regression Test Plan cho Recipes | `qa-tester` | 1 | 🏁 **DONE** |
+| `TSK-S24-04-BUILDER` | `features/recipes/presentation/pages/recipe_builder_page.dart` | **G4** | Dev FE: Bóc tách `recipe_builder_page.dart` (984 ➔ 245 dòng) | `flutter-core-dev` | 4 | 🏁 **DONE** |
+| `TSK-S24-05-RECIPES` | `features/recipes/presentation/pages/recipes_page.dart` | **G4** | Dev FE: Bóc tách `recipes_page.dart` (646 ➔ 161 dòng) | `flutter-core-dev` | 3 | 🏁 **DONE** |
+
+---
+
+## 🏛️ Lịch Sử Các Sprint Đã Hoàn Thành (Sprint Archive)
+
+### 🟢 Sprint 23 — AstroBite v3.3.0 AI Coach & Scanner God Files Elimination (Hoàn tất 10/10/2026)
+- **Mục tiêu**: Bóc tách `coach_page.dart` (2,153 ➔ 344 dòng) và `scan_review_page.dart` (1,482 ➔ 340 dòng) thành 19 sub-widgets chuyên trách.
+- **Kết quả**: **13 / 13 SP (100% Passed)** — 320/320 tests pass thực chất, `flutter analyze` 0 issues, Gate 7 Approved.
+- **Biên bản phát hành**: `docs/05-change-management/release-v3.3.0.md`
 
 ---
 
