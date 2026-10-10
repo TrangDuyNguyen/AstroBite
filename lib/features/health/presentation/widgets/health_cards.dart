@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:astrobite/core/theme/app_colors.dart';
+import 'package:astrobite/core/utils/format_utils.dart';
 import 'package:astrobite/shared/ui_kit/surfaces/clay_card.dart';
+
 import 'package:astrobite/shared/ui_kit/buttons/clay_button.dart';
 import '../../domain/health_activity.dart';
 import '../health_controller.dart';
@@ -294,7 +296,8 @@ class StepsActivityCard extends ConsumerWidget {
             Row(
               children: [
                 Text(
-                  '🚶 ${_formatNumber(activity.steps)} bước',
+                  '🚶 ${FormatUtils.formatCompactNumber(activity.steps)} bước',
+
                   style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                         color: AppColors.onSurface,
                         fontWeight: FontWeight.bold,
@@ -346,9 +349,5 @@ class StepsActivityCard extends ConsumerWidget {
         ),
     );
   }
-
-  String _formatNumber(int number) {
-    if (number < 1000) return '$number';
-    return '${(number / 1000).toStringAsFixed(1)}k';
-  }
 }
+

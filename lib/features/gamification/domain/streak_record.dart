@@ -1,4 +1,6 @@
 import 'dart:math';
+import 'package:astrobite/core/utils/date_utils.dart';
+
 
 /// Celestial milestone badge definition.
 class CosmicBadge {
@@ -82,20 +84,12 @@ class StreakRecord {
   bool get hasShield => starlightShields > 0;
 
   /// Formats a DateTime to standardized yyyy-MM-dd format.
-  static String formatDate(DateTime date) {
-    final y = date.year.toString().padLeft(4, '0');
-    final m = date.month.toString().padLeft(2, '0');
-    final d = date.day.toString().padLeft(2, '0');
-    return '$y-$m-$d';
-  }
+  static String formatDate(DateTime date) => AppDateUtils.formatIsoDate(date);
 
   /// Calculates day difference between two yyyy-MM-dd strings.
-  static int _daysBetween(String date1, String date2) {
-    final d1 = DateTime.parse(date1);
-    final d2 = DateTime.parse(date2);
-    final diff = d2.difference(d1).inHours / 24.0;
-    return diff.round();
-  }
+  static int _daysBetween(String date1, String date2) =>
+      AppDateUtils.daysBetweenIso(date1, date2);
+
 
   /// Evaluates and produces a new [StreakRecord] upon logging a meal on [logDateStr].
   StreakRecord recordMeal(String logDateStr) {

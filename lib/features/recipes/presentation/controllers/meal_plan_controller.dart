@@ -1,4 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:astrobite/core/utils/date_utils.dart';
+
 import '../../domain/entities/meal_plan_item.dart';
 import '../../data/repositories/meal_plan_repository_impl.dart';
 import '../../recipes_providers.dart';
@@ -10,13 +12,9 @@ import '../../../tracker/data/models/food_log_dto.dart';
 /// ISO date string (YYYY-MM-DD) currently visible on the Meal Planner calendar.
 /// Defaults to today.
 final selectedPlanDateProvider = StateProvider<String>(
-  (_) => _todayIso(),
+  (_) => AppDateUtils.todayIsoDate(),
 );
 
-String _todayIso() {
-  final now = DateTime.now();
-  return '${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}';
-}
 
 // ── Meal Plan Items provider ──────────────────────────────────────────────────
 
