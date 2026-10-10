@@ -6,7 +6,26 @@
 
 ---
 
-## 🏗️ 1. Bảng Ma Trận Phân Rã WBS Sprint 24 (v3.4.0 Recipes Modular Architecture — 🟢 100% Done)
+## 🏛️ 1. Lưu Trữ Ma Trận Phân Rã WBS Sprint 25 (v3.5.0 Camera Scanner Pipeline — 🟢 100% Done)
+
+### EPIC-REF-04: Camera Scanner Pipeline Modular Clean Architecture (`FEAT-S25-CAMERA-SCANNER` — 13 SP)
+
+| Mã Task | Feature / Epic | Cổng Chất Lượng | Mô Tả Nhiệm Vụ Kỹ Thuật | Sub-Agent Đảm Nhiệm | SP | Phụ Thuộc | Trạng Thái |
+| :--- | :--- | :---: | :--- | :---: | :---: | :---: | :---: |
+| **`TSK-S25-00-SPIKE`** | Kiến trúc Bóc Tách | **Gate 0** | Tech Lead: Architectural Spec & ADR-031 cho Scanner Pipeline | `tech-lead` | 1 | None | 🟢 **Gate 0 Approved** |
+| **`TSK-S25-01-PRD`** | `prd-s25.md` | **Gate 1** | BA: Soạn PRD & User Stories BDD luồng Camera & Viewfinder | `business-analyst` | 2 | TSK-S25-00-SPIKE | 🟢 **Gate 1 Approved** |
+| **`TSK-S25-02-DESIGN`** | `ui-ux-design.md`| **Gate 2** | UI/UX Designer: Component Layout Blueprint lưới 4pt cho Scanner | `ui-ux-designer` | 2 | TSK-S25-01-PRD | 🟢 **Gate 2 Approved** |
+| **`TSK-S25-03-TEST-PLAN`**| `gate-3-test.md` | **Gate 3** | QA Tester: Regression Test Plan cho Scanner Pipeline | `qa-tester` | 1 | TSK-S25-02-DESIGN | 🟢 **Gate 3 Approved** |
+| **`TSK-S25-04-CAMERA`** | `camera_page.dart` | **Gate 4** | Dev FE: Bóc tách camera_page.dart (965 ➔ 266 dòng) | `flutter-native-dev` | 4 | TSK-S25-03-TEST-PLAN | 🟢 **Gate 4 Done** |
+| **`TSK-S25-05-VIEWFINDER`**| `scanning_viewfinder.dart`| **Gate 4** | Dev FE: Bóc tách scanning_viewfinder.dart (616 ➔ 256 dòng) | `flutter-core-dev` | 3 | TSK-S25-03-TEST-PLAN | 🟢 **Gate 4 Done** |
+| **`TSK-S25-06-REVIEW`** | Quality Gate | **Gate 5** | Reviewer: Ponytail Diff Review, check hard cap < 350 dòng | `code-reviewer` | - | Gate 4 | 🟢 **Gate 5 Approved** |
+| **`TSK-S25-07-QA-VERIFY`**| Quality Gate | **Gate 6** | QA Tester: Test pass 322/322 (100%), analyze 0 issues | `qa-tester` | - | Gate 5 | 🟢 **Gate 6 Signed Off** |
+| **`TSK-S25-08-SECURITY`** | Security Gate | **Gate 6.5** | Security Auditor: Rà soát Camera lifecycle & API error sanitization | `security-auditor` | - | Gate 6 | 🟢 **Gate 6.5 Approved** |
+| **`TSK-S25-09-RELEASE`** | Milestone | **Gate 7** | PO, PM & Tech Lead: Release Clearance v3.5.0 | `product-owner` | - | Gate 6.5 | 🟢 **Gate 7 Released** |
+
+---
+
+## 🏛️ 2. Lưu Trữ Ma Trận Phân Rã WBS Sprint 24 (v3.4.0 Recipes Modular Architecture — 🟢 100% Done)
 
 ### EPIC-REF-03: Recipes & Meal Planning God Files Elimination (`FEAT-S24-RECIPES` — 13 SP)
 
