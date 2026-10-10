@@ -1,3 +1,4 @@
+import 'package:astrobite/core/constants/profile_enums.dart';
 import 'package:astrobite/core/utils/nutrition_calculator.dart';
 
 class UserProfile {
@@ -25,18 +26,22 @@ class UserProfile {
   final double? targetWeightKg;
   final String fitnessGoal;
 
+  Gender get genderEnum => Gender.fromValue(gender);
+  ActivityLevel get activityLevelEnum => ActivityLevel.fromValue(activityLevel);
+  FitnessGoal get fitnessGoalEnum => FitnessGoal.fromValue(fitnessGoal);
+
   int get age => DateTime.now().year - birthYear;
 
   double get bmr => NutritionCalculator.calculateBMR(
         weightKg: weightKg,
         heightCm: heightCm,
         age: age,
-        gender: gender,
+        gender: genderEnum,
       );
 
   double get tdee => NutritionCalculator.calculateTDEE(
         bmr: bmr,
-        activityLevel: activityLevel,
+        activityLevel: activityLevelEnum,
       );
 
   double get bmi {
@@ -57,14 +62,14 @@ class UserProfile {
   factory UserProfile.defaultProfile(String uid) {
     return UserProfile(
       uid: uid,
-      gender: 'male',
-      birthYear: 1995,
-      heightCm: 170,
-      weightKg: 65,
-      activityLevel: 'moderate',
-      dailyTargetCalories: 2000,
+      gender: ProfileDefaults.gender.value,
+      birthYear: ProfileDefaults.birthYear,
+      heightCm: ProfileDefaults.heightCm,
+      weightKg: ProfileDefaults.weightKg,
+      activityLevel: ProfileDefaults.activityLevel.value,
+      dailyTargetCalories: ProfileDefaults.dailyTargetCalories,
       isOnboardingCompleted: false,
-      fitnessGoal: 'maintain',
+      fitnessGoal: ProfileDefaults.fitnessGoal.value,
     );
   }
 }
