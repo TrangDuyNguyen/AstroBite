@@ -6,8 +6,10 @@ import 'package:astrobite/core/constants/app_strings.dart';
 import 'package:astrobite/core/router/app_router.dart';
 import 'package:astrobite/features/gamification/presentation/widgets/cosmic_streak_badge.dart';
 import 'package:astrobite/shared/ui_kit/ui_kit.dart';
+import 'package:astrobite/core/utils/date_utils.dart';
 import '../../domain/tracker_providers.dart';
 import 'celestial_time_avatar.dart';
+
 
 /// Celestial Top AppBar for the Tracker/Dashboard screen.
 ///
@@ -38,23 +40,9 @@ class DashboardAppBar extends ConsumerWidget implements PreferredSizeWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedDate = ref.watch(selectedDateProvider);
     final now = currentTime ?? DateTime.now();
-    final isToday = selectedDate.year == now.year &&
-        selectedDate.month == now.month &&
-        selectedDate.day == now.day;
+    final isToday = AppDateUtils.isSameDay(selectedDate, now);
+    final dateSubtitle = AppDateUtils.formatVietnameseDate(selectedDate);
 
-    final weekdayStr = switch (selectedDate.weekday) {
-      DateTime.monday => 'Thứ Hai',
-      DateTime.tuesday => 'Thứ Ba',
-      DateTime.wednesday => 'Thứ Tư',
-      DateTime.thursday => 'Thứ Năm',
-      DateTime.friday => 'Thứ Sáu',
-      DateTime.saturday => 'Thứ Bảy',
-      DateTime.sunday => 'Chủ Nhật',
-      _ => '',
-    };
-
-    final dateSubtitle =
-        '$weekdayStr, ${selectedDate.day.toString().padLeft(2, '0')} Th${selectedDate.month.toString().padLeft(2, '0')}';
 
     return AppBar(
       backgroundColor: Colors.transparent,

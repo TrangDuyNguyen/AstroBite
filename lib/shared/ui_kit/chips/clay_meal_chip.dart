@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:astrobite/core/constants/app_strings.dart';
 import 'package:astrobite/core/constants/app_values.dart';
+
+
 import 'package:astrobite/core/theme/app_colors.dart';
+
+import 'package:astrobite/core/constants/meal_enums.dart';
 
 /// Claymorphic Chip component for meal type selection (Sáng / Trưa / Tối / Ăn vặt).
 /// Features 24pt capsule pill radius, pastel tints, and tactile press animation.
@@ -17,37 +20,12 @@ class ClayMealChip extends StatelessWidget {
   final bool isSelected;
   final VoidCallback onTap;
 
-  String get _label => switch (mealType) {
-    'breakfast' => AppStrings.breakfast,
-    'lunch'     => AppStrings.lunch,
-    'dinner'    => AppStrings.dinner,
-    'snack'     => AppStrings.snack,
-    _           => mealType,
-  };
+  MealType get _type => MealType.fromValue(mealType);
+  String get _label => _type.label;
+  IconData get _iconData => _type.icon;
+  Color get _iconColor => _type.color;
+  Color get _unselectedBg => _type.clayBgColor;
 
-  IconData get _iconData => switch (mealType) {
-    'breakfast' => Icons.wb_twilight_rounded,
-    'lunch'     => Icons.wb_sunny_rounded,
-    'dinner'    => Icons.nightlight_round,
-    'snack'     => Icons.apple_rounded,
-    _           => Icons.restaurant_rounded,
-  };
-
-  Color get _iconColor => switch (mealType) {
-    'breakfast' => AppColors.tertiary,
-    'lunch'     => AppColors.primary,
-    'dinner'    => const Color(0xFF9D65FF),
-    'snack'     => AppColors.secondary,
-    _           => AppColors.primary,
-  };
-
-  Color get _unselectedBg => switch (mealType) {
-    'breakfast' => AppColors.clayBreakfast,
-    'lunch'     => AppColors.clayLunch,
-    'dinner'    => AppColors.clayDinner,
-    'snack'     => AppColors.claySnack,
-    _           => AppColors.shimmerBase,
-  };
 
   @override
   Widget build(BuildContext context) {

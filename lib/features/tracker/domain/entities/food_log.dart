@@ -1,3 +1,5 @@
+import 'meal_enums.dart';
+
 class FoodLog {
   const FoodLog({
     required this.id,
@@ -37,5 +39,7 @@ class FoodLog {
   final String syncStatus;
   final List<Map<String, dynamic>>? dishes;
 
+  MealType get mealTypeEnum => MealType.fromValue(mealType);
   bool get isHighSodium => sodiumMg > 800.0;
 }
+
