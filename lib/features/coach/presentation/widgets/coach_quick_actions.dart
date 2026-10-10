@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import 'package:astrobite/features/tracker/domain/daily_summary.dart';
+import 'package:astrobite/l10n/app_localizations.dart';
 
 /// Collapsible dynamic quick actions, question suggestions, and medical disclaimer.
 class CoachQuickActions extends StatelessWidget {
@@ -27,33 +29,60 @@ class CoachQuickActions extends StatelessWidget {
   final ValueChanged<bool> onToggleShow;
   final ValueChanged<String> onSelectPrompt;
 
-  static List<String> getDynamicQuickActions(DailySummary summary, int shuffleIndex) {
+  static List<String> getDynamicQuickActions(
+    DailySummary summary,
+    int shuffleIndex, [
+    AppLocalizations? l10n,
+  ]) {
     final hour = DateTime.now().hour;
     final contextSuggestions = <String>[];
 
     // 1. Dynamic Context-Aware Insights based on user's real-time nutrition
     final remainingCal = summary.targetCalories - summary.totalCalories;
     if (remainingCal > 800) {
-      contextSuggestions.add('🔥 Còn $remainingCal kcal, ăn gì no lâu?');
+      contextSuggestions.add(
+        l10n != null
+            ? l10n.promptRemainingCaloriesLongFull(remainingCal)
+            : '🔥 Còn $remainingCal kcal, ăn gì no lâu?',
+      );
     } else if (remainingCal > 0 && remainingCal <= 400) {
-      contextSuggestions.add('🥗 Còn $remainingCal kcal, món nhẹ dưới 300 kcal?');
+      contextSuggestions.add(
+        l10n != null
+            ? l10n.promptRemainingCaloriesLight(remainingCal)
+            : '🥗 Còn $remainingCal kcal, món nhẹ dưới 300 kcal?',
+      );
     } else if (remainingCal <= 0 && summary.totalCalories > 0) {
-      contextSuggestions.add('⚠️ Vượt ${summary.totalCalories - summary.targetCalories} kcal, mẹo cân bằng?');
+      final exceeded = summary.totalCalories - summary.targetCalories;
+      contextSuggestions.add(
+        l10n != null
+            ? l10n.promptExceededCalories(exceeded)
+            : '⚠️ Vượt $exceeded kcal, mẹo cân bằng?',
+      );
     }
 
     final remainingProtein = summary.targetProteinG - summary.totalProteinG;
     if (remainingProtein > 20) {
-      contextSuggestions.add('🥩 Thiếu ${remainingProtein}g đạm, ăn gì bù nhanh?');
+      contextSuggestions.add(
+        l10n != null
+            ? l10n.promptDeficitProtein(remainingProtein)
+            : '🥩 Thiếu ${remainingProtein}g đạm, ăn gì bù nhanh?',
+      );
     } else if (remainingProtein <= 0 && summary.totalProteinG > 0) {
-      contextSuggestions.add('💪 Đã đủ đạm, ăn gì tiếp không thừa calo?');
+      contextSuggestions.add(
+        l10n?.promptSufficientProtein ?? '💪 Đã đủ đạm, ăn gì tiếp không thừa calo?',
+      );
     }
 
     if (summary.totalSodiumMg >= 1500) {
-      contextSuggestions.add('🧂 Lượng natri cao, cách giảm tích nước?');
+      contextSuggestions.add(
+        l10n?.promptHighSodium ?? '🧂 Lượng natri cao, cách giảm tích nước?',
+      );
     }
 
     if (summary.totalFiberG < 10 && summary.logs.isNotEmpty) {
-      contextSuggestions.add('🥦 Gợi ý món nhiều chất xơ dễ tiêu hóa');
+      contextSuggestions.add(
+        l10n?.promptHighFiber ?? '🥦 Gợi ý món nhiều chất xơ dễ tiêu hóa',
+      );
     }
 
     // 2. Time-of-Day Rich Pools
@@ -125,7 +154,7 @@ class CoachQuickActions extends StatelessWidget {
     }
 
     return [
-      '🎲 Đổi gợi ý khác',
+      l10n?.shuffleSuggestions ?? '🎲 Đổi gợi ý khác',
       ...contextSuggestions.take(2),
       ...selectedQuestions,
     ];
@@ -134,7 +163,8 @@ class CoachQuickActions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (isSending || isKeyboardOpen) return const SizedBox.shrink();
-    final actions = getDynamicQuickActions(summary, shuffleIndex);
+    final l10n = context.l10n;
+    final actions = getDynamicQuickActions(summary, shuffleIndex, l10n);
 
     return AnimatedSize(
       duration: const Duration(milliseconds: 250),
@@ -143,15 +173,15 @@ class CoachQuickActions extends StatelessWidget {
           ? Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                _buildQuickActions(actions),
-                _buildMedicalDisclaimer(),
+                _buildQuickActions(context, actions, l10n),
+                _buildMedicalDisclaimer(l10n),
               ],
             )
-          : _buildSuggestionsTogglePill(actions.length - 1),
+          : _buildSuggestionsTogglePill(actions.length - 1, l10n),
     );
   }
 
-  Widget _buildSuggestionsTogglePill(int count) {
+  Widget _buildSuggestionsTogglePill(int count, AppLocalizations l10n) {
     return Center(
       child: Padding(
         padding: const EdgeInsets.only(bottom: 6),
@@ -187,7 +217,7 @@ class CoachQuickActions extends StatelessWidget {
                   ),
                   const SizedBox(width: 6),
                   Text(
-                    'Gợi ý câu hỏi ($count)',
+                    l10n.questionSuggestions(count),
                     style: GoogleFonts.inter(
                       fontSize: 11.5,
                       fontWeight: FontWeight.w700,
@@ -209,7 +239,7 @@ class CoachQuickActions extends StatelessWidget {
     );
   }
 
-  Widget _buildMedicalDisclaimer() {
+  Widget _buildMedicalDisclaimer(AppLocalizations l10n) {
     return Center(
       child: Container(
         margin: const EdgeInsets.only(top: 4, bottom: 4),
@@ -219,7 +249,7 @@ class CoachQuickActions extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
         ),
         child: Text(
-          '⚕️ AI gợi ý tham khảo, không thay thế chuyên gia y tế',
+          l10n.medicalDisclaimer,
           style: GoogleFonts.inter(
             fontSize: 10.5,
             color: AppColors.onSurfaceVariant,
@@ -231,7 +261,11 @@ class CoachQuickActions extends StatelessWidget {
     );
   }
 
-  Widget _buildQuickActions(List<String> actions) {
+  Widget _buildQuickActions(
+    BuildContext context,
+    List<String> actions,
+    AppLocalizations l10n,
+  ) {
     return SizedBox(
       height: 48,
       child: Row(
@@ -245,7 +279,7 @@ class CoachQuickActions extends StatelessWidget {
               separatorBuilder: (_, __) => const SizedBox(width: 8),
               itemBuilder: (_, index) {
                 final action = actions[index];
-                final isShuffle = action == '🎲 Đổi gợi ý khác';
+                final isShuffle = index == 0;
 
                 return ActionChip(
                   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -282,7 +316,7 @@ class CoachQuickActions extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(right: 14),
             child: Tooltip(
-              message: 'Thu gọn gợi ý',
+              message: l10n.collapseSuggestions,
               child: Material(
                 color: Colors.transparent,
                 child: InkWell(

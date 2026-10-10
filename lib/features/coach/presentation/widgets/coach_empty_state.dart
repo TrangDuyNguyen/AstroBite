@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import 'package:astrobite/features/tracker/domain/daily_summary.dart';
 
 /// Empty state widget for Coach page with mascot and greeting.
@@ -13,6 +14,8 @@ class CoachEmptyState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+
     return Center(
       child: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
@@ -44,10 +47,10 @@ class CoachEmptyState extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-            const Text(
-              'Xin chào! Tôi là AstroBot ✨',
+            Text(
+              l10n.coachWelcomeTitle,
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 17,
                 fontWeight: FontWeight.bold,
                 color: AppColors.onSurface,
@@ -55,7 +58,7 @@ class CoachEmptyState extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              'Hôm nay bạn đã nạp ${summary.totalCalories} kcal (${summary.totalProteinG}g Protein).\nHãy chọn câu hỏi nhanh bên dưới hoặc nhập thực đơn bạn muốn tư vấn!',
+              l10n.coachWelcomeBody(summary.totalCalories, summary.totalProteinG),
               textAlign: TextAlign.center,
               style: const TextStyle(
                 fontSize: 13,

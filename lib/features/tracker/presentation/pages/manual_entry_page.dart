@@ -74,7 +74,7 @@ class _ManualEntryPageState extends ConsumerState<ManualEntryPage> {
     if (user == null) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Vui lòng đăng nhập để lưu nhật ký')),
+          SnackBar(content: Text(context.l10n.loginToSaveLog)),
         );
         setState(() => _isSaving = false);
       }
@@ -96,7 +96,10 @@ class _ManualEntryPageState extends ConsumerState<ManualEntryPage> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-              'Đã lưu ${log.dishName} vào ${_selectedMeal.label}!',
+              context.l10n.savedFoodToMeal(
+                log.dishName,
+                _selectedMeal.localizedLabel(context),
+              ),
             ),
           ),
         );
@@ -107,7 +110,7 @@ class _ManualEntryPageState extends ConsumerState<ManualEntryPage> {
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Lỗi khi lưu nhật ký: $e')),
+          SnackBar(content: Text(context.l10n.errorSavingLog(e.toString()))),
         );
         setState(() => _isSaving = false);
       }
@@ -180,7 +183,7 @@ class _ManualEntryPageState extends ConsumerState<ManualEntryPage> {
           Padding(
             padding: const EdgeInsets.only(right: 6.0),
             child: ClayIconButton(
-              tooltip: 'Công thức của tôi',
+              tooltip: context.l10n.myRecipes,
               icon: Icons.menu_book_rounded,
               size: 38,
               borderRadius: 12,
@@ -191,7 +194,7 @@ class _ManualEntryPageState extends ConsumerState<ManualEntryPage> {
           Padding(
             padding: const EdgeInsets.only(right: 12.0),
             child: ClayIconButton(
-              tooltip: 'Thêm món tùy chỉnh',
+              tooltip: context.l10n.addCustomDish,
               icon: Icons.add_rounded,
               size: 38,
               borderRadius: 12,
@@ -251,7 +254,7 @@ class _ManualEntryPageState extends ConsumerState<ManualEntryPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Món ăn phổ biến (${filtered.length})',
+                    context.l10n.popularFoods(filtered.length),
                     style: GoogleFonts.outfit(
                       fontSize: 16,
                       fontWeight: FontWeight.w800,
@@ -266,7 +269,7 @@ class _ManualEntryPageState extends ConsumerState<ManualEntryPage> {
                     ),
                     icon: const Icon(Icons.edit_note_rounded, size: 20),
                     label: Text(
-                      'Tự nhập món',
+                      context.l10n.customFoodEntry,
                       style: GoogleFonts.inter(fontSize: 13, fontWeight: FontWeight.w700),
                     ),
                   ),
@@ -284,12 +287,12 @@ class _ManualEntryPageState extends ConsumerState<ManualEntryPage> {
                             const Icon(Icons.search_off_rounded, size: 48, color: AppColors.onSurfaceVariant),
                             const SizedBox(height: AppValues.spacing8),
                             Text(
-                              'Không tìm thấy món "$_query"',
+                              context.l10n.noFoodFound(_query),
                               style: GoogleFonts.inter(fontSize: 14, color: AppColors.onSurfaceVariant),
                             ),
                             const SizedBox(height: AppValues.spacing12),
                             ClayButton(
-                              text: 'Nhập món này thủ công',
+                              text: context.l10n.enterThisFoodManually,
                               width: 220,
                               height: 44,
                               onPressed: _openCustomFoodSheet,

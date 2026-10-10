@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import '../../domain/chat_message.dart';
 
 /// Holographic meal suggestion card rendered in AI chat bubbles.
@@ -19,7 +20,8 @@ class CoachMealCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dishName = mealData['dishName']?.toString() ?? 'Gợi ý món ăn';
+    final l10n = context.l10n;
+    final dishName = mealData['dishName']?.toString() ?? l10n.suggestedDish;
     final calories = mealData['calories'] ?? 0;
     final protein = mealData['protein'] ?? 0;
     final carbs = mealData['carbs'] ?? 0;
@@ -99,17 +101,17 @@ class CoachMealCard extends StatelessWidget {
             spacing: 6,
             runSpacing: 4,
             children: [
-              _buildMacroBadge('Đạm', '${protein}g', AppColors.protein),
-              _buildMacroBadge('Carbs', '${carbs}g', AppColors.carbs),
-              _buildMacroBadge('Béo', '${fat}g', AppColors.fat),
+              _buildMacroBadge(l10n.proteinShort, '${protein}g', AppColors.protein),
+              _buildMacroBadge(l10n.carbsShort, '${carbs}g', AppColors.carbs),
+              _buildMacroBadge(l10n.fatShort, '${fat}g', AppColors.fat),
               if (sodium != null)
-                _buildMacroBadge('Natri', '${sodium}mg', AppColors.warning),
+                _buildMacroBadge(l10n.sodiumShort, '${sodium}mg', AppColors.warning),
             ],
           ),
           if (ingredients != null && ingredients.isNotEmpty) ...[
             const SizedBox(height: 6),
             Text(
-              'Thành phần: ${ingredients.join(', ')}',
+              l10n.ingredientsLabel(ingredients.join(', ')),
               style: const TextStyle(
                 fontSize: 11,
                 color: AppColors.onSurfaceVariant,
@@ -133,9 +135,9 @@ class CoachMealCard extends StatelessWidget {
                     ),
                     onPressed: null,
                     icon: const Icon(Icons.check_circle_rounded, size: 16),
-                    label: const Text(
-                      '✓ Đã ghi vào nhật ký',
-                      style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                    label: Text(
+                      l10n.quickLogged,
+                      style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
                     ),
                   )
                 : FilledButton(
@@ -147,13 +149,13 @@ class CoachMealCard extends StatelessWidget {
                       elevation: 0,
                     ),
                     onPressed: onLogMeal,
-                    child: const Row(
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(Icons.add, size: 16, color: Colors.white),
-                        SizedBox(width: 6),
-                        Text(
+                        const Icon(Icons.add, size: 16, color: Colors.white),
+                        const SizedBox(width: 6),
+                        const Text(
                           '⚡ 1-Tap Log • ',
                           style: TextStyle(
                             fontSize: 12,
@@ -162,8 +164,8 @@ class CoachMealCard extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          '1-Chạm',
-                          style: TextStyle(
+                          l10n.tapToLog,
+                          style: const TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,

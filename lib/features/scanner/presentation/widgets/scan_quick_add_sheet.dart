@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:astrobite/core/constants/app_values.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import '../../domain/entities/scan_result.dart';
 
 /// Modal bottom sheet allowing the user to manually add a side dish to the meal.
@@ -35,7 +36,7 @@ class ScanQuickAddSheet {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Thêm món ăn thủ công',
+                  ctx.l10n.manualAddDishTitle,
                   style: Theme.of(ctx).textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
@@ -49,10 +50,10 @@ class ScanQuickAddSheet {
             const SizedBox(height: AppValues.spacing12),
             TextField(
               controller: nameController,
-              decoration: const InputDecoration(
-                labelText: 'Tên món ăn',
-                hintText: 'VD: Canh khổ qua, Trứng ốp la...',
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                labelText: ctx.l10n.dishNameLabel,
+                hintText: ctx.l10n.dishNameHint,
+                border: const OutlineInputBorder(),
               ),
             ),
             const SizedBox(height: AppValues.spacing12),
@@ -62,10 +63,10 @@ class ScanQuickAddSheet {
                   child: TextField(
                     controller: calController,
                     keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(
-                      labelText: 'Calo (kcal)',
-                      hintText: 'VD: 120',
-                      border: OutlineInputBorder(),
+                    decoration: InputDecoration(
+                      labelText: ctx.l10n.caloriesKcalLabel,
+                      hintText: ctx.l10n.caloriesHint,
+                      border: const OutlineInputBorder(),
                     ),
                   ),
                 ),
@@ -74,10 +75,10 @@ class ScanQuickAddSheet {
                   child: TextField(
                     controller: weightController,
                     keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(
-                      labelText: 'Khẩu phần (g)',
-                      hintText: 'VD: 150',
-                      border: OutlineInputBorder(),
+                    decoration: InputDecoration(
+                      labelText: ctx.l10n.portionGramsLabel,
+                      hintText: ctx.l10n.portionHint,
+                      border: const OutlineInputBorder(),
                     ),
                   ),
                 ),
@@ -103,7 +104,7 @@ class ScanQuickAddSheet {
                   Navigator.of(ctx).pop();
                 }
               },
-              child: const Text('Thêm vào mâm cơm'),
+              child: Text(ctx.l10n.addToMealPlatter),
             ),
           ],
         ),

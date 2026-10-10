@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import '../buttons/clay_icon_button.dart';
 
 /// Tactile Claymorphic AppBar adhering to Duolingo 2D/3D design language.
@@ -53,7 +54,7 @@ class ClayAppBar extends StatelessWidget implements PreferredSizeWidget {
             size: 40,
             borderRadius: 14,
             icon: Icons.arrow_back_ios_new_rounded,
-            tooltip: 'Quay lại',
+            tooltip: context.l10n.back,
             onPressed: onBack ?? () => Navigator.of(context).maybePop(),
           ),
         ),

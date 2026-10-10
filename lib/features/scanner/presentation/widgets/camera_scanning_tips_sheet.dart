@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import 'package:astrobite/shared/ui_kit/ui_kit.dart';
 
 /// Modal bottom sheet showing expert photography tips for AI food recognition.
@@ -18,6 +19,7 @@ class CameraScanningTipsSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Padding(
       padding: const EdgeInsets.all(AppValues.screenPadding),
       child: Column(
@@ -51,7 +53,7 @@ class CameraScanningTipsSheet extends StatelessWidget {
               ),
               const SizedBox(width: AppValues.spacing12),
               Text(
-                'Mẹo chụp ảnh món ăn chuẩn AI',
+                l10n.scanTipsTitle,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.bold,
                       color: AppColors.onSurface,
@@ -60,25 +62,25 @@ class CameraScanningTipsSheet extends StatelessWidget {
             ],
           ),
           const SizedBox(height: AppValues.spacing16),
-          const _TipItem(
+          _TipItem(
             icon: Icons.lightbulb_rounded,
-            badgeColor: Color(0xFFFFF7ED),
+            badgeColor: const Color(0xFFFFF7ED),
             iconColor: AppColors.tertiary,
-            text: 'Đảm bảo đủ ánh sáng, tránh bóng đổ tối che khuất thức ăn.',
+            text: l10n.scanTipLighting,
           ),
           const SizedBox(height: AppValues.spacing12),
-          const _TipItem(
+          _TipItem(
             icon: Icons.crop_free_rounded,
-            badgeColor: Color(0xFFE5F6FD),
+            badgeColor: const Color(0xFFE5F6FD),
             iconColor: AppColors.primary,
-            text: 'Đặt trọn vẹn đĩa ăn vào trong khung ngắm trung tâm.',
+            text: l10n.scanTipFraming,
           ),
           const SizedBox(height: AppValues.spacing12),
-          const _TipItem(
+          _TipItem(
             icon: Icons.restaurant_rounded,
-            badgeColor: Color(0xFFE8F9D8),
+            badgeColor: const Color(0xFFE8F9D8),
             iconColor: AppColors.brandGreen,
-            text: 'Nếu đĩa có nhiều món, chụp góc từ trên xuống (top-down view).',
+            text: l10n.scanTipAngle,
           ),
           const SizedBox(height: AppValues.spacing20),
           SizedBox(
@@ -94,9 +96,9 @@ class CameraScanningTipsSheet extends StatelessWidget {
                 elevation: 3,
                 shadowColor: AppColors.brandGreen.withValues(alpha: 0.4),
               ),
-              child: const Text(
-                'Đã hiểu',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+              child: Text(
+                l10n.gotIt,
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
               ),
             ),
           ),

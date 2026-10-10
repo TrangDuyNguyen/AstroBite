@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 
 /// Interactive Clay session card displaying date, count, and last message preview.
 class CoachHistorySessionCard extends StatelessWidget {
@@ -26,6 +27,8 @@ class CoachHistorySessionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+
     return Material(
       color: Colors.transparent,
       child: InkWell(
@@ -79,7 +82,7 @@ class CoachHistorySessionCard extends StatelessWidget {
                       children: [
                         Flexible(
                           child: Text(
-                            isToday ? 'Hôm nay ($dateStr)' : dateStr,
+                            isToday ? l10n.todayWithDate(dateStr) : dateStr,
                             style: GoogleFonts.outfit(
                               fontWeight: FontWeight.w800,
                               fontSize: 13.5,
@@ -97,7 +100,7 @@ class CoachHistorySessionCard extends StatelessWidget {
                               borderRadius: BorderRadius.circular(6),
                             ),
                             child: Text(
-                              'Đang xem',
+                              l10n.currentViewing,
                               style: GoogleFonts.inter(
                                 fontSize: 9.5,
                                 fontWeight: FontWeight.w700,
@@ -117,7 +120,7 @@ class CoachHistorySessionCard extends StatelessWidget {
                       border: Border.all(color: const Color(0xFFBAE6FD), width: 1),
                     ),
                     child: Text(
-                      '$messageCount tin nhắn',
+                      l10n.messagesCount(messageCount),
                       style: GoogleFonts.inter(
                         fontSize: 10.5,
                         fontWeight: FontWeight.w600,
@@ -127,7 +130,7 @@ class CoachHistorySessionCard extends StatelessWidget {
                   ),
                   const SizedBox(width: 6),
                   Tooltip(
-                    message: 'Xoá cuộc trò chuyện',
+                    message: l10n.deleteChatTooltip,
                     child: Material(
                       color: Colors.transparent,
                       child: InkWell(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import 'package:astrobite/shared/ui_kit/ui_kit.dart';
 import '../../domain/scanner_providers.dart';
 
@@ -51,8 +52,8 @@ class CameraQuotaBadge extends ConsumerWidget {
           const SizedBox(width: 6),
           Text(
             isOverLimit
-                ? 'Đã hết lượt quét hôm nay (10/10)'
-                : 'Còn lại $remaining/${AppValues.maxDailyScans} lượt quét hôm nay',
+                ? context.l10n.scansExhaustedToday
+                : context.l10n.scansRemainingToday(remaining, AppValues.maxDailyScans),
             style: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w700,

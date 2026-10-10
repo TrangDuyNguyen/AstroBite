@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import 'package:astrobite/shared/ui_kit/ui_kit.dart';
 import '../controllers/scanner_controller.dart';
 import '../widgets/camera_app_bar.dart';
@@ -140,9 +141,9 @@ class _CameraPageState extends ConsumerState<CameraPage>
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Không thể mở camera/thư viện: $e'),
+            content: Text(context.l10n.cannotOpenSource(e.toString())),
             action: SnackBarAction(
-              label: 'Thử lại',
+              label: context.l10n.retry,
               onPressed: () => _pickImage(source),
             ),
           ),
@@ -221,8 +222,8 @@ class _CameraPageState extends ConsumerState<CameraPage>
         children: [
           Text(
             isScanning
-                ? '✨ AI đang giải mã cấu trúc món ăn...'
-                : 'Hướng máy ảnh vào đĩa thức ăn và bấm nút chụp',
+                ? context.l10n.aiDecodingFood
+                : context.l10n.pointCameraAtFood,
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   color: isScanning ? AppColors.primary : AppColors.onSurfaceVariant,

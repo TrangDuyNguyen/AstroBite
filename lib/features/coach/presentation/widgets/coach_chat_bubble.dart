@@ -7,6 +7,8 @@ import 'package:astrobite/core/genui/a2ui_parser.dart';
 import 'package:astrobite/core/genui/catalog.dart';
 import 'package:astrobite/core/genui/catalog_item.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
+import 'package:astrobite/l10n/app_localizations.dart';
 import 'package:astrobite/shared/widgets/gemini_api_key_dialog.dart';
 import '../../domain/chat_message.dart';
 import 'coach_meal_card.dart';
@@ -62,17 +64,28 @@ class CoachChatBubble extends StatelessWidget {
         .trim();
   }
 
+  String _resolveDisplayContent(String content, AppLocalizations l10n) {
+    if (!message.isError) return content;
+    if (content.contains('Phản hồi quá lâu')) return l10n.coachErrorTimeout;
+    if (content.contains('API Key không hợp lệ')) return l10n.coachErrorInvalidApiKey;
+    if (content.contains('quá tải')) return l10n.coachErrorServerOverloaded;
+    if (content.contains('Có lỗi xảy ra')) return l10n.coachErrorGeneral;
+    return content;
+  }
+
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     final isUser = message.isUser;
     final a2uiPayload = isUser
         ? A2uiMessagePayload(text: message.content)
         : A2uiParser.parse(message.content);
-    final displayContent = isUser
+    final rawDisplayContent = isUser
         ? message.content
         : (a2uiPayload.text.isNotEmpty
             ? a2uiPayload.text
             : cleanDisplayContent(message.content));
+    final displayContent = _resolveDisplayContent(rawDisplayContent, l10n);
     final mealData = extractMealData(message.content);
 
     return Align(
@@ -230,7 +243,7 @@ class CoachChatBubble extends StatelessWidget {
                   TextButton.icon(
                     onPressed: onRetry,
                     icon: const Icon(Icons.refresh_rounded, size: 16),
-                    label: const Text('Thử lại'),
+                    label: Text(l10n.retry),
                     style: TextButton.styleFrom(
                       foregroundColor: AppColors.primary,
                       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
@@ -240,7 +253,7 @@ class CoachChatBubble extends StatelessWidget {
                     FilledButton.tonalIcon(
                       onPressed: () => GeminiApiKeyDialog.show(context),
                       icon: const Icon(Icons.vpn_key_rounded, size: 16),
-                      label: const Text('Cài đặt API Key'),
+                      label: Text(l10n.apiKeySettings),
                       style: FilledButton.styleFrom(
                         backgroundColor: const Color(0xFFFFF7ED),
                         foregroundColor: AppColors.tertiary,

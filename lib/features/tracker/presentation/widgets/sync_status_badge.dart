@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 
 class SyncStatusBadge extends StatelessWidget {
   const SyncStatusBadge({
@@ -21,17 +22,17 @@ class SyncStatusBadge extends StatelessWidget {
       'pending_sync' => (
           Icons.cloud_upload_outlined,
           AppColors.warning,
-          'Bữa ăn này đang lưu trên thiết bị. Sẽ tự tải lên khi có mạng.',
+          context.l10n.syncPendingTooltip,
         ),
       'failed' => (
           Icons.cloud_off_rounded,
           AppColors.error,
-          'Chưa thể tải lên máy chủ. Chạm vào đây để thử lại.',
+          context.l10n.syncFailedTooltip,
         ),
       _ => (
           Icons.cloud_done_rounded,
           AppColors.success,
-          'Đã đồng bộ lên đám mây',
+          context.l10n.syncSuccessTooltip,
         ),
     };
 

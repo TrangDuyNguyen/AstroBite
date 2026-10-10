@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:astrobite/core/constants/profile_enums.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import 'package:astrobite/core/utils/nutrition_calculator.dart';
 import 'package:astrobite/features/auth/domain/auth_providers.dart';
 import 'package:astrobite/shared/ui_kit/ui_kit.dart';
@@ -124,8 +125,8 @@ class _ProfileEditPageState extends ConsumerState<ProfileEditPage> {
 
     if (success && mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('✨ Đã cập nhật hồ sơ & mục tiêu dinh dưỡng thành công!'),
+        SnackBar(
+          content: Text(context.l10n.profileUpdateSuccess),
           behavior: SnackBarBehavior.floating,
         ),
       );
@@ -141,7 +142,7 @@ class _ProfileEditPageState extends ConsumerState<ProfileEditPage> {
     return Scaffold(
       backgroundColor: AppColors.surface,
       appBar: ClayAppBar(
-        title: 'Chỉnh sửa hồ sơ',
+        title: context.l10n.editProfile,
         centerTitle: true,
         onBack: () => context.router.popForced(),
       ),
@@ -175,7 +176,7 @@ class _ProfileEditPageState extends ConsumerState<ProfileEditPage> {
               ),
               const SizedBox(height: AppValues.spacing24),
               ClayButton(
-                text: 'Lưu thay đổi',
+                text: context.l10n.saveChanges,
                 height: 52,
                 borderRadius: 22,
                 variant: ClayButtonVariant.primary,

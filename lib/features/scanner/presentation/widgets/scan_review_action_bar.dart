@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import '../../domain/entities/scan_result.dart';
 import 'package:astrobite/shared/ui_kit/ui_kit.dart';
 import 'scan_tactile_action_button.dart';
@@ -95,7 +96,7 @@ class ScanReviewActionBar extends StatelessWidget {
                 ScanTactileActionButton(
                   icon: Icons.refresh_rounded,
                   iconSize: 24,
-                  tooltip: 'Quét lại',
+                  tooltip: context.l10n.rescan,
                   onPressed: onRescan,
                 ),
                 const SizedBox(width: AppValues.spacing12),
@@ -149,8 +150,8 @@ class ScanReviewActionBar extends StatelessWidget {
                           const SizedBox(width: AppValues.spacing8),
                           Text(
                             isSaving
-                                ? 'Đang lưu...'
-                                : 'Lưu vào ${mealLabel(selectedMeal)} (${scaled.activeCalories} kcal)',
+                                ? context.l10n.saving
+                                : context.l10n.saveToMeal(mealLabel(selectedMeal), scaled.activeCalories),
                             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                           ),
                         ],

@@ -96,10 +96,10 @@ class ProfileMetricsCard extends StatelessWidget {
               ),
               _StatTile(
                 icon: '🎯',
-                label: 'Cân nặng mục tiêu',
+                label: l10n.targetWeight,
                 value: profile.targetWeightKg != null
                     ? '${profile.targetWeightKg!.round()} kg'
-                    : 'Chưa đặt',
+                    : l10n.notSet,
                 valueColor: profile.targetWeightKg != null ? AppColors.brandGreen : null,
               ),
               _StatTile(
@@ -109,13 +109,13 @@ class ProfileMetricsCard extends StatelessWidget {
               ),
               _StatTile(
                 icon: '📊',
-                label: 'Chỉ số BMI',
+                label: l10n.bmiIndex,
                 value: '${profile.bmi.toStringAsFixed(1)} (${profile.bmiCategory})',
                 valueColor: AppColors.primary,
               ),
               _StatTile(
                 icon: '🔥',
-                label: 'Mục tiêu Calo/ngày',
+                label: l10n.dailyCalorieTarget,
                 value: '${profile.dailyTargetCalories} kcal',
                 valueColor: AppColors.tertiary,
               ),

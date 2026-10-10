@@ -108,7 +108,7 @@ class MealSection extends ConsumerWidget {
                       }
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          content: Text('Đã xóa món ${log.dishName}'),
+                          content: Text(context.l10n.foodDeleted(log.dishName)),
                           duration: const Duration(seconds: 2),
                         ),
                       );

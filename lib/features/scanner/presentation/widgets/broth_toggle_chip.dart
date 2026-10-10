@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:astrobite/core/constants/app_values.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 
 /// Interactive Claymorphic Broth Toggle Chip (Sprint 19 - EPIC-GLOBAL)
 /// Allows 1-tap toggling between [Ăn cả nước] and [Chỉ ăn cái]
@@ -32,13 +33,13 @@ class BrothToggleChip extends StatelessWidget {
     final accentColor = isIncluded ? AppColors.primary : AppColors.brandGreen;
     final emoji = isIncluded ? '🍜' : '🥢';
     final title = isIncluded
-        ? 'Ăn cả nước (+$brothCalories kcal)'
-        : 'Chỉ ăn cái (-$brothCalories kcal)';
+        ? context.l10n.eatWithBroth(brothCalories)
+        : context.l10n.eatWithoutBroth(brothCalories);
     final subtitle = isIncluded
         ? (brothSodiumMg > 0
-            ? 'Bao gồm ~${brothSodiumMg.toInt()}mg Muối nước lèo'
-            : 'Tính trọn vẹn nước dùng & gia vị ninh')
-        : 'Tiết kiệm $brothCalories kcal & giảm mỡ béo ✨';
+            ? context.l10n.brothSodiumSub(brothSodiumMg.toInt())
+            : context.l10n.brothFullFlavorSub)
+        : context.l10n.brothSavedSub(brothCalories);
 
     return Padding(
       padding: const EdgeInsets.only(top: AppValues.spacing8, bottom: AppValues.spacing8),

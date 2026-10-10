@@ -37,7 +37,7 @@ class AnalyticsMacroBreakdownCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Phân bổ Dinh dưỡng Trung bình',
+                    context.l10n.macroBreakdownTitle,
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
                           fontWeight: FontWeight.w700,
                           color: AppColors.onSurface,
@@ -45,7 +45,7 @@ class AnalyticsMacroBreakdownCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 2),
                   Text(
-                    'Tỷ lệ năng lượng hấp thu từ các nhóm chất',
+                    context.l10n.macroBreakdownSubtitle,
                     style: Theme.of(context).textTheme.labelMedium?.copyWith(
                           color: AppColors.onSurfaceVariant,
                         ),
@@ -58,9 +58,9 @@ class AnalyticsMacroBreakdownCard extends StatelessWidget {
                   color: AppColors.clayMint,
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: const Text(
-                  'Cân đối',
-                  style: TextStyle(
+                child: Text(
+                  context.l10n.balanced,
+                  style: const TextStyle(
                     color: AppColors.brandGreen,
                     fontSize: 11,
                     fontWeight: FontWeight.w700,

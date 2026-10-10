@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import 'package:astrobite/shared/ui_kit/ui_kit.dart';
 
 /// High-Density KPI Insight Row displaying 3 claymorphic cards (Calories, Weight, Adherence).
@@ -30,7 +31,7 @@ class AnalyticsKpiOverviewRow extends StatelessWidget {
             title: 'Calo TB',
             value: '$avgCal',
             unit: 'kcal',
-            status: (avgCal <= targetCalories) ? 'Đạt chuẩn' : 'Vượt nhẹ',
+            status: (avgCal <= targetCalories) ? context.l10n.kpiOnTrack : context.l10n.kpiSlightlyOver,
             statusColor: (avgCal <= targetCalories)
                 ? AppColors.brandGreen
                 : AppColors.tertiary,
@@ -40,7 +41,7 @@ class AnalyticsKpiOverviewRow extends StatelessWidget {
         Expanded(
           child: _KpiCard(
             icon: '⚖️',
-            title: 'Cân nặng',
+            title: context.l10n.weight,
             value: currentWeight.toStringAsFixed(1),
             unit: 'kg',
             status: '-1.2 kg',
@@ -51,9 +52,9 @@ class AnalyticsKpiOverviewRow extends StatelessWidget {
         Expanded(
           child: _KpiCard(
             icon: '🥑',
-            title: 'Kỷ luật',
+            title: context.l10n.discipline,
             value: '$onTrackDays/$totalLoggedDays',
-            unit: 'ngày',
+            unit: context.l10n.daysUnit,
             status: '$adherenceRate%',
             statusColor: adherenceRate >= 70
                 ? AppColors.brandGreen

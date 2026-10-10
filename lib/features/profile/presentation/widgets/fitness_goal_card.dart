@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:astrobite/core/constants/profile_enums.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import 'package:astrobite/shared/ui_kit/ui_kit.dart';
 
 class FitnessGoalCard extends StatelessWidget {
@@ -32,7 +33,7 @@ class FitnessGoalCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Mục tiêu & Chế độ vận động',
+            context.l10n.goalAndActivity,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w700,
                   color: AppColors.onSurface,
@@ -41,9 +42,9 @@ class FitnessGoalCard extends StatelessWidget {
           const SizedBox(height: AppValues.spacing16),
 
           // Fitness Goal Selector
-          const Text(
-            'Mục tiêu thể hình',
-            style: TextStyle(
+          Text(
+            context.l10n.fitnessGoal,
+            style: const TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w600,
               color: AppColors.onSurfaceVariant,
@@ -74,9 +75,9 @@ class FitnessGoalCard extends StatelessWidget {
           const SizedBox(height: AppValues.spacing20),
 
           // Mức độ vận động
-          const Text(
-            'Mức độ vận động hàng tuần',
-            style: TextStyle(
+          Text(
+            context.l10n.weeklyActivityLevel,
+            style: const TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w600,
               color: AppColors.onSurfaceVariant,
@@ -98,7 +99,7 @@ class FitnessGoalCard extends StatelessWidget {
                 items: ActivityLevel.values.map((level) {
                   return DropdownMenuItem<ActivityLevel>(
                     value: level,
-                    child: Text(level.label),
+                    child: Text(level.localizedLabel(context)),
                   );
                 }).toList(),
                 onChanged: (v) {
@@ -128,13 +129,13 @@ class FitnessGoalCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'Gợi ý chuẩn khoa học AstroBite',
-                        style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: AppColors.primary),
+                      Text(
+                        context.l10n.astroBiteRecommendation,
+                        style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: AppColors.primary),
                       ),
                       const SizedBox(height: 2),
                       Text(
-                        'Khuyến nghị: $recommendedCalories kcal/ngày',
+                        context.l10n.recommendationCalories(recommendedCalories),
                         style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w800, color: AppColors.onSurface),
                       ),
                     ],
@@ -148,9 +149,9 @@ class FitnessGoalCard extends StatelessWidget {
                     backgroundColor: Colors.white,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                   ),
-                  child: const Text(
-                    'Áp dụng',
-                    style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.primary),
+                  child: Text(
+                    context.l10n.apply,
+                    style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.primary),
                   ),
                 ),
               ],
@@ -162,11 +163,11 @@ class FitnessGoalCard extends StatelessWidget {
           // Mục tiêu Calo/ngày Text field
           ClayTextField(
             controller: targetCalController,
-            labelText: 'Mục tiêu Calo/ngày (kcal)',
+            labelText: context.l10n.dailyCalorieTargetWithUnit,
             hintText: 'VD: ${ProfileDefaults.dailyTargetCalories}',
             prefixIcon: const Icon(Icons.local_fire_department_outlined, color: AppColors.tertiary, size: 20),
             keyboardType: TextInputType.number,
-            validator: (v) => v != null && v.isNotEmpty ? null : 'Vui lòng nhập mục tiêu calo',
+            validator: (v) => v != null && v.isNotEmpty ? null : context.l10n.enterTargetCalories,
           ),
         ],
       ),
@@ -211,7 +212,7 @@ class _GoalOption extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    goal.title,
+                    goal.localizedTitle(context),
                     style: TextStyle(
                       fontSize: 13.5,
                       fontWeight: isSelected ? FontWeight.w800 : FontWeight.w600,
@@ -220,7 +221,7 @@ class _GoalOption extends StatelessWidget {
                   ),
                   const SizedBox(height: 2),
                   Text(
-                    goal.subtitle,
+                    goal.localizedSubtitle(context),
                     style: TextStyle(
                       fontSize: 11,
                       color: isSelected ? color : AppColors.onSurfaceVariant,

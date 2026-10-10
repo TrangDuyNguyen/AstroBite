@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 
 /// Notice banner displayed when the user is reviewing a past chat session.
 class CoachSessionBanner extends StatelessWidget {
@@ -15,6 +16,8 @@ class CoachSessionBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
@@ -29,7 +32,7 @@ class CoachSessionBanner extends StatelessWidget {
           const SizedBox(width: 8),
           Expanded(
             child: Text(
-              'Đang xem lại phiên: $selectedDate',
+              l10n.viewingSession(selectedDate),
               style: GoogleFonts.inter(
                 fontSize: 12,
                 color: AppColors.onSurface,
@@ -43,9 +46,9 @@ class CoachSessionBanner extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 0),
               visualDensity: VisualDensity.compact,
             ),
-            child: const Text(
-              'Hôm nay ↺',
-              style: TextStyle(
+            child: Text(
+              l10n.todayReset,
+              style: const TextStyle(
                 color: AppColors.protein,
                 fontWeight: FontWeight.bold,
                 fontSize: 12,

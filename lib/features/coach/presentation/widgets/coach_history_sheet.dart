@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import '../coach_controller.dart';
 import 'history_components/coach_history_delete_dialog.dart';
 import 'history_components/coach_history_session_card.dart';
@@ -28,6 +29,7 @@ class CoachHistorySheet extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = context.l10n;
     final sessionsAsync = ref.watch(chatSessionsListProvider);
     final currentSelected = ref.read(coachControllerProvider.notifier).selectedDate;
 
@@ -77,7 +79,7 @@ class CoachHistorySheet extends ConsumerWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Lịch sử hội thoại AstroCoach',
+                            l10n.coachHistorySheetTitle,
                             style: GoogleFonts.outfit(
                               fontSize: 16.5,
                               fontWeight: FontWeight.w800,
@@ -86,7 +88,7 @@ class CoachHistorySheet extends ConsumerWidget {
                           ),
                           const SizedBox(height: 1),
                           Text(
-                            'Xem lại hoặc chuyển phiên tư vấn dinh dưỡng',
+                            l10n.coachHistorySheetSubtitle,
                             style: GoogleFonts.inter(
                               fontSize: 11,
                               color: AppColors.onSurfaceVariant,
@@ -123,7 +125,10 @@ class CoachHistorySheet extends ConsumerWidget {
                       child: CircularProgressIndicator(color: AppColors.primary),
                     ),
                     error: (e, _) => Center(
-                      child: Text('Lỗi tải lịch sử: $e', style: const TextStyle(color: AppColors.onSurfaceVariant)),
+                      child: Text(
+                        l10n.coachHistoryLoadError(e.toString()),
+                        style: const TextStyle(color: AppColors.onSurfaceVariant),
+                      ),
                     ),
                     data: (sessions) {
                       if (sessions.isEmpty) {
@@ -146,7 +151,7 @@ class CoachHistorySheet extends ConsumerWidget {
                               ),
                               const SizedBox(height: 12),
                               Text(
-                                'Chưa có cuộc trò chuyện nào trước đó.',
+                                l10n.coachHistoryEmptyTitle,
                                 style: GoogleFonts.outfit(
                                   fontSize: 14.5,
                                   fontWeight: FontWeight.w700,
@@ -155,7 +160,7 @@ class CoachHistorySheet extends ConsumerWidget {
                               ),
                               const SizedBox(height: 4),
                               Text(
-                                'Các phiên tư vấn dinh dưỡng hàng ngày sẽ tự động lưu tại đây.',
+                                l10n.coachHistoryEmptySubtitle,
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.inter(
                                   fontSize: 11.5,

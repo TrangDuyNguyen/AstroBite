@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 
 /// Claymorphic Weight Trend Line Chart with goal benchmark and tactile points.
 class WeightTrendChart extends StatelessWidget {
@@ -82,7 +83,7 @@ class WeightTrendChart extends StatelessWidget {
                       fontSize: 10,
                       fontWeight: FontWeight.w700,
                     ),
-                    labelResolver: (_) => 'Mục tiêu: ${targetWeight.toStringAsFixed(1)} kg',
+                    labelResolver: (_) => context.l10n.chartTargetWeight(targetWeight.toStringAsFixed(1)),
                   ),
                 ),
               ],
@@ -130,15 +131,15 @@ class WeightTrendChart extends StatelessWidget {
                       final count = max(1, weightList.length - 1);
                       final ratio = index / count;
                       if (ratio <= 0.05) {
-                        label = 'Tuần 1';
+                        label = context.l10n.week1;
                       } else if ((ratio - 0.25).abs() < 0.09) {
-                        label = 'Tuần 2';
+                        label = context.l10n.week2;
                       } else if ((ratio - 0.50).abs() < 0.09) {
-                        label = 'Tuần 3';
+                        label = context.l10n.week3;
                       } else if ((ratio - 0.75).abs() < 0.09) {
-                        label = 'Tuần 4';
+                        label = context.l10n.week4;
                       } else if (ratio >= 0.94) {
-                        label = 'Hôm nay';
+                        label = context.l10n.today;
                       } else {
                         return const SizedBox.shrink();
                       }
@@ -200,7 +201,7 @@ class WeightTrendChart extends StatelessWidget {
                         TextSpan(
                           text: days <= 7
                               ? ' (${weekdays[(dayNumber - 1) % weekdays.length]})'
-                              : ' (Ngày $dayNumber)',
+                              : context.l10n.dayNumber(dayNumber),
                           style: TextStyle(
                             color: Colors.white.withValues(alpha: 0.8),
                             fontSize: 10,

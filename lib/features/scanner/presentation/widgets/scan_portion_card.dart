@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:astrobite/core/constants/app_values.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import '../../domain/entities/scan_result.dart';
 import 'broth_toggle_chip.dart';
 import 'scan_quick_weight_stepper.dart';
@@ -58,7 +59,7 @@ class ScanPortionCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Khẩu phần ước lượng',
+                    context.l10n.portionEstimated,
                     style: Theme.of(context).textTheme.titleSmall?.copyWith(
                           fontWeight: FontWeight.bold,
                           color: AppColors.onSurface,
@@ -111,7 +112,7 @@ class ScanPortionCard extends StatelessWidget {
                     ),
                     const SizedBox(width: AppValues.spacing8),
                     QuickReviewWeightChip(
-                      label: '1 Bát (~150g)',
+                      label: context.l10n.portionBowl,
                       isSelected: effectiveWeight == 150,
                       onTap: () {
                         HapticFeedback.selectionClick();
@@ -120,7 +121,7 @@ class ScanPortionCard extends StatelessWidget {
                     ),
                     const SizedBox(width: AppValues.spacing8),
                     QuickReviewWeightChip(
-                      label: '1 Đĩa (~300g)',
+                      label: context.l10n.portionPlate,
                       isSelected: effectiveWeight == 300,
                       onTap: () {
                         HapticFeedback.selectionClick();
@@ -129,7 +130,7 @@ class ScanPortionCard extends StatelessWidget {
                     ),
                     const SizedBox(width: AppValues.spacing8),
                     QuickReviewWeightChip(
-                      label: 'Phần Chuẩn (~350g)',
+                      label: context.l10n.portionStandard,
                       isSelected: effectiveWeight == 350,
                       onTap: () {
                         HapticFeedback.selectionClick();

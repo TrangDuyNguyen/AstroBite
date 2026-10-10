@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import 'package:astrobite/features/voice/presentation/widgets/astro_voice_sheet.dart';
 
 /// Message input bar with voice dictation and 3D send action button.
@@ -31,6 +32,8 @@ class CoachInputBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       child: Row(
@@ -53,7 +56,7 @@ class CoachInputBar extends StatelessWidget {
                 focusNode: focusNode,
                 enabled: !isSending,
                 decoration: InputDecoration(
-                  hintText: 'Hỏi AstroCoach về thực đơn, macros...',
+                  hintText: l10n.askCoachHint,
                   hintStyle: GoogleFonts.inter(
                     color: AppColors.onSurfaceVariant.withValues(alpha: 0.8),
                     fontSize: 13,
@@ -68,7 +71,9 @@ class CoachInputBar extends StatelessWidget {
                           : AppColors.onSurfaceVariant.withValues(alpha: 0.6),
                       size: 19,
                     ),
-                    tooltip: showSuggestions ? 'Thu gọn gợi ý' : 'Mở gợi ý câu hỏi',
+                    tooltip: showSuggestions
+                        ? l10n.collapseSuggestions
+                        : l10n.expandSuggestions,
                     onPressed: () {
                       HapticFeedback.lightImpact();
                       onToggleSuggestions();
@@ -89,7 +94,7 @@ class CoachInputBar extends StatelessWidget {
                               size: 18,
                               color: AppColors.onSurfaceVariant,
                             ),
-                            tooltip: 'Xóa nội dung',
+                            tooltip: l10n.clearContent,
                             onPressed: () => textController.clear(),
                           );
                         },
@@ -118,8 +123,8 @@ class CoachInputBar extends StatelessWidget {
                                   ),
                           ),
                           tooltip: isListeningVoice
-                              ? 'Đang nghe... Bấm để dừng'
-                              : 'Nói tiếng Việt (Nhấn giữ để mở AstroVoice)',
+                              ? l10n.voiceListeningStop
+                              : l10n.voiceInputTooltip,
                           onPressed: isSending ? null : onToggleVoice,
                         ),
                       ),

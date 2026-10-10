@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:astrobite/core/constants/profile_enums.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import 'package:astrobite/shared/ui_kit/ui_kit.dart';
 
 class BiologicalInfoCard extends StatelessWidget {
@@ -30,7 +31,7 @@ class BiologicalInfoCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Thông tin sinh học',
+            context.l10n.biologicalInfo,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w700,
                   color: AppColors.onSurface,
@@ -39,9 +40,9 @@ class BiologicalInfoCard extends StatelessWidget {
           const SizedBox(height: AppValues.spacing16),
 
           // Giới tính sinh học
-          const Text(
-            'Giới tính sinh học',
-            style: TextStyle(
+          Text(
+            context.l10n.biologicalGender,
+            style: const TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w600,
               color: AppColors.onSurfaceVariant,
@@ -73,11 +74,11 @@ class BiologicalInfoCard extends StatelessWidget {
           // Năm sinh
           ClayTextField(
             controller: birthYearController,
-            labelText: 'Năm sinh',
+            labelText: context.l10n.birthYear,
             hintText: 'VD: ${ProfileDefaults.birthYear}',
             prefixIcon: const Icon(Icons.cake_outlined, color: AppColors.primary, size: 20),
             keyboardType: TextInputType.number,
-            validator: (v) => v != null && v.isNotEmpty ? null : 'Vui lòng nhập năm sinh',
+            validator: (v) => v != null && v.isNotEmpty ? null : context.l10n.enterBirthYear,
           ),
 
           const SizedBox(height: AppValues.spacing16),
@@ -85,11 +86,11 @@ class BiologicalInfoCard extends StatelessWidget {
           // Chiều cao
           ClayTextField(
             controller: heightController,
-            labelText: 'Chiều cao (cm)',
+            labelText: '${context.l10n.height} (cm)',
             hintText: 'VD: ${ProfileDefaults.heightCm.round()}',
             prefixIcon: const Icon(Icons.height_rounded, color: AppColors.primary, size: 20),
             keyboardType: TextInputType.number,
-            validator: (v) => v != null && v.isNotEmpty ? null : 'Vui lòng nhập chiều cao',
+            validator: (v) => v != null && v.isNotEmpty ? null : context.l10n.enterHeight,
           ),
 
           const SizedBox(height: AppValues.spacing16),
@@ -97,11 +98,11 @@ class BiologicalInfoCard extends StatelessWidget {
           // Cân nặng hiện tại
           ClayTextField(
             controller: weightController,
-            labelText: 'Cân nặng hiện tại (kg)',
+            labelText: context.l10n.currentWeight,
             hintText: 'VD: ${ProfileDefaults.weightKg.round()}',
             prefixIcon: const Icon(Icons.scale_outlined, color: AppColors.secondary, size: 20),
             keyboardType: TextInputType.number,
-            validator: (v) => v != null && v.isNotEmpty ? null : 'Vui lòng nhập cân nặng',
+            validator: (v) => v != null && v.isNotEmpty ? null : context.l10n.enterCurrentWeight,
           ),
 
           const SizedBox(height: AppValues.spacing16),
@@ -109,7 +110,7 @@ class BiologicalInfoCard extends StatelessWidget {
           // Cân nặng mục tiêu
           ClayTextField(
             controller: targetWeightController,
-            labelText: 'Cân nặng mục tiêu (kg, tùy chọn)',
+            labelText: context.l10n.targetWeightOptional,
             hintText: 'VD: 60',
             prefixIcon: const Icon(Icons.flag_outlined, color: AppColors.brandGreen, size: 20),
             keyboardType: TextInputType.number,
@@ -152,7 +153,7 @@ class _GenderOption extends StatelessWidget {
             Text(gender.icon, style: const TextStyle(fontSize: 18)),
             const SizedBox(width: 8),
             Text(
-              gender.label,
+              gender.localizedLabel(context),
               style: TextStyle(
                 fontSize: 14,
                 fontWeight: isSelected ? FontWeight.w800 : FontWeight.w600,

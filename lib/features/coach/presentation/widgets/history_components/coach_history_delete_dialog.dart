@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import '../../coach_controller.dart';
 
 /// Helper dialog and actions for confirming Coach history deletion.
@@ -12,11 +13,12 @@ class CoachHistoryDeleteDialog {
     WidgetRef ref, [
     String? date,
   ]) async {
+    final l10n = context.l10n;
     final messages = ref.read(coachControllerProvider).valueOrNull ?? [];
     if (date == null && messages.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Cuộc trò chuyện hiện tại đang trống.'),
+        SnackBar(
+          content: Text(l10n.deleteChatEmpty),
           backgroundColor: AppColors.surfaceContainer,
           behavior: SnackBarBehavior.floating,
         ),
@@ -29,9 +31,9 @@ class CoachHistoryDeleteDialog {
       builder: (ctx) => AlertDialog(
         backgroundColor: AppColors.surfaceContainer,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: const Text(
-          'Xoá cuộc trò chuyện?',
-          style: TextStyle(
+        title: Text(
+          l10n.deleteChatTitle,
+          style: const TextStyle(
             color: AppColors.onSurface,
             fontWeight: FontWeight.bold,
             fontSize: 16,
@@ -39,18 +41,18 @@ class CoachHistoryDeleteDialog {
         ),
         content: Text(
           date != null
-              ? 'Tất cả tin nhắn trong phiên ngày $date sẽ bị xoá vĩnh viễn và không thể khôi phục.'
-              : 'Tất cả tin nhắn trong phiên này sẽ bị xoá vĩnh viễn và không thể khôi phục.',
+              ? l10n.deleteChatConfirmDate(date)
+              : l10n.deleteChatConfirmGeneral,
           style: const TextStyle(color: AppColors.onSurfaceVariant, fontSize: 14),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx, false),
-            child: const Text('Huỷ', style: TextStyle(color: AppColors.onSurfaceVariant)),
+            child: Text(l10n.deleteCancel, style: const TextStyle(color: AppColors.onSurfaceVariant)),
           ),
           TextButton(
             onPressed: () => Navigator.pop(ctx, true),
-            child: const Text('Xoá', style: TextStyle(color: AppColors.error, fontWeight: FontWeight.bold)),
+            child: Text(l10n.deleteAction, style: const TextStyle(color: AppColors.error, fontWeight: FontWeight.bold)),
           ),
         ],
       ),
@@ -60,8 +62,8 @@ class CoachHistoryDeleteDialog {
       await ref.read(coachControllerProvider.notifier).deleteSession(date);
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('🗑️ Đã xoá cuộc trò chuyện thành công.'),
+          SnackBar(
+            content: Text(l10n.deleteChatSuccess),
             backgroundColor: AppColors.surfaceContainer,
             behavior: SnackBarBehavior.floating,
           ),

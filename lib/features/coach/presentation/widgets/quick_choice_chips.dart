@@ -94,7 +94,13 @@ class _QuickChoiceChipsState extends State<QuickChoiceChips> {
         lower.contains('bỏ qua') ||
         lower.contains('từ chối') ||
         lower.contains('để sau') ||
-        lower.contains('hủy');
+        lower.contains('hủy') ||
+        lower.contains('huỷ') ||
+        lower.startsWith('only') ||
+        lower.contains('skip') ||
+        lower.contains('cancel') ||
+        lower.contains('decline') ||
+        lower.contains('later');
 
     if (isSecondaryOrAlternative) {
       if (isSelected) {
@@ -125,7 +131,9 @@ class _QuickChoiceChipsState extends State<QuickChoiceChips> {
         lower.contains('đồng ý') ||
         lower.contains('lưu') ||
         lower.contains('confirm') ||
-        lower.contains('save')) {
+        lower.contains('log') ||
+        lower.contains('save') ||
+        lower.contains('accept')) {
       if (isSelected) {
         return const _ChipVisual(
           bgColor: Color(0xFF388E00),
@@ -152,7 +160,13 @@ class _QuickChoiceChipsState extends State<QuickChoiceChips> {
         lower.contains('bữa') ||
         lower.contains('món') ||
         lower.contains('ăn') ||
-        lower.contains('suggest')) {
+        lower.contains('suggest') ||
+        lower.contains('meal') ||
+        lower.contains('dish') ||
+        lower.contains('breakfast') ||
+        lower.contains('lunch') ||
+        lower.contains('dinner') ||
+        lower.contains('snack')) {
       if (isSelected) {
         return const _ChipVisual(
           bgColor: Color(0xFFFF9600),
@@ -179,7 +193,10 @@ class _QuickChoiceChipsState extends State<QuickChoiceChips> {
         lower.contains('chi tiết') ||
         lower.contains('natri') ||
         lower.contains('calo') ||
-        lower.contains('macro')) {
+        lower.contains('macro') ||
+        lower.contains('analy') ||
+        lower.contains('sodium') ||
+        lower.contains('calor')) {
       if (isSelected) {
         return const _ChipVisual(
           bgColor: Color(0xFF0284C7),

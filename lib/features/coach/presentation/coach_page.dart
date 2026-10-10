@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 
 import 'package:astrobite/core/genui/catalog.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import 'package:astrobite/features/auth/domain/auth_providers.dart';
 import 'package:astrobite/features/coach/domain/astrobite_genui_catalog.dart';
 import 'package:astrobite/features/tracker/data/models/food_log_dto.dart';
@@ -73,9 +74,9 @@ class _CoachPageState extends ConsumerState<CoachPage> with WidgetsBindingObserv
     if (!hasPermission) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Không thể truy cập Microphone để nhận diện giọng nói'),
-            duration: Duration(seconds: 2),
+          SnackBar(
+            content: Text(context.l10n.cannotAccessMicrophone),
+            duration: const Duration(seconds: 2),
           ),
         );
       }
@@ -179,15 +180,15 @@ class _CoachPageState extends ConsumerState<CoachPage> with WidgetsBindingObserv
       context: context,
       builder: (_) => AlertDialog(
         backgroundColor: AppColors.surfaceContainer,
-        title: const Text('Giới hạn tin nhắn', style: TextStyle(color: AppColors.onSurface)),
-        content: const Text(
-          'Bạn đã đạt giới hạn 50 tin nhắn hôm nay. Hãy quay lại ngày mai nhé! 🌙',
-          style: TextStyle(color: AppColors.onSurfaceVariant),
+        title: Text(context.l10n.messageLimitTitle, style: const TextStyle(color: AppColors.onSurface)),
+        content: Text(
+          context.l10n.messageLimitBody,
+          style: const TextStyle(color: AppColors.onSurfaceVariant),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Đã hiểu', style: TextStyle(color: AppColors.primary)),
+            child: Text(context.l10n.understood, style: const TextStyle(color: AppColors.primary)),
           ),
         ],
       ),
@@ -203,7 +204,7 @@ class _CoachPageState extends ConsumerState<CoachPage> with WidgetsBindingObserv
       id: '${now.microsecondsSinceEpoch}',
       date: DateFormat('yyyy-MM-dd').format(now),
       mealType: mealData['mealType']?.toString() ?? 'lunch',
-      dishName: mealData['dishName']?.toString() ?? 'Món từ AstroCoach',
+      dishName: mealData['dishName']?.toString() ?? context.l10n.dishFromCoach,
       estimatedWeightG: (mealData['weightG'] as num?)?.toInt() ?? 150,
       calories: (mealData['calories'] as num?)?.toInt() ?? 300,
       proteinG: (mealData['protein'] as num?)?.toInt() ?? 25,
@@ -219,7 +220,7 @@ class _CoachPageState extends ConsumerState<CoachPage> with WidgetsBindingObserv
     if (mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('✨ Đã thêm "${log.dishName}" (${log.calories} kcal) vào nhật ký!'),
+          content: Text(context.l10n.addedDishToLog(log.dishName, log.calories)),
           backgroundColor: AppColors.surfaceContainer,
           behavior: SnackBarBehavior.floating,
         ),
@@ -280,7 +281,10 @@ class _CoachPageState extends ConsumerState<CoachPage> with WidgetsBindingObserv
                     child: CircularProgressIndicator(color: AppColors.primary),
                   ),
                   error: (e, _) => Center(
-                    child: Text('Lỗi: $e', style: const TextStyle(color: AppColors.onSurfaceVariant)),
+                    child: Text(
+                      context.l10n.errorLabel(e.toString()),
+                      style: const TextStyle(color: AppColors.onSurfaceVariant),
+                    ),
                   ),
                   data: (messages) => messages.isEmpty
                       ? CoachEmptyState(summary: summary)

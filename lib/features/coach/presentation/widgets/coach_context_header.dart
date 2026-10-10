@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import 'package:astrobite/features/tracker/domain/daily_summary.dart';
 
 /// Context Header Strip displaying real-time calories, 3 macros, and sodium warning
@@ -14,6 +15,7 @@ class CoachContextHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     final remainingCalories = summary.targetCalories - summary.totalCalories;
     final isSodiumWarning = summary.totalSodiumMg >= 1500;
 
@@ -47,7 +49,7 @@ class CoachContextHeader extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Tổng quan dinh dưỡng hôm nay',
+                l10n.nutritionOverviewToday,
                 style: GoogleFonts.inter(
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
@@ -65,7 +67,9 @@ class CoachContextHeader extends StatelessWidget {
                   ),
                 ),
                 child: Text(
-                  'Còn lại: ${remainingCalories.clamp(0, 9999)} kcal',
+                  remainingCalories >= 0
+                      ? l10n.budgetRemainingKcal(remainingCalories.clamp(0, 9999))
+                      : l10n.budgetOverKcal(remainingCalories.abs()),
                   style: GoogleFonts.outfit(
                     fontSize: 12.5,
                     fontWeight: FontWeight.w800,
@@ -122,7 +126,10 @@ class CoachContextHeader extends StatelessWidget {
                   const SizedBox(width: 6),
                   Expanded(
                     child: Text(
-                      'Cảnh báo Natri: ${summary.totalSodiumMg.toInt()}mg / ${summary.targetSodiumMg.toInt()}mg (sắp chạm ngưỡng khuyến nghị)',
+                      l10n.sodiumWarning(
+                        summary.totalSodiumMg.toInt(),
+                        summary.targetSodiumMg.toInt(),
+                      ),
                       style: GoogleFonts.inter(
                         fontSize: 10.5,
                         color: const Color(0xFFB45309),

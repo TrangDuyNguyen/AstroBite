@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import 'package:astrobite/shared/ui_kit/ui_kit.dart';
 
 /// Claymorphic Micronutrient Chips Row displaying Sodium, Fiber, and Sugar
@@ -32,7 +33,7 @@ class MicronutrientChipsRow extends StatelessWidget {
           children: [
             _MicroChip(
               iconWidget: const Clay3DSaltShaker(size: 17),
-              label: 'Muối: ${sodiumMg.toStringAsFixed(0)} mg',
+              label: context.l10n.sodiumChip(sodiumMg.toStringAsFixed(0)),
               textColor: isHighSodium ? const Color(0xFFC2410C) : AppColors.onSurface,
               bgColor: isHighSodium ? const Color(0xFFFFF7ED) : const Color(0xFFF0F9FF),
               borderColor: isHighSodium ? const Color(0xFFFFEDD5) : const Color(0xFFBAE6FD),
@@ -40,7 +41,7 @@ class MicronutrientChipsRow extends StatelessWidget {
             ),
             _MicroChip(
               iconWidget: const Clay3DSprout(size: 17),
-              label: 'Xơ: ${fiberG.toStringAsFixed(1)} g',
+              label: context.l10n.fiberChip(fiberG.toStringAsFixed(1)),
               textColor: AppColors.onSurface,
               bgColor: const Color(0xFFF0FDF4),
               borderColor: const Color(0xFFBBF7D0),
@@ -48,7 +49,7 @@ class MicronutrientChipsRow extends StatelessWidget {
             ),
             _MicroChip(
               iconWidget: const Clay3DSugarCube(size: 17),
-              label: 'Đường: ${sugarG.toStringAsFixed(1)} g',
+              label: context.l10n.sugarChip(sugarG.toStringAsFixed(1)),
               textColor: isHighSugar ? const Color(0xFFC2410C) : AppColors.onSurface,
               bgColor: isHighSugar ? const Color(0xFFFFF7ED) : const Color(0xFFF8FAFC),
               borderColor: isHighSugar ? const Color(0xFFFFEDD5) : const Color(0xFFE2E8F0),
@@ -136,8 +137,7 @@ class HighSodiumAlertBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Tooltip(
-      message:
-          'Món ăn chứa hơn 800mg Natri (>1/3 hạn mức khuyến nghị cả ngày). Hãy chú ý uống đủ nước nhé!',
+      message: context.l10n.highSodiumAlertTooltip,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
         decoration: BoxDecoration(
@@ -155,18 +155,18 @@ class HighSodiumAlertBadge extends StatelessWidget {
             ),
           ],
         ),
-        child: const Row(
+        child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
+            const Icon(
               Icons.warning_amber_rounded,
               color: Color(0xFFEA580C),
               size: 13,
             ),
-            SizedBox(width: 4),
+            const SizedBox(width: 4),
             Text(
-              'Muối cao (>800mg)',
-              style: TextStyle(
+              context.l10n.highSodiumBadge,
+              style: const TextStyle(
                 color: Color(0xFFC2410C),
                 fontSize: 10.5,
                 fontWeight: FontWeight.w800,

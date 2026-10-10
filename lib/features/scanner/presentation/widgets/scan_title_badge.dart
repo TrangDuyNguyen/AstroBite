@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:astrobite/core/constants/app_values.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import '../../domain/entities/scan_result.dart';
 
 /// Top Header row displaying food name, multi-dish badge, and AI confidence badge.
@@ -38,7 +39,7 @@ class ScanTitleBadge extends StatelessWidget {
                     ),
                   ),
                   child: Text(
-                    '🍱 Mâm cơm (${dishes.length} món)',
+                    context.l10n.multiDishPlatter(dishes.length),
                     style: Theme.of(context).textTheme.labelSmall?.copyWith(
                           color: AppColors.primary,
                           fontWeight: FontWeight.bold,
@@ -49,7 +50,7 @@ class ScanTitleBadge extends StatelessWidget {
               ],
               Text(
                 dishes.length > 2
-                    ? '${dishes.first.dishName} & ${dishes.length - 1} món khác'
+                    ? context.l10n.andOtherDishes(dishes.first.dishName, dishes.length - 1)
                     : scaled.primaryDishName,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
@@ -92,7 +93,7 @@ class ScanTitleBadge extends StatelessWidget {
               const Icon(Icons.verified, size: 16, color: AppColors.primary),
               const SizedBox(width: AppValues.spacing4),
               Text(
-                '${(scaled.primaryConfidenceScore * 100).toInt()}% tin cậy',
+                context.l10n.confidencePercent((scaled.primaryConfidenceScore * 100).toInt()),
                 style: Theme.of(context).textTheme.labelMedium?.copyWith(
                       color: AppColors.primary,
                       fontWeight: FontWeight.w600,

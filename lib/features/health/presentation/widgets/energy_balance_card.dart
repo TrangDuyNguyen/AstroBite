@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import 'package:astrobite/shared/ui_kit/buttons/clay_button.dart';
 import 'package:astrobite/shared/ui_kit/surfaces/clay_card.dart';
 import '../../domain/health_activity.dart';
@@ -74,7 +75,7 @@ class EnergyBalanceCard extends ConsumerWidget {
           const SizedBox(width: 12),
           Expanded(
             child: Text(
-              'Kết nối $serviceName để xem calo đốt cháy',
+              context.l10n.connectHealthPrompt(serviceName),
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: AppColors.onSurface,
                     fontWeight: FontWeight.w600,
@@ -83,7 +84,7 @@ class EnergyBalanceCard extends ConsumerWidget {
           ),
           const SizedBox(width: 10),
           ClayButton(
-            text: 'Kết nối',
+            text: context.l10n.connect,
             height: 38,
             padding: const EdgeInsets.symmetric(horizontal: 14),
             borderRadius: 14,
@@ -108,7 +109,7 @@ class EnergyBalanceCard extends ConsumerWidget {
           const SizedBox(width: 12),
           Expanded(
             child: Text(
-              'Không thể đọc dữ liệu Health — kiểm tra quyền truy cập',
+              context.l10n.healthErrorMsg,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     color: AppColors.onSurfaceVariant,
                   ),
@@ -133,7 +134,7 @@ class EnergyBalanceCard extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Cân bằng Năng lượng',
+            context.l10n.energyBalanceTitle,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   color: AppColors.onSurface,
                 ),
@@ -181,14 +182,14 @@ class EnergyBalanceCard extends ConsumerWidget {
               _buildMetric(
                 context,
                 '🔵',
-                'Calo nạp',
+                context.l10n.caloriesIntake,
                 '${caloriesIn.round()} kcal',
                 AppColors.primary,
               ),
               _buildMetric(
                 context,
                 '🩷',
-                'Calo đốt',
+                context.l10n.caloriesBurned,
                 '${caloriesOut.round()} kcal',
                 AppColors.secondary,
               ),
@@ -197,7 +198,7 @@ class EnergyBalanceCard extends ConsumerWidget {
           const SizedBox(height: 8),
           Center(
             child: Text(
-              'Ngân sách còn lại: ${remaining.round()} kcal',
+              context.l10n.budgetRemaining(remaining.round()),
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: AppColors.onSurfaceVariant,
                   ),

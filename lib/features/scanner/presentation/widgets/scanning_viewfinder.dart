@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import 'package:astrobite/shared/ui_kit/ui_kit.dart';
 import 'viewfinder_detected_tag.dart';
 import 'viewfinder_hud_painters.dart';
@@ -206,9 +207,9 @@ class _ScanningViewfinderState extends State<ScanningViewfinder>
                             ),
                           ),
                           const SizedBox(width: AppValues.spacing8),
-                          const Text(
-                            '✨ ĐANG ĐỊNH VỊ MÓN ĂN',
-                            style: TextStyle(
+                          Text(
+                            context.l10n.scanningLocatingFood,
+                            style: const TextStyle(
                               fontSize: 11,
                               fontWeight: FontWeight.w700,
                               letterSpacing: 0.5,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:astrobite/core/constants/app_values.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import '../../domain/entities/scan_result.dart';
 import 'broth_toggle_chip.dart';
 import 'scan_macro_gauge_section.dart';
@@ -90,7 +91,7 @@ class ScanDishItemCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(AppValues.radius8),
                     ),
                     child: Text(
-                      '${(dish.confidenceScore * 100).toInt()}% tin cậy',
+                      context.l10n.confidencePercent((dish.confidenceScore * 100).toInt()),
                       style: const TextStyle(
                         color: AppColors.primary,
                         fontSize: 11,
@@ -100,7 +101,7 @@ class ScanDishItemCard extends StatelessWidget {
                   ),
                   IconButton(
                     icon: const Icon(Icons.close, size: 18),
-                    tooltip: 'Xóa món',
+                    tooltip: context.l10n.removeDish,
                     onPressed: onRemove,
                   ),
                 ],

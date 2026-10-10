@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 
 /// Tactile Clay Period Selector for Analytics (7 days vs 30 days).
 class AnalyticsPeriodSelector extends StatelessWidget {
@@ -28,19 +29,19 @@ class AnalyticsPeriodSelector extends StatelessWidget {
       ),
       child: SegmentedButton<int>(
         showSelectedIcon: false,
-        segments: const [
+        segments: [
           ButtonSegment(
             value: 7,
             label: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 12),
-              child: Text('7 ngày'),
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              child: Text(context.l10n.sevenDays),
             ),
           ),
           ButtonSegment(
             value: 30,
             label: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 12),
-              child: Text('30 ngày'),
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              child: Text(context.l10n.thirtyDays),
             ),
           ),
         ],

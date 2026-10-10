@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:astrobite/core/constants/app_values.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 
 /// Props for [MacroBudgetGauge].
 class MacroBudgetGaugeProps {
@@ -45,6 +46,7 @@ class MacroBudgetGauge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     final afterEatingRemaining = props.remainingCalories - props.projectedCalories;
     final isExceeded = afterEatingRemaining < 0;
 
@@ -90,7 +92,7 @@ class MacroBudgetGauge extends StatelessWidget {
                   ),
                   const SizedBox(width: 6),
                   Text(
-                    'TÁC ĐỘNG NGÂN SÁCH NGÀY',
+                    l10n.budgetImpactTitle,
                     style: GoogleFonts.inter(
                       fontSize: 11,
                       fontWeight: FontWeight.w700,
@@ -134,8 +136,8 @@ class MacroBudgetGauge extends StatelessWidget {
             children: [
               Text(
                 isExceeded
-                    ? '⚠️ Vượt ${afterEatingRemaining.abs()} kcal mục tiêu'
-                    : 'Còn lại sau bữa: $afterEatingRemaining kcal',
+                    ? l10n.budgetOverTarget(afterEatingRemaining.abs())
+                    : l10n.budgetRemainingAfterMeal(afterEatingRemaining),
                 style: GoogleFonts.inter(
                   fontSize: 11.5,
                   fontWeight: FontWeight.w600,
@@ -143,7 +145,7 @@ class MacroBudgetGauge extends StatelessWidget {
                 ),
               ),
               Text(
-                'Mục tiêu: ${props.targetCalories} kcal',
+                l10n.targetKcal(props.targetCalories),
                 style: GoogleFonts.inter(
                   fontSize: 11,
                   fontWeight: FontWeight.w500,

@@ -94,5 +94,531 @@
   "veryActiveActivity": "Rất năng động",
   "goalLoseWeight": "Giảm mỡ",
   "goalMaintain": "Duy trì cân nặng",
-  "goalGainMuscle": "Tăng cơ"
+  "goalGainMuscle": "Tăng cơ",
+
+  "back": "Quay lại",
+  "retry": "Thử lại",
+  "close": "Đóng",
+  "save": "Lưu",
+  "saving": "Đang lưu...",
+  "saveChanges": "Lưu thay đổi",
+  "errorWithDetails": "Lỗi: {error}",
+  "@errorWithDetails": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+  "loginToSaveLog": "Vui lòng đăng nhập để lưu nhật ký",
+  "cameraFlash": "Đèn Flash",
+  "scanTips": "Mẹo quét",
+  "scanTipsTitle": "Mẹo chụp ảnh món ăn chuẩn AI",
+  "scanTipLighting": "Đảm bảo đủ ánh sáng, tránh bóng đổ tối che khuất thức ăn.",
+  "scanTipFraming": "Đặt trọn vẹn đĩa ăn vào trong khung ngắm trung tâm.",
+  "scanTipAngle": "Nếu đĩa có nhiều món, chụp góc từ trên xuống (top-down view).",
+  "gotIt": "Đã hiểu",
+  "retakePhoto": "Chụp lại",
+  "rescan": "Quét lại",
+  "aiScanResult": "Kết quả phân tích AI",
+  "noScanData": "Chưa có dữ liệu phân tích món ăn.",
+  "backToCamera": "Quay lại Camera",
+  "portionEstimated": "Khẩu phần ước lượng",
+  "portionBowl": "1 Bát (~150g)",
+  "portionPlate": "1 Đĩa (~300g)",
+  "portionStandard": "Phần Chuẩn (~350g)",
+  "saveToMeal": "Lưu vào {meal} ({calories} kcal)",
+  "@saveToMeal": {
+    "placeholders": {
+      "meal": { "type": "String" },
+      "calories": { "type": "int" }
+    }
+  },
+  "foodSavedToMeal": "Đã lưu {dishName} vào {meal}!",
+  "@foodSavedToMeal": {
+    "placeholders": {
+      "dishName": { "type": "String" },
+      "meal": { "type": "String" }
+    }
+  },
+  "errorSavingLog": "Lỗi khi lưu nhật ký: {error}",
+  "@errorSavingLog": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+  "detectedDishesCount": "Thành phần nhận diện ({count} món)",
+  "@detectedDishesCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "addDish": "Thêm món",
+  "removeDish": "Xóa món",
+  "confidencePercent": "{percent}% tin cậy",
+  "@confidencePercent": {
+    "placeholders": {
+      "percent": { "type": "int" }
+    }
+  },
+  "multiDishPlatter": "🍱 Mâm cơm ({count} món)",
+  "@multiDishPlatter": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "andOtherDishes": "{firstDish} & {count} món khác",
+  "@andOtherDishes": {
+    "placeholders": {
+      "firstDish": { "type": "String" },
+      "count": { "type": "int" }
+    }
+  },
+  "eatWithBroth": "Ăn cả nước (+{calories} kcal)",
+  "@eatWithBroth": {
+    "placeholders": {
+      "calories": { "type": "int" }
+    }
+  },
+  "eatWithoutBroth": "Chỉ ăn cái (-{calories} kcal)",
+  "@eatWithoutBroth": {
+    "placeholders": {
+      "calories": { "type": "int" }
+    }
+  },
+  "brothSodiumSub": "Bao gồm ~{sodium}mg Muối nước lèo",
+  "@brothSodiumSub": {
+    "placeholders": {
+      "sodium": { "type": "int" }
+    }
+  },
+  "brothFullFlavorSub": "Tính trọn vẹn nước dùng & gia vị ninh",
+  "brothSavedSub": "Tiết kiệm {calories} kcal & giảm mỡ béo ✨",
+  "@brothSavedSub": {
+    "placeholders": {
+      "calories": { "type": "int" }
+    }
+  },
+  "manualAddDishTitle": "Thêm món ăn thủ công",
+  "dishNameLabel": "Tên món ăn",
+  "dishNameHint": "VD: Canh khổ qua, Trứng ốp la...",
+  "caloriesKcalLabel": "Calo (kcal)",
+  "caloriesHint": "VD: 120",
+  "portionGramsLabel": "Khẩu phần (g)",
+  "portionHint": "VD: 150",
+  "addToMealPlatter": "Thêm vào mâm cơm",
+  "sodiumChip": "Muối: {amount} mg",
+  "@sodiumChip": {
+    "placeholders": {
+      "amount": { "type": "String" }
+    }
+  },
+  "fiberChip": "Xơ: {amount} g",
+  "@fiberChip": {
+    "placeholders": {
+      "amount": { "type": "String" }
+    }
+  },
+  "sugarChip": "Đường: {amount} g",
+  "@sugarChip": {
+    "placeholders": {
+      "amount": { "type": "String" }
+    }
+  },
+  "highSodiumBadge": "Muối cao (>800mg)",
+  "highSodiumAlertTooltip": "Món ăn chứa hơn 800mg Natri (>1/3 hạn mức khuyến nghị cả ngày). Hãy chú ý uống đủ nước nhé!",
+  "dishNotRecognized": "Không nhận diện được món ăn",
+  "aiServerBusy": "Máy chủ AI hiện đang quá tải (503). Vui lòng bấm \"Thử lại\" sau giây lát.",
+  "aiOverloaded": "Máy chủ AI tạm thời quá tải. Vui lòng thử lại sau giây lát.",
+  "aiRateLimited": "Đã vượt giới hạn gọi AI tạm thời. Vui lòng thử lại sau ít phút.",
+  "aiConnectionError": "Không thể kết nối đến máy chủ AI. Vui lòng thử lại.",
+  "apiKeyInvalidTitle": "Gemini API Key Không Hợp Lệ",
+  "apiKeyRequiredTitle": "Cần Gemini API Key",
+  "apiKeyInvalidDesc": "Key API bạn đang sử dụng không hợp lệ hoặc đã hết hạn.\n\nVui lòng kiểm tra lại Key trong file .env hoặc tạo Key mới (phải bắt đầu bằng AIzaSy...) từ Google AI Studio.",
+  "apiKeyRequiredDesc": "Để quét món ăn bằng AI miễn phí (không cần thẻ tín dụng), bạn cần cài đặt Gemini API Key từ Google AI Studio (aistudio.google.com).\n\nBạn có thể dán Key ngay bây giờ hoặc sử dụng tính năng Nhập tay.",
+  "setupApiKey": "Cài đặt Key",
+  "apiKeySavedSuccess": "Đã lưu Gemini API Key thành công!",
+  "apiKeyRemovedSuccess": "Đã xóa Gemini API Key cá nhân.",
+  "apiKeyDialogDescription": "AstroBite sử dụng Google Gemini AI để nhận diện món ăn. Bạn có thể dùng API Key miễn phí 100% (không cần thẻ tín dụng).",
+  "apiKeyCopiedLink": "Đã sao chép link Google AI Studio vào bộ nhớ tạm!",
+  "apiKeyGetFree": "Lấy Key miễn phí: aistudio.google.com\n(Bấm để copy đường link)",
+  "pasteFromClipboard": "Dán từ bộ nhớ tạm",
+  "apiKeyStatusDefault": "Trạng thái: Đang dùng Key mặc định của ứng dụng (Sẵn sàng sử dụng)",
+  "apiKeyStatusCustom": "Trạng thái: Đang dùng Key cá nhân ({maskedKey})",
+  "@apiKeyStatusCustom": {
+    "placeholders": {
+      "maskedKey": { "type": "String" }
+    }
+  },
+  "apiKeyStatusNone": "Trạng thái: Chưa có API Key nào được cài đặt",
+  "deleteKey": "Xóa Key",
+  "saveKey": "Lưu Key",
+  "calorieTrendDays": "Xu hướng Calo nạp vào ({days} ngày)",
+  "@calorieTrendDays": {
+    "placeholders": {
+      "days": { "type": "int" }
+    }
+  },
+  "dailyTargetKcal": "Mục tiêu hằng ngày: {target} kcal",
+  "@dailyTargetKcal": {
+    "placeholders": {
+      "target": { "type": "int" }
+    }
+  },
+  "weightTrendTitle": "Xu hướng Cân nặng (kg)",
+  "weightGoalSubtitle": "Mục tiêu: {target} kg • Giảm đều đặn",
+  "@weightGoalSubtitle": {
+    "placeholders": {
+      "target": { "type": "String" }
+    }
+  },
+  "chartTarget": "Mục tiêu: {target}",
+  "@chartTarget": {
+    "placeholders": {
+      "target": { "type": "int" }
+    }
+  },
+  "chartTargetWeight": "Mục tiêu: {target} kg",
+  "@chartTargetWeight": {
+    "placeholders": {
+      "target": { "type": "String" }
+    }
+  },
+  "noTrackingData": "Chưa có dữ liệu theo dõi",
+  "week1": "Tuần 1",
+  "week2": "Tuần 2",
+  "week3": "Tuần 3",
+  "week4": "Tuần 4",
+  "dayNumber": " (Ngày {day})",
+  "@dayNumber": {
+    "placeholders": {
+      "day": { "type": "int" }
+    }
+  },
+  "macroBreakdownTitle": "Phân bổ Dinh dưỡng Trung bình",
+  "macroBreakdownSubtitle": "Tỷ lệ năng lượng hấp thu từ các nhóm chất",
+  "balanced": "Cân đối",
+  "kpiOnTrack": "Đạt chuẩn",
+  "kpiSlightlyOver": "Vượt nhẹ",
+  "discipline": "Kỷ luật",
+  "daysUnit": "ngày",
+  "sevenDays": "7 ngày",
+  "thirtyDays": "30 ngày",
+  "energyBalanceTitle": "Cân bằng Năng lượng",
+  "connectHealthPrompt": "Kết nối {service} để xem calo đốt cháy",
+  "@connectHealthPrompt": {
+    "placeholders": {
+      "service": { "type": "String" }
+    }
+  },
+  "connect": "Kết nối",
+  "healthErrorMsg": "Không thể đọc dữ liệu Health — kiểm tra quyền truy cập",
+  "caloriesBurned": "Calo đốt",
+  "caloriesIntake": "Calo nạp",
+  "budgetRemaining": "Ngân sách còn lại: {calories} kcal",
+  "@budgetRemaining": {
+    "placeholders": {
+      "calories": { "type": "int" }
+    }
+  },
+  "targetWeight": "Cân nặng mục tiêu",
+  "fitnessGoal": "Mục tiêu thể hình",
+  "biologicalInfo": "Thông tin sinh học",
+  "biologicalGender": "Giới tính sinh học",
+  "enterBirthYear": "Vui lòng nhập năm sinh",
+  "enterHeight": "Vui lòng nhập chiều cao",
+  "currentWeight": "Cân nặng hiện tại (kg)",
+  "enterCurrentWeight": "Vui lòng nhập cân nặng hiện tại",
+  "profileUpdateSuccess": "✨ Đã cập nhật hồ sơ & mục tiêu dinh dưỡng thành công!",
+  "goalAndActivity": "Mục tiêu & Chế độ vận động",
+  "weeklyActivityLevel": "Mức độ vận động hàng tuần",
+  "goalLoseWeightTitle": "Giảm mỡ & Cải thiện vóc dáng",
+  "goalLoseWeightSub": "Thâm hụt calo an toàn (-500 kcal/ngày)",
+  "goalMaintainTitle": "Duy trì cân nặng",
+  "goalMaintainSub": "Cân bằng calo nạp vào bằng chỉ số TDEE",
+  "goalGainMuscleTitle": "Tăng cơ & Khối lượng nạc",
+  "goalGainMuscleSub": "Thặng dư nhẹ (+300 kcal/ngày) kết hợp tập luyện",
+  "syncPendingTooltip": "Bữa ăn này đang lưu trên thiết bị. Sẽ tự tải lên khi có mạng.",
+  "syncFailedTooltip": "Chưa thể tải lên máy chủ. Chạm vào đây để thử lại.",
+  "syncSuccessTooltip": "Đã đồng bộ lên đám mây",
+  "foodDeleted": "Đã xóa món {dishName}",
+  "@foodDeleted": {
+    "placeholders": {
+      "dishName": { "type": "String" }
+    }
+  },
+  "recentFoods": "Món gần đây:",
+  "myRecipes": "Công thức của tôi",
+  "addCustomDish": "Thêm món tùy chỉnh",
+  "popularFoods": "Món ăn phổ biến ({count})",
+  "@popularFoods": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "customFoodEntry": "Tự nhập món",
+  "noFoodFound": "Không tìm thấy món \"{query}\"",
+  "@noFoodFound": {
+    "placeholders": {
+      "query": { "type": "String" }
+    }
+  },
+  "enterThisFoodManually": "Nhập món này thủ công",
+  "analyzingFood": "Đang phân tích món ăn...",
+  "tipWater": "💡 Uống đủ 2 lít nước mỗi ngày giúp trao đổi chất tốt hơn.",
+  "tipVeggies": "🥗 Rau xanh chứa ít calo nhưng giàu chất xơ và vitamin.",
+  "tipProtein": "🍳 Protein giúp no lâu và duy trì cơ bắp.",
+  "tipMealTiming": "⏰ Ăn đúng giờ giúp cơ thể điều hòa năng lượng hiệu quả.",
+  "tipExercise": "🏃 Kết hợp vận động 30 phút mỗi ngày để duy trì sức khỏe.",
+  "notSet": "Chưa đặt",
+  "bmiIndex": "Chỉ số BMI",
+  "dailyCalorieTarget": "Mục tiêu Calo/ngày",
+  "targetWeightOptional": "Cân nặng mục tiêu (kg, tùy chọn)",
+  "astroBiteRecommendation": "Gợi ý chuẩn khoa học AstroBite",
+  "recommendationCalories": "Khuyến nghị: {calories} kcal/ngày",
+  "@recommendationCalories": {
+    "placeholders": {
+      "calories": { "type": "int" }
+    }
+  },
+  "apply": "Áp dụng",
+  "dailyCalorieTargetWithUnit": "Mục tiêu Calo/ngày (kcal)",
+  "enterTargetCalories": "Vui lòng nhập mục tiêu calo",
+  "loginToSaveLog": "Vui lòng đăng nhập để lưu nhật ký",
+  "savedFoodToMeal": "Đã lưu {dishName} vào {meal}!",
+  "@savedFoodToMeal": {
+    "placeholders": {
+      "dishName": { "type": "String" },
+      "meal": { "type": "String" }
+    }
+  },
+  "errorSavingLog": "Lỗi khi lưu nhật ký: {error}",
+  "@errorSavingLog": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+  "cannotOpenSource": "Không thể mở camera/thư viện: {error}",
+  "@cannotOpenSource": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+  "aiDecodingFood": "✨ AI đang giải mã cấu trúc món ăn...",
+  "pointCameraAtFood": "Hướng máy ảnh vào đĩa thức ăn và bấm nút chụp",
+  "scanningLocatingFood": "✨ ĐANG ĐỊNH VỊ MÓN ĂN",
+  "selectFromGallery": "Chọn từ thư viện",
+  "manualEntryTooltip": "Nhập tay",
+  "toppingsAndSidesHeader": "TOPPING & MÓN PHỤ (CHẠM ĐỂ BỎ BỚT)",
+  "standardPortion": "Khẩu phần tiêu chuẩn • {weight}g",
+  "@standardPortion": {
+    "placeholders": {
+      "weight": { "type": "int" }
+    }
+  },
+  "scansExhaustedToday": "Đã hết lượt quét hôm nay (10/10)",
+  "scansRemainingToday": "Còn lại {remaining}/{total} lượt quét hôm nay",
+  "@scansRemainingToday": {
+    "placeholders": {
+      "remaining": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "target": "Mục tiêu",
+  "portion100g": "Chuẩn (~100g)",
+  "todayActivityTitle": "Vận Động Hôm Nay",
+  "stepsCount": "🚶 {count} bước",
+  "@stepsCount": {
+    "placeholders": {
+      "count": { "type": "String" }
+    }
+  },
+  "startMovingPrompt": "Hãy bắt đầu di chuyển nào! 🚶",
+  "minutesUnit": "{minutes} phút",
+  "@minutesUnit": {
+    "placeholders": {
+      "minutes": { "type": "int" }
+    }
+  },
+  "offlineModeNotice": "Chế độ ngoại tuyến — Dữ liệu đang được lưu an toàn trên máy",
+  "syncedMealsCount": "Đã đồng bộ {count} bữa ăn lên đám mây",
+  "@syncedMealsCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "macroCarbs": "Tinh bột",
+  "macroProtein": "Chất đạm",
+  "macroFat": "Chất béo",
+  "coachHistory": "Lịch sử",
+  "coachHistoryTooltip": "Lịch sử hội thoại",
+  "onlineRealtimeNutritionist": "Online • Real-time Nutritionist",
+  "nutritionOverviewToday": "Tổng quan dinh dưỡng hôm nay",
+  "budgetRemainingKcal": "Còn lại: {calories} kcal",
+  "@budgetRemainingKcal": {
+    "placeholders": {
+      "calories": { "type": "int" }
+    }
+  },
+  "budgetOverKcal": "Vượt: {calories} kcal",
+  "@budgetOverKcal": {
+    "placeholders": {
+      "calories": { "type": "int" }
+    }
+  },
+  "sodiumWarning": "Cảnh báo Natri: {current}mg / {target}mg (sắp chạm ngưỡng khuyến nghị)",
+  "@sodiumWarning": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "target": { "type": "int" }
+    }
+  },
+  "portionLabel": "Khẩu phần:",
+  "quickLogNow": "⚡ Ghi vào nhật ký ngay",
+  "quickLogging": "Đang ghi nhật ký...",
+  "quickLogged": "✓ Đã ghi vào nhật ký",
+  "suggestedDish": "Gợi ý món ăn",
+  "budgetImpactTitle": "TÁC ĐỘNG NGÂN SÁCH NGÀY",
+  "budgetOverTarget": "⚠️ Vượt {calories} kcal mục tiêu",
+  "@budgetOverTarget": {
+    "placeholders": {
+      "calories": { "type": "int" }
+    }
+  },
+  "budgetRemainingAfterMeal": "Còn lại sau bữa: {calories} kcal",
+  "@budgetRemainingAfterMeal": {
+    "placeholders": {
+      "calories": { "type": "int" }
+    }
+  },
+  "targetKcal": "Mục tiêu: {target} kcal",
+  "@targetKcal": {
+    "placeholders": {
+      "target": { "type": "int" }
+    }
+  },
+  "ingredientsLabel": "Thành phần: {ingredients}",
+  "@ingredientsLabel": {
+    "placeholders": {
+      "ingredients": { "type": "String" }
+    }
+  },
+  "shuffleSuggestions": "🎲 Đổi gợi ý khác",
+  "questionSuggestions": "Gợi ý câu hỏi ({count})",
+  "@questionSuggestions": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "medicalDisclaimer": "⚕️ AI gợi ý tham khảo, không thay thế chuyên gia y tế",
+  "collapseSuggestions": "Thu gọn gợi ý",
+  "expandSuggestions": "Mở gợi ý câu hỏi",
+  "clearContent": "Xóa nội dung",
+  "voiceListeningStop": "Đang nghe... Bấm để dừng",
+  "voiceInputTooltip": "Nói tiếng Việt (Nhấn giữ để mở AstroVoice)",
+  "askCoachHint": "Hỏi AstroCoach về thực đơn, macros...",
+  "viewingSession": "Đang xem lại phiên: {date}",
+  "@viewingSession": {
+    "placeholders": {
+      "date": { "type": "String" }
+    }
+  },
+  "todayReset": "Hôm nay ↺",
+  "coachWelcomeTitle": "Xin chào! Tôi là AstroBot ✨",
+  "coachWelcomeBody": "Hôm nay bạn đã nạp {calories} kcal ({protein}g Protein).\nHãy chọn câu hỏi nhanh bên dưới hoặc nhập thực đơn bạn muốn tư vấn!",
+  "@coachWelcomeBody": {
+    "placeholders": {
+      "calories": { "type": "int" },
+      "protein": { "type": "int" }
+    }
+  },
+  "coachHistorySheetTitle": "Lịch sử hội thoại AstroCoach",
+  "coachHistorySheetSubtitle": "Xem lại hoặc chuyển phiên tư vấn dinh dưỡng",
+  "coachHistoryLoadError": "Lỗi tải lịch sử: {error}",
+  "@coachHistoryLoadError": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+  "coachHistoryEmptyTitle": "Chưa có cuộc trò chuyện nào trước đó.",
+  "coachHistoryEmptySubtitle": "Các phiên tư vấn dinh dưỡng hàng ngày sẽ tự động lưu tại đây.",
+  "todayWithDate": "Hôm nay ({date})",
+  "@todayWithDate": {
+    "placeholders": {
+      "date": { "type": "String" }
+    }
+  },
+  "currentViewing": "Đang xem",
+  "messagesCount": "{count} tin nhắn",
+  "@messagesCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "deleteChatTooltip": "Xoá cuộc trò chuyện",
+  "deleteChatTitle": "Xoá cuộc trò chuyện?",
+  "deleteChatEmpty": "Cuộc trò chuyện hiện tại đang trống.",
+  "deleteChatConfirmDate": "Tất cả tin nhắn trong phiên ngày {date} sẽ bị xoá vĩnh viễn và không thể khôi phục.",
+  "@deleteChatConfirmDate": {
+    "placeholders": {
+      "date": { "type": "String" }
+    }
+  },
+  "deleteChatConfirmGeneral": "Tất cả tin nhắn trong phiên này sẽ bị xoá vĩnh viễn và không thể khôi phục.",
+  "deleteChatSuccess": "🗑️ Đã xoá cuộc trò chuyện thành công.",
+  "deleteAction": "Xoá",
+  "deleteCancel": "Huỷ",
+  "coachAnalyzing": "AstroCoach đang phân tích...",
+  "cannotAccessMicrophone": "Không thể truy cập Microphone để nhận diện giọng nói",
+  "messageLimitTitle": "Giới hạn tin nhắn",
+  "messageLimitBody": "Bạn đã đạt giới hạn 50 tin nhắn hôm nay. Hãy quay lại ngày mai nhé! 🌙",
+  "understood": "Đã hiểu",
+  "dishFromCoach": "Món từ AstroCoach",
+  "addedDishToLog": "✨ Đã thêm \"{dishName}\" ({calories} kcal) vào nhật ký!",
+  "@addedDishToLog": {
+    "placeholders": {
+      "dishName": { "type": "String" },
+      "calories": { "type": "int" }
+    }
+  },
+  "coachErrorTimeout": "Phản hồi quá lâu. Vui lòng thử lại.",
+  "coachErrorInvalidApiKey": "Gemini API Key không hợp lệ hoặc chưa được cấu hình. Vui lòng kiểm tra lại API Key.",
+  "coachErrorServerOverloaded": "Máy chủ AI đang quá tải. Vui lòng thử lại sau.",
+  "coachErrorGeneral": "Có lỗi xảy ra. Vui lòng thử lại.",
+  "tapToLog": "1-Chạm",
+  "errorLabel": "Lỗi: {error}",
+  "@errorLabel": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+  "promptRemainingCaloriesLongFull": "🔥 Còn {calories} kcal, ăn gì no lâu?",
+  "@promptRemainingCaloriesLongFull": {
+    "placeholders": {
+      "calories": { "type": "int" }
+    }
+  },
+  "promptRemainingCaloriesLight": "🥗 Còn {calories} kcal, món nhẹ dưới 300 kcal?",
+  "@promptRemainingCaloriesLight": {
+    "placeholders": {
+      "calories": { "type": "int" }
+    }
+  },
+  "promptExceededCalories": "⚠️ Vượt {calories} kcal, mẹo cân bằng?",
+  "@promptExceededCalories": {
+    "placeholders": {
+      "calories": { "type": "int" }
+    }
+  },
+  "promptDeficitProtein": "🥩 Thiếu {protein}g đạm, ăn gì bù nhanh?",
+  "@promptDeficitProtein": {
+    "placeholders": {
+      "protein": { "type": "int" }
+    }
+  },
+  "promptSufficientProtein": "💪 Đã đủ đạm, ăn gì tiếp không thừa calo?",
+  "promptHighSodium": "🧂 Lượng natri cao, cách giảm tích nước?",
+  "promptHighFiber": "🥦 Gợi ý món nhiều chất xơ dễ tiêu hóa",
+  "proteinShort": "Đạm",
+  "carbsShort": "Carbs",
+  "fatShort": "Béo",
+  "sodiumShort": "Natri"
 }

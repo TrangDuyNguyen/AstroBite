@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:astrobite/core/constants/app_values.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import '../../domain/entities/scan_result.dart';
 import 'micronutrient_chips_row.dart';
 import 'scan_macro_gauge_section.dart';
@@ -60,7 +61,7 @@ class ScanReviewHeroCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 2),
                   Text(
-                    'Khẩu phần tiêu chuẩn • ${effectiveWeight}g',
+                    context.l10n.standardPortion(effectiveWeight),
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           color: AppColors.onSurfaceVariant,
                           fontWeight: FontWeight.w500,
@@ -80,7 +81,7 @@ class ScanReviewHeroCard extends StatelessWidget {
             children: [
               Expanded(
                 child: ScanMacroIndicator(
-                  label: 'Tinh bột',
+                  label: context.l10n.macroCarbs,
                   value: '${scaled.activeCarbsG}g',
                   color: AppColors.primary,
                   ratio: (scaled.activeCalories > 0
@@ -91,7 +92,7 @@ class ScanReviewHeroCard extends StatelessWidget {
               const SizedBox(width: AppValues.spacing8),
               Expanded(
                 child: ScanMacroIndicator(
-                  label: 'Chất đạm',
+                  label: context.l10n.macroProtein,
                   value: '${scaled.activeProteinG}g',
                   color: AppColors.tertiary,
                   ratio: (scaled.activeCalories > 0
@@ -102,7 +103,7 @@ class ScanReviewHeroCard extends StatelessWidget {
               const SizedBox(width: AppValues.spacing8),
               Expanded(
                 child: ScanMacroIndicator(
-                  label: 'Chất béo',
+                  label: context.l10n.macroFat,
                   value: '${scaled.activeFatG}g',
                   color: AppColors.secondary,
                   ratio: (scaled.activeCalories > 0

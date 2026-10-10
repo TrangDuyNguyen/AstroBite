@@ -105,7 +105,7 @@ class _AnalyticsPageState extends ConsumerState<AnalyticsPage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Xu hướng Calo nạp vào ($_days ngày)',
+                                  context.l10n.calorieTrendDays(_days),
                                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
                                         fontWeight: FontWeight.w700,
                                         color: AppColors.onSurface,
@@ -113,7 +113,7 @@ class _AnalyticsPageState extends ConsumerState<AnalyticsPage> {
                                 ),
                                 const SizedBox(height: 2),
                                 Text(
-                                  'Mục tiêu hằng ngày: $targetCalories kcal',
+                                  context.l10n.dailyTargetKcal(targetCalories),
                                   style: Theme.of(context).textTheme.labelMedium?.copyWith(
                                         color: AppColors.onSurfaceVariant,
                                       ),
@@ -159,7 +159,7 @@ class _AnalyticsPageState extends ConsumerState<AnalyticsPage> {
                           height: 200,
                           child: Center(
                             child: Text(
-                              'Lỗi: $e',
+                              context.l10n.errorWithDetails(e.toString()),
                               style: const TextStyle(color: AppColors.error),
                             ),
                           ),
@@ -187,7 +187,7 @@ class _AnalyticsPageState extends ConsumerState<AnalyticsPage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Xu hướng Cân nặng (kg)',
+                                  context.l10n.weightTrendTitle,
                                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
                                         fontWeight: FontWeight.w700,
                                         color: AppColors.secondary,
@@ -195,7 +195,7 @@ class _AnalyticsPageState extends ConsumerState<AnalyticsPage> {
                                 ),
                                 const SizedBox(height: 2),
                                 Text(
-                                  'Mục tiêu: ${targetWeight.toStringAsFixed(1)} kg • Giảm đều đặn',
+                                  context.l10n.weightGoalSubtitle(targetWeight.toStringAsFixed(1)),
                                   style: Theme.of(context).textTheme.labelMedium?.copyWith(
                                         color: AppColors.onSurfaceVariant,
                                       ),

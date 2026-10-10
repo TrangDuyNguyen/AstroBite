@@ -1,6 +1,5 @@
-/// Domain-driven Enhanced Enums and Constants for AstroBite Profile
-/// Encapsulates biological calculation metadata and provides O(1) property access.
-library;
+import 'package:flutter/widgets.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 
 enum Gender {
   male(
@@ -31,6 +30,11 @@ enum Gender {
   final String icon;
   final double bmrOffset;
   final double safetyFloor;
+
+  String localizedLabel(BuildContext context) => switch (this) {
+        Gender.male => context.l10n.male,
+        Gender.female => context.l10n.female,
+      };
 
   static Gender fromValue(String? value) {
     if (value == null) return Gender.male;
@@ -77,6 +81,14 @@ enum ActivityLevel {
   final String value;
   final String label;
   final double multiplier;
+
+  String localizedLabel(BuildContext context) => switch (this) {
+        ActivityLevel.sedentary => context.l10n.sedentary,
+        ActivityLevel.light => context.l10n.lightActivity,
+        ActivityLevel.moderate => context.l10n.moderateActivity,
+        ActivityLevel.active => context.l10n.activeActivity,
+        ActivityLevel.veryActive => context.l10n.veryActiveActivity,
+      };
 
   static ActivityLevel fromValue(String? value) {
     if (value == null) return ActivityLevel.moderate;
@@ -131,6 +143,20 @@ enum FitnessGoal {
   final String subtitle;
   final String icon;
   final int calorieOffset;
+
+  String localizedTitle(BuildContext context) => switch (this) {
+        FitnessGoal.loseWeight => context.l10n.goalLoseWeightTitle,
+        FitnessGoal.maintain => context.l10n.goalMaintainTitle,
+        FitnessGoal.gainMuscle => context.l10n.goalGainMuscleTitle,
+        FitnessGoal.gainWeight => context.l10n.goalGainMuscleTitle,
+      };
+
+  String localizedSubtitle(BuildContext context) => switch (this) {
+        FitnessGoal.loseWeight => context.l10n.goalLoseWeightSub,
+        FitnessGoal.maintain => context.l10n.goalMaintainSub,
+        FitnessGoal.gainMuscle => context.l10n.goalGainMuscleSub,
+        FitnessGoal.gainWeight => context.l10n.goalGainMuscleSub,
+      };
 
   static FitnessGoal fromValue(String? value) {
     if (value == null) return FitnessGoal.maintain;

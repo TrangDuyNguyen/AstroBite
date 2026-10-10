@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:astrobite/core/constants/app_values.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import 'package:astrobite/features/auth/domain/auth_providers.dart';
 import '../../domain/tracker_providers.dart';
 import '../controllers/tracker_controller.dart';
@@ -39,7 +40,7 @@ class CelestialOfflineBanner extends ConsumerWidget {
           const SizedBox(width: AppValues.spacing8),
           Expanded(
             child: Text(
-              'Chế độ ngoại tuyến — Dữ liệu đang được lưu an toàn trên máy',
+              context.l10n.offlineModeNotice,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     color: AppColors.warning.withValues(alpha: 0.9),
                     fontWeight: FontWeight.w500,
@@ -56,7 +57,7 @@ class CelestialOfflineBanner extends ConsumerWidget {
                 if (context.mounted && count > 0) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text('Đã đồng bộ $count bữa ăn lên đám mây'),
+                      content: Text(context.l10n.syncedMealsCount(count)),
                     ),
                   );
                 }

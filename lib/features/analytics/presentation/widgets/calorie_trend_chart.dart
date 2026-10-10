@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 
 /// Claymorphic Calorie Trend Line Chart with goal benchmark and tactile points.
 class CalorieTrendChart extends StatelessWidget {
@@ -36,9 +37,9 @@ class CalorieTrendChart extends StatelessWidget {
               child: const Text('📊', style: TextStyle(fontSize: 26)),
             ),
             const SizedBox(height: 10),
-            const Text(
-              'Chưa có dữ liệu theo dõi',
-              style: TextStyle(
+            Text(
+              context.l10n.noTrackingData,
+              style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
                 color: AppColors.onSurfaceVariant,
@@ -99,7 +100,7 @@ class CalorieTrendChart extends StatelessWidget {
                       fontSize: 10,
                       fontWeight: FontWeight.w700,
                     ),
-                    labelResolver: (_) => 'Mục tiêu: $targetCalories',
+                    labelResolver: (_) => context.l10n.chartTarget(targetCalories),
                   ),
                 ),
               ],

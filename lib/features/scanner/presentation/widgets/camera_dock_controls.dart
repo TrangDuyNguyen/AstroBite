@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:astrobite/core/router/app_router.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import 'package:astrobite/shared/ui_kit/ui_kit.dart';
 
 /// Bottom Shutter & Picker Control Panel (Tactile Claymorphic Dock).
@@ -57,7 +58,7 @@ class CameraDockControls extends StatelessWidget {
             iconColor: AppColors.primary,
             backgroundColor: const Color(0xFFF0F9FF),
             iconSize: 26,
-            tooltip: 'Chọn từ thư viện',
+            tooltip: context.l10n.selectFromGallery,
             onPressed: isScanning ? null : () => onPickImage(ImageSource.gallery),
           ),
 
@@ -74,7 +75,7 @@ class CameraDockControls extends StatelessWidget {
             iconColor: AppColors.tertiary,
             backgroundColor: const Color(0xFFFFF7ED),
             iconSize: 28,
-            tooltip: 'Nhập tay',
+            tooltip: context.l10n.manualEntryTooltip,
             onPressed: isScanning
                 ? null
                 : () => context.router.push(ManualEntryRoute()),

@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:astrobite/core/constants/app_values.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import 'package:astrobite/features/tracker/data/datasources/common_foods_dataset.dart';
 
 /// Horizontal tray showing recently logged foods for 1-tap selection.
@@ -30,7 +31,7 @@ class RecentFoodsTray extends StatelessWidget {
             const Icon(Icons.history_rounded, size: 16, color: AppColors.primary),
             const SizedBox(width: AppValues.spacing4),
             Text(
-              'Món gần đây:',
+              context.l10n.recentFoods,
               style: GoogleFonts.outfit(
                 fontSize: 12.5,
                 fontWeight: FontWeight.w700,

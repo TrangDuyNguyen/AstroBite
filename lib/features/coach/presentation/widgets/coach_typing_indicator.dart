@@ -2,6 +2,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 
 /// Typing indicator displaying astronaut lottie and bouncing macro dots.
 class CoachTypingIndicator extends StatelessWidget {
@@ -43,9 +44,9 @@ class CoachTypingIndicator extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 8),
-            const Text(
-              'AstroCoach đang phân tích...',
-              style: TextStyle(
+            Text(
+              context.l10n.coachAnalyzing,
+              style: const TextStyle(
                 fontSize: 12.5,
                 fontWeight: FontWeight.w600,
                 color: AppColors.onSurfaceVariant,

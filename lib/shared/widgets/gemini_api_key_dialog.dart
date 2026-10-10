@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:astrobite/core/constants/app_values.dart';
 import 'package:astrobite/core/services/gemini_api_key_service.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 
 /// Modal dialog allowing users to view, configure, or clear their personal Gemini API Key.
 class GeminiApiKeyDialog extends ConsumerStatefulWidget {
@@ -50,8 +51,8 @@ class _GeminiApiKeyDialogState extends ConsumerState<GeminiApiKeyDialog> {
     if (!mounted) return;
     Navigator.of(context).pop();
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Đã lưu Gemini API Key thành công!'),
+      SnackBar(
+        content: Text(context.l10n.apiKeySavedSuccess),
         backgroundColor: AppColors.success,
       ),
     );
@@ -62,8 +63,8 @@ class _GeminiApiKeyDialogState extends ConsumerState<GeminiApiKeyDialog> {
     if (!mounted) return;
     Navigator.of(context).pop();
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Đã xóa Gemini API Key cá nhân.'),
+      SnackBar(
+        content: Text(context.l10n.apiKeyRemovedSuccess),
       ),
     );
   }
@@ -74,11 +75,11 @@ class _GeminiApiKeyDialogState extends ConsumerState<GeminiApiKeyDialog> {
 
     return AlertDialog(
       surfaceTintColor: Colors.transparent,
-      title: const Row(
+      title: Row(
         children: [
-          Icon(Icons.vpn_key_rounded, color: AppColors.tertiary),
-          SizedBox(width: AppValues.spacing8),
-          Text('Cài đặt Gemini API Key'),
+          const Icon(Icons.vpn_key_rounded, color: AppColors.tertiary),
+          const SizedBox(width: AppValues.spacing8),
+          Text(context.l10n.apiKeySettings),
         ],
       ),
       content: SingleChildScrollView(
@@ -86,10 +87,9 @@ class _GeminiApiKeyDialogState extends ConsumerState<GeminiApiKeyDialog> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'AstroBite sử dụng Google Gemini AI để nhận diện món ăn. '
-              'Bạn có thể dùng API Key miễn phí 100% (không cần thẻ tín dụng).',
-              style: TextStyle(fontSize: 13, height: 1.4),
+            Text(
+              context.l10n.apiKeyDialogDescription,
+              style: const TextStyle(fontSize: 13, height: 1.4),
             ),
             const SizedBox(height: AppValues.spacing12),
             InkWell(
@@ -99,8 +99,8 @@ class _GeminiApiKeyDialogState extends ConsumerState<GeminiApiKeyDialog> {
                 );
                 if (context.mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Đã sao chép link Google AI Studio vào bộ nhớ tạm!'),
+                    SnackBar(
+                      content: Text(context.l10n.apiKeyCopiedLink),
                     ),
                   );
                 }
@@ -113,14 +113,14 @@ class _GeminiApiKeyDialogState extends ConsumerState<GeminiApiKeyDialog> {
                   borderRadius: BorderRadius.circular(AppValues.radius8),
                   border: Border.all(color: AppColors.primary.withValues(alpha: 0.3)),
                 ),
-                child: const Row(
+                child: Row(
                   children: [
-                    Icon(Icons.open_in_new, size: 16, color: AppColors.primary),
-                    SizedBox(width: AppValues.spacing8),
+                    const Icon(Icons.open_in_new, size: 16, color: AppColors.primary),
+                    const SizedBox(width: AppValues.spacing8),
                     Expanded(
                       child: Text(
-                        'Lấy Key miễn phí: aistudio.google.com\n(Bấm để copy đường link)',
-                        style: TextStyle(fontSize: 12, color: AppColors.primary),
+                        context.l10n.apiKeyGetFree,
+                        style: const TextStyle(fontSize: 12, color: AppColors.primary),
                       ),
                     ),
                   ],
@@ -146,7 +146,7 @@ class _GeminiApiKeyDialogState extends ConsumerState<GeminiApiKeyDialog> {
                     ),
                     IconButton(
                       icon: const Icon(Icons.paste_rounded, size: 20),
-                      tooltip: 'Dán từ bộ nhớ tạm',
+                      tooltip: context.l10n.pasteFromClipboard,
                       onPressed: _pasteFromClipboard,
                     ),
                   ],
@@ -156,10 +156,10 @@ class _GeminiApiKeyDialogState extends ConsumerState<GeminiApiKeyDialog> {
             const SizedBox(height: AppValues.spacing12),
             Text(
               keyState.isUsingEnvKey
-                  ? 'Trạng thái: Đang dùng Key mặc định của ứng dụng (Sẵn sàng sử dụng)'
+                  ? context.l10n.apiKeyStatusDefault
                   : keyState.isUsingCustomKey
-                      ? 'Trạng thái: Đang dùng Key cá nhân (${keyState.maskedActiveKey})'
-                      : 'Trạng thái: Chưa có API Key nào được cài đặt',
+                      ? context.l10n.apiKeyStatusCustom(keyState.maskedActiveKey)
+                      : context.l10n.apiKeyStatusNone,
               style: TextStyle(
                 fontSize: 12,
                 color: keyState.hasKey ? AppColors.success : AppColors.error,
@@ -173,15 +173,15 @@ class _GeminiApiKeyDialogState extends ConsumerState<GeminiApiKeyDialog> {
           TextButton(
             onPressed: _clearKey,
             style: TextButton.styleFrom(foregroundColor: AppColors.error),
-            child: const Text('Xóa Key'),
+            child: Text(context.l10n.deleteKey),
           ),
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: const Text('Đóng'),
+          child: Text(context.l10n.close),
         ),
         FilledButton(
           onPressed: _saveKey,
-          child: const Text('Lưu Key'),
+          child: Text(context.l10n.saveKey),
         ),
       ],
     );

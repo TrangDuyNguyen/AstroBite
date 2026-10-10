@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:astrobite/core/constants/app_values.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 
 /// Claymorphic shimmer loading placeholder with Warm Milk base (#F0EFEB)
 /// and soft outline border.
@@ -49,13 +50,7 @@ class _ClayScanLoaderState extends State<ClayScanLoader>
   int _tipIndex = 0;
   Timer? _tipTimer;
 
-  static const _tips = [
-    '💡 Uống đủ 2 lít nước mỗi ngày giúp trao đổi chất tốt hơn.',
-    '🥗 Rau xanh chứa ít calo nhưng giàu chất xơ và vitamin.',
-    '🍳 Protein giúp no lâu và duy trì cơ bắp.',
-    '⏰ Ăn đúng giờ giúp cơ thể điều hòa năng lượng hiệu quả.',
-    '🏃 Kết hợp vận động 30 phút mỗi ngày để duy trì sức khỏe.',
-  ];
+  static const _tipCount = 5;
 
   @override
   void initState() {
@@ -65,7 +60,7 @@ class _ClayScanLoaderState extends State<ClayScanLoader>
       duration: const Duration(milliseconds: 1500),
     )..repeat();
     _tipTimer = Timer.periodic(const Duration(seconds: 3), (_) {
-      if (mounted) setState(() => _tipIndex = (_tipIndex + 1) % _tips.length);
+      if (mounted) setState(() => _tipIndex = (_tipIndex + 1) % _tipCount);
     });
   }
 
@@ -78,6 +73,14 @@ class _ClayScanLoaderState extends State<ClayScanLoader>
 
   @override
   Widget build(BuildContext context) {
+    final tips = [
+      context.l10n.tipWater,
+      context.l10n.tipVeggies,
+      context.l10n.tipProtein,
+      context.l10n.tipMealTiming,
+      context.l10n.tipExercise,
+    ];
+
     return Padding(
       padding: const EdgeInsets.all(AppValues.screenPadding),
       child: Column(
@@ -86,14 +89,14 @@ class _ClayScanLoaderState extends State<ClayScanLoader>
           const CircularProgressIndicator(color: AppColors.primary),
           const SizedBox(height: AppValues.spacing24),
           Text(
-            'Đang phân tích món ăn...',
+            context.l10n.analyzingFood,
             style: Theme.of(context).textTheme.titleMedium,
           ),
           const SizedBox(height: AppValues.spacing16),
           AnimatedSwitcher(
             duration: const Duration(milliseconds: 500),
             child: Text(
-              _tips[_tipIndex],
+              tips[_tipIndex % tips.length],
               key: ValueKey(_tipIndex),
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.bodyMedium,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:astrobite/core/constants/meal_enums.dart';
-
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import 'package:astrobite/shared/ui_kit/ui_kit.dart';
 
 /// Bottom bar for ManualEntryPage with one-thumb meal selector and sticky save CTA button.
@@ -77,8 +77,11 @@ class ManualEntryBottomBar extends StatelessWidget {
               onPressed: (!canSave || isSaving) ? null : onSave,
               icon: const Icon(Icons.bookmark_add_rounded, color: Colors.white, size: 20),
               text: isSaving
-                  ? 'Đang lưu...'
-                  : 'Lưu vào ${selectedMeal.label} ($totalCalories kcal)',
+                  ? context.l10n.saving
+                  : context.l10n.saveToMeal(
+                      selectedMeal.localizedLabel(context),
+                      totalCalories,
+                    ),
             ),
           ],
         ),

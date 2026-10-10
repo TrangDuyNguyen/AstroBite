@@ -115,7 +115,7 @@ class _ScanReviewPageState extends ConsumerState<ScanReviewPage> {
     if (user == null) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Vui lòng đăng nhập để lưu nhật ký')),
+          SnackBar(content: Text(context.l10n.loginToSaveLog)),
         );
         setState(() => _isSaving = false);
       }
@@ -183,7 +183,7 @@ class _ScanReviewPageState extends ConsumerState<ScanReviewPage> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-              'Đã lưu ${effective.primaryDishName} vào ${_mealLabel(_selectedMeal)}!',
+              context.l10n.foodSavedToMeal(effective.primaryDishName, _mealLabel(_selectedMeal)),
             ),
           ),
         );
@@ -192,7 +192,7 @@ class _ScanReviewPageState extends ConsumerState<ScanReviewPage> {
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Lỗi khi lưu nhật ký: $e')),
+          SnackBar(content: Text(context.l10n.errorSavingLog(e.toString()))),
         );
         setState(() => _isSaving = false);
       }
@@ -205,18 +205,18 @@ class _ScanReviewPageState extends ConsumerState<ScanReviewPage> {
 
     if (baseResult == null) {
       return Scaffold(
-        appBar: AppBar(title: const Text('Kết quả phân tích AI')),
+        appBar: AppBar(title: Text(context.l10n.aiScanResult)),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Icon(Icons.info_outline, size: 64, color: AppColors.onSurfaceVariant),
               const SizedBox(height: AppValues.spacing16),
-              const Text('Chưa có dữ liệu phân tích món ăn.'),
+              Text(context.l10n.noScanData),
               const SizedBox(height: AppValues.spacing24),
               FilledButton(
                 onPressed: () => context.router.popForced(),
-                child: const Text('Quay lại Camera'),
+                child: Text(context.l10n.backToCamera),
               ),
             ],
           ),
@@ -236,9 +236,9 @@ class _ScanReviewPageState extends ConsumerState<ScanReviewPage> {
         surfaceTintColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
-        title: const Text(
-          'Kết quả phân tích AI',
-          style: TextStyle(
+        title: Text(
+          context.l10n.aiScanResult,
+          style: const TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 16,
             color: AppColors.onSurface,
@@ -251,7 +251,7 @@ class _ScanReviewPageState extends ConsumerState<ScanReviewPage> {
               icon: Icons.arrow_back_ios_new_rounded,
               size: 40,
               borderRadius: 14,
-              tooltip: 'Quay lại',
+              tooltip: context.l10n.back,
               onPressed: () => context.router.popForced(),
             ),
           ),
@@ -282,14 +282,14 @@ class _ScanReviewPageState extends ConsumerState<ScanReviewPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Thành phần nhận diện (${_dishes.length} món)',
+                      context.l10n.detectedDishesCount(_dishes.length),
                       style: Theme.of(context).textTheme.titleSmall?.copyWith(
                             fontWeight: FontWeight.bold,
                           ),
                     ),
                     TextButton.icon(
                       icon: const Icon(Icons.add, size: 18),
-                      label: const Text('Thêm món'),
+                      label: Text(context.l10n.addDish),
                       onPressed: () => ScanQuickAddSheet.show(
                         context,
                         onAdd: (DishItem d) => setState(() => _dishes.add(d)),

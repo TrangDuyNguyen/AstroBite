@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import 'package:astrobite/shared/ui_kit/ui_kit.dart';
 import 'quick_log_components/meal_quick_log_macro_badges.dart';
 import 'quick_log_components/meal_quick_log_portion_stepper.dart';
@@ -75,6 +76,7 @@ class _MealQuickLogCardState extends State<MealQuickLogCard> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     final logged = widget.isLogged || _isOptimisticallyLogged;
 
     return Container(
@@ -191,7 +193,7 @@ class _MealQuickLogCardState extends State<MealQuickLogCard> {
 
           // 1-Tap Log CTA
           ClayButton(
-            text: logged ? '✓ Đã ghi vào nhật ký' : '⚡ Ghi vào nhật ký ngay',
+            text: logged ? l10n.quickLogged : l10n.quickLogNow,
             variant: logged ? ClayButtonVariant.success : ClayButtonVariant.primary,
             height: 46,
             borderRadius: 20,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import 'package:astrobite/features/tracker/data/datasources/common_foods_dataset.dart';
 
 import 'package:astrobite/shared/ui_kit/ui_kit.dart';
@@ -81,7 +82,7 @@ class FoodPortionCard extends StatelessWidget {
             children: [
               Expanded(
                 child: _MacroStat(
-                  label: 'Tinh bột',
+                  label: context.l10n.macroCarbs,
                   value: '${item.calculateCarbs(currentWeightG)}g',
                   color: AppColors.primary,
                   bgColor: const Color(0xFFF0F9FF),
@@ -91,7 +92,7 @@ class FoodPortionCard extends StatelessWidget {
               const SizedBox(width: 8),
               Expanded(
                 child: _MacroStat(
-                  label: 'Chất đạm',
+                  label: context.l10n.macroProtein,
                   value: '${item.calculateProtein(currentWeightG)}g',
                   color: AppColors.tertiary,
                   bgColor: const Color(0xFFFFF8ED),
@@ -101,7 +102,7 @@ class FoodPortionCard extends StatelessWidget {
               const SizedBox(width: 8),
               Expanded(
                 child: _MacroStat(
-                  label: 'Chất béo',
+                  label: context.l10n.macroFat,
                   value: '${item.calculateFat(currentWeightG)}g',
                   color: AppColors.secondary,
                   bgColor: const Color(0xFFFFF1F5),
@@ -136,7 +137,7 @@ class FoodPortionCard extends StatelessWidget {
                 ),
                 const SizedBox(width: AppValues.spacing8),
                 _QuickWeightChip(
-                  label: '1 Bát (~150g)',
+                  label: context.l10n.portionBowl,
                   isSelected: currentWeightG == 150,
                   onTap: () {
                     HapticFeedback.selectionClick();
@@ -145,7 +146,7 @@ class FoodPortionCard extends StatelessWidget {
                 ),
                 const SizedBox(width: AppValues.spacing8),
                 _QuickWeightChip(
-                  label: '1 Đĩa (~300g)',
+                  label: context.l10n.portionPlate,
                   isSelected: currentWeightG == 300,
                   onTap: () {
                     HapticFeedback.selectionClick();
@@ -154,7 +155,7 @@ class FoodPortionCard extends StatelessWidget {
                 ),
                 const SizedBox(width: AppValues.spacing8),
                 _QuickWeightChip(
-                  label: 'Chuẩn (~100g)',
+                  label: context.l10n.portion100g,
                   isSelected: currentWeightG == 100,
                   onTap: () {
                     HapticFeedback.selectionClick();

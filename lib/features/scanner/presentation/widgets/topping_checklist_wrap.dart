@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:astrobite/core/constants/app_values.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import '../../domain/entities/scan_result.dart';
 
 /// Interactive Topping Checklist Wrap (Sprint 19 - EPIC-GLOBAL)
@@ -35,7 +36,7 @@ class ToppingChecklistWrap extends StatelessWidget {
               ),
               const SizedBox(width: AppValues.spacing4),
               Text(
-                'TOPPING & MÓN PHỤ (CHẠM ĐỂ BỎ BỚT)',
+                context.l10n.toppingsAndSidesHeader,
                 style: Theme.of(context).textTheme.labelSmall?.copyWith(
                       fontWeight: FontWeight.bold,
                       letterSpacing: 0.5,

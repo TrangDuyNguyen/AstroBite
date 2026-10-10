@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
 import 'package:astrobite/core/utils/format_utils.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import 'package:astrobite/shared/ui_kit/surfaces/clay_card.dart';
 import '../../domain/health_activity.dart';
 import '../health_controller.dart';
@@ -41,7 +42,7 @@ class StepsActivityCard extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Vận Động Hôm Nay',
+            context.l10n.todayActivityTitle,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   color: AppColors.onSurface,
                 ),
@@ -50,7 +51,7 @@ class StepsActivityCard extends ConsumerWidget {
           Row(
             children: [
               Text(
-                '🚶 ${FormatUtils.formatCompactNumber(activity.steps)} bước',
+                context.l10n.stepsCount(FormatUtils.formatCompactNumber(activity.steps)),
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                       color: AppColors.onSurface,
                       fontWeight: FontWeight.bold,
@@ -61,7 +62,7 @@ class StepsActivityCard extends ConsumerWidget {
           const SizedBox(height: 8),
           if (activity.workouts.isEmpty)
             Text(
-              'Hãy bắt đầu di chuyển nào! 🚶',
+              context.l10n.startMovingPrompt,
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: AppColors.onSurfaceVariant,
                   ),
@@ -81,7 +82,7 @@ class StepsActivityCard extends ConsumerWidget {
                       ),
                     ),
                     Text(
-                      '${w.durationMinutes} phút',
+                      context.l10n.minutesUnit(w.durationMinutes),
                       style: const TextStyle(color: AppColors.onSurfaceVariant),
                     ),
                     const SizedBox(width: 12),

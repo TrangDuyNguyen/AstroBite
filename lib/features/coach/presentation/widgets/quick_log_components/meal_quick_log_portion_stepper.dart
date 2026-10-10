@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
 
+import 'package:astrobite/core/utils/l10n_extension.dart';
+
 /// Tactile portion stepper bar for adjusting grams in [MealQuickLogCard].
 class MealQuickLogPortionStepper extends StatelessWidget {
   const MealQuickLogPortionStepper({
@@ -28,7 +30,7 @@ class MealQuickLogPortionStepper extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            'Khẩu phần:',
+            context.l10n.portionLabel,
             style: GoogleFonts.inter(
               fontSize: 12.5,
               fontWeight: FontWeight.w500,

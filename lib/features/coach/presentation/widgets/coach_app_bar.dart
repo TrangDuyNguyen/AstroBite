@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import 'coach_history_sheet.dart';
 
 /// Top AppBar for CoachPage featuring Mascot, Status and History button.
@@ -13,6 +14,8 @@ class CoachAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+
     return AppBar(
       backgroundColor: AppColors.surface,
       surfaceTintColor: Colors.transparent,
@@ -65,9 +68,9 @@ class CoachAppBar extends StatelessWidget implements PreferredSizeWidget {
                     ),
                   ),
                   const SizedBox(width: 4),
-                  const Text(
-                    'Online • Real-time Nutritionist',
-                    style: TextStyle(
+                  Text(
+                    l10n.onlineRealtimeNutritionist,
+                    style: const TextStyle(
                       fontSize: 10,
                       color: AppColors.onSurfaceVariant,
                       fontWeight: FontWeight.w500,
@@ -83,7 +86,7 @@ class CoachAppBar extends StatelessWidget implements PreferredSizeWidget {
         Padding(
           padding: const EdgeInsets.only(right: 16),
           child: Tooltip(
-            message: 'Lịch sử hội thoại',
+            message: l10n.coachHistoryTooltip,
             child: Material(
               color: Colors.transparent,
               child: InkWell(
@@ -120,7 +123,7 @@ class CoachAppBar extends StatelessWidget implements PreferredSizeWidget {
                       ),
                       const SizedBox(width: 5),
                       Text(
-                        'Lịch sử',
+                        l10n.coachHistory,
                         style: GoogleFonts.inter(
                           fontSize: 12.5,
                           fontWeight: FontWeight.w700,

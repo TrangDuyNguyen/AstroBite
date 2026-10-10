@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:astrobite/core/constants/app_values.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 
 /// Small circular dot with macro value label.
 class ScanMiniMacro extends StatelessWidget {
@@ -207,9 +208,9 @@ class ScanCalorieTargetRadialGauge extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Text(
-                'Mục tiêu',
-                style: TextStyle(
+              Text(
+                context.l10n.target,
+                style: const TextStyle(
                   fontSize: 11,
                   fontWeight: FontWeight.bold,
                   color: AppColors.onSurface,
