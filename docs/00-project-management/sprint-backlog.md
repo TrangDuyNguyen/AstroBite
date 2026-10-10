@@ -1,76 +1,53 @@
 # Kế Hoạch Sprint Hiện Hành (Sprint Backlog)
 
 - **Quản lý bởi**: Sub-Agent Product Owner (PO) & Sub-Agent Project Manager (PM)
-- **Sprint hiện tại**: Sprint 21
-- **Tên Sprint**: Social Guilds & Planetary Challenges (Bang Hội Vũ Trụ & Thử Thách Đồng Đội)
-- **Mã Epic / Feature**: `EPIC-14` / `FEAT-S21-GUILDS`
-- **Phiên bản mục tiêu**: `v3.1.0`
-- **Thời gian Sprint**: 07/10/2026 – 21/10/2026
-- **Trạng thái Sprint**: 🟢 **100% CLOSED & RELEASED (Gate 7 Approved)**
+- **Sprint hiện tại**: Sprint 22
+- **Tên Sprint**: Core Tracker Clean Architecture & O(1) Meal Enums Overhaul
+- **Mã Epic / Feature**: `EPIC-REF-01` / `FEAT-S22-TRACKER`
+- **Phiên bản mục tiêu**: `v3.2.0`
+- **Thời gian Sprint**: 10/10/2026 – 24/10/2026
+- **Trạng thái Sprint**: 🟢 **COMPLETED (Gate 7 Approved)**
 - **Tổng Story Points cam kết**: **13 SP** (Tiến độ: **13 / 13 SP — 100%**)
 
 ---
 
-## 🎯 Mục Tiêu Sprint 21: Social Guilds & Planetary Challenges
+## 🎯 Mục Tiêu Sprint 22: Core Tracker Clean Architecture & O(1) Meal Enums Overhaul
 
-1. **Kiến Trúc & Quản Trị Bang Hội (Gate 0 & Gate 1 — 3 SP)**: Thiết lập cấu trúc Firestore Collections đa tầng (`guilds/{guildId}/members`), cơ chế mời bằng mã Invite Code 6 ký tự, chống race condition bằng `FieldValue.increment()`.
-2. **Thử Thách Hành Tinh & Auto Contribution (4 SP)**: Thiết kế tiến độ chung nhóm (Team Goal: 50,000 kcal sạch hoặc 100 bữa ăn đúng hạn) với cơ chế tự động tích lũy Starlight XP mỗi khi thành viên log đồ ăn.
-3. **Giao Diện Claymorphic Guild Dashboard & Member List (6 SP)**: Trải nghiệm 5 trạng thái với thẻ ClayCard bo góc 24pt, avatar hành tinh nổi 3D, vòng cung tiến độ nhóm và danh sách thành viên hiển thị streak.
+1. **Kiến Trúc & Enhanced Enums O(1) (Gate 0 & Gate 1 — 3 SP)**: Thiết lập bộ Enhanced Enums chuẩn Dart 3 `MealType` và `NutrientType` đóng gói metadata (label, icon, color, calorieRatio, timeRange), xóa sổ toàn bộ Magic Strings trong phân hệ Tracker.
+2. **Giải Phẫu God File `meal_section.dart` (1,224 dòng — 5 SP)**: Bóc tách thành 4 widgets chuyên biệt (`meal_card_header`, `meal_food_item_tile`, `food_detail_sheet`, `dishes_breakdown_section`, `macro_pill`, `calorie_portion_card`) đạt ngưỡng `< 200 dòng` (file chính 122 dòng).
+3. **Giải Phẫu God File `manual_entry_page.dart` (969 dòng — 5 SP)**: Bóc tách thành Form nhập liệu theo từng component độc lập (`food_list_item_tile`, `food_portion_card`, `recent_foods_tray`, `manual_entry_bottom_bar`), bảo đảm chuẩn Ponytail, 0 lỗi analyze, duy trì 60 FPS và 306/306 tests pass.
 
 ---
 
-## 📋 Bảng Kanban Sprint 21
+## 📋 Bảng Kanban Sprint 22
 
 ### 1. 📝 BACKLOG / QUEUED — [0 SP]
-*(Toàn bộ các tác vụ đã hoàn tất và phát hành)*
+*(Toàn bộ các task đã được thực thi và nghiệm thu hoàn tất)*
 
 ### 2. ⚡ IN PROGRESS — [0 SP]
-*(Không còn tác vụ tồn đọng)*
+*(Không còn công việc tồn đọng)*
 
 ### 3. 🏁 DONE — [13 SP]
 | Mã Task | Màn Hình / File | Gate | Mô Tả | Sub-Agent Phụ Trách | SP | Trạng Thái |
 |:---|:---|:---:|:---|---|:---:|:---|
-| `TSK-S21-00-SPIKE` | `docs/superpowers/specs/2026-10-07-social-guilds-planetary-challenges-design.md` | **G0** | Tech Lead & PO: Architectural Spec, Data Model & Feasibility Sign-Off | `tech-lead` | 1 | 🟢 **DONE** |
-| `TSK-S21-01-PRD` | `docs/03-prd-features/28-social-guilds-planetary-challenges/` | **G1** | BA: Soạn PRD & User Stories BDD luồng Bang hội & Thử thách | `business-analyst` | 2 | 🟢 **DONE** |
-| `TSK-S21-02-DESIGN` | `docs/03-prd-features/28-social-guilds-planetary-challenges/ui-ux-design.md` | **G2** | UI/UX Designer: Thiết kế Guild Dashboard, Planetary Arc & 5 States | `ui-ux-designer` | 2 | 🟢 **DONE** |
-| `TSK-S21-03-TEST-PLAN` | `docs/03-prd-features/28-social-guilds-planetary-challenges/gate-3-test.md` | **G3** | QA Tester: Thiết kế test biên BVA, concurrency & kịch bản Gherkin | `qa-tester` | 1 | 🟢 **DONE** |
-| `TSK-S21-04-DATA` | `features/guilds/data/`, `features/guilds/domain/` | **G4** | Cloud Dev: Freezed Guild Models, Firestore Datasource & Atomic XP | `cloud-ai-dev` | 3 | 🟢 **DONE** |
-| `TSK-S21-05-UI` | `features/guilds/presentation/` | **G4** | Dev FE: Xây dựng GuildScreen, PlanetaryChallengeCard & MemberList | `flutter-core-dev` | 4 | 🟢 **DONE** |
-| `TSK-S21-06-REVIEW` | `gate-5-review.md` | **G5** | Reviewer: Ponytail Diff Review & Zero Doc-Code Drift Check | `code-reviewer` | - | 🟢 **DONE** |
-| `TSK-S21-07-VERIFY` | `signoff-sprint-21.md` | **G6** | QA Tester: 100% test pass (289/289), 0 analyze error, 60 FPS | `qa-tester` | - | 🟢 **DONE** |
-| `TSK-S21-08-SECURITY` | `signoff-security-sprint-21.md` | **G6.5** | Security Auditor: Kiểm toán Firestore Security Rules & Anti-Abuse | `security-auditor` | - | 🟢 **DONE** |
-| `TSK-S21-09-RELEASE` | `release-v3.1.0.md` | **G7** | Hội đồng PO, PM, Tech Lead & Security: Release v3.1.0 Clearance | `product-owner` | - | 🟢 **DONE** |
+| `TSK-S22-00-SPIKE` | `docs/superpowers/specs/2026-10-10-sprint-22-tracker-refactoring-design.md` | **G0** | Tech Lead: Architectural Spec, O(1) Meal Enums & Feasibility Sign-Off | `tech-lead` | 1 | 🟢 **DONE** |
+| `TSK-S22-01-PRD` | `docs/03-prd-features/29-tracker-refactoring/` | **G1** | BA: Soạn PRD & User Stories BDD luồng MealType và bóc tách | `business-analyst` | 2 | 🟢 **DONE** |
+| `TSK-S22-02-DESIGN` | `docs/03-prd-features/29-tracker-refactoring/ui-design.md` | **G2** | UI/UX Designer: Kiểm định Widget tree & bố cục 4pt | `ui-ux-designer` | 2 | 🟢 **DONE** |
+| `TSK-S22-03-TEST-PLAN` | `docs/03-prd-features/29-tracker-refactoring/gate-3-test.md` | **G3** | QA Tester: Thiết kế regression tests & test plan Gate 3 | `qa-tester` | 1 | 🟢 **DONE** |
+| `TSK-S22-04-ENUMS` | `lib/core/constants/meal_enums.dart` | **G4** | Dev FE: Thiết lập MealType & NutrientType Enhanced Enums | `flutter-core-dev` | 1 | 🟢 **DONE** |
+| `TSK-S22-05-MEALSECTION` | `features/tracker/presentation/widgets/meal_section.dart` | **G4** | Dev FE: Bóc tách `meal_section.dart` (1,224 ➔ 122 dòng) | `flutter-core-dev` | 3 | 🟢 **DONE** |
+| `TSK-S22-06-MANUALENTRY` | `features/tracker/presentation/pages/manual_entry_page.dart` | **G4** | Dev FE: Bóc tách `manual_entry_page.dart` (969 ➔ 331 dòng) | `flutter-core-dev` | 2 | 🟢 **DONE** |
+| `TSK-S22-07-UNITTESTS` | `test/core/constants/meal_enums_test.dart` | **G6** | QA/Dev: Viết bộ unit tests cho MealType & NutrientType | `qa-tester` | 1 | 🟢 **DONE** |
 
----
-
-## ✅ Định Nghĩa DONE Sprint 21
-
-- [x] `flutter analyze` 0 lỗi, 0 cảnh báo.
-- [x] `flutter test` pass 100% (289/289 tests pass thực chất).
-- [x] Race condition ghi điểm: Sử dụng `FieldValue.increment()` không bị lệch điểm.
-- [x] Tốc độ truy vấn dữ liệu Bang hội: $\le 800ms$ (Firestore stream + local cache).
-- [x] Tham gia bang hội thành công bằng Invite Code 6 ký tự.
-- [x] Giao diện 5 trạng thái đạt chuẩn Claymorphic Duolingo 2D/3D (Active, Loading Shimmer, Empty, Error, Offline).
-- [x] Zero Doc-Code Drift: Hoàn tất tài liệu từ Gate 0 đến Gate 7 trước khi đóng Sprint.
-
-
----
-
-
-## 🗺️ Lộ Trình Sprint Nâng Cấp Giao Diện Theo Màn Hình (Sprint 12–16)
-
-| Sprint | Version | Tên Sprint & Nhóm Màn Hình Trọng Tâm | SP | Màn Hình Chi Tiết | Trạng Thái |
-|:--|:--:|:---|:--:|:---|:---|
-| **S12** | v2.1.0 | **Foundation & UI Kit Core** | 10 SP | `lib/shared/ui_kit/*` | 🟢 **DONE** |
-| **S13** | v2.2.0 | **Core Daily Loop (Navigation & Tracker)** | 10 SP | `ShellScreen`, `HomePage`, `ManualEntryPage` | 🟢 **DONE** |
-| **S14** | v2.3.0 | **High-Value AI Experience (Scanner & Coach)** | 10 SP | `CameraPage`, `ScanReviewPage`, `CoachPage` | 🟢 **DONE** |
-| **S15** | v2.5.2 | **First Impression & Identity (Auth & Profile)** | 14 SP | `GoalSummaryPage`, `ProfilePage`, `ProfileEditPage` | 🟢 **DONE** |
-| **S17** | v2.7.0 | **Social Accountability & Leaderboard** | 11 SP | `LeaderboardPage`, `ShareImageService` | 🟢 **DONE** |
-| **S18** | v2.8.0 | **Live Social Sync & Streak Nudge** | 13 SP | `LeaderboardPage`, `SocialRepository` | 🟢 **DONE** |
 
 ---
 
 ## 🏛️ Lịch Sử Các Sprint Đã Hoàn Thành (Sprint Archive)
+
+### 🟢 Sprint 21 — AstroBite v3.1.0 Social Guilds & Planetary Challenges (Hoàn tất 07/10/2026)
+- **Mục tiêu**: Xây dựng Bang hội vi mô (tối đa 20 thành viên), mã mời 6 ký tự, Thử thách hành tinh tuần và đóng góp điểm Starlight XP tự động.
+- **Kết quả**: **13 / 13 SP (100% Passed)** — 289/289 tests pass thực chất, `flutter analyze` 0 issues, 60 FPS, Gate 7 Approved.
+- **Biên bản phát hành**: `docs/05-change-management/release-v3.1.0.md`
 
 ### 🟢 Sprint 20 — AstroBite v3.0.0 Hands-Free Voice Logging (AstroVoice AI) (Hoàn tất 05/10/2026)
 - **Mục tiêu**: Bổ sung `EPIC-VOICE` cho phép người dùng nói tự nhiên bữa ăn tiếng Việt, nhận diện on-device (`speech_to_text`), Gemini 2.0 Flash NLU bóc tách món & đơn vị dân dã kèm suy luận bữa ăn 24h, hiển thị GenUI `MealQuickLogCard` và 1-Tap Log trong $< 150ms$.

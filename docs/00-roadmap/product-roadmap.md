@@ -1,9 +1,9 @@
 # Bản Đồ Lộ Trình Sản Phẩm AstroBite (Product Roadmap)
 
 - **Quản lý bởi**: Sub-Agent Product Owner (PO)
-- **Phiên bản hiện tại**: v3.1.0 (Sprint 21 Completed)
-- **Cập nhật lần cuối**: 2026-10-07
-- **Tình trạng tổng thể**: 🟢 Sprint 21 CLOSED & RELEASED — Social Guilds & Planetary Challenges (v3.1.0)
+- **Phiên bản hiện tại**: v3.2.0 (Sprint 22 In Progress)
+- **Cập nhật lần cuối**: 2026-10-10
+- **Tình trạng tổng thể**: 🟡 Sprint 22 ACTIVE — Core Tracker Clean Architecture & O(1) Meal Enums Overhaul (v3.2.0)
 
 ---
 

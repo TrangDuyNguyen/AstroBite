@@ -2,11 +2,38 @@
 
 - **Quản lý bởi**: Sub-Agent Project Manager (PM) & Sub-Agent Product Owner (PO)
 - **Ánh xạ quy trình**: 8-Gate Delivery Flow (Tech Spike ➔ BA ➔ UI/UX Designer ➔ QA ➔ Dev FE ➔ Code Review ➔ Verification ➔ Release)
-- **Cập nhật lần cuối**: 2026-10-04
+- **Cập nhật lần cuối**: 2026-10-10
 
 ---
 
-## 🏗️ 1. Bảng Ma Trận Phân Rã WBS Sprint 17 (v2.7.0 Social & Leaderboard — Active)
+## 🏗️ 1. Bảng Ma Trận Phân Rã WBS Sprint 22 (v3.2.0 Core Tracker Refactoring — 🟢 100% Done)
+
+### EPIC-REF-01: Core Tracker Clean Architecture & O(1) Meal Enums Overhaul (`FEAT-S22-TRACKER` — 13 SP)
+
+| Mã Task | Feature / Epic | Cổng Chất Lượng | Mô Tả Nhiệm Vụ Kỹ Thuật | Sub-Agent Đảm Nhiệm | SP | Phụ Thuộc | Trạng Thái |
+| :--- | :--- | :---: | :--- | :---: | :---: | :---: | :---: |
+| **`TSK-S22-00-SPIKE`** | Kiến trúc O(1) Enums | **Gate 0** | Tech Lead: Architectural Spec, khảo sát bóc tách meal_section & manual_entry_page | `tech-lead` | 1 | None | 🟢 **Gate 0 Approved** |
+| **`TSK-S22-01-PRD`** | `prd-s22.md` | **Gate 1** | BA: Soạn PRD & User Stories BDD luồng MealType và phân rã components | `business-analyst` | 2 | TSK-S22-00-SPIKE | 🟢 **Gate 1 Approved** |
+| **`TSK-S22-02-DESIGN`** | `ui-ux-design.md`| **Gate 2** | UI/UX Designer: Layout Blueprint 4pt cho 4 sub-widgets MealSection | `ui-ux-designer` | 2 | TSK-S22-01-PRD | 🟢 **Gate 2 Approved** |
+| **`TSK-S22-03-TEST-PLAN`**| `gate-3-test.md` | **Gate 3** | QA Tester: Regression Test Plan cho nhật ký 4 bữa ăn & Manual Entry | `qa-tester` | 1 | TSK-S22-02-DESIGN | 🟢 **Gate 3 Approved** |
+| **`TSK-S22-04-ENUMS`** | `meal_enums.dart` | **Gate 4** | Dev FE: Tạo Enhanced Enum MealType & NutrientType O(1) | `flutter-core-dev` | 1 | TSK-S22-03-TEST-PLAN | 🟢 **Gate 4 Done** |
+| **`TSK-S22-05-MEALSECTION`**| `meal_section.dart`| **Gate 4** | Dev FE: Bóc tách meal_section.dart (1,224 dòng ➔ 122 dòng) | `flutter-core-dev` | 3 | TSK-S22-04-ENUMS | 🟢 **Gate 4 Done** |
+| **`TSK-S22-06-MANUALENTRY`**| `manual_entry_page.dart`| **Gate 4** | Dev FE: Bóc tách manual_entry_page.dart (969 dòng ➔ 331 dòng) | `flutter-core-dev` | 3 | TSK-S22-04-ENUMS | 🟢 **Gate 4 Done** |
+| **`TSK-S22-07-REVIEW`** | Quality Gate | **Gate 5** | Reviewer: Ponytail Diff Review, check độ dài file | `code-reviewer` | - | Gate 4 | 🟢 **Gate 5 Approved** |
+| **`TSK-S22-08-QA-VERIFY`**| Quality Gate | **Gate 6** | QA Tester: Test pass 306/306 (100%), analyze 0 issues | `qa-tester` | - | Gate 5 | 🟢 **Gate 6 Signed Off** |
+| **`TSK-S22-09-SECURITY`** | Security Gate | **Gate 6.5** | Security Auditor: Rà soát quyền ghi Food Log & zero secret leaks | `security-auditor` | - | Gate 6 | 🟢 **Gate 6.5 Approved** |
+| **`TSK-S22-10-RELEASE`** | Milestone | **Gate 7** | PO, PM & Tech Lead: Release Clearance v3.2.0 | `product-owner` | - | Gate 6.5 | 🟢 **Gate 7 Released** |
+
+
+---
+
+## 🏛️ 2. Lưu Trữ Ma Trận Phân Rã WBS Sprint 21 (v3.1.0 Social Guilds — 100% Done)
+
+### EPIC-14: Social Guilds & Planetary Challenges (`FEAT-S21-GUILDS` — 13 SP) — 🟢 RELEASED
+
+---
+
+## 🏛️ 3. Lưu Trữ Ma Trận Phân Rã WBS Sprint 17 (v2.7.0 Social & Leaderboard — 100% Done)
 
 ### EPIC-COMMUNITY: Social Accountability & Astro Leaderboard (`FEAT-S17-SOCIAL` — 11 SP)
 
