@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:astrobite/core/constants/app_strings.dart';
+import '../../../../helpers/test_l10n.dart';
 import 'package:astrobite/features/tracker/domain/daily_summary.dart';
 import 'package:astrobite/features/tracker/domain/entities/food_log.dart';
 import 'package:astrobite/features/tracker/presentation/widgets/daily_summary_card.dart';
@@ -41,12 +41,12 @@ void main() {
 
       // Remaining: 2000 - 500 = 1500 kcal
       expect(find.text('1500 kcal'), findsOneWidget);
-      expect(find.text(AppStrings.kcalRemaining), findsOneWidget);
+      expect(find.text(testL10n.kcalRemaining), findsOneWidget);
 
       // Macro bars
-      expect(find.text(AppStrings.protein), findsOneWidget);
-      expect(find.text(AppStrings.carbs), findsOneWidget);
-      expect(find.text(AppStrings.fat), findsOneWidget);
+      expect(find.text(testL10n.protein), findsOneWidget);
+      expect(find.text(testL10n.carbs), findsOneWidget);
+      expect(find.text(testL10n.fat), findsOneWidget);
     });
 
     testWidgets('renders warning state when exceeding target calories (over budget)', (tester) async {
@@ -83,7 +83,7 @@ void main() {
 
       // Over budget: 2150 - 2000 = +150 kcal
       expect(find.text('+150 kcal'), findsOneWidget);
-      expect(find.text(AppStrings.overBudget), findsOneWidget);
+      expect(find.text(testL10n.overBudget), findsOneWidget);
     });
   });
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:astrobite/core/constants/app_strings.dart';
 import 'package:astrobite/core/constants/meal_enums.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import 'package:astrobite/features/auth/domain/auth_providers.dart';
 
 import 'package:astrobite/features/tracker/domain/daily_summary.dart';
@@ -33,17 +33,17 @@ class MealSection extends ConsumerWidget {
     return showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text(AppStrings.confirmDelete),
-        content: const Text(AppStrings.deleteFoodConfirmMessage),
+        title: Text(context.l10n.confirmDelete),
+        content: Text(context.l10n.deleteFoodConfirmMessage),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(false),
-            child: const Text(AppStrings.cancel),
+            child: Text(context.l10n.cancel),
           ),
           FilledButton(
             style: FilledButton.styleFrom(backgroundColor: AppColors.error),
             onPressed: () => Navigator.of(ctx).pop(true),
-            child: const Text(AppStrings.delete),
+            child: Text(context.l10n.delete),
           ),
         ],
       ),

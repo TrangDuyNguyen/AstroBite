@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:astrobite/core/constants/app_strings.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 
 /// Enhanced Enums for Meal Types in AstroBite.
 /// Provides O(1) metadata access for icons, labels, colors, and calorie budgeting.
 enum MealType {
   breakfast(
     value: 'breakfast',
-    label: AppStrings.breakfast,
+    label: 'Bữa sáng',
     icon: Icons.wb_twilight_rounded,
     color: AppColors.tertiary,
     clayBgColor: AppColors.clayBreakfast,
@@ -19,7 +19,7 @@ enum MealType {
   ),
   lunch(
     value: 'lunch',
-    label: AppStrings.lunch,
+    label: 'Bữa trưa',
     icon: Icons.wb_sunny_rounded,
     color: Color(0xFFFFB300),
     clayBgColor: AppColors.clayLunch,
@@ -31,7 +31,7 @@ enum MealType {
   ),
   dinner(
     value: 'dinner',
-    label: AppStrings.dinner,
+    label: 'Bữa tối',
     icon: Icons.nightlight_round,
     color: Color(0xFF90CAF9),
     clayBgColor: AppColors.clayDinner,
@@ -43,7 +43,7 @@ enum MealType {
   ),
   snack(
     value: 'snack',
-    label: AppStrings.snack,
+    label: 'Bữa phụ',
     icon: Icons.apple_rounded,
     color: AppColors.secondary,
     clayBgColor: AppColors.claySnack,
@@ -80,6 +80,15 @@ enum MealType {
 
   int calculateSuggestedCalories(int targetCalories) =>
       (targetCalories * calorieRatio).round();
+
+  String localizedLabel(BuildContext context) {
+    return switch (this) {
+      MealType.breakfast => context.l10n.breakfast,
+      MealType.lunch => context.l10n.lunch,
+      MealType.dinner => context.l10n.dinner,
+      MealType.snack => context.l10n.snack,
+    };
+  }
 
   static MealType fromValue(String? value) {
     if (value == null) return MealType.breakfast;
@@ -135,6 +144,14 @@ enum NutrientType {
   final String shortLabel;
   final Color color;
   final int caloriesPerGram;
+
+  String localizedLabel(BuildContext context) {
+    return switch (this) {
+      NutrientType.carbs => context.l10n.carbs,
+      NutrientType.protein => context.l10n.protein,
+      NutrientType.fat => context.l10n.fat,
+    };
+  }
 
   static NutrientType fromKey(String? key) {
     if (key == null) return NutrientType.carbs;

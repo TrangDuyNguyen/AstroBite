@@ -1,8 +1,8 @@
 import 'dart:typed_data';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:astrobite/core/constants/app_strings.dart';
 import 'package:astrobite/core/router/app_router.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import 'package:astrobite/shared/ui_kit/ui_kit.dart';
 import 'package:astrobite/shared/widgets/gemini_api_key_dialog.dart';
 import '../../domain/usecases/scan_food_usecase.dart';
@@ -23,7 +23,7 @@ class CameraErrorDialogHandler {
         context.router.push(ScanReviewRoute(scanResult: result, imageBytes: bytes));
       case QuotaExceeded():
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text(AppStrings.quotaExceeded)),
+          SnackBar(content: Text(context.l10n.quotaExceeded)),
         );
       case NotFoodResult():
         _showNotFoodDialog(context, onClearPreview);
@@ -37,7 +37,7 @@ class CameraErrorDialogHandler {
       context: context,
       builder: (ctx) => AlertDialog(
         title: const Text('Không nhận diện được món ăn'),
-        content: const Text(AppStrings.notFood),
+        content: Text(ctx.l10n.notFood),
         actions: [
           TextButton(
             onPressed: () {
@@ -51,7 +51,7 @@ class CameraErrorDialogHandler {
               Navigator.pop(ctx);
               context.router.push(ManualEntryRoute());
             },
-            child: const Text('Nhập tay'),
+            child: Text(ctx.l10n.manualEntry),
           ),
         ],
       ),

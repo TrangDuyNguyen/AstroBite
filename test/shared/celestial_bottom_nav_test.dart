@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:astrobite/core/constants/app_strings.dart';
+import '../helpers/test_l10n.dart';
 import 'package:astrobite/core/theme/app_icons.dart';
 import 'package:astrobite/shared/widgets/celestial_bottom_nav.dart';
 
@@ -37,10 +37,10 @@ void main() {
       );
 
       // Verify labels
-      expect(find.text(AppStrings.navToday), findsOneWidget);
-      expect(find.text(AppStrings.navCoach), findsOneWidget);
-      expect(find.text(AppStrings.navInsights), findsOneWidget);
-      expect(find.text(AppStrings.navProfile), findsOneWidget);
+      expect(find.text(testL10n.navToday), findsOneWidget);
+      expect(find.text(testL10n.navCoach), findsOneWidget);
+      expect(find.text(testL10n.navInsights), findsOneWidget);
+      expect(find.text(testL10n.navProfile), findsOneWidget);
 
       // Verify icons
       expect(find.byIcon(AppIcons.navTodaySelected), findsOneWidget);
@@ -61,17 +61,17 @@ void main() {
         ),
       );
 
-      await tester.tap(find.text(AppStrings.navCoach));
+      await tester.tap(find.text(testL10n.navCoach));
       await tester.pumpAndSettle();
 
       expect(mockRouter.activeIndex, equals(1));
 
-      await tester.tap(find.text(AppStrings.navInsights));
+      await tester.tap(find.text(testL10n.navInsights));
       await tester.pumpAndSettle();
 
       expect(mockRouter.activeIndex, equals(2));
 
-      await tester.tap(find.text(AppStrings.navProfile));
+      await tester.tap(find.text(testL10n.navProfile));
       await tester.pumpAndSettle();
 
       expect(mockRouter.activeIndex, equals(3));
@@ -93,7 +93,7 @@ void main() {
 
       // Verify Camera FAB has inkwell & scanFood semantics
       expect(find.byIcon(AppIcons.navCamera), findsOneWidget);
-      expect(find.bySemanticsLabel(AppStrings.scanFood), findsOneWidget);
+      expect(find.bySemanticsLabel(testL10n.scanFood), findsOneWidget);
     });
   });
 }

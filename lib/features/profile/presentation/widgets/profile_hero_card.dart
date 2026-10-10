@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import 'package:astrobite/shared/ui_kit/ui_kit.dart';
 import '../../domain/entities/user_profile.dart';
 
@@ -17,12 +18,13 @@ class ProfileHeroCard extends StatelessWidget {
   final VoidCallback onEditPressed;
   final bool isEditDisabled;
 
-  String _translateFitnessGoal(String? goal) {
+  String _translateFitnessGoal(BuildContext context, String? goal) {
+    final l10n = context.l10n;
     return switch (goal) {
-      'lose_weight' => 'Giảm mỡ',
-      'maintain' => 'Duy trì cân nặng',
-      'gain_muscle' => 'Tăng cơ',
-      _ => goal ?? 'Duy trì cân nặng',
+      'lose_weight' => l10n.goalLoseWeight,
+      'maintain' => l10n.goalMaintain,
+      'gain_muscle' => l10n.goalGainMuscle,
+      _ => l10n.goalMaintain,
     };
   }
 
@@ -103,7 +105,7 @@ class ProfileHeroCard extends StatelessWidget {
                             ),
                           ),
                           child: Text(
-                            '🎯 ${_translateFitnessGoal(profile.fitnessGoal)}',
+                            '🎯 ${_translateFitnessGoal(context, profile.fitnessGoal)}',
                             style: const TextStyle(
                               fontSize: 11,
                               fontWeight: FontWeight.w700,

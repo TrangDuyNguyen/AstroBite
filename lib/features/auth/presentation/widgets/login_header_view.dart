@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:astrobite/core/constants/app_strings.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import 'package:astrobite/shared/ui_kit/ui_kit.dart';
 import 'package:astrobite/shared/widgets/cosmic_logo_badge.dart';
 
@@ -29,7 +29,7 @@ class LoginHeaderView extends StatelessWidget {
             ),
             const SizedBox(height: AppValues.spacing16),
             Text(
-              AppStrings.appName,
+              context.l10n.appName,
               style: GoogleFonts.outfit(
                 fontSize: 30,
                 fontWeight: FontWeight.w700,

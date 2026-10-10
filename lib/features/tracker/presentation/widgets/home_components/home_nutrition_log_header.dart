@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:astrobite/core/constants/app_strings.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import 'package:astrobite/features/tracker/domain/daily_summary.dart';
 import 'package:astrobite/shared/ui_kit/ui_kit.dart';
 
@@ -49,7 +49,7 @@ class HomeNutritionLogHeader extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      AppStrings.nutritionLog,
+                      context.l10n.nutritionLog,
                       style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                             fontWeight: FontWeight.bold,
                             color: AppColors.onSurface,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:astrobite/core/constants/app_values.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import 'package:astrobite/shared/ui_kit/surfaces/clay_card.dart';
 import '../../domain/entities/user_profile.dart';
 
@@ -15,6 +16,8 @@ class BmrTdeeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+
     return ClayCard(
       borderRadius: 20,
       elevation: 4,
@@ -26,7 +29,7 @@ class BmrTdeeCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Chỉ số năng lượng (BMR & TDEE)',
+                l10n.energyMetricsTitle,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.w700,
                       color: AppColors.onSurface,
@@ -38,9 +41,9 @@ class BmrTdeeCard extends StatelessWidget {
                   color: AppColors.clayLunch,
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: const Text(
-                  '⚡ Chuẩn hóa',
-                  style: TextStyle(
+                child: Text(
+                  '⚡ ${l10n.standardized}',
+                  style: const TextStyle(
                     fontSize: 10,
                     fontWeight: FontWeight.w700,
                     color: AppColors.primary,
@@ -58,7 +61,7 @@ class BmrTdeeCard extends StatelessWidget {
                   label: 'BMR',
                   value: '${profile.bmr.round()}',
                   unit: 'kcal',
-                  subtitle: 'Năng lượng nghỉ ngơi',
+                  subtitle: l10n.bmrSubtitle,
                   accentColor: AppColors.primary,
                   bgColor: AppColors.clayLunch,
                 ),
@@ -70,7 +73,7 @@ class BmrTdeeCard extends StatelessWidget {
                   label: 'TDEE',
                   value: '${profile.tdee.round()}',
                   unit: 'kcal',
-                  subtitle: 'Năng lượng tiêu thụ/ngày',
+                  subtitle: l10n.tdeeSubtitle,
                   accentColor: AppColors.tertiary,
                   bgColor: AppColors.clayBreakfast,
                 ),

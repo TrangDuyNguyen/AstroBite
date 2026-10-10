@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:astrobite/core/constants/app_strings.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import 'package:astrobite/shared/ui_kit/ui_kit.dart';
 
 /// Average Macro Distribution Breakdown Card with 3 ChunkyMacroBars.
@@ -71,21 +71,21 @@ class AnalyticsMacroBreakdownCard extends StatelessWidget {
           ),
           const SizedBox(height: AppValues.spacing16),
           ChunkyMacroBar(
-            label: AppStrings.carbs,
+            label: context.l10n.carbs,
             currentG: carbsG,
             targetG: targetCarbsG,
             color: AppColors.carbs,
           ),
           const SizedBox(height: AppValues.spacing12),
           ChunkyMacroBar(
-            label: AppStrings.protein,
+            label: context.l10n.protein,
             currentG: proteinG,
             targetG: targetProteinG,
             color: AppColors.protein,
           ),
           const SizedBox(height: AppValues.spacing12),
           ChunkyMacroBar(
-            label: AppStrings.fat,
+            label: context.l10n.fat,
             currentG: fatG,
             targetG: targetFatG,
             color: AppColors.fat,

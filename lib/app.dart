@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:astrobite/features/widgets/widget_sync_service.dart';
+import 'package:astrobite/l10n/app_localizations.dart';
+import 'core/services/locale_service.dart';
 import 'core/theme/app_theme.dart';
 import 'core/router/app_router.dart';
 
@@ -31,8 +33,13 @@ class _AstroBiteAppState extends ConsumerState<AstroBiteApp> {
 
   @override
   Widget build(BuildContext context) {
+    final locale = ref.watch(appLocaleProvider);
+
     return MaterialApp.router(
       title: 'AstroBite',
+      locale: locale,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       theme: AppTheme.lightTheme,
       themeMode: ThemeMode.light,
       routerConfig: _appRouter.config(),

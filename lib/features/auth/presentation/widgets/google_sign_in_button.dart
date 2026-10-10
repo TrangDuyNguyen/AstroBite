@@ -1,8 +1,8 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
-import 'package:astrobite/core/constants/app_strings.dart';
 import 'package:astrobite/core/constants/app_values.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 
 /// Premium Google Sign-In button with authentic Google 4-color vector emblem,
 /// tactile Duolingo 3D mechanical press animation, and clean Marshmallow White Clay styling.
@@ -137,9 +137,9 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
                                   ),
                                 ),
                                 const SizedBox(width: AppValues.spacing12),
-                                const Text(
-                                  AppStrings.googleSignIn,
-                                  style: TextStyle(
+                                Text(
+                                  context.l10n.googleSignIn,
+                                  style: const TextStyle(
                                     color: AppColors.onSurface,
                                     fontSize: 15,
                                     fontWeight: FontWeight.w700,

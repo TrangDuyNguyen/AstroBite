@@ -2,7 +2,7 @@ import 'dart:typed_data';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:astrobite/core/constants/app_strings.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import 'package:astrobite/features/auth/domain/auth_providers.dart';
 import 'package:astrobite/features/scanner/domain/entities/scan_result.dart';
 import 'package:astrobite/features/scanner/domain/usecases/scan_food_usecase.dart';
@@ -47,10 +47,10 @@ class _ScanReviewPageState extends ConsumerState<ScanReviewPage> {
   }
 
   String _mealLabel(String mealType) => switch (mealType) {
-        'breakfast' => AppStrings.breakfast,
-        'lunch' => AppStrings.lunch,
-        'dinner' => AppStrings.dinner,
-        'snack' => AppStrings.snack,
+        'breakfast' => context.l10n.breakfast,
+        'lunch' => context.l10n.lunch,
+        'dinner' => context.l10n.dinner,
+        'snack' => context.l10n.snack,
         _ => mealType,
       };
 

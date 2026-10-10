@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:astrobite/core/constants/app_strings.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import 'package:astrobite/core/constants/app_values.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
 
@@ -51,7 +51,7 @@ class ClaySearchBar extends StatelessWidget {
           fontWeight: FontWeight.w500,
         ),
         decoration: InputDecoration(
-          hintText: hintText ?? AppStrings.searchFood,
+          hintText: hintText ?? context.l10n.searchFood,
           hintStyle: const TextStyle(
             color: AppColors.onSurfaceVariant,
             fontSize: 14,

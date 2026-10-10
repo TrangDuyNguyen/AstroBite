@@ -45,7 +45,7 @@ class MealCardHeader extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    mealType.label,
+                    mealType.localizedLabel(context),
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
                           fontWeight: FontWeight.bold,
                           color: AppColors.onSurface,

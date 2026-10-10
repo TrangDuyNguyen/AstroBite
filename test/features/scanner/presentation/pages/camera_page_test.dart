@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:astrobite/core/constants/app_strings.dart';
+import '../../../../helpers/test_l10n.dart';
 import 'package:astrobite/features/scanner/presentation/pages/camera_page.dart';
 import 'package:astrobite/features/scanner/presentation/widgets/scanning_viewfinder.dart';
 
@@ -26,7 +26,7 @@ void main() {
       await tester.pump();
 
       // App bar title
-      expect(find.text(AppStrings.scanFood), findsOneWidget);
+      expect(find.text(testL10n.scanFood), findsOneWidget);
 
       // Guidance subtitle
       expect(

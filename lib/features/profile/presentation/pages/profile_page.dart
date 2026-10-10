@@ -1,13 +1,14 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:astrobite/core/constants/app_strings.dart';
 import 'package:astrobite/core/router/app_router.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import 'package:astrobite/features/auth/domain/auth_providers.dart';
 import 'package:astrobite/shared/ui_kit/ui_kit.dart';
 import '../../domain/entities/user_profile.dart';
 import '../../domain/profile_providers.dart';
 import '../widgets/bmr_tdee_card.dart';
+import '../widgets/language_settings_card.dart';
 import '../widgets/profile_ecosystem_card.dart';
 import '../widgets/profile_hero_card.dart';
 import '../widgets/profile_metrics_card.dart';
@@ -26,14 +27,14 @@ class ProfilePage extends ConsumerWidget {
     return Scaffold(
       backgroundColor: AppColors.surface,
       appBar: ClayAppBar(
-        title: AppStrings.profile,
+        title: context.l10n.profile,
         centerTitle: true,
         actions: [
           ClayIconButton(
             size: 40,
             borderRadius: 14,
             icon: Icons.tune_rounded,
-            tooltip: 'Chỉnh sửa hồ sơ',
+            tooltip: context.l10n.editProfile,
             onPressed: () => context.router.push(const ProfileEditRoute()),
           ),
         ],
@@ -55,14 +56,14 @@ class ProfilePage extends ConsumerWidget {
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(color: AppColors.tertiary.withValues(alpha: 0.3)),
                 ),
-                child: const Row(
+                child: Row(
                   children: [
-                    Icon(Icons.wifi_off_rounded, color: AppColors.tertiary, size: 20),
-                    SizedBox(width: 8),
+                    const Icon(Icons.wifi_off_rounded, color: AppColors.tertiary, size: 20),
+                    const SizedBox(width: 8),
                     Expanded(
                       child: Text(
-                        'Đang xem dữ liệu ngoại tuyến',
-                        style: TextStyle(
+                        context.l10n.viewingOfflineData,
+                        style: const TextStyle(
                           color: AppColors.onSurface,
                           fontSize: 13,
                           fontWeight: FontWeight.bold,
@@ -100,11 +101,16 @@ class ProfilePage extends ConsumerWidget {
             // 4. AstroBite Ecosystem & Integrations Card
             const ProfileEcosystemCard(),
 
+            const SizedBox(height: AppValues.spacing20),
+
+            // 5. Language Settings Card
+            const LanguageSettingsCard(),
+
             const SizedBox(height: AppValues.spacing24),
 
-            // 5. Sign Out Button
+            // 6. Sign Out Button
             ClayButton(
-              text: 'Đăng xuất',
+              text: context.l10n.signOut,
               height: 50,
               borderRadius: 20,
               variant: ClayButtonVariant.outline,

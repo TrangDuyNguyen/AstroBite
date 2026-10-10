@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:astrobite/core/constants/app_strings.dart';
+import '../../../../helpers/test_l10n.dart';
 import 'package:astrobite/features/auth/domain/auth_providers.dart';
 import 'package:astrobite/features/profile/domain/entities/user_profile.dart';
 import 'package:astrobite/features/profile/domain/profile_providers.dart';
@@ -53,7 +53,7 @@ void main() {
       await tester.pumpAndSettle();
 
       // Check header and user email
-      expect(find.text(AppStrings.profile), findsOneWidget);
+      expect(find.text(testL10n.profile), findsOneWidget);
       expect(find.text('test@astrobite.app'), findsOneWidget);
 
       // Check BmrTdeeCard is rendered

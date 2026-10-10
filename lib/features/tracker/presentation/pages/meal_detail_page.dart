@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:astrobite/core/constants/app_strings.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import 'package:astrobite/core/router/app_router.dart';
 import 'package:astrobite/features/auth/domain/auth_providers.dart';
 import 'package:astrobite/features/tracker/domain/tracker_providers.dart';
@@ -20,11 +20,11 @@ class MealDetailPage extends ConsumerWidget {
 
   final String mealType;
 
-  String get _mealTitle => switch (mealType) {
-        'breakfast' => AppStrings.breakfast,
-        'lunch' => AppStrings.lunch,
-        'dinner' => AppStrings.dinner,
-        'snack' => AppStrings.snack,
+  String _mealTitle(BuildContext context) => switch (mealType) {
+        'breakfast' => context.l10n.breakfast,
+        'lunch' => context.l10n.lunch,
+        'dinner' => context.l10n.dinner,
+        'snack' => context.l10n.snack,
         _ => mealType,
       };
 
@@ -53,9 +53,9 @@ class MealDetailPage extends ConsumerWidget {
           borderRadius: BorderRadius.circular(20),
           side: const BorderSide(color: AppColors.outline, width: 1.2),
         ),
-        title: const Text(
-          AppStrings.confirmDelete,
-          style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.onSurface),
+        title: Text(
+          ctx.l10n.confirmDelete,
+          style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.onSurface),
         ),
         content: Text(
           'Bạn có chắc chắn muốn xóa món "$dishName" khỏi bữa ăn này không?',
@@ -64,9 +64,9 @@ class MealDetailPage extends ConsumerWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(false),
-            child: const Text(
-              AppStrings.cancel,
-              style: TextStyle(color: AppColors.onSurfaceVariant),
+            child: Text(
+              ctx.l10n.cancel,
+              style: const TextStyle(color: AppColors.onSurfaceVariant),
             ),
           ),
           FilledButton(
@@ -77,7 +77,7 @@ class MealDetailPage extends ConsumerWidget {
               ),
             ),
             onPressed: () => Navigator.of(ctx).pop(true),
-            child: const Text(AppStrings.delete),
+            child: Text(ctx.l10n.delete),
           ),
         ],
       ),
@@ -103,7 +103,7 @@ class MealDetailPage extends ConsumerWidget {
           ),
         ),
         title: Text(
-          _mealTitle,
+          _mealTitle(context),
           style: const TextStyle(
             fontWeight: FontWeight.w800,
             color: AppColors.onSurface,
@@ -158,7 +158,7 @@ class MealDetailPage extends ConsumerWidget {
             const SizedBox(height: AppValues.spacing8),
             if (logs.isEmpty)
               MealDetailEmptyState(
-                mealTitle: _mealTitle,
+                mealTitle: _mealTitle(context),
                 onAddTap: () => context.router.push(
                   ManualEntryRoute(initialMealType: mealType),
                 ),

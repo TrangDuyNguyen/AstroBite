@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:astrobite/core/constants/app_strings.dart';
+import '../../../../helpers/test_l10n.dart';
 import 'package:astrobite/features/tracker/domain/daily_summary.dart';
 import 'package:astrobite/features/tracker/domain/entities/food_log.dart';
 import 'package:astrobite/features/tracker/presentation/widgets/meal_section.dart';
@@ -42,9 +42,9 @@ void main() {
         ),
       );
 
-      expect(find.text(AppStrings.breakfast), findsOneWidget);
+      expect(find.text(testL10n.breakfast), findsOneWidget);
       expect(find.text('0 kcal'), findsOneWidget);
-      expect(find.text(AppStrings.noMealLogs), findsOneWidget);
+      expect(find.text(testL10n.noMealLogs), findsOneWidget);
       expect(find.byIcon(Icons.add_circle_outline), findsOneWidget);
     });
 
@@ -77,11 +77,11 @@ void main() {
         ),
       );
 
-      expect(find.text(AppStrings.breakfast), findsOneWidget);
+      expect(find.text(testL10n.breakfast), findsOneWidget);
       expect(find.text('350 kcal'), findsOneWidget);
       expect(find.text('Bánh mì ốp la (180g)'), findsOneWidget);
       expect(find.text('350 cal'), findsOneWidget);
-      expect(find.text(AppStrings.noMealLogs), findsNothing);
+      expect(find.text(testL10n.noMealLogs), findsNothing);
     });
 
     testWidgets('triggers onAddTap when add icon button is tapped', (tester) async {
@@ -138,17 +138,17 @@ void main() {
       await tester.pumpAndSettle();
 
       // Verify confirmation dialog is shown
-      expect(find.text(AppStrings.confirmDelete), findsOneWidget);
-      expect(find.text(AppStrings.deleteFoodConfirmMessage), findsOneWidget);
-      expect(find.text(AppStrings.cancel), findsOneWidget);
-      expect(find.text(AppStrings.delete), findsOneWidget);
+      expect(find.text(testL10n.confirmDelete), findsOneWidget);
+      expect(find.text(testL10n.deleteFoodConfirmMessage), findsOneWidget);
+      expect(find.text(testL10n.cancel), findsOneWidget);
+      expect(find.text(testL10n.delete), findsOneWidget);
 
       // Tap Cancel
-      await tester.tap(find.text(AppStrings.cancel));
+      await tester.tap(find.text(testL10n.cancel));
       await tester.pumpAndSettle();
 
       // Dialog is dismissed and item remains
-      expect(find.text(AppStrings.confirmDelete), findsNothing);
+      expect(find.text(testL10n.confirmDelete), findsNothing);
       expect(find.text('Cơm tấm (300g)'), findsOneWidget);
     });
 

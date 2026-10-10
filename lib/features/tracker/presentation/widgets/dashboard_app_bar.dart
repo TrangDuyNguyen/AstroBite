@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:astrobite/core/constants/app_strings.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import 'package:astrobite/core/router/app_router.dart';
 import 'package:astrobite/features/gamification/presentation/widgets/cosmic_streak_badge.dart';
 import 'package:astrobite/shared/ui_kit/ui_kit.dart';
@@ -67,7 +67,7 @@ class DashboardAppBar extends ConsumerWidget implements PreferredSizeWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      isToday ? AppStrings.todayOverview : 'Nhật ký dinh dưỡng',
+                      isToday ? context.l10n.todayOverview : context.l10n.nutritionLog,
                       style: GoogleFonts.outfit(
                         fontSize: 18,
                         fontWeight: FontWeight.w800,

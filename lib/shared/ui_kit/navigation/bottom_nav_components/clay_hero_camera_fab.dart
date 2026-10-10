@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:astrobite/core/constants/app_strings.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
 import 'package:astrobite/core/theme/app_icons.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import '../../icons/clay_3d_icons.dart';
 
 /// Elevated Hero Camera FAB with 3D ceramic cradle, sapphire lens, and spring squash physics.
@@ -30,7 +30,7 @@ class _ClayHeroCameraFabState extends State<ClayHeroCameraFab> {
 
     return Semantics(
       button: true,
-      label: AppStrings.scanFood,
+      label: context.l10n.scanFood,
       child: GestureDetector(
         onTapDown: (_) => setState(() => _isPressed = true),
         onTapUp: (_) {

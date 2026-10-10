@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:astrobite/core/constants/app_strings.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import 'package:astrobite/core/constants/app_values.dart';
 import 'package:astrobite/core/router/app_router.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
@@ -96,7 +96,7 @@ class ClayBottomNav extends StatelessWidget {
                                       size: 21,
                                       isSelected: isSelected,
                                     ),
-                                    label: AppStrings.navToday,
+                                    label: context.l10n.navToday,
                                     isSelected: tabsRouter.activeIndex == 0,
                                     onTap: () => tabsRouter.setActiveIndex(0),
                                   ),
@@ -110,7 +110,7 @@ class ClayBottomNav extends StatelessWidget {
                                       size: 21,
                                       isSelected: isSelected,
                                     ),
-                                    label: AppStrings.navCoach,
+                                    label: context.l10n.navCoach,
                                     isSelected: tabsRouter.activeIndex == 1,
                                     onTap: () => tabsRouter.setActiveIndex(1),
                                   ),
@@ -126,7 +126,7 @@ class ClayBottomNav extends StatelessWidget {
                                       size: 21,
                                       isSelected: isSelected,
                                     ),
-                                    label: AppStrings.navInsights,
+                                    label: context.l10n.navInsights,
                                     isSelected: tabsRouter.activeIndex == 2,
                                     onTap: () => tabsRouter.setActiveIndex(2),
                                   ),
@@ -140,7 +140,7 @@ class ClayBottomNav extends StatelessWidget {
                                       size: 21,
                                       isSelected: isSelected,
                                     ),
-                                    label: AppStrings.navProfile,
+                                    label: context.l10n.navProfile,
                                     isSelected: tabsRouter.activeIndex == 3,
                                     onTap: () => tabsRouter.setActiveIndex(3),
                                   ),

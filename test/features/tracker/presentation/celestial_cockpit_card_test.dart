@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:astrobite/core/constants/app_strings.dart';
+import '../../../helpers/test_l10n.dart';
 import 'package:astrobite/features/tracker/domain/daily_summary.dart';
 import 'package:astrobite/features/tracker/presentation/widgets/celestial_cockpit_card.dart';
 
@@ -42,13 +42,13 @@ void main() {
       expect(find.text('650 kcal'), findsOneWidget);
 
       // Verify 3 Macro Bars
-      expect(find.text(AppStrings.carbs), findsOneWidget);
+      expect(find.text(testL10n.carbs), findsOneWidget);
       expect(find.text('120g / 220g'), findsOneWidget);
 
-      expect(find.text(AppStrings.protein), findsOneWidget);
+      expect(find.text(testL10n.protein), findsOneWidget);
       expect(find.text('85g / 130g'), findsOneWidget);
 
-      expect(find.text(AppStrings.fat), findsOneWidget);
+      expect(find.text(testL10n.fat), findsOneWidget);
       expect(find.text('38g / 65g'), findsOneWidget);
     });
 
@@ -107,7 +107,7 @@ void main() {
 
       // Check for +300 kcal over budget indicator
       expect(find.text('+300 kcal'), findsOneWidget);
-      expect(find.text(AppStrings.overBudget), findsOneWidget);
+      expect(find.text(testL10n.overBudget), findsOneWidget);
     });
   });
 }

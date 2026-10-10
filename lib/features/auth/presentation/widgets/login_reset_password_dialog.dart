@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:astrobite/core/constants/app_strings.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import 'package:astrobite/shared/ui_kit/ui_kit.dart';
 import '../controllers/login_controller.dart';
 
@@ -22,9 +22,9 @@ Future<void> showLoginResetPasswordDialog({
           borderRadius: BorderRadius.circular(AppValues.cardRadiusClay),
           side: const BorderSide(color: AppColors.outline),
         ),
-        title: const Text(
-          AppStrings.resetPassword,
-          style: TextStyle(
+        title: Text(
+          dialogContext.l10n.resetPassword,
+          style: const TextStyle(
             color: AppColors.onSurface,
             fontWeight: FontWeight.bold,
           ),
@@ -44,7 +44,7 @@ Future<void> showLoginResetPasswordDialog({
               const SizedBox(height: AppValues.spacing16),
               ClayTextField(
                 controller: resetEmailController,
-                labelText: AppStrings.email,
+                labelText: dialogContext.l10n.email,
                 keyboardType: TextInputType.emailAddress,
                 prefixIcon: const Icon(
                   Icons.email_outlined,
@@ -58,9 +58,9 @@ Future<void> showLoginResetPasswordDialog({
         actions: [
           TextButton(
             onPressed: () => Navigator.of(dialogContext).pop(),
-            child: const Text(
-              'Hủy',
-              style: TextStyle(color: AppColors.onSurfaceVariant),
+            child: Text(
+              dialogContext.l10n.cancel,
+              style: const TextStyle(color: AppColors.onSurfaceVariant),
             ),
           ),
           FilledButton(
@@ -71,14 +71,14 @@ Future<void> showLoginResetPasswordDialog({
               final success = await ref.read(loginControllerProvider.notifier).sendPasswordResetEmail(email: email);
               if (success && context.mounted) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text(AppStrings.resetPasswordSent),
+                  SnackBar(
+                    content: Text(context.l10n.resetPasswordSent),
                     backgroundColor: AppColors.success,
                   ),
                 );
               }
             },
-            child: const Text(AppStrings.sendResetLink),
+            child: Text(dialogContext.l10n.sendResetLink),
           ),
         ],
       );

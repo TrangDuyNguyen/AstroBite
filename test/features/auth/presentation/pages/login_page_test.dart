@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:astrobite/core/constants/app_strings.dart';
+import '../../../../helpers/test_l10n.dart';
 import 'package:astrobite/features/auth/domain/auth_providers.dart';
 import 'package:astrobite/features/auth/domain/repositories/auth_repository.dart';
 import 'package:astrobite/features/auth/presentation/pages/login_page.dart';
@@ -64,16 +64,16 @@ void main() {
       await tester.pumpAndSettle();
 
       // Check header
-      expect(find.text(AppStrings.appName), findsOneWidget);
+      expect(find.text(testL10n.appName), findsOneWidget);
       expect(find.text('Đăng nhập để theo dõi mục tiêu dinh dưỡng'), findsOneWidget);
 
       // Check input fields
-      expect(find.widgetWithText(TextFormField, AppStrings.email), findsOneWidget);
-      expect(find.widgetWithText(TextFormField, AppStrings.password), findsOneWidget);
+      expect(find.widgetWithText(TextFormField, testL10n.email), findsOneWidget);
+      expect(find.widgetWithText(TextFormField, testL10n.password), findsOneWidget);
 
       // Check buttons and links
-      expect(find.text(AppStrings.forgotPassword), findsOneWidget);
-      expect(find.widgetWithText(ClayButton, AppStrings.login), findsOneWidget);
+      expect(find.text(testL10n.forgotPassword), findsOneWidget);
+      expect(find.widgetWithText(ClayButton, testL10n.login), findsOneWidget);
       expect(find.byType(ClayIconButton), findsNWidgets(2)); // Google and Apple
       expect(
         find.byWidgetPredicate(
@@ -113,7 +113,7 @@ void main() {
       await tester.pumpAndSettle();
 
       // Tap Login button with empty inputs
-      await tester.tap(find.text(AppStrings.login));
+      await tester.tap(find.text(testL10n.login));
       await tester.pumpAndSettle();
 
       expect(find.text('Email không hợp lệ'), findsOneWidget);
@@ -125,13 +125,13 @@ void main() {
       await tester.pumpAndSettle();
 
       // Tap Forgot Password
-      await tester.tap(find.text(AppStrings.forgotPassword));
+      await tester.tap(find.text(testL10n.forgotPassword));
       await tester.pumpAndSettle();
 
       // Dialog should be open
       expect(find.byType(AlertDialog), findsOneWidget);
-      expect(find.text(AppStrings.resetPassword), findsOneWidget);
-      expect(find.text(AppStrings.sendResetLink), findsOneWidget);
+      expect(find.text(testL10n.resetPassword), findsOneWidget);
+      expect(find.text(testL10n.sendResetLink), findsOneWidget);
 
       // Tap Cancel
       await tester.tap(find.text('Hủy'));

@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:astrobite/core/constants/app_strings.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import 'package:astrobite/core/services/share_image_service.dart';
 import 'package:astrobite/features/profile/domain/profile_providers.dart';
 import 'package:astrobite/shared/ui_kit/ui_kit.dart';
@@ -49,7 +49,7 @@ class _AnalyticsPageState extends ConsumerState<AnalyticsPage> {
     return Scaffold(
       backgroundColor: AppColors.surface,
       appBar: ClayAppBar(
-        title: AppStrings.analytics,
+        title: context.l10n.analytics,
         centerTitle: true,
         actions: [
           IconButton(

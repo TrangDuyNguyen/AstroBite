@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:astrobite/core/constants/app_strings.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import 'package:astrobite/shared/widgets/cosmic_logo_badge.dart';
 
 /// Central Brand Column for SplashPage: Logo, Typography & Loading Capsule.
@@ -52,7 +52,7 @@ class SplashCosmicHeroView extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      AppStrings.appName,
+                      context.l10n.appName,
                       style: GoogleFonts.outfit(
                         fontSize: 36,
                         fontWeight: FontWeight.w900,

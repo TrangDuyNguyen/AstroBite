@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:astrobite/core/constants/app_strings.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import 'package:astrobite/shared/ui_kit/ui_kit.dart';
 import 'google_sign_in_button.dart';
 
@@ -44,7 +44,7 @@ class _LoginFormCardState extends State<LoginFormCard> {
           children: [
             ClayTextField(
               controller: widget.emailController,
-              labelText: AppStrings.email,
+              labelText: context.l10n.email,
               keyboardType: TextInputType.emailAddress,
               prefixIcon: const Icon(
                 Icons.email_outlined,
@@ -55,7 +55,7 @@ class _LoginFormCardState extends State<LoginFormCard> {
             const SizedBox(height: AppValues.spacing16),
             ClayTextField(
               controller: widget.passwordController,
-              labelText: AppStrings.password,
+              labelText: context.l10n.password,
               obscureText: _obscurePassword,
               prefixIcon: const Icon(
                 Icons.lock_outline,
@@ -74,9 +74,9 @@ class _LoginFormCardState extends State<LoginFormCard> {
               alignment: Alignment.centerRight,
               child: TextButton(
                 onPressed: widget.onForgotPassword,
-                child: const Text(
-                  AppStrings.forgotPassword,
-                  style: TextStyle(
+                child: Text(
+                  context.l10n.forgotPassword,
+                  style: const TextStyle(
                     color: AppColors.onSurfaceVariant,
                     fontSize: 13,
                   ),
@@ -85,28 +85,28 @@ class _LoginFormCardState extends State<LoginFormCard> {
             ),
             const SizedBox(height: AppValues.spacing8),
             ClayButton(
-              text: AppStrings.login,
+              text: context.l10n.login,
               isLoading: widget.isLoading,
               onPressed: widget.onLogin,
               width: double.infinity,
               height: 52,
             ),
             const SizedBox(height: AppValues.spacing20),
-            const Row(
+            Row(
               children: [
-                Expanded(child: Divider(color: AppColors.outline)),
+                const Expanded(child: Divider(color: AppColors.outline)),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: AppValues.spacing16),
+                  padding: const EdgeInsets.symmetric(horizontal: AppValues.spacing16),
                   child: Text(
-                    AppStrings.orDivider,
-                    style: TextStyle(
+                    context.l10n.orDivider,
+                    style: const TextStyle(
                       color: AppColors.onSurfaceVariant,
                       fontSize: 12,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                 ),
-                Expanded(child: Divider(color: AppColors.outline)),
+                const Expanded(child: Divider(color: AppColors.outline)),
               ],
             ),
             const SizedBox(height: AppValues.spacing20),

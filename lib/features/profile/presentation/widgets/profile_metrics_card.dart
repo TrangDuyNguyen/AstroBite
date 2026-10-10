@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import 'package:astrobite/shared/ui_kit/ui_kit.dart';
 import '../../domain/entities/user_profile.dart';
 
@@ -14,19 +15,22 @@ class ProfileMetricsCard extends StatelessWidget {
   final VoidCallback onEditPressed;
   final bool isEditDisabled;
 
-  String _translateActivityLevel(String level) {
+  String _translateActivityLevel(BuildContext context, String level) {
+    final l10n = context.l10n;
     return switch (level) {
-      'sedentary' => 'Ít vận động',
-      'light' => 'Nhẹ (1-3 ngày)',
-      'moderate' => 'Vừa phải (3-5 ngày)',
-      'active' => 'Năng động (6-7 ngày)',
-      'very_active' => 'Rất năng động',
+      'sedentary' => l10n.sedentary,
+      'light' => l10n.lightActivity,
+      'moderate' => l10n.moderateActivity,
+      'active' => l10n.activeActivity,
+      'very_active' => l10n.veryActiveActivity,
       _ => level,
     };
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+
     return ClayCard(
       borderRadius: 20,
       elevation: 4,
@@ -38,7 +42,7 @@ class ProfileMetricsCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Thông số cá nhân',
+                l10n.personalMetricsTitle,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.w700,
                       color: AppColors.onSurface,
@@ -50,7 +54,7 @@ class ProfileMetricsCard extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                   child: Text(
-                    'Sửa',
+                    l10n.edit,
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w700,
@@ -72,22 +76,22 @@ class ProfileMetricsCard extends StatelessWidget {
             children: [
               _StatTile(
                 icon: '🚻',
-                label: 'Giới tính',
-                value: profile.gender == 'male' ? 'Nam' : 'Nữ',
+                label: l10n.gender,
+                value: profile.gender == 'male' ? l10n.male : l10n.female,
               ),
               _StatTile(
                 icon: '🎂',
-                label: 'Năm sinh',
+                label: l10n.birthYear,
                 value: '${profile.birthYear} (${profile.age}t)',
               ),
               _StatTile(
                 icon: '📏',
-                label: 'Chiều cao',
+                label: l10n.height,
                 value: '${profile.heightCm.round()} cm',
               ),
               _StatTile(
                 icon: '⚖️',
-                label: 'Cân nặng hiện tại',
+                label: l10n.weight,
                 value: '${profile.weightKg} kg',
               ),
               _StatTile(
@@ -100,8 +104,8 @@ class ProfileMetricsCard extends StatelessWidget {
               ),
               _StatTile(
                 icon: '🏃',
-                label: 'Mức độ vận động',
-                value: _translateActivityLevel(profile.activityLevel),
+                label: l10n.activityLevel,
+                value: _translateActivityLevel(context, profile.activityLevel),
               ),
               _StatTile(
                 icon: '📊',

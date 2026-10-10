@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:astrobite/core/constants/app_strings.dart';
+import '../../../../helpers/test_l10n.dart';
 import 'package:astrobite/features/tracker/domain/daily_summary.dart';
 import 'package:astrobite/features/tracker/domain/entities/food_log.dart';
 import 'package:astrobite/features/tracker/domain/tracker_providers.dart';
@@ -66,17 +66,17 @@ void main() {
       await tester.pumpAndSettle();
 
       // Meal title in AppBar
-      expect(find.text(AppStrings.lunch), findsOneWidget);
+      expect(find.text(testL10n.lunch), findsOneWidget);
 
       // Total calories badge (450 + 80 = 530 kcal)
       expect(find.text('530 kcal'), findsOneWidget);
 
       // Verify macro breakdown pills
-      expect(find.text(AppStrings.carbs), findsOneWidget);
+      expect(find.text(testL10n.carbs), findsOneWidget);
       expect(find.text('73g'), findsOneWidget); // 55 + 18
-      expect(find.text(AppStrings.protein), findsOneWidget);
+      expect(find.text(testL10n.protein), findsOneWidget);
       expect(find.text('29g'), findsOneWidget); // 28 + 1
-      expect(find.text(AppStrings.fat), findsOneWidget);
+      expect(find.text(testL10n.fat), findsOneWidget);
       expect(find.text('12g'), findsOneWidget);
 
       // Food items
@@ -102,7 +102,7 @@ void main() {
       ));
       await tester.pumpAndSettle();
 
-      expect(find.text('Chưa có món ăn nào trong ${AppStrings.dinner}'), findsOneWidget);
+      expect(find.text('Chưa có món ăn nào trong ${testL10n.dinner}'), findsOneWidget);
       expect(find.text('Thêm món ngay'), findsOneWidget);
     });
   });

@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:astrobite/core/constants/app_strings.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import 'package:astrobite/shared/ui_kit/ui_kit.dart';
 import 'camera_scanning_tips_sheet.dart';
 
@@ -41,17 +41,17 @@ class CameraAppBar extends StatelessWidget implements PreferredSizeWidget {
         children: [
           Row(
             mainAxisSize: MainAxisSize.min,
-            children: const [
+            children: [
               Text(
-                AppStrings.scanFood,
-                style: TextStyle(
+                context.l10n.scanFood,
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
                   letterSpacing: 0.3,
                 ),
               ),
-              SizedBox(width: AppValues.spacing8),
-              Clay3DStar(size: 16),
+              const SizedBox(width: AppValues.spacing8),
+              const Clay3DStar(size: 16),
             ],
           ),
           const SizedBox(height: 2),

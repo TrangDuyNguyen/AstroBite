@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:astrobite/core/constants/app_strings.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import 'package:astrobite/shared/ui_kit/ui_kit.dart';
 import '../../domain/daily_summary.dart';
 import 'cockpit_components/cockpit_micronutrients_drawer.dart';
@@ -105,21 +105,21 @@ class _CelestialCockpitCardState extends State<CelestialCockpitCard> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     MacroBar(
-                      label: AppStrings.carbs,
+                      label: context.l10n.carbs,
                       currentG: summary.totalCarbsG,
                       targetG: summary.targetCarbsG,
                       color: AppColors.primary,
                     ),
                     const SizedBox(height: AppValues.spacing8),
                     MacroBar(
-                      label: AppStrings.protein,
+                      label: context.l10n.protein,
                       currentG: summary.totalProteinG,
                       targetG: summary.targetProteinG,
                       color: AppColors.tertiary,
                     ),
                     const SizedBox(height: AppValues.spacing8),
                     MacroBar(
-                      label: AppStrings.fat,
+                      label: context.l10n.fat,
                       currentG: summary.totalFatG,
                       targetG: summary.targetFatG,
                       color: AppColors.secondary,

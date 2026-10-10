@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:astrobite/core/constants/app_strings.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import 'package:astrobite/shared/ui_kit/ui_kit.dart';
 
 /// Overview card on MealDetailPage showing total calories and 3 macro pills.
@@ -72,17 +72,17 @@ class MealDetailOverviewCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               _MacroPill(
-                label: AppStrings.carbs,
+                label: context.l10n.carbs,
                 grams: totalCarbs,
                 color: AppColors.primary,
               ),
               _MacroPill(
-                label: AppStrings.fat,
+                label: context.l10n.fat,
                 grams: totalFat,
                 color: AppColors.secondary,
               ),
               _MacroPill(
-                label: AppStrings.protein,
+                label: context.l10n.protein,
                 grams: totalProtein,
                 color: AppColors.tertiary,
               ),

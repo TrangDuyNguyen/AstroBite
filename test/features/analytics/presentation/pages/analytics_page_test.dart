@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:astrobite/core/constants/app_strings.dart';
+import '../../../../helpers/test_l10n.dart';
 import 'package:astrobite/features/analytics/domain/analytics_providers.dart';
 import 'package:astrobite/features/analytics/presentation/pages/analytics_page.dart';
 import 'package:astrobite/features/analytics/presentation/widgets/calorie_trend_chart.dart';
@@ -39,7 +39,7 @@ void main() {
       await tester.pumpAndSettle();
 
       // Check title and labels
-      expect(find.text(AppStrings.analytics), findsOneWidget);
+      expect(find.text(testL10n.analytics), findsOneWidget);
       expect(find.text('7 ngày'), findsOneWidget);
       expect(find.text('30 ngày'), findsOneWidget);
       expect(find.text('Xu hướng Calo nạp vào (7 ngày)'), findsOneWidget);

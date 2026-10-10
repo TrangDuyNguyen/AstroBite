@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:astrobite/core/constants/app_strings.dart';
+import '../../../../helpers/test_l10n.dart';
 import 'package:astrobite/features/auth/domain/auth_providers.dart';
 import 'package:astrobite/features/auth/domain/repositories/auth_repository.dart';
 import 'package:astrobite/features/scanner/domain/entities/scan_result.dart';
@@ -154,7 +154,7 @@ void main() {
       await tester.pumpWidget(createWidgetUnderTest());
       await tester.pumpAndSettle();
 
-      final dinnerChip = find.text(AppStrings.dinner);
+      final dinnerChip = find.text(testL10n.dinner);
       await tester.tap(dinnerChip);
       await tester.pumpAndSettle();
 

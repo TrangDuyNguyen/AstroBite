@@ -2,8 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:astrobite/core/constants/app_strings.dart';
 import 'package:astrobite/core/router/app_router.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import 'package:astrobite/shared/ui_kit/ui_kit.dart';
 import 'package:astrobite/shared/widgets/cosmic_logo_badge.dart';
 import '../controllers/register_controller.dart';
@@ -99,7 +99,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage>
       backgroundColor: AppColors.surface,
       appBar: AppBar(
         title: Text(
-          AppStrings.register,
+          context.l10n.register,
           style: GoogleFonts.outfit(fontWeight: FontWeight.w600),
         ),
         backgroundColor: Colors.transparent,
@@ -204,7 +204,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage>
                               children: [
                                 ClayTextField(
                                   controller: _emailController,
-                                  labelText: AppStrings.email,
+                                  labelText: context.l10n.email,
                                   keyboardType: TextInputType.emailAddress,
                                   prefixIcon: const Icon(
                                     Icons.email_outlined,
@@ -216,7 +216,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage>
                                 const SizedBox(height: AppValues.spacing16),
                                 ClayTextField(
                                   controller: _passwordController,
-                                  labelText: AppStrings.password,
+                                  labelText: context.l10n.password,
                                   obscureText: _obscurePassword,
                                   prefixIcon: const Icon(
                                     Icons.lock_outline,
@@ -238,7 +238,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage>
                                 const SizedBox(height: AppValues.spacing16),
                                 ClayTextField(
                                   controller: _confirmController,
-                                  labelText: AppStrings.confirmPassword,
+                                  labelText: context.l10n.confirmPassword,
                                   obscureText: _obscureConfirm,
                                   prefixIcon: const Icon(
                                     Icons.lock_reset_outlined,
@@ -259,7 +259,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage>
                                 ),
                                 const SizedBox(height: AppValues.spacing24),
                                 ClayButton(
-                                  text: AppStrings.register,
+                                  text: context.l10n.register,
                                   isLoading: registerState.isLoading,
                                   onPressed: _handleRegister,
                                   width: double.infinity,
@@ -277,11 +277,11 @@ class _RegisterPageState extends ConsumerState<RegisterPage>
                           child: RichText(
                             text: TextSpan(
                               text: 'Đã có tài khoản? ',
-                              style: TextStyle(color: AppColors.onSurfaceVariant, fontSize: 14),
+                              style: const TextStyle(color: AppColors.onSurfaceVariant, fontSize: 14),
                               children: [
                                 TextSpan(
-                                  text: AppStrings.login,
-                                  style: TextStyle(
+                                  text: context.l10n.login,
+                                  style: const TextStyle(
                                     color: AppColors.primary,
                                     fontWeight: FontWeight.bold,
                                   ),

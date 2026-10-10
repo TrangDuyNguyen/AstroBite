@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:astrobite/core/constants/app_strings.dart';
+import '../../../../helpers/test_l10n.dart';
 import 'package:astrobite/core/theme/app_icons.dart';
 import 'package:astrobite/features/tracker/domain/daily_summary.dart';
 import 'package:astrobite/features/tracker/domain/entities/food_log.dart';
@@ -65,7 +65,7 @@ void main() {
       await tester.pumpWidget(createWidgetUnderTest());
 
       // AppBar title & actions
-      expect(find.text(AppStrings.todayOverview), findsOneWidget);
+      expect(find.text(testL10n.todayOverview), findsOneWidget);
       expect(find.byType(CelestialTimeAvatar), findsOneWidget);
 
       // AppBar date picker trigger
@@ -74,17 +74,17 @@ void main() {
       // DailySummaryCard
       expect(find.byType(DailySummaryCard), findsOneWidget);
       expect(find.text('1000 kcal'), findsOneWidget); // 2000 - (450 + 550) = 1000 remaining
-      expect(find.text(AppStrings.kcalRemaining), findsOneWidget);
+      expect(find.text(testL10n.kcalRemaining), findsOneWidget);
 
       // Section title
-      expect(find.text(AppStrings.nutritionLog), findsOneWidget);
+      expect(find.text(testL10n.nutritionLog), findsOneWidget);
 
       // 4 Meal sections
       expect(find.byType(MealSection), findsNWidgets(4));
-      expect(find.text(AppStrings.breakfast), findsOneWidget);
-      expect(find.text(AppStrings.lunch), findsOneWidget);
-      expect(find.text(AppStrings.dinner), findsOneWidget);
-      expect(find.text(AppStrings.snack), findsOneWidget);
+      expect(find.text(testL10n.breakfast), findsOneWidget);
+      expect(find.text(testL10n.lunch), findsOneWidget);
+      expect(find.text(testL10n.dinner), findsOneWidget);
+      expect(find.text(testL10n.snack), findsOneWidget);
 
       // Verify logged meal items
       expect(find.text('Phở bò tái (350g)'), findsOneWidget);
@@ -114,7 +114,7 @@ void main() {
       await tester.pumpWidget(createWidgetUnderTest(customSummary: overBudgetSummary));
 
       expect(find.text('+250 kcal'), findsOneWidget);
-      expect(find.text(AppStrings.overBudget), findsOneWidget);
+      expect(find.text(testL10n.overBudget), findsOneWidget);
     });
 
     testWidgets('renders quick action buttons for recipe and meal planner', (tester) async {

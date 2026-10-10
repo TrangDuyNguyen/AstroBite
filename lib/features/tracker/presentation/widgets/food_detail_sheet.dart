@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:astrobite/core/constants/app_strings.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import 'package:astrobite/core/constants/meal_enums.dart';
 import 'package:astrobite/features/auth/domain/auth_providers.dart';
 
@@ -49,17 +49,17 @@ class FoodDetailSheet extends StatelessWidget {
           final confirm = await showDialog<bool>(
             context: ctx,
             builder: (dCtx) => AlertDialog(
-              title: const Text(AppStrings.confirmDelete),
-              content: const Text(AppStrings.deleteFoodConfirmMessage),
+              title: Text(dCtx.l10n.confirmDelete),
+              content: Text(dCtx.l10n.deleteFoodConfirmMessage),
               actions: [
                 TextButton(
                   onPressed: () => Navigator.of(dCtx).pop(false),
-                  child: const Text(AppStrings.cancel),
+                  child: Text(dCtx.l10n.cancel),
                 ),
                 FilledButton(
                   style: FilledButton.styleFrom(backgroundColor: AppColors.error),
                   onPressed: () => Navigator.of(dCtx).pop(true),
-                  child: const Text(AppStrings.delete),
+                  child: Text(dCtx.l10n.delete),
                 ),
               ],
             ),

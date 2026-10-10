@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:astrobite/core/constants/app_strings.dart';
+import '../../../../helpers/test_l10n.dart';
 import 'package:astrobite/features/gamification/domain/streak_record.dart';
 import 'package:astrobite/features/gamification/presentation/controllers/streak_controller.dart';
 import 'package:astrobite/features/gamification/presentation/widgets/cosmic_streak_badge.dart';
@@ -58,7 +58,7 @@ void main() {
       expect(find.byType(CelestialTimeAvatar), findsOneWidget);
 
       // 2. Title "Hôm nay"
-      expect(find.text(AppStrings.todayOverview), findsOneWidget);
+      expect(find.text(testL10n.todayOverview), findsOneWidget);
 
       // 3. Subtitle "Chủ Nhật, 27 Th09" and dropdown arrow
       expect(find.text('Chủ Nhật, 27 Th09'), findsOneWidget);

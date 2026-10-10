@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:astrobite/core/constants/app_strings.dart';
 import 'package:astrobite/core/constants/meal_enums.dart';
 import 'package:astrobite/core/router/app_router.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import 'package:astrobite/features/auth/domain/auth_providers.dart';
 import 'package:astrobite/features/tracker/data/datasources/common_foods_dataset.dart';
 import 'package:astrobite/features/tracker/data/models/food_log_dto.dart';
@@ -169,7 +169,7 @@ class _ManualEntryPageState extends ConsumerState<ManualEntryPage> {
           ),
         ),
         title: Text(
-          AppStrings.manualEntry,
+          context.l10n.manualEntry,
           style: GoogleFonts.outfit(
             fontSize: 20,
             fontWeight: FontWeight.w800,

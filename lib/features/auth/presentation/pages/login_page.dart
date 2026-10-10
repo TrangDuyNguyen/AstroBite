@@ -2,8 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:astrobite/core/constants/app_strings.dart';
 import 'package:astrobite/core/router/app_router.dart';
+import 'package:astrobite/core/utils/l10n_extension.dart';
 import 'package:astrobite/features/auth/domain/auth_providers.dart';
 import 'package:astrobite/features/profile/domain/profile_providers.dart';
 import 'package:astrobite/shared/ui_kit/ui_kit.dart';
@@ -175,7 +175,7 @@ class _LoginPageState extends ConsumerState<LoginPage> with SingleTickerProvider
                             style: GoogleFonts.inter(color: AppColors.onSurfaceVariant, fontSize: 14),
                             children: [
                               TextSpan(
-                                text: AppStrings.register,
+                                text: context.l10n.register,
                                 style: GoogleFonts.inter(color: AppColors.primary, fontWeight: FontWeight.w700),
                               ),
                             ],
