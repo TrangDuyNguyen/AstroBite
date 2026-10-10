@@ -4,7 +4,27 @@
 - **Ánh xạ quy trình**: 8-Gate Delivery Flow (Tech Spike ➔ BA ➔ UI/UX Designer ➔ QA ➔ Dev FE ➔ Code Review ➔ Verification ➔ Release)
 - **Cập nhật lần cuối**: 2026-10-10
 
-## 🏛️ 1. Lưu Trữ Ma Trận Phân Rã WBS Sprint 26 (v3.6.0 Gamification, Guilds & Social — 🟢 100% Done)
+## 🏗️ 1. Bảng Ma Trận Phân Rã WBS Sprint 27 (v3.7.0 Auth & Onboarding — 🟢 100% Done)
+
+### EPIC-REF-06: Auth & Onboarding Flow Clean Architecture (`FEAT-S27-AUTH-ONBOARDING` — 13 SP)
+
+| Mã Task | Feature / Epic | Cổng Chất Lượng | Mô Tả Nhiệm Vụ Kỹ Thuật | Sub-Agent Đảm Nhiệm | SP | Phụ Thuộc | Trạng Thái |
+| :--- | :--- | :---: | :--- | :---: | :---: | :---: | :---: |
+| **`TSK-S27-00-SPIKE`** | Kiến trúc Bóc Tách | **Gate 0** | Tech Lead: Architectural Spec & ADR-033 cho Auth & Onboarding | `tech-lead` | 1 | None | 🟢 **Gate 0 Approved** |
+| **`TSK-S27-01-PRD`** | `prd-s27.md` | **Gate 1** | BA: Soạn PRD & User Stories BDD luồng Auth & Onboarding | `business-analyst` | 2 | TSK-S27-00-SPIKE | 🟢 **Gate 1 Approved** |
+| **`TSK-S27-02-DESIGN`** | `ui-ux-design.md`| **Gate 2** | UI/UX Designer: Component Layout Blueprint lưới 4pt | `ui-ux-designer` | 2 | TSK-S27-01-PRD | 🟢 **Gate 2 Approved** |
+| **`TSK-S27-03-TEST-PLAN`**| `gate-3-test.md` | **Gate 3** | QA Tester: Regression Test Plan cho Auth & Onboarding | `qa-tester` | 1 | TSK-S27-02-DESIGN | 🟢 **Gate 3 Approved** |
+| **`TSK-S27-04-FOOD-ART`**| `clay_3d_food_art.dart` | **Gate 4** | Dev FE: Bóc tách clay_3d_food_art.dart (762 ➔ 84 dòng) | `flutter-core-dev` | 3 | TSK-S27-03-TEST-PLAN | 🟢 **Gate 4 Done** |
+| **`TSK-S27-05-ONBOARDING`**| `onboarding_page.dart` | **Gate 4** | Dev FE: Bóc tách onboarding_page.dart (677 ➔ 166 dòng) | `flutter-core-dev` | 2 | TSK-S27-03-TEST-PLAN | 🟢 **Gate 4 Done** |
+| **`TSK-S27-06-SPLASH-LOGIN`**| `splash_page.dart` & `login_page.dart` | **Gate 4** | Dev FE: Bóc tách splash_page.dart (651 ➔ 241) & login_page (505 ➔ 204) | `flutter-core-dev` | 2 | TSK-S27-03-TEST-PLAN | 🟢 **Gate 4 Done** |
+| **`TSK-S27-07-REVIEW`** | Quality Gate | **Gate 5** | Reviewer: Ponytail Diff Review, check hard cap < 350 dòng | `code-reviewer` | - | Gate 4 | 🟢 **Gate 5 Approved** |
+| **`TSK-S27-08-QA-VERIFY`**| Quality Gate | **Gate 6** | QA Tester: Test pass 322/322 (100%), analyze 0 issues | `qa-tester` | - | Gate 5 | 🟢 **Gate 6 Signed Off** |
+| **`TSK-S27-09-SECURITY`** | Security Gate | **Gate 6.5** | Security Auditor: Rà soát PII & Auth credential sanitization | `security-auditor` | - | Gate 6 | 🟢 **Gate 6.5 Approved** |
+| **`TSK-S27-10-RELEASE`** | Milestone | **Gate 7** | PO, PM & Tech Lead: Release Clearance v3.7.0 | `product-owner` | - | Gate 6.5 | 🟢 **Gate 7 Released** |
+
+---
+
+## 🏛️ 2. Lưu Trữ Ma Trận Phân Rã WBS Sprint 26 (v3.6.0 Gamification, Guilds & Social — 🟢 100% Done)
 
 ### EPIC-REF-05: Gamification, Guilds & Social Modular Architecture (`FEAT-S26-GAMIFICATION-GUILDS-SOCIAL` — 13 SP)
 
