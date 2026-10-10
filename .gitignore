@@ -101,3 +101,10 @@ secrets/
 
 pubspec.lock
 skills-lock.json
+
+# Graphify knowledge graph temporary, cache, backup & generated wiki files
+graphify-out/.*
+graphify-out/cache/
+graphify-out/manifest.json
+graphify-out/20*/
+graphify-out/wiki/
