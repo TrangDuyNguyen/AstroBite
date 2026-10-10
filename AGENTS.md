@@ -137,6 +137,27 @@ Run whenever models, routes, or providers are updated:
 dart run build_runner build --delete-conflicting-outputs
 ```
 
+### Code & File Length Limits (Ponytail Clean Code)
+- **Hard Cap**: Maximum **500 lines** per file (excluding machine-generated `*.g.dart`, `*.freezed.dart`, `*.gr.dart`). Any file exceeding 500 lines is blocked at Gate 5 Review & CI/CD.
+- **Warning Threshold**: Warning at **350 lines**. Devs must proactively extract sub-widgets.
+- **Target Size**: `< 200 lines` for focused widgets, models, controllers, and services.
+- **Boy Scout Rule for Legacy Files**: If modifying a legacy file exceeding 500 lines, the final line count MUST decrease, never increase. Extract at least one sub-component.
+- **Nesting Level**: Maximum **5 levels** of widget nesting in `build()`. Decompose into dedicated `StatelessWidget` or `ConsumerWidget` instead of private helper methods (`Widget _buildSomething()`).
+- **Cyclomatic Complexity**: Maximum **12** decision branches per function/method.
+
+### Prohibition of Magic Strings & Numbers (Enhanced Enums & Constants)
+- **No Raw Strings for Domain States**: All finite domains (e.g. `Gender`, `ActivityLevel`, `FitnessGoal`, meal types, status) MUST use **Dart 3 Enhanced Enums** encapsulating metadata (`label`, `multiplier`, `offset`, `icon`).
+- **Two-way Safe Serialization**: Always provide static `fromValue(String? value)` with safe fallbacks for Firestore/JSON deserialization.
+- **No Magic Numbers**: Centralize numerical limits and defaults in `AppValues` or domain-specific defaults (e.g. `ProfileDefaults`).
+
+### Function Design: O(1) Complexity & Pure Functions
+- **O(1) Property Access**: Prefer direct property access on Enhanced Enums (`activityLevel.multiplier`) over multi-branch string switches or chained `if-else` ($O(1)$ vs $O(N)$).
+- **Pure Functions for Domain Logic**: Calculation logic (e.g. `NutritionCalculator`) MUST be **Pure Functions**:
+  - Deterministic (Same input $\rightarrow$ Same output).
+  - Zero side-effects (no I/O, no DB, no global state mutation).
+  - Safe for isolate execution (`compute()`), zero memory leaks.
+- **Compile-time Constants**: Favor `const` constructors and compile-time evaluation wherever possible to eliminate runtime overhead.
+
 ### Testing Rules
 - Place all unit and widget tests in the `test/` directory mirroring `lib/`.
 - Verify tests before completing tasks:

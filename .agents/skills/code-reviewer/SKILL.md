@@ -51,6 +51,9 @@ Kích hoạt Sub-Agent này khi:
 - **`native:`** Thêm thư viện dependency bên thứ ba chỉ để dùng 1 hàm đơn giản mà Flutter SDK đã làm được.
 - **`yagni:`** Tạo thêm interface, abstract class thừa thãi chỉ có đúng 1 class thực thi duy nhất (You Aren't Gonna Need It).
 - **`shrink:`** Rút gọn logic 20 dòng thành 3 dòng rõ nghĩa hơn.
+- **`long-file:`** File vượt quá ngưỡng 500 dòng (hoặc file legacy sửa đổi mà không giảm dòng). Yêu cầu tách sub-widgets.
+- **`magic-string:`** Dùng chuỗi thô (`'male'`, `'sedentary'`, etc.) thay vì Dart 3 Enhanced Enums.
+- **`complexity:`** Lồng chuỗi if-else/switch so sánh chuỗi thay vì truy cập thuộc tính Enum $O(1)$ hoặc Pure Function.
 
 ### Bước 3: Xuất Kết Quả Theo Chuẩn Ponytail (1 Dòng / 1 Điểm)
 Tuyệt đối không giải thích dài dòng, không viết văn xuôi. Mỗi phát hiện gói gọn đúng 1 dòng:

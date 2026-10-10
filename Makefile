@@ -1,4 +1,4 @@
-.PHONY: help setup update status pull test-fe build-android build-ios release
+.PHONY: help setup update status pull test-fe check-files build-android build-ios release
 
 help:
 	@echo "======================================================="
@@ -9,6 +9,7 @@ help:
 	@echo "  make pull          : Pull code mới nhất của Root và các submodule"
 	@echo "  make status        : Xem trạng thái git của Root và các submodule"
 	@echo "  make test-fe       : Chạy unit/widget test của Frontend Flutter"
+	@echo "  make check-files   : Kiểm tra độ dài & độ phức tạp file (Ponytail)"
 	@echo "  make build-android : Build Android APK & AAB qua Fastlane"
 	@echo "  make build-ios     : Build iOS IPA qua Fastlane"
 	@echo "  make release       : Build toàn bộ Release artifacts (Android + iOS)"
@@ -32,6 +33,9 @@ test-fe:
 	else \
 		flutter test; \
 	fi
+
+check-files:
+	@bash scripts/check_file_length.sh
 
 build-android:
 	bundle exec fastlane android
