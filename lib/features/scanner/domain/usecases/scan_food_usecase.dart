@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 import 'package:intl/intl.dart';
 import 'package:astrobite/core/constants/app_values.dart';
+import '../entities/scan_mode.dart';
 import '../entities/scan_result.dart';
 import '../repositories/food_scan_repository.dart';
 
@@ -29,6 +30,7 @@ class ScanFoodUseCase {
   Future<ScanFoodResult> execute({
     required String userId,
     required Uint8List imageBytes,
+    ScanMode mode = ScanMode.dish,
   }) async {
     final today = DateFormat('yyyy-MM-dd').format(DateTime.now());
 
@@ -40,7 +42,7 @@ class ScanFoodUseCase {
 
     // 2. Perform AI scan
     try {
-      final dto = await _repository.scanFoodImage(imageBytes);
+      final dto = await _repository.scanFoodImage(imageBytes, mode: mode);
       if (dto == null) {
         return ScanError('Không thể phân tích phản hồi từ AI.');
       }

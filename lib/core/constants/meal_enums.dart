@@ -95,6 +95,7 @@ enum MealType {
     for (final m in MealType.values) {
       if (m.value == value) return m;
     }
+    if (value.startsWith('snack')) return MealType.snack;
     return MealType.breakfast;
   }
 

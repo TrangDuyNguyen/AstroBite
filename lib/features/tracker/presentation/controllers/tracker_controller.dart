@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../data/models/food_log_dto.dart';
+import '../../domain/entities/food_log.dart';
 import '../../domain/tracker_providers.dart';
 
 import 'package:astrobite/features/gamification/presentation/controllers/streak_controller.dart';
@@ -40,6 +41,52 @@ class TrackerController extends StateNotifier<AsyncValue<void>> {
             userId: userId,
             logId: logId,
           );
+    });
+  }
+
+  Future<void> migrateMealLogs({
+    required String userId,
+    required List<FoodLog> logsToMigrate,
+    required String targetMealType,
+  }) async {
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(() async {
+      final repo = _ref.read(foodLogRepositoryProvider);
+      for (final log in logsToMigrate) {
+        final updatedDto = FoodLogDto(
+          id: log.id,
+          date: log.date,
+          mealType: targetMealType,
+          dishName: log.dishName,
+          estimatedWeightG: log.estimatedWeightG,
+          calories: log.calories,
+          proteinG: log.proteinG,
+          carbsG: log.carbsG,
+          fatG: log.fatG,
+          source: log.source,
+          confidenceScore: log.confidenceScore,
+          imageUrl: log.imageUrl,
+          sodiumMg: log.sodiumMg,
+          fiberG: log.fiberG,
+          sugarG: log.sugarG,
+          syncStatus: log.syncStatus,
+          dishes: log.dishes,
+        );
+        await repo.addFoodLog(userId: userId, log: updatedDto);
+      }
+    });
+  }
+
+  Future<void> deleteMealLogs({
+    required String userId,
+    required List<FoodLog> logsToDelete,
+  }) async {
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(() async {
+      final repo = _ref.read(foodLogRepositoryProvider);
+      for (final log in logsToDelete) {
+        await repo.deleteFoodLog(userId: userId, logId: log.id);
+      }
     });
   }
 

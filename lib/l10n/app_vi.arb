@@ -620,5 +620,9 @@
   "proteinShort": "Đạm",
   "carbsShort": "Carbs",
   "fatShort": "Béo",
-  "sodiumShort": "Natri"
+  "sodiumShort": "Natri",
+  "scanModeDish": "Món ăn",
+  "scanModePackaged": "Đóng gói",
+  "pointCameraAtPackaged": "Căn bảng dinh dưỡng hoặc mã vạch vào khung",
+  "aiDecodingPackaged": "✨ AI đang giải mã nhãn dinh dưỡng & mã vạch..."
 }

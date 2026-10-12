@@ -66,4 +66,16 @@ class NutritionCalculator {
     if (originalWeightG <= 0) return 0;
     return (originalCalories * newWeightG / originalWeightG).round();
   }
+
+  /// Rebalance calorie ratios across a list of meal slots so that sum == 1.0.
+  /// Pure function with O(N) complexity.
+  static List<double> rebalanceMealRatios(List<double> rawRatios) {
+    if (rawRatios.isEmpty) return [];
+    final sum = rawRatios.fold<double>(0.0, (acc, r) => acc + r);
+    if (sum <= 0) {
+      final equal = 1.0 / rawRatios.length;
+      return List.filled(rawRatios.length, equal);
+    }
+    return rawRatios.map((r) => double.parse((r / sum).toStringAsFixed(4))).toList();
+  }
 }

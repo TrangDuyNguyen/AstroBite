@@ -332,5 +332,9 @@
   "proteinShort": "Protein",
   "carbsShort": "Carbs",
   "fatShort": "Fat",
-  "sodiumShort": "Sodium"
+  "sodiumShort": "Sodium",
+  "scanModeDish": "Dish",
+  "scanModePackaged": "Packaged",
+  "pointCameraAtPackaged": "Align nutrition table or barcode within frame",
+  "aiDecodingPackaged": "✨ AI is decoding nutrition facts & barcode..."
 }

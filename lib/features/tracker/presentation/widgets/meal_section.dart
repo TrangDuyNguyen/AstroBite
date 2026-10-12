@@ -11,6 +11,8 @@ import 'food_detail_sheet.dart';
 import 'meal_card_header.dart';
 import 'meal_food_item_tile.dart';
 
+import 'package:astrobite/features/tracker/domain/entities/meal_slot.dart';
+
 /// Claymorphic Meal Card displaying food logs, macro breakdown, and quick add action for a specific meal.
 class MealSection extends ConsumerWidget {
   const MealSection({
@@ -18,11 +20,15 @@ class MealSection extends ConsumerWidget {
     required this.mealType,
     required this.summary,
     required this.onAddTap,
+    this.slot,
+    this.onDeleteTap,
   });
 
   final String mealType;
   final DailySummary summary;
   final VoidCallback onAddTap;
+  final MealSlot? slot;
+  final VoidCallback? onDeleteTap;
 
   MealType get _mealTypeEnum => MealType.fromValue(mealType);
 
@@ -60,10 +66,16 @@ class MealSection extends ConsumerWidget {
     final totalFat = summary.getMealFat(mealType);
     final isCompleted = logs.isNotEmpty;
 
+    final suggestedCalories = slot != null
+        ? slot!.calculateSuggestedCalories(summary.targetCalories)
+        : type.calculateSuggestedCalories(summary.targetCalories);
+    final customLabel = slot?.label;
+    final bgColor = slot?.clayBgColor ?? type.clayBgColor;
+
     return Padding(
       padding: const EdgeInsets.only(bottom: AppValues.spacing12),
       child: ClayCard(
-        backgroundColor: type.clayBgColor,
+        backgroundColor: bgColor,
         elevation: 3.5,
         borderRadius: 22,
         padding: const EdgeInsets.all(AppValues.cardPadding),
@@ -72,13 +84,15 @@ class MealSection extends ConsumerWidget {
           children: [
             MealCardHeader(
               mealType: type,
+              customLabel: customLabel,
               isCompleted: isCompleted,
               totalCalories: totalCalories,
               totalCarbs: totalCarbs,
               totalProtein: totalProtein,
               totalFat: totalFat,
-              suggestedCalories: type.calculateSuggestedCalories(summary.targetCalories),
+              suggestedCalories: suggestedCalories,
               onAddTap: onAddTap,
+              onDeleteTap: onDeleteTap,
             ),
             if (logs.isNotEmpty) ...[
               const SizedBox(height: AppValues.spacing12),

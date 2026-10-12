@@ -1,9 +1,9 @@
 # Bản Đồ Lộ Trình Sản Phẩm AstroBite (Product Roadmap)
 
 - **Quản lý bởi**: Sub-Agent Product Owner (PO)
-- **Phiên bản hiện tại**: v3.2.0 (Sprint 22 In Progress)
-- **Cập nhật lần cuối**: 2026-10-10
-- **Tình trạng tổng thể**: 🟡 Sprint 22 ACTIVE — Core Tracker Clean Architecture & O(1) Meal Enums Overhaul (v3.2.0)
+- **Phiên bản hiện tại**: v3.4.0 (Sprint 32 Completed)
+- **Cập nhật lần cuối**: 2026-10-11
+- **Tình trạng tổng thể**: 🟢 Sprint 32 COMPLETED — Smart Packaged Food Scanning: Barcode & Nutrition Label OCR (v3.4.0)
 
 ---
 
@@ -136,5 +136,8 @@
 | **v2.9.0** | **100%** 🟢 DONE | EPIC-GLOBAL Sprint 19 — Multi-Region Food Culture Intelligence (Broth & Topping Engine) | 05/10/2026 | Sub-Agent PO & PM |
 | **v3.0.0** | **100%** (13/13 SP) 🟢 DONE | EPIC-VOICE Sprint 20 — Hands-Free Voice Logging (AstroVoice AI) | 05/10/2026 | Sub-Agent PO & PM |
 | **v3.1.0** | **100%** (13/13 SP) 🟢 DONE | EPIC-14 Sprint 21 — Social Guilds & Planetary Challenges | 07/10/2026 | Sub-Agent PO & PM |
+| **v3.2.0** | **100%** (13/13 SP) 🟢 DONE | EPIC-REF-01 Sprint 22 — Core Tracker Clean Architecture & O(1) Meal Enums | 10/10/2026 | Sub-Agent PO & PM |
+| **v3.3.0** | **100%** (13/13 SP) 🟢 DONE | EPIC-CORE-10 Sprint 31 — Internationalization Foundation (Song Ngữ VI/EN) | 11/10/2026 | Sub-Agent PO & PM |
+| **v3.4.0** | **100%** (13/13 SP) 🟢 DONE | EPIC-SCAN-02 Sprint 32 — Smart Packaged Food Scanning: Barcode & Nutrition Label OCR | 11/10/2026 | Sub-Agent PO & PM |
 
 

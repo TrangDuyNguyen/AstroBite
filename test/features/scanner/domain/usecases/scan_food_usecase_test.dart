@@ -2,6 +2,7 @@ import 'dart:typed_data';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:astrobite/core/constants/app_values.dart';
 import 'package:astrobite/features/scanner/data/models/scan_result_dto.dart';
+import 'package:astrobite/features/scanner/domain/entities/scan_mode.dart';
 import 'package:astrobite/features/scanner/domain/repositories/food_scan_repository.dart';
 import 'package:astrobite/features/scanner/domain/usecases/scan_food_usecase.dart';
 
@@ -23,7 +24,10 @@ class FakeFoodScanRepository implements FoodScanRepository {
   }
 
   @override
-  Future<ScanResultDto?> scanFoodImage(Uint8List imageBytes) async {
+  Future<ScanResultDto?> scanFoodImage(
+    Uint8List imageBytes, {
+    ScanMode mode = ScanMode.dish,
+  }) async {
     if (shouldThrow) {
       throw Exception(errorMessage ?? 'Scan failed');
     }

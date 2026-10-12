@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../domain/entities/scan_mode.dart';
 import '../../domain/repositories/food_scan_repository.dart';
 import '../datasources/gemini_remote_datasource.dart';
 import '../models/scan_result_dto.dart';
@@ -80,7 +81,10 @@ class FoodScanRepositoryImpl implements FoodScanRepository {
   }
 
   @override
-  Future<ScanResultDto?> scanFoodImage(Uint8List imageBytes) async {
-    return _remoteDatasource.analyzeFoodImage(imageBytes);
+  Future<ScanResultDto?> scanFoodImage(
+    Uint8List imageBytes, {
+    ScanMode mode = ScanMode.dish,
+  }) async {
+    return _remoteDatasource.analyzeFoodImage(imageBytes, mode: mode);
   }
 }

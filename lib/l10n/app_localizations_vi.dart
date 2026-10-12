@@ -1107,4 +1107,16 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get sodiumShort => 'Natri';
+
+  @override
+  String get scanModeDish => 'Món ăn';
+
+  @override
+  String get scanModePackaged => 'Đóng gói';
+
+  @override
+  String get pointCameraAtPackaged => 'Căn bảng dinh dưỡng hoặc mã vạch vào khung';
+
+  @override
+  String get aiDecodingPackaged => '✨ AI đang giải mã nhãn dinh dưỡng & mã vạch...';
 }

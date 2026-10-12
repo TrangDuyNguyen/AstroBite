@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:astrobite/features/auth/domain/auth_providers.dart';
+import '../../domain/entities/scan_mode.dart';
 import '../../domain/scanner_providers.dart';
 import '../../domain/usecases/scan_food_usecase.dart';
 
@@ -14,7 +15,10 @@ class ScannerController extends StateNotifier<AsyncValue<ScanFoodResult?>> {
 
   final Ref _ref;
 
-  Future<ScanFoodResult?> scanImage(Uint8List bytes) async {
+  Future<ScanFoodResult?> scanImage(
+    Uint8List bytes, {
+    ScanMode mode = ScanMode.dish,
+  }) async {
     final user = _ref.read(authRepositoryProvider).currentUser;
     if (user == null) return null;
 
@@ -25,6 +29,7 @@ class ScannerController extends StateNotifier<AsyncValue<ScanFoodResult?>> {
       final result = await useCase.execute(
         userId: user.uid,
         imageBytes: bytes,
+        mode: mode,
       );
       _ref.invalidate(todayScanCountProvider);
       state = AsyncData(result);

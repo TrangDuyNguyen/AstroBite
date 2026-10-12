@@ -2074,6 +2074,30 @@ abstract class AppLocalizations {
   /// In vi, this message translates to:
   /// **'Natri'**
   String get sodiumShort;
+
+  /// No description provided for @scanModeDish.
+  ///
+  /// In vi, this message translates to:
+  /// **'Món ăn'**
+  String get scanModeDish;
+
+  /// No description provided for @scanModePackaged.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đóng gói'**
+  String get scanModePackaged;
+
+  /// No description provided for @pointCameraAtPackaged.
+  ///
+  /// In vi, this message translates to:
+  /// **'Căn bảng dinh dưỡng hoặc mã vạch vào khung'**
+  String get pointCameraAtPackaged;
+
+  /// No description provided for @aiDecodingPackaged.
+  ///
+  /// In vi, this message translates to:
+  /// **'✨ AI đang giải mã nhãn dinh dưỡng & mã vạch...'**
+  String get aiDecodingPackaged;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

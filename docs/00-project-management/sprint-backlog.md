@@ -1,47 +1,52 @@
 # Kế Hoạch Sprint Hiện Hành (Sprint Backlog)
 
 - **Quản lý bởi**: Sub-Agent Product Owner (PO) & Sub-Agent Project Manager (PM)
-- **Sprint hiện tại**: Sprint 31
-- **Tên Sprint**: Internationalization Foundation (Song Ngữ VI + EN)
-- **Mã Epic / Feature**: `EPIC-CORE-10` / `FEAT-S31-I18N-FOUNDATION`
-- **Phiên bản mục tiêu**: `v3.11.0`
-- **Thời gian Sprint**: 10/10/2026 – 24/10/2026
-- **Trạng thái Sprint**: ⚡ **IN PROGRESS**
-- **Tổng Story Points cam kết**: **13 SP** (Tiến độ: **0 / 13 SP — 0%**)
+- **Sprint hiện tại**: Sprint 32
+- **Tên Sprint**: Smart Packaged Food Scanning (Barcode & Nutrition Label OCR)
+- **Mã Epic / Feature**: `EPIC-SCAN-02` / `FEAT-S32-BARCODE-OCR`
+- **Phiên bản mục tiêu**: `v3.4.0`
+- **Thời gian Sprint**: 11/10/2026 – 25/10/2026
+- **Trạng thái Sprint**: 🏁 **COMPLETED**
+- **Tổng Story Points cam kết**: **13 SP** (Tiến độ: **13 / 13 SP — 100%**)
 
 ---
 
-## 🎯 Mục Tiêu Sprint 31: Nền Tảng Đa Ngôn Ngữ Song Ngữ (VI + EN)
+## 🎯 Mục Tiêu Sprint 32: Quét Mã Vạch & Bóc Tách Bảng Dinh Dưỡng Thực Phẩm Đóng Gói (Hoàn Thành)
 
-1. **Gate 0 & Gate 1 (2 SP)**: Ban hành ADR-037 & PRD + User Stories BDD cho hệ thống bản địa hóa (Official Flutter SDK `flutter_localizations`, 0 dep bên thứ 3).
-2. **Setup Hạ Tầng l10n & ARB (3 SP)**: Cấu hình `pubspec.yaml`, `l10n.yaml`, sinh `app_vi.arb` & `app_en.arb` từ `AppStrings`, cài đặt `appLocaleProvider` lưu `SharedPreferences`.
-3. **Tích Hợp MaterialApp & Refactor UI (5 SP)**: Tích hợp `AppLocalizations` vào `AstroBiteApp`, chuyển đổi các chuỗi UI, bổ sung Settings Tile chọn ngôn ngữ trong Profile.
-4. **Ponytail Cleanout & Quality Clearance (3 SP)**: Xóa sạch `AppStrings`, đảm bảo 100% tests pass (322/322), 0 linter issue, ký duyệt Gate 5, 6, 6.5 & 7.
+1. **Gate 0 & Gate 1 (2 SP)**: Ban hành ADR-038 & PRD + User Stories BDD cho luồng Barcode & Nutrition Label OCR (Hybrid Ponytail Vision + Open Food Facts API, 0 new packages).
+2. **Gate 2 & Gate 3 (2 SP)**: Thiết kế Smart Bounding Box HUD, Mode Switcher Pill và Master Test Plan bao phủ edge cases (mã mờ, nhãn cong, thiếu mạng).
+3. **Gate 4 (5 SP)**: Triển khai Dual-mode `CameraPage`, Vision Prompt chuyên biệt cho bảng dinh dưỡng, `BarcodeLookupService` và tích hợp `ScanReviewPage`.
+4. **Gate 5, 6, 6.5 & 7 (4 SP)**: Ponytail Clean Review, Automated Tests 100% xanh (333/333 tests), Security Clearance quyền Camera và phát hành `v3.4.0`.
 
 ---
 
-## 📋 Bảng Kanban Sprint 31
+## 📋 Bảng Kanban Sprint 32
 
-### 1. 📝 BACKLOG / QUEUED — [13 SP]
-| Mã Task | Màn Hình / File | Gate | Mô Tả | Sub-Agent Phụ Trách | SP | Trạng Thái |
-|:---|:---|:---:|:---|---|:---:|:---|
-| `TSK-S31-00-SPIKE` | `docs/superpowers/specs/2026-10-10-sprint-31-internationalization-i18n-design.md` | **G0** | Tech Lead: Architectural Spec & ADR-037 | `tech-lead` | 1 | 🏁 **DONE** |
-| `TSK-S31-01-PRD` | `docs/03-prd-features/38-internationalization-i18n/` | **G1** | BA: Soạn PRD & User Stories BDD luồng i18n | `business-analyst` | 1 | 🏁 **DONE** |
-| `TSK-S31-02-DESIGN` | `docs/03-prd-features/38-internationalization-i18n/ui-design.md` | **G2** | UI/UX Designer: Thiết kế Picker chọn ngôn ngữ | `ui-ux-designer` | 1 | 🏁 **DONE** |
-| `TSK-S31-03-TEST-PLAN` | `docs/03-prd-features/38-internationalization-i18n/gate-3-test.md` | **G3** | QA Tester: Lập kế hoạch kiểm thử Gate 3 | `qa-tester` | 1 | 🏁 **DONE** |
-| `TSK-S31-04-SETUP-ARB` | `pubspec.yaml`, `l10n.yaml`, `lib/l10n/` | **G4** | Dev Core: Cấu hình l10n, tạo `app_vi.arb` & `app_en.arb` | `flutter-core-dev` | 2 | 📝 **TODO** |
-| `TSK-S31-05-PROVIDER` | `lib/core/providers/locale_provider.dart` | **G4** | Dev Core: Viết `appLocaleProvider` + persist prefs | `flutter-core-dev` | 1 | 📝 **TODO** |
-| `TSK-S31-06-APP-INTEG` | `lib/app.dart` & Profile Language Setting | **G4** | Dev Core: Nạp locales vào `MaterialApp`, thêm UI Profile | `flutter-core-dev` | 2 | 📝 **TODO** |
-| `TSK-S31-07-MIGRATE-CLEAN` | `lib/core/constants/app_strings.dart` | **G4/G5** | Dev Core / Reviewer: Migrate & xóa sạch `AppStrings` | `flutter-core-dev` | 2 | 📝 **TODO** |
-| `TSK-S31-08-SIGN-OFF` | Gate 6, 6.5, 7 Sign-offs | **G6/G7** | QA & Security & PO: Kiểm thử 100% pass & Clearance | `qa-tester` | 2 | 📝 **TODO** |
+### 1. 📝 BACKLOG / QUEUED — [0 SP]
 
 ### 2. ⚡ IN PROGRESS — [0 SP]
 
-### 3. 🏁 DONE — [4 SP] (G0, G1, G2, G3 documents completed)
+### 3. 🏁 DONE — [13 SP]
+| Mã Task | Màn Hình / File | Gate | Mô Tả | Sub-Agent Phụ Trách | SP | Trạng Thái |
+|:---|:---|:---:|:---|---|:---:|:---|
+| `TSK-S32-00-SPIKE` | `docs/superpowers/specs/2026-10-11-sprint-32-barcode-nutrition-label-ocr-design.md` | **G0** | Tech Lead: Architectural Spec & ADR-038 (Hybrid Ponytail Vision) | `tech-lead` | 1 | 🏁 **DONE** |
+| `TSK-S32-01-PRD` | `docs/03-prd-features/39-barcode-nutrition-label-ocr/prd-barcode-nutrition-label-ocr.md` | **G1** | BA: Soạn PRD & Data Dictionary luồng Barcode/OCR | `business-analyst` | 1 | 🏁 **DONE** |
+| `TSK-S32-02-DESIGN` | `docs/03-prd-features/39-barcode-nutrition-label-ocr/ui-design.md` | **G2** | UI/UX Designer: Smart Bounding Box & Mode Switcher Pill | `ui-ux-designer` | 1 | 🏁 **DONE** |
+| `TSK-S32-03-TEST-PLAN` | `docs/03-prd-features/39-barcode-nutrition-label-ocr/gate-3-test.md` | **G3** | QA Tester: Lập kế hoạch kiểm thử BDD Gherkin | `qa-tester` | 1 | 🏁 **DONE** |
+| `TSK-S32-04-VISION-PROMPT` | `lib/features/scanner/data/nutrition_label_prompt.dart` | **G4** | Cloud AI Dev: Xây dựng System Prompt parse bảng nhãn | `cloud-ai-dev` | 2 | 🏁 **DONE** |
+| `TSK-S32-05-BARCODE-SVC` | `lib/features/scanner/data/barcode_lookup_service.dart` | **G4** | Dev Core: Tích hợp Open Food Facts REST API client | `flutter-core-dev` | 1 | 🏁 **DONE** |
+| `TSK-S32-06-SCAN-MODE-UI` | `lib/features/scanner/presentation/pages/camera_page.dart` | **G4** | Dev Core: Bổ sung Mode Pill Switcher & Smart Viewfinder | `flutter-core-dev` | 2 | 🏁 **DONE** |
+| `TSK-S32-07-REVIEW` | Codebase & Git Diff | **G5** | Reviewer: Ponytail Diff Review, kiểm soát line count | `code-reviewer` | 1 | 🏁 **DONE** |
+| `TSK-S32-08-SIGN-OFF` | Gate 6, 6.5, 7 Sign-offs | **G6/G7** | QA & Security & PO: Kiểm thử 100% pass (333/333) & Release | `qa-tester` | 3 | 🏁 **DONE** |
 
 ---
 
 ## 🏛️ Lịch Sử Các Sprint Đã Hoàn Thành (Sprint Archive)
+
+### 🟢 Sprint 31 — AstroBite v3.3.0 Internationalization Foundation (Hoàn tất 11/10/2026)
+- **Mục tiêu**: Thiết lập nền tảng đa ngôn ngữ chính quy Flutter SDK `flutter_localizations` (Song ngữ VI + EN), chuyển đổi toàn bộ UI strings sang `AppLocalizations`, xóa sạch nợ kỹ thuật `AppStrings`.
+- **Kết quả**: **13 / 13 SP (100% Passed)** — 327/327 tests pass, 0 linter issue, hoàn thành cài đặt `LanguageSettingsCard` trong Profile.
+- **Biên bản phát hành**: `docs/03-prd-features/38-internationalization-i18n/` & Git tag `v3.3.0`.
 
 ### 🟢 Sprint 30 — AstroBite v3.10.0 Ultimate Warning Cleanout (Hoàn tất 10/10/2026)
 - **Mục tiêu**: Bóc tách 4 file cảnh báo cuối cùng: `mock_guild_repository.dart`, `zero_gravity_food_background.dart`, `health_cards.dart`, `member_action_sheet.dart`.

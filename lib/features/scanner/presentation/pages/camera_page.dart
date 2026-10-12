@@ -6,10 +6,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:astrobite/core/utils/l10n_extension.dart';
 import 'package:astrobite/shared/ui_kit/ui_kit.dart';
+import '../../domain/entities/scan_mode.dart';
 import '../controllers/scanner_controller.dart';
 import '../widgets/camera_app_bar.dart';
 import '../widgets/camera_dock_controls.dart';
 import '../widgets/camera_error_dialog_handler.dart';
+import '../widgets/camera_mode_pill_switcher.dart';
 import '../widgets/camera_quota_badge.dart';
 import '../widgets/scanning_viewfinder.dart';
 
@@ -27,6 +29,7 @@ class _CameraPageState extends ConsumerState<CameraPage>
   CameraController? _cameraController;
   Uint8List? _previewBytes;
   bool _isTorchOn = false;
+  ScanMode _scanMode = ScanMode.dish;
 
   @override
   void initState() {
@@ -153,7 +156,10 @@ class _CameraPageState extends ConsumerState<CameraPage>
   }
 
   Future<void> _processImage(Uint8List bytes) async {
-    final result = await ref.read(scannerControllerProvider.notifier).scanImage(bytes);
+    final result = await ref.read(scannerControllerProvider.notifier).scanImage(
+          bytes,
+          mode: _scanMode,
+        );
     if (!mounted || result == null) return;
 
     CameraErrorDialogHandler.handleResult(
@@ -187,6 +193,7 @@ class _CameraPageState extends ConsumerState<CameraPage>
                     ? const ScanSkeletonLoader()
                     : ScanningViewfinder(
                         isScanning: isScanning,
+                        mode: _scanMode,
                         child: _buildViewfinderChild(),
                       ),
               ),
@@ -198,6 +205,14 @@ class _CameraPageState extends ConsumerState<CameraPage>
                   color: AppColors.primary,
                   backgroundColor: AppColors.surfaceContainer,
                 ),
+              ),
+              const SizedBox(height: AppValues.spacing8),
+            ],
+            if (!isScanning) ...[
+              const SizedBox(height: AppValues.spacing12),
+              CameraModePillSwitcher(
+                currentMode: _scanMode,
+                onModeChanged: (mode) => setState(() => _scanMode = mode),
               ),
               const SizedBox(height: AppValues.spacing8),
             ],
@@ -213,6 +228,14 @@ class _CameraPageState extends ConsumerState<CameraPage>
   }
 
   Widget _buildHeaderInstruction(bool isScanning) {
+    final instruction = isScanning
+        ? (_scanMode.isPackaged
+            ? context.l10n.aiDecodingPackaged
+            : context.l10n.aiDecodingFood)
+        : (_scanMode.isPackaged
+            ? context.l10n.pointCameraAtPackaged
+            : context.l10n.pointCameraAtFood);
+
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: AppValues.screenPadding,
@@ -221,9 +244,7 @@ class _CameraPageState extends ConsumerState<CameraPage>
       child: Column(
         children: [
           Text(
-            isScanning
-                ? context.l10n.aiDecodingFood
-                : context.l10n.pointCameraAtFood,
+            instruction,
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   color: isScanning ? AppColors.primary : AppColors.onSurfaceVariant,

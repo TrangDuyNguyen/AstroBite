@@ -15,6 +15,8 @@ class MealCardHeader extends StatelessWidget {
     required this.totalFat,
     required this.suggestedCalories,
     required this.onAddTap,
+    this.onDeleteTap,
+    this.customLabel,
   });
 
   final MealType mealType;
@@ -25,6 +27,8 @@ class MealCardHeader extends StatelessWidget {
   final int totalFat;
   final int suggestedCalories;
   final VoidCallback onAddTap;
+  final VoidCallback? onDeleteTap;
+  final String? customLabel;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +49,7 @@ class MealCardHeader extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    mealType.localizedLabel(context),
+                    customLabel ?? mealType.localizedLabel(context),
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
                           fontWeight: FontWeight.bold,
                           color: AppColors.onSurface,
@@ -71,8 +75,20 @@ class MealCardHeader extends StatelessWidget {
           ),
         ),
 
-        // 3. Trailing Action: Quick Add / Completed button
+        // 3. Trailing Action: Quick Add / Completed button / Delete
         if (isCompleted) ...[
+          if (onDeleteTap != null) ...[
+            ClayIconButton(
+              icon: Icons.delete_outline_rounded,
+              onPressed: onDeleteTap,
+              backgroundColor: AppColors.surfaceContainer,
+              iconColor: AppColors.error,
+              size: 38,
+              borderRadius: 19,
+              tooltip: 'Xóa bữa phụ',
+            ),
+            const SizedBox(width: AppValues.spacing8),
+          ],
           ClayIconButton(
             icon: Icons.add_circle_outline,
             onPressed: onAddTap,
@@ -100,6 +116,18 @@ class MealCardHeader extends StatelessWidget {
             child: const Icon(Icons.check_rounded, color: Colors.white, size: 18),
           ),
         ] else ...[
+          if (onDeleteTap != null) ...[
+            ClayIconButton(
+              icon: Icons.delete_outline_rounded,
+              onPressed: onDeleteTap,
+              backgroundColor: AppColors.surfaceContainer,
+              iconColor: AppColors.error,
+              size: 40,
+              borderRadius: 20,
+              tooltip: 'Xóa bữa phụ',
+            ),
+            const SizedBox(width: AppValues.spacing8),
+          ],
           ClayIconButton(
             icon: Icons.add_circle_outline,
             onPressed: onAddTap,

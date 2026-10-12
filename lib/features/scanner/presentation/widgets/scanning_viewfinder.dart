@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:astrobite/core/utils/l10n_extension.dart';
 import 'package:astrobite/shared/ui_kit/ui_kit.dart';
+import '../../domain/entities/scan_mode.dart';
 import 'viewfinder_detected_tag.dart';
 import 'viewfinder_hud_painters.dart';
 import 'viewfinder_laser_scanner.dart';
@@ -15,12 +16,14 @@ class ScanningViewfinder extends StatefulWidget {
     this.child,
     this.detectedDishName,
     this.detectedCalories,
+    this.mode = ScanMode.dish,
   });
 
   final bool isScanning;
   final Widget? child;
   final String? detectedDishName;
   final int? detectedCalories;
+  final ScanMode mode;
 
   @override
   State<ScanningViewfinder> createState() => _ScanningViewfinderState();
@@ -98,14 +101,20 @@ class _ScanningViewfinderState extends State<ScanningViewfinder>
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final boxSize = constraints.maxWidth < constraints.maxHeight
+        final isPackaged = widget.mode.isPackaged;
+        final baseWidth = constraints.maxWidth < constraints.maxHeight
             ? constraints.maxWidth * 0.85
             : constraints.maxHeight * 0.75;
+        final boxHeight = isPackaged
+            ? (baseWidth * 1.28).clamp(baseWidth, constraints.maxHeight * 0.88)
+            : baseWidth;
 
         return Center(
-          child: SizedBox(
-            width: boxSize,
-            height: boxSize,
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 250),
+            curve: Curves.easeOutCubic,
+            width: baseWidth,
+            height: boxHeight,
             child: Stack(
               clipBehavior: Clip.none,
               children: [
@@ -228,7 +237,7 @@ class _ScanningViewfinderState extends State<ScanningViewfinder>
                     animation: _laserAnimation,
                     builder: (context, _) {
                       return Positioned(
-                        top: _laserAnimation.value * (boxSize - 4),
+                        top: _laserAnimation.value * (boxHeight - 4),
                         left: 8,
                         right: 8,
                         child: const ViewfinderLaserScannerLine(),

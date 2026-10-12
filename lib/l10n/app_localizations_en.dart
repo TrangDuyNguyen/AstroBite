@@ -1107,4 +1107,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get sodiumShort => 'Sodium';
+
+  @override
+  String get scanModeDish => 'Dish';
+
+  @override
+  String get scanModePackaged => 'Packaged';
+
+  @override
+  String get pointCameraAtPackaged => 'Align nutrition table or barcode within frame';
+
+  @override
+  String get aiDecodingPackaged => '✨ AI is decoding nutrition facts & barcode...';
 }

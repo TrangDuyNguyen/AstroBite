@@ -5,6 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:astrobite/features/auth/domain/auth_providers.dart';
 import 'package:astrobite/features/auth/domain/repositories/auth_repository.dart';
 import 'package:astrobite/features/scanner/data/models/scan_result_dto.dart';
+import 'package:astrobite/features/scanner/domain/entities/scan_mode.dart';
 import 'package:astrobite/features/scanner/domain/repositories/food_scan_repository.dart';
 import 'package:astrobite/features/scanner/domain/scanner_providers.dart';
 import 'package:astrobite/features/scanner/domain/usecases/scan_food_usecase.dart';
@@ -42,7 +43,10 @@ class FakeFoodScanRepo implements FoodScanRepository {
   Future<void> incrementScanCount(String userId, String date) async {}
 
   @override
-  Future<ScanResultDto?> scanFoodImage(Uint8List imageBytes) async => dtoToReturn;
+  Future<ScanResultDto?> scanFoodImage(
+    Uint8List imageBytes, {
+    ScanMode mode = ScanMode.dish,
+  }) async => dtoToReturn;
 }
 
 void main() {

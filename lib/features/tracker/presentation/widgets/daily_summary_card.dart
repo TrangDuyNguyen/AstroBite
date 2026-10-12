@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../domain/daily_summary.dart';
-import 'celestial_cockpit_card.dart';
+import 'solar_orbital_cockpit.dart';
 
-/// Legacy adapter for DailySummaryCard, now rendering the Glanceable Celestial Cockpit.
+/// Adapter for DailySummaryCard, rendering the next-gen Solar Orbital Cockpit.
 class DailySummaryCard extends StatelessWidget {
   const DailySummaryCard({
     super.key,
@@ -13,6 +13,6 @@ class DailySummaryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CelestialCockpitCard(summary: summary);
+    return SolarOrbitalCockpit(summary: summary);
   }
 }

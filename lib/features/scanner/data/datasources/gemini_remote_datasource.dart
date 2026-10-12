@@ -3,7 +3,9 @@ import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:astrobite/core/constants/app_keys.dart';
 import 'package:astrobite/core/services/gemini_api_key_service.dart';
 import 'package:astrobite/core/utils/json_parser.dart';
+import '../../domain/entities/scan_mode.dart';
 import '../models/scan_result_dto.dart';
+import '../nutrition_label_prompt.dart';
 
 /// Remote datasource that communicates directly with Google Gemini AI
 /// via Google AI Studio API Key (Free tier, no credit card required).
@@ -81,9 +83,16 @@ Contextual Rules:
 6. Provide accurate estimates for sodium (mg), dietary fiber (g), and sugars (g).
 ''';
 
-  Future<ScanResultDto?> analyzeFoodImage(Uint8List imageBytes) async {
+  Future<ScanResultDto?> analyzeFoodImage(
+    Uint8List imageBytes, {
+    ScanMode mode = ScanMode.dish,
+  }) async {
+    final prompt = mode.isPackaged
+        ? NutritionLabelPrompt.systemPrompt
+        : _systemPrompt;
+
     if (_model != null) {
-      return _generateWithModel(_model!, imageBytes);
+      return _generateWithModel(_model!, imageBytes, prompt: prompt);
     }
 
     final apiKey = await _apiKeyResolver();
@@ -94,10 +103,14 @@ Contextual Rules:
       );
     }
 
-    return _analyzeWithKey(apiKey, imageBytes);
+    return _analyzeWithKey(apiKey, imageBytes, prompt: prompt);
   }
 
-  Future<ScanResultDto?> _analyzeWithKey(String apiKey, Uint8List imageBytes) async {
+  Future<ScanResultDto?> _analyzeWithKey(
+    String apiKey,
+    Uint8List imageBytes, {
+    required String prompt,
+  }) async {
     // Prioritize active fast vision models with automatic fallback on demand spikes (503) or rate limits
     const candidateModels = [
       'gemini-3.1-flash-lite-preview',
@@ -115,7 +128,7 @@ Contextual Rules:
             responseMimeType: 'application/json',
           ),
         );
-        return await _generateWithModel(model, imageBytes);
+        return await _generateWithModel(model, imageBytes, prompt: prompt);
       } catch (e) {
         lastError = e;
         final errStr = e.toString().toLowerCase();
@@ -129,7 +142,7 @@ Contextual Rules:
             errStr.contains('oauth 2')) {
           final defaultKey = AppKeys.defaultGeminiApiKey.trim();
           if (defaultKey.isNotEmpty && apiKey != defaultKey) {
-            return _analyzeWithKey(defaultKey, imageBytes);
+            return _analyzeWithKey(defaultKey, imageBytes, prompt: prompt);
           }
           rethrow;
         }
@@ -146,11 +159,12 @@ Contextual Rules:
 
   Future<ScanResultDto?> _generateWithModel(
     GenerativeModel model,
-    Uint8List imageBytes,
-  ) async {
+    Uint8List imageBytes, {
+    String? prompt,
+  }) async {
     final response = await model.generateContent([
       Content.multi([
-        TextPart(_systemPrompt),
+        TextPart(prompt ?? _systemPrompt),
         DataPart('image/jpeg', imageBytes),
       ]),
     ]).timeout(const Duration(seconds: 14));
