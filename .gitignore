@@ -11,6 +11,9 @@
 .svn/
 .swiftpm/
 migrate_working_dir/
+.agents/.session_*.sh
+.agents/.pipeline_gate_*.sh
+.agents/pipeline_state.json
 
 # IntelliJ related
 *.iml
@@ -76,10 +79,22 @@ android/local.properties
 *.mobileprovision
 ios/Runner/ExportOptions.plist
 
-# Generic secrets
+# Generic secrets & service accounts
 *.secret
 *.credentials
 secrets/
+*-adminsdk-*.json
+service-account*.json
+serviceAccountKey.json
+credentials.json
+
+# Firebase debug logs
+firebase-debug.log*
+firestore-debug.log*
+ui-debug.log*
+
+# Ruby tooling
+.ruby-lsp/
 
 # ============================================
 # 🤖 AI TOOL / IDE GENERATED FILES

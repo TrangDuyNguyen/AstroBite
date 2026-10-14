@@ -4,7 +4,24 @@ service cloud.firestore {
     match /users/{userId} {
       allow read, write: if request.auth != null && request.auth.uid == userId;
 
+      // User personal subcollections
       match /foodLogs/{logId} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+
+      match /recipes/{recipeId} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+
+      match /meal_plans/{planId} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+
+      match /chat_sessions/{sessionId}/{sub=**} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+
+      match /gamification/{docId} {
         allow read, write: if request.auth != null && request.auth.uid == userId;
       }
 

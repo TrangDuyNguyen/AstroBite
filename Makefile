@@ -45,3 +45,43 @@ build-ios:
 
 release:
 	bundle exec fastlane release
+
+# =======================================================
+# Sub-Agent Session Management (CLI Multi-Agent Workspace)
+# =======================================================
+agents:
+	@bash scripts/launch_agent_session.sh all
+
+agent-techlead:
+	@bash scripts/launch_agent_session.sh tech-lead
+
+agent-dev:
+	@bash scripts/launch_agent_session.sh dev
+
+agent-qa:
+	@bash scripts/launch_agent_session.sh qa
+
+agent-design:
+	@bash scripts/launch_agent_session.sh design
+
+agent-security:
+	@bash scripts/launch_agent_session.sh security
+
+# =======================================================
+# End-to-End Quality Gate Pipeline (Relay Race Hand-off)
+# =======================================================
+pipeline:
+	@if [ -z "$(FEATURE)" ]; then \
+		echo "❌ Vui lòng cung cấp tên tính năng: make pipeline FEATURE=ten-tinh-nang"; \
+	else \
+		bash scripts/gate_pipeline.sh start "$(FEATURE)"; \
+	fi
+
+pipeline-status:
+	@bash scripts/gate_pipeline.sh status
+
+pipeline-next:
+	@bash scripts/gate_pipeline.sh next
+
+pipeline-reset:
+	@bash scripts/gate_pipeline.sh reset
