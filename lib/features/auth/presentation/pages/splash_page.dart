@@ -106,8 +106,7 @@ class _SplashPageState extends ConsumerState<SplashPage> with TickerProviderStat
         if (authState != null) {
           final repo = ref.read(profileRepositoryProvider);
           final profile = await repo.getProfile(authState.uid).timeout(
-                const Duration(seconds: 3),
-                onTimeout: () => null,
+                const Duration(seconds: 4),
               );
 
           if (!mounted) return;
