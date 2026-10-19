@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>⚡ Antigravity Agent Mission Control [Neobrutalism]</title>
+  <link rel="stylesheet" href="neobrutalism.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div class="app-container">
+
+    <!-- Top Banner -->
+    <header class="header-banner">
+      <div class="header-left">
+        <div class="header-title">
+          <span>⚡</span>
+          <span id="proj-title">ANTIGRAVITY MISSION CONTROL</span>
+        </div>
+        <div class="neo-badge badge-working" id="conn-badge">● LIVE SSE CONNECTED</div>
+        <div class="neo-badge" id="sprint-badge">SPRINT 32 [COMPLETED]</div>
+      </div>
+      <div class="header-controls">
+        <button class="neo-btn neo-btn-cyan" id="btn-approve" onclick="handleGateApprove()">
+          ⚡ APPROVE CURRENT GATE
+        </button>
+        <button class="neo-btn neo-btn-white" onclick="manualRefresh()">
+          🔄 REFRESH
+        </button>
+      </div>
+    </header>
+
+    <!-- Hero KPIs Ribbon -->
+    <section class="metrics-grid">
+      <div class="metric-card c-yellow">
+        <div class="metric-label">SPRINT VELOCITY & PROGRESS</div>
+        <div class="metric-value" id="kpi-progress">100%</div>
+        <div class="metric-sub" id="kpi-sp">13 / 13 SP Completed</div>
+      </div>
+
+      <div class="metric-card c-cyan">
+        <div class="metric-label">CURRENT ACTIVE GATE</div>
+        <div class="metric-value" id="kpi-gate">GATE 7</div>
+        <div class="metric-sub" id="kpi-gate-role">Supreme Release Clearance</div>
+      </div>
+
+      <div class="metric-card c-mint">
+        <div class="metric-label">TASK EXECUTION HEALTH</div>
+        <div class="metric-value" id="kpi-tasks">9 / 9</div>
+        <div class="metric-sub" id="kpi-tasks-sub">0 Blocked • 100% Pass</div>
+      </div>
+
+      <div class="metric-card c-pink">
+        <div class="metric-label">GIT REPO STATUS</div>
+        <div class="metric-value mono" id="kpi-git-branch" style="font-size:22px;">main</div>
+        <div class="metric-sub mono" id="kpi-git-commit">0 uncommitted files</div>
+      </div>
+    </section>
+
+    <!-- Main Workspace Grid -->
+    <main class="main-grid">
+
+      <!-- Left Column: 9 Sub-Agents Roster -->
+      <aside class="panel">
+        <div class="panel-header">
+          <div class="panel-title">
+            <span>👥</span> AGENT ROSTER (9)
+          </div>
+          <span class="neo-badge" id="agent-active-count">0 ACTIVE</span>
+        </div>
+
+        <div class="agents-list" id="agents-container">
+          <!-- Dynamically populated by app.js -->
+        </div>
+      </aside>
+
+      <!-- Right Column: Pipeline, Kanban & Logs -->
+      <section class="ops-column">
+
+        <!-- Quality Gates Pipeline Stepper -->
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title">
+              <span>🚦</span> 8 QUALITY GATES PIPELINE
+            </div>
+            <span class="neo-badge badge-done" id="pipeline-status-badge">100% GREEN</span>
+          </div>
+
+          <div class="gates-grid" id="gates-container">
+            <!-- Dynamically populated by app.js -->
+          </div>
+        </div>
+
+        <!-- Sprint Kanban Board -->
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title">
+              <span>📋</span> SPRINT KANBAN MATRIX
+            </div>
+            <span class="neo-badge" id="kanban-total-badge">9 TASKS</span>
+          </div>
+
+          <div class="kanban-grid">
+            <!-- Todo Column -->
+            <div class="kanban-col">
+              <div class="col-header">
+                <span>TODO / QUEUED</span>
+                <span class="neo-badge" id="todo-count">0</span>
+              </div>
+              <div class="kanban-tasks" id="col-todo"></div>
+            </div>
+
+            <!-- In Progress Column -->
+            <div class="kanban-col">
+              <div class="col-header">
+                <span>⚡ IN PROGRESS</span>
+                <span class="neo-badge badge-working" id="in-progress-count">0</span>
+              </div>
+              <div class="kanban-tasks" id="col-in-progress"></div>
+            </div>
+
+            <!-- Done Column -->
+            <div class="kanban-col">
+              <div class="col-header">
+                <span>🏁 DONE</span>
+                <span class="neo-badge badge-done" id="done-count">9</span>
+              </div>
+              <div class="kanban-tasks" id="col-done"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Activity Console -->
+        <div class="terminal-card">
+          <div class="terminal-header">
+            <span>💻 LIVE AGENT EVENT CONSOLE</span>
+            <span class="mono" id="terminal-clock">--:--:--</span>
+          </div>
+          <div id="terminal-body">
+            <div class="terminal-line"><span class="t-time">[START]</span> <span class="t-tag">[SYSTEM]</span> Connected to Neobrutalism Mission Control backend.</div>
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -55,8 +55,11 @@ jobs:
           # 1. Environment file
           if [ -n "${{ secrets.ENV_FILE }}" ]; then
             echo "${{ secrets.ENV_FILE }}" > .env
+          elif [ -n "${{ secrets.GEMINI_API_KEY }}" ]; then
+            echo "GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }}" > .env
           elif [ -f ".env.example" ]; then
             cp .env.example .env
+            echo "::warning ::No ENV_FILE or GEMINI_API_KEY secret configured. App will build with default .env.example"
           fi
 
           # 2. Firebase Google Services JSON
@@ -142,8 +145,11 @@ jobs:
           # 1. Environment file
           if [ -n "${{ secrets.ENV_FILE }}" ]; then
             echo "${{ secrets.ENV_FILE }}" > .env
+          elif [ -n "${{ secrets.GEMINI_API_KEY }}" ]; then
+            echo "GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }}" > .env
           elif [ -f ".env.example" ]; then
             cp .env.example .env
+            echo "::warning ::No ENV_FILE or GEMINI_API_KEY secret configured. App will build with default .env.example"
           fi
 
           # 2. Firebase GoogleService-Info.plist

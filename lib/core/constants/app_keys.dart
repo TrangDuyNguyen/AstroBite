@@ -5,8 +5,8 @@ abstract final class AppKeys {
   /// or `--dart-define=GEMINI_API_KEY=your_api_key`
   ///
   /// Secure architecture:
-  /// Secrets must NEVER be hardcoded into source code.
-  /// Keys are injected securely via .env (git-ignored) or entered by user in UI settings.
+  /// Secrets must NEVER be hardcoded into source code or committed to Git.
+  /// Keys are injected securely via .env (git-ignored) or GitHub Secrets during build.
   static const String defaultGeminiApiKey =
       String.fromEnvironment('GEMINI_API_KEY');
 }

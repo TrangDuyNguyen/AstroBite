@@ -1,4 +1,5 @@
 import 'package:google_generative_ai/google_generative_ai.dart';
+import 'package:astrobite/core/constants/app_keys.dart';
 import 'package:astrobite/core/services/gemini_api_key_service.dart';
 import 'package:astrobite/core/utils/json_parser.dart';
 import '../../domain/entities/voice_log_result.dart';
@@ -13,6 +14,12 @@ class GeminiVoiceNluDatasource {
 
   final GenerativeModel? _model;
   final Future<String> Function() _apiKeyResolver;
+
+  static const candidateModels = [
+    'gemini-3.1-flash-lite-preview',
+    'gemini-flash-latest',
+    'gemini-3.8-flash',
+  ];
 
   static const _nluSystemPrompt = '''
 You are an expert Vietnamese nutritionist and Natural Language Understanding (NLU) AI for AstroBite.
@@ -89,25 +96,22 @@ Inferred default meal type: $fallbackMeal
 Extract the nutritional information in strict JSON.
 ''';
 
-    GenerativeModel activeModel;
+    final String rawJson;
     final model = _model;
     if (model != null) {
-      activeModel = model;
+      final response = await model.generateContent([
+        Content.text(promptText),
+      ]);
+      rawJson = response.text ?? '';
     } else {
       final apiKey = await _apiKeyResolver();
-      activeModel = GenerativeModel(
-        model: 'gemini-2.0-flash',
-        apiKey: apiKey,
-        systemInstruction: Content.system(_nluSystemPrompt),
-      );
+      if (apiKey.isEmpty) {
+        throw StateError('Gemini API Key chưa được cấu hình.');
+      }
+      rawJson = await _generateWithKey(apiKey, promptText);
     }
 
-    final response = await activeModel.generateContent([
-      Content.text(promptText),
-    ]);
-
-    final rawJson = response.text;
-    if (rawJson == null || rawJson.isEmpty) {
+    if (rawJson.isEmpty) {
       throw Exception('Empty response from Gemini Voice NLU');
     }
 
@@ -142,5 +146,46 @@ Extract the nutritional information in strict JSON.
       confidenceScore: confidence,
       createdAt: currentTime,
     );
+  }
+
+  Future<String> _generateWithKey(String apiKey, String promptText) async {
+    Object? lastError;
+    for (final modelName in candidateModels) {
+      try {
+        final model = GenerativeModel(
+          model: modelName,
+          apiKey: apiKey,
+          systemInstruction: Content.system(_nluSystemPrompt),
+        );
+        final response = await model.generateContent([
+          Content.text(promptText),
+        ]);
+        final text = response.text;
+        if (text != null && text.isNotEmpty) return text;
+      } catch (e) {
+        lastError = e;
+        final errStr = e.toString().toLowerCase();
+
+        // If the API key is completely invalid or revoked, try default key if different, else fail fast
+        if (errStr.contains('api_key_invalid') ||
+            errStr.contains('api key not valid') ||
+            errStr.contains('key expired') ||
+            errStr.contains('invalid authentication') ||
+            errStr.contains('unauthenticated') ||
+            errStr.contains('oauth 2')) {
+          final defaultKey = AppKeys.defaultGeminiApiKey.trim();
+          if (defaultKey.isNotEmpty && apiKey != defaultKey) {
+            return _generateWithKey(defaultKey, promptText);
+          }
+          rethrow;
+        }
+
+        // On quota/timeout/overload, try next candidate model
+        continue;
+      }
+    }
+
+    if (lastError != null) throw lastError;
+    throw Exception('Empty response from Gemini Voice NLU');
   }
 }

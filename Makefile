@@ -85,3 +85,9 @@ pipeline-next:
 
 pipeline-reset:
 	@bash scripts/gate_pipeline.sh reset
+
+# =======================================================
+# Real-Time Visual Neobrutalism Agent Mission Control
+# =======================================================
+dashboard:
+	@bash scripts/dashboard.sh
