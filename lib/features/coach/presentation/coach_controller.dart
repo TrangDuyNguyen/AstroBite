@@ -187,9 +187,21 @@ class CoachController extends _$CoachController {
             msgLower.contains('unauthenticated') ||
             msgLower.contains('oauth 2')) {
           _addErrorMessage('Gemini API Key không hợp lệ hoặc chưa được cấu hình. Vui lòng kiểm tra lại API Key.');
-        } else {
-          _addErrorMessage('Lỗi AI: ${e.message}');
+          return;
         }
+        if (msgLower.contains('503') ||
+            msgLower.contains('high demand') ||
+            msgLower.contains('unavailable') ||
+            msgLower.contains('resource_exhausted') ||
+            msgLower.contains('429')) {
+          if (attempt < maxRetries) {
+            await Future<void>.delayed(Duration(seconds: 1 << attempt));
+            continue;
+          }
+          _addErrorMessage('Máy chủ AI đang có lượng truy cập lớn. Vui lòng thử lại sau giây lát.');
+          return;
+        }
+        _addErrorMessage('Lỗi AI: ${e.message}');
         return; // Likely a non-retryable config error
       } catch (e, st) {
         debugPrint('Coach unexpected error: $e\n$st');

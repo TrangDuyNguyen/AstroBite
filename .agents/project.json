@@ -1,0 +1,8 @@
+{
+  "project_name": "AstroBite",
+  "project_type": "Cross-platform Mobile App (Flutter)",
+  "project_description": "AI Food Scanner & Calorie/Macro Tracker powered by Google Gemini Vision AI and Firebase.",
+  "created_at": "2026-07-27T00:00:00Z",
+  "active_sprint": 32,
+  "sprints_dir": "docs/00-project-management/sprints"
+}

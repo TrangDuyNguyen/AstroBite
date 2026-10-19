@@ -1,15 +1,15 @@
 // =============================================================================
-// Neobrutalism Mission Control Client Script
+// Neobrutalism Mission Control Client Script [Multi-Sprint & Multi-Project]
 // Pure Vanilla ES6 — Zero external build step or bundle dependency.
 // =============================================================================
 
 let currentData = null;
+let selectedSprintId = "current";
 let eventSource = null;
 
 function updateClock() {
-  const now = new Date();
   const el = document.getElementById("terminal-clock");
-  if (el) el.textContent = now.toTimeString().split(" ")[0];
+  if (el) el.textContent = new Date().toTimeString().split(" ")[0];
 }
 setInterval(updateClock, 1000);
 
@@ -33,17 +33,25 @@ function renderUI(data) {
   if (!data) return;
   currentData = data;
 
-  // 1. Header & Project Info
-  const titleEl = document.getElementById("proj-title");
-  if (titleEl) titleEl.textContent = `${data.project_name.toUpperCase()} // MISSION CONTROL`;
+  // 1. Header & Project Metadata
+  const pName = data.project?.project_name || data.project_name || "PROJECT";
+  document.getElementById("proj-title").textContent = `${pName.toUpperCase()} // MISSION CONTROL`;
 
-  const sprintBadge = document.getElementById("sprint-badge");
-  if (sprintBadge) {
-    sprintBadge.textContent = `${data.sprint.sprint_name} [${data.sprint.sprint_status}]`;
-    sprintBadge.className = data.sprint.sprint_status === "COMPLETED" ? "neo-badge badge-done" : "neo-badge badge-working";
+  // 2. Sprint Selector Dropdown
+  const sprintSelect = document.getElementById("sprint-select");
+  if (sprintSelect && data.available_sprints) {
+    const currentVal = sprintSelect.value;
+    sprintSelect.innerHTML = "";
+    data.available_sprints.forEach(s => {
+      const opt = document.createElement("option");
+      opt.value = s.id;
+      opt.textContent = s.name;
+      if (s.id === data.selected_sprint_id) opt.selected = true;
+      sprintSelect.appendChild(opt);
+    });
   }
 
-  // 2. Hero KPIs
+  // 3. Hero KPIs
   document.getElementById("kpi-progress").textContent = `${data.sprint.progress_percent}%`;
   document.getElementById("kpi-sp").textContent = `${data.sprint.completed_sp} / ${data.sprint.committed_sp} SP Completed`;
 
@@ -57,7 +65,7 @@ function renderUI(data) {
   document.getElementById("kpi-git-branch").textContent = data.git.branch;
   document.getElementById("kpi-git-commit").textContent = `${data.git.uncommitted_count} uncommitted • ${data.git.last_commit}`;
 
-  // 3. Render 9 Sub-Agents Roster
+  // 4. Render 9 Sub-Agents Squad
   const agentsContainer = document.getElementById("agents-container");
   if (agentsContainer) {
     agentsContainer.innerHTML = "";
@@ -67,15 +75,12 @@ function renderUI(data) {
       if (agent.status === "WORKING") activeCount++;
       const card = document.createElement("div");
       card.className = "agent-card";
-
       const statusBadgeClass = agent.status === "WORKING" ? "badge-working" : (agent.status === "BLOCKED" ? "badge-blocked" : "badge-idle");
 
       card.innerHTML = `
         <div class="agent-top">
           <div class="agent-profile">
-            <div class="agent-avatar" style="background-color: ${agent.color || '#FFF'}">
-              ${agent.avatar}
-            </div>
+            <div class="agent-avatar" style="background-color: ${agent.color || '#FFF'}">${agent.avatar}</div>
             <div class="agent-name-group">
               <span class="agent-name">${agent.name} — ${agent.title}</span>
               <span class="agent-persona">${agent.tag}</span>
@@ -83,24 +88,20 @@ function renderUI(data) {
           </div>
           <span class="neo-badge ${statusBadgeClass}">${agent.status}</span>
         </div>
-        <div class="agent-task">
-          <strong>Task:</strong> ${escapeHtml(agent.current_task)}
-        </div>
+        <div class="agent-task"><strong>Task:</strong> ${escapeHtml(agent.current_task)}</div>
       `;
       agentsContainer.appendChild(card);
     });
-
     document.getElementById("agent-active-count").textContent = `${activeCount} ACTIVE`;
   }
 
-  // 4. Render 8 Quality Gates Stepper
+  // 5. Render Quality Gates Stepper
   const gatesContainer = document.getElementById("gates-container");
   if (gatesContainer) {
     gatesContainer.innerHTML = "";
     data.gates.forEach(gate => {
       const gCard = document.createElement("div");
       gCard.className = `gate-card gate-${gate.status}`;
-
       const icon = gate.status === "COMPLETED" ? "✅" : (gate.status === "IN_PROGRESS" ? "⚡" : "⏳");
       gCard.innerHTML = `
         <span class="gate-key">G${gate.key}</span>
@@ -112,7 +113,7 @@ function renderUI(data) {
     });
   }
 
-  // 5. Render Kanban Columns
+  // 6. Render Kanban Board
   renderKanbanColumn("col-todo", data.sprint.tasks.todo);
   renderKanbanColumn("col-in-progress", data.sprint.tasks.in_progress);
   renderKanbanColumn("col-done", data.sprint.tasks.done);
@@ -127,12 +128,10 @@ function renderKanbanColumn(containerId, tasks) {
   const container = document.getElementById(containerId);
   if (!container) return;
   container.innerHTML = "";
-
-  if (tasks.length === 0) {
+  if (!tasks || tasks.length === 0) {
     container.innerHTML = `<div style="color:#777; font-size:12px; text-align:center; padding:16px;">(No tasks in this lane)</div>`;
     return;
   }
-
   tasks.forEach(task => {
     const card = document.createElement("div");
     card.className = "task-sticker";
@@ -151,29 +150,72 @@ function renderKanbanColumn(containerId, tasks) {
   });
 }
 
-// Live SSE Stream Connector with fallback
+async function switchSprint(sprintId) {
+  selectedSprintId = sprintId;
+  logTerminal("SPRINT", `Switching view to: ${sprintId}`);
+  try {
+    const res = await fetch(`/api/status?sprint=${encodeURIComponent(sprintId)}`);
+    const data = await res.json();
+    renderUI(data);
+  } catch (err) {
+    logTerminal("ERR", `Failed to load sprint: ${err.message}`);
+  }
+}
+
+async function handleArchiveSprint() {
+  if (!confirm("Bạn có chắc chắn muốn LƯU TRỮ (Archive) Sprint hiện tại và khởi tạo Sprint mới không?")) return;
+  try {
+    const res = await fetch("/api/sprint/archive", { method: "POST" });
+    const result = await res.json();
+    if (result.status === "SUCCESS") {
+      logTerminal("ARCHIVE", `Archived Sprint ${result.archived_sprint} to ${result.archive_file}. Initialized Sprint ${result.next_sprint}!`);
+      manualRefresh();
+    } else {
+      alert("Lỗi: " + result.message);
+    }
+  } catch (e) {
+    alert("Lỗi lưu trữ Sprint: " + e.message);
+  }
+}
+
+async function handleGateApprove() {
+  if (!currentData) return;
+  const activeGate = currentData.current_gate || "0";
+  if (!confirm(`Bạn có chắc chắn muốn KÝ DUYỆT (Sign-off) Gate ${activeGate} cho dàn Agent?`)) return;
+  try {
+    const res = await fetch("/api/gate/signoff", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ gate: activeGate, note: "Approved via Mission Control" })
+    });
+    const result = await res.json();
+    if (result.status === "SUCCESS") {
+      logTerminal("GATE", `Human Commander signed off Gate ${activeGate}! Hand-off dispatched.`);
+      manualRefresh();
+    }
+  } catch (e) {
+    alert("Lỗi khi ký duyệt: " + e.message);
+  }
+}
+
 function connectSSE() {
   const connBadge = document.getElementById("conn-badge");
   if (window.EventSource) {
     eventSource = new EventSource("/api/stream");
-
     eventSource.onopen = () => {
       if (connBadge) {
-        connBadge.textContent = "● LIVE SSE CONNECTED";
+        connBadge.textContent = "● LIVE SSE";
         connBadge.className = "neo-badge badge-done";
       }
-      logTerminal("NET", "Established real-time SSE stream.");
     };
-
     eventSource.onmessage = (event) => {
       try {
-        const payload = JSON.parse(event.data);
-        renderUI(payload);
-      } catch (e) {
-        console.error("SSE parse error:", e);
-      }
+        if (selectedSprintId === "current") {
+          const payload = JSON.parse(event.data);
+          renderUI(payload);
+        }
+      } catch (e) { console.error("SSE parse error:", e); }
     };
-
     eventSource.onerror = () => {
       if (connBadge) {
         connBadge.textContent = "⚠ RECONNECTING...";
@@ -183,45 +225,21 @@ function connectSSE() {
       setTimeout(connectSSE, 3000);
     };
   } else {
-    // Fallback polling
     setInterval(manualRefresh, 2000);
   }
 }
 
 async function manualRefresh() {
   try {
-    const res = await fetch("/api/status");
+    const res = await fetch(`/api/status?sprint=${encodeURIComponent(selectedSprintId)}`);
     const data = await res.json();
     renderUI(data);
-    logTerminal("SYNC", "Manually refreshed state snapshot.");
+    logTerminal("SYNC", "Refreshed snapshot.");
   } catch (err) {
     logTerminal("ERR", `Sync failed: ${err.message}`);
   }
 }
 
-async function handleGateApprove() {
-  if (!currentData) return;
-  const activeGate = currentData.current_gate || "0";
-  const ok = confirm(`Bạn có chắc chắn muốn KÝ DUYỆT (Sign-off) Gate ${activeGate} cho dàn Agent tiến bước tiếp theo?`);
-  if (!ok) return;
-
-  try {
-    const res = await fetch("/api/gate/signoff", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ gate: activeGate, note: "Approved via Human Command Deck" })
-    });
-    const result = await res.json();
-    if (result.status === "SUCCESS") {
-      logTerminal("GATE", `Human Commander signed off Gate ${activeGate}! Relay hand-off dispatched.`);
-      manualRefresh();
-    }
-  } catch (e) {
-    alert("Lỗi khi ký duyệt: " + e.message);
-  }
-}
-
-// Initial Boot
 window.addEventListener("DOMContentLoaded", () => {
   updateClock();
   manualRefresh();

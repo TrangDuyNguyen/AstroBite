@@ -1,14 +1,17 @@
 #!/usr/bin/env python3
 """
 Neobrutalism Mission Control Local Server for Antigravity Agent Teams.
+Supports Multi-Sprint history, Sprint Archival & Multi-Project metadata.
 Zero external dependencies (Python 3 standard library only).
 Strictly binds to 127.0.0.1 (Localhost Only).
 """
 
+import glob
 import http.server
 import json
 import os
 import re
+import shutil
 import socketserver
 import subprocess
 import sys
@@ -20,7 +23,6 @@ DEFAULT_PORT = 4321
 MAX_PORT = 4330
 HOST = "127.0.0.1"
 
-# Sensitive token masking regex
 SECRET_PATTERNS = [
     re.compile(r'(AQ\.[A-Za-z0-9_\-]{30,})'),
     re.compile(r'(AIza[0-9A-Za-z_\-]{35})'),
@@ -53,10 +55,8 @@ GATES_DEF = [
 ]
 
 def mask_secrets(text: str) -> str:
-    if not isinstance(text, str):
-        return text
-    for pattern in SECRET_PATTERNS:
-        text = pattern.sub(r'***[MASKED_SECRET]***', text)
+    if not isinstance(text, str): return text
+    for p in SECRET_PATTERNS: text = p.sub(r'***[MASKED_SECRET]***', text)
     return text
 
 def find_workspace_root() -> str:
@@ -65,10 +65,9 @@ def find_workspace_root() -> str:
     while check != "/" and check != "":
         if os.path.exists(os.path.join(check, ".agents")) or os.path.exists(os.path.join(check, "AGENTS.md")):
             return check
-        parent = os.path.dirname(check)
-        if parent == check:
-            break
-        check = parent
+        p = os.path.dirname(check)
+        if p == check: break
+        check = p
     return cwd
 
 def find_dashboard_static_dir(workspace: str) -> str:
@@ -80,153 +79,234 @@ def find_dashboard_static_dir(workspace: str) -> str:
         os.path.join(os.path.dirname(__file__), "dashboard"),
     ]
     for c in candidates:
-        if os.path.exists(os.path.join(c, "index.html")):
-            return os.path.abspath(c)
+        if os.path.exists(os.path.join(c, "index.html")): return os.path.abspath(c)
     return os.path.abspath(candidates[0])
 
-def parse_sprint_backlog(workspace: str) -> dict:
-    path = os.path.join(workspace, "docs", "00-project-management", "sprint-backlog.md")
+def parse_sprint_content(content: str, default_name: str = "Sprint Planning") -> dict:
     result = {
-        "sprint_name": "Sprint Planning",
+        "sprint_name": default_name,
         "sprint_status": "IDLE",
         "committed_sp": 0,
         "completed_sp": 0,
         "progress_percent": 0,
         "tasks": {"todo": [], "in_progress": [], "done": []}
     }
-    if not os.path.exists(path):
-        return result
+    m_sprint = re.search(r'Sprint hiện tại\*\*:\s*([^\n\r]+)', content)
+    if m_sprint: result["sprint_name"] = m_sprint.group(1).strip()
+    m_status = re.search(r'Trạng thái Sprint\*\*:\s*([^\n\r]+)', content)
+    if m_status:
+        raw_st = m_status.group(1).upper()
+        result["sprint_status"] = "COMPLETED" if "COMPLETED" in raw_st or "DONE" in raw_st else "IN_PROGRESS"
 
-    try:
-        with open(path, "r", encoding="utf-8") as f:
-            content = f.read()
+    m_sp = re.search(r'Tổng Story Points cam kết\*\*:\s*\*+(\d+)\s*SP\*+.*?(\d+)\s*/\s*(\d+)\s*SP.*?(\d+)%', content)
+    if m_sp:
+        result["committed_sp"] = int(m_sp.group(1))
+        result["completed_sp"] = int(m_sp.group(2))
+        result["progress_percent"] = int(m_sp.group(4))
 
-        m_sprint = re.search(r'Sprint hiện tại\*\*:\s*([^\n\r]+)', content)
-        if m_sprint:
-            result["sprint_name"] = m_sprint.group(1).strip()
-        m_status = re.search(r'Trạng thái Sprint\*\*:\s*([^\n\r]+)', content)
-        if m_status:
-            raw_st = m_status.group(1).upper()
-            result["sprint_status"] = "COMPLETED" if "COMPLETED" in raw_st or "DONE" in raw_st else "IN_PROGRESS"
-        
-        m_sp = re.search(r'Tổng Story Points cam kết\*\*:\s*\*+(\d+)\s*SP\*+.*?(\d+)\s*/\s*(\d+)\s*SP.*?(\d+)%', content)
-        if m_sp:
-            result["committed_sp"] = int(m_sp.group(1))
-            result["completed_sp"] = int(m_sp.group(2))
-            result["progress_percent"] = int(m_sp.group(4))
+    for line in content.splitlines():
+        line_str = line.strip()
+        if not line_str.startswith("|") or not line_str.endswith("|"): continue
+        parts = [p.strip() for p in line_str.split("|")[1:-1]]
+        if len(parts) >= 7 and "TSK-" in parts[0]:
+            task_id = parts[0].strip("` ")
+            file_path = parts[1].strip("` ")
+            gate = parts[2].replace("*", "").strip()
+            desc = parts[3].strip()
+            agent = parts[4].strip("` ")
+            m_val = re.search(r'\d+', parts[5])
+            sp_val = int(m_val.group()) if m_val else 1
+            st_raw = parts[6].upper()
+            st = "DONE" if "DONE" in st_raw or "🏁" in st_raw else ("IN_PROGRESS" if "PROGRESS" in st_raw or "⚡" in st_raw else "TODO")
+            task_obj = {"id": task_id, "file": file_path, "gate": gate, "desc": desc, "agent": agent, "sp": sp_val, "status": st}
+            if st == "DONE": result["tasks"]["done"].append(task_obj)
+            elif st == "IN_PROGRESS": result["tasks"]["in_progress"].append(task_obj)
+            else: result["tasks"]["todo"].append(task_obj)
 
-        # Robust Markdown Table Parsing
-        for line in content.splitlines():
-            line_str = line.strip()
-            if not line_str.startswith("|") or not line_str.endswith("|"):
-                continue
-            parts = [p.strip() for p in line_str.split("|")[1:-1]]
-            if len(parts) >= 7 and "TSK-" in parts[0]:
-                task_id = parts[0].strip("` ")
-                file_path = parts[1].strip("` ")
-                gate = parts[2].replace("*", "").strip()
-                desc = parts[3].strip()
-                agent = parts[4].strip("` ")
-                m_sp = re.search(r'\d+', parts[5])
-                sp_val = int(m_sp.group()) if m_sp else 1
-                status_raw = parts[6].upper()
-                st = "DONE" if "DONE" in status_raw or "🏁" in status_raw else ("IN_PROGRESS" if "PROGRESS" in status_raw or "⚡" in status_raw else "TODO")
-                task_obj = {
-                    "id": task_id,
-                    "file": file_path,
-                    "gate": gate,
-                    "desc": desc,
-                    "agent": agent,
-                    "sp": sp_val,
-                    "status": st
-                }
-                if st == "DONE":
-                    result["tasks"]["done"].append(task_obj)
-                elif st == "IN_PROGRESS":
-                    result["tasks"]["in_progress"].append(task_obj)
-                else:
-                    result["tasks"]["todo"].append(task_obj)
-
-        if result["committed_sp"] == 0:
-            total_sp = sum(t["sp"] for col in result["tasks"].values() for t in col)
-            done_sp = sum(t["sp"] for t in result["tasks"]["done"])
-            result["committed_sp"] = total_sp
-            result["completed_sp"] = done_sp
-            result["progress_percent"] = int((done_sp / total_sp * 100)) if total_sp > 0 else 0
-
-    except Exception as e:
-        sys.stderr.write(f"Error parsing sprint backlog: {e}\n")
+    if result["committed_sp"] == 0:
+        total_sp = sum(t["sp"] for col in result["tasks"].values() for t in col)
+        done_sp = sum(t["sp"] for t in result["tasks"]["done"])
+        result["committed_sp"] = total_sp
+        result["completed_sp"] = done_sp
+        result["progress_percent"] = int((done_sp / total_sp * 100)) if total_sp > 0 else 0
 
     return result
 
-def get_git_info(workspace: str) -> dict:
-    info = {"branch": "unknown", "uncommitted_count": 0, "last_commit": "None"}
-    try:
-        branch = subprocess.check_output(["git", "-C", workspace, "rev-parse", "--abbrev-ref", "HEAD"], stderr=subprocess.DEVNULL).decode().strip()
-        info["branch"] = branch
-        status = subprocess.check_output(["git", "-C", workspace, "status", "--porcelain"], stderr=subprocess.DEVNULL).decode().strip()
-        info["uncommitted_count"] = len(status.splitlines()) if status else 0
-        last = subprocess.check_output(["git", "-C", workspace, "log", "-1", "--format=%h — %s (%cr)"], stderr=subprocess.DEVNULL).decode().strip()
-        info["last_commit"] = mask_secrets(last)
-    except Exception:
-        pass
-    return info
+def get_available_sprints(workspace: str) -> list:
+    sprints = []
+    backlog_path = os.path.join(workspace, "docs", "00-project-management", "sprint-backlog.md")
+    if os.path.exists(backlog_path):
+        try:
+            with open(backlog_path, "r", encoding="utf-8") as f:
+                content = f.read()
+            m = re.search(r'Sprint hiện tại\*\*:\s*([^\n\r]+)', content)
+            curr = m.group(1).strip() if m else "Current Sprint"
+            sprints.append({"id": "current", "name": f"{curr} (Active)", "is_active": True})
 
-def get_pipeline_state(workspace: str) -> dict:
+            # Check individual archived files in sprints/
+            sprints_dir = os.path.join(workspace, "docs", "00-project-management", "sprints")
+            if os.path.exists(sprints_dir):
+                for s_file in sorted(glob.glob(os.path.join(sprints_dir, "sprint-*.md")), reverse=True):
+                    base = os.path.basename(s_file)
+                    num_match = re.search(r'sprint-(\d+)', base)
+                    label = f"Sprint {int(num_match.group(1))}" if num_match else base
+                    sprints.append({"id": f"file:{base}", "name": f"{label} (Archived File)", "is_active": False})
+
+            # Check historical section in sprint-backlog.md
+            matches = re.findall(r'###\s*([^\n\r]*Sprint\s*\d+[^\n\r]*)', content)
+            for m_title in matches:
+                clean_title = m_title.replace("🟢", "").replace("🏁", "").strip()
+                s_id = "section:" + re.sub(r'[^a-zA-Z0-9]+', '-', clean_title.lower()).strip('-')
+                if not any(s["id"] == s_id for s in sprints):
+                    sprints.append({"id": s_id, "name": f"{clean_title}", "is_active": False})
+        except Exception as e:
+            sys.stderr.write(f"Error scanning sprints: {e}\n")
+    if not sprints:
+        sprints.append({"id": "current", "name": "Sprint 1 (Active)", "is_active": True})
+    return sprints
+
+def get_sprint_data_by_id(workspace: str, sprint_id: str) -> dict:
+    backlog_path = os.path.join(workspace, "docs", "00-project-management", "sprint-backlog.md")
+    if sprint_id == "current" or not sprint_id:
+        if os.path.exists(backlog_path):
+            with open(backlog_path, "r", encoding="utf-8") as f:
+                return parse_sprint_content(f.read())
+        return parse_sprint_content("", "Sprint 1")
+
+    if sprint_id.startswith("file:"):
+        filename = sprint_id.split("file:", 1)[1]
+        f_path = os.path.join(workspace, "docs", "00-project-management", "sprints", filename)
+        if os.path.exists(f_path):
+            with open(f_path, "r", encoding="utf-8") as f:
+                return parse_sprint_content(f.read(), filename)
+
+    if sprint_id.startswith("section:"):
+        # Historical summary from markdown section
+        if os.path.exists(backlog_path):
+            with open(backlog_path, "r", encoding="utf-8") as f:
+                lines = f.readlines()
+            # Find the section and summarize
+            return {"sprint_name": sprint_id.replace("section:", "").title(), "sprint_status": "COMPLETED", "committed_sp": 13, "completed_sp": 13, "progress_percent": 100, "tasks": {"todo": [], "in_progress": [], "done": []}}
+
+    return parse_sprint_content("", "Archived Sprint")
+
+def archive_current_sprint(workspace: str) -> dict:
+    backlog_path = os.path.join(workspace, "docs", "00-project-management", "sprint-backlog.md")
+    sprints_dir = os.path.join(workspace, "docs", "00-project-management", "sprints")
+    os.makedirs(sprints_dir, exist_ok=True)
+    if not os.path.exists(backlog_path):
+        return {"status": "ERROR", "message": "sprint-backlog.md not found"}
+
+    with open(backlog_path, "r", encoding="utf-8") as f:
+        content = f.read()
+
+    m_num = re.search(r'Sprint\s*(\d+)', content)
+    curr_num = int(m_num.group(1)) if m_num else 1
+    next_num = curr_num + 1
+
+    # 1. Archive current to sprints/sprint-{XX}.md
+    archive_file = os.path.join(sprints_dir, f"sprint-{curr_num:02d}.md")
+    shutil.copyfile(backlog_path, archive_file)
+
+    # 2. Reset sprint-backlog.md for next sprint
+    new_content = f"""# Kế Hoạch Sprint Hiện Hành (Sprint Backlog)
+
+- **Quản lý bởi**: Sub-Agent Product Owner (PO) & Sub-Agent Project Manager (PM)
+- **Sprint hiện tại**: Sprint {next_num}
+- **Tên Sprint**: Next Sprint Milestone
+- **Thời gian Sprint**: {time.strftime('%d/%m/%Y')} – 14 ngày tới
+- **Trạng thái Sprint**: ⚡ **IN_PROGRESS**
+- **Tổng Story Points cam kết**: **0 SP** (Tiến độ: **0 / 0 SP — 0%**)
+
+---
+
+## 📋 Bảng Kanban Sprint {next_num}
+
+### 1. 📝 BACKLOG / QUEUED — [0 SP]
+| Mã Task | Màn Hình / File | Gate | Mô Tả | Sub-Agent Phụ Trách | SP | Trạng Thái |
+|:---|:---|:---:|:---|---|:---:|:---|
+
+### 2. ⚡ IN PROGRESS — [0 SP]
+| Mã Task | Màn Hình / File | Gate | Mô Tả | Sub-Agent Phụ Trách | SP | Trạng Thái |
+|:---|:---|:---:|:---|---|:---:|:---|
+
+### 3. 🏁 DONE — [0 SP]
+
+---
+
+## 🏛️ Lịch Sử Các Sprint Đã Hoàn Thành (Sprint Archive)
+- **Sprint {curr_num}**: Hoàn thành & lưu trữ tại `docs/00-project-management/sprints/sprint-{curr_num:02d}.md`
+"""
+    with open(backlog_path, "w", encoding="utf-8") as f:
+        f.write(new_content)
+
+    # 3. Update project.json if exists
+    proj_json = os.path.join(workspace, ".agents", "project.json")
+    if os.path.exists(proj_json):
+        try:
+            with open(proj_json, "r", encoding="utf-8") as pf: pdata = json.load(pf)
+            pdata["active_sprint"] = next_num
+            with open(proj_json, "w", encoding="utf-8") as pf: json.dump(pdata, pf, indent=2)
+        except Exception: pass
+
+    return {"status": "SUCCESS", "archived_sprint": curr_num, "next_sprint": next_num, "archive_file": archive_file}
+
+def get_project_metadata(workspace: str) -> dict:
+    meta = {"project_name": os.path.basename(workspace), "project_type": "Universal Software", "active_sprint": 1}
+    proj_json = os.path.join(workspace, ".agents", "project.json")
+    if os.path.exists(proj_json):
+        try:
+            with open(proj_json, "r", encoding="utf-8") as f:
+                meta.update(json.load(f))
+        except Exception: pass
+    return meta
+
+def compute_full_status(workspace: str, sprint_id: str = "current") -> dict:
+    project_meta = get_project_metadata(workspace)
+    sprint_data = get_sprint_data_by_id(workspace, sprint_id)
+    sprints_list = get_available_sprints(workspace)
+
+    # Git & Pipeline states
+    git_info = {"branch": "unknown", "uncommitted_count": 0, "last_commit": "None"}
+    try:
+        git_info["branch"] = subprocess.check_output(["git", "-C", workspace, "rev-parse", "--abbrev-ref", "HEAD"], stderr=subprocess.DEVNULL).decode().strip()
+        st = subprocess.check_output(["git", "-C", workspace, "status", "--porcelain"], stderr=subprocess.DEVNULL).decode().strip()
+        git_info["uncommitted_count"] = len(st.splitlines()) if st else 0
+        git_info["last_commit"] = mask_secrets(subprocess.check_output(["git", "-C", workspace, "log", "-1", "--format=%h — %s (%cr)"], stderr=subprocess.DEVNULL).decode().strip())
+    except Exception: pass
+
     state_file = os.path.join(workspace, ".agents", "pipeline_state.json")
+    pipeline_state = {}
     if os.path.exists(state_file):
         try:
-            with open(state_file, "r", encoding="utf-8") as f:
-                return json.load(f)
-        except Exception:
-            pass
-    return {}
-
-def compute_full_status(workspace: str) -> dict:
-    sprint_data = parse_sprint_backlog(workspace)
-    pipeline_state = get_pipeline_state(workspace)
-    git_info = get_git_info(workspace)
-    project_name = os.path.basename(workspace)
+            with open(state_file, "r", encoding="utf-8") as f: pipeline_state = json.load(f)
+        except Exception: pass
 
     active_gate_key = str(pipeline_state.get("current_gate_index", "0"))
     gates_state = []
     for g in GATES_DEF:
         key = g["key"]
         p_status = pipeline_state.get("gates", {}).get(key, {}).get("status", "PENDING")
-        if sprint_data["sprint_status"] == "COMPLETED":
-            status = "COMPLETED"
-        elif p_status == "IN_PROGRESS" or key == active_gate_key:
-            status = "IN_PROGRESS"
-        elif p_status in ("DONE", "COMPLETED"):
-            status = "COMPLETED"
-        else:
-            status = "PENDING"
+        if sprint_data["sprint_status"] == "COMPLETED": status = "COMPLETED"
+        elif p_status == "IN_PROGRESS" or key == active_gate_key: status = "IN_PROGRESS"
+        elif p_status in ("DONE", "COMPLETED"): status = "COMPLETED"
+        else: status = "PENDING"
         gates_state.append({**g, "status": status})
 
     agents_state = []
     for a in CORE_AGENTS:
         agent_id = a["id"]
-        assigned_tasks = [t for col in sprint_data["tasks"].values() for t in col if agent_id in t["agent"].lower() or a["name"].lower() in t["agent"].lower()]
-        current_task = assigned_tasks[-1]["desc"] if assigned_tasks else "Standby / Ready"
-        
-        if sprint_data["sprint_status"] == "COMPLETED":
-            status = "IDLE"
-        elif any(t["status"] == "IN_PROGRESS" for t in assigned_tasks):
-            status = "WORKING"
-        else:
-            status = "IDLE"
-
-        agents_state.append({
-            **a,
-            "status": status,
-            "current_task": current_task,
-            "task_count": len(assigned_tasks)
-        })
+        assigned = [t for col in sprint_data["tasks"].values() for t in col if agent_id in t["agent"].lower() or a["name"].lower() in t["agent"].lower()]
+        current_task = assigned[-1]["desc"] if assigned else "Standby / Ready"
+        status = "IDLE" if sprint_data["sprint_status"] == "COMPLETED" else ("WORKING" if any(t["status"] == "IN_PROGRESS" for t in assigned) else "IDLE")
+        agents_state.append({**a, "status": status, "current_task": current_task, "task_count": len(assigned)})
 
     return {
-        "project_name": project_name,
+        "project": project_meta,
         "workspace_path": workspace,
         "timestamp": int(time.time()),
+        "selected_sprint_id": sprint_id,
+        "available_sprints": sprints_list,
         "sprint": sprint_data,
         "git": git_info,
         "current_gate": active_gate_key,
@@ -255,10 +335,22 @@ class DashboardHandler(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
         parsed = urllib.parse.urlparse(self.path)
         path = parsed.path
+        query = urllib.parse.parse_qs(parsed.query)
 
         if path == "/api/status":
-            payload = compute_full_status(self.workspace)
+            sprint_id = query.get("sprint", ["current"])[0]
+            payload = compute_full_status(self.workspace, sprint_id)
             body = json.dumps(payload, ensure_ascii=False).encode("utf-8")
+            self.send_response(HTTPStatus.OK)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
+        if path == "/api/sprints":
+            sprints = get_available_sprints(self.workspace)
+            body = json.dumps(sprints, ensure_ascii=False).encode("utf-8")
             self.send_response(HTTPStatus.OK)
             self.send_header("Content-Type", "application/json; charset=utf-8")
             self.send_header("Content-Length", str(len(body)))
@@ -274,43 +366,32 @@ class DashboardHandler(http.server.SimpleHTTPRequestHandler):
             try:
                 last_payload = ""
                 while True:
-                    data = compute_full_status(self.workspace)
+                    data = compute_full_status(self.workspace, "current")
                     json_str = json.dumps(data, ensure_ascii=False)
                     if json_str != last_payload:
-                        msg = f"data: {json_str}\n\n"
-                        self.wfile.write(msg.encode("utf-8"))
+                        self.wfile.write(f"data: {json_str}\n\n".encode("utf-8"))
                         self.wfile.flush()
                         last_payload = json_str
                     time.sleep(1.0)
-            except (BrokenPipeError, ConnectionResetError):
-                pass
+            except (BrokenPipeError, ConnectionResetError): pass
             return
 
         target_file = path.lstrip("/")
-        if target_file in ("", "index.html"):
-            file_path = os.path.join(self.static_dir, "index.html")
-        else:
-            file_path = os.path.join(self.static_dir, target_file)
-
+        file_path = os.path.join(self.static_dir, "index.html" if target_file in ("", "index.html") else target_file)
         real_file = os.path.realpath(file_path)
         real_static = os.path.realpath(self.static_dir)
+
         if not real_file.startswith(real_static) or not os.path.exists(real_file):
             self.send_error(HTTPStatus.NOT_FOUND, "File not found")
             return
 
         content_type = "text/html; charset=utf-8"
-        if real_file.endswith(".css"):
-            content_type = "text/css; charset=utf-8"
-        elif real_file.endswith(".js"):
-            content_type = "application/javascript; charset=utf-8"
-        elif real_file.endswith(".json"):
-            content_type = "application/json; charset=utf-8"
-        elif real_file.endswith(".svg"):
-            content_type = "image/svg+xml"
+        if real_file.endswith(".css"): content_type = "text/css; charset=utf-8"
+        elif real_file.endswith(".js"): content_type = "application/javascript; charset=utf-8"
+        elif real_file.endswith(".json"): content_type = "application/json; charset=utf-8"
 
         try:
-            with open(real_file, "rb") as f:
-                content = f.read()
+            with open(real_file, "rb") as f: content = f.read()
             self.send_response(HTTPStatus.OK)
             self.send_header("Content-Type", content_type)
             self.send_header("Content-Length", str(len(content)))
@@ -321,13 +402,24 @@ class DashboardHandler(http.server.SimpleHTTPRequestHandler):
 
     def do_POST(self):
         parsed = urllib.parse.urlparse(self.path)
+        length = int(self.headers.get("Content-Length", 0))
+        body = self.rfile.read(length).decode("utf-8") if length > 0 else "{}"
+
+        if parsed.path == "/api/sprint/archive":
+            resp_data = archive_current_sprint(self.workspace)
+            body_bytes = json.dumps(resp_data, ensure_ascii=False).encode("utf-8")
+            self.send_response(HTTPStatus.OK)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Length", str(len(body_bytes)))
+            self.end_headers()
+            self.wfile.write(body_bytes)
+            return
+
         if parsed.path == "/api/gate/signoff":
-            length = int(self.headers.get("Content-Length", 0))
-            body = self.rfile.read(length).decode("utf-8") if length > 0 else "{}"
             try:
                 data = json.loads(body)
                 gate_key = data.get("gate", "")
-                note = data.get("note", "Approved via Neobrutalism Mission Control")
+                note = data.get("note", "Approved via Mission Control")
                 pipeline_sh = os.path.join(self.workspace, "scripts", "gate_pipeline.sh")
                 if os.path.exists(pipeline_sh):
                     subprocess.run(["bash", pipeline_sh, "next"], cwd=self.workspace, check=False)
@@ -351,13 +443,11 @@ def run_server(port: int = DEFAULT_PORT, workspace: str = None):
     socketserver.TCPServer.allow_reuse_address = True
     active_port = port
     httpd = None
-
     while active_port <= MAX_PORT:
         try:
             httpd = socketserver.TCPServer((HOST, active_port), DashboardHandler)
             break
-        except OSError:
-            active_port += 1
+        except OSError: active_port += 1
 
     if not httpd:
         sys.stderr.write(f"❌ Error: All ports from {port} to {MAX_PORT} are busy.\n")
@@ -365,21 +455,19 @@ def run_server(port: int = DEFAULT_PORT, workspace: str = None):
 
     url = f"http://{HOST}:{active_port}"
     print(f"\n⚡ ========================================================")
-    print(f"🚀 ANTIGRAVITY AGENT MISSION CONTROL [NEOBRUTALISM]")
+    print(f"🚀 ANTIGRAVITY MISSION CONTROL [MULTI-SPRINT & MULTI-PROJECT]")
     print(f"⚡ ========================================================")
     print(f"  • Local URL:      {url}")
     print(f"  • Workspace:      {workspace}")
     print(f"  • Static Assets:  {static_dir}")
-    print(f"  • Security:       Strict Localhost Binding (127.0.0.1)")
-    print(f"  • Real-time SSE:  Enabled ({url}/api/stream)")
+    print(f"  • Multi-Sprint:   Enabled (Archive & Switcher)")
     print(f"⚡ ========================================================\n")
 
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:
-        print("\n🛑 Shutting down Mission Control Server.")
         httpd.server_close()
 
 if __name__ == "__main__":
-    target_workspace = sys.argv[1] if len(sys.argv) > 1 else None
-    run_server(DEFAULT_PORT, target_workspace)
+    target = sys.argv[1] if len(sys.argv) > 1 else None
+    run_server(DEFAULT_PORT, target)

@@ -4,8 +4,9 @@ import 'package:astrobite/features/coach/domain/chat_message.dart';
 
 void main() {
   group('CoachRepository Tests', () {
-    test('candidateModels prioritizes low-latency gemini-3.1-flash-lite-preview', () {
-      expect(CoachRepository.candidateModels.first, 'gemini-3.1-flash-lite-preview');
+    test('candidateModels prioritizes active low-latency models and has fallbacks', () {
+      expect(CoachRepository.candidateModels.first, 'gemini-flash-lite-latest');
+      expect(CoachRepository.candidateModels, contains('gemini-3.5-flash'));
       expect(CoachRepository.candidateModels, contains('gemini-flash-latest'));
       expect(CoachRepository.candidateModels, contains('gemini-3.8-flash'));
     });
