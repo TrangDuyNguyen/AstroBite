@@ -31,7 +31,7 @@ jobs:
           fetch-depth: 0
 
       - name: ☕ Set up JDK 17
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: 'temurin'
           java-version: '17'
@@ -196,10 +196,22 @@ jobs:
       - name: 📱 Distribute iOS IPA to Firebase Testers
         if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'release'
         continue-on-error: true
-        uses: wzieba/Firebase-Distribution-Github-Action@v1
-        with:
-          appId: ${{ secrets.FIREBASE_APP_ID_IOS || '1:925552313324:ios:d8bb8269224dff455d36c9' }}
-          serviceCredentialsFileContent: ${{ secrets.FIREBASE_APP_DISTRIBUTION_CREDENTIALS }}
-          groups: ${{ secrets.FIREBASE_TESTER_GROUPS || 'internal-testers' }}
-          file: build/ios/ipa/*.ipa
-          releaseNotes: "AstroBite iOS Release ${{ github.ref_name || 'Automated Release' }} — IPA for Testers"
+        run: |
+          IPA_FILE=$(ls build/ios/ipa/*.ipa 2>/dev/null | head -n 1 || true)
+          if [ -z "$IPA_FILE" ]; then
+            echo "::notice ::No .ipa artifact generated (archive generated instead). Skipping Firebase App Distribution for iOS."
+            exit 0
+          fi
+
+          if [ -z "${{ secrets.FIREBASE_APP_DISTRIBUTION_CREDENTIALS }}" ]; then
+            echo "::notice ::No FIREBASE_APP_DISTRIBUTION_CREDENTIALS secret configured. Skipping upload."
+            exit 0
+          fi
+
+          export GOOGLE_APPLICATION_CREDENTIALS="/tmp/firebase_sa.json"
+          echo "${{ secrets.FIREBASE_APP_DISTRIBUTION_CREDENTIALS }}" > "$GOOGLE_APPLICATION_CREDENTIALS"
+
+          npx --yes firebase-tools appdistribution:distribute "$IPA_FILE" \
+            --app "${{ secrets.FIREBASE_APP_ID_IOS || '1:925552313324:ios:d8bb8269224dff455d36c9' }}" \
+            --groups "${{ secrets.FIREBASE_TESTER_GROUPS || 'internal-testers' }}" \
+            --release-notes "AstroBite iOS Release ${{ github.ref_name || 'Automated Release' }} — IPA for Testers"
