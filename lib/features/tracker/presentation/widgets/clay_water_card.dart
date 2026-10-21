@@ -24,34 +24,74 @@ class ClayWaterCard extends ConsumerWidget {
 
     return ClayCard(
       onTap: () => WaterTrackingSheet.show(context),
-      borderColor: waterLog.isGoalReached ? AppColors.brandGreen : null,
+      borderColor: waterLog.isGoalReached ? const Color(0xFFBCE3A1) : null,
+      bevelColor: waterLog.isGoalReached ? const Color(0xFFC7EBB2) : null,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Row(
+              Row(
                 children: [
-                  Text('💧', style: TextStyle(fontSize: 18)),
-                  SizedBox(width: AppValues.spacing8),
-                  Text(
+                  // 3D Clay Squircle Water Icon
+                  Container(
+                    width: 34,
+                    height: 34,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFE5F6FD),
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: const Color(0xFFCDECFB), width: 1.2),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Color(0xFFB8E2FA),
+                          offset: Offset(0, 2),
+                          blurRadius: 0,
+                        ),
+                        BoxShadow(
+                          color: Color(0x101CB0F6),
+                          offset: Offset(0, 3),
+                          blurRadius: 6,
+                        ),
+                      ],
+                    ),
+                    alignment: Alignment.center,
+                    child: const Text('💧', style: TextStyle(fontSize: 16)),
+                  ),
+                  const SizedBox(width: AppValues.spacing8),
+                  const Text(
                     'Nước Uống Hôm Nay',
                     style: TextStyle(
                       fontSize: 16,
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeight.w800,
                       color: AppColors.onSurface,
                     ),
                   ),
                 ],
               ),
+              // 3D Puffy Clay Goal Badge
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
                   color: waterLog.isGoalReached
                       ? AppColors.clayMint
                       : AppColors.clayLunch,
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(14),
+                  border: Border.all(
+                    color: waterLog.isGoalReached
+                        ? const Color(0xFFC7EBB2)
+                        : const Color(0xFFCDECFB),
+                    width: 1.2,
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: waterLog.isGoalReached
+                          ? const Color(0xFFB8E3A0)
+                          : const Color(0xFFBCE1F5),
+                      offset: const Offset(0, 2),
+                      blurRadius: 0,
+                    ),
+                  ],
                 ),
                 child: Text(
                   waterLog.isGoalReached
@@ -59,7 +99,7 @@ class ClayWaterCard extends ConsumerWidget {
                       : '${waterLog.targetMl} ml 🎯',
                   style: TextStyle(
                     fontSize: 12,
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.w800,
                     color: waterLog.isGoalReached
                         ? AppColors.brandGreen
                         : AppColors.primary,
@@ -68,13 +108,13 @@ class ClayWaterCard extends ConsumerWidget {
               ),
             ],
           ),
-          const SizedBox(height: AppValues.spacing12),
+          const SizedBox(height: AppValues.spacing16),
           Row(
             children: [
               WaterWaveIndicator(
                 progress: waterLog.progress,
                 isGoalReached: waterLog.isGoalReached,
-                size: 80,
+                size: 82,
               ),
               const SizedBox(width: AppValues.spacing16),
               Expanded(
@@ -88,16 +128,17 @@ class ClayWaterCard extends ConsumerWidget {
                         Text(
                           '${waterLog.currentMl}',
                           style: const TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.w800,
+                            fontSize: 24,
+                            fontWeight: FontWeight.w900,
                             color: AppColors.onSurface,
+                            letterSpacing: -0.5,
                           ),
                         ),
                         Text(
                           ' / ${waterLog.targetMl} ml',
                           style: const TextStyle(
                             fontSize: 14,
-                            fontWeight: FontWeight.w600,
+                            fontWeight: FontWeight.w700,
                             color: AppColors.onSurfaceVariant,
                           ),
                         ),
@@ -110,7 +151,7 @@ class ClayWaterCard extends ConsumerWidget {
                           : 'Còn ${waterLog.remainingMl} ml nữa để đạt 100%',
                       style: TextStyle(
                         fontSize: 12,
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.w700,
                         color: waterLog.isGoalReached
                             ? AppColors.brandGreen
                             : AppColors.primary,
@@ -123,6 +164,7 @@ class ClayWaterCard extends ConsumerWidget {
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                         fontSize: 11,
+                        fontWeight: FontWeight.w500,
                         color: AppColors.onSurfaceVariant,
                       ),
                     ),
@@ -131,7 +173,7 @@ class ClayWaterCard extends ConsumerWidget {
               ),
             ],
           ),
-          const SizedBox(height: AppValues.spacing12),
+          const SizedBox(height: AppValues.spacing16),
           Row(
             children: [
               Expanded(
@@ -168,4 +210,3 @@ class ClayWaterCard extends ConsumerWidget {
     );
   }
 }
-

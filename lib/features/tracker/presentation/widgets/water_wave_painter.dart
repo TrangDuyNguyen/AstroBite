@@ -2,7 +2,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
 
-/// 60 FPS Animated Fluid Wave Indicator for Water Tracker
+/// Puffy 3D Claymorphic Water Reservoir Dial with 60 FPS Fluid Waves
 class WaterWaveIndicator extends StatefulWidget {
   const WaterWaveIndicator({
     super.key,
@@ -42,64 +42,126 @@ class _WaterWaveIndicatorState extends State<WaterWaveIndicator>
   Widget build(BuildContext context) {
     final clampedProgress = widget.progress.clamp(0.0, 1.0);
     final waveColor = widget.isGoalReached ? AppColors.brandGreen : AppColors.primary;
+    final bezelColor = widget.isGoalReached ? const Color(0xFFC7EBB2) : const Color(0xFFDDD8CE);
 
-    return SizedBox(
+    return Container(
       width: widget.size,
       height: widget.size,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(widget.size / 2),
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                color: waveColor.withValues(alpha: 0.10),
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: waveColor.withValues(alpha: 0.35),
-                  width: 2.0,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        gradient: const LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [Colors.white, Color(0xFFF7F4EE)],
+        ),
+        border: Border.all(
+          color: widget.isGoalReached ? const Color(0xFFBCE3A1) : const Color(0xFFEDE9E1),
+          width: 1.5,
+        ),
+        boxShadow: [
+          // Layer 1: Solid 3D tactile bottom bevel
+          BoxShadow(
+            color: bezelColor,
+            offset: const Offset(0, 3.5),
+            blurRadius: 0,
+          ),
+          // Layer 2: Glossy top reflection
+          const BoxShadow(
+            color: Colors.white,
+            offset: Offset(0, -1.5),
+            blurRadius: 2.5,
+          ),
+          // Layer 3: Warm ambient float shadow
+          const BoxShadow(
+            color: Color(0x181E2337),
+            offset: Offset(0, 6),
+            blurRadius: 12,
+          ),
+        ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(5.0),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(widget.size / 2),
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              // Reservoir well background
+              Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: widget.isGoalReached
+                      ? const Color(0xFFF0F9EA)
+                      : const Color(0xFFEBF6FD),
                 ),
               ),
-            ),
-            AnimatedBuilder(
-              animation: _controller,
-              builder: (context, _) {
-                return CustomPaint(
-                  size: Size(widget.size, widget.size),
-                  painter: _WavePainter(
-                    animationValue: _controller.value,
-                    progress: clampedProgress,
-                    color: waveColor,
-                  ),
-                );
-              },
-            ),
-            Text(
-              '${(widget.progress * 100).round()}%',
-              style: TextStyle(
-                fontSize: widget.size * 0.22,
-                fontWeight: FontWeight.w800,
-                color: clampedProgress > 0.55 ? Colors.white : AppColors.onSurface,
-                shadows: clampedProgress > 0.55
-                    ? [
-                        Shadow(
-                          color: Colors.black.withValues(alpha: 0.3),
-                          blurRadius: 3,
-                          offset: const Offset(0, 1),
-                        )
-                      ]
-                    : null,
+              // Animated dual-layer fluid wave
+              AnimatedBuilder(
+                animation: _controller,
+                builder: (context, _) {
+                  return CustomPaint(
+                    size: Size(widget.size, widget.size),
+                    painter: _ClayWavePainter(
+                      animationValue: _controller.value,
+                      progress: clampedProgress,
+                      color: waveColor,
+                    ),
+                  );
+                },
               ),
-            ),
-          ],
+              // Top glossy 3D glass highlight
+              Positioned(
+                top: 0,
+                left: 0,
+                right: 0,
+                height: widget.size * 0.38,
+                child: Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Colors.white.withValues(alpha: 0.55),
+                        Colors.white.withValues(alpha: 0.0),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              // Center percentage label with depth shadow
+              Text(
+                '${(widget.progress * 100).round()}%',
+                style: TextStyle(
+                  fontSize: widget.size * 0.22,
+                  fontWeight: FontWeight.w900,
+                  color: clampedProgress > 0.52 ? Colors.white : AppColors.onSurface,
+                  shadows: clampedProgress > 0.52
+                      ? const [
+                          Shadow(
+                            color: Color(0x40000000),
+                            blurRadius: 3,
+                            offset: Offset(0, 1.2),
+                          ),
+                        ]
+                      : const [
+                          Shadow(
+                            color: Colors.white,
+                            blurRadius: 2,
+                            offset: Offset(0, 1),
+                          ),
+                        ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 }
 
-class _WavePainter extends CustomPainter {
-  const _WavePainter({
+class _ClayWavePainter extends CustomPainter {
+  const _ClayWavePainter({
     required this.animationValue,
     required this.progress,
     required this.color,
@@ -113,37 +175,51 @@ class _WavePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     if (progress <= 0.0) return;
 
-    final paint = Paint()
+    final waterHeight = size.height * (1.0 - progress);
+    final waveAmplitude = 3.8 * (1.0 - (progress - 0.5).abs() * 1.4).clamp(0.2, 1.0);
+
+    // Layer A: Secondary subtle back wave
+    final backPaint = Paint()..color = color.withValues(alpha: 0.38);
+    final backPath = Path()..moveTo(0, waterHeight);
+    for (double x = 0; x <= size.width; x += 1.0) {
+      final dx = x / size.width;
+      final radians = (dx * 2 * math.pi) + ((animationValue + 0.45) * 2 * math.pi);
+      final y = waterHeight + math.sin(radians) * (waveAmplitude * 0.85);
+      backPath.lineTo(x, y);
+    }
+    backPath.lineTo(size.width, size.height);
+    backPath.lineTo(0, size.height);
+    backPath.close();
+    canvas.drawPath(backPath, backPaint);
+
+    // Layer B: Primary vibrant wave with 3D depth gradient
+    final frontPaint = Paint()
       ..shader = LinearGradient(
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
         colors: [
-          color.withValues(alpha: 0.85),
+          Color.lerp(color, Colors.white, 0.18)!,
           color,
+          Color.lerp(color, Colors.black, 0.16)!,
         ],
+        stops: const [0.0, 0.35, 1.0],
       ).createShader(Rect.fromLTWH(0, 0, size.width, size.height));
 
-    final path = Path();
-    final waterHeight = size.height * (1.0 - progress);
-    final waveAmplitude = 4.0 * (1.0 - (progress - 0.5).abs() * 1.5).clamp(0.2, 1.0);
-
-    path.moveTo(0, waterHeight);
+    final frontPath = Path()..moveTo(0, waterHeight);
     for (double x = 0; x <= size.width; x += 1.0) {
       final dx = x / size.width;
       final radians = (dx * 2 * math.pi) + (animationValue * 2 * math.pi);
       final y = waterHeight + math.sin(radians) * waveAmplitude;
-      path.lineTo(x, y);
+      frontPath.lineTo(x, y);
     }
-
-    path.lineTo(size.width, size.height);
-    path.lineTo(0, size.height);
-    path.close();
-
-    canvas.drawPath(path, paint);
+    frontPath.lineTo(size.width, size.height);
+    frontPath.lineTo(0, size.height);
+    frontPath.close();
+    canvas.drawPath(frontPath, frontPaint);
   }
 
   @override
-  bool shouldRepaint(covariant _WavePainter oldDelegate) =>
+  bool shouldRepaint(covariant _ClayWavePainter oldDelegate) =>
       oldDelegate.animationValue != animationValue ||
       oldDelegate.progress != progress ||
       oldDelegate.color != color;
