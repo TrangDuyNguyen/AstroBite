@@ -10,15 +10,15 @@
 
 | Mã Task | Feature / Epic | Cổng Chất Lượng | Mô Tả Nhiệm Vụ Kỹ Thuật | Sub-Agent Đảm Nhiệm | SP | Phụ Thuộc | Trạng Thái |
 | :--- | :--- | :---: | :--- | :---: | :---: | :---: | :---: |
-| **`TSK-S33-00-SPIKE`** | Kiến trúc Hydration | **Gate 0** | Tech Lead: Architectural Spec & ADR-039 (Local SharedPreferences cache + Firestore Sync) | `tech-lead` | 1 | None | ⏳ **Queued G0** |
-| **`TSK-S33-01-PRD`** | `prd-water-tracker.md` | **Gate 1** | BA: Soạn PRD & User Stories BDD luồng Water Intake (Quick Presets, Daily Goal, Reset 00:00) | `business-analyst` | 1 | TSK-S33-00-SPIKE | ⏳ **Queued G1** |
-| **`TSK-S33-02-DESIGN`** | `ui-design.md` | **Gate 2** | UI/UX Designer: ClayWaterCard & Animated Wave Indicator (4pt grid, 5 UI states) | `ui-ux-designer` | 1 | TSK-S33-01-PRD | ⏳ **Queued G2** |
-| **`TSK-S33-03-TEST-PLAN`**| `gate-3-test.md` | **Gate 3** | QA Tester: Lập kế hoạch kiểm thử BDD Gherkin & Edge Cases (qua ngày mới, offline sync) | `qa-tester` | 1 | TSK-S33-02-DESIGN | ⏳ **Queued G3** |
-| **`TSK-S33-04-DOMAIN`** | `water_log.dart` | **Gate 4** | Dev Core: Domain Entity WaterLog, Enum WaterQuickPreset, WaterGoalCalculator | `flutter-core-dev` | 2 | TSK-S33-03-TEST-PLAN | ⏳ **Queued G4** |
-| **`TSK-S33-05-REPO`** | `water_repository.dart`| **Gate 4** | Dev Core & Cloud AI: WaterRepository (Local Cache + Firestore Stream) | `flutter-core-dev` | 2 | TSK-S33-04-DOMAIN | ⏳ **Queued G4** |
-| **`TSK-S33-06-UI`** | `clay_water_card.dart` | **Gate 4** | Dev Core: ClayWaterCard trên Home & Bottom Sheet Quick Add (+250/+500ml) | `flutter-core-dev` | 2 | TSK-S33-05-REPO | ⏳ **Queued G4** |
-| **`TSK-S33-07-REVIEW`** | Quality Gate | **Gate 5** | Reviewer: Ponytail Diff Review, kiểm soát line count < 200, stdlib first | `code-reviewer` | 1 | Gate 4 | ⏳ **Queued G5** |
-| **`TSK-S33-08-SIGN-OFF`**| Milestone | **Gate 6/7**| QA Tester, Security Auditor & PO: Kiểm thử 100% pass (> 340 tests) & Release v3.5.0 | `product-owner` | 2 | Gate 5 | ⏳ **Queued G6/7** |
+| **`TSK-S33-00-SPIKE`** | Kiến trúc Hydration | **Gate 0** | Tech Lead: Architectural Spec & ADR-039 (Local SharedPreferences cache + Firestore Sync) | `tech-lead` | 1 | None | 🏁 **DONE** |
+| **`TSK-S33-01-PRD`** | `prd-water-tracker.md` | **Gate 1** | BA: Soạn PRD & User Stories BDD luồng Water Intake (Quick Presets, Daily Goal, Reset 00:00) | `business-analyst` | 1 | TSK-S33-00-SPIKE | 🏁 **DONE** |
+| **`TSK-S33-02-DESIGN`** | `ui-design.md` | **Gate 2** | UI/UX Designer: ClayWaterCard & Animated Wave Indicator (4pt grid, 5 UI states) | `ui-ux-designer` | 1 | TSK-S33-01-PRD | 🏁 **DONE** |
+| **`TSK-S33-03-TEST-PLAN`**| `gate-3-test.md` | **Gate 3** | QA Tester: Lập kế hoạch kiểm thử BDD Gherkin & Edge Cases (qua ngày mới, offline sync) | `qa-tester` | 1 | TSK-S33-02-DESIGN | 🏁 **DONE** |
+| **`TSK-S33-04-DOMAIN`** | `water_log.dart` | **Gate 4** | Dev Core: Domain Entity WaterLog, Enum WaterQuickPreset, WaterGoalCalculator | `flutter-core-dev` | 2 | TSK-S33-03-TEST-PLAN | 🏁 **DONE** |
+| **`TSK-S33-05-REPO`** | `water_repository.dart`| **Gate 4** | Dev Core: WaterRepository (Local Cache + Firestore Sync) | `flutter-core-dev` | 2 | TSK-S33-04-DOMAIN | 🏁 **DONE** |
+| **`TSK-S33-06-UI`** | `clay_water_card.dart` | **Gate 4** | Dev Core: ClayWaterCard trên Home & Bottom Sheet Quick Add (+250/+500ml) | `flutter-core-dev` | 2 | TSK-S33-05-REPO | 🏁 **DONE** |
+| **`TSK-S33-07-REVIEW`** | Quality Gate | **Gate 5** | Reviewer: Ponytail Diff Review, all files < 190 lines, stdlib first | `code-reviewer` | 1 | Gate 4 | 🏁 **DONE** |
+| **`TSK-S33-08-SIGN-OFF`**| Milestone | **Gate 6/7**| QA Tester, Security Auditor & PO: Kiểm thử 100% pass (361 tests) & Release v3.5.0 | `product-owner` | 2 | Gate 5 | 🟢 **Gate 7 Released** |
 
 ---
 

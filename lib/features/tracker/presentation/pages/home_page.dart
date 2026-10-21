@@ -16,6 +16,7 @@ import '../controllers/tracker_controller.dart';
 import '../widgets/add_meal_slot_button.dart';
 import '../widgets/add_meal_slot_sheet.dart';
 import '../widgets/celestial_offline_banner.dart';
+import '../widgets/clay_water_card.dart';
 import '../widgets/daily_summary_card.dart';
 import '../widgets/dashboard_app_bar.dart';
 import '../widgets/delete_meal_confirmation_sheet.dart';
@@ -138,6 +139,8 @@ class HomePage extends ConsumerWidget {
                   const GalacticDateOrbit(),
                   const SizedBox(height: AppValues.spacing16),
                   DailySummaryCard(summary: summary),
+                  const SizedBox(height: AppValues.spacing12),
+                  const ClayWaterCard(),
                   const SizedBox(height: AppValues.spacing12),
                   HomeAstroCoachSuggestionCard(summary: summary),
                   const SizedBox(height: AppValues.spacing16),

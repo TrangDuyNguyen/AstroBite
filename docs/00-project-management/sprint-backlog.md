@@ -6,9 +6,8 @@
 - **Mã Epic / Feature**: `EPIC-HYDRATE-01` / `FEAT-S33-WATER-TRACKER`
 - **Phiên bản mục tiêu**: `v3.5.0`
 - **Thời gian Sprint**: 19/10/2026 – 02/11/2026
-- **Trạng thái Sprint**: ⚡ **IN_PROGRESS**
-- **Trạng thái Sprint**: ⚡ **IN_PROGRESS**
-- **Tổng Story Points cam kết**: **13 SP** (Tiến độ: **6 / 13 SP — 46%**)
+- **Trạng thái Sprint**: 🟢 **COMPLETED**
+- **Tổng Story Points cam kết**: **13 SP** (Tiến độ: **13 / 13 SP — 100%**)
 
 ---
 
@@ -17,25 +16,19 @@
 1. **Gate 0 & Gate 1 (2 SP)**: Ban hành ADR-039 (Kiến trúc lưu trữ Hydration: Local SharedPreferences/Hive cache + Cloud Firestore sync ngầm, reset 00:00) & PRD + User Stories BDD luồng Water Tracker.
 2. **Gate 2 & Gate 3 (2 SP)**: Thiết kế Claymorphic Hydration Card, Animated Water Cup / Wave indicator 60 FPS chuẩn 4pt grid, 5 UI states và Master Test Plan bao phủ edge cases (qua ngày mới, sửa mốc nước, offline).
 3. **Gate 4 (6 SP)**: Triển khai Domain Entity `WaterLog`, Enhanced Enum `WaterQuickPreset`, `WaterRepository`, `WaterController` (Riverpod) và UI Widget `ClayWaterCard` trên Home Dashboard + `WaterTrackingSheet`.
-4. **Gate 5, 6, 6.5 & 7 (3 SP)**: Ponytail Clean Review, Automated Tests 100% xanh (> 340 tests), Security Clearance và phát hành `v3.5.0`.
+4. **Gate 5, 6, 6.5 & 7 (3 SP)**: Ponytail Clean Review, Automated Tests 100% xanh (> 360 tests), Security Clearance và phát hành `v3.5.0`.
 
 ---
 
 ## 📋 Bảng Kanban Sprint 33
 
-### 1. 📝 BACKLOG / QUEUED — [5 SP]
-| Mã Task | Màn Hình / File | Gate | Mô Tả | Sub-Agent Phụ Trách | SP | Trạng Thái |
-|:---|:---|:---:|:---|---|:---:|:---|
-| `TSK-S33-06-UI` | `lib/features/tracker/presentation/widgets/clay_water_card.dart` | **G4** | Dev Core: ClayWaterCard trên Home & Bottom Sheet Quick Add (+250/+500ml) | `flutter-core-dev` | 2 | ⏳ **Queued G4** |
-| `TSK-S33-07-REVIEW` | Codebase & Git Diff | **G5** | Reviewer: Ponytail Diff Review, kiểm soát line count < 200 | `code-reviewer` | 1 | ⏳ **Queued G5** |
-| `TSK-S33-08-SIGN-OFF` | Gate 6, 6.5, 7 Sign-offs | **G6/G7** | QA & Security & PO: Kiểm thử 100% pass (> 340 tests) & Release v3.5.0 | `qa-tester` | 2 | ⏳ **Queued G6/7** |
+### 1. 📝 BACKLOG / QUEUED — [0 SP]
+*(Toàn bộ tasks đã hoàn tất và phát hành)*
 
-### 2. ⚡ IN PROGRESS — [2 SP]
-| Mã Task | Màn Hình / File | Gate | Mô Tả | Sub-Agent Phụ Trách | SP | Trạng Thái |
-|:---|:---|:---:|:---|---|:---:|:---|
-| `TSK-S33-05-REPO` | `lib/features/tracker/data/water_repository.dart` | **G4** | Dev Core & Cloud AI: WaterRepository (Local Cache + Firestore Stream) | `flutter-core-dev` | 2 | ⚡ **IN_PROGRESS** |
+### 2. ⚡ IN PROGRESS — [0 SP]
+*(Sprint đã hoàn tất 100%)*
 
-### 3. 🏁 DONE — [6 SP]
+### 3. 🏁 DONE — [13 SP]
 | Mã Task | Màn Hình / File | Gate | Mô Tả | Sub-Agent Phụ Trách | SP | Trạng Thái |
 |:---|:---|:---:|:---|---|:---:|:---|
 | `TSK-S33-00-SPIKE` | `docs/superpowers/specs/2026-10-19-sprint-33-water-tracker-design.md` | **G0** | Tech Lead: Architectural Spec & ADR-039 (Local Cache + Firestore Sync) | `tech-lead` | 1 | 🏁 **DONE** |
@@ -43,6 +36,10 @@
 | `TSK-S33-02-DESIGN` | `docs/03-prd-features/40-water-intake-tracker/ui-design.md` | **G2** | UI/UX Designer: ClayWaterCard & Animated Wave Indicator (4pt grid, 5 states) | `ui-ux-designer` | 1 | 🏁 **DONE** |
 | `TSK-S33-03-TEST-PLAN` | `docs/03-prd-features/40-water-intake-tracker/gate-3-test.md` | **G3** | QA Tester: Lập kế hoạch kiểm thử BDD Gherkin & Edge Cases | `qa-tester` | 1 | 🏁 **DONE** |
 | `TSK-S33-04-DOMAIN` | `lib/features/tracker/domain/water_log.dart` | **G4** | Dev Core: Entity WaterLog, Enum WaterQuickPreset, WaterGoalCalculator | `flutter-core-dev` | 2 | 🏁 **DONE** |
+| `TSK-S33-05-REPO` | `lib/features/tracker/data/repositories/water_repository_impl.dart` | **G4** | Dev Core: WaterRepository (Local Cache + Firestore Sync, 137 lines) | `flutter-core-dev` | 2 | 🏁 **DONE** |
+| `TSK-S33-06-UI` | `lib/features/tracker/presentation/widgets/clay_water_card.dart` | **G4** | Dev Core: ClayWaterCard (171 lines), WaterTrackingSheet & HomePage mount | `flutter-core-dev` | 2 | 🏁 **DONE** |
+| `TSK-S33-07-REVIEW` | Codebase & Git Diff | **G5** | Reviewer: Ponytail Review: All files < 190 lines, 0 warnings, stdlib first | `code-reviewer` | 1 | 🏁 **DONE** |
+| `TSK-S33-08-SIGN-OFF` | Gate 6, 6.5, 7 Sign-offs | **G6/G7** | QA & Security & PO: Kiểm thử 100% pass (361 tests) & Release v3.5.0 | `product-owner` | 2 | 🏁 **DONE** |
 
 ---
 

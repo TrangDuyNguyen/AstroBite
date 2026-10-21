@@ -8,6 +8,7 @@ import 'package:astrobite/features/tracker/domain/entities/food_log.dart';
 import 'package:astrobite/features/tracker/domain/tracker_providers.dart';
 import 'package:astrobite/features/tracker/presentation/pages/home_page.dart';
 import 'package:astrobite/features/tracker/presentation/widgets/celestial_time_avatar.dart';
+import 'package:astrobite/features/tracker/presentation/widgets/clay_water_card.dart';
 import 'package:astrobite/features/tracker/presentation/widgets/daily_summary_card.dart';
 import 'package:astrobite/features/tracker/presentation/widgets/meal_section.dart';
 
@@ -71,8 +72,9 @@ void main() {
       // AppBar date picker trigger
       expect(find.byIcon(AppIcons.arrowDown), findsOneWidget);
 
-      // DailySummaryCard
+      // DailySummaryCard & ClayWaterCard
       expect(find.byType(DailySummaryCard), findsOneWidget);
+      expect(find.byType(ClayWaterCard), findsOneWidget);
       expect(find.text('1000 kcal'), findsOneWidget); // 2000 - (450 + 550) = 1000 remaining
       expect(find.text(testL10n.kcalRemaining), findsOneWidget);
 

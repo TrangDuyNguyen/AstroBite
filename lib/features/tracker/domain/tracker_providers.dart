@@ -4,12 +4,19 @@ import 'package:astrobite/features/auth/domain/auth_providers.dart';
 import 'package:astrobite/features/profile/domain/profile_providers.dart';
 
 import '../data/repositories/food_log_repository_impl.dart';
+import '../data/repositories/water_repository_impl.dart';
 import 'daily_summary.dart';
 import 'entities/food_log.dart';
+import 'entities/water_log.dart';
 import 'repositories/food_log_repository.dart';
+import 'repositories/water_repository.dart';
 
 final foodLogRepositoryProvider = Provider<FoodLogRepository>((ref) {
   return FoodLogRepositoryImpl();
+});
+
+final waterRepositoryProvider = Provider<WaterRepository>((ref) {
+  return WaterRepositoryImpl();
 });
 
 final selectedDateProvider = StateProvider<DateTime>((ref) {
@@ -50,6 +57,18 @@ final dailyLogsStreamProvider = StreamProvider.autoDispose<List<FoodLog>>((ref) 
       .toList());
 });
 
+final dailyWaterStreamProvider = StreamProvider.autoDispose<WaterDayLog>((ref) {
+  String userId = 'guest_user';
+  try {
+    final user = ref.watch(authStateProvider).value;
+    if (user != null) userId = user.uid;
+  } catch (_) {}
+  final date = ref.watch(todayDateProvider);
+  final repo = ref.watch(waterRepositoryProvider);
+
+  return repo.watchDailyWater(userId: userId, date: date);
+});
+
 final todaySummaryProvider = Provider.autoDispose<DailySummary>((ref) {
   final logs = ref.watch(dailyLogsStreamProvider).value ?? [];
   final date = ref.watch(todayDateProvider);
@@ -63,4 +82,5 @@ final todaySummaryProvider = Provider.autoDispose<DailySummary>((ref) {
 });
 
 final isOfflineProvider = StateProvider<bool>((ref) => false);
+
 
