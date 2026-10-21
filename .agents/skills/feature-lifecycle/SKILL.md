@@ -9,7 +9,7 @@ metadata:
   role: technical-delivery-director
   scope: multi-subagent-lifecycle-orchestration
   output-format: markdown
-  related-skills: product-owner, tech-lead, project-manager, business-analyst, ui-ux-designer, qa-tester, security-auditor, security-audit, flutter-expert, code-reviewer, flutter-testing, ponytail, ponytail-review, brainstorming
+  related-skills: product-owner, tech-lead, project-manager, business-analyst, ui-ux-designer, qa-tester, visual-qa, security-auditor, security-audit, flutter-expert, code-reviewer, flutter-testing, ponytail, ponytail-review, brainstorming
 ---
 
 # Unified Feature Delivery Lifecycle Skill (8+ Gates SOP & Multi Sub-Agent)
@@ -142,6 +142,7 @@ Hội đồng thẩm định sẽ **LẬP TỨC REJECT VÀ TRẢ VỀ** nếu:
 QC sẽ **TỪ CHỐI BÀN GIAO CHO DEV** nếu:
 - ❌ Bộ Testcases thiếu Boundary Value Analysis (BVA) hoặc thiếu Negative Cases (VD: nhập số âm, ký tự đặc biệt, mất mạng khi đang submit).
 - ❌ Kịch bản BDD `.feature` không ánh xạ 1-1 với Acceptance Criteria của BA và 5 UI States của Designer.
+- ❌ Thiếu **Visual Test Matrix** theo skill `visual-qa` (kiểm thử text scaling 1.5x, light/dark, responsive 375pt, safe area).
 - ❌ Traceability Matrix không đạt 100% bao phủ.
 
 ### 🚪 Chốt Chặn 5: Reviewer Thẩm Định Gate 5 (Ponytail Review) — Cấm Du Di!
@@ -153,6 +154,7 @@ Reviewer sẽ **BLOCK KHÔNG CHO TEST** nếu:
 
 ### 🚪 Chốt Chặn 6: QC Kiểm Thử Tự Động & Phi Chức Năng Gate 6 — Cấm Du Di Tuyệt Đối!
 QC là chốt chặn khắt khe nhất của toàn bộ hệ sinh thái. QC sẽ **LẬP BIÊN BẢN REJECT NGAY** nếu:
+- ❌ **Vi Phạm Ma Trận Thị Giác 6 Trụ Cột (`visual-qa`)**: Xuất hiện sọc vàng đen `RenderFlex overflow`, cắt cụt text, lẹm tai thỏ/Dynamic Island, vi phạm tỉ lệ tương phản màu WCAG AA (< 4.5:1), vỡ layout khi phóng to chữ 1.5x, hoặc thiếu 5 trạng thái UI.
 - ❌ **Fake Green Test**: Phát hiện test case không assert hoặc assert vô nghĩa (`expect(true, isTrue)`, `expect(x != null, true)` thay vì kiểm tra giá trị thực).
 - ❌ Bất kỳ test case nào bị `skip`, `@ignore` hoặc fail (`flutter test` phải 100% Pass).
 - ❌ Tỷ lệ khung hình cuộn danh sách (Scroll FPS) < 55 FPS.

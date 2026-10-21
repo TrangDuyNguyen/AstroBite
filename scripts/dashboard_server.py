@@ -42,6 +42,18 @@ CORE_AGENTS = [
     {"id": "security", "name": "Security", "title": "AppSec Sentinel", "avatar": "🛡️", "tag": "Zero-Trust Sentinel", "gate": "G6.5", "color": "#FF6B6B"},
 ]
 
+AGENT_ALIASES = {
+    "po": ["po", "product-owner", "owner"],
+    "tech-lead": ["tech-lead", "architect"],
+    "ba": ["ba", "business-analyst", "analyst"],
+    "design": ["design", "ui-ux", "ui-ux-designer", "designer"],
+    "pm": ["pm", "project-manager", "scrum-master"],
+    "qa": ["qa", "qc", "qa-tester", "tester"],
+    "dev": ["dev", "flutter-core-dev", "flutter-native-dev", "cloud-ai-dev", "flutter-expert"],
+    "reviewer": ["reviewer", "code-reviewer", "review"],
+    "security": ["security", "security-auditor", "appsec"],
+}
+
 GATES_DEF = [
     {"key": "0", "name": "Gate 0: Tech Spike & ADR", "role": "tech-lead", "badge": "Spike"},
     {"key": "1", "name": "Gate 1: PRD & BDD Given-When-Then", "role": "ba", "badge": "Spec"},
@@ -282,21 +294,37 @@ def compute_full_status(workspace: str, sprint_id: str = "current") -> dict:
             with open(state_file, "r", encoding="utf-8") as f: pipeline_state = json.load(f)
         except Exception: pass
 
-    active_gate_key = str(pipeline_state.get("current_gate_index", "0"))
+    raw_cur_idx = pipeline_state.get("current_gate_index", 0)
+    try:
+        cur_gate_idx = int(raw_cur_idx)
+    except (ValueError, TypeError):
+        cur_gate_idx = 0
+
+    gate_keys = [g["key"] for g in GATES_DEF]
+    active_gate_key = gate_keys[cur_gate_idx] if 0 <= cur_gate_idx < len(gate_keys) else str(cur_gate_idx)
+
     gates_state = []
-    for g in GATES_DEF:
+    for i, g in enumerate(GATES_DEF):
         key = g["key"]
-        p_status = pipeline_state.get("gates", {}).get(key, {}).get("status", "PENDING")
-        if sprint_data["sprint_status"] == "COMPLETED": status = "COMPLETED"
-        elif p_status == "IN_PROGRESS" or key == active_gate_key: status = "IN_PROGRESS"
-        elif p_status in ("DONE", "COMPLETED"): status = "COMPLETED"
-        else: status = "PENDING"
+        p_status = pipeline_state.get("gates", {}).get(key, {}).get("status", "")
+        if sprint_data["sprint_status"] == "COMPLETED" or cur_gate_idx >= len(GATES_DEF):
+            status = "COMPLETED"
+        elif p_status in ("DONE", "COMPLETED") or i < cur_gate_idx:
+            status = "COMPLETED"
+        elif p_status == "IN_PROGRESS" or i == cur_gate_idx:
+            status = "IN_PROGRESS"
+        else:
+            status = "PENDING"
         gates_state.append({**g, "status": status})
 
     agents_state = []
     for a in CORE_AGENTS:
         agent_id = a["id"]
-        assigned = [t for col in sprint_data["tasks"].values() for t in col if agent_id in t["agent"].lower() or a["name"].lower() in t["agent"].lower()]
+        aliases = AGENT_ALIASES.get(agent_id, [agent_id, a["name"].lower()])
+        assigned = [
+            t for col in sprint_data["tasks"].values() for t in col
+            if any(alias in t["agent"].lower() or alias in t["desc"].lower() for alias in aliases)
+        ]
         current_task = assigned[-1]["desc"] if assigned else "Standby / Ready"
         status = "IDLE" if sprint_data["sprint_status"] == "COMPLETED" else ("WORKING" if any(t["status"] == "IN_PROGRESS" for t in assigned) else "IDLE")
         agents_state.append({**a, "status": status, "current_task": current_task, "task_count": len(assigned)})
@@ -337,6 +365,21 @@ class DashboardHandler(http.server.SimpleHTTPRequestHandler):
         path = parsed.path
         query = urllib.parse.parse_qs(parsed.query)
 
+        if path == "/favicon.ico":
+            self.send_response(HTTPStatus.NO_CONTENT)
+            self.end_headers()
+            return
+
+        if path == "/api/project":
+            payload = get_project_metadata(self.workspace)
+            body = json.dumps(payload, ensure_ascii=False).encode("utf-8")
+            self.send_response(HTTPStatus.OK)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
         if path == "/api/status":
             sprint_id = query.get("sprint", ["current"])[0]
             payload = compute_full_status(self.workspace, sprint_id)
@@ -361,17 +404,24 @@ class DashboardHandler(http.server.SimpleHTTPRequestHandler):
         if path == "/api/stream":
             self.send_response(HTTPStatus.OK)
             self.send_header("Content-Type", "text/event-stream")
+            self.send_header("Cache-Control", "no-cache, no-transform")
             self.send_header("Connection", "keep-alive")
             self.end_headers()
             try:
-                last_payload = ""
+                last_hash = None
                 while True:
                     data = compute_full_status(self.workspace, "current")
-                    json_str = json.dumps(data, ensure_ascii=False)
-                    if json_str != last_payload:
+                    data_cmp = dict(data)
+                    data_cmp.pop("timestamp", None)
+                    curr_hash = json.dumps(data_cmp, sort_keys=True)
+                    if curr_hash != last_hash:
+                        json_str = json.dumps(data, ensure_ascii=False)
                         self.wfile.write(f"data: {json_str}\n\n".encode("utf-8"))
                         self.wfile.flush()
-                        last_payload = json_str
+                        last_hash = curr_hash
+                    else:
+                        self.wfile.write(b": keepalive\n\n")
+                        self.wfile.flush()
                     time.sleep(1.0)
             except (BrokenPipeError, ConnectionResetError): pass
             return
@@ -440,12 +490,13 @@ def run_server(port: int = DEFAULT_PORT, workspace: str = None):
     DashboardHandler.workspace = workspace
     DashboardHandler.static_dir = static_dir
 
-    socketserver.TCPServer.allow_reuse_address = True
+    socketserver.ThreadingTCPServer.allow_reuse_address = True
     active_port = port
     httpd = None
     while active_port <= MAX_PORT:
         try:
-            httpd = socketserver.TCPServer((HOST, active_port), DashboardHandler)
+            httpd = socketserver.ThreadingTCPServer((HOST, active_port), DashboardHandler)
+            httpd.daemon_threads = True
             break
         except OSError: active_port += 1
 

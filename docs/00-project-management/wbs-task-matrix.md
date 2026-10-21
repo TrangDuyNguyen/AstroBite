@@ -2,9 +2,27 @@
 
 - **Quản lý bởi**: Sub-Agent Project Manager (PM) & Sub-Agent Product Owner (PO)
 - **Ánh xạ quy trình**: 8-Gate Delivery Flow (Tech Spike ➔ BA ➔ UI/UX Designer ➔ QA ➔ Dev FE ➔ Code Review ➔ Verification ➔ Release)
-- **Cập nhật lần cuối**: 2026-10-10
+- **Cập nhật lần cuối**: 2026-10-19
 
-## 🏗️ 1. Bảng Ma Trận Phân Rã WBS Sprint 28 (v3.8.0 Tracker & Dashboard — 🟢 100% Done)
+## 🏗️ 1. Bảng Ma Trận Phân Rã WBS Sprint 33 (v3.5.0 Water Intake Tracker — 🟡 13 SP In Progress)
+
+### EPIC-HYDRATE-01: Water Intake & Hydration Tracker (`FEAT-S33-WATER-TRACKER` — 13 SP)
+
+| Mã Task | Feature / Epic | Cổng Chất Lượng | Mô Tả Nhiệm Vụ Kỹ Thuật | Sub-Agent Đảm Nhiệm | SP | Phụ Thuộc | Trạng Thái |
+| :--- | :--- | :---: | :--- | :---: | :---: | :---: | :---: |
+| **`TSK-S33-00-SPIKE`** | Kiến trúc Hydration | **Gate 0** | Tech Lead: Architectural Spec & ADR-039 (Local SharedPreferences cache + Firestore Sync) | `tech-lead` | 1 | None | ⏳ **Queued G0** |
+| **`TSK-S33-01-PRD`** | `prd-water-tracker.md` | **Gate 1** | BA: Soạn PRD & User Stories BDD luồng Water Intake (Quick Presets, Daily Goal, Reset 00:00) | `business-analyst` | 1 | TSK-S33-00-SPIKE | ⏳ **Queued G1** |
+| **`TSK-S33-02-DESIGN`** | `ui-design.md` | **Gate 2** | UI/UX Designer: ClayWaterCard & Animated Wave Indicator (4pt grid, 5 UI states) | `ui-ux-designer` | 1 | TSK-S33-01-PRD | ⏳ **Queued G2** |
+| **`TSK-S33-03-TEST-PLAN`**| `gate-3-test.md` | **Gate 3** | QA Tester: Lập kế hoạch kiểm thử BDD Gherkin & Edge Cases (qua ngày mới, offline sync) | `qa-tester` | 1 | TSK-S33-02-DESIGN | ⏳ **Queued G3** |
+| **`TSK-S33-04-DOMAIN`** | `water_log.dart` | **Gate 4** | Dev Core: Domain Entity WaterLog, Enum WaterQuickPreset, WaterGoalCalculator | `flutter-core-dev` | 2 | TSK-S33-03-TEST-PLAN | ⏳ **Queued G4** |
+| **`TSK-S33-05-REPO`** | `water_repository.dart`| **Gate 4** | Dev Core & Cloud AI: WaterRepository (Local Cache + Firestore Stream) | `flutter-core-dev` | 2 | TSK-S33-04-DOMAIN | ⏳ **Queued G4** |
+| **`TSK-S33-06-UI`** | `clay_water_card.dart` | **Gate 4** | Dev Core: ClayWaterCard trên Home & Bottom Sheet Quick Add (+250/+500ml) | `flutter-core-dev` | 2 | TSK-S33-05-REPO | ⏳ **Queued G4** |
+| **`TSK-S33-07-REVIEW`** | Quality Gate | **Gate 5** | Reviewer: Ponytail Diff Review, kiểm soát line count < 200, stdlib first | `code-reviewer` | 1 | Gate 4 | ⏳ **Queued G5** |
+| **`TSK-S33-08-SIGN-OFF`**| Milestone | **Gate 6/7**| QA Tester, Security Auditor & PO: Kiểm thử 100% pass (> 340 tests) & Release v3.5.0 | `product-owner` | 2 | Gate 5 | ⏳ **Queued G6/7** |
+
+---
+
+## 🏛️ 2. Lưu Trữ Ma Trận Phân Rã WBS Sprint 28 (v3.8.0 Tracker & Dashboard — 🟢 100% Done)
 
 ### EPIC-REF-07: Daily Tracker & Dashboard Modular Clean Architecture (`FEAT-S28-TRACKER-DASHBOARD` — 13 SP)
 
@@ -229,12 +247,12 @@
 | :--- | :--- | :--- | :--- | :---: | :---: | :---: | :---: |
 | **`TSK-S7-PRD`** | `FEAT-14` PRD | **Gate 1** | Đặc tả PRD BDD, SLAs < 3.5s, 1-tap Recent Food, Thumb Zone CTA | `business-analyst` | 1 | None | 🟢 **Gate 1 Approved** |
 | **`TSK-S7-UI-SPEC`** | `FEAT-14` Design | **Gate 2** | Mermaid flow, Blueprint 4pt, 5 UI states, Sticky Bottom Bar layout | `ui-ux-designer` | 2 | TSK-S7-PRD | 🟢 **Gate 2 Approved** |
-| **`TSK-S7-QA-TESTS`** | `FEAT-14` Test Plan | **Gate 3** | Kịch bản BDD, Widget tests cho Recent tray, Steppers & Sticky CTA | `qa-tester` | 1 | TSK-S7-UI-SPEC | ⚡ **In Progress** |
-| **`TSK-S7-DEV-MANUAL`** | `FEAT-14` Flutter | **Gate 4** | Cải tạo `ManualEntryPage`: khay Recent Foods, Quick Steppers, Sticky Thumb CTA | `flutter-core-dev` | 3 | TSK-S7-QA-TESTS | ⚡ **In Progress** |
-| **`TSK-S7-DEV-SCANNER`**| `FEAT-14` Flutter | **Gate 4** | Cải tạo `CameraPage` (Radar Wave) & `ScanReviewPage` (Compact Sticky Review) | `flutter-core-dev` | 2 | TSK-S7-DEV-MANUAL | ⏳ Queued Gate 4 |
-| **`TSK-S7-REVIEW`** | Quality Gate | **Gate 5** | Ponytail AST review: cắt giảm code thừa, kiểm tra stdlib, 0 bloat | `code-reviewer` | - | Gate 4 | ⏳ Chờ Dev xong |
-| **`TSK-S7-QA-VERIFY`** | Quality Gate | **Gate 6** | Chạy automated test suite 100% pass, `flutter analyze` 0 issues, SLA 60 FPS | `qa-tester` | - | Gate 5 | ⏳ Chờ Reviewer |
-| **`TSK-S7-RELEASE`** | Milestone | **Gate 7** | PO & PM nghiệm thu toàn diện, phát hành `v1.6.0` và gắn tag Git | `product-owner` & `project-manager` | - | Gate 6 | ⏳ Cổng cuối |
+| **`TSK-S7-QA-TESTS`** | `FEAT-14` Test Plan | **Gate 3** | Kịch bản BDD, Widget tests cho Recent tray, Steppers & Sticky CTA | `qa-tester` | 1 | TSK-S7-UI-SPEC | 🟢 **Gate 3 Approved** |
+| **`TSK-S7-DEV-MANUAL`** | `FEAT-14` Flutter | **Gate 4** | Cải tạo `ManualEntryPage`: khay Recent Foods, Quick Steppers, Sticky Thumb CTA | `flutter-core-dev` | 3 | TSK-S7-QA-TESTS | 🟢 **Gate 4 Done** |
+| **`TSK-S7-DEV-SCANNER`**| `FEAT-14` Flutter | **Gate 4** | Cải tạo `CameraPage` (Radar Wave) & `ScanReviewPage` (Compact Sticky Review) | `flutter-core-dev` | 2 | TSK-S7-DEV-MANUAL | 🟢 **Gate 4 Done** |
+| **`TSK-S7-REVIEW`** | Quality Gate | **Gate 5** | Ponytail AST review: cắt giảm code thừa, kiểm tra stdlib, 0 bloat | `code-reviewer` | - | Gate 4 | 🟢 **Gate 5 Approved** |
+| **`TSK-S7-QA-VERIFY`** | Quality Gate | **Gate 6** | Chạy automated test suite 100% pass, `flutter analyze` 0 issues, SLA 60 FPS | `qa-tester` | - | Gate 5 | 🟢 **Gate 6 Signed Off** |
+| **`TSK-S7-RELEASE`** | Milestone | **Gate 7** | PO & PM nghiệm thu toàn diện, phát hành `v1.6.0` và gắn tag Git | `product-owner` & `project-manager` | - | Gate 6 | 🟢 **Gate 7 Released** |
 
 ---
 

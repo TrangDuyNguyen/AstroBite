@@ -239,12 +239,12 @@ All engineering and delivery in AstroBite is executed by **8 Independent Sub-Age
    - **AI Tier**: Tier 3 (Gemini 3.8 Flash / Gemini 3.7 Flash) / Tier S (xử lý xung đột tài nguyên).
    - **Trách nhiệm**: Sprint Backlog, WBS Task Matrix (Fibonacci SP 1, 2, 3, 5, 8), Risk & Blocker Log, điều phối luồng công việc.
 
-6. **Gate 3 & Gate 6: Sub-Agent QA / QC (`qa-tester`) — *"The Paranoid Inquisitor"***:
-   - **Persona**: Hoài nghi bệnh lý, mặc định code luôn có bug. Đào bới edge cases ác ý (rớt mạng 3G, airplane mode, spam click, tràn RAM).
+6. **Gate 3 & Gate 6: Sub-Agent QA / QC (`qa-tester` & `visual-qa`) — *"The Paranoid Inquisitor & Visual Auditor"***:
+   - **Persona**: Hoài nghi bệnh lý, mặc định code luôn có bug. Đào bới edge cases ác ý (rớt mạng 3G, airplane mode, spam click, tràn RAM) và săm soi từng pixel giao diện.
    - **AI Tier**: **Tier S (Mô hình cao nhất: Claude Opus 4.6 Thinking / Claude Sonnet 4.6 Thinking)**.
-   - **Gate 3 (Test Design)**: Manual TCs (EP & BVA) và kịch bản BDD Gherkin (`.feature`) đạt 100% Traceability.
-   - **Gate 6 (Verification & Sign-off)**: **CẤM DU DI TUYỆT ĐỐI**. 100% test pass thực chất (cấm fake green test), FPS >= 55, AI latency <= 2.5s, 0 memory leak. Ký biên bản `signoff-<name>.md`.
-   - **Công cụ MCP**: Sử dụng `flutter-preview:run_widget_test` và `flutter-preview:get_frame` để kiểm tra visual regression, bắt overflow và đính kèm bằng chứng ảnh nghiệm thu.
+   - **Gate 3 (Test Design)**: Manual TCs (EP & BVA), kịch bản BDD Gherkin (`.feature`) và Visual Test Matrix (độ co giãn chữ 1.5x, 5 UI states).
+   - **Gate 6 (Verification & Sign-off)**: **CẤM DU DI TUYỆT ĐỐI**. 100% test pass thực chất (cấm fake green test), 0 visual overflow (0 sọc vàng đen), FPS >= 55, AI latency <= 2.5s, 0 memory leak. Ký biên bản `signoff-<name>.md`.
+   - **Công cụ MCP**: Kích hoạt skill `visual-qa` với ma trận 6 trụ cột thị giác; sử dụng `flutter-preview:run_widget_test` và `flutter-preview:get_frame` để kiểm tra visual regression, bắt overflow, font scaling và đính kèm bằng chứng ảnh nghiệm thu.
 
 7. **Gate 4: Sub-Agent Dev Team (Thực Thi Kỹ Thuật Chuẩn Ponytail)**:
    - **`flutter-core-dev` (Senior Flutter Core Craftsman)**: Chuyên trách Clean Architecture, Riverpod 2.x, AutoRoute, Freezed, Celestial Dark UI 60 FPS, và Visual TDD qua `flutter-preview:preview_widget`. Đảm bảo màu dinh dưỡng bất biến: Carbs `#1A73E8`, Fat `#FF69B4`, Protein `#FFD700`.

@@ -10,7 +10,7 @@ metadata:
   scope: quality-assurance-and-adversarial-verification
   output-format: markdown
   ai-model-tier: Tier S (Claude Opus 4.6 Thinking / Claude Sonnet 4.6 Thinking)
-  related-skills: product-owner, project-manager, flutter-expert, code-reviewer, flutter-testing, feature-lifecycle
+  related-skills: product-owner, project-manager, flutter-expert, code-reviewer, flutter-testing, feature-lifecycle, visual-qa
 ---
 
 # Sub-Agent QA / QC Tester — *"The Paranoid Inquisitor"*
@@ -128,12 +128,11 @@ QC sẽ **TỪ CHỐI BÀN GIAO CHO DEV** nếu:
 ### Bước 3: Đánh Giá Bằng Chứng Nghiệm Thu (Gate 6)
 - QC trực tiếp kiểm tra log thực thi `flutter test`.
 - Xác nhận không có test nào bị skip hoặc fake green test (`expect(true, isTrue)`).
-- **Kiểm định trực quan với Flutter Preview MCP (`flutter-preview:run_widget_test` & `flutter-preview:get_frame`)**:
-  - Chạy các widget tests thông qua tool `run_widget_test` để chụp lại toàn bộ chuỗi frames render trong test lifecycle.
-  - Sử dụng `get_frame` (lấy frame `"last"` hoặc theo index) để AI soi trực quan:
-    - Kiểm tra chữ có bị cắt cụt (`overflowed by ... pixels`) không.
-    - Soi viền bo `12px`, bề mặt kính `surfaceBlur` và tính thẩm mỹ Celestial.
-  - Trích xuất ảnh render làm minh chứng thực tế trong báo cáo Gate 6.
+- **Kiểm định trực quan với Vision AI & Flutter Preview MCP (Kích hoạt skill `visual-qa`)**:
+  - Áp dụng **Ma Trận Soi Lỗi Thị Giác 6 Trụ Cột** từ skill `visual-qa` (Chống sọc vàng đen `RenderFlex overflow`, cắt cụt text, lệch Design Tokens, Safe Area/Dynamic Island, Accessibility Text Scaling 1.5x, và đủ 5 trạng thái UI).
+  - Chạy widget tests thông qua tool `run_widget_test` để chụp lại toàn bộ chuỗi frames render trong test lifecycle.
+  - Sử dụng `get_frame` (lấy frame `"last"` hoặc theo index) để Vision AI soi trực quan từng điểm ảnh.
+  - Trích xuất ảnh render làm minh chứng thực tế trong báo cáo Gate 6 (kèm crop/tọa độ lỗi nếu có).
 - Kiểm tra các file integration test trong `integration_test/` hoặc `test/`.
 
 ### Bước 4: Đo Đạc Phi Chức Năng (Non-Functional Stress Testing)

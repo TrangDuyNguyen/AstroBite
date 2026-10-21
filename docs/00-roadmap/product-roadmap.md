@@ -1,9 +1,9 @@
 # Bản Đồ Lộ Trình Sản Phẩm AstroBite (Product Roadmap)
 
 - **Quản lý bởi**: Sub-Agent Product Owner (PO)
-- **Phiên bản hiện tại**: v3.4.0 (Sprint 32 Completed)
-- **Cập nhật lần cuối**: 2026-10-11
-- **Tình trạng tổng thể**: 🟢 Sprint 32 COMPLETED — Smart Packaged Food Scanning: Barcode & Nutrition Label OCR (v3.4.0)
+- **Phiên bản hiện tại**: v3.4.0 (Sprint 32 Completed) ➔ v3.5.0 (Sprint 33 In Progress)
+- **Cập nhật lần cuối**: 2026-10-19
+- **Tình trạng tổng thể**: 🟡 Sprint 33 IN PROGRESS — Water Intake & Hydration Tracker (v3.5.0)
 
 ---
 
@@ -139,5 +139,6 @@
 | **v3.2.0** | **100%** (13/13 SP) 🟢 DONE | EPIC-REF-01 Sprint 22 — Core Tracker Clean Architecture & O(1) Meal Enums | 10/10/2026 | Sub-Agent PO & PM |
 | **v3.3.0** | **100%** (13/13 SP) 🟢 DONE | EPIC-CORE-10 Sprint 31 — Internationalization Foundation (Song Ngữ VI/EN) | 11/10/2026 | Sub-Agent PO & PM |
 | **v3.4.0** | **100%** (13/13 SP) 🟢 DONE | EPIC-SCAN-02 Sprint 32 — Smart Packaged Food Scanning: Barcode & Nutrition Label OCR | 11/10/2026 | Sub-Agent PO & PM |
+| **v3.5.0** | **0%** (0/13 SP) 🟡 IN PROGRESS | EPIC-HYDRATE-01 Sprint 33 — Water Intake & Hydration Tracker | 19/10/2026 | Sub-Agent PO & PM |
 
 

@@ -31,7 +31,23 @@ function escapeHtml(str) {
 
 function renderUI(data) {
   if (!data) return;
+  const prevData = currentData;
   currentData = data;
+
+  if (prevData) {
+    if (prevData.current_gate !== data.current_gate) {
+      logTerminal("GATE", `⚡ Quality Gate transitioned: Gate ${prevData.current_gate} ➔ Gate ${data.current_gate}`);
+    }
+    if (prevData.sprint?.progress_percent !== data.sprint?.progress_percent) {
+      logTerminal("PROGRESS", `📊 Sprint progress: ${data.sprint.completed_sp}/${data.sprint.committed_sp} SP (${data.sprint.progress_percent}%)`);
+    }
+    if (prevData.stats?.done_tasks !== data.stats?.done_tasks) {
+      logTerminal("TASK", `🏁 Tasks completed: ${data.stats.done_tasks}/${data.stats.total_tasks}`);
+    }
+    if (prevData.sprint?.sprint_status !== data.sprint?.sprint_status) {
+      logTerminal("SPRINT", `🔄 Sprint status: ${data.sprint.sprint_status}`);
+    }
+  }
 
   // 1. Header & Project Metadata
   const pName = data.project?.project_name || data.project_name || "PROJECT";

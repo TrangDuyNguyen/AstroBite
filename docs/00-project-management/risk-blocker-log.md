@@ -2,13 +2,17 @@
 
 - **Quản lý bởi**: Sub-Agent Project Manager (PM)
 - **Mục tiêu**: Giám sát và tháo gỡ điểm nghẽn kỹ thuật sớm nhất, đảm bảo dòng chảy liên tục qua 6 Gates
-- **Cập nhật lần cuối**: 2026-09-29
+- **Cập nhật lần cuối**: 2026-10-19
 
 ---
 
-## 🚨 Bảng Quản Trị Rủi Ro & Blockers Đang Hoạt Động
+## 🚨 Bảng Quản Trị Rủi Ro & Blockers Đang Hoạt Động (Sprint 33)
 
-*(Hiện tại không có rủi ro hoặc blocker nào đang hoạt động — 0 Active / 0 Blockers. Toàn bộ rủi ro đã được hóa giải và kiểm thử tự động 100%.)*
+| Mã Rủi Ro | Ngày Phát Hiện | Phân Loại | Mô Tả Điểm Nghẽn Kỹ Thuật | Mức Độ | Phương Án Tháo Gỡ & Kiểm Soát | Sub-Agent Phụ Trách | Trạng Thái |
+|:---|:---:|:---:|:---|:---:|:---|:---:|:---:|
+| **`RSK-009`** | 2026-10-19 | **Data / Timezone** | Lượng nước uống (`FEAT-S33-WATER-TRACKER`) cần tự động reset về 0ml lúc 00:00 theo múi giờ địa phương của thiết bị, tránh lệch ngày giữa UTC và Local time. | **Thấp** | Khóa dữ liệu lưu trữ theo khóa ngày cục bộ `YYYY-MM-DD` (ISO 8601 date-only), truy vấn theo ngày địa phương; kiểm thử unit test mock Clock ngày mới. | `flutter-core-dev` & `qa-tester` | 🟢 **Controlled (Mitigation Plan Ready)** |
+
+*(Hiện tại không có blocker nào đang cản trở tiến độ — 0 Blockers. Tất cả các rủi ro trước đó đều đã Resolved.)*
 
 ---
 
