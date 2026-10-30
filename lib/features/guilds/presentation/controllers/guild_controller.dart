@@ -1,9 +1,29 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:astrobite/features/auth/domain/auth_providers.dart';
+import '../../data/datasources/guild_remote_datasource.dart';
+import '../../data/repositories/guild_repository_impl.dart';
 import '../../data/repositories/mock_guild_repository.dart';
 import '../../domain/models/guild.dart';
 import '../../domain/repositories/guild_repository.dart';
 
+final guildRemoteDatasourceProvider = Provider<GuildRemoteDatasource?>((ref) {
+  try {
+    return GuildRemoteDatasourceImpl();
+  } catch (_) {
+    return null;
+  }
+});
+
 final guildRepositoryProvider = Provider<GuildRepository>((ref) {
+  try {
+    final remote = ref.watch(guildRemoteDatasourceProvider);
+    final user = ref.watch(authRepositoryProvider).currentUser;
+
+    if (remote != null && user != null) {
+      return GuildRepositoryImpl(remoteDatasource: remote);
+    }
+  } catch (_) {}
+
   final repo = MockGuildRepository();
   ref.onDispose(() {
     repo.dispose();
@@ -12,6 +32,12 @@ final guildRepositoryProvider = Provider<GuildRepository>((ref) {
 });
 
 final currentUserIdProvider = Provider<String>((ref) {
+  try {
+    final user = ref.watch(authRepositoryProvider).currentUser;
+    if (user != null && user.uid.isNotEmpty) {
+      return user.uid;
+    }
+  } catch (_) {}
   return 'current_user';
 });
 

@@ -1,24 +1,67 @@
 import 'dart:async';
+import 'package:astrobite/features/social/data/datasources/social_remote_datasource.dart';
 import 'package:astrobite/features/social/domain/entities/leaderboard_entry.dart';
 
-/// Repository quản lý Bảng Xếp Hạng & Tương Tác Bạn Bè (Social & Leaderboard) — Gate 4
+/// Repository quản lý Bảng Xếp Hạng & Tương Tác Bạn Bè (Social & Leaderboard) — ASTRO-020 & ASTRO-021
 class SocialRepository {
   final String myAstroId;
+  final String currentUserId;
+  final String currentUserName;
+  final SocialRemoteDatasource? _remoteDatasource;
+
   final StreamController<List<LeaderboardEntry>> _controller =
       StreamController<List<LeaderboardEntry>>.broadcast();
 
   final List<LeaderboardEntry> _entries = [];
+  StreamSubscription<List<LeaderboardEntry>>? _remoteSubscription;
 
   SocialRepository({
     this.myAstroId = '#ASTRO-8821',
+    this.currentUserId = 'user_me',
+    this.currentUserName = 'TrangNguyen (Bạn)',
+    SocialRemoteDatasource? remoteDatasource,
     List<LeaderboardEntry>? initialEntries,
-  }) {
+  }) : _remoteDatasource = remoteDatasource {
     if (initialEntries != null && initialEntries.isNotEmpty) {
       _entries.addAll(initialEntries);
-    } else {
+      _sortAndEmit();
+    } else if (remoteDatasource == null) {
       _seedDefaultData();
+      _sortAndEmit();
+    } else {
+      _initRemote();
     }
-    _sortAndEmit();
+  }
+
+  void _initRemote() {
+    // Upsert bản thân lên leaderboard Firestore
+    final me = LeaderboardEntry(
+      uid: currentUserId,
+      name: currentUserName,
+      astroId: myAstroId,
+      streak: 42,
+      rank: 1,
+      isMe: true,
+      goalAchievedToday: true,
+    );
+    _remoteDatasource?.upsertUserLeaderboardEntry(me).catchError((_) {});
+
+    // Lắng nghe dữ liệu real-time từ Firestore
+    _remoteSubscription = _remoteDatasource
+        ?.watchLeaderboard(currentUserId)
+        .listen((remoteEntries) {
+      if (remoteEntries.isNotEmpty) {
+        _entries
+          ..clear()
+          ..addAll(remoteEntries);
+        _controller.add(List.unmodifiable(_entries));
+      }
+    }, onError: (_) {
+      if (_entries.isEmpty) {
+        _seedDefaultData();
+        _sortAndEmit();
+      }
+    });
   }
 
   void _seedDefaultData() {
@@ -32,8 +75,8 @@ class SocialRepository {
         goalAchievedToday: false,
       ),
       LeaderboardEntry(
-        uid: 'user_me',
-        name: 'TrangNguyen (Bạn)',
+        uid: currentUserId,
+        name: currentUserName,
         astroId: myAstroId,
         streak: 42,
         rank: 2,
@@ -68,9 +111,7 @@ class SocialRepository {
   }
 
   void _sortAndEmit() {
-    // Sắp xếp giảm dần theo streak
     _entries.sort((a, b) => b.streak.compareTo(a.streak));
-    // Gán lại thứ hạng
     for (int i = 0; i < _entries.length; i++) {
       _entries[i] = _entries[i].copyWith(rank: i + 1);
     }
@@ -79,7 +120,9 @@ class SocialRepository {
 
   /// Lắng nghe bảng xếp hạng cập nhật thời gian thực
   Stream<List<LeaderboardEntry>> watchLeaderboard() async* {
-    yield List.unmodifiable(_entries);
+    if (_entries.isNotEmpty) {
+      yield List.unmodifiable(_entries);
+    }
     yield* _controller.stream;
   }
 
@@ -101,23 +144,40 @@ class SocialRepository {
       throw StateError('Phi hành gia này đã có trong danh sách bạn bè.');
     }
 
-    // Giả lập độ trễ mạng kiểm tra backend < 300ms
-    await Future.delayed(const Duration(milliseconds: 150));
+    if (_remoteDatasource != null) {
+      final remoteFriend = await _remoteDatasource!.findUserByAstroId(formattedId);
+      final friendToAdd = remoteFriend ??
+          LeaderboardEntry(
+            uid: 'user_${DateTime.now().millisecondsSinceEpoch}',
+            name: 'Phi hành gia $formattedId',
+            astroId: formattedId,
+            streak: 1,
+            rank: _entries.length + 1,
+            goalAchievedToday: false,
+          );
 
-    final newFriend = LeaderboardEntry(
-      uid: 'user_${DateTime.now().millisecondsSinceEpoch}',
-      name: 'Phi hành gia $formattedId',
-      astroId: formattedId,
-      streak: 1,
-      rank: _entries.length + 1,
-      goalAchievedToday: false,
-    );
+      await _remoteDatasource!.addFriend(
+        currentUserId: currentUserId,
+        friendEntry: friendToAdd,
+      );
+      _entries.add(friendToAdd);
+    } else {
+      await Future.delayed(const Duration(milliseconds: 150));
+      final newFriend = LeaderboardEntry(
+        uid: 'user_${DateTime.now().millisecondsSinceEpoch}',
+        name: 'Phi hành gia $formattedId',
+        astroId: formattedId,
+        streak: 1,
+        rank: _entries.length + 1,
+        goalAchievedToday: false,
+      );
+      _entries.add(newFriend);
+    }
 
-    _entries.add(newFriend);
     _sortAndEmit();
   }
 
-  /// Gửi tín hiệu Streak Nudge (Cứu Streak) qua FCM
+  /// Gửi tín hiệu Streak Nudge (Cứu Streak) qua FCM & Firestore
   Future<bool> nudgeFriend(String astroId) async {
     final cleanId = astroId.trim().toUpperCase();
     final formattedId = cleanId.startsWith('#') ? cleanId : '#$cleanId';
@@ -136,8 +196,24 @@ class SocialRepository {
       throw StateError('Bạn đã gửi nhắc nhở cho người bạn này hôm nay.');
     }
 
-    // Giả lập gọi Cloud Function gửi FCM < 200ms
-    await Future.delayed(const Duration(milliseconds: 120));
+    if (_remoteDatasource != null) {
+      final alreadyNudged = await _remoteDatasource!.hasNudgedToday(
+        senderId: currentUserId,
+        targetUserId: target.uid,
+      );
+      if (alreadyNudged) {
+        throw StateError('Bạn đã gửi nhắc nhở cho người bạn này hôm nay.');
+      }
+
+      await _remoteDatasource!.sendNudge(
+        senderId: currentUserId,
+        senderName: currentUserName,
+        senderAstroId: myAstroId,
+        targetUserId: target.uid,
+      );
+    } else {
+      await Future.delayed(const Duration(milliseconds: 120));
+    }
 
     _entries[index] = target.copyWith(isNudgedToday: true);
     _sortAndEmit();
@@ -145,6 +221,7 @@ class SocialRepository {
   }
 
   void dispose() {
+    _remoteSubscription?.cancel();
     _controller.close();
   }
 }

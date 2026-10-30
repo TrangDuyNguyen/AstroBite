@@ -1,10 +1,33 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:astrobite/features/auth/domain/auth_providers.dart';
+import 'package:astrobite/features/social/data/datasources/social_remote_datasource.dart';
 import 'package:astrobite/features/social/data/repositories/social_repository.dart';
 import 'package:astrobite/features/social/domain/entities/leaderboard_entry.dart';
 
+/// Provider cung cấp SocialRemoteDatasource (hoặc null nếu Firestore chưa sẵn sàng)
+final socialRemoteDatasourceProvider = Provider<SocialRemoteDatasource?>((ref) {
+  try {
+    return SocialRemoteDatasourceImpl();
+  } catch (_) {
+    return null;
+  }
+});
+
 /// Provider cung cấp SocialRepository
 final socialRepositoryProvider = Provider<SocialRepository>((ref) {
-  final repo = SocialRepository();
+  final user = ref.watch(authRepositoryProvider).currentUser;
+  final remote = ref.watch(socialRemoteDatasourceProvider);
+
+  final repo = SocialRepository(
+    currentUserId: user?.uid ?? 'user_me',
+    currentUserName: (user?.displayName != null && user!.displayName!.isNotEmpty)
+        ? '${user.displayName} (Bạn)'
+        : 'TrangNguyen (Bạn)',
+    myAstroId: user?.uid != null
+        ? '#AST-${user!.uid.substring(0, user.uid.length >= 4 ? 4 : user.uid.length).toUpperCase()}'
+        : '#ASTRO-8821',
+    remoteDatasource: user != null ? remote : null,
+  );
   ref.onDispose(() => repo.dispose());
   return repo;
 });
