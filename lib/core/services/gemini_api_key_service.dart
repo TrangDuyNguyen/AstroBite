@@ -27,10 +27,13 @@ class GeminiApiKeyState {
   /// True if currently using custom key configured by the user.
   bool get isUsingCustomKey => customKey.isNotEmpty;
 
+  /// True if running in secure backend proxy mode via Cloud Function (ASTRO-005).
+  bool get isProxyMode => activeKey.isEmpty;
+
   /// Masked version of the active key for safe UI display.
   String get maskedActiveKey {
     final key = activeKey;
-    if (key.isEmpty) return 'Chưa cấu hình';
+    if (key.isEmpty) return 'Backend Proxy (Cloud Functions)';
     if (key.length <= 8) return '••••••••';
     return '${key.substring(0, 4)}••••••••${key.substring(key.length - 4)}';
   }

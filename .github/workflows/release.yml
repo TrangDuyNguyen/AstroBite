@@ -114,8 +114,11 @@ jobs:
           if [ -n "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" ]; then
             echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 -d > android/app/upload-keystore.jks
           fi
-          if [ -n "${{ secrets.ANDROID_KEY_PROPERTIES }}" ]; then
-            echo "${{ secrets.ANDROID_KEY_PROPERTIES }}" > android/key.properties
+          # 4. Distribution Credentials Flag (ASTRO-026)
+          if [ -n "${{ secrets.FIREBASE_APP_DISTRIBUTION_CREDENTIALS }}" ]; then
+            echo "HAS_FIREBASE_CREDENTIALS=true" >> $GITHUB_ENV
+          else
+            echo "HAS_FIREBASE_CREDENTIALS=false" >> $GITHUB_ENV
           fi
 
       - name: 📦 Install Flutter Dependencies
@@ -143,9 +146,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: 📱 Distribute Android APK to Firebase Testers
-        if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'release'
-        continue-on-error: true
+      - name: 📱 Distribute Android APK to Firebase Testers (ASTRO-026)
+        if: (startsWith(github.ref, 'refs/tags/v') || github.event_name == 'release') && env.HAS_FIREBASE_CREDENTIALS == 'true'
         uses: wzieba/Firebase-Distribution-Github-Action@v1
         with:
           appId: ${{ secrets.FIREBASE_APP_ID_ANDROID || '1:925552313324:android:31ea07eec9ad23375d36c9' }}
@@ -153,6 +155,21 @@ jobs:
           groups: ${{ secrets.FIREBASE_TESTER_GROUPS || 'internal-testers' }}
           file: build/app/outputs/flutter-apk/app-release.apk
           releaseNotes: "AstroBite Release ${{ github.ref_name || 'Automated Release' }} — APK for Testers"
+
+      - name: 📋 Android Delivery Summary (ASTRO-026)
+        if: always()
+        run: |
+          echo "## 🤖 Android Release & Delivery Summary" >> $GITHUB_STEP_SUMMARY
+          if [ -f "build/app/outputs/flutter-apk/app-release.apk" ]; then
+            echo "- ✅ **APK Build**: Generated successfully (\`app-release.apk\`)" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "- ❌ **APK Build**: Missing artifact" >> $GITHUB_STEP_SUMMARY
+          fi
+          if [ "${{ env.HAS_FIREBASE_CREDENTIALS }}" = "true" ]; then
+            echo "- 🚀 **Firebase Distribution**: Dispatched to internal testers" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "- ⚠️ **Firebase Distribution**: Skipped (no credentials configured)" >> $GITHUB_STEP_SUMMARY
+          fi
 
   # =========================================================================
   # 🍎 JOB 2: IOS RELEASE BUILD (IPA)
@@ -205,6 +222,13 @@ jobs:
             echo "${{ secrets.GOOGLE_SERVICE_INFO_PLIST_BASE64 }}" | base64 -d > ios/Runner/GoogleService-Info.plist
           fi
 
+          # 3. Distribution Credentials Flag (ASTRO-026)
+          if [ -n "${{ secrets.FIREBASE_APP_DISTRIBUTION_CREDENTIALS }}" ]; then
+            echo "HAS_FIREBASE_CREDENTIALS=true" >> $GITHUB_ENV
+          else
+            echo "HAS_FIREBASE_CREDENTIALS=false" >> $GITHUB_ENV
+          fi
+
       - name: 📦 Install Flutter Dependencies & CocoaPods
         run: |
           flutter pub get
@@ -241,17 +265,21 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: 📱 Distribute iOS IPA to Firebase Testers
+      - name: 📱 Distribute iOS IPA to Firebase Testers (ASTRO-026)
         if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'release'
-        continue-on-error: true
         run: |
           IPA_FILE=$(ls build/ios/ipa/*.ipa 2>/dev/null | head -n 1 || true)
           if [ -z "$IPA_FILE" ]; then
-            echo "::notice ::No .ipa artifact generated (archive generated instead). Skipping Firebase App Distribution for iOS."
-            exit 0
+            if [ "${{ startsWith(github.ref, 'refs/tags/v') }}" = "true" ]; then
+              echo "::error ::Release delivery failed: No .ipa artifact found in build/ios/ipa/ for distribution (ASTRO-026)."
+              exit 1
+            else
+              echo "::notice ::No .ipa artifact generated (archive generated instead). Skipping Firebase App Distribution for iOS."
+              exit 0
+            fi
           fi
 
-          if [ -z "${{ secrets.FIREBASE_APP_DISTRIBUTION_CREDENTIALS }}" ]; then
+          if [ "${{ env.HAS_FIREBASE_CREDENTIALS }}" != "true" ]; then
             echo "::notice ::No FIREBASE_APP_DISTRIBUTION_CREDENTIALS secret configured. Skipping upload."
             exit 0
           fi
@@ -263,3 +291,19 @@ jobs:
             --app "${{ secrets.FIREBASE_APP_ID_IOS || '1:925552313324:ios:d8bb8269224dff455d36c9' }}" \
             --groups "${{ secrets.FIREBASE_TESTER_GROUPS || 'internal-testers' }}" \
             --release-notes "AstroBite iOS Release ${{ github.ref_name || 'Automated Release' }} — IPA for Testers"
+
+      - name: 📋 iOS Delivery Summary (ASTRO-026)
+        if: always()
+        run: |
+          echo "## 🍎 iOS Release & Delivery Summary" >> $GITHUB_STEP_SUMMARY
+          IPA_FILE=$(ls build/ios/ipa/*.ipa 2>/dev/null | head -n 1 || true)
+          if [ -n "$IPA_FILE" ]; then
+            echo "- ✅ **IPA Build**: Generated successfully (\`$IPA_FILE\`)" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "- ⚠️ **IPA Build**: No IPA artifact (Archive generated)" >> $GITHUB_STEP_SUMMARY
+          fi
+          if [ "${{ env.HAS_FIREBASE_CREDENTIALS }}" = "true" ] && [ -n "$IPA_FILE" ]; then
+            echo "- 🚀 **Firebase Distribution**: Dispatched to internal testers" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "- ⚠️ **Firebase Distribution**: Skipped" >> $GITHUB_STEP_SUMMARY
+          fi

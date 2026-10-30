@@ -76,10 +76,12 @@ void main() {
 
     test('maskedActiveKey handles short or empty keys gracefully', () {
       const emptyState = GeminiApiKeyState(customKey: '', defaultKey: '');
-      expect(emptyState.maskedActiveKey, 'Chưa cấu hình');
+      expect(emptyState.maskedActiveKey, 'Backend Proxy (Cloud Functions)');
+      expect(emptyState.isProxyMode, isTrue);
 
       const shortState = GeminiApiKeyState(customKey: '1234', defaultKey: '');
       expect(shortState.maskedActiveKey, '••••••••');
+      expect(shortState.isProxyMode, isFalse);
     });
   });
 }
