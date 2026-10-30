@@ -21,16 +21,22 @@ class FoodLogRepositoryImpl implements FoodLogRepository {
 
   List<FoodLogDto> _deduplicateLogs(List<FoodLogDto> logs) {
     final seenIds = <String>{};
-    final seenSignatures = <String>{};
+    final seenOfflineSignatures = <String>{};
     final result = <FoodLogDto>[];
 
     for (final log in logs) {
       if (log.id.isNotEmpty && !seenIds.add(log.id)) {
         continue;
       }
-      final sig = _logSignature(log);
-      if (!seenSignatures.add(sig)) {
-        continue;
+      // ASTRO-012: Only deduplicate pending/offline artifacts with matching signatures;
+      // preserve legitimate distinct meals that share dish name, calories & weight.
+      final isOfflineOrPending = log.id.startsWith('offline') ||
+          log.syncStatus == 'pending_sync';
+      if (isOfflineOrPending) {
+        final sig = _logSignature(log);
+        if (!seenOfflineSignatures.add(sig)) {
+          continue;
+        }
       }
       result.add(log);
     }
@@ -60,41 +66,60 @@ class FoodLogRepositoryImpl implements FoodLogRepository {
     }
     yield deduplicatedInitial;
 
-    // 2. Stream remote updates with offline resilience
-    try {
-      await for (final remoteLogs in _remoteDatasource.watchDailyLogs(
-        userId: userId,
-        date: date,
-      )) {
-        // Retain pending sync local items not yet in remote
-        final pending = await _localDatasource.getPendingSyncLogs(userId: userId);
-        final pendingForDate = pending.where((p) => p.date == date).toList();
+    // 2. Stream remote updates with offline resilience and automatic retry (ASTRO-017)
+    int retryDelayMs = 1000;
+    const maxRetries = 5;
+    int attempts = 0;
 
-        final remoteIds = remoteLogs.map((r) => r.id).toSet();
-        final remoteSignatures = remoteLogs
-            .map((r) => _logSignature(r))
-            .toSet();
-
-        final filteredPending = pendingForDate.where((p) {
-          if (remoteIds.contains(p.id)) return false;
-          if (remoteSignatures.contains(_logSignature(p))) return false;
-          return true;
-        }).toList();
-
-        final merged = _deduplicateLogs([
-          ...remoteLogs,
-          ...filteredPending,
-        ]);
-
-        await _localDatasource.saveCachedLogs(
+    while (attempts < maxRetries) {
+      try {
+        await for (final remoteLogs in _remoteDatasource.watchDailyLogs(
           userId: userId,
           date: date,
-          logs: merged,
-        );
-        yield merged;
+        )) {
+          // Reset retry backoff upon successful remote emission
+          retryDelayMs = 1000;
+          attempts = 0;
+
+          // Retain pending sync local items not yet in remote
+          final pending = await _localDatasource.getPendingSyncLogs(userId: userId);
+          final pendingForDate = pending.where((p) => p.date == date).toList();
+
+          // ASTRO-011: Filter out remote logs that have a pending delete tombstone locally
+          final pendingDeletes = await _localDatasource.getPendingDeleteLogs(userId: userId);
+          final activeRemoteLogs = remoteLogs.where((r) => !pendingDeletes.contains(r.id)).toList();
+
+          final remoteIds = activeRemoteLogs.map((r) => r.id).toSet();
+          final remoteSignatures = activeRemoteLogs
+              .map((r) => _logSignature(r))
+              .toSet();
+
+          final filteredPending = pendingForDate.where((p) {
+            if (remoteIds.contains(p.id)) return false;
+            if (remoteSignatures.contains(_logSignature(p))) return false;
+            return true;
+          }).toList();
+
+          final merged = _deduplicateLogs([
+            ...activeRemoteLogs,
+            ...filteredPending,
+          ]);
+
+          await _localDatasource.saveCachedLogs(
+            userId: userId,
+            date: date,
+            logs: merged,
+          );
+          yield merged;
+        }
+        break; // Stream finished normally
+      } catch (_) {
+        attempts++;
+        if (attempts >= maxRetries) break;
+        // Resubscribe after transient disconnect with exponential backoff
+        await Future<void>.delayed(Duration(milliseconds: retryDelayMs));
+        retryDelayMs = (retryDelayMs * 2).clamp(1000, 16000);
       }
-    } catch (_) {
-      // Fallback: stay on cached logs if network stream errors
     }
   }
 
@@ -162,10 +187,20 @@ class FoodLogRepositoryImpl implements FoodLogRepository {
       userId: userId,
       logId: logId,
     );
+    // ASTRO-011: Record pending delete tombstone
+    await _localDatasource.addToPendingDeleteQueue(
+      userId: userId,
+      logId: logId,
+    );
+
     try {
       await _remoteDatasource.deleteFoodLog(userId: userId, logId: logId);
+      await _localDatasource.removeFromPendingDeleteQueue(
+        userId: userId,
+        logId: logId,
+      );
     } catch (_) {
-      // Offline: best effort remote delete
+      // Offline: tombstone remains in pending-delete queue until syncPendingLogs runs
     }
   }
 
@@ -184,8 +219,24 @@ class FoodLogRepositoryImpl implements FoodLogRepository {
 
   @override
   Future<int> syncPendingLogs({required String userId}) async {
-    final pending = await _localDatasource.getPendingSyncLogs(userId: userId);
     int syncedCount = 0;
+
+    // ASTRO-011: Synchronize pending deletes first
+    final pendingDeletes = await _localDatasource.getPendingDeleteLogs(userId: userId);
+    for (final logId in pendingDeletes) {
+      try {
+        await _remoteDatasource.deleteFoodLog(userId: userId, logId: logId);
+        await _localDatasource.removeFromPendingDeleteQueue(
+          userId: userId,
+          logId: logId,
+        );
+        syncedCount++;
+      } catch (_) {
+        // Retain tombstone for subsequent sync retry
+      }
+    }
+
+    final pending = await _localDatasource.getPendingSyncLogs(userId: userId);
 
     for (final log in pending) {
       try {

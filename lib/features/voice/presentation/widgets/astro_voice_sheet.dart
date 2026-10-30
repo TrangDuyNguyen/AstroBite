@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:astrobite/features/auth/domain/auth_providers.dart';
 import 'package:astrobite/features/coach/presentation/widgets/meal_quick_log_card.dart';
+import 'package:astrobite/features/gamification/presentation/controllers/streak_controller.dart';
 import 'package:astrobite/features/tracker/domain/tracker_providers.dart';
 import 'package:astrobite/shared/ui_kit/ui_kit.dart';
 import '../controllers/voice_log_controller.dart';
@@ -52,6 +53,8 @@ class _AstroVoiceSheetState extends ConsumerState<AstroVoiceSheet> {
         .saveMealLog(
           userId: user.uid,
           foodLogRepo: ref.read(foodLogRepositoryProvider),
+          onMealRecorded: ({DateTime? date}) =>
+              ref.read(streakNotifierProvider.notifier).recordMeal(date: date),
         );
 
     if (success && mounted) {

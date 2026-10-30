@@ -102,5 +102,15 @@ void main() {
       queue = await datasource.getPendingSyncLogs(userId: 'user-1');
       expect(queue, isEmpty);
     });
+
+    test('manages pending delete tombstone queue correctly (ASTRO-011)', () async {
+      await datasource.addToPendingDeleteQueue(userId: 'user-1', logId: 'del-log-1');
+      var deletes = await datasource.getPendingDeleteLogs(userId: 'user-1');
+      expect(deletes, contains('del-log-1'));
+
+      await datasource.removeFromPendingDeleteQueue(userId: 'user-1', logId: 'del-log-1');
+      deletes = await datasource.getPendingDeleteLogs(userId: 'user-1');
+      expect(deletes, isEmpty);
+    });
   });
 }

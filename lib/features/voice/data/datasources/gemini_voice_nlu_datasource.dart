@@ -1,5 +1,6 @@
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:astrobite/core/constants/app_keys.dart';
+import 'package:astrobite/core/constants/gemini_config.dart';
 import 'package:astrobite/core/services/gemini_api_key_service.dart';
 import 'package:astrobite/core/utils/json_parser.dart';
 import '../../domain/entities/voice_log_result.dart';
@@ -15,14 +16,7 @@ class GeminiVoiceNluDatasource {
   final GenerativeModel? _model;
   final Future<String> Function() _apiKeyResolver;
 
-  static const candidateModels = [
-    'gemini-flash-lite-latest',
-    'gemini-3.5-flash',
-    'gemini-3.6-flash',
-    'gemini-3.5-flash-lite',
-    'gemini-flash-latest',
-    'gemini-3.8-flash',
-  ];
+  static const candidateModels = GeminiConfig.candidateModels;
 
   static const _nluSystemPrompt = '''
 You are an expert Vietnamese nutritionist and Natural Language Understanding (NLU) AI for AstroBite.
@@ -183,8 +177,11 @@ Extract the nutritional information in strict JSON.
           rethrow;
         }
 
-        // On quota/timeout/overload, try next candidate model
-        continue;
+        // ASTRO-008: Only fallback on transient capacity / rate limit / model errors
+        if (GeminiConfig.isTransientError(e)) {
+          continue;
+        }
+        rethrow;
       }
     }
 

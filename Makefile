@@ -16,7 +16,7 @@ help:
 	@echo "======================================================="
 
 setup:
-	@bash scripts/setup-workspace.sh
+	flutter pub get
 
 update:
 	@bash scripts/sync-submodules.sh
@@ -25,14 +25,10 @@ status:
 	@bash scripts/check-status.sh
 
 pull:
-	git pull --recurse-submodules
+	git pull
 
 test-fe:
-	@if [ -d "frontend" ]; then \
-		cd frontend && flutter test; \
-	else \
-		flutter test; \
-	fi
+	flutter test
 
 check-files:
 	@bash scripts/check_file_length.sh

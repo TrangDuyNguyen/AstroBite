@@ -31,4 +31,7 @@ abstract class WaterRepository {
     required String date,
     required int targetMl,
   });
+
+  /// Synchronizes all pending offline water logs to remote Firestore (ASTRO-014)
+  Future<int> syncPendingWaterLogs({required String userId});
 }

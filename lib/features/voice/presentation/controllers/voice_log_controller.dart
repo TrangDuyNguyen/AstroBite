@@ -134,6 +134,7 @@ class VoiceLogController extends StateNotifier<VoiceLogState> {
   Future<bool> saveMealLog({
     required String userId,
     required FoodLogRepository foodLogRepo,
+    Future<void> Function({DateTime? date})? onMealRecorded,
   }) async {
     final res = state.result;
     if (res == null) return false;
@@ -162,6 +163,7 @@ class VoiceLogController extends StateNotifier<VoiceLogState> {
       );
 
       await foodLogRepo.addFoodLog(userId: userId, log: log);
+      await onMealRecorded?.call(date: now);
       state = state.copyWith(isSaving: false);
       return true;
     } catch (e) {

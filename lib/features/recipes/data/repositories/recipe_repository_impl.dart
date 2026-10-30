@@ -17,14 +17,10 @@ class RecipeRepositoryImpl implements RecipeRepository {
   @override
   Future<List<Recipe>> getRecipes(String userId) async {
     if (userId.trim().isEmpty) return [];
-    try {
-      final snap = await _col(userId)
-          .orderBy('createdAt', descending: true)
-          .get();
-      return snap.docs.map((d) => _fromDoc(d.id, d.data())).toList();
-    } catch (_) {
-      return [];
-    }
+    final snap = await _col(userId)
+        .orderBy('createdAt', descending: true)
+        .get();
+    return snap.docs.map((d) => _fromDoc(d.id, d.data())).toList();
   }
 
   @override

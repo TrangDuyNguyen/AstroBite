@@ -160,6 +160,21 @@ void main() {
       expect(cachedAfter.length, 1);
     });
 
+    test('watchDailyLogs preserves legitimate distinct meals with same name, calories and weight (ASTRO-012)', () async {
+      final meal1 = testLog.copyWith(id: 'legit-snack-1', syncStatus: 'synced');
+      final meal2 = testLog.copyWith(id: 'legit-snack-2', syncStatus: 'synced');
+      await localDatasource.saveCachedLogs(
+        userId: 'user-1',
+        date: '2026-09-18',
+        logs: [meal1, meal2],
+      );
+
+      final stream = repository.watchDailyLogs(userId: 'user-1', date: '2026-09-18');
+      final firstEmission = await stream.first;
+
+      expect(firstEmission.length, 2);
+    });
+
     test('watchDailyLogs prevents duplicate pending log when remote already contains identical dish', () async {
       fakeRemote.remoteStore.add(
         testLog.copyWith(id: 'remote-doc-1', syncStatus: 'synced'),

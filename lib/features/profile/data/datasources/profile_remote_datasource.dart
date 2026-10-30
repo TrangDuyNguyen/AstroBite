@@ -16,8 +16,7 @@ class ProfileRemoteDatasource {
         .map((snapshot) {
           if (!snapshot.exists || snapshot.data() == null) return null;
           return UserProfileDto.fromJson({...snapshot.data()!, 'uid': userId});
-        })
-        .handleError((_) => null);
+        });
   }
 
   Future<UserProfileDto?> getProfile(String userId) async {

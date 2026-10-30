@@ -103,5 +103,10 @@ void main() {
       expect(firstEvent.currentMl, 500);
       expect(firstEvent.entries.length, 1);
     });
+
+    test('syncPendingWaterLogs returns 0 when no pending logs are queued (ASTRO-014)', () async {
+      final synced = await repository.syncPendingWaterLogs(userId: 'usr_test_1');
+      expect(synced, 0);
+    });
   });
 }

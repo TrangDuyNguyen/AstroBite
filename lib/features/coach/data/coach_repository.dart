@@ -3,6 +3,7 @@ import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:intl/intl.dart';
 
 import 'package:astrobite/core/constants/app_keys.dart';
+import 'package:astrobite/core/constants/gemini_config.dart';
 import 'package:astrobite/core/services/gemini_api_key_service.dart';
 import '../domain/chat_message.dart';
 
@@ -71,14 +72,7 @@ Quy tắc bắt buộc / Mandatory Rules:
 Nếu chỉ có món ăn đơn giản, bạn có thể chỉ cần sinh `MealQuickLogCard`.
 ''';
 
-  static const candidateModels = [
-    'gemini-flash-lite-latest',
-    'gemini-3.5-flash',
-    'gemini-3.6-flash',
-    'gemini-3.5-flash-lite',
-    'gemini-flash-latest',
-    'gemini-3.8-flash',
-  ];
+  static const candidateModels = GeminiConfig.candidateModels;
 
   /// Sends a message to Gemini with daily meal context and returns AI response.
   Future<String> sendMessage({
@@ -155,8 +149,11 @@ Nếu chỉ có món ăn đơn giản, bạn có thể chỉ cần sinh `MealQui
           rethrow;
         }
 
-        // On capacity / high demand (503), quota (429), not found (404), or timeout, fallback to next model
-        continue;
+        // ASTRO-008: Only fallback on transient capacity / rate limit / model errors
+        if (GeminiConfig.isTransientError(e)) {
+          continue;
+        }
+        rethrow;
       }
     }
 

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:astrobite/features/widgets/widget_sync_service.dart';
 import 'package:astrobite/l10n/app_localizations.dart';
 import 'core/services/locale_service.dart';
+import 'core/services/network_sync_coordinator.dart';
 import 'core/theme/app_theme.dart';
 import 'core/router/app_router.dart';
 
@@ -20,6 +21,7 @@ class _AstroBiteAppState extends ConsumerState<AstroBiteApp> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(networkSyncCoordinatorProvider).initialize();
       ref.read(widgetSyncServiceProvider).initDeepLink((uri) {
         if (uri != null) {
           final isScanner = uri.host == 'scanner' || uri.path.contains('scanner');

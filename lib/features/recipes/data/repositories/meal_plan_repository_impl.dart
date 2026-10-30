@@ -16,15 +16,11 @@ class MealPlanRepositoryImpl implements MealPlanRepository {
   @override
   Future<List<MealPlanItem>> getMealPlanItems(String userId, String date) async {
     if (userId.trim().isEmpty) return [];
-    try {
-      final snap = await _col(userId)
-          .where('date', isEqualTo: date)
-          .orderBy('mealType')
-          .get();
-      return snap.docs.map((d) => _fromDoc(d.id, d.data())).toList();
-    } catch (_) {
-      return [];
-    }
+    final snap = await _col(userId)
+        .where('date', isEqualTo: date)
+        .orderBy('mealType')
+        .get();
+    return snap.docs.map((d) => _fromDoc(d.id, d.data())).toList();
   }
 
   @override

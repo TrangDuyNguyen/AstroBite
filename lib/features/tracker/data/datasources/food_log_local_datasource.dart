@@ -15,6 +15,7 @@ class FoodLogLocalDatasource {
       'cached_food_logs_${userId}_$date';
 
   String _queueKey(String userId) => 'pending_sync_queue_$userId';
+  String _deleteQueueKey(String userId) => 'pending_delete_queue_$userId';
 
   Future<List<FoodLogDto>> getCachedLogs({
     required String userId,
@@ -151,6 +152,45 @@ class FoodLogLocalDatasource {
           _queueKey(userId),
           jsonEncode(cleaned.map((l) => l.toJson()).toList()),
         );
+      }
+    } catch (_) {}
+  }
+
+  /// ASTRO-011: Retrieves pending delete tombstone log IDs.
+  Future<List<String>> getPendingDeleteLogs({required String userId}) async {
+    try {
+      final prefs = await _getPrefs();
+      return prefs.getStringList(_deleteQueueKey(userId)) ?? [];
+    } catch (_) {
+      return [];
+    }
+  }
+
+  /// ASTRO-011: Adds log ID to pending delete tombstone queue.
+  Future<void> addToPendingDeleteQueue({
+    required String userId,
+    required String logId,
+  }) async {
+    try {
+      final prefs = await _getPrefs();
+      final list = prefs.getStringList(_deleteQueueKey(userId)) ?? [];
+      if (!list.contains(logId)) {
+        list.add(logId);
+        await prefs.setStringList(_deleteQueueKey(userId), list);
+      }
+    } catch (_) {}
+  }
+
+  /// ASTRO-011: Removes log ID from pending delete tombstone queue upon successful deletion.
+  Future<void> removeFromPendingDeleteQueue({
+    required String userId,
+    required String logId,
+  }) async {
+    try {
+      final prefs = await _getPrefs();
+      final list = prefs.getStringList(_deleteQueueKey(userId)) ?? [];
+      if (list.remove(logId)) {
+        await prefs.setStringList(_deleteQueueKey(userId), list);
       }
     } catch (_) {}
   }

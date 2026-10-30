@@ -2,10 +2,27 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     match /users/{userId} {
-      allow read, write: if request.auth != null && request.auth.uid == userId;
+      allow read: if request.auth != null && request.auth.uid == userId;
+
+      // ASTRO-006: Field-level schema validation for user root document
+      allow write: if request.auth != null && request.auth.uid == userId
+        && request.resource.data.keys().hasOnly([
+          'uid', 'gender', 'birthYear', 'heightCm', 'weightKg',
+          'activityLevel', 'dailyTargetCalories', 'isOnboardingCompleted',
+          'targetWeightKg', 'fitnessGoal',
+          'healthConnected', 'healthKitConnected', 'healthLastSync',
+          'displayName', 'email', 'photoUrl', 'createdAt', 'updatedAt'
+        ])
+        && (!request.resource.data.keys().hasAny(['dailyTargetCalories']) || (request.resource.data.dailyTargetCalories is int && request.resource.data.dailyTargetCalories >= 500 && request.resource.data.dailyTargetCalories <= 15000))
+        && (!request.resource.data.keys().hasAny(['heightCm']) || (request.resource.data.heightCm is number && request.resource.data.heightCm > 0 && request.resource.data.heightCm < 300))
+        && (!request.resource.data.keys().hasAny(['weightKg']) || (request.resource.data.weightKg is number && request.resource.data.weightKg > 0 && request.resource.data.weightKg < 500));
 
       // User personal subcollections
       match /foodLogs/{logId} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+
+      match /water_logs/{dateId} {
         allow read, write: if request.auth != null && request.auth.uid == userId;
       }
 

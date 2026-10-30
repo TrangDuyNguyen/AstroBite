@@ -54,6 +54,7 @@ dependencies:
   path_provider: ^2.1.5
   speech_to_text: ^7.4.0
   lottie: ^3.3.1
+  connectivity_plus: ^7.3.1
 
 dev_dependencies:
   flutter_test:

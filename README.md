@@ -21,7 +21,7 @@ All features are presented inside an appetizing, playful **Claymorphic × Duolin
 
 ## ✨ Key Features
 
-- 📸 **AI Food Scanner**: Instant meal photo recognition with multi-macro estimation (Calories, Protein, Carbs, Fat) via Google Gemini Vision API (`firebase_ai`).
+- 📸 **AI Food Scanner**: Instant meal photo recognition with multi-macro estimation (Calories, Protein, Carbs, Fat) via Google Gemini Vision API (`google_generative_ai`).
 - ⚡ **Vietnamese & Global Cuisine Support**: Accurate estimation for complex mixed dishes (Phở, Cơm tấm, Bún chả, Salad, etc.).
 - 📊 **Real-time Calorie & Macro Dashboard**: Interactive progress arcs and custom macro bars displaying daily intake goals vs. remaining budget.
 - 📈 **Analytics & Trend Insights**: Interactive nutrition and weight progress visualization powered by `fl_chart`.
@@ -40,7 +40,7 @@ All features are presented inside an appetizing, playful **Claymorphic × Duolin
   - Firebase Core & Authentication
   - Cloud Firestore & Cloud Storage
   - Firebase App Check
-  - Google Gemini Multimodal AI via `firebase_ai`
+  - Google Gemini Multimodal AI via `google_generative_ai` (Gemini 2.0 Flash / Gemini 3.5 Flash)
 - **Data Modeling**: [Freezed](https://pub.dev/packages/freezed) & `json_serializable`
 - **Charts & UI**: `fl_chart`, `google_fonts`, custom glassmorphism widgets
 
@@ -59,11 +59,16 @@ lib/
 │   ├── analytics/                # Progress charts and historical statistics
 │   ├── auth/                     # Authentication & onboarding
 │   ├── coach/                    # AI Nutrition Coach & GenUI widgets
+│   ├── gamification/             # Cosmic Streak, Starlight Shields & Badges
+│   ├── guilds/                   # Planetary Challenges & Community Guilds
 │   ├── health/                   # HealthKit & Health Connect synchronization
 │   ├── profile/                  # User profile & nutritional targets
 │   ├── recipes/                  # Recipe builder & weekly meal planner
 │   ├── scanner/                  # Camera snapshot, Gemini AI multimodal analysis
-│   └── tracker/                  # Daily food diary & meal logs
+│   ├── social/                   # Friend leaderboard & encouragement nudges
+│   ├── tracker/                  # Daily food diary, macro tracker & water logs
+│   ├── voice/                    # AstroVoice hands-free Vietnamese food logging
+│   └── widgets/                  # iOS WidgetKit & Android AppWidget synchronization
 ├── shared/                       # Cross-feature reusable UI components & Design System
 │   ├── ui_kit/                   # Central Claymorphic UI Kit (ui_kit.dart barrel)
 │   │   ├── surfaces/             # ClayCard, ClaySheet
@@ -100,26 +105,28 @@ For typography, spacing scales (4pt grid), and UI Kit specifications, refer to [
 
 ---
 
-## 🏛️ Workspace Architecture & Git Submodules
-
-AstroBite adopts an **Enterprise Super-Repo Architecture** coordinating 3 dedicated submodules:
+## 🏛️ Repository Architecture & Workspace
+ 
+AstroBite adopts a **Unified Mono-Repo Architecture** containing source code, product specifications, and quality assurance suites in a single cohesive repository:
 
 ```
-AstroBite/ (Super-Repo / Workspace Coordinator)
-├── .gitmodules                         # Submodule mapping definitions
-├── Makefile                            # Workspace management automation
-├── scripts/                            # Setup & synchronization scripts
-├── docs/                               # 📁 [Submodule] astrobite-ba-docs (BABOK/Agile BA Specs)
-├── tests/                              # 📁 [Submodule] astrobite-testcases (QA Strategy, Testcases & BDD)
-└── frontend/                           # 📁 [Submodule] astrobite-frontend (Flutter Clean Architecture)
+AstroBite/
+├── lib/                                # Flutter application source code (Clean Architecture)
+├── test/                               # 374 Automated unit & widget tests (100% pass)
+├── docs/                               # Product & architecture specs (BABOK/Agile PRDs)
+├── tests/                              # QA strategy, test matrices & BDD Gherkin scenarios
+├── android/                            # Android native host & AppWidget provider
+├── ios/                                # iOS native host & WidgetKit extension
+├── Makefile                            # Developer workflow automation
+└── scripts/                            # Linting and verification scripts
 ```
 
-### ⚡ Quick Workspace Commands
-- `make setup`  : Initialize and clone all submodules recursively.
-- `make update` : Synchronize submodules to their latest remote commits.
-- `make status` : Check Git branch and diff status across root and submodules.
-- `make pull`   : Pull root repository and all submodules concurrently.
-- `make test-fe`: Run unit/widget tests for the Flutter frontend.
+### ⚡ Quick Developer Commands
+- `make setup`     : Install Flutter dependencies (`flutter pub get`).
+- `make test-fe`   : Run the full automated unit & widget test suite (`flutter test`).
+- `make check-files`: Run Ponytail file length & complexity guard checks.
+- `make status`    : Check Git branch and workspace status.
+- `make pull`      : Pull latest changes from remote.
 
 ---
 
