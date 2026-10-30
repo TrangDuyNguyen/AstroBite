@@ -191,5 +191,6 @@ flutter test --coverage
 
 - 🎨 [Design System Specification (DESIGN.md)](DESIGN.md)
 - 📐 [Product & Architecture Specs (docs/superpowers/specs/)](docs/superpowers/specs/2026-07-27-astrobite-design.md)
+- 📊 [SLAs Performance Benchmarks & AI Ground-Truth Report](docs/superpowers/specs/2026-10-30-astrobite-performance-benchmarks.md)
 - 📋 [MVP Implementation Plan (docs/superpowers/plans/)](docs/superpowers/plans/2026-07-27-astrobite-mvp.md)
 - 🤖 [AI Development Instructions (AGENTS.md)](AGENTS.md)

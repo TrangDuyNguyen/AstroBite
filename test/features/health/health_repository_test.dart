@@ -49,5 +49,21 @@ void main() {
       final success = await repository.writeDietaryEnergy(450.0, DateTime.now());
       expect(success, isFalse);
     });
+
+    test('writeDietaryEnergy rejects zero or negative calories immediately', () async {
+      expect(await repository.writeDietaryEnergy(0.0, DateTime.now()), isFalse);
+      expect(await repository.writeDietaryEnergy(-50.0, DateTime.now()), isFalse);
+    });
+
+    test('safe fallbacks when Firestore is not provided', () async {
+      final safeRepo = HealthRepository(healthPlugin: null, firestore: null);
+      expect(await safeRepo.isConnected('user_1'), isFalse);
+      expect(await safeRepo.isWriteEnabled('user_1'), isFalse);
+      expect(await safeRepo.isAvailable(), isFalse);
+      expect(await safeRepo.requestPermissions(), isFalse);
+      expect(await safeRepo.hasPermissions(), isFalse);
+      final activity = await safeRepo.getTodayActivity();
+      expect(activity.steps, equals(0));
+    });
   });
 }

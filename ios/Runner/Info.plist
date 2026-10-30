@@ -48,6 +48,10 @@
 	<string>AstroBite cần truy cập Microphone để nhận diện giọng nói khi ghi chép bữa ăn nhanh (AstroVoice AI).</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>AstroBite cần sử dụng tính năng nhận diện giọng nói để chuyển lời nói của bạn thành món ăn và dinh dưỡng.</string>
+	<key>NSHealthShareUsageDescription</key>
+	<string>AstroBite needs access to your health data to track steps, active calories, and sync workouts.</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>AstroBite needs permission to write dietary energy data to Apple Health.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

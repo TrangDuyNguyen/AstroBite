@@ -20,4 +20,4 @@ tests/
 
 ## 🔗 Liên Kết Truy Vết (Traceability)
 - Mọi testcase trong `02-manual-testcases/` đều tham chiếu trực tiếp đến `docs/03-prd-features/` của BA.
-- Kịch bản BDD trong `03-bdd-gherkin-scenarios/` là nguồn kịch bản cho `frontend/integration_test/` của đội ngũ phát triển.
+- Kịch bản BDD trong `03-bdd-gherkin-scenarios/` là nguồn kịch bản cho bộ kiểm thử thực thi `test/integration/app_e2e_flow_test.dart` (CI/CD) và `integration_test/app_test.dart` (Device/Emulator) của ứng dụng AstroBite (ASTRO-029).

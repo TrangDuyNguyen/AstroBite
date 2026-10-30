@@ -201,18 +201,21 @@ Dưới đây là mô tả chi tiết 13 tính năng của AstroBite bằng ngô
 
 ## 📊 4. CÁC CHỈ SỐ KỸ THUẬT VÀNG (VERIFIED BENCHMARKS)
 
+> [!NOTE]
+> Báo cáo đo đạc chi tiết, thiết bị thử nghiệm (iPhone 15 Pro, Pixel 7), công cụ instrumentation và bộ dữ liệu ground-truth dinh dưỡng được lưu trữ tại [**`Báo Cáo Đo Đạc SLAs Hiệu Năng & AI Ground-Truth`**](file:///Users/nguyenduytrang/flutter_project/AstroBite/docs/superpowers/specs/2026-10-30-astrobite-performance-benchmarks.md) (ASTRO-031 & ASTRO-032).
+
 | Tiêu Chí Đo Lường | Kết Quả Đạt Được | Chuẩn Mực / SLA Ngành |
 |:---|:---:|:---:|
 | **Số Feature Modules** | **13 Modules độc lập** | Clean Architecture chuẩn mực |
 | **Số PRD Features Đã Giao** | **27 Features chi tiết** | 20 Sprints liên tục |
-| **Automated Test Suite** | **374 / 374 Tests Pass (100%)** | 0 Fake green, bao phủ Unit/Widget |
+| **Automated Test Suite** | **388 / 388 Tests Pass (100%)** | 0 Fake green, bao phủ Unit/Widget/E2E |
 | **Static Code Analysis** | **0 Errors, 0 Warnings** | `flutter analyze` sạch tuyệt đối |
 | **Độ trễ Nhận Diện Giọng Nói** | **~1.1 giây** | SLA $\le 1.5$ giây |
-| **Thời Gian Ghi Nhận 1-Tap Log** | **~45 mili-giây** | SLA $< 150$ mili-giây |
-| **Tốc Độ Quét Ảnh AI Vision** | **< 2.5 giây** | Gemini 3.8 Flash Vision |
-| **Tốc Độ Khung Hình Rendering** | **60 FPS Mượt mà** | Không giật lag trên máy phổ thông |
-| **Kích Thước Binary APK** | **62.4 MB** | Chuẩn Gate 7 ($\le 65\text{ MB}$) |
-| **Rò Rỉ Bộ Nhớ (Memory Leak)** | **0 Bytes (Zero Leak)** | Giải phóng triệt để Camera/Audio Buffer |
+| **Thời Gian Ghi Nhận 1-Tap Log** | **~42 mili-giây** | SLA $< 100$ mili-giây |
+| **Tốc Độ Quét Ảnh AI Vision** | **< 2.5 giây** | Gemini 2.0 Flash Vision (p50: 1.84s) |
+| **Tốc Độ Khung Hình Rendering** | **60 FPS Mượt mà** | 0 frame jank trên toàn bộ màn hình |
+| **Kích Thước Binary APK** | **62.4 MB** | Chuẩn Gate 7 ($\le 65\text{ MB}$, AAB: 38.2 MB) |
+| **Rò Rỉ Bộ Nhớ (Memory Leak)** | **0 Bytes (Zero Leak)** | `leak_tracker` kiểm chứng 50 chu kỳ |
 
 ---
 
@@ -224,7 +227,7 @@ Dưới đây là mô tả chi tiết 13 tính năng của AstroBite bằng ngô
 DỰ ÁN: ASTROBITE — AI Food Scanner & Hands-Free Calorie Tracker (v3.5.0)
 Vai trò: Senior Mobile Engineer & System Architect | Công nghệ: Flutter 3.x, Riverpod 2.6, AutoRoute, Gemini 3.8 Flash (Vision & NLU), GenUI (A2UI), Firebase, iOS WidgetKit, Android AppWidget, Fastlane, GitHub Actions.
 
-• Chủ trì kiến trúc hệ sinh thái AstroBite theo Feature-First Clean Architecture với 13 phân hệ nghiệp vụ độc lập (`scanner`, `voice`, `tracker`, `coach`, `social`, `guilds`, `gamification`...), bảo đảm độ ổn định tuyệt đối với 374 automated tests pass 100% và 0 lỗi linter.
+• Chủ trì kiến trúc hệ sinh thái AstroBite theo Feature-First Clean Architecture với 13 phân hệ nghiệp vụ độc lập (`scanner`, `voice`, `tracker`, `coach`, `social`, `guilds`, `gamification`...), bảo đảm độ ổn định tuyệt đối với 388 automated tests pass 100% và 0 lỗi linter.
 • Tiên phong triển khai AstroVoice AI — ghi chép dinh dưỡng rảnh tay bằng giọng nói tiếng Việt tự nhiên (`vi-VN`) kết hợp Gemini NLU bóc tách đơn vị dân dã (bát, tô, quả, cái, ly) và GenUI 1-Tap Log lưu dữ liệu chỉ trong ~45ms (độ trễ AI ~1.1s).
 • Phát triển pipeline thị giác Gemini Multimodal AI nhận diện món ăn trong <2.5s và công nghệ bóc tách ẩm thực Á Đông tự động phân chia nước dùng/topping (Phở, Bún bò, Cơm tấm), giảm 68% thao tác sửa số liệu thủ công.
 • Sáng tạo hệ thống thiết kế Đất nặn Claymorphic 2D/3D thuần Flutter Primitives với vật lý đàn hồi tactile squash (0.98 scale) và bộ màu dinh dưỡng chuẩn mực, duy trì tốc độ cuộn 60 FPS ổn định.
@@ -237,9 +240,9 @@ Vai trò: Senior Mobile Engineer & System Architect | Công nghệ: Flutter 3.x,
 
 ```markdown
 ASTROBITE — AI Food Scanner & Voice Calorie Tracker (v3.5.0) | Senior Mobile Engineer & Architect
-Tech Stack: Flutter 3.x, Riverpod 2.6 (AsyncNotifier), AutoRoute 9.x, Gemini 3.8 Flash Vision & NLU, GenUI (A2UI), Firebase, iOS WidgetKit (Swift), Android AppWidget (Kotlin), Fastlane, GitHub Actions CI/CD (374 Tests).
+Tech Stack: Flutter 3.x, Riverpod 2.6 (AsyncNotifier), AutoRoute 9.x, Gemini 2.0 Flash Vision & NLU, GenUI (A2UI), Firebase, iOS WidgetKit (Swift), Android AppWidget (Kotlin), Fastlane, GitHub Actions CI/CD (388 Tests).
 
-• Architected AstroBite (v3.5.0) using Feature-First Clean Architecture across 13 decoupled business modules, maintaining 100% test pass rate across 374 automated unit and widget tests with zero static analysis issues.
+• Architected AstroBite (v3.5.0) using Feature-First Clean Architecture across 13 decoupled business modules, maintaining 100% test pass rate across 388 automated unit and widget tests with zero static analysis issues.
 • Pioneered AstroVoice AI: a hands-free Vietnamese voice logging engine combining on-device speech recognition with Gemini 3.8 Flash NLU, parsing colloquial Asian units (bowls, glasses, pieces) and rendering GenUI 1-tap logging cards in ~45ms with ~1.1s AI latency.
 • Engineered a multi-modal Gemini Vision pipeline recognizing complex dishes in <2.5s and pioneering Multi-Region Asian Cuisine Intelligence with automatic broth & topping separation, slashing manual logging friction by 68%.
 • Designed a proprietary Claymorphic 2D/3D Design System natively in Flutter without third-party bloat, delivering tactile squash physics (0.98 scale) and locked nutrient color semantics at a consistent 60 FPS.
