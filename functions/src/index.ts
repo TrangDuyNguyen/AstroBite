@@ -1,6 +1,6 @@
-import { setGlobalOptions } from "firebase-functions";
-import { onDocumentCreated } from "firebase-functions/v2/firestore";
-import { onCall, HttpsError } from "firebase-functions/v2/https";
+import {setGlobalOptions} from "firebase-functions";
+import {onDocumentCreated} from "firebase-functions/v2/firestore";
+import {onCall, HttpsError} from "firebase-functions/v2/https";
 import * as logger from "firebase-functions/logger";
 import * as admin from "firebase-admin";
 
@@ -8,10 +8,11 @@ if (admin.apps.length === 0) {
   admin.initializeApp();
 }
 
-setGlobalOptions({ maxInstances: 10 });
+setGlobalOptions({maxInstances: 10});
 
 /**
- * Triggered when a new nudge document is created in /users/{userId}/nudges/{nudgeId}.
+ * Triggered when a new nudge document is created in:
+ * /users/{userId}/nudges/{nudgeId}.
  * Sends an FCM push notification to the recipient user.
  */
 export const onStreakNudgeCreated = onDocumentCreated(
@@ -24,6 +25,8 @@ export const onStreakNudgeCreated = onDocumentCreated(
     const data = snapshot.data();
     const senderName = data?.senderName || "Một phi hành gia";
     const senderAstroId = data?.senderAstroId || "";
+    const nudgeBody = `${senderName} (${senderAstroId}) vừa gửi tín hiệu ` +
+      "nhắc bạn ghi nhật ký hôm nay để không mất chuỗi!";
 
     try {
       const userDoc = await admin
@@ -47,7 +50,7 @@ export const onStreakNudgeCreated = onDocumentCreated(
         token: fcmToken,
         notification: {
           title: "🚨 Tín hiệu cứu Streak!",
-          body: `${senderName} (${senderAstroId}) vừa gửi tín hiệu nhắc bạn ghi nhật ký hôm nay để không mất chuỗi!`,
+          body: nudgeBody,
         },
         data: {
           type: "streak_nudge",
@@ -72,24 +75,30 @@ export const onStreakNudgeCreated = onDocumentCreated(
         },
       });
 
-      logger.info(`Successfully sent streak nudge to user ${recipientUserId}`);
+      logger.info(
+        `Successfully sent streak nudge to user ${recipientUserId}`
+      );
     } catch (error) {
-      logger.error(`Error sending streak nudge push notification:`, error);
+      logger.error("Error sending streak nudge push notification:", error);
     }
   }
 );
 
 /**
- * Callable function to directly send a streak nudge with validation and anti-spam check.
+ * Callable function to directly send a streak nudge with validation
+ * and anti-spam check.
  */
 export const sendStreakNudge = onCall(async (request) => {
   if (!request.auth) {
     throw new HttpsError("unauthenticated", "Yêu cầu đăng nhập.");
   }
 
-  const { targetUserId, senderName, senderAstroId } = request.data;
+  const {targetUserId, senderName, senderAstroId} = request.data;
   if (!targetUserId) {
-    throw new HttpsError("invalid-argument", "targetUserId không được để trống.");
+    throw new HttpsError(
+      "invalid-argument",
+      "targetUserId không được để trống."
+    );
   }
 
   const senderId = request.auth.uid;
@@ -98,7 +107,11 @@ export const sendStreakNudge = onCall(async (request) => {
   }
 
   const now = new Date();
-  const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+  const startOfDay = new Date(
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate()
+  ).getTime();
 
   // Check anti-spam: 1 nudge per friend per day
   const recentNudges = await admin
@@ -131,5 +144,5 @@ export const sendStreakNudge = onCall(async (request) => {
       timestamp: Date.now(),
     });
 
-  return { success: true, nudgeId: nudgeRef.id };
+  return {success: true, nudgeId: nudgeRef.id};
 });
