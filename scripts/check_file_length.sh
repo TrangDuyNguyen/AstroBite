@@ -48,7 +48,8 @@ TEMP_OUTPUT=$(mktemp)
 find lib -name "*.dart" \
   ! -name "*.g.dart" \
   ! -name "*.freezed.dart" \
-  ! -name "*.gr.dart" | while read -r file; do
+  ! -name "*.gr.dart" \
+  ! -path "lib/l10n/*" | while read -r file; do
     lines=$(wc -l < "$file" | tr -d ' ')
     echo "$lines $file" >> "$TEMP_OUTPUT"
 done
