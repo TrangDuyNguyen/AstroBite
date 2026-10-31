@@ -1,3 +1,10 @@
+import 'package:flutter/material.dart';
+
+/// Global key for ScaffoldMessenger to reliably present SnackBars across modals,
+/// sheets, dialogs, and detached widget contexts.
+final GlobalKey<ScaffoldMessengerState> rootScaffoldMessengerKey =
+    GlobalKey<ScaffoldMessengerState>();
+
 /// Centralized application keys and environment variables.
 abstract final class AppKeys {
   /// Default Gemini API Key loaded securely from environment variable at compile time:

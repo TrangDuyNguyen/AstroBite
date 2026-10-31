@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:astrobite/core/theme/app_colors.dart';
 import 'package:astrobite/core/utils/l10n_extension.dart';
-import 'package:astrobite/features/voice/presentation/widgets/astro_voice_sheet.dart';
 
 /// Message input bar with voice dictation and 3D send action button.
 class CoachInputBar extends StatelessWidget {
@@ -99,34 +98,15 @@ class CoachInputBar extends StatelessWidget {
                           );
                         },
                       ),
-                      GestureDetector(
-                        onLongPress: () {
-                          HapticFeedback.heavyImpact();
-                          AstroVoiceSheet.show(context);
-                        },
-                        child: IconButton(
-                          key: const Key('coach_voice_mic_button'),
-                          icon: AnimatedSwitcher(
-                            duration: const Duration(milliseconds: 200),
-                            child: isListeningVoice
-                                ? const Icon(
-                                    Icons.mic_rounded,
-                                    key: ValueKey('mic_active'),
-                                    color: Color(0xFFEF4444),
-                                    size: 21,
-                                  )
-                                : const Icon(
-                                    Icons.mic_none_rounded,
-                                    key: ValueKey('mic_idle'),
-                                    color: AppColors.primary,
-                                    size: 21,
-                                  ),
-                          ),
-                          tooltip: isListeningVoice
-                              ? l10n.voiceListeningStop
-                              : l10n.voiceInputTooltip,
-                          onPressed: isSending ? null : onToggleVoice,
+                      IconButton(
+                        key: const Key('coach_voice_mic_button'),
+                        icon: const Icon(
+                          Icons.mic_none_rounded,
+                          color: AppColors.primary,
+                          size: 21,
                         ),
+                        tooltip: l10n.voiceInputTooltip,
+                        onPressed: isSending ? null : onToggleVoice,
                       ),
                     ],
                   ),

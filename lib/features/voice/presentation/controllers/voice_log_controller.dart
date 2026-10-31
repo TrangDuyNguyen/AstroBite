@@ -96,6 +96,24 @@ class VoiceLogController extends StateNotifier<VoiceLogState> {
       onSoundLevelChange: (level) {
         state = state.copyWith(soundLevel: level);
       },
+      onError: (err) {
+        if (state.liveTranscript.trim().isEmpty) {
+          state = state.copyWith(
+            status: VoiceStatus.empty,
+            errorMessage: 'AstroBite chưa nghe rõ món bạn vừa nói. Chạm vào mic để thử lại nhé!',
+          );
+        }
+      },
+      onStatus: (status) {
+        if ((status == 'done' || status == 'notListening') &&
+            state.status == VoiceStatus.listening &&
+            state.liveTranscript.trim().isEmpty) {
+          state = state.copyWith(
+            status: VoiceStatus.empty,
+            errorMessage: 'AstroBite chưa nghe rõ món bạn vừa nói. Chạm vào mic để thử lại nhé!',
+          );
+        }
+      },
     );
 
     if (_pendingParse != null) {

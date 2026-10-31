@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:astrobite/core/constants/app_keys.dart';
 import 'package:astrobite/features/widgets/widget_sync_service.dart';
 import 'package:astrobite/l10n/app_localizations.dart';
 import 'core/services/locale_service.dart';
@@ -39,6 +40,7 @@ class _AstroBiteAppState extends ConsumerState<AstroBiteApp> {
 
     return MaterialApp.router(
       title: 'AstroBite',
+      scaffoldMessengerKey: rootScaffoldMessengerKey,
       locale: locale,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,

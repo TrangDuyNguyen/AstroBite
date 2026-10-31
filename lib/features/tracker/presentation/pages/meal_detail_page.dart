@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:astrobite/core/constants/app_keys.dart';
 import 'package:astrobite/core/utils/l10n_extension.dart';
 import 'package:astrobite/core/router/app_router.dart';
 import 'package:astrobite/features/auth/domain/auth_providers.dart';
@@ -167,12 +168,14 @@ class MealDetailPage extends ConsumerWidget {
               ...logs.map((log) => MealDetailFoodCard(
                     log: log,
                     onDelete: () async {
+                      final deletedMsg = context.l10n.foodDeleted(log.dishName);
                       final confirmed = await _showDeleteConfirmation(
                         context,
                         log.dishName,
                       );
                       if (confirmed == true) {
-                        final user = ref.read(authRepositoryProvider).currentUser;
+                        final user = ref.read(authRepositoryProvider).currentUser ??
+                            ref.read(authStateProvider).value;
                         if (user != null) {
                           await ref
                               .read(trackerControllerProvider.notifier)
@@ -181,6 +184,13 @@ class MealDetailPage extends ConsumerWidget {
                                 logId: log.id,
                               );
                         }
+                        rootScaffoldMessengerKey.currentState?.showSnackBar(
+                          SnackBar(
+                            content: Text(deletedMsg),
+                            duration: const Duration(seconds: 2),
+                            behavior: SnackBarBehavior.floating,
+                          ),
+                        );
                       }
                     },
                   )),

@@ -2,7 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:astrobite/core/utils/date_utils.dart';
 
 import '../../domain/entities/meal_plan_item.dart';
-import '../../data/repositories/meal_plan_repository_impl.dart';
+import '../../domain/repositories/meal_plan_repository.dart';
 import '../../recipes_providers.dart';
 import '../../../tracker/domain/tracker_providers.dart';
 import '../../../tracker/data/models/food_log_dto.dart';
@@ -40,9 +40,8 @@ class MealPlanController extends StateNotifier<AsyncValue<void>> {
 
   final Ref _ref;
 
-  /// Resolves the concrete [MealPlanRepositoryImpl] from the abstract provider.
-  MealPlanRepositoryImpl get _repo =>
-      _ref.read(mealPlanRepositoryProvider) as MealPlanRepositoryImpl;
+  /// Resolves the [MealPlanRepository] from the provider.
+  MealPlanRepository get _repo => _ref.read(mealPlanRepositoryProvider);
 
   /// Adds a new meal plan slot.
   Future<MealPlanItem?> addItem({

@@ -179,6 +179,13 @@ New icon ──→ Scale 0.4 → 1.0 + Rotate -12° → 0° + Fade in
 | `ChunkyMacroBar` | `TweenAnimationBuilder` 0→progress | 500ms | `easeOutCubic` |
 | `CalorieProgressArc` | `CustomPaint` sweepAngle | Immediate (stateless) | — |
 
+### 5.4 Strict Prohibition of Emojis for Icons (Cấm Dùng Emoji Thay Thế Icon)
+
+> [!CAUTION]
+> **Tuyệt đối KHÔNG sử dụng emoji Unicode** (như 🍎, 🥗, ☕, 🥑, ☀️, ☁️, 🍳, 🥩, 🥪, 🥣, 📊, ⚙️, ✕, ✓...) để thay thế cho icon giao diện, nhãn nút bấm, danh mục, huy hiệu hay trạng thái.
+> - **Chỉ sử dụng**: Flutter `IconData` (`Icons.*`), SVG vector assets, hoặc các component 3D Clay (`Clay3DIcon`, `Clay3DCookbook`, `ClayMorphIcon`, `ClayMealChip`, `ClayIconButton`).
+> - **Lý do**: Emoji hiển thị phân mảnh giữa iOS / Android / Web, vỡ layout khi co giãn cỡ chữ (Text Scaling), không đồng bộ bảng màu hệ thống và vi phạm chuẩn Trợ Năng (Accessibility).
+
 ---
 
 ## 6. Layout & Spacing

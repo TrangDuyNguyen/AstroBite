@@ -13,7 +13,7 @@ import 'package:astrobite/features/coach/domain/astrobite_genui_catalog.dart';
 import 'package:astrobite/features/tracker/data/models/food_log_dto.dart';
 import 'package:astrobite/features/tracker/domain/tracker_providers.dart';
 import 'package:astrobite/features/tracker/presentation/controllers/tracker_controller.dart';
-import 'package:astrobite/features/voice/presentation/controllers/voice_log_controller.dart';
+import 'package:astrobite/features/voice/presentation/widgets/astro_voice_sheet.dart';
 import 'coach_controller.dart';
 import 'widgets/coach_app_bar.dart';
 import 'widgets/coach_message_list.dart';
@@ -39,7 +39,6 @@ class _CoachPageState extends ConsumerState<CoachPage> with WidgetsBindingObserv
   bool _isSending = false;
   bool _showSuggestions = true;
   bool _wasKeyboardOpen = false;
-  bool _isListeningVoice = false;
   int _suggestionShuffleIndex = 0;
   final Set<String> _loggedMessageIds = {};
   late final GenUiCatalog _genUiCatalog;
@@ -62,43 +61,21 @@ class _CoachPageState extends ConsumerState<CoachPage> with WidgetsBindingObserv
   }
 
   Future<void> _toggleVoiceDictation() async {
-    final voiceService = ref.read(voiceRecognitionServiceProvider);
-    if (_isListeningVoice) {
-      await voiceService.stopListening();
-      if (mounted) setState(() => _isListeningVoice = false);
-      return;
-    }
-
     HapticFeedback.mediumImpact();
-    final hasPermission = await voiceService.initialize();
-    if (!hasPermission) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(context.l10n.cannotAccessMicrophone),
-            duration: const Duration(seconds: 2),
-          ),
-        );
-      }
-      return;
-    }
-
-    if (!mounted) return;
-    setState(() => _isListeningVoice = true);
-
-    await voiceService.startListening(
-      onResult: (words, isFinal) {
-        if (!mounted) return;
+    await AstroVoiceSheet.show(
+      context,
+      mode: AstroVoiceMode.coachChat,
+      title: 'AstroCoach Voice',
+      subtitle: 'Nói câu hỏi hoặc bữa ăn cần tư vấn...',
+      onTextCaptured: (text) {
+        if (!mounted || text.trim().isEmpty) return;
         setState(() {
-          _textController.text = words;
+          _textController.text = text;
           _textController.selection = TextSelection.fromPosition(
-            TextPosition(offset: words.length),
+            TextPosition(offset: text.length),
           );
         });
-        if (isFinal) {
-          setState(() => _isListeningVoice = false);
-          HapticFeedback.lightImpact();
-        }
+        _focusNode.requestFocus();
       },
     );
   }
@@ -111,9 +88,6 @@ class _CoachPageState extends ConsumerState<CoachPage> with WidgetsBindingObserv
     _scrollTimer?.cancel();
     _textController.dispose();
     _scrollController.dispose();
-    if (_isListeningVoice) {
-      ref.read(voiceRecognitionServiceProvider).stopListening();
-    }
     super.dispose();
   }
 
@@ -331,7 +305,7 @@ class _CoachPageState extends ConsumerState<CoachPage> with WidgetsBindingObserv
                   textController: _textController,
                   focusNode: _focusNode,
                   isSending: _isSending,
-                  isListeningVoice: _isListeningVoice,
+                  isListeningVoice: false,
                   showSuggestions: _showSuggestions,
                   onToggleSuggestions: () => setState(() => _showSuggestions = !_showSuggestions),
                   onToggleVoice: _toggleVoiceDictation,

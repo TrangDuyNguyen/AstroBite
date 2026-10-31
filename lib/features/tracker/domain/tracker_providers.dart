@@ -29,7 +29,8 @@ final todayDateProvider = Provider<String>((ref) {
 });
 
 final dailyLogsStreamProvider = StreamProvider.autoDispose<List<FoodLog>>((ref) {
-  final user = ref.watch(authStateProvider).value;
+  final user = ref.watch(authRepositoryProvider).currentUser ??
+      ref.watch(authStateProvider).value;
   if (user == null) return Stream.value([]);
   final date = ref.watch(todayDateProvider);
   final repo = ref.watch(foodLogRepositoryProvider);
@@ -60,7 +61,8 @@ final dailyLogsStreamProvider = StreamProvider.autoDispose<List<FoodLog>>((ref) 
 final dailyWaterStreamProvider = StreamProvider.autoDispose<WaterDayLog>((ref) {
   String userId = 'guest_user';
   try {
-    final user = ref.watch(authStateProvider).value;
+    final user = ref.watch(authRepositoryProvider).currentUser ??
+        ref.watch(authStateProvider).value;
     if (user != null) userId = user.uid;
   } catch (_) {}
   final date = ref.watch(todayDateProvider);

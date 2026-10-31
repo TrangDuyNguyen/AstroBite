@@ -14,12 +14,22 @@ class GuildRepositoryImpl implements GuildRepository {
 
   @override
   Future<Guild?> getUserGuild(String userId) async {
-    return _remoteDatasource.getUserGuild(userId);
+    try {
+      return await _remoteDatasource.getUserGuild(userId);
+    } catch (_) {
+      return null;
+    }
   }
 
   @override
-  Stream<Guild?> watchUserGuild(String userId) {
-    return _remoteDatasource.watchUserGuild(userId);
+  Stream<Guild?> watchUserGuild(String userId) async* {
+    try {
+      await for (final guild in _remoteDatasource.watchUserGuild(userId)) {
+        yield guild;
+      }
+    } catch (_) {
+      yield null;
+    }
   }
 
   @override

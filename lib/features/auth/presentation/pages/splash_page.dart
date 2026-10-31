@@ -95,25 +95,33 @@ class _SplashPageState extends ConsumerState<SplashPage> with TickerProviderStat
       if (!mounted || _isNavigated) return;
 
       try {
-        final authState = await ref.read(authStateProvider.future).timeout(
-              const Duration(seconds: 4),
-              onTimeout: () => null,
-            );
+        final currentUser = ref.read(authRepositoryProvider).currentUser;
+        final authState = currentUser ??
+            await ref.read(authStateProvider.future).timeout(
+                  const Duration(seconds: 2),
+                  onTimeout: () => null,
+                );
 
         if (!mounted || _isNavigated) return;
         _isNavigated = true;
 
         if (authState != null) {
-          final repo = ref.read(profileRepositoryProvider);
-          final profile = await repo.getProfile(authState.uid).timeout(
-                const Duration(seconds: 4),
-              );
+          try {
+            final repo = ref.read(profileRepositoryProvider);
+            final profile = await repo.getProfile(authState.uid).timeout(
+                  const Duration(milliseconds: 1500),
+                );
 
-          if (!mounted) return;
-          if (profile != null && profile.isOnboardingCompleted) {
+            if (!mounted) return;
+            if (profile != null && !profile.isOnboardingCompleted) {
+              context.router.replaceAll([const OnboardingRoute()]);
+            } else {
+              context.router.replaceAll([const ShellRoute()]);
+            }
+          } catch (_) {
+            // Offline resilience: authenticated user always proceeds to ShellRoute
+            if (!mounted) return;
             context.router.replaceAll([const ShellRoute()]);
-          } else {
-            context.router.replaceAll([const OnboardingRoute()]);
           }
         } else {
           context.router.replaceAll([const LoginRoute()]);
@@ -121,7 +129,12 @@ class _SplashPageState extends ConsumerState<SplashPage> with TickerProviderStat
       } catch (_) {
         if (!mounted) return;
         _isNavigated = true;
-        context.router.replaceAll([const LoginRoute()]);
+        final fallbackUser = ref.read(authRepositoryProvider).currentUser;
+        if (fallbackUser != null) {
+          context.router.replaceAll([const ShellRoute()]);
+        } else {
+          context.router.replaceAll([const LoginRoute()]);
+        }
       }
     });
   }

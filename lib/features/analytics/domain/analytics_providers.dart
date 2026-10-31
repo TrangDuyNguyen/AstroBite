@@ -9,7 +9,8 @@ final analyticsRepositoryProvider = Provider<AnalyticsRepository>((ref) {
 });
 
 final calorieTrendsProvider = FutureProvider.family<Map<String, int>, int>((ref, days) async {
-  final user = ref.watch(authStateProvider).value;
+  final user = ref.watch(authRepositoryProvider).currentUser ??
+      ref.watch(authStateProvider).value;
   if (user == null) return {};
 
   final repo = ref.watch(analyticsRepositoryProvider);

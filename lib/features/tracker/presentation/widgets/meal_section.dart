@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:astrobite/core/constants/app_keys.dart';
 import 'package:astrobite/core/constants/meal_enums.dart';
 import 'package:astrobite/core/utils/l10n_extension.dart';
 import 'package:astrobite/features/auth/domain/auth_providers.dart';
@@ -113,17 +114,19 @@ class MealSection extends ConsumerWidget {
                     ),
                     onConfirmDelete: (dishName) => _showDeleteConfirmationDialog(context, dishName),
                     onDismissed: () {
-                      final user = ref.read(authStateProvider).value;
+                      final user = ref.read(authRepositoryProvider).currentUser ??
+                          ref.read(authStateProvider).value;
                       if (user != null) {
                         ref.read(trackerControllerProvider.notifier).deleteFoodLog(
                               userId: user.uid,
                               logId: log.id,
                             );
                       }
-                      ScaffoldMessenger.of(context).showSnackBar(
+                      rootScaffoldMessengerKey.currentState?.showSnackBar(
                         SnackBar(
                           content: Text(context.l10n.foodDeleted(log.dishName)),
                           duration: const Duration(seconds: 2),
+                          behavior: SnackBarBehavior.floating,
                         ),
                       );
                     },

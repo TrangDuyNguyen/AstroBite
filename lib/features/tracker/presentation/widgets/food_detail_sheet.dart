@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:astrobite/core/constants/app_keys.dart';
 import 'package:astrobite/core/utils/l10n_extension.dart';
 import 'package:astrobite/core/constants/meal_enums.dart';
 import 'package:astrobite/features/auth/domain/auth_providers.dart';
@@ -46,6 +47,7 @@ class FoodDetailSheet extends StatelessWidget {
         mealType: mealType,
         targetCalories: targetCalories,
         onDelete: () async {
+          final deletedMsg = context.l10n.foodDeleted(log.dishName);
           final confirm = await showDialog<bool>(
             context: ctx,
             builder: (dCtx) => AlertDialog(
@@ -66,22 +68,27 @@ class FoodDetailSheet extends StatelessWidget {
           );
 
           if (confirm == true) {
-            final user = ref.read(authStateProvider).value;
+            // Dismiss the bottom sheet first so user sees immediate dismissal
+            if (ctx.mounted) {
+              Navigator.of(ctx).pop();
+            }
+
+            final user = ref.read(authRepositoryProvider).currentUser ??
+                ref.read(authStateProvider).value;
             if (user != null) {
               await ref.read(trackerControllerProvider.notifier).deleteFoodLog(
                     userId: user.uid,
                     logId: log.id,
                   );
             }
-            if (ctx.mounted) {
-              Navigator.of(ctx).pop();
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text('Đã xóa món ${log.dishName}'),
-                  duration: const Duration(seconds: 2),
-                ),
-              );
-            }
+
+            rootScaffoldMessengerKey.currentState?.showSnackBar(
+              SnackBar(
+                content: Text(deletedMsg),
+                duration: const Duration(seconds: 2),
+                behavior: SnackBarBehavior.floating,
+              ),
+            );
           }
         },
       ),

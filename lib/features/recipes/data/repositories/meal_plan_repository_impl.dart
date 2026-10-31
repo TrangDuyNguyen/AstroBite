@@ -18,7 +18,6 @@ class MealPlanRepositoryImpl implements MealPlanRepository {
     if (userId.trim().isEmpty) return [];
     final snap = await _col(userId)
         .where('date', isEqualTo: date)
-        .orderBy('mealType')
         .get();
     return snap.docs.map((d) => _fromDoc(d.id, d.data())).toList();
   }
@@ -36,9 +35,11 @@ class MealPlanRepositoryImpl implements MealPlanRepository {
     }
   }
 
+  @override
   Future<void> markAsLoggedForUser(String userId, String itemId) =>
       _col(userId).doc(itemId).update({'isLogged': true});
 
+  @override
   Future<void> deleteMealPlanItemForUser(String userId, String itemId) =>
       _col(userId).doc(itemId).delete();
 

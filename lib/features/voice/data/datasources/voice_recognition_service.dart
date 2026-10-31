@@ -4,10 +4,15 @@ import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 /// Abstract interface for voice speech recognition (Ponytail clean abstraction).
 abstract class VoiceRecognitionService {
-  Future<bool> initialize();
+  Future<bool> initialize({
+    void Function(String error)? onError,
+    void Function(String status)? onStatus,
+  });
   Future<void> startListening({
     required void Function(String words, bool isFinal) onResult,
     void Function(double soundLevel)? onSoundLevelChange,
+    void Function(String error)? onError,
+    void Function(String status)? onStatus,
   });
   Future<void> stopListening();
   Future<void> cancelListening();
@@ -22,6 +27,8 @@ class SpeechToTextRecognitionService implements VoiceRecognitionService {
 
   final stt.SpeechToText _speech;
   bool _isAvailable = false;
+  void Function(String error)? _currentOnError;
+  void Function(String status)? _currentOnStatus;
 
   @override
   bool get isListening => _speech.isListening;
@@ -30,11 +37,22 @@ class SpeechToTextRecognitionService implements VoiceRecognitionService {
   bool get isAvailable => _isAvailable;
 
   @override
-  Future<bool> initialize() async {
+  Future<bool> initialize({
+    void Function(String error)? onError,
+    void Function(String status)? onStatus,
+  }) async {
+    _currentOnError = onError;
+    _currentOnStatus = onStatus;
     try {
       _isAvailable = await _speech.initialize(
-        onError: (val) => debugPrint('AstroVoice Speech Error: $val'),
-        onStatus: (val) => debugPrint('AstroVoice Speech Status: $val'),
+        onError: (val) {
+          debugPrint('AstroVoice Speech Error: $val');
+          _currentOnError?.call(val.errorMsg);
+        },
+        onStatus: (val) {
+          debugPrint('AstroVoice Speech Status: $val');
+          _currentOnStatus?.call(val);
+        },
       );
       return _isAvailable;
     } catch (e) {
@@ -48,9 +66,14 @@ class SpeechToTextRecognitionService implements VoiceRecognitionService {
   Future<void> startListening({
     required void Function(String words, bool isFinal) onResult,
     void Function(double soundLevel)? onSoundLevelChange,
+    void Function(String error)? onError,
+    void Function(String status)? onStatus,
   }) async {
+    if (onError != null) _currentOnError = onError;
+    if (onStatus != null) _currentOnStatus = onStatus;
+
     if (!_isAvailable) {
-      final ok = await initialize();
+      final ok = await initialize(onError: onError, onStatus: onStatus);
       if (!ok) return;
     }
 
@@ -62,12 +85,13 @@ class SpeechToTextRecognitionService implements VoiceRecognitionService {
         onSoundLevelChange: onSoundLevelChange,
         listenOptions: stt.SpeechListenOptions(
           listenMode: stt.ListenMode.dictation,
-          pauseFor: const Duration(milliseconds: 1200),
+          pauseFor: const Duration(seconds: 4),
           localeId: 'vi_VN',
         ),
       );
     } catch (e) {
       debugPrint('AstroVoice Listen Error: $e');
+      _currentOnError?.call(e.toString());
     }
   }
 
@@ -108,15 +132,24 @@ class FakeVoiceRecognitionService implements VoiceRecognitionService {
   bool get isAvailable => shouldSucceed;
 
   @override
-  Future<bool> initialize() async => shouldSucceed;
+  Future<bool> initialize({
+    void Function(String error)? onError,
+    void Function(String status)? onStatus,
+  }) async => shouldSucceed;
 
   @override
   Future<void> startListening({
     required void Function(String words, bool isFinal) onResult,
     void Function(double soundLevel)? onSoundLevelChange,
+    void Function(String error)? onError,
+    void Function(String status)? onStatus,
   }) async {
-    if (!shouldSucceed) return;
+    if (!shouldSucceed) {
+      onError?.call('Initialization failed');
+      return;
+    }
     _listening = true;
+    onStatus?.call('listening');
     onSoundLevelChange?.call(0.8);
     // Simulate streaming words
     final parts = wordsToReturn.split(' ');

@@ -8,19 +8,47 @@ import 'package:astrobite/features/gamification/presentation/controllers/streak_
 import 'package:astrobite/features/tracker/domain/tracker_providers.dart';
 import 'package:astrobite/shared/ui_kit/ui_kit.dart';
 import '../controllers/voice_log_controller.dart';
+import 'clay_3d_voice_mic_orb.dart';
 import 'live_transcript_bubble.dart';
 import 'waveform_visualizer.dart';
 
+enum AstroVoiceMode {
+  foodLogging,
+  coachChat,
+}
+
 /// Modal bottom sheet providing the 5-state AstroVoice AI recording & GenUI logging flow.
 class AstroVoiceSheet extends ConsumerStatefulWidget {
-  const AstroVoiceSheet({super.key});
+  const AstroVoiceSheet({
+    super.key,
+    this.mode = AstroVoiceMode.foodLogging,
+    this.title = 'AstroVoice AI',
+    this.subtitle = 'Nói tự nhiên bữa ăn của bạn bằng tiếng Việt',
+    this.onTextCaptured,
+  });
 
-  static Future<void> show(BuildContext context) {
+  final AstroVoiceMode mode;
+  final String title;
+  final String subtitle;
+  final ValueChanged<String>? onTextCaptured;
+
+  static Future<void> show(
+    BuildContext context, {
+    AstroVoiceMode mode = AstroVoiceMode.foodLogging,
+    String? title,
+    String? subtitle,
+    ValueChanged<String>? onTextCaptured,
+  }) {
     return showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (ctx) => const AstroVoiceSheet(),
+      builder: (ctx) => AstroVoiceSheet(
+        mode: mode,
+        title: title ?? (mode == AstroVoiceMode.coachChat ? 'AstroCoach Voice' : 'AstroVoice AI'),
+        subtitle: subtitle ?? (mode == AstroVoiceMode.coachChat ? 'Nói tự nhiên câu hỏi hoặc yêu cầu của bạn...' : 'Nói tự nhiên bữa ăn của bạn bằng tiếng Việt'),
+        onTextCaptured: onTextCaptured,
+      ),
     );
   }
 
@@ -35,6 +63,15 @@ class _AstroVoiceSheetState extends ConsumerState<AstroVoiceSheet> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref.read(voiceLogControllerProvider.notifier).startListening();
     });
+  }
+
+  void _finishCoachDictation() {
+    final text = ref.read(voiceLogControllerProvider).liveTranscript.trim();
+    ref.read(voiceLogControllerProvider.notifier).cancel();
+    Navigator.of(context).pop();
+    if (text.isNotEmpty && widget.onTextCaptured != null) {
+      widget.onTextCaptured!(text);
+    }
   }
 
   Future<void> _handleQuickLog(MealQuickLogProps scaled) async {
@@ -96,10 +133,23 @@ class _AstroVoiceSheetState extends ConsumerState<AstroVoiceSheet> {
                       children: [
                         Row(
                           children: [
-                            const Text('🎙️', style: TextStyle(fontSize: 22)),
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: Image.asset(
+                                'assets/images/clay_3d_mic.png',
+                                width: 28,
+                                height: 28,
+                                fit: BoxFit.contain,
+                                errorBuilder: (_, __, ___) => const Icon(
+                                  Icons.mic_rounded,
+                                  size: 26,
+                                  color: AppColors.primary,
+                                ),
+                              ),
+                            ),
                             const SizedBox(width: AppValues.spacing8),
                             Text(
-                              'AstroVoice AI',
+                              widget.title,
                               style: GoogleFonts.outfit(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
@@ -110,7 +160,7 @@ class _AstroVoiceSheetState extends ConsumerState<AstroVoiceSheet> {
                         ),
                         const SizedBox(height: AppValues.spacing4),
                         Text(
-                          'Nói tự nhiên bữa ăn của bạn bằng tiếng Việt',
+                          widget.subtitle,
                           style: GoogleFonts.outfit(
                             fontSize: 13,
                             color: AppColors.onSurfaceVariant,
@@ -133,32 +183,60 @@ class _AstroVoiceSheetState extends ConsumerState<AstroVoiceSheet> {
               // 5 States Switcher
               if (state.status == VoiceStatus.idle ||
                   state.status == VoiceStatus.listening) ...[
+                Clay3DVoiceMicOrb(
+                  isListening: state.status == VoiceStatus.listening,
+                  soundLevel: state.soundLevel,
+                  onTap: () {
+                    HapticFeedback.mediumImpact();
+                    if (widget.mode == AstroVoiceMode.coachChat) {
+                      _finishCoachDictation();
+                    } else {
+                      ref
+                          .read(voiceLogControllerProvider.notifier)
+                          .stopListeningAndParse();
+                    }
+                  },
+                ),
+                const SizedBox(height: AppValues.spacing16),
                 LiveTranscriptBubble(
                   transcript: state.liveTranscript,
                   isListening: true,
                 ),
-                const SizedBox(height: AppValues.spacing24),
+                const SizedBox(height: AppValues.spacing16),
                 WaveformVisualizer(
                   soundLevel: state.soundLevel,
                   isListening: true,
                 ),
-                const SizedBox(height: AppValues.spacing24),
+                const SizedBox(height: AppValues.spacing20),
                 ClayButton(
-                  text: '■ Dừng & Phân Tích',
+                  text: widget.mode == AstroVoiceMode.coachChat
+                      ? '■ Hoàn Tất & Điền Vào Chat'
+                      : '■ Dừng & Phân Tích',
                   variant: ClayButtonVariant.primary,
                   onPressed: () {
                     HapticFeedback.mediumImpact();
-                    ref
-                        .read(voiceLogControllerProvider.notifier)
-                        .stopListeningAndParse();
+                    if (widget.mode == AstroVoiceMode.coachChat) {
+                      _finishCoachDictation();
+                    } else {
+                      ref
+                          .read(voiceLogControllerProvider.notifier)
+                          .stopListeningAndParse();
+                    }
                   },
                 ),
               ] else if (state.status == VoiceStatus.parsing) ...[
+                Clay3DVoiceMicOrb(
+                  isListening: false,
+                  soundLevel: 0.0,
+                  isParsing: true,
+                  onTap: () {},
+                ),
+                const SizedBox(height: AppValues.spacing16),
                 LiveTranscriptBubble(
                   transcript: state.liveTranscript,
                   isListening: false,
                 ),
-                const SizedBox(height: AppValues.spacing32),
+                const SizedBox(height: AppValues.spacing24),
                 Center(
                   child: Column(
                     children: [
@@ -178,7 +256,7 @@ class _AstroVoiceSheetState extends ConsumerState<AstroVoiceSheet> {
                     ],
                   ),
                 ),
-                const SizedBox(height: AppValues.spacing32),
+                const SizedBox(height: AppValues.spacing24),
               ] else if (state.status == VoiceStatus.ready &&
                   state.result != null) ...[
                 LiveTranscriptBubble(
@@ -201,34 +279,47 @@ class _AstroVoiceSheetState extends ConsumerState<AstroVoiceSheet> {
                   ),
                   onLogMeal: _handleQuickLog,
                 ),
-              ] else if (state.status == VoiceStatus.empty) ...[
+              ] else if (state.status == VoiceStatus.empty ||
+                  state.status == VoiceStatus.error) ...[
+                Clay3DVoiceMicOrb(
+                  isListening: false,
+                  soundLevel: 0.0,
+                  onTap: () {
+                    HapticFeedback.mediumImpact();
+                    ref.read(voiceLogControllerProvider.notifier).startListening();
+                  },
+                ),
+                const SizedBox(height: AppValues.spacing16),
                 Container(
-                  padding: const EdgeInsets.all(24.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
                   decoration: BoxDecoration(
-                    color: AppColors.surface,
-                    borderRadius: BorderRadius.circular(16.0),
+                    color: state.status == VoiceStatus.error
+                        ? AppColors.secondary.withValues(alpha: 0.1)
+                        : AppColors.surface,
+                    borderRadius: BorderRadius.circular(16),
+                    border: state.status == VoiceStatus.error
+                        ? Border.all(color: AppColors.secondary.withValues(alpha: 0.3))
+                        : null,
                   ),
                   child: Column(
                     children: [
-                      const Icon(
-                        Icons.mic_off_rounded,
-                        size: 48,
-                        color: AppColors.onSurfaceVariant,
-                      ),
-                      const SizedBox(height: AppValues.spacing12),
                       Text(
                         state.errorMessage ??
-                            'AstroBite chưa nghe rõ món bạn vừa nói.',
+                            (state.status == VoiceStatus.error
+                                ? 'Không thể kết nối dịch vụ giọng nói.'
+                                : 'AstroBite chưa nghe rõ món bạn vừa nói.'),
                         textAlign: TextAlign.center,
                         style: GoogleFonts.outfit(
-                          fontSize: 15,
+                          fontSize: 14,
                           fontWeight: FontWeight.w600,
-                          color: AppColors.onSurface,
+                          color: state.status == VoiceStatus.error
+                              ? AppColors.secondary
+                              : AppColors.onSurface,
                         ),
                       ),
-                      const SizedBox(height: 6.0),
+                      const SizedBox(height: 6),
                       Text(
-                        'Hãy thử nói to hơn hoặc nói lại lần nữa nhé!',
+                        'Chạm vào Mic 3D ở trên để bắt đầu nói lại nhé!',
                         textAlign: TextAlign.center,
                         style: GoogleFonts.outfit(
                           fontSize: 13,
@@ -240,45 +331,9 @@ class _AstroVoiceSheetState extends ConsumerState<AstroVoiceSheet> {
                 ),
                 const SizedBox(height: AppValues.spacing20),
                 ClayButton(
-                  text: '🎙️ Thử Nói Lại',
-                  variant: ClayButtonVariant.primary,
-                  onPressed: () {
-                    ref.read(voiceLogControllerProvider.notifier).startListening();
-                  },
-                ),
-              ] else if (state.status == VoiceStatus.error) ...[
-                Container(
-                  padding: const EdgeInsets.all(24.0),
-                  decoration: BoxDecoration(
-                    color: AppColors.secondary.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(16.0),
-                    border: Border.all(
-                      color: AppColors.secondary.withValues(alpha: 0.3),
-                    ),
-                  ),
-                  child: Column(
-                    children: [
-                      const Icon(
-                        Icons.error_outline_rounded,
-                        size: 48,
-                        color: AppColors.secondary,
-                      ),
-                      const SizedBox(height: AppValues.spacing12),
-                      Text(
-                        state.errorMessage ?? 'Không thể kết nối với AI Gemini.',
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.outfit(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.secondary,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: AppValues.spacing20),
-                ClayButton(
-                  text: '🔄 Thử Lại',
+                  text: state.status == VoiceStatus.error
+                      ? '🔄 Thử Lại'
+                      : '🎙️ Chạm Để Nói Lại',
                   variant: ClayButtonVariant.primary,
                   onPressed: () {
                     ref.read(voiceLogControllerProvider.notifier).startListening();

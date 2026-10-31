@@ -9,7 +9,8 @@ final profileRepositoryProvider = Provider<ProfileRepository>((ref) {
 });
 
 final userProfileStreamProvider = StreamProvider.autoDispose<UserProfile?>((ref) {
-  final user = ref.watch(authStateProvider).value;
+  final user = ref.watch(authRepositoryProvider).currentUser ??
+      ref.watch(authStateProvider).value;
   if (user == null) return Stream.value(null);
 
   final repo = ref.watch(profileRepositoryProvider);
@@ -31,7 +32,8 @@ final userProfileStreamProvider = StreamProvider.autoDispose<UserProfile?>((ref)
 });
 
 final checkOnboardingCompletedProvider = FutureProvider.autoDispose<bool>((ref) async {
-  final user = ref.watch(authStateProvider).value;
+  final user = ref.watch(authRepositoryProvider).currentUser ??
+      ref.watch(authStateProvider).value;
   if (user == null) return false;
   final repo = ref.watch(profileRepositoryProvider);
   final profile = await repo.getProfile(user.uid);

@@ -15,6 +15,7 @@ import 'package:astrobite/features/voice/domain/entities/voice_log_result.dart';
 import 'package:astrobite/features/voice/domain/repositories/voice_log_repository.dart';
 import 'package:astrobite/features/voice/presentation/controllers/voice_log_controller.dart';
 import 'package:astrobite/features/voice/presentation/widgets/astro_voice_sheet.dart';
+import 'package:astrobite/features/voice/presentation/widgets/clay_3d_voice_mic_orb.dart';
 import 'package:astrobite/features/voice/presentation/widgets/live_transcript_bubble.dart';
 import 'package:astrobite/features/voice/presentation/widgets/voice_pulsing_mic_button.dart';
 import 'package:astrobite/features/voice/presentation/widgets/waveform_visualizer.dart';
@@ -291,7 +292,7 @@ void main() {
       await tester.pump(const Duration(milliseconds: 100));
 
       expect(find.byKey(const Key('voice_pulsing_mic_button')), findsOneWidget);
-      expect(find.byIcon(Icons.mic_rounded), findsOneWidget);
+      expect(find.byType(Image), findsOneWidget);
 
       await tester.tap(find.byKey(const Key('voice_pulsing_mic_button')));
       await tester.pump();
@@ -365,6 +366,34 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.byIcon(Icons.mic_rounded), findsWidgets);
+    });
+
+    testWidgets('Clay3DVoiceMicOrb renders 3D mic and responds to voice soundLevel and tap', (tester) async {
+      bool tapped = false;
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Center(
+              child: Clay3DVoiceMicOrb(
+                isListening: true,
+                soundLevel: 0.8,
+                onTap: () => tapped = true,
+              ),
+            ),
+          ),
+        ),
+      );
+
+      await tester.pump(const Duration(milliseconds: 100));
+
+      expect(find.byType(Clay3DVoiceMicOrb), findsOneWidget);
+      expect(find.text('Đang lắng nghe...'), findsOneWidget);
+      expect(find.byType(Image), findsOneWidget);
+
+      await tester.tap(find.byType(Clay3DVoiceMicOrb));
+      await tester.pump();
+
+      expect(tapped, isTrue);
     });
   });
 }

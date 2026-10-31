@@ -104,11 +104,20 @@ class _VoicePulsingMicButtonState extends State<VoicePulsingMicButton>
               ),
             ],
           ),
-          child: const Center(
-            child: Icon(
-              Icons.mic_rounded,
-              color: Colors.white,
-              size: 28,
+          child: Center(
+            child: ClipOval(
+              child: Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Image.asset(
+                  'assets/images/clay_3d_mic.png',
+                  fit: BoxFit.contain,
+                  errorBuilder: (_, __, ___) => const Icon(
+                    Icons.mic_rounded,
+                    color: Colors.white,
+                    size: 28,
+                  ),
+                ),
+              ),
             ),
           ),
         ),

@@ -91,6 +91,13 @@ class GuildPage extends ConsumerWidget {
   }
 
   Widget _buildErrorState(BuildContext context, WidgetRef ref, String error) {
+    String displayMessage = 'Không thể kết nối đến máy chủ Bang Hội. Vui lòng thử lại sau.';
+    if (error.contains('permission-denied') || error.contains('The caller does not have permission')) {
+      displayMessage = 'Chưa thể xác thực quyền truy cập Bang Hội. Vui lòng kiểm tra lại trạng thái đăng nhập hoặc thử lại.';
+    } else if (error.contains('network') || error.contains('SocketException') || error.contains('unavailable')) {
+      displayMessage = 'Mất kết nối mạng. Vui lòng kiểm tra Wi-Fi hoặc 4G/5G và thử lại.';
+    }
+
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(24),
@@ -110,15 +117,15 @@ class GuildPage extends ConsumerWidget {
               ),
               const SizedBox(height: 12),
               Text(
-                'Đã xảy ra lỗi tải dữ liệu',
+                'Đã xảy ra lỗi kết nối',
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.bold,
                       color: AppColors.onSurface,
                     ),
               ),
-              const SizedBox(height: 4),
+              const SizedBox(height: 8),
               Text(
-                error,
+                displayMessage,
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       color: AppColors.onSurfaceVariant,

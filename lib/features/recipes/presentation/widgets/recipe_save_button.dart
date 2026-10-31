@@ -104,7 +104,7 @@ class _RecipeSaveButtonState extends ConsumerState<RecipeSaveButton> {
     if (saved != null) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('✓ Đã lưu công thức "${saved.name}"'),
+          content: Text('Đã lưu công thức "${saved.name}"'),
           backgroundColor: AppColors.brandGreen,
           behavior: SnackBarBehavior.floating,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),

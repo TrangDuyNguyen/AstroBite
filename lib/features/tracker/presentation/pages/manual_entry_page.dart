@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:astrobite/core/constants/app_keys.dart';
 import 'package:astrobite/core/constants/meal_enums.dart';
 import 'package:astrobite/core/router/app_router.dart';
 import 'package:astrobite/core/utils/l10n_extension.dart';
@@ -70,11 +71,15 @@ class _ManualEntryPageState extends ConsumerState<ManualEntryPage> {
     if (_isSaving) return;
     setState(() => _isSaving = true);
 
-    final user = ref.read(authRepositoryProvider).currentUser;
+    final user = ref.read(authRepositoryProvider).currentUser ??
+        ref.read(authStateProvider).value;
     if (user == null) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(context.l10n.loginToSaveLog)),
+        rootScaffoldMessengerKey.currentState?.showSnackBar(
+          SnackBar(
+            content: Text(context.l10n.loginToSaveLog),
+            behavior: SnackBarBehavior.floating,
+          ),
         );
         setState(() => _isSaving = false);
       }
@@ -93,7 +98,8 @@ class _ManualEntryPageState extends ConsumerState<ManualEntryPage> {
           );
 
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
+        setState(() => _isSaving = false);
+        rootScaffoldMessengerKey.currentState?.showSnackBar(
           SnackBar(
             content: Text(
               context.l10n.savedFoodToMeal(
@@ -101,16 +107,18 @@ class _ManualEntryPageState extends ConsumerState<ManualEntryPage> {
                 _selectedMeal.localizedLabel(context),
               ),
             ),
+            behavior: SnackBarBehavior.floating,
           ),
         );
-        if (context.router.canPop()) {
-          context.router.popForced();
-        }
+        context.router.popForced();
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(context.l10n.errorSavingLog(e.toString()))),
+        rootScaffoldMessengerKey.currentState?.showSnackBar(
+          SnackBar(
+            content: Text(context.l10n.errorSavingLog(e.toString())),
+            behavior: SnackBarBehavior.floating,
+          ),
         );
         setState(() => _isSaving = false);
       }

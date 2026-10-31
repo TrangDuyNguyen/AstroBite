@@ -101,7 +101,7 @@ class GuildController extends StateNotifier<GuildUiState> {
     } catch (e) {
       state = state.copyWith(
         isLoading: false,
-        errorMessage: e.toString().replaceAll('Exception: ', '').replaceAll('ArgumentError: ', '').replaceAll('StateError: ', ''),
+        errorMessage: _formatError(e),
       );
       return false;
     }
@@ -123,7 +123,7 @@ class GuildController extends StateNotifier<GuildUiState> {
     } catch (e) {
       state = state.copyWith(
         isLoading: false,
-        errorMessage: e.toString().replaceAll('Exception: ', '').replaceAll('ArgumentError: ', '').replaceAll('StateError: ', ''),
+        errorMessage: _formatError(e),
       );
       return false;
     }
@@ -176,7 +176,7 @@ class GuildController extends StateNotifier<GuildUiState> {
     } catch (e) {
       state = state.copyWith(
         isLoading: false,
-        errorMessage: e.toString().replaceAll('Exception: ', '').replaceAll('ArgumentError: ', '').replaceAll('StateError: ', ''),
+        errorMessage: _formatError(e),
       );
       return false;
     }
@@ -196,7 +196,7 @@ class GuildController extends StateNotifier<GuildUiState> {
     } catch (e) {
       state = state.copyWith(
         isLoading: false,
-        errorMessage: e.toString().replaceAll('Exception: ', '').replaceAll('ArgumentError: ', '').replaceAll('StateError: ', ''),
+        errorMessage: _formatError(e),
       );
       return false;
     }
@@ -220,7 +220,7 @@ class GuildController extends StateNotifier<GuildUiState> {
     } catch (e) {
       state = state.copyWith(
         isLoading: false,
-        errorMessage: e.toString().replaceAll('Exception: ', '').replaceAll('ArgumentError: ', '').replaceAll('StateError: ', ''),
+        errorMessage: _formatError(e),
       );
       return false;
     }
@@ -249,7 +249,7 @@ class GuildController extends StateNotifier<GuildUiState> {
     } catch (e) {
       state = state.copyWith(
         isLoading: false,
-        errorMessage: e.toString().replaceAll('Exception: ', '').replaceAll('ArgumentError: ', '').replaceAll('StateError: ', ''),
+        errorMessage: _formatError(e),
       );
       return false;
     }
@@ -273,7 +273,7 @@ class GuildController extends StateNotifier<GuildUiState> {
     } catch (e) {
       state = state.copyWith(
         isLoading: false,
-        errorMessage: e.toString().replaceAll('Exception: ', '').replaceAll('ArgumentError: ', '').replaceAll('StateError: ', ''),
+        errorMessage: _formatError(e),
       );
       return false;
     }
@@ -288,6 +288,20 @@ class GuildController extends StateNotifier<GuildUiState> {
 
   void clearMessages() {
     state = state.copyWith(errorMessage: null, successMessage: null);
+  }
+
+  String _formatError(dynamic e) {
+    final msg = e.toString();
+    if (msg.contains('permission-denied') || msg.contains('The caller does not have permission')) {
+      return 'Không thể kết nối hoặc chưa được cấp quyền Bang Hội. Vui lòng thử lại sau.';
+    }
+    if (msg.contains('network') || msg.contains('SocketException') || msg.contains('unavailable')) {
+      return 'Mất kết nối mạng. Vui lòng kiểm tra Wi-Fi hoặc 4G và thử lại.';
+    }
+    return msg
+        .replaceAll('Exception: ', '')
+        .replaceAll('ArgumentError: ', '')
+        .replaceAll('StateError: ', '');
   }
 }
 

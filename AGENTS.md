@@ -104,6 +104,10 @@ lib/
   - Follow the 4pt spacing grid (`AppValues.padding*`).
   - Fat corner radii: `20pt` for cards (`SolarCard`/`ClayCard`), `24pt` for chips and pills.
   - Minimum touch target: `44x44pt` for all interactive elements.
+- **STRICT PROHIBITION OF EMOJIS FOR ICONS (NGHIÊM CẤM DÙNG EMOJI THAY THẾ ICON)**:
+  - **Tuyệt đối KHÔNG sử dụng emoji Unicode** (như 🍎, 🥗, ☕, 🥑, ☀️, ☁️, 🍳, 🥩, 🥪, 🥣, 📊, ⚙️, ✕, ✓...) để thay thế cho icon giao diện, nhãn nút bấm, danh mục, huy hiệu hay trạng thái.
+  - **Bắt buộc dùng icon chuẩn**: Sử dụng Flutter `IconData` (`Icons.*`), SVG vector assets, hoặc các component 3D Clay của Design System (`Clay3DIcon`, `Clay3DCookbook`, `ClayMorphIcon`, `ClayIconButton`...).
+  - **Lý do**: Emoji hiển thị phân mảnh giữa iOS / Android, vỡ alignment khi scale chữ, không theo được bảng màu Design System, và phá vỡ chuẩn trợ năng Accessibility.
 
 ---
 

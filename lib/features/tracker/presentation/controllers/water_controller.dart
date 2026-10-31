@@ -15,7 +15,8 @@ class WaterController extends StateNotifier<AsyncValue<WaterDayLog?>> {
 
   String _resolveUserId() {
     try {
-      final user = _ref.read(authStateProvider).value;
+      final user = _ref.read(authRepositoryProvider).currentUser ??
+          _ref.read(authStateProvider).value;
       return user?.uid ?? 'guest_user';
     } catch (_) {
       return 'guest_user';
