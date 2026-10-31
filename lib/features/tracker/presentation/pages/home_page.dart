@@ -4,8 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:astrobite/core/router/app_router.dart';
 import 'package:astrobite/features/auth/domain/auth_providers.dart';
 import 'package:astrobite/features/gamification/presentation/controllers/streak_controller.dart';
-import 'package:astrobite/features/voice/presentation/widgets/astro_voice_sheet.dart';
-import 'package:astrobite/features/voice/presentation/widgets/voice_pulsing_mic_button.dart';
 import 'package:astrobite/features/widgets/widget_sync_service.dart';
 import 'package:astrobite/shared/ui_kit/ui_kit.dart';
 import '../../domain/daily_summary.dart';
@@ -124,9 +122,6 @@ class HomePage extends ConsumerWidget {
     return Scaffold(
       backgroundColor: AppColors.surface,
       appBar: const DashboardAppBar(),
-      floatingActionButton: VoicePulsingMicButton(
-        onTap: () => AstroVoiceSheet.show(context),
-      ),
       body: SafeArea(
         bottom: false,
         child: Column(

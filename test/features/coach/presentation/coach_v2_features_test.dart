@@ -4,6 +4,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:astrobite/features/coach/domain/chat_message.dart';
 import 'package:astrobite/features/coach/presentation/coach_controller.dart';
 import 'package:astrobite/features/coach/presentation/coach_page.dart';
+import 'package:astrobite/features/coach/presentation/widgets/coach_message_list.dart';
+import 'package:astrobite/features/coach/presentation/widgets/coach_quick_actions.dart';
 import 'package:astrobite/features/tracker/domain/daily_summary.dart';
 import 'package:astrobite/features/tracker/domain/tracker_providers.dart';
 
@@ -554,6 +556,104 @@ Hãy thưởng thức nhé!
 
       expect(mockController.deleteCalled, isTrue);
       expect(find.text('🗑️ Đã xoá cuộc trò chuyện thành công.'), findsOneWidget);
+    });
+
+    testWidgets('Swiping up hides nutrition overview and reveals suggestions; swiping down hides suggestions and reveals nutrition overview', (tester) async {
+      final mockMessages = List.generate(
+        15,
+        (i) => ChatMessage(
+          id: 'msg_$i',
+          role: i.isEven ? 'user' : 'assistant',
+          content: 'Tin nhắn $i về chế độ ăn uống và dinh dưỡng',
+          timestamp: DateTime(2026, 9, 24, 12, i),
+        ),
+      );
+
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            coachControllerProvider.overrideWith(() => _MockCoachController(mockMessages)),
+            todaySummaryProvider.overrideWithValue(
+              const DailySummary(
+                date: '2026-09-24',
+                totalCalories: 1200,
+                targetCalories: 2000,
+                totalProteinG: 70,
+                targetProteinG: 120,
+                totalCarbsG: 120,
+                targetCarbsG: 200,
+                totalFatG: 40,
+                targetFatG: 60,
+                logs: [],
+              ),
+            ),
+          ],
+          child: const MaterialApp(
+            home: CoachPage(),
+          ),
+        ),
+      );
+
+      await tester.pumpAndSettle();
+
+      final chatListFinder = find.byType(CoachMessageList);
+
+      // Initially both are visible
+      expect(find.text('Tổng quan dinh dưỡng hôm nay'), findsOneWidget);
+      expect(find.byType(CoachQuickActions), findsOneWidget);
+
+      // 1. Swipe up (drag finger upwards: from bottom to top)
+      await tester.drag(chatListFinder, const Offset(0, -100));
+      await tester.pumpAndSettle();
+
+      // Nutrition overview should be hidden
+      expect(find.text('Tổng quan dinh dưỡng hôm nay'), findsNothing);
+      // Quick actions should be visible
+      expect(find.byType(ActionChip), findsWidgets);
+
+      // 2. Swipe down (drag finger downwards: from top to bottom)
+      await tester.drag(chatListFinder, const Offset(0, 100));
+      await tester.pumpAndSettle();
+
+      // Nutrition overview should be restored
+      expect(find.text('Tổng quan dinh dưỡng hôm nay'), findsOneWidget);
+      // Quick actions should be hidden (ActionChip is not shown)
+      expect(find.byType(ActionChip), findsNothing);
+
+      // 3. Swipe up again to verify symmetry
+      await tester.drag(chatListFinder, const Offset(0, -100));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Tổng quan dinh dưỡng hôm nay'), findsNothing);
+      expect(find.byType(ActionChip), findsWidgets);
+
+      // 4. Test direct gesture on CoachQuickActions (dragging down hides it)
+      await tester.drag(find.byType(CoachQuickActions), const Offset(0, 30));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Tổng quan dinh dưỡng hôm nay'), findsOneWidget);
+      expect(find.byType(ActionChip), findsNothing);
+
+      // 5. Test direct gesture on CoachContextHeader (dragging up hides it)
+      await tester.drag(find.text('Tổng quan dinh dưỡng hôm nay'), const Offset(0, -30));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Tổng quan dinh dưỡng hôm nay'), findsNothing);
+      expect(find.byType(ActionChip), findsWidgets);
+
+      // 6. Test restoring via sparkle icon in input bar
+      // First drag down to hide suggestions
+      await tester.drag(chatListFinder, const Offset(0, 100));
+      await tester.pumpAndSettle();
+      expect(find.byType(ActionChip), findsNothing);
+
+      // Tap sparkle prefix icon
+      final sparkleIconFinder = find.byIcon(Icons.auto_awesome);
+      expect(sparkleIconFinder, findsOneWidget);
+      await tester.tap(sparkleIconFinder);
+      await tester.pumpAndSettle();
+
+      expect(find.byType(ActionChip), findsWidgets);
     });
   });
 }

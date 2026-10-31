@@ -10,6 +10,7 @@ import 'package:astrobite/l10n/app_localizations.dart';
 class CoachQuickActions extends StatelessWidget {
   const CoachQuickActions({
     super.key,
+    this.isVisible = true,
     required this.isKeyboardOpen,
     required this.isSending,
     required this.showSuggestions,
@@ -20,6 +21,7 @@ class CoachQuickActions extends StatelessWidget {
     required this.onSelectPrompt,
   });
 
+  final bool isVisible;
   final bool isKeyboardOpen;
   final bool isSending;
   final bool showSuggestions;
@@ -167,17 +169,33 @@ class CoachQuickActions extends StatelessWidget {
     final actions = getDynamicQuickActions(summary, shuffleIndex, l10n);
 
     return AnimatedSize(
-      duration: const Duration(milliseconds: 250),
-      curve: Curves.easeInOutCubic,
-      child: showSuggestions
-          ? Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                _buildQuickActions(context, actions, l10n),
-                _buildMedicalDisclaimer(l10n),
-              ],
-            )
-          : _buildSuggestionsTogglePill(actions.length - 1, l10n),
+      duration: const Duration(milliseconds: 280),
+      curve: Curves.easeOutCubic,
+      clipBehavior: Clip.hardEdge,
+      child: !isVisible
+          ? const SizedBox(width: double.infinity, height: 0)
+          : AnimatedSwitcher(
+              duration: const Duration(milliseconds: 220),
+              switchInCurve: Curves.easeOutCubic,
+              switchOutCurve: Curves.easeInCubic,
+              transitionBuilder: (child, animation) => FadeTransition(
+                opacity: animation,
+                child: child,
+              ),
+              child: showSuggestions
+                  ? Column(
+                      key: const ValueKey('suggestions_expanded'),
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        _buildQuickActions(context, actions, l10n),
+                        _buildMedicalDisclaimer(l10n),
+                      ],
+                    )
+                  : KeyedSubtree(
+                      key: const ValueKey('suggestions_pill'),
+                      child: _buildSuggestionsTogglePill(actions.length - 1, l10n),
+                    ),
+            ),
     );
   }
 

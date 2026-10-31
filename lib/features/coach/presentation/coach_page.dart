@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -16,6 +17,7 @@ import 'package:astrobite/features/tracker/presentation/controllers/tracker_cont
 import 'package:astrobite/features/voice/presentation/widgets/astro_voice_sheet.dart';
 import 'coach_controller.dart';
 import 'widgets/coach_app_bar.dart';
+import 'widgets/coach_collapsible_section.dart';
 import 'widgets/coach_message_list.dart';
 import 'widgets/coach_context_header.dart';
 import 'widgets/coach_empty_state.dart';
@@ -38,6 +40,8 @@ class _CoachPageState extends ConsumerState<CoachPage> with WidgetsBindingObserv
   Timer? _scrollTimer;
   bool _isSending = false;
   bool _showSuggestions = true;
+  bool _showNutritionOverview = true;
+  bool _showQuickActions = true;
   bool _wasKeyboardOpen = false;
   int _suggestionShuffleIndex = 0;
   final Set<String> _loggedMessageIds = {};
@@ -149,6 +153,33 @@ class _CoachPageState extends ConsumerState<CoachPage> with WidgetsBindingObserv
     });
   }
 
+  void _onSwipeUp() {
+    if (!_showNutritionOverview && _showQuickActions) return;
+    setState(() {
+      _showNutritionOverview = false;
+      _showQuickActions = true;
+    });
+  }
+
+  void _onSwipeDown() {
+    if (_showNutritionOverview && !_showQuickActions) return;
+    setState(() {
+      _showNutritionOverview = true;
+      _showQuickActions = false;
+    });
+  }
+
+  bool _onScrollNotification(ScrollNotification notification) {
+    if (notification is UserScrollNotification) {
+      if (notification.direction == ScrollDirection.reverse) {
+        _onSwipeUp();
+      } else if (notification.direction == ScrollDirection.forward) {
+        _onSwipeDown();
+      }
+    }
+    return false;
+  }
+
   void _showLimitDialog() {
     showDialog(
       context: context,
@@ -240,7 +271,21 @@ class _CoachPageState extends ConsumerState<CoachPage> with WidgetsBindingObserv
           ),
           Column(
             children: [
-              CoachContextHeader(summary: summary),
+              CoachCollapsibleSection(
+                isExpanded: _showNutritionOverview,
+                isTop: true,
+                child: GestureDetector(
+                  behavior: HitTestBehavior.translucent,
+                  onVerticalDragUpdate: (details) {
+                    if (details.delta.dy < -5) {
+                      _onSwipeUp();
+                    } else if (details.delta.dy > 5) {
+                      _onSwipeDown();
+                    }
+                  },
+                  child: CoachContextHeader(summary: summary),
+                ),
+              ),
 
               if (selectedDate != null)
                 CoachSessionBanner(
@@ -250,51 +295,69 @@ class _CoachPageState extends ConsumerState<CoachPage> with WidgetsBindingObserv
                 ),
 
               Expanded(
-                child: messagesAsync.when(
-                  loading: () => const Center(
-                    child: CircularProgressIndicator(color: AppColors.primary),
-                  ),
-                  error: (e, _) => Center(
-                    child: Text(
-                      context.l10n.errorLabel(e.toString()),
-                      style: const TextStyle(color: AppColors.onSurfaceVariant),
+                child: NotificationListener<ScrollNotification>(
+                  onNotification: _onScrollNotification,
+                  child: messagesAsync.when(
+                    loading: () => const Center(
+                      child: CircularProgressIndicator(color: AppColors.primary),
                     ),
+                    error: (e, _) => Center(
+                      child: Text(
+                        context.l10n.errorLabel(e.toString()),
+                        style: const TextStyle(color: AppColors.onSurfaceVariant),
+                      ),
+                    ),
+                    data: (messages) => messages.isEmpty
+                        ? CoachEmptyState(summary: summary)
+                        : CoachMessageList(
+                            messages: messages,
+                            scrollController: _scrollController,
+                            isSending: _isSending,
+                            hasPhysicalKeyboard: hasPhysicalKeyboard,
+                            isInTabs: isInTabs,
+                            loggedMessageIds: _loggedMessageIds,
+                            genUiCatalog: _genUiCatalog,
+                            onLogMeal: _logMealFromCoach,
+                            onSendMessage: _sendMessage,
+                            onRetry: (msg) {
+                              final lastUserMsg = messages.lastWhere(
+                                (m) => m.isUser,
+                                orElse: () => msg,
+                              );
+                              if (lastUserMsg.isUser) {
+                                ref.read(coachControllerProvider.notifier).removeErrors();
+                                _sendMessage(lastUserMsg.content);
+                              }
+                            },
+                          ),
                   ),
-                  data: (messages) => messages.isEmpty
-                      ? CoachEmptyState(summary: summary)
-                      : CoachMessageList(
-                          messages: messages,
-                          scrollController: _scrollController,
-                          isSending: _isSending,
-                          hasPhysicalKeyboard: hasPhysicalKeyboard,
-                          isInTabs: isInTabs,
-                          loggedMessageIds: _loggedMessageIds,
-                          genUiCatalog: _genUiCatalog,
-                          onLogMeal: _logMealFromCoach,
-                          onSendMessage: _sendMessage,
-                          onRetry: (msg) {
-                            final lastUserMsg = messages.lastWhere(
-                              (m) => m.isUser,
-                              orElse: () => msg,
-                            );
-                            if (lastUserMsg.isUser) {
-                              ref.read(coachControllerProvider.notifier).removeErrors();
-                              _sendMessage(lastUserMsg.content);
-                            }
-                          },
-                        ),
                 ),
               ),
 
-              CoachQuickActions(
-                isKeyboardOpen: isKeyboardOpen,
-                isSending: _isSending,
-                showSuggestions: _showSuggestions,
-                summary: summary,
-                shuffleIndex: _suggestionShuffleIndex,
-                onShuffle: () => setState(() => _suggestionShuffleIndex++),
-                onToggleShow: (show) => setState(() => _showSuggestions = show),
-                onSelectPrompt: _sendMessage,
+              CoachCollapsibleSection(
+                isExpanded: _showQuickActions,
+                isTop: false,
+                child: GestureDetector(
+                  behavior: HitTestBehavior.translucent,
+                  onVerticalDragUpdate: (details) {
+                    if (details.delta.dy > 5) {
+                      _onSwipeDown();
+                    } else if (details.delta.dy < -5) {
+                      _onSwipeUp();
+                    }
+                  },
+                  child: CoachQuickActions(
+                    isVisible: true,
+                    isKeyboardOpen: isKeyboardOpen,
+                    isSending: _isSending,
+                    showSuggestions: _showSuggestions,
+                    summary: summary,
+                    shuffleIndex: _suggestionShuffleIndex,
+                    onShuffle: () => setState(() => _suggestionShuffleIndex++),
+                    onToggleShow: (show) => setState(() => _showSuggestions = show),
+                    onSelectPrompt: _sendMessage,
+                  ),
+                ),
               ),
 
               Padding(
@@ -306,8 +369,17 @@ class _CoachPageState extends ConsumerState<CoachPage> with WidgetsBindingObserv
                   focusNode: _focusNode,
                   isSending: _isSending,
                   isListeningVoice: false,
-                  showSuggestions: _showSuggestions,
-                  onToggleSuggestions: () => setState(() => _showSuggestions = !_showSuggestions),
+                  showSuggestions: _showQuickActions && _showSuggestions,
+                  onToggleSuggestions: () {
+                    setState(() {
+                      if (!_showQuickActions) {
+                        _showQuickActions = true;
+                        _showSuggestions = true;
+                      } else {
+                        _showSuggestions = !_showSuggestions;
+                      }
+                    });
+                  },
                   onToggleVoice: _toggleVoiceDictation,
                   onSubmitted: _sendMessage,
                   onSend: () => _sendMessage(_textController.text),
