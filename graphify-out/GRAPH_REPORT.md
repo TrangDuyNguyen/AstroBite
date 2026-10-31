@@ -1,233 +1,234 @@
 # Graph Report - AstroBite  (2026-10-31)
 
 ## Corpus Check
-- 961 files · ~642,986 words
+- 1030 files · ~2,432,321 words
 - Verdict: corpus is large enough that graph structure adds value.
-- Unclassified: 88 file(s) not represented in the graph (top: .xml 26, (none) 20, .feature 17)
+- Unclassified: 94 file(s) not represented in the graph (top: .xml 26, (none) 20, .feature 17)
 
 ## Summary
-- 10466 nodes · 13190 edges · 752 communities (691 shown, 61 thin omitted)
-- Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 65 edges (avg confidence: 0.91)
+- 36682 nodes · 106056 edges · 814 communities (748 shown, 66 thin omitted)
+- Extraction: 90% EXTRACTED · 10% INFERRED · 0% AMBIGUOUS · INFERRED: 10653 edges (avg confidence: 0.85)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `60215c01`
+- Built from commit: `a6c0ae92`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
 - server.cjs
 - package.json
-- guild_repository_impl_test.dart
+- l
 - coach_page.dart
 - validate-findings.cjs
-- manual_entry_page_test.dart
-- validate-coverage-ledger.cjs
+- d
+- clay_button.dart
 - app_localizations.dart
-- barcode_lookup_service.dart
+- fast-edit-worker.js
 - camera_page.dart
 - scan_result_dto.dart
 - app_localizations_en.dart
 - scan_result.dart
 - food_log_dto.dart
 - app_values.dart
-- login_controller.dart
-- scan_review_page_test.dart
-- food_portion_card.dart
-- dashboard_server.py
+- .get
+- __
+- compiler.cjs
+- validate_palette.py
 - app_router.dart
-- onboarding_page.dart
-- meal_quick_log_card.dart
-- streak_record.dart
+- login_page.dart
+- k
+- __
 - app_icons.dart
 - recipe.dart
-- guild.dart
+- widget_sync_service.dart
 - confirmed
-- authRepositoryProvider
+- s
 - meal_plan_item.dart
 - custom_food_sheet.dart
-- validate-findings.test.cjs
-- zero_gravity_food_background.dart
+- validate-coverage-ledger.cjs
+- List
 - guild_controller.dart
 - user_profile_dto.dart
-- widget_sync_service.dart
-- clay_meal_chip.dart
-- vietnamese_culinary_decomposition_test.dart
-- app_colors.dart
-- recipe_builder_controller.dart
-- scanning_viewfinder.dart
+- $u
+- index-CHV2ZUA0.js
+- .get
+- v
+- babel.min.js
+- x_
+- .get
 - app_localizations_vi.dart
-- coach_meal_card.dart
-- package:astrobite/shared/ui_kit/ui_kit.dart
-- package:flutter_test/flutter_test.dart
+- createSlidesRuntime
+- gP
+- package:astrobite/features/auth/domain/auth_providers.dart
 - voice_log_controller.dart
-- app.dart
-- manual_entry_page.dart
-- daily_summary.dart
-- staggered_animation.dart
-- login_page.dart
-- profile_edit_page.dart
-- package:flutter_riverpod/flutter_riverpod.dart
-- clay_button.dart
-- member_action_sheet.dart
-- indicators/calorie_progress_arc.dart
+- fG
+- fM
+- social_controller.dart
+- j9
+- authRepositoryProvider
+- delete_meal_confirmation_sheet.dart
+- getPropertyValue
+- package:astrobite/core/theme/app_colors.dart
+- useState
+- "node_modules/react-dom-18/cjs/react-dom.development.js"
 - recipe_ingredient.dart
 - Hero Animations Reference
-- package:astrobite/core/theme/app_colors.dart
-- guild_repository_impl.dart
-- List
-- package:astrobite/core/utils/l10n_extension.dart
-- quick_choice_chips.dart
-- recipe_builder_controller_test.dart
+- manual_entry_page.dart
+- push
+- installCompilerCssValues
+- coach_quick_actions.dart
+- meal_quick_log_card.dart
+- package:flutter_riverpod/flutter_riverpod.dart
 - Sub-Agent Scrum Master — *"The Servant Leader & Agile Coach"*
 - water_log.dart
-- coach_repository.dart
-- meal_food_item_tile.dart
-- goal_summary_page_test.dart
-- ConsumerWidget
-- food_log_repository_offline_test.dart
+- get
+- i_
+- installEditorContrastBackgrounds
+- A
+- i
 - voice_log_result.dart
-- clay_card.dart
-- meal_plan_repository_impl.dart
-- explicit_animation.dart
+- K
+- width
+- State
 - meal_plan_custom_entry_form.dart
 - gemini_api_key_service.dart
 - Provider
-- add_meal_plan_item_sheet.dart
-- health_activity.dart
-- food_log.dart
-- celestial_particle_background.dart
-- package:flutter/services.dart
-- leaderboard_page.dart
-- dart:math
-- clay_bottom_nav.dart
-- home_page.dart
-- clay_skeleton_loader.dart
-- profile_metrics_card.dart
-- main.dart
-- clay_app_bar.dart
+- installCompilerHtml
+- TM
+- dc-runtime.js
+- checkCanvas
+- installUiOverlays
+- get
+- "node_modules/react-dom/cjs/react-dom-client.production.js"
+- int get
+- r
+- b_
+- h_
+- installRenderingSlides
+- error
 - Staggered Animations Reference
-- PageRouteInfo
-- network_sync_coordinator.dart
+- .add
+- diskPath
 - Sprint 33: Cosmic Orbital Dashboard & Dynamic Meal Slots (v3.5.0)
-- clay_3d_planet.dart
-- cosmic_logo_badge.dart
-- mock_guild_repository.dart
-- multi_dish_scan_review_test.dart
-- guild_remote_datasource.dart
-- astro_voice_sheet.dart
+- CustomPainter
+- claude-design/scripts/artifact.mjs
+- installUiInteractions
+- c
+- installUiDisclosure
+- captureCommitPhaseError
 - user_profile.dart
-- social_controller.dart
-- voice_recognition_service.dart
+- "node_modules/react-18/cjs/react.development.js"
+- value
 - locale_service.dart
-- recipe_add_ingredient_sheet.dart
-- splash_page.dart
+- recipe_builder_controller.dart
+- beginWork
 - Integration Testing Guide
-- tracker_controller.dart
-- glass_card.dart
+- getBoundingClientRect
+- mergeLanes
 - compilerOptions
-- food_log_repository_impl.dart
-- String get
-- guild_member.dart
-- Widget
+- appendChild
+- react-dom.production.min.js
+- claude-design-system/scripts/server.mjs
+- "node_modules/pptxgenjs/dist/pptxgen.cjs.js"
 - Physics-Based Animations Reference
-- constants/profile_enums.dart
-- delete_meal_confirmation_sheet.dart
-- clay_3d_analytics_chart.dart
-- clay_water_card_test.dart
+- beginWork
+- cG
+- scanning_viewfinder.dart
+- installModelDeck
 - .application
-- recipe_repository_impl.dart
-- clay_3d_astronaut.dart
-- google_sign_in_button.dart
-- planetary_challenge.dart
-- scan_food_usecase_test.dart
+- claude-design/scripts/server.mjs
+- installDesignSystemSlideStyles
+- installUiStyleInspector
+- installUiMenu
+- claude-slides/scripts/server.mjs
 - 🔍 2. Ma Trận Soi Lỗi Thị Giác 6 Trụ Cột (Visual Heuristics Checklist)
 - Mocking Guide
 - Explicit Animations Reference
-- coach_message_list.dart
+- "node_modules/wawoff2/build/decompress_binding.js"
 - Widget Testing Guide
 - AstroBite — Báo Cáo Đo Đạc SLAs Hiệu Năng & Kiểm Chuẩn AI Ground-Truth
 - Plugin Testing Guide
 - 🥑 2. MÔ TẢ 13 TÍNH NĂNG CỐT LÕI BẰNG NGÔN NGỮ TỰ NHIÊN (USER EXPERIENCE)
-- CustomPainter
+- installExportDeckHtml
 - Available Widgets
-- auth_remote_datasource.dart
-- analytics_kpi_overview_row.dart
-- chat_message.dart
-- water_wave_painter.dart
+- k4
+- installUiTable
+- SlideCanvasEditor
+- installUiFoundation
 - Common Testing Errors
-- water_sheet_components.dart
-- clay_3d_sugar_cube.dart
+- home_page.dart
+- a
 - Unit Testing Guide
 - 📄 PRD: Core Daily Loop — Navigation & Food Tracker UI Overhaul (`FEAT-S13-TRACKER-NAV`)
 - Fundamental Patterns
-- guild_repository.dart
+- k0
 - State & Feedback Patterns
-- a2ui_model.dart
-- login_controller_test.dart
+- push
+- installUiToolbarControls
 - AstroBiteWidgetProvider.kt
 - Ma Trận Phân Rã Công Việc 8 Cổng (WBS Task Matrix)
-- camera_dock_controls.dart
+- useFieldValidation
 - 🥑 2. MÔ TẢ 12 TÍNH NĂNG CỐT LÕI BẰNG NGÔN NGỮ TỰ NHIÊN (USER EXPERIENCE)
-- food_log_local_datasource.dart
-- StatelessWidget
-- app_test.dart
-- voice_logging_test.dart
-- micronutrient_chips_row.dart
-- clay_3d_celestial_avatar.dart
-- login_form_card.dart
+- installExportPptx
+- QC
+- installCommentsLabels
+- we
+- installUiPreviewCard
+- tV
+- formatProdErrorMessage
 - double get
-- coach_chat_bubble.dart
-- meal_planner_page_test.dart
-- splash_constellation_specs.dart
+- completeWork
+- SlidesApp
+- commitMutationEffectsOnFiber
 - Tài Liệu Yêu Cầu Sản Phẩm (PRD) — FEAT-17: Custom Recipes & Meal Planning Architecture
-- 🚫 3. Cơ Chế Review Siêu Khó Tính & Cấm Tuyệt Đối "Du Di" (Zero-Tolerance Policy)
+- 🎭 2. Bản Sắc & Cá Tính 10 Sub-Agents (The 10 Distinct Archetypes)
 - helper.js
 - User Stories & BDD Acceptance Criteria — Smart Realtime AI Coach (FEAT-09 / EPIC-07)
-- clay_3d_star.dart
+- mg
 - User Stories & BDD Acceptance Criteria — Health Integration (FEAT-10 / EPIC-10)
 - check_file_length.sh
 - 📋 3. User Stories & Tiêu Chí Nghiệm Thu Chuẩn BDD (Given - When - Then)
-- astrobite_genui_catalog.dart
+- captureCommitPhaseError
 - Architecture Decision Record (ADR-038): Sprint 32 — Barcode & Nutrition Label OCR Scanner (v3.4.0)
-- goal_summary_page.dart
-- clay_3d_shield.dart
+- h_
+- lb
 - Kiến Trúc Cấu Trúc Dự Án & Quản Trị Git Submodule — AstroBite
-- onboarding_step_metrics.dart
-- clay_3d_cookbook.dart
+- resolve
+- ri
 - catalog.dart
 - User Stories & Acceptance Criteria: Multi-Item Food Scanner AI
 - Motion Design Skill
-- clay_nav_item.dart
+- installModelStyleSchema
 - AstroBite — Design System
-- clay_3d_astro_bot.dart
+- tj
 - PRD: Tối Ưu Hoá Ghi Chép Dinh Dưỡng Công Thái Học & Tốc Độ Cao (Zero-Friction Ergonomic Logging)
-- clay_3d_voice_mic_orb.dart
-- clay_3d_flame.dart
+- setInitialProperties
+- installModelGeometry
 - _
-- clay_3d_salt_shaker.dart
-- clay_3d_sprout.dart
+- ni
+- dispatchSetStateInternal
 - Visual Companion Guide
 - stop-server.sh
 - Bloc State Management
 - 📋 Bảng Kanban Sprint 34
-- AnimationController
+- installDesignSystemRestyle
 - User Stories & Acceptance Criteria: Offline-First Local Cache & Sync
 - Đặc Tả Thiết Kế Giao Diện (UI/UX Design Spec): FEAT-10 — Health Integration
 - Common Recipes
 - Coordinated Sequences
-- meal_quick_log_props.dart
+- installExportPdfWriter
 - Đặc Tả Thiết Kế Giao Diện (UI/UX Design Spec): FEAT-09 — Smart Realtime AI Coach
 - Hồ Sơ Đặc Tả Thiết Kế Giao Diện (UI/UX Design Specification)
 - AstroBite — Design Specification
 - Tài Liệu Đặc Tả Thiết Kế: Hệ Sinh Thái Đa Sub-Agent Độc Lập & Quản Trị Dự Án AstroBite
-- 🎭 2. Bản Sắc & Cá Tính 10 Sub-Agents (The 10 Distinct Archetypes)
-- scanner_controller_test.dart
+- emit
+- installHostFrameBridge
 - Tài Liệu Đặc Tả Thiết Kế: Tích Hợp Sub-Agent Mobile UI/UX Designer & Chuẩn Hóa Quy Trình 7-Gate SOP
 - Architectural Design Spec: Multi-Region Food Culture Intelligence (Sprint 19)
-- dashboard_app_bar_test.dart
+- Rs
 - Đặc Tả Thiết Kế Giao Diện (UI/UX Design Spec): [Mã & Tên Tính Năng]
-- AGENTS.md — AstroBite Project Guidelines
+- 5. Coding & Development Conventions
 - Sub-Agent Mobile UI/UX Designer — AstroBite
 - 4. Yêu Cầu Chức Năng Chi Tiết (Functional Requirements)
 - start-server.sh
@@ -235,7 +236,7 @@
 - MainActivity.kt
 - Protocols, RPC, and Messaging Hunting
 - Biên Bản Nghiệm Thu Độc Lập Gate 6: Sprint 23 (v3.3.0)
-- scan_tactile_action_button.dart
+- "node_modules/readable-stream/lib/_stream_readable.js"
 - PRD: Trợ Lý AI Dinh Dưỡng Hội Thoại Thời Gian Thực (Smart Realtime AI Coach)
 - PRD: Màn Hình Tổng Quan Hôm Nay Chuẩn Glanceable (Celestial Cockpit & Quick Log)
 - 1. Tầng Root Super-Repo
@@ -259,7 +260,7 @@
 - Danh Sách User Stories & Kịch Bản BDD: Social Guilds
 - Phase 1: Project Foundation
 - Sub-Agent Flutter Developer (Dev FE) — AstroBite
-- _
+- popHydrationState
 - Sub-Agent Tech Lead & System Architect — *"The Pragmatic System Architect"*
 - User Stories & Acceptance Criteria: Auth & Onboarding
 - User Stories & Acceptance Criteria: Diary & Calorie Tracker
@@ -270,14 +271,14 @@
 - Ambient & Continuous Patterns
 - Timing & Easing Tables
 - Sub-Agent Product Owner (PO) — *"The Strategic Tyrant"*
-- Security Audit
+- ATTACK-CLASSES.md
 - 🚪 Chi Tiết 6 Cổng Chất Lượng & Phân Nhiệm Sub-Agent
 - PRD: Tiện Ích Màn Hình Khóa & Màn Hình Chính (Mobile Widgets & Quick Glance)
 - Tài Liệu Yêu Cầu Sản Phẩm (PRD) — Sprint 08
 - PRD: Sprint 19 - Multi-Region Food Culture Intelligence (Vietnamese Culinary Decomposition Engine)
 - User Stories BDD: Sprint 19 Multi-Region Food Culture Intelligence
 - ADR-06: Kiến Trúc Generative UI Chat Cockpit (Flutter GenUI Specification + Gemini 3.8 Flash A2UI)
-- Từ Điển Dữ Liệu Thực Thể (Data Dictionary)
+- name
 - Release Notes — AstroBite v1.1.0
 - 🧭 Quy Trình Phân Tích Chuẩn (Core BA Workflow)
 - motion-design/SKILL.md
@@ -287,7 +288,7 @@
 - Sub-Agent Security Auditor — *"The Zero-Trust Sentinel"*
 - Đặc Tả Thiết Kế Giao Diện (UI/UX Design Spec): Trải Nghiệm Ngoại Tuyến & Tự Động Đồng Bộ (Offline-First Resilience)
 - Đặc Tả Thiết Kế Giao Diện (UI/UX Design Spec): Theo Dõi Vi Chất Dinh Dưỡng Nâng Cao (Micronutrients Tracking)
-- 4. UI/UX Design System (Celestial Dark UI × M3)
+- outline
 - Manual Testcases — Smart Realtime AI Coach (FEAT-09 / EPIC-07)
 - Manual Testcases — Health Integration (FEAT-10 / EPIC-10)
 - Common Optimizations
@@ -295,8 +296,8 @@
 - Narrative Structure
 - Quality Checklist
 - 🧭 2. Nhiệm Vụ & Thẩm Quyền Cốt Lõi
-- Client-Side and Browser Hunting
-- clay_icon_button.dart
+- setViewport
+- getBorder
 - Memory Safety, Binary, and Kernel Hunting
 - ADR-008: Kiến Trúc AstroCoach AI Intelligence v2 & Conversational Nutritionist
 - Hồ Sơ Đặc Tả Thiết Kế Giao Diện (UI/UX Design Specification)
@@ -309,10 +310,10 @@
 - Built-in Curves
 - Rate Limiting in FastAPI
 - AI, LLM, and Agent Hunting
-- Cloud and Deployment Hunting
+- xM
 - Data Isolation and Lifecycle Hunting
-- ATTACK-CLASSES.md
-- voice_log_repository_impl.dart
+- Resource Exhaustion and Availability Hunting
+- "node_modules/pako/lib/zlib/deflate.js"
 - HTTP-Protocol and Authentication Hunting
 - 🎯 Chi Tiết Từng Phiên Bản Phát Hành
 - UI/UX Design Spec: Vòng Năng Lượng Vũ Trụ & Huy Hiệu Tiểu Vũ Trụ (Cosmic Gamification UI)
@@ -355,12 +356,12 @@
 - 2. Chi Tiết Các Kịch Bản Kiểm Thử (Test Details)
 - 2. Chi Tiết Các Kịch Bản Kiểm Thử (Test Details)
 - Biên Bản Nghiệm Thu Phát Hành Gate 6 (QA Release Sign-Off) — Sprint 10
-- Flutter Animations
+- jQueryFactoryWrapper
 - Flutter Testing
 - examples/README.md
 - Email Validation Function
 - Ponytail Help
-- recipe_card_tile.dart
+- commitRootImpl
 - 2. Quy Chuẩn Đồ Họa & Tương Tác (Celestial Dark UI)
 - Hồ Sơ Đặc Tả Thiết Kế Giao Diện (Gate 2 UI/UX Design Spec)
 - Hồ Sơ Đặc Tả Thiết Kế Giao Diện (Gate 2 UI/UX Design Spec)
@@ -368,7 +369,7 @@
 - 🎨 UI/UX Design Spec: First Impression & Identity (`FEAT-S15-FTUX`)
 - 📡 Danh sách Endpoints & Lộ Trình Kỹ Thuật (Data Sources Phasing)
 - 2. Quyết Định Kiến Trúc (Architectural Decisions)
-- ADR-S19: Multi-Region Food Culture Intelligence & Vietnamese Culinary Decomposition Engine
+- oP
 - Release Notes — AstroBite v1.2.0
 - Release Notes — AstroBite v1.5.0
 - 🌟 What's New in v1.8.0
@@ -395,11 +396,11 @@
 - 🌟 Có Gì Mới Trong Phiên Bản v2.9.0?
 - 🌟 Có Gì Mới Trong Phiên Bản v3.0.0?
 - Task Breakdown
-- scan_review_page.dart
+- commitRoot
 - Thiết Kế Chi Tiết Hệ Thống AstroVoice AI (Hands-Free Voice Logging Spec)
 - [MÃ-EPIC]: [Tên Epic]
 - [TEMPLATE] Đặc Tả Sản Phẩm (PRD Template)
-- Architectural Design Spec: Core Tracker Clean Architecture & O(1) Meal Enums Overhaul
+- Designing well (craft, not format)
 - Testcases Kiểm Tra Hợp Lệ Onboarding (Onboarding Validation)
 - Biên Bản Nghiệm Thu Kiểm Thử (QA Sign-Off Report)
 - Biên Bản Nghiệm Thu Kiểm Thử (QA Sign-Off Report)
@@ -409,7 +410,7 @@
 - Biên Bản Nghiệm Thu Kiểm Thử (QA Sign-Off Report)
 - Biên Bản Nghiệm Thu Phát Hành Gate 6 (QA Release Sign-Off) — Sprint 02
 - Biên Bản Nghiệm Thu Phát Hành Gate 6 (QA Release Sign-Off) — Sprint 03
-- 5. Coding & Development Conventions
+- ChildReconciler
 - Ponytail Code Review Agent
 - Sub-Agent Cloud Backend & Gemini AI Engineer — *"The Cloud & Intelligence Architect"*
 - Sub-Agent Senior Flutter Core Developer — *"The Clean UI & State Craftsman"*
@@ -436,7 +437,7 @@
 - Biên Bản Nghiệm Thu Chất Lượng Gate 6 (QA Verification & Sign-Off)
 - Biên Bản Phê Duyệt Nghiệp Vụ & Tính Khả Thi Gate 1 (Sign-Off Dossier)
 - Hands-Free Voice Logging (AstroVoice AI)
-- Biên Bản Nghiệm Thu Chất Lượng Gate 6 (QA Verification & Release Sign-Off) — Sprint 20
+- #associateRange
 - Biên Bản Thẩm Định Nghiệp Vụ Gate 1 (Gate 1 Sign-Off Dossier — Sprint 02)
 - Báo Cáo Thẩm Định Mã Nguồn Gate 5 (Ponytail Code Review) — Sprint 03
 - Đặc Tả Tích Hợp Hệ Thống Bên Thứ Ba (Third-Party Integrations)
@@ -469,9 +470,9 @@
 - Kế Hoạch Kiểm Thử Toàn Diện (Gate 3 Master Test Plan)
 - Gate 3: Master Test Plan & BDD Gherkin Scenarios — AstroCoach AI Intelligence v2
 - Gate 7 Sign-Off & Official Release — Sprint 10 (Custom Recipes & Meal Planning)
-- Gate 3: Master Test Plan & Adversarial Test Design — Custom Recipes & Meal Planning Architecture
+- Zk
 - Gate 7 Sign-Off & Official Release — Sprint 11 (Generative UI Chat Cockpit)
-- Gate 3: Master Test Plan & Adversarial Test Design — Generative UI Chat Cockpit
+- claude-design-system/scripts/artifact.mjs
 - 📋 Biên Bản Nghiệm Thu Yêu Cầu & Nghiệp Vụ (Gate 1 Sign-Off Dossier)
 - 📋 Biên Bản Nghiệm Thu Yêu Cầu & Nghiệp Vụ (Gate 1 Sign-Off Dossier)
 - 📋 Biên Bản Nghiệm Thu Hồ Sơ Thiết Kế (Gate 2 Sign-Off Dossier)
@@ -480,14 +481,14 @@
 - 🧪 Gate 3: Master Test Plan & Manual Testcases
 - 📝 BDD User Stories: Analytics & OS Widgets (`FEAT-S16-WIDGETS`)
 - UI/UX Blueprint: Sprint 17 Social & Leaderboard
-- BIÊN BẢN NGHIỆM THU GATE 1: PRD & BDD USER STORIES (GATE 1 SIGN-OFF DOSSIER)
+- xk
 - BIÊN BẢN NGHIỆM THU GATE 2: UI/UX DESIGN SPECIFICATION (GATE 2 SIGN-OFF DOSSIER)
 - Biên Bản Nghiệm Thu & Giải Phóng Phát Hành Gate 7 (Super-Repo Release Clearance)
 - Biên Bản Kiểm Toán An Ninh Gate 6.5 (Security Audit & AppSec Sign-Off)
 - Biên Bản Nghiệm Thu Thiết Kế Giao Diện Gate 2 (Design Sign-Off Dossier)
 - Biên Bản Thông Qua Phát Hành Gate 7 (Super-Repo Release Clearance) — Sprint 20
 - Biên Bản Nghiệm Thu Gate 1: PRD Sign-Off (Sprint 21)
-- Báo Cáo Kiểm Toán An Ninh Gate 6.5: Security Audit (Sprint 21)
+- role
 - Biên Bản Nghiệm Thu Chất Lượng Gate 6: Quality Verification (Sprint 21)
 - Biên Bản Công Bố Phát Hành (Release Notes) — AstroBite v1.0.0
 - Đại Trùng Tu Giao Diện: Cinematic Celestial UI & Holographic AR HUD Scanner
@@ -505,9 +506,9 @@
 - Modal Dialog
 - Number Formatting
 - URL Parameters
-- push_notification_service.dart
-- package:flutter/material.dart
-- analytics_repository_impl.dart
+- j7
+- installModelEditing
+- reconcileChildFibersImpl
 - Quản Trị Dự Án & Điều Phối Thực Thi (Project Management Governance)
 - Danh Mục Epics & Phân Loại MoSCoW (Epics Backlog)
 - Quản Trị Lộ Trình Sản Phẩm (Product Roadmap Governance)
@@ -550,12 +551,12 @@
 - Curve Combinations
 - Performance Considerations
 - Debugging Curves
-- react-countdown.md
+- dB
 - Gate 5: Ponytail Code Review — AstroCoach Conversation History
 - Gate 3: Test Plan — AstroCoach Conversation History
 - Gate 6 Sign-Off: QA Verification & Quality Inquest — Custom Recipes & Meal Plan
 - Gate 6 Sign-Off: QA Verification & Quality Inquest — Generative UI Chat Cockpit
-- fitness_goal_card.dart
+- k9
 - Testcases Điều Chỉnh Khẩu Phần Dinh Dưỡng (Portion Edit Testcases)
 - Testcases Biểu Đồ Thống Kê (Analytics Charts Testcases)
 - Kế Hoạch Kiểm Thử Hiệu Năng (Performance Testing)
@@ -566,27 +567,27 @@
 - LaunchImage.imageset/README.md
 - Sprint 25: Camera Scanner Pipeline Modular Refactoring (v3.5.0)
 - 2. Thiết Kế Module Bóc Tách (Decomposition Blueprint)
-- gemini_remote_datasource.dart
+- coach_repository.dart
 - Desktop, Mobile, and Local IPC Hunting
 - preflightJsonText
-- clay_3d_wand.dart
+- installModelTypography
 - Biên Bản Nghiệm Thu Độc Lập Gate 6: Sprint 22 (v3.2.0)
-- PRD: Core Tracker Clean Architecture & O(1) Meal Enums Overhaul
+- getAttribute
 - Biên Bản Kiểm Toán An Ninh Gate 6.5: Sprint 22 (v3.2.0)
-- 7.1 Component Catalog
+- commitExitViewTransitions
 - UI/UX Design Specification: Core Tracker Decomposition
-- zero_gravity_food_specs.dart
-- Gate 3: Master Test Plan & BDD Gherkin Specification
-- gemini_api_key_dialog.dart
-- _
-- analytics_providers.dart
+- hg
+- updateWorkInProgressHook
+- m
+- installModelSelection
+- "node_modules/pako/lib/zlib/trees.js"
 - _
 - 2. Danh Mục Yêu Cầu Chức Năng (Functional Requirements)
 - 2. Thiết Kế Module Bóc Tách (Decomposition Blueprint)
-- meal_quick_log_macro_badges.dart
-- meal_plan_section_card.dart
+- pop
+- main
 - 📖 US-01: Xem & Tương Tác Với AI Coach Cá Nhân Hóa
-- share_image_service.dart
+- readDesignSystemInfo
 - PRD: AI Coach & Scanner Review Decomposition (Sprint 23)
 - 2. Danh Mục Yêu Cầu Chức Năng (Functional Requirements)
 - Architectural Spec & ADR-029: AI Coach & Scan Review Decomposition
@@ -598,9 +599,9 @@
 - Sprint 26: Gamification, Guilds & Social Modular Architecture (v3.6.0)
 - Biên Bản Kiểm Toán An Ninh Gate 6.5: Sprint 23 (v3.3.0)
 - Master Test Plan: AI Coach & Scan Review (Gate 3)
-- guild_edit_sheet.dart
+- Zu
 - Release Notes: AstroBite v3.3.0
-- galactic_date_orbit.dart
+- react.production.min.js
 - Feature: Camera & Viewfinder Scanner Pipeline (Modular Architecture)
 - Sprint 25: Camera Scanner Pipeline Modular Clean Architecture
 - Sprint 25 Architectural Spec & ADR-031: Camera Scanner Pipeline Refactoring
@@ -620,37 +621,37 @@
 - Sprint 26: Gamification, Guilds & Social Modular Architecture
 - Epic: Gamification, Guilds & Social Modular Clean Architecture
 - 2. Chi Tiết Các Hạng Mục Kỹ Thuật Hoàn Thành (Changelog)
-- 3. Firestore Data Model
-- _
+- checkDesignSystem
+- installEnvironmentI18n
 - Sprint 26: Gamification, Guilds & Social Modular Architecture
-- package:astrobite/features/auth/domain/auth_providers.dart
-- add_meal_slot_sheet.dart
+- hs
+- health_activity.dart
 - dashboard.sh
 - Gate 6 QA Independent Sign-off: Sprint 27 — Auth & Onboarding Flow Clean Architecture (v3.7.0)
 - Biên Bản Phát Hành: AstroBite v3.4.0 (Sprint 32 Release Dossier)
-- clay_3d_carrot_rocket.dart
+- installDesignSystemColorAnalysis
 - 2. Quyết Định Kiến Trúc (Architecture Decisions - ADR-035)
-- language_settings_card.dart
+- installModelNavigation
 - Sprint 27: Auth & Onboarding Flow Clean Architecture
 - Epic: Auth & Onboarding Flow Clean Architecture
-- common_foods_dataset.dart
-- Sprint 27: Auth & Onboarding Flow Clean Architecture
+- validate_palette.js
+- dispatchEvent
 - Gate 6.5 Security Audit Sign-off: Sprint 27 — Auth & Onboarding Flow Clean Architecture (v3.7.0)
-- cockpit_micronutrient_row.dart
+- write
 - Release Notes: AstroBite v3.7.0 — Auth & Onboarding Flow Clean Architecture (Sprint 27)
 - 1. Rà Soát Bảo Mật Độc Lập
 - 2. Quyết Định Kỹ Thuật (Decisions)
-- meal_plan_controller.dart
-- streak_repository.dart
+- installEditorChildSizeModes
+- water_repository_impl.dart
 - 1. Rà Soát Bảo Mật Độc Lập
 - PRD: Quét Mã Vạch & Bóc Tách Bảng Dinh Dưỡng Thực Phẩm Đóng Gói — AstroBite
 - Reconnaissance
 - leaderboard_entry.dart
 - 2. Quyết Định Kiến Trúc (Architecture Decisions - ADR-034)
-- Phase 6: Produce target-neutral reports from final records
-- clay_3d_calendar.dart
+- installEditorClipboard
+- Gd
 - Gate 6 QA Independent Sign-off: Sprint 28 — Daily Tracker & Dashboard Clean Architecture (v3.8.0)
-- health_repository.dart
+- createSlideCreationController
 - User Stories (BDD Given-When-Then): Sprint 28 Tracker & Dashboard
 - 1. Mục Tiêu Nghiệp Vụ & Giới Hạn Phạm Vi
 - Gate 6.5 Security Audit Sign-off: Sprint 28 — Daily Tracker & Dashboard Clean Architecture (v3.8.0)
@@ -660,7 +661,7 @@
 - Release Notes: AstroBite v3.8.0 — Daily Tracker & Dashboard Clean Architecture (Sprint 28)
 - 1. Mục Tiêu & Phạm Vi
 - Gate 6 QA Verification & Quality Sign-Off — Sprint 29 (v3.9.0)
-- clay_3d_camera.dart
+- installEditorCurrentSlide
 - Gate 3 Master Test Plan: Sprint 29 Deep Clean Polish
 - Gate 7 Super-Repo Release Clearance — Sprint 29 (v3.9.0)
 - UI Design Blueprint: Sprint 29 Deep Clean Polish (Gate 2)
@@ -671,150 +672,212 @@
 - launch_agent_session.sh
 - PRD: Sprint 30 — Ultimate Warning Cleanout (v3.10.0)
 - Gate 6 QA Verification & Quality Sign-Off — Sprint 30 (v3.10.0)
-- social_repository.dart
+- health_repository.dart
 - Gate 7 Super-Repo Release Clearance — Sprint 30 (v3.10.0)
 - Gate 3 QA Master Test Plan: Sprint 30 — Ultimate Warning Cleanout
-- State
-- coach_typing_indicator.dart
-- clay_3d_food_art.dart
-- clay_planet_chip.dart
-- scanner_providers.dart
+- installRenderingTheme
+- installUiColorPicker
+- uU
+- sc
+- installDeliveryProvider
 - Biên Bản Phát Hành: AstroBite v3.5.0 (Sprint 33 Release Dossier)
 - AppLocalizations
 - PRD: Nền Tảng Đa Ngôn Ngữ Song Ngữ (VI + EN) — AstroBite
-- analytics_page.dart
-- IconData
+- "node_modules/pako/lib/zlib/inflate.js"
+- package:flutter/material.dart
 - UI/UX Specification: Language Selection Experience — Sprint 31
 - User Stories (BDD Given-When-Then) — Sprint 31: Đa Ngôn Ngữ i18n
 - Test Plan & Traceability Matrix (Gate 3) — Sprint 31: Đa Ngôn Ngữ i18n
 - Gate 5: Ponytail Review Dossier (Sprint 33)
 - Gate 6: Quality Assurance Verification & Sign-Off (Sprint 33)
-- catalog_item.dart
+- cg
 - Gate 6.5: Zero-Trust Security Audit & AppSec Clearance (Sprint 33)
-- guild_create_sheet.dart
-- water_repository_impl.dart
-- food_scan_repository_impl.dart
+- ch
+- installHostAgentSession
+- nb
 - Gate 7: Super-Repo Release Dossier (Sprint 33 — v3.5.0)
 - PRD-040: Water Intake & Hydration Tracker (Theo dõi lượng nước uống)
-- AppRouter
+- installFontsInlining
 - PRD-040: Water Intake & Hydration Tracker (Theo dõi lượng nước uống)
-- recipe_macro_summary_card.dart
-- scan_food_usecase.dart
-- StateNotifier
+- installPresentationFullscreen
+- n9
+- j5
 - 2. Decision & Architecture (ADR-039)
 - Rule: Real-Time Mission Control & Anti-Invisible Work
 - 2. Decision & Architecture (ADR-039)
-- guild_page.dart
-- ValueChanged
+- installUiFindBar
+- crc32
 - _
 - UI/UX Specification: Claymorphic Water Intake Tracker (Sprint 33)
 - UI/UX Specification: Claymorphic Water Intake Tracker (Sprint 33)
 - Master Test Plan & BDD Gherkin: Water Intake Tracker (Sprint 33)
-- scan_review_action_bar.dart
-- clay_hero_camera_fab.dart
+- ⚡ 6 Đột Phá Kỹ Thuật Trọng Yếu Của Senior Mobile Engineer
+- installPresentationSpeakerPanel
 - 🧪 Bảng Kịch Bản Kiểm Thử Thủ Công Từng Bước (Manual Step-by-Step Test Case)
-- guild_join_sheet.dart
+- installFilesPublishInputs
 - meal_section.dart
-- Riverpod State Management
-- package:astrobite/features/tracker/domain/tracker_providers.dart
-- AuthRepository
-- analytics_page_test.dart
-- scanner_controller.dart
-- DateTime
-- water_repository.dart
-- meal_plan_tab_switcher.dart
+- "node_modules/core-util-is/lib/util.js"
+- setProp
+- createArtifactDocument
+- installMediaVideoAssets
+- "node_modules/react/cjs/react.production.js"
+- createWasm
+- zz
+- Rk
 - scripts
-- bool get
+- installEditorFrameComments
 - devDependencies
-- food_scan_repository.dart
-- meal_plan_repository.dart
-- ../../domain/models/guild.dart
-- build
+- installEditorGrouping
+- installUiContrast
+- BL
+- tH
 - dependencies
-- Phase 3: Core Features
-- app_keys.dart
-- 6. Layout & Spacing
-- water_quick_action_button.dart
+- installMediaVideoLinkPlayer
+- installUiNumberControls
+- "node_modules/string_decoder/lib/string_decoder.js"
+- installEditorDialogs
 - index.ts
-- leaderboard_add_friend_sheet.dart
+- explainDesignSystemPath
 - engines
-- 8. Accessibility & Contrast
+- NGUYEN DUY TRANG — ASTROBITE PORTFOLIO & CV MASTER PROFILE
 - UI & Design System Rules — AstroBite
-- splash_floating_food_item.dart
-- recipe_chunky_fab.dart
-- camera_quota_badge.dart
-- static const List
-- static const
-- coach_controller.g.dart
+- installUiBoxStyleToolbar
+- i5
+- claude-slides/scripts/artifact.mjs
+- installBridgePlaceLinks
+- installCommentsAnchors
+- removeNestedNode
+- installUiDialog2
+- installUiEditorSelection
+- Reference palette
+- getBackground
+- rf
+- sU
+- q8
+- x4
+- "node_modules/scheduler/cjs/scheduler.production.js"
+- installDocumentsDeckStore
+- installEnvironmentCompiledPage
+- "node_modules/setimmediate/setImmediate.js"
+- i7
+- pi
+- Ii
+- installHostArtifactPresence
+- installHostFrameComposer
+- installPresentationSpeakerProtocol
+- vb
+- installHostRoomPresence
+- patchNodeStyle
+- setNodeThickness
+- nodeTextAt
+- sj
+- cv
+- .constructor
+- u7
+- common_foods_dataset.dart
+- installFontsReadiness
+- installUiAgentCursor
+- installModelDeckMetadata
+- installEditorMediaCropSession
+- Color formula
+- Anthropic brand color system
+- hw
+- gV
+- z_
+- installFilesDesignSystems
+- zH
+- pb
+- Anti-patterns - what goes wrong
+- Choosing a form
+- Components - the pieces a chart is made of
+- Data Visualization
+- Print design — posters, flyers, brochures, documents, anything that leaves as a PDF
+- sh
+- clearImageMedia
+- Anthropic brand typography
+- yO
+- cA
+- y_
+- borderWidthsBySide
+- defaultOnDefaultTransitionIndicator
+- clay_morph_icon.dart
+- Ask before you build
+- Wje
+- The cover — components/Cover/preview.html
+- Ask before you build
+- countNodeTableCells
+- countNodeEmbeds
+- installFilesCrashStash
+- installUiPropertyLabels
 
 ## God Nodes (most connected - your core abstractions)
-1. `authRepositoryProvider` - 40 edges
-2. `confirmed()` - 31 edges
-3. `authStateProvider` - 23 edges
-4. `Ma Trận Phân Rã Công Việc 8 Cổng (WBS Task Matrix)` - 21 edges
-5. `_` - 19 edges
-6. `collectUnitErrors()` - 18 edges
-7. `Widget Testing Guide` - 17 edges
-8. `Integration Testing Guide` - 16 edges
-9. `Plugin Testing Guide` - 16 edges
-10. `DailySummary` - 16 edges
+1. `__` - 928 edges
+2. `"node_modules/react-dom-18/cjs/react-dom.development.js"()` - 923 edges
+3. `__` - 887 edges
+4. `i_` - 698 edges
+5. `"node_modules/react-dom/cjs/react-dom-client.production.js"()` - 593 edges
+6. `TM()` - 514 edges
+7. `gP()` - 497 edges
+8. `fM()` - 435 edges
+9. `setProperty()` - 403 edges
+10. `getPropertyValue()` - 403 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `Quick Reference` --references--> `Provider`  [INFERRED]
-  .agents/skills/flutter-expert/references/riverpod-state.md → ios/AstroBiteWidget/AstroBiteWidget.swift
-- `🎭 The 10 Distinct Sub-Agent Personas & Quality Gates` --references--> `confirmed()`  [INFERRED]
-  AGENTS.md → .agents/skills/security-audit/validate-findings.test.cjs
-- `🌟 Tóm Tắt Bản Phát Hành (Highlights)` --references--> `MacroPill`  [INFERRED]
-  docs/05-change-management/release-v3.2.0.md → ios/AstroBiteWidget/AstroBiteWidget.swift
-- `2. Subcollection `users/{uid}/meal_logs/{logId}`` --references--> `source()`  [INFERRED]
-  docs/04-specifications/data-dictionary.md → .agents/skills/security-audit/validate-findings.test.cjs
-- `🚪 Chốt Chặn 6.5: Security Auditor Thẩm Định Gate 6.5 (Security Clearance) — Cấm Du Di!` --references--> `confirmed()`  [INFERRED]
-  .agents/skills/feature-lifecycle/SKILL.md → .agents/skills/security-audit/validate-findings.test.cjs
+- `2.1 M3 ColorScheme Mapping` --references--> `outline()`  [INFERRED]
+  DESIGN.md → .agents/skills/claude-design/scripts/editor/artifact-type/fast-edit-worker.js
+- `4.2 Nút Bấm 3D (Buttons)` --references--> `outline()`  [INFERRED]
+  docs/02-design-system/solar-fresh-spec.md → .agents/skills/claude-design/scripts/editor/artifact-type/fast-edit-worker.js
+- `2.3. Thang Phân Cấp Kiểu Chữ (Typography Hierarchy)` --references--> `outline()`  [INFERRED]
+  docs/03-prd-features/09-ai-coach/ui-ux-design-spec.md → .agents/skills/claude-design/scripts/editor/artifact-type/fast-edit-worker.js
+- `Chi Tiết Kích Thước & Spacing 4pt:` --references--> `outline()`  [INFERRED]
+  docs/03-prd-features/30-coach-scanner-refactoring/ui-design.md → .agents/skills/claude-design/scripts/editor/artifact-type/fast-edit-worker.js
+- `3. Kiến Trúc Token Màu Sắc (Color Mapping ADR)` --references--> `outline()`  [INFERRED]
+  docs/04-specifications/spike-solar-fresh-foundation.md → .agents/skills/claude-design/scripts/editor/artifact-type/fast-edit-worker.js
 
 ## Import Cycles
 - None detected.
 
-## Communities (752 total, 61 thin omitted)
+## Communities (814 total, 66 thin omitted)
 
 ### Community 0 - "server.cjs"
 Cohesion: 0.05
-Nodes (57): bootstrapPage(), brandMarkup(), broadcast(), browserLauncherForPlatform(), chmodOwnerOnly(), clients, companionUrl(), computeAcceptKey() (+49 more)
+Nodes (57): bootstrapPage(), brandMarkup(), broadcast(), browserLauncherForPlatform(), chmodOwnerOnly(), RFC-6455, clients, companionUrl() (+49 more)
 
 ### Community 1 - "package.json"
 Cohesion: 0.12
 Nodes (15): main, name, private, eslint, eslint-config-google, eslint-plugin-import, express, firebase-functions-test (+7 more)
 
-### Community 2 - "guild_repository_impl_test.dart"
-Cohesion: 0.10
-Nodes (12): deleteGuild, dispose, findGuildByInviteCode, getUserGuild, guilds, main, saveGuild, sendGuildNudge (+4 more)
+### Community 2 - "l"
+Cohesion: 0.01
+Nodes (1031): c(), l(), w(), _8(), A(), b(), c(), E() (+1023 more)
 
 ### Community 3 - "coach_page.dart"
-Cohesion: 0.07
-Nodes (20): createState, didChangeMetrics, dispose, _focusNode, _genUiCatalog, initState, _isSending, _loggedMessageIds (+12 more)
+Cohesion: 0.04
+Nodes (38): AnalyticsRepositoryImpl, analyticsRepositoryProvider, endDate, getDailyCalorieTotals, now, repo, startDate, user (+30 more)
 
 ### Community 4 - "validate-findings.cjs"
-Cohesion: 0.12
-Nodes (37): canonicalKey(), append(), encode(), codePointLength(), collect(), collectDataLimitErrors(), collectFindingSemanticErrors(), collectSchemaErrors() (+29 more)
+Cohesion: 0.10
+Nodes (40): canonicalKey(), append(), encode(), codePointLength(), collect(), collectDataLimitErrors(), collectFindingSemanticErrors(), collectSchemaErrors() (+32 more)
 
-### Community 5 - "manual_entry_page_test.dart"
-Cohesion: 0.08
-Nodes (17): addFoodLog, authStateChanges, createWidgetUnderTest, currentUser, deleteFoodLog, fakeAuthRepo, fakeLogRepo, getLogsForDateRange (+9 more)
+### Community 5 - "d"
+Cohesion: 0.00
+Nodes (871): j(), g(), m(), a4(), a(), g(), m(), n() (+863 more)
 
-### Community 6 - "validate-coverage-ledger.cjs"
-Cohesion: 0.13
-Nodes (41): ATTEMPT_FIELDS, ATTEMPT_STATUSES, canonicalCoverageId(), collectUnitErrors(), createErrorList(), encodeCanonicalRef(), escapeUnsafeDiagnosticCharacters(), fs (+33 more)
+### Community 6 - "clay_button.dart"
+Cohesion: 0.03
+Nodes (57): isDish, isPackaged, packaged, dish, calories, carbsG, confidenceScore, date (+49 more)
 
 ### Community 7 - "app_localizations.dart"
 Cohesion: 0.01
 Nodes (342): activeActivity, activityLevel, addCustomDish, addDish, addedDishToLog, addKeyFreeDesc, addToMealPlatter, aiActive (+334 more)
 
-### Community 8 - "barcode_lookup_service.dart"
-Cohesion: 0.17
-Nodes (8): BarcodeLookupService, clearCache, _client, _endpointBase, lookupBarcode, _mapProductToDto, _memoryCache, _userAgent
+### Community 8 - "fast-edit-worker.js"
+Cohesion: 0.00
+Nodes (483): 0(), 1(), 10(), 100(), 101(), 102(), 103(), 104() (+475 more)
 
 ### Community 9 - "camera_page.dart"
-Cohesion: 0.08
-Nodes (15): _buildHeaderInstruction, _buildViewfinderChild, _cameraController, _captureOrPickImage, createState, didChangeAppLifecycleState, dispose, _imagePicker (+7 more)
+Cohesion: 0.02
+Nodes (84): GeminiRemoteDatasource, _aiUsageRef, _firestore, FoodScanRepositoryImpl, getTodayScanCount, incrementScanCount, _remoteDatasource, scanFoodImage (+76 more)
 
 ### Community 10 - "scan_result_dto.dart"
 Cohesion: 0.09
@@ -833,60 +896,60 @@ Cohesion: 0.12
 Nodes (29): FoodLogDto, fromJson, _FoodLogDto, fromJson, _, calories, carbsG, class (+21 more)
 
 ### Community 14 - "app_values.dart"
-Cohesion: 0.07
-Nodes (28): activeMultiplier, AppValues, calorieLetterSpacing, cardPadding, cardRadius, cardRadiusClay, cardRadiusLarge, defaultDailyCalories (+20 more)
+Cohesion: 0.03
+Nodes (72): activeMultiplier, AppValues, calorieLetterSpacing, cardPadding, cardRadius, cardRadiusClay, cardRadiusLarge, defaultDailyCalories (+64 more)
 
-### Community 15 - "login_controller.dart"
-Cohesion: 0.20
-Nodes (6): login, loginWithGoogle, ref, sendPasswordResetEmail, ref, register
+### Community 15 - ".get"
+Cohesion: 0.01
+Nodes (694): aT, bE, xE, ve(), G(), gr(), hA, we() (+686 more)
 
-### Community 16 - "scan_review_page_test.dart"
-Cohesion: 0.11
-Nodes (17): addFoodLog, authStateChanges, createWidgetUnderTest, currentUser, deleteFoodLog, fakeAuthRepo, fakeLogRepo, getLogsForDateRange (+9 more)
+### Community 16 - "__"
+Cohesion: 0.01
+Nodes (697): ym(), Hd(), Fk(), v0(), ee(), Ud(), i2, __ (+689 more)
 
-### Community 17 - "food_portion_card.dart"
-Cohesion: 0.06
-Nodes (30): CommonFoodItem, build, FoodListItemTile, isSelected, item, onTap, bgColor, borderColor (+22 more)
+### Community 17 - "compiler.cjs"
+Cohesion: 0.01
+Nodes (665): options(), acquire(), activate(), activeElement(), addEventListener2(), addNode(), addPreviouslyFocusedElement(), after() (+657 more)
 
-### Community 18 - "dashboard_server.py"
-Cohesion: 0.14
-Nodes (11): archive_current_sprint(), compute_full_status(), DashboardHandler, find_dashboard_static_dir(), find_workspace_root(), get_available_sprints(), get_project_metadata(), get_sprint_data_by_id() (+3 more)
+### Community 18 - "validate_palette.py"
+Cohesion: 0.08
+Nodes (30): _apca_y(), is_hex_color(), _jn(), lin2oklab(), lin2oklch(), main(), apca(), contrast() (+22 more)
 
 ### Community 19 - "app_router.dart"
-Cohesion: 0.06
-Nodes (25): build, routes, ShellScreen, _nextStep, activityLevel, birthYear, fitnessGoal, gender (+17 more)
+Cohesion: 0.04
+Nodes (67): AppRouter, build, routes, ShellScreen, build, _nextStep, build, build (+59 more)
 
-### Community 20 - "onboarding_page.dart"
-Cohesion: 0.08
-Nodes (20): _activityLevel, _birthYear, _birthYearController, build, _buildProgressBar, createState, _currentStep, dispose (+12 more)
+### Community 20 - "login_page.dart"
+Cohesion: 0.02
+Nodes (100): loginControllerProvider, registerControllerProvider, activityLevel, birthYear, build, createState, fitnessGoal, gender (+92 more)
 
-### Community 21 - "meal_quick_log_card.dart"
-Cohesion: 0.11
-Nodes (16): _adjustWeight, build, createState, _currentWeightG, _handleLog, initState, isLogged, _isOptimisticallyLogged (+8 more)
+### Community 21 - "k"
+Cohesion: 0.01
+Nodes (635): yt(), hE, hT, jE, kT, St(), nt(), qT (+627 more)
 
-### Community 22 - "streak_record.dart"
-Cohesion: 0.06
-Nodes (28): activeDates, allBadges, copyWith, currentStreak, _daysBetween, description, formatDate, fromMap (+20 more)
+### Community 22 - "__"
+Cohesion: 0.01
+Nodes (612): BM(), dP(), Dy(), es(), oP(), vP(), zc(), __ (+604 more)
 
 ### Community 23 - "app_icons.dart"
-Cohesion: 0.10
-Nodes (17): AppIcons, arrowDown, arrowDownSolid, book, bookOutline, fire, navAnalytics, navAnalyticsSelected (+9 more)
+Cohesion: 0.06
+Nodes (25): buildFromRawProps, CatalogItem, CatalogItemContext, description, isLogged, type, AppIcons, arrowDown (+17 more)
 
 ### Community 24 - "recipe.dart"
 Cohesion: 0.13
 Nodes (24): fromJson, Recipe, fromJson, _Recipe, _, class, createdAt, description (+16 more)
 
-### Community 25 - "guild.dart"
-Cohesion: 0.07
-Nodes (27): activeChallenge, avatarPlanet, canDisbandGuild, canEditGuild, canKick, canPromoteOrDemote, canTransferLeadership, copyWith (+19 more)
+### Community 25 - "widget_sync_service.dart"
+Cohesion: 0.03
+Nodes (63): avatarUrl, canManageMembers, copyWith, currentStreak, displayName, fromJson, isElder, isLeader (+55 more)
 
 ### Community 26 - "confirmed"
-Cohesion: 0.23
-Nodes (18): Structured hunter result, Cost budget, Coverage and prior runs, Full audit planning, Full audit workflow, Run profiles and scope, confirmed(), evidence() (+10 more)
+Cohesion: 0.09
+Nodes (25): reason(), Cloud and Deployment Hunting, Configuration and secret lifecycle attack classes (subagent_type: `general`), Container and orchestration attack classes (subagent_type: `general`), Core discipline (include in every agent prompt for this domain), Ingress, network, and control-plane attack classes (subagent_type: `general`), Managed storage, events, and edge attack classes (subagent_type: `general`), Universal moves (apply across the above) (+17 more)
 
-### Community 27 - "authRepositoryProvider"
-Cohesion: 0.06
-Nodes (43): authRepositoryProvider, _handleStartJourney, _navigatePostAuth, _checkAuthAndNavigate, CoachRepository, _addErrorMessage, build, CoachController (+35 more)
+### Community 27 - "s"
+Cohesion: 0.01
+Nodes (627): g(), l(), g(), m(), p(), m(), R(), a3() (+619 more)
 
 ### Community 28 - "meal_plan_item.dart"
 Cohesion: 0.15
@@ -896,113 +959,109 @@ Nodes (23): fromJson, MealPlanItem, fromJson, _MealPlanItem, _, calories, carbs,
 Cohesion: 0.11
 Nodes (15): build, _caloriesController, _carbsController, createState, CustomFoodSheet, _CustomFoodSheetState, dispose, _fatController (+7 more)
 
-### Community 30 - "validate-findings.test.cjs"
-Cohesion: 0.06
-Nodes (27): LIMITS, archivedAttempt(), assert, fs, {
-  LIMITS,
-  canonicalCoverageId,
-  encodeCanonicalRef,
-  isSafeAgentId,
-  isSafeRelativePath,
-  preflightJsonText,
-  validateDocument,
-}, localCheck(), os, path (+19 more)
+### Community 30 - "validate-coverage-ledger.cjs"
+Cohesion: 0.05
+Nodes (69): ATTEMPT_FIELDS, ATTEMPT_STATUSES, canonicalCoverageId(), collectUnitErrors(), createErrorList(), encodeCanonicalRef(), escapeUnsafeDiagnosticCharacters(), fs (+61 more)
 
-### Community 31 - "zero_gravity_food_background.dart"
-Cohesion: 0.15
-Nodes (11): build, _cachedFoodItems, _controller, createState, dispose, _FloatingClayFoodItem, initState, spec (+3 more)
+### Community 31 - "List"
+Cohesion: 0.02
+Nodes (89): build, days, targetWeight, weights, WeightTrendChart, build, Clay3DFoodArt, _Clay3DFoodPainter (+81 more)
 
 ### Community 32 - "guild_controller.dart"
-Cohesion: 0.07
-Nodes (25): clearMessages, copyWith, createGuild, _currentUserId, disbandGuild, errorMessage, _formatError, GuildController (+17 more)
+Cohesion: 0.01
+Nodes (169): _, buildDefaultGuild, buildInitialChallenge, buildNewMember, generateInviteCode, GuildMockSeeds, validateGuildName, addStarlightContribution (+161 more)
 
 ### Community 33 - "user_profile_dto.dart"
 Cohesion: 0.15
 Nodes (22): fromJson, UserProfileDto, fromJson, _UserProfileDto, _, activityLevel, birthYear, class (+14 more)
 
-### Community 34 - "widget_sync_service.dart"
-Cohesion: 0.08
-Nodes (23): androidWidgetName, appGroupId, carbsGrams, consumedCalories, currentStreak, fatGrams, fromSummaryAndStreak, hasShield (+15 more)
+### Community 34 - "$u"
+Cohesion: 0.01
+Nodes (638): Pa(), tr(), c(), p(), o(), S(), y(), a9() (+630 more)
 
-### Community 36 - "clay_meal_chip.dart"
-Cohesion: 0.17
-Nodes (11): build, ClayMealChip, _iconColor, _iconData, isSelected, _label, mealType, MealTypeChip (+3 more)
+### Community 35 - "index-CHV2ZUA0.js"
+Cohesion: 0.01
+Nodes (558): RL(), kn(), Ab(), _0, _1, _2(), _3, a_() (+550 more)
 
-### Community 37 - "vietnamese_culinary_decomposition_test.dart"
-Cohesion: 0.10
-Nodes (13): main, addFoodLog, authStateChanges, currentUser, deleteFoodLog, getLogsForDateRange, getPendingSyncLogs, main (+5 more)
+### Community 36 - ".get"
+Cohesion: 0.01
+Nodes (558): _4(), c(), f(), g(), h(), m(), o(), p() (+550 more)
 
-### Community 38 - "app_colors.dart"
-Cohesion: 0.08
-Nodes (23): AppColors, brandGreen, carbs, clayBreakfast, clayDinner, clayLunch, clayMint, claySnack (+15 more)
+### Community 37 - "v"
+Cohesion: 0.01
+Nodes (462): u(), O(), U(), V(), g(), h(), s(), _A (+454 more)
 
-### Community 39 - "recipe_builder_controller.dart"
-Cohesion: 0.09
-Nodes (23): addIngredient, copyWith, description, error, ingredients, isSaving, isValid, name (+15 more)
+### Community 38 - "babel.min.js"
+Cohesion: 0.01
+Nodes (426): AV(), BEe(), BF(), bP(), cm(), Cue(), Cv(), d0() (+418 more)
 
-### Community 40 - "scanning_viewfinder.dart"
-Cohesion: 0.10
-Nodes (17): build, child, createState, detectedCalories, detectedDishName, didUpdateWidget, dispose, initState (+9 more)
+### Community 39 - "x_"
+Cohesion: 0.01
+Nodes (456): ee(), x_, h(), a5(), ae(), _e(), fe(), J() (+448 more)
+
+### Community 40 - ".get"
+Cohesion: 0.01
+Nodes (375): yI, X(), g(), x(), Ba(), be(), bt(), de() (+367 more)
 
 ### Community 41 - "app_localizations_vi.dart"
 Cohesion: 0.01
 Nodes (334): activeActivity, activityLevel, addCustomDish, addDish, addedDishToLog, addKeyFreeDesc, addToMealPlatter, aiActive (+326 more)
 
-### Community 42 - "coach_meal_card.dart"
-Cohesion: 0.20
-Nodes (8): ChatMessage, build, _buildMacroBadge, CoachMealCard, isLogged, mealData, message, onLogMeal
+### Community 42 - "createSlidesRuntime"
+Cohesion: 0.01
+Nodes (336): bindRuntimeValue(), createSlidesRuntime(), installBootLegacyHtml(), installBootStateFile(), loadInstanceOrDemoState(), readStateFile(), installBootThumbnailCapture(), createBlankThumbnailOverlay() (+328 more)
 
-### Community 43 - "package:astrobite/shared/ui_kit/ui_kit.dart"
-Cohesion: 0.04
-Nodes (40): AnalyticsMacroBreakdownCard, build, carbsG, fatG, proteinG, targetCarbsG, targetFatG, targetProteinG (+32 more)
+### Community 43 - "gP"
+Cohesion: 0.01
+Nodes (369): jc(), gR, eO, L(), gP(), $0(), A(), a1() (+361 more)
 
-### Community 44 - "package:flutter_test/flutter_test.dart"
-Cohesion: 0.04
-Nodes (27): main, main, main, main, main, main, main, main (+19 more)
+### Community 44 - "package:astrobite/features/auth/domain/auth_providers.dart"
+Cohesion: 0.01
+Nodes (216): AnalyticsRemoteDatasource, _foodLogRepository, getDailyCalorieTotals, _foodLogRepository, getDailyCalorieTotals, _remoteDatasource, AuthErrorHandler, getErrorMessage (+208 more)
 
 ### Community 45 - "voice_log_controller.dart"
-Cohesion: 0.09
-Nodes (20): cancel, copyWith, errorMessage, isSaving, liveTranscript, _pendingParse, result, saveMealLog (+12 more)
-
-### Community 46 - "app.dart"
-Cohesion: 0.11
-Nodes (16): _appRouter, AstroBiteApp, _AstroBiteAppState, build, createState, initState, appLocaleProvider, networkSyncCoordinatorProvider (+8 more)
-
-### Community 47 - "manual_entry_page.dart"
-Cohesion: 0.05
-Nodes (35): _saveFoodLog, ScanReviewPage, _ScanReviewPageState, dailyLogsStreamProvider, date, foodLogRepositoryProvider, fromLogs, logs (+27 more)
-
-### Community 48 - "daily_summary.dart"
-Cohesion: 0.08
-Nodes (22): date, fromLogs, getMealCalories, getMealCarbs, getMealFat, getMealLogs, getMealProtein, logs (+14 more)
-
-### Community 49 - "staggered_animation.dart"
-Cohesion: 0.08
-Nodes (25): animation, _animationDuration, borderRadius, build, _buildAnimation, color, _controller, createState (+17 more)
-
-### Community 50 - "login_page.dart"
 Cohesion: 0.04
-Nodes (38): loginControllerProvider, registerControllerProvider, _animController, _buildAmbientGradients, createState, dispose, _emailController, _fadeCardAnimation (+30 more)
+Nodes (40): GeminiVoiceNluDatasource, cancelListening, FakeVoiceRecognitionService, initialize, isAvailable, isListening, _listening, shouldSucceed (+32 more)
 
-### Community 51 - "profile_edit_page.dart"
-Cohesion: 0.08
-Nodes (22): getProfile, saveProfile, watchProfile, profileControllerProvider, ref, saveProfile, _activityLevel, _birthYearController (+14 more)
+### Community 46 - "fG"
+Cohesion: 0.00
+Nodes (207): _9(), a6(), c(), aU(), c(), l(), o(), s() (+199 more)
 
-### Community 52 - "package:flutter_riverpod/flutter_riverpod.dart"
-Cohesion: 0.08
-Nodes (17): selectedDaysProvider, watch, build, _buildDataTypeRow, _buildHeaderRow, _showDisconnectDialog, build, _buildCard (+9 more)
+### Community 47 - "fM"
+Cohesion: 0.02
+Nodes (344): Xo(), cS, qA, Ms(), Os(), zS, Xt(), fM() (+336 more)
 
-### Community 53 - "clay_button.dart"
-Cohesion: 0.10
-Nodes (20): _baseColor, _bevelColor, borderRadius, build, ClayButton, _ClayButtonState, ClayButtonVariant, createState (+12 more)
+### Community 48 - "social_controller.dart"
+Cohesion: 0.04
+Nodes (42): AppKeys, defaultGeminiApiKey, isProxyMode, rootScaffoldMessengerKey, build, createState, emailController, formKey (+34 more)
 
-### Community 54 - "member_action_sheet.dart"
-Cohesion: 0.14
-Nodes (10): _, confirmKick, confirmTransfer, MemberActionDialogs, build, currentUserId, guild, member (+2 more)
+### Community 49 - "j9"
+Cohesion: 0.01
+Nodes (194): _7(), A(), s(), T(), a7(), a9(), c(), i() (+186 more)
 
-### Community 55 - "indicators/calorie_progress_arc.dart"
-Cohesion: 0.13
-Nodes (14): _ArcPainter, build, CalorieProgressArc, color, consumed, isOverBudget, paint, progress (+6 more)
+### Community 50 - "authRepositoryProvider"
+Cohesion: 0.02
+Nodes (169): _appRouter, AstroBiteApp, _AstroBiteAppState, build, createState, initState, appLocaleProvider, networkSyncCoordinatorProvider (+161 more)
+
+### Community 51 - "delete_meal_confirmation_sheet.dart"
+Cohesion: 0.04
+Nodes (41): _, calculateBMR, calculateMacros, calculateTargetCalories, calculateTDEE, NutritionCalculator, rebalanceMealRatios, recalculateCalories (+33 more)
+
+### Community 52 - "getPropertyValue"
+Cohesion: 0.01
+Nodes (360): Flow documents, accentColor(), alignContent(), alignItems(), alignmentBaseline(), alignSelf(), all(), animation() (+352 more)
+
+### Community 53 - "package:astrobite/core/theme/app_colors.dart"
+Cohesion: 0.01
+Nodes (156): AstroBiteWidget, build, createState, GoogleLogoPainter, GoogleSignInButton, _GoogleSignInButtonState, _handleTapCancel, _handleTapDown (+148 more)
+
+### Community 54 - "useState"
+Cohesion: 0.01
+Nodes (343): port(), cancel(), current(), SlidePeerSelections(), installCommentsAreaSelection(), subscribeDocumentCommentMode(), useCommentAreaDrag(), useCommentMoveKeyHighlight() (+335 more)
+
+### Community 55 - ""node_modules/react-dom-18/cjs/react-dom.development.js""
+Cohesion: 0.01
+Nodes (257): constructor(), "node_modules/react-dom-18/cjs/react-dom.development.js"(), accumulateEnterLeaveTwoPhaseListeners(), accumulateOrCreateContinuousQueuedReplayableEvent(), addEventBubbleListener(), addEventBubbleListenerWithPassiveFlag(), addEventCaptureListener(), addEventCaptureListenerWithPassiveFlag() (+249 more)
 
 ### Community 56 - "recipe_ingredient.dart"
 Cohesion: 0.16
@@ -1012,29 +1071,29 @@ Nodes (19): fromJson, RecipeIngredient, fromJson, _RecipeIngredient, _, amountGr
 Cohesion: 0.05
 Nodes (42): Accessibility, Advanced Techniques, Animation Duration, Basic Hero Animation, Best Practices, Common Patterns, Complete Radial Hero Example, Conditional Hero Mode (+34 more)
 
-### Community 58 - "package:astrobite/core/theme/app_colors.dart"
-Cohesion: 0.04
-Nodes (51): AnalyticsPeriodSelector, build, onPeriodChanged, selectedDays, build, fromMap, MacroBudgetGauge, MacroBudgetGaugeProps (+43 more)
+### Community 58 - "manual_entry_page.dart"
+Cohesion: 0.06
+Nodes (19): CommonFoodItem, createState, _currentWeightG, _defaultRecentFoods, initialMealType, initState, _isSaving, _openCustomFoodSheet (+11 more)
 
-### Community 59 - "guild_repository_impl.dart"
-Cohesion: 0.12
-Nodes (13): addStarlightContribution, createGuild, disbandGuild, getUserGuild, joinGuildByCode, kickMember, leaveGuild, _remoteDatasource (+5 more)
+### Community 59 - "push"
+Cohesion: 0.02
+Nodes (198): flushBeforePaint(), installCommentsAreaGeometry(), describeCommentAreaCoverage(), rankCommentAreaHosts(), parseCssDeclarations(), installDocumentsCommentRecords(), composeCommentDocuments(), decomposeCommentDocuments() (+190 more)
 
-### Community 60 - "List"
-Cohesion: 0.05
-Nodes (36): bevelColor, calculateSuggestedCalories, calorieRatio, caloriesPerGram, clayBgColor, color, endHour, fromCurrentHour (+28 more)
-
-### Community 61 - "package:astrobite/core/utils/l10n_extension.dart"
-Cohesion: 0.03
-Nodes (58): build, _buildMacroMiniBar, CoachContextHeader, summary, build, CoachEmptyState, summary, build (+50 more)
-
-### Community 62 - "quick_choice_chips.dart"
-Cohesion: 0.10
-Nodes (20): bevelColor, bgColor, borderColor, build, chips, _ChipVisual, createState, fromMap (+12 more)
-
-### Community 63 - "recipe_builder_controller_test.dart"
+### Community 60 - "installCompilerCssValues"
 Cohesion: 0.11
-Nodes (14): calories, carbs, fat, getRecipes, hashCode, _ingredient, main, name (+6 more)
+Nodes (38): installCompilerCssValues(), canonicalCssPropertyName(), clampColorByte(), clipGradientStopsToRange(), colorByteHex(), compactDiagnosticValue(), cssPropertyValueHint(), cssTokenDegrees() (+30 more)
+
+### Community 61 - "coach_quick_actions.dart"
+Cohesion: 0.02
+Nodes (84): build, _buildMacroMiniBar, CoachContextHeader, summary, build, CoachEmptyState, summary, build (+76 more)
+
+### Community 62 - "meal_quick_log_card.dart"
+Cohesion: 0.02
+Nodes (91): catalog, createAstroBiteCatalog, ChatMessage, content, copyWith, fromMap, id, isAssistant (+83 more)
+
+### Community 63 - "package:flutter_riverpod/flutter_riverpod.dart"
+Cohesion: 0.01
+Nodes (94): main, selectedDaysProvider, createState, day, _isPressed, _isSameDay, isSelected, isStreakDay (+86 more)
 
 ### Community 64 - "Sub-Agent Scrum Master — *"The Servant Leader & Agile Coach"*"
 Cohesion: 0.12
@@ -1044,237 +1103,245 @@ Nodes (16): 🧭 1. Tám Nguyên Tắc Làm Việc Cốt Lõi, 2.1. Điều Ph�
 Cohesion: 0.10
 Nodes (19): addIntake, amountMl, currentMl, date, entries, fromJson, id, initial (+11 more)
 
-### Community 66 - "coach_repository.dart"
-Cohesion: 0.11
-Nodes (16): candidateModels, _chatSession, deleteSession, getTodayMessageCount, loadChatSessionsList, loadSessionByDate, loadTodaySession, _maxMessagesPerDay (+8 more)
+### Community 66 - "get"
+Cohesion: 0.02
+Nodes (292): add(), applyAttributeToOthers(), applySafePolygonPointerEventsMutation(), clearSafePolygonPointerEventsMutation(), CompositeList(), observe(), createToastManager(), delete() (+284 more)
 
-### Community 67 - "meal_food_item_tile.dart"
-Cohesion: 0.12
-Nodes (14): FoodLog, build, log, MealDetailFoodCard, onDelete, build, color, label (+6 more)
+### Community 67 - "i_"
+Cohesion: 0.01
+Nodes (204): document(), Fr(), _7(), m(), p(), s(), _8(), b() (+196 more)
 
-### Community 68 - "goal_summary_page_test.dart"
-Cohesion: 0.05
-Nodes (34): AuthErrorHandler, getErrorMessage, authStateChanges, currentUser, registerWithEmail, _remoteDatasource, sendPasswordResetEmail, signInWithEmail (+26 more)
+### Community 68 - "installEditorContrastBackgrounds"
+Cohesion: 0.20
+Nodes (29): installEditorContrastBackgrounds(), boxShadowRecords(), certainSolidBackground(), childrenComplicateContrast(), classifyContrastBackground(), containerShadowOutset(), contrastContentKind(), contrastFrameBounds() (+21 more)
 
-### Community 69 - "ConsumerWidget"
-Cohesion: 0.09
-Nodes (32): authStateProvider, build, CoachPage, _CoachPageState, GuildPage, HealthConnectionPage, ProfilePage, mealPlanItemsProvider (+24 more)
+### Community 69 - "A"
+Cohesion: 0.01
+Nodes (152): F(), aH(), d(), E(), m(), O(), p(), w() (+144 more)
 
-### Community 70 - "food_log_repository_offline_test.dart"
-Cohesion: 0.11
-Nodes (15): FoodLogLocalDatasource, datasource, main, sampleLog, addFoodLog, deleteFoodLog, fakeRemote, getLogsForDateRange (+7 more)
+### Community 70 - "i"
+Cohesion: 0.03
+Nodes (192): a(), aa(), abe(), k(), n(), s(), AL(), AP() (+184 more)
 
 ### Community 71 - "voice_log_result.dart"
 Cohesion: 0.10
 Nodes (19): calories, carbsG, confidenceScore, createdAt, dishes, dishName, estimatedWeightG, fatG (+11 more)
 
-### Community 72 - "clay_card.dart"
-Cohesion: 0.12
-Nodes (16): backgroundColor, bevelColor, borderColor, borderRadius, build, child, ClayCard, _ClayCardState (+8 more)
+### Community 72 - "K"
+Cohesion: 0.02
+Nodes (213): ae(), age(), aj(), f(), am(), ar(), at(), aX() (+205 more)
 
-### Community 73 - "meal_plan_repository_impl.dart"
-Cohesion: 0.20
-Nodes (8): _col, _db, deleteMealPlanItemForUser, _fromDoc, getMealPlanItems, markAsLoggedForUser, saveMealPlanItem, _toMap
+### Community 73 - "width"
+Cohesion: 0.02
+Nodes (154): 🔮 Flutter Preview MCP Integration (Visual Feedback Loop), A design system's real components, First: where a design system keeps itself, Installing a design system on the canvas, Mounting a design system's components, Diagrams: flowcharts, org charts, system maps, swimlanes, sequence diagrams, timelines, Example: an artboard's root, two cards, arrows there and back on the thirds of their facing edges, The elements (+146 more)
 
-### Community 74 - "explicit_animation.dart"
-Cohesion: 0.08
-Nodes (26): AnimatedBuilderDemo, _AnimatedBuilderDemoState, AnimatedLogo, AnimatedWidgetDemo, _AnimatedWidgetDemoState, _animation, BasicExplicitAnimation, _BasicExplicitAnimationState (+18 more)
+### Community 74 - "State"
+Cohesion: 0.01
+Nodes (232): AnimatedBuilderDemo, _AnimatedBuilderDemoState, AnimatedLogo, AnimatedWidgetDemo, _AnimatedWidgetDemoState, _animation, BasicExplicitAnimation, _BasicExplicitAnimationState (+224 more)
 
 ### Community 75 - "meal_plan_custom_entry_form.dart"
 Cohesion: 0.04
 Nodes (44): build, _calCtrl, _carbsCtrl, color, createState, ctrl, date, dispose (+36 more)
 
 ### Community 76 - "gemini_api_key_service.dart"
-Cohesion: 0.13
-Nodes (14): activeKey, clearCustomKey, customKey, defaultKey, GeminiApiKeyNotifier, GeminiApiKeyState, getActiveKey, hasKey (+6 more)
+Cohesion: 0.08
+Nodes (28): activeKey, clearCustomKey, customKey, defaultKey, GeminiApiKeyNotifier, geminiApiKeyServiceProvider, GeminiApiKeyState, getActiveKey (+20 more)
 
-### Community 78 - "add_meal_plan_item_sheet.dart"
-Cohesion: 0.13
-Nodes (13): AddMealPlanItemSheet, _AddMealPlanItemSheetState, _addRecipe, build, _buildRecipePicker, createState, date, mealLabel (+5 more)
+### Community 77 - "Provider"
+Cohesion: 0.09
+Nodes (15): Notifier Pattern (Riverpod 2.0), Provider Types, Quick Reference, Riverpod State Management, Usage in Widgets, .body, AstroBiteWidgetEntryView, .body (+7 more)
 
-### Community 79 - "health_activity.dart"
+### Community 78 - "installCompilerHtml"
+Cohesion: 0.03
+Nodes (139): exec(), installCompilerHtml(), backgroundChangePreservesContrast(), collectSlidePaintLayers(), commonRowBackground(), compileHtmlSection(), compileSlideHtml(), compositeHexColor() (+131 more)
+
+### Community 79 - "TM"
+Cohesion: 0.02
+Nodes (111): Jh(), p_, TM(), $a(), ab(), al(), am(), Av() (+103 more)
+
+### Community 80 - "dc-runtime.js"
+Cohesion: 0.03
+Nodes (119): applyEasing(), assignRef(), beginErrorReporting(), bootRuntime(), clampUnit(), compileAttributes(), compileChildren(), compileCondition() (+111 more)
+
+### Community 81 - "checkCanvas"
 Cohesion: 0.11
-Nodes (18): activeEnergyBurned, caloriesBurned, caloriesIn, caloriesOut, calorieTarget, date, durationMinutes, EnergyBalance (+10 more)
+Nodes (24): attr(), attrList(), canvasTitle(), checkAssetUrl(), checkBlobRefs(), checkBoardFile(), checkCanvas(), checkCssImports() (+16 more)
 
-### Community 80 - "food_log.dart"
-Cohesion: 0.10
-Nodes (19): calories, carbsG, confidenceScore, date, dishes, dishName, estimatedWeightG, fatG (+11 more)
+### Community 82 - "installUiOverlays"
+Cohesion: 0.02
+Nodes (119): close(), installMediaImageDownsampling(), decodeImageBitmap(), decodeSvgImage(), downsampleImageToBlob(), downsampleImageToDataUrl(), encodeImageBlob(), encodeImageDataUrl() (+111 more)
 
-### Community 81 - "celestial_particle_background.dart"
-Cohesion: 0.10
-Nodes (21): build, CelestialParticleBackground, _CelestialParticleBackgroundState, child, _controller, createState, dispose, initState (+13 more)
+### Community 84 - "get"
+Cohesion: 0.01
+Nodes (146): get(), getEscaper(), getName(), getReferrerPolicyFromHeader(), onabort(), onafterprint(), onanimationcancel(), onanimationend() (+138 more)
 
-### Community 82 - "package:flutter/services.dart"
-Cohesion: 0.04
-Nodes (44): build, CoachInputBar, focusNode, isListeningVoice, isSending, onSend, onSubmitted, onToggleSuggestions (+36 more)
+### Community 85 - ""node_modules/react-dom/cjs/react-dom-client.production.js""
+Cohesion: 0.03
+Nodes (122): "node_modules/react-dom/cjs/react-dom-client.production.js"(), accumulateEnterLeaveListenersForEvent(), accumulateOrCreateContinuousQueuedReplayableEvent(), accumulateTwoPhaseListeners(), addEventListenerToChild(), addFragmentHandleToFiber(), addFragmentHandleToInstance(), attemptContinuousHydration() (+114 more)
 
-### Community 84 - "leaderboard_page.dart"
-Cohesion: 0.18
-Nodes (8): socialControllerProvider, _buildEmptyState, _buildErrorState, _buildLoadingState, createState, LeaderboardPage, _LeaderboardPageState, _myAstroId
+### Community 86 - "int get"
+Cohesion: 0.20
+Nodes (5): _activeIndex, main, MockTabsRouter, noSuchMethod, setActiveIndex
 
-### Community 85 - "dart:math"
-Cohesion: 0.12
-Nodes (14): _, Clay3DMealsDrinksPainters, drawCoffee, drawCookie, drawCosmicStar, drawRamen, drawSunnyEgg, CosmicStardustPainter (+6 more)
+### Community 87 - "r"
+Cohesion: 0.02
+Nodes (121): ab(), ad(), ai(), ao(), As(), bbe(), bc(), bd() (+113 more)
 
-### Community 86 - "clay_bottom_nav.dart"
-Cohesion: 0.22
-Nodes (4): CelestialBottomNav, ClayBottomNav, tabsRouter, MockTabsRouter
+### Community 88 - "b_"
+Cohesion: 0.02
+Nodes (62): b_, E(), F(), G(), i(), k(), T(), v() (+54 more)
 
-### Community 87 - "home_page.dart"
-Cohesion: 0.07
-Nodes (7): addSlot, MealSlotsController, _rebalanceSlots, removeSlot, resetToDefaults, restoreSlot, main
+### Community 89 - "h_"
+Cohesion: 0.02
+Nodes (67): h_, a(), f(), h(), k(), l(), le(), m() (+59 more)
 
-### Community 88 - "clay_skeleton_loader.dart"
-Cohesion: 0.13
-Nodes (16): borderRadius, build, ClayScanLoader, _ClayScanLoaderState, ClaySkeletonLoader, createState, dispose, height (+8 more)
+### Community 90 - "installRenderingSlides"
+Cohesion: 0.09
+Nodes (59): installRenderingSlides(), applyTextFitCssVariable(), classifyRenderedLink(), ClipPlaybackProvider(), ConnectorShape(), createClipCapacity(), dynamicStyleAttributes(), EditableTableCell() (+51 more)
 
-### Community 89 - "profile_metrics_card.dart"
-Cohesion: 0.08
-Nodes (23): UserProfile, BmrTdeeCard, build, _buildMetricTile, profile, build, isEditDisabled, onEditPressed (+15 more)
-
-### Community 90 - "main.dart"
-Cohesion: 0.12
-Nodes (7): android, DefaultFirebaseOptions, ios, macos, web, initializeApp, main
-
-### Community 91 - "clay_app_bar.dart"
-Cohesion: 0.08
-Nodes (21): build, CoachAppBar, preferredSize, build, CameraAppBar, isTorchOn, onToggleTorch, preferredSize (+13 more)
+### Community 91 - "error"
+Cohesion: 0.03
+Nodes (113): checkKeyStringCoercion(), willCoercionThrow(), appendChildToContainer(), assertValidProps(), checkAttributeStringCoercion(), checkControlledValueProps(), checkCSSPropertyStringCoercion(), checkFormFieldValueStringCoercion() (+105 more)
 
 ### Community 92 - "Staggered Animations Reference"
 Cohesion: 0.05
 Nodes (42): Accessibility, Adaptive Staggering, Advanced Techniques, Basic Staggered Animation, Calculate Total Duration, Common Patterns, Complex Staggered Patterns, Conditional Staggering (+34 more)
 
-### Community 93 - "PageRouteInfo"
-Cohesion: 0.11
-Nodes (24): build, build, leaderboardStreamProvider, build, build, build, build, build (+16 more)
+### Community 93 - ".add"
+Cohesion: 0.02
+Nodes (67): _5(), B(), D(), I(), N(), u(), bj(), n() (+59 more)
 
-### Community 94 - "network_sync_coordinator.dart"
-Cohesion: 0.08
-Nodes (21): _connectivity, _connectivitySub, coordinator, dispose, _handleConnectivityChange, initialize, _lifecycleListener, NetworkSyncCoordinator (+13 more)
+### Community 94 - "diskPath"
+Cohesion: 0.12
+Nodes (25): assetExtensionOf(), assetIndex(), blobFile(), contentTypeOf(), designSystemUploadLimit(), diskPath(), encodeIndexKey(), externalChanges() (+17 more)
 
 ### Community 95 - "Sprint 33: Cosmic Orbital Dashboard & Dynamic Meal Slots (v3.5.0)"
 Cohesion: 0.11
 Nodes (18): 1. Bối Cảnh & Vấn Đề Nghiệp Vụ (Context & Problem Statement), 2. Mục Tiêu Định Lượng (Success Metrics & KPIs), 3. Kiến Trúc Trải Nghiệm Đột Phá (Celestial 3D Tactile UI/UX), 4.1. Thực Thể `MealSlot` (Dynamic Meal Slot Definition), 4.2. Danh Sách Preset Bữa Phụ Có Sẵn (Snack Presets), 4.3. Thuật Toán Tự Động Tái Cân Bằng Calorie Gợi Ý (Dynamic Calorie Rebalancing), 4. Kiến Trúc Dữ Liệu & Logic Quản Lý Bữa Ăn (Data & Business Logic), 5. Quy Trình Nghiệp Vụ Xóa Bữa Phụ (Data Loss Prevention Flow) (+10 more)
 
-### Community 96 - "clay_3d_planet.dart"
-Cohesion: 0.11
-Nodes (17): baseColor, bevelColor, build, Clay3DPlanet, _Clay3DPlanetPainter, detailColor, _drawPlanetDetails, _drawSaturnRingBack (+9 more)
+### Community 96 - "CustomPainter"
+Cohesion: 0.01
+Nodes (158): _, Clay3DFruitsPastryPainters, drawApple, drawAvocado, drawCroissant, drawIceCream, drawPizza, _ (+150 more)
 
-### Community 97 - "cosmic_logo_badge.dart"
-Cohesion: 0.12
-Nodes (16): build, _controller, CosmicLogoBadge, _CosmicLogoBadgeState, createState, didUpdateWidget, dispose, _drawRing (+8 more)
+### Community 97 - "claude-design/scripts/artifact.mjs"
+Cohesion: 0.03
+Nodes (149): addMessage(), agentView(), agentViews(), alive(), artifactTitle(), assertServerFiles(), assetExtensionOf(), assetIndex() (+141 more)
 
-### Community 98 - "mock_guild_repository.dart"
-Cohesion: 0.12
-Nodes (15): addStarlightContribution, createGuild, disbandGuild, dispose, getUserGuild, _guilds, _guildStreamController, joinGuildByCode (+7 more)
+### Community 98 - "installUiInteractions"
+Cohesion: 0.03
+Nodes (95): getServerSnapshot(), installUiInteractions(), afterCssTransitions(), afterElementAnimations(), announceSheetTreeDialog(), calculateIconFontWeight(), CdsLayer(), CdsLayerVarBridge() (+87 more)
 
-### Community 99 - "multi_dish_scan_review_test.dart"
-Cohesion: 0.11
-Nodes (16): addFoodLog, authStateChanges, createWidget, currentUser, deleteFoodLog, fakeAuthRepo, fakeLogRepo, getLogsForDateRange (+8 more)
+### Community 99 - "c"
+Cohesion: 0.04
+Nodes (101): fr(), bj(), Ai(), al(), An(), ao(), au(), Bc() (+93 more)
 
-### Community 100 - "guild_remote_datasource.dart"
-Cohesion: 0.08
-Nodes (20): deleteGuild, findGuildByInviteCode, _firestore, getUserGuild, GuildRemoteDatasource, GuildRemoteDatasourceImpl, saveGuild, sendGuildNudge (+12 more)
+### Community 100 - "installUiDisclosure"
+Cohesion: 0.03
+Nodes (93): getInstance(), getSnapshot(), installCollaborationSlidePresence(), collectSlidePresence(), formatSlidePresenceLabel(), SlidePresenceBadge(), useSlidePresence(), installDesignSystemDeckRestyle() (+85 more)
 
-### Community 101 - "astro_voice_sheet.dart"
-Cohesion: 0.11
-Nodes (14): voiceLogControllerProvider, AstroVoiceMode, AstroVoiceSheet, _AstroVoiceSheetState, build, createState, _finishCoachDictation, initState (+6 more)
+### Community 101 - "captureCommitPhaseError"
+Cohesion: 0.04
+Nodes (100): componentDidMount(), componentDidUpdate(), callComponentWillMount(), captureCommitPhaseError(), clearContainer(), clearSuspenseBoundary(), clearSuspenseBoundaryFromContainer(), commitAttachRef() (+92 more)
 
 ### Community 102 - "user_profile.dart"
-Cohesion: 0.07
-Nodes (21): activityLevel, activityLevelEnum, age, birthYear, bmr, dailyTargetCalories, defaultProfile, fitnessGoal (+13 more)
+Cohesion: 0.10
+Nodes (17): activityLevel, activityLevelEnum, age, birthYear, bmr, dailyTargetCalories, defaultProfile, fitnessGoal (+9 more)
 
-### Community 103 - "social_controller.dart"
-Cohesion: 0.12
-Nodes (17): SocialRepository, addFriend, clearMessages, copyWith, errorMessage, isLoading, nudgeFriend, remote (+9 more)
+### Community 103 - ""node_modules/react-18/cjs/react.development.js""
+Cohesion: 0.04
+Nodes (87): RootWithDefaults(), "node_modules/react-18/cjs/react.development.js"(), act(), checkPropTypes(), cloneAndReplaceKey(), cloneElement(), cloneElementWithValidation(), Component() (+79 more)
 
-### Community 104 - "voice_recognition_service.dart"
-Cohesion: 0.14
-Nodes (13): cancelListening, FakeVoiceRecognitionService, initialize, isAvailable, isListening, _listening, shouldSucceed, _speech (+5 more)
+### Community 104 - "value"
+Cohesion: 0.04
+Nodes (91): getRestMs(), installBridgeFrameViewport(), applyKeyboardInset(), createBottomInsetSmoother(), readFrameFootInset(), revealFieldOnViewportShrink(), revealFocusedDialogField(), subscribeFrameBottomInset() (+83 more)
 
 ### Community 105 - "locale_service.dart"
-Cohesion: 0.17
-Nodes (10): AppLanguage, AppLanguageNotifier, code, english, fromCode, language, _loadSavedLanguage, locale (+2 more)
+Cohesion: 0.07
+Nodes (22): AppLanguage, AppLanguageNotifier, appLanguageProvider, code, english, fromCode, language, _loadSavedLanguage (+14 more)
 
-### Community 106 - "recipe_add_ingredient_sheet.dart"
-Cohesion: 0.04
-Nodes (47): recipeBuilderProvider, build, createState, _descCtrl, dispose, _formKey, _inputDecoration, _nameCtrl (+39 more)
+### Community 106 - "recipe_builder_controller.dart"
+Cohesion: 0.02
+Nodes (100): MealPlanRepositoryImpl, _col, _db, deleteRecipeForUser, _fromDoc, getRecipes, RecipeRepositoryImpl, saveRecipe (+92 more)
 
-### Community 107 - "splash_page.dart"
-Cohesion: 0.10
-Nodes (17): build, _buildAmbientGlows, _buildDriftingConstellation, createState, dispose, _driftController, _entranceController, initState (+9 more)
+### Community 107 - "beginWork"
+Cohesion: 0.06
+Nodes (94): getComponentNameFromType(), adoptClassInstance(), applyDerivedStateFromProps(), attemptEarlyBailoutIfNoScheduledUpdate(), bailoutHooks(), bailoutOnAlreadyFinishedWork(), beginWork(), cacheContext() (+86 more)
 
 ### Community 108 - "Integration Testing Guide"
 Cohesion: 0.05
 Nodes (42): Add Dependency, Authentication State, Basic Integration Test, Best Practices, CI/CD Integration, Complete Form Submission, Create Test Driver, Debugging Integration Tests (+34 more)
 
-### Community 109 - "tracker_controller.dart"
-Cohesion: 0.12
-Nodes (12): addFoodLog, deleteFoodLog, getLogsForDateRange, getPendingSyncLogs, syncPendingLogs, watchDailyLogs, addFoodLog, deleteFoodLog (+4 more)
+### Community 109 - "getBoundingClientRect"
+Cohesion: 0.03
+Nodes (132): autoUpdate(), frameLoop(), calculateRelativePosition(), getBoundingClientRect(), getFrameElement(), getViewportRect2(), installCommentsHitTesting(), collectSlideCommentAreaTargets() (+124 more)
 
-### Community 110 - "glass_card.dart"
-Cohesion: 0.13
-Nodes (12): build, child, ClaySheet, padding, showHandle, blurSigma, borderColor, borderRadius (+4 more)
+### Community 110 - "mergeLanes"
+Cohesion: 0.04
+Nodes (91): addFiberToLanesMap(), attachRetryListener(), attemptContinuousHydration$1(), attemptHydrationAtCurrentPriority$1(), attemptSynchronousHydration$1(), captureCommitPhaseErrorOnRoot(), checkForNestedUpdates(), checkIfSnapshotChanged() (+83 more)
 
 ### Community 111 - "compilerOptions"
-Cohesion: 0.13
-Nodes (14): compileOnSave, compilerOptions, esModuleInterop, module, moduleResolution, noImplicitReturns, noUnusedLocals, outDir (+6 more)
+Cohesion: 0.14
+Nodes (13): compileOnSave, compilerOptions, esModuleInterop, moduleResolution, noImplicitReturns, noUnusedLocals, outDir, rootDir (+5 more)
 
-### Community 112 - "food_log_repository_impl.dart"
-Cohesion: 0.08
-Nodes (19): addFoodLog, deleteFoodLog, _firestore, FoodLogRemoteDatasource, _foodLogsRef, getLogsForDateRange, watchDailyLogs, addFoodLog (+11 more)
+### Community 112 - "appendChild"
+Cohesion: 0.04
+Nodes (88): adoptNode(), after(), append(), appendChild(), attributeListsEqual(), caption(), characterSet(), [clearCache]() (+80 more)
 
-### Community 113 - "String get"
-Cohesion: 0.13
-Nodes (6): main, email, main, noSuchMethod, uid, main
+### Community 113 - "react-dom.production.min.js"
+Cohesion: 0.04
+Nodes (73): $a(), bc(), Bd(), be(), Ce(), dd(), de(), dj() (+65 more)
 
-### Community 114 - "guild_member.dart"
-Cohesion: 0.13
-Nodes (14): avatarUrl, canManageMembers, copyWith, currentStreak, displayName, fromJson, isElder, isLeader (+6 more)
+### Community 114 - "claude-design-system/scripts/server.mjs"
+Cohesion: 0.06
+Nodes (84): addMessage(), addThread(), agentView(), agentViews(), alive(), assetIndex(), blobFile(), canSendToAgent() (+76 more)
 
-### Community 115 - "Widget"
-Cohesion: 0.15
-Nodes (11): Release Notes: AstroBite v3.2.0, 🌟 Tóm Tắt Bản Phát Hành (Highlights), AstroBiteWidget, .body, AstroBiteWidgetEntryView, .body, Color, MacroPill (+3 more)
+### Community 115 - ""node_modules/pptxgenjs/dist/pptxgen.cjs.js""
+Cohesion: 0.07
+Nodes (84): "node_modules/jszip/lib/index.js"(), JSZip(), concat(), "node_modules/pptxgenjs/dist/pptxgen.cjs.js"(), addBackgroundDefinition(), addChartDefinition(), addImageDefinition(), addMediaDefinition() (+76 more)
 
 ### Community 116 - "Physics-Based Animations Reference"
 Cohesion: 0.05
 Nodes (41): Accessibility, Adaptive Scroll Physics, Basic Fling, Basic Spring, Best Practices, Bouncing Scroll, Bouncy Button Press, Clamping Scroll (+33 more)
 
-### Community 117 - "constants/profile_enums.dart"
-Cohesion: 0.09
-Nodes (18): birthYear, bmrOffset, calorieOffset, dailyTargetCalories, fromValue, heightCm, icon, label (+10 more)
+### Community 117 - "beginWork"
+Cohesion: 0.05
+Nodes (88): Component(), applyDerivedStateFromProps(), attemptEarlyBailoutIfNoScheduledUpdate(), bailoutHooks(), bailoutOffscreenComponent(), bailoutOnAlreadyFinishedWork(), beginWork(), callComponentWillReceiveProps() (+80 more)
 
-### Community 118 - "delete_meal_confirmation_sheet.dart"
-Cohesion: 0.13
-Nodes (15): action, availableSlots, build, createState, DeleteMealAction, DeleteMealConfirmationSheet, _DeleteMealConfirmationSheetState, DeleteMealResult (+7 more)
+### Community 118 - "cG"
+Cohesion: 0.05
+Nodes (41): ap, yl(), Sl(), Jh(), x(), aG(), b_, T() (+33 more)
 
-### Community 119 - "clay_3d_analytics_chart.dart"
-Cohesion: 0.13
-Nodes (14): bevelColor, build, Clay3DAnalyticsChart, _Clay3DAnalyticsChartPainter, colors, height, isSelected, paint (+6 more)
+### Community 119 - "scanning_viewfinder.dart"
+Cohesion: 0.10
+Nodes (17): build, child, createState, detectedCalories, detectedDishName, didUpdateWidget, dispose, initState (+9 more)
+
+### Community 120 - "installModelDeck"
+Cohesion: 0.05
+Nodes (75): installModelDeck(), absoluteConnectorEndpoints(), alignUtf16Boundary(), applyNormalizedNodeStyle(), applyNormalizedPlacement(), boundedJsonSummary(), collectSlideAssetIds(), connectorArrowHeads() (+67 more)
 
 ### Community 121 - ".application"
 Cohesion: 0.15
 Nodes (5): Flutter, AppDelegate, RunnerTests, UIKit, XCTest
 
-### Community 122 - "recipe_repository_impl.dart"
-Cohesion: 0.09
-Nodes (13): _col, _db, deleteRecipeForUser, _fromDoc, getRecipes, RecipeRepositoryImpl, saveRecipe, _toMap (+5 more)
+### Community 122 - "claude-design/scripts/server.mjs"
+Cohesion: 0.06
+Nodes (78): addMessage(), addThread(), agentView(), agentViews(), alive(), assetIndex(), blobFile(), canSendToAgent() (+70 more)
 
-### Community 123 - "clay_3d_astronaut.dart"
-Cohesion: 0.25
-Nodes (7): build, Clay3DAstronaut, _Clay3DAstronautPainter, isSelected, paint, shouldRepaint, size
+### Community 123 - "installDesignSystemSlideStyles"
+Cohesion: 0.10
+Nodes (39): installDesignSystemSlideStyles(), analyzeDeckRestyle(), collectDeckStyleUses(), createSlideRestyler(), deckSeries(), frameGround(), movedSlot(), normalizedHex() (+31 more)
 
-### Community 124 - "google_sign_in_button.dart"
-Cohesion: 0.15
-Nodes (13): build, createState, GoogleLogoPainter, GoogleSignInButton, _GoogleSignInButtonState, _handleTapCancel, _handleTapDown, _handleTapUp (+5 more)
+### Community 124 - "installUiStyleInspector"
+Cohesion: 0.08
+Nodes (70): installEditorSlideSelection(), extendSlideSelection(), hasToggleModifier(), nextSlideSelection(), pruneSlideSelection(), resolveSlideSelectionClick(), slideSelectionRange(), syncSlideSelection() (+62 more)
 
-### Community 125 - "planetary_challenge.dart"
-Cohesion: 0.14
-Nodes (13): copyWith, currentValue, endDate, fromJson, id, isCompleted, planetTheme, startDate (+5 more)
+### Community 125 - "installUiMenu"
+Cohesion: 0.04
+Nodes (68): installUiMenu(), AdaptiveSheetPopupHost(), applyTypedDirection(), areAllTouchesLifted(), cancelCloseDuringTouchHold(), cancelNestedMenuClose(), CheckboxGlyph(), CheckboxVisual() (+60 more)
 
-### Community 126 - "scan_food_usecase_test.dart"
-Cohesion: 0.14
-Nodes (12): dtoToReturn, errorMessage, fakeRepo, getTodayScanCount, incrementCountCalls, incrementScanCount, main, sampleImageBytes (+4 more)
+### Community 126 - "claude-slides/scripts/server.mjs"
+Cohesion: 0.06
+Nodes (79): root(), addMessage(), addThread(), agentView(), agentViews(), alive(), assetIndex(), blobFile() (+71 more)
 
 ### Community 127 - "🔍 2. Ma Trận Soi Lỗi Thị Giác 6 Trụ Cột (Visual Heuristics Checklist)"
 Cohesion: 0.10
@@ -1288,13 +1355,13 @@ Nodes (39): Async Responses, Basic Mocking, Basic Platform Channel Mock, Best Pr
 Cohesion: 0.05
 Nodes (37): AnimatedBuilder Pattern, AnimatedWidget Pattern, Animation Status Handling, AnimationController, Basic Status Loop, Bounce Effect, Built-in Transitions, Common Patterns (+29 more)
 
-### Community 130 - "coach_message_list.dart"
-Cohesion: 0.13
-Nodes (10): build, CoachMessageList, genUiCatalog, hasPhysicalKeyboard, isInTabs, isSending, loggedMessageIds, messages (+2 more)
+### Community 130 - ""node_modules/wawoff2/build/decompress_binding.js""
+Cohesion: 0.05
+Nodes (67): whenPageLoaded(), "node_modules/wawoff2/build/decompress_binding.js"(), addOnPostRun(), addOnPreRun(), alignUp(), assert(), callRuntimeCallbacks(), craftInvokerFunction() (+59 more)
 
 ### Community 131 - "Widget Testing Guide"
 Cohesion: 0.05
-Nodes (37): Basic Widget Test, Best Practices, Common Finders, Common Patterns, Conditional Rendering, Dragging, Entering Text, Finder Matchers (+29 more)
+Nodes (36): Basic Widget Test, Common Finders, Common Patterns, Conditional Rendering, Dragging, Entering Text, Finder Matchers, Finding Widgets (+28 more)
 
 ### Community 132 - "AstroBite — Báo Cáo Đo Đạc SLAs Hiệu Năng & Kiểm Chuẩn AI Ground-Truth"
 Cohesion: 0.14
@@ -1305,44 +1372,44 @@ Cohesion: 0.06
 Nodes (35): Android Espresso Test, Android-Specific Tests, Android Unit Tests, Basic Integration Test, Basic Plugin Unit Test, Best Practices, CI/CD for Plugins, Create Test Driver (+27 more)
 
 ### Community 134 - "🥑 2. MÔ TẢ 13 TÍNH NĂNG CỐT LÕI BẰNG NGÔN NGỮ TỰ NHIÊN (USER EXPERIENCE)"
-Cohesion: 0.06
-Nodes (35): 10. 📈 Báo Cáo Xu Hướng Dinh Dưỡng & Cân Nặng (Nutrition Analytics), 11. 🍳 Sổ Tay Món Tự Nấu & Lập Kế Hoạch Bữa Ăn (Custom Recipes & Meal Plans), 12. ⌚ Đồng Bộ Đồng Hồ Sức Khỏe Thông Minh (Apple Health & Health Connect), 13. 🪐 Bang Hội Vũ Trụ & Thử Thách Đồng Đội (Social Guilds & Planetary Challenges — Mới Nhất v3.1.0), 1. Pipeline Giọng Nói Tự Nhiên AstroVoice & Gemini NLU (v3.0.0 Mới Nhất), 1. 📸 Quét Món Ăn Bằng Camera AI (Gemini Vision Scanner), 🌟 1. TỔNG QUAN DỰ ÁN & GIẢI BẢY VẤN ĐỀ NGƯỜI DÙNG (PRODUCT STORY), 2. Engine Phân Tích Ẩm Thực Á Đông — Tách Nước Dùng & Topping (v2.9.0) (+27 more)
+Cohesion: 0.14
+Nodes (14): 10. 📈 Báo Cáo Xu Hướng Dinh Dưỡng & Cân Nặng (Nutrition Analytics), 11. 🍳 Sổ Tay Món Tự Nấu & Lập Kế Hoạch Bữa Ăn (Custom Recipes & Meal Plans), 12. ⌚ Đồng Bộ Đồng Hồ Sức Khỏe Thông Minh (Apple Health & Health Connect), 13. 🪐 Bang Hội Vũ Trụ & Thử Thách Đồng Đội (Social Guilds & Planetary Challenges — Mới Nhất v3.1.0), 1. 📸 Quét Món Ăn Bằng Camera AI (Gemini Vision Scanner), 2. 🎙️ Ghi Chép Rảnh Tay Bằng Giọng Nói Tiếng Việt (AstroVoice AI — Mới Nhất v3.0.0), 🥑 2. MÔ TẢ 13 TÍNH NĂNG CỐT LÕI BẰNG NGÔN NGỮ TỰ NHIÊN (USER EXPERIENCE), 3. 🍜 Trí Tuệ Ẩm Thực Á Đông — Tách Nước Dùng & Topping (Multi-Region Food Intelligence) (+6 more)
 
-### Community 135 - "CustomPainter"
-Cohesion: 0.24
-Nodes (9): color, cornerLength, HolographicReticlePainter, HudGridPainter, paint, PrecisionCrosshairPainter, shouldRepaint, strokeWidth (+1 more)
+### Community 135 - "installExportDeckHtml"
+Cohesion: 0.04
+Nodes (77): computeActivationDirection(), entries(), findTabElement(), installDeliveryFontSubstitution(), collectCustomPresentationFontFamilies(), createFontSubstitutionTracker(), presentationFontPortabilityWarning(), installExportCurrentFonts() (+69 more)
 
 ### Community 136 - "Available Widgets"
 Cohesion: 0.07
-Nodes (28): AnimatedAlign, AnimatedContainer, AnimatedContainer (Multiple Properties), AnimatedDefaultTextStyle, AnimatedOpacity, AnimatedPadding, AnimatedPhysicalModel, AnimatedPositioned (+20 more)
+Nodes (27): AnimatedAlign, AnimatedContainer (Multiple Properties), AnimatedDefaultTextStyle, AnimatedOpacity, AnimatedPadding, AnimatedPhysicalModel, AnimatedPositioned, AnimatedSwitcher (+19 more)
 
-### Community 137 - "auth_remote_datasource.dart"
-Cohesion: 0.13
-Nodes (10): AuthRemoteDatasource, authStateChanges, _googleSignIn, _providedAuth, _providedGoogleSignIn, registerWithEmail, sendPasswordResetEmail, signInWithEmail (+2 more)
+### Community 137 - "k4"
+Cohesion: 0.03
+Nodes (46): e9(), h(), n(), s(), ej(), f(), p(), ff (+38 more)
 
-### Community 138 - "analytics_kpi_overview_row.dart"
-Cohesion: 0.12
-Nodes (15): adherenceRate, AnalyticsKpiOverviewRow, avgCal, build, currentWeight, icon, _KpiCard, onTrackDays (+7 more)
+### Community 138 - "installUiTable"
+Cohesion: 0.08
+Nodes (35): installHostArtifactClipboard(), clipboardFileBaseName(), clipboardTextIsFileNames(), copyArtifactToClipboard(), decodeClipboardUtf8(), encodeClipboardUtf8(), escapeClipboardHtml(), hasDocumentTextSelection() (+27 more)
 
-### Community 139 - "chat_message.dart"
-Cohesion: 0.17
-Nodes (11): content, copyWith, fromMap, id, isAssistant, isError, isLogged, isUser (+3 more)
+### Community 139 - "SlideCanvasEditor"
+Cohesion: 0.06
+Nodes (76): installEditorCanvas(), announceLinkChanges(), calculateFlowInsertionGuide(), calculateNestedOverlayDepth(), canFitHorizontalFlowInsertion(), canStartCanvasPinch(), canStartCanvasRectSelection(), ceilMeasuredNodeSize() (+68 more)
 
-### Community 140 - "water_wave_painter.dart"
-Cohesion: 0.13
-Nodes (15): animationValue, build, _ClayWavePainter, color, _controller, createState, dispose, initState (+7 more)
+### Community 140 - "installUiFoundation"
+Cohesion: 0.05
+Nodes (68): installUiFoundation(), addMediaQueryListener(), calculateSheetBounds(), calculateSheetDragGeometry(), createCoarsePointerStore(), createFontAttributeStore(), createMutableValue(), createOptionalRefCallback() (+60 more)
 
 ### Community 141 - "Common Testing Errors"
 Cohesion: 0.07
 Nodes (28): 'A RenderFlex overflowed...', 'An InputDecorator...cannot have an unbounded width', Async Errors, Check Before Actions, Common Testing Errors, Data Errors, Debugging Tips, Enable Verbose Logging (+20 more)
 
-### Community 142 - "water_sheet_components.dart"
-Cohesion: 0.05
-Nodes (35): amountMl, fromAmount, icon, label, labelWithUnit, WaterQuickPreset, dailyWaterStreamProvider, addWater (+27 more)
+### Community 142 - "home_page.dart"
+Cohesion: 0.02
+Nodes (68): login, LoginController, loginWithGoogle, ref, sendPasswordResetEmail, ref, register, RegisterController (+60 more)
 
-### Community 143 - "clay_3d_sugar_cube.dart"
-Cohesion: 0.25
-Nodes (7): accentColor, build, Clay3DSugarCube, _Clay3DSugarCubePainter, paint, shouldRepaint, size
+### Community 143 - "a"
+Cohesion: 0.09
+Nodes (72): AF(), ak(), Ame(), aq(), Aw(), c(), cF(), dF() (+64 more)
 
 ### Community 144 - "Unit Testing Guide"
 Cohesion: 0.07
@@ -1356,85 +1423,85 @@ Nodes (25): 1.1 Bối Cảnh Nghiệp Vụ, 1.2 Mục Tiêu Đo Lường Cụ Th
 Cohesion: 0.08
 Nodes (23): 1. Strict Mode, 2. Error Trapping and Cleanup, 3. Variable Safety, 4. Array Handling, 5. Conditional Safety, Advanced Defensive Techniques, Bash Defensive Patterns, Best Practices Summary (+15 more)
 
-### Community 147 - "guild_repository.dart"
-Cohesion: 0.12
-Nodes (15): GuildRepositoryImpl, MockGuildRepository, addStarlightContribution, createGuild, disbandGuild, getUserGuild, GuildRepository, joinGuildByCode (+7 more)
+### Community 147 - "k0"
+Cohesion: 0.08
+Nodes (70): ac(), il(), Jl(), jo(), No(), Pu(), Td(), Uc() (+62 more)
 
 ### Community 148 - "State & Feedback Patterns"
 Cohesion: 0.08
 Nodes (23): Button Press, Checkmark Success, Confirmation Badge, Corporate, Disabled / Enabled, Error Shake, Error State, Focus States (+15 more)
 
-### Community 149 - "a2ui_model.dart"
-Cohesion: 0.10
-Nodes (17): A2uiComponent, A2uiMessagePayload, components, fromMap, hasComponents, id, props, surface (+9 more)
+### Community 149 - "push"
+Cohesion: 0.05
+Nodes (69): accumulateEnterLeaveListenersForEvent(), accumulateSinglePhaseListeners(), accumulateTwoPhaseListeners(), attachPingListener(), attachSuspenseRetryListeners(), cancelCallback$1(), computeExpirationTime(), createAndAccumulateChangeEvent() (+61 more)
 
-### Community 150 - "login_controller_test.dart"
-Cohesion: 0.07
-Nodes (25): authStateChanges, container, currentUser, errorToThrow, FakeUserCredential, googleCredentialToReturn, main, noSuchMethod (+17 more)
+### Community 150 - "installUiToolbarControls"
+Cohesion: 0.05
+Nodes (63): ContextMenuRoot(), installDesignSystemThemeLooks(), LookGallery(), LookPreview(), LookSketch(), LookSwatch(), lookTheme(), queueFrameTask() (+55 more)
 
 ### Community 152 - "Ma Trận Phân Rã Công Việc 8 Cổng (WBS Task Matrix)"
 Cohesion: 0.05
 Nodes (41): 🏗️ 1. Bảng Ma Trận Phân Rã WBS Sprint 10 (v1.9.0 Custom Recipes & Meal Planning — Active), 🏗️ 1. Bảng Ma Trận Phân Rã WBS Sprint 33 (v3.5.0 Water Intake Tracker — 🟡 13 SP In Progress), 🏛️ 2. Bảng Ma Trận Phân Rã WBS Sprint 06 (v1.5.0 Glanceable Celestial Core — 100% Done), 🏛️ 2. Bảng Ma Trận Phân Rã WBS Sprint 07 (v1.6.0 Zero-Friction Logging — 100% Done), 🏛️ 2. Lưu Trữ Ma Trận Phân Rã WBS Sprint 15 (v2.5.2 FTUX & Identity — 100% Done), 🏛️ 2. Lưu Trữ Ma Trận Phân Rã WBS Sprint 16 (v2.6.0 Analytics & OS Widgets — 100% Done), 🏛️ 2. Lưu Trữ Ma Trận Phân Rã WBS Sprint 21 (v3.1.0 Social Guilds — 100% Done), 🏛️ 2. Lưu Trữ Ma Trận Phân Rã WBS Sprint 22 (v3.2.0 Core Tracker Refactoring — 🟢 100% Done) (+33 more)
 
-### Community 153 - "camera_dock_controls.dart"
-Cohesion: 0.10
-Nodes (19): backgroundColor, _buttonSize, CameraDockControls, contractIcon, createState, icon, iconColor, iconSize (+11 more)
+### Community 153 - "useFieldValidation"
+Cohesion: 0.05
+Nodes (66): findRepresentativeInput(), getCombinedFieldValidityData(), getNativeErrors(), installDocumentsSelfPublish(), createSelfPublisher(), getSelfPublishCapability(), selfPublishAvailable(), selfPublishInstalled() (+58 more)
 
 ### Community 154 - "🥑 2. MÔ TẢ 12 TÍNH NĂNG CỐT LÕI BẰNG NGÔN NGỮ TỰ NHIÊN (USER EXPERIENCE)"
-Cohesion: 0.08
-Nodes (23): 10. 📈 Báo Cáo Xu Hướng Dinh Dưỡng & Cân Nặng (Nutrition Analytics), 11. 🍳 Sổ Tay Món Tự Nấu & Lập Kế Hoạch Bữa Ăn (Custom Recipes & Meal Plans), 12. ⌚ Đồng Bộ Đồng Hồ Sức Khỏe Thông Minh (Apple Health & Health Connect), 1. 📸 Quét Món Ăn Bằng Camera AI (Gemini Vision Scanner), 🌟 1. TỔNG QUAN DỰ ÁN & GIẢI BẢY VẤN ĐỀ NGƯỜI DÙNG (PRODUCT STORY), 2. 🎙️ Ghi Chép Rảnh Tay Bằng Giọng Nói Tiếng Việt (AstroVoice AI — Mới Nhất v3.0.0), 🥑 2. MÔ TẢ 12 TÍNH NĂNG CỐT LÕI BẰNG NGÔN NGỮ TỰ NHIÊN (USER EXPERIENCE), 3. 🍜 Trí Tuệ Ẩm Thực Á Đông — Tách Nước Dùng & Topping (Multi-Region Food Intelligence) (+15 more)
+Cohesion: 0.09
+Nodes (21): 10. 📈 Báo Cáo Xu Hướng Dinh Dưỡng & Cân Nặng (Nutrition Analytics), 11. 🍳 Sổ Tay Món Tự Nấu & Lập Kế Hoạch Bữa Ăn (Custom Recipes & Meal Plans), 12. ⌚ Đồng Bộ Đồng Hồ Sức Khỏe Thông Minh (Apple Health & Health Connect), 1. 📸 Quét Món Ăn Bằng Camera AI (Gemini Vision Scanner), 🌟 1. TỔNG QUAN DỰ ÁN & GIẢI BẢY VẤN ĐỀ NGƯỜI DÙNG (PRODUCT STORY), 2. 🎙️ Ghi Chép Rảnh Tay Bằng Giọng Nói Tiếng Việt (AstroVoice AI — Mới Nhất v3.0.0), 🥑 2. MÔ TẢ 12 TÍNH NĂNG CỐT LÕI BẰNG NGÔN NGỮ TỰ NHIÊN (USER EXPERIENCE), 3. 🍜 Trí Tuệ Ẩm Thực Á Đông — Tách Nước Dùng & Topping (Multi-Region Food Intelligence) (+13 more)
 
-### Community 155 - "food_log_local_datasource.dart"
+### Community 155 - "installExportPptx"
+Cohesion: 0.09
+Nodes (67): installExportPptx(), applyPptxOpacity(), applyPptxTextFill(), blendPptxColors(), borderBandRects(), borderSidesHaveRoundedCorners(), buildPptxPresentation(), capitalizePptxText() (+59 more)
+
+### Community 156 - "QC"
+Cohesion: 0.08
+Nodes (62): fD, QC(), _A(), AI(), BA(), BI(), cA(), CI() (+54 more)
+
+### Community 157 - "installCommentsLabels"
+Cohesion: 0.31
+Nodes (17): installCommentsLabels(), buildCommentLabel(), describeAreaCommentAnchor(), describeCommentElementKind(), describeCommentNode(), describeFrameCommentAnchor(), formatAreaCommentDetail(), formatFrameCommentDetail() (+9 more)
+
+### Community 158 - "we"
+Cohesion: 0.06
+Nodes (60): gi(), is(), we(), FN, en(), oN, ar(), Bv() (+52 more)
+
+### Community 159 - "installUiPreviewCard"
 Cohesion: 0.11
-Nodes (17): addToPendingDeleteQueue, addToPendingQueue, _dateKey, deleteCachedLog, deleteCachedLogById, _deleteQueueKey, getCachedLogs, getPendingDeleteLogs (+9 more)
+Nodes (40): installEditorCoverTitle(), collapseTitleWhitespace(), coverSlideIdOf(), createCoverTitleFollower(), coverSlide(), finish(), revert(), revertIfWordsLeft() (+32 more)
 
-### Community 156 - "StatelessWidget"
+### Community 160 - "tV"
 Cohesion: 0.04
-Nodes (55): CircularDetailScreen, createState, DetailScreen, GalleryScreen, HeroAnimationApp, index, main, onTap (+47 more)
+Nodes (22): tV(), Be(), Br(), Bt(), ca(), de(), Ee(), et() (+14 more)
 
-### Community 157 - "app_test.dart"
-Cohesion: 0.08
-Nodes (9): main, main, main, main, createWidgetUnderTest, main, main, main (+1 more)
-
-### Community 158 - "voice_logging_test.dart"
-Cohesion: 0.10
-Nodes (11): addFoodLog, authStateChanges, currentUser, main, noSuchMethod, parseVoiceTranscript, resultToReturn, savedLogs (+3 more)
-
-### Community 159 - "micronutrient_chips_row.dart"
-Cohesion: 0.13
-Nodes (14): bevelColor, bgColor, borderColor, build, fiberG, HighSodiumAlertBadge, iconWidget, label (+6 more)
-
-### Community 160 - "clay_3d_celestial_avatar.dart"
-Cohesion: 0.18
-Nodes (10): build, Clay3DCelestialAvatarArt, _Clay3DCelestialAvatarPainter, _draw3DDawn, _draw3DMoon, _draw3DSun, hour, paint (+2 more)
-
-### Community 161 - "login_form_card.dart"
-Cohesion: 0.15
-Nodes (12): build, createState, emailController, formKey, isLoading, LoginFormCard, _LoginFormCardState, _obscurePassword (+4 more)
+### Community 161 - "formatProdErrorMessage"
+Cohesion: 0.06
+Nodes (50): actionStateReducer(), areHookInputsEqual(), assertIsMounted(), basicStateReducer(), checkIfUseWrappedInAsyncCatch(), createFunctionComponentUpdateQueue(), findCurrentFiberUsingSlowPath(), formatProdErrorMessage() (+42 more)
 
 ### Community 162 - "double get"
 Cohesion: 0.22
 Nodes (8): build, ChunkyMacroBar, color, currentG, label, MacroBar, progress, targetG
 
-### Community 163 - "coach_chat_bubble.dart"
-Cohesion: 0.12
-Nodes (10): build, cleanDisplayContent, CoachChatBubble, extractMealData, genUiCatalog, isLogged, message, onRetry (+2 more)
+### Community 163 - "completeWork"
+Cohesion: 0.08
+Nodes (45): completeWork(), cutOffTailIfNeeded(), getHostContext(), getRenderTargetTime(), getRootHostContainer(), markRef$1(), markUpdate(), pop() (+37 more)
 
-### Community 164 - "meal_planner_page_test.dart"
-Cohesion: 0.14
-Nodes (7): deleteMealPlanItemForUser, getMealPlanItems, items, main, markAsLoggedForUser, saveMealPlanItem, main
+### Community 164 - "SlidesApp"
+Cohesion: 0.06
+Nodes (62): copyRect(), createClientRect(), createRect(), findLineIndex(), getClientRects(), getInlineRectCoords(), getInlineReferenceRect(), getLineRects() (+54 more)
 
-### Community 165 - "splash_constellation_specs.dart"
-Cohesion: 0.15
-Nodes (12): amplitudeX, amplitudeY, auraColor, delay, foodType, kSplashConstellationSpecs, maxRotation, phase (+4 more)
+### Community 165 - "commitMutationEffectsOnFiber"
+Cohesion: 0.07
+Nodes (50): attachSuspenseRetryListeners(), callCallback(), clearContainerSparingly(), clearHydrationBoundary(), clearSingletonPreambleContribution(), commitActivityHydrationCallbacks(), commitCallbacks(), commitClassCallbacks() (+42 more)
 
 ### Community 166 - "Tài Liệu Yêu Cầu Sản Phẩm (PRD) — FEAT-17: Custom Recipes & Meal Planning Architecture"
-Cohesion: 0.08
-Nodes (23): 1.1. Nỗi đau người dùng (Problem Statement), 1.2. Mục tiêu đo lường được (Measurable Success Metrics), 🎯 1. Bối Cảnh & Mục Tiêu Nghiệp Vụ (Context & Measurable KPIs), 2.1. In-Scope (Must-Have & Should-Have cho Sprint 10), 2.2. Out-of-Scope (Strictly Won't-Have — Chống Scope Creep), 🧭 2. Phân Loại MoSCoW & Ranh Giới Tính Năng (In-Scope vs Out-of-Scope), 📋 3. User Stories & Tiêu Chí Nghiệm Thu Chuẩn BDD (Given - When - Then), 4.1. Entity: `Recipe` (Collection: `recipes`) (+15 more)
+Cohesion: 0.10
+Nodes (19): 1.1. Nỗi đau người dùng (Problem Statement), 1.2. Mục tiêu đo lường được (Measurable Success Metrics), 🎯 1. Bối Cảnh & Mục Tiêu Nghiệp Vụ (Context & Measurable KPIs), 2.1. In-Scope (Must-Have & Should-Have cho Sprint 10), 2.2. Out-of-Scope (Strictly Won't-Have — Chống Scope Creep), 🧭 2. Phân Loại MoSCoW & Ranh Giới Tính Năng (In-Scope vs Out-of-Scope), 📋 3. User Stories & Tiêu Chí Nghiệm Thu Chuẩn BDD (Given - When - Then), 🔒 5. Ràng Buộc Phi Chức Năng (Non-Functional Requirements) (+11 more)
 
-### Community 167 - "🚫 3. Cơ Chế Review Siêu Khó Tính & Cấm Tuyệt Đối "Du Di" (Zero-Tolerance Policy)"
-Cohesion: 0.15
-Nodes (12): 🤖 1. Ma Trận Phân Bổ Mô Hình AI Động (Dynamic Model Tiering Matrix), 🚫 3. Cơ Chế Review Siêu Khó Tính & Cấm Tuyệt Đối "Du Di" (Zero-Tolerance Policy), ⚡ 4. Kịch Bản Hội Thoại Điều Phối Chuẩn, 🚪 Chốt Chặn 0: Tech Lead Brainstorming & Spikes — Cấm Du Di!, 🚪 Chốt Chặn 1: PO & Tech Lead Thẩm Định Gate 1 (PRD & Feasibility Sign-off) — Cấm Du Di!, 🚪 Chốt Chặn 2: BA, PO & Tech Lead Thẩm Định Gate 2 (Design Sign-off) — Cấm Du Di!, 🚪 Chốt Chặn 3: QC Thẩm Định Gate 3 (Test Design) — Cấm Du Di!, 🚪 Chốt Chặn 5: Reviewer Thẩm Định Gate 5 (Ponytail Review) — Cấm Du Di! (+4 more)
+### Community 167 - "🎭 2. Bản Sắc & Cá Tính 10 Sub-Agents (The 10 Distinct Archetypes)"
+Cohesion: 0.08
+Nodes (23): 🤖 1. Ma Trận Phân Bổ Mô Hình AI Động (Dynamic Model Tiering Matrix), 1. Sub-Agent PO — *"The Strategic Tyrant"* (Vị Giám Đốc Chiến Lược Thực Dụng), 🎭 2. Bản Sắc & Cá Tính 10 Sub-Agents (The 10 Distinct Archetypes), 2. Sub-Agent Tech Lead — *"The Pragmatic System Architect"* (Tổng Công Trình Sư Thực Chứng), 🚫 3. Cơ Chế Review Siêu Khó Tính & Cấm Tuyệt Đối "Du Di" (Zero-Tolerance Policy), 3. Sub-Agent BA — *"The Pedantic Logician"* (Nhà Logic Học Ám Ảnh Quy Chuẩn), ⚡ 4. Kịch Bản Hội Thoại Điều Phối Chuẩn, 4. Sub-Agent UI/UX Designer — *"The Celestial Aesthetic Purist"* (Tín Đồ Thẩm Mỹ Thiên Hà Tối Thượng) (+15 more)
 
 ### Community 168 - "helper.js"
 Cohesion: 0.42
@@ -1444,9 +1511,9 @@ Nodes (7): connect(), nextReconnectDelay(), reloadAfterRecovery(), sessionKey(),
 Cohesion: 0.09
 Nodes (22): Acceptance Criteria (Given - When - Then), Acceptance Criteria (Given - When - Then), Acceptance Criteria (Given - When - Then), Acceptance Criteria (Given - When - Then), Acceptance Criteria (Given - When - Then), Scenario 1: Bấm Quick Action chip, Scenario 1: Gửi tin nhắn thành công (Happy Path), Scenario 1: Mở lại Chat trong cùng ngày (+14 more)
 
-### Community 170 - "clay_3d_star.dart"
-Cohesion: 0.25
-Nodes (7): build, Clay3DStar, _Clay3DStarPainter, _createStarPath, paint, shouldRepaint, size
+### Community 170 - "mg"
+Cohesion: 0.07
+Nodes (49): rs(), cc(), va(), Vr(), xs(), Ag(), bb(), bg() (+41 more)
 
 ### Community 171 - "User Stories & BDD Acceptance Criteria — Health Integration (FEAT-10 / EPIC-10)"
 Cohesion: 0.09
@@ -1456,33 +1523,33 @@ Nodes (22): Acceptance Criteria (Given - When - Then), Acceptance Criteria (Give
 Cohesion: 0.09
 Nodes (22): 1.1. Nỗi đau người dùng (Problem Statement), 1.2. Mục tiêu đo lường được (Measurable Success Metrics - CẤM DU DI), 🎯 1. Bối Cảnh & Mục Tiêu Nghiệp Vụ (Context & Measurable KPIs), 2.1. In-Scope (Must-Have & Should-Have cho Sprint 11), 2.2. Out-of-Scope (Strictly Won't-Have — Chống Scope Creep), 🧭 2. Phân Loại MoSCoW & Ranh Giới Tính Năng (In-Scope vs Out-of-Scope), 📋 3. User Stories & Tiêu Chí Nghiệm Thu Chuẩn BDD (Given - When - Then), 4.1. Cấu Trúc A2uiComponent DTO (+14 more)
 
-### Community 174 - "astrobite_genui_catalog.dart"
-Cohesion: 0.14
-Nodes (6): catalog, createAstroBiteCatalog, QuickChoiceChipsProps, MealQuickLogProps, main, main
+### Community 174 - "captureCommitPhaseError"
+Cohesion: 0.08
+Nodes (49): attachPingListener(), captureCommitPhaseError(), captureCommitPhaseErrorOnRoot(), checkIfRootIsPrerendering(), completeUnitOfWork(), createCapturedValueAtFiber(), createClassErrorUpdate(), createRootErrorUpdate() (+41 more)
 
 ### Community 175 - "Architecture Decision Record (ADR-038): Sprint 32 — Barcode & Nutrition Label OCR Scanner (v3.4.0)"
 Cohesion: 0.18
 Nodes (10): 1. Bối Cảnh & Vấn Đề Kỹ Thuật (Context & Problem Statement), 2. Phân Tích Đánh Đổi & So Sánh 3 Phương Án (Trade-off Analysis), 3. Quyết Định Kỹ Thuật (Decisions), 4. Ngân Sách Hiệu Năng & Cam Kết SLAs (Performance Budgets), 5. Chữ Ký Phê Duyệt Kỹ Thuật (Sign-Off), Architecture Decision Record (ADR-038): Sprint 32 — Barcode & Nutrition Label OCR Scanner (v3.4.0), D1: Kiến Trúc Hybrid Ponytail — Gemini 2.0 Flash Vision + Open Food Facts API, D2: Tích Hợp Open Food Facts API (Fallback & Tăng Tốc Độ Chính Xác) (+2 more)
 
-### Community 176 - "goal_summary_page.dart"
-Cohesion: 0.10
-Nodes (16): activityLevel, birthYear, build, createState, fitnessGoal, gender, GoalSummaryPage, _GoalSummaryPageState (+8 more)
+### Community 176 - "h_"
+Cohesion: 0.05
+Nodes (20): h_(), A(), I(), N(), T(), y(), kC, Lv (+12 more)
 
-### Community 177 - "clay_3d_shield.dart"
-Cohesion: 0.22
-Nodes (8): build, Clay3DShield, _Clay3DShieldPainter, _createShieldPath, isActive, paint, shouldRepaint, size
+### Community 177 - "lb"
+Cohesion: 0.04
+Nodes (23): G3, lb(), f(), g(), h(), le(), p(), s() (+15 more)
 
 ### Community 178 - "Kiến Trúc Cấu Trúc Dự Án & Quản Trị Git Submodule — AstroBite"
 Cohesion: 0.09
 Nodes (22): 1.1. Bối cảnh, 1.2. Mục tiêu cốt lõi, 1. Bối cảnh & Mục tiêu (Context & Objectives), 2.1. Sơ đồ Cấu trúc Cấp cao, 2.2. Đặc tả Cấu hình `.gitmodules`, 2. Kiến trúc Tổng thể Super-Repo (Root Workspace), 3.1. Cây thư mục chi tiết, 3. Chi tiết Submodule 1: Tài liệu Chuẩn BA (`docs/`) (+14 more)
 
-### Community 179 - "onboarding_step_metrics.dart"
-Cohesion: 0.12
-Nodes (15): birthYear, birthYearController, build, _getBmiCategory, heightCm, heightController, onBirthYearChanged, OnboardingStepAgeAndHeight (+7 more)
+### Community 179 - "resolve"
+Cohesion: 0.09
+Nodes (38): createPlaceLinkCopier(), systemTypeScale(), "node_modules/jszip/lib/load.js"(), checkEntryCRC32(), "node_modules/jszip/lib/utils.js"(), string2binary(), stringToArrayLike(), "node_modules/lie/lib/index.js"() (+30 more)
 
-### Community 180 - "clay_3d_cookbook.dart"
-Cohesion: 0.22
-Nodes (8): badgeColor, build, Clay3DCookbook, _Clay3DCookbookPainter, paint, primaryColor, shouldRepaint, size
+### Community 180 - "ri"
+Cohesion: 0.15
+Nodes (45): aa(), ac(), Bf(), dh(), b(), c(), d(), e() (+37 more)
 
 ### Community 181 - "catalog.dart"
 Cohesion: 0.25
@@ -1496,41 +1563,41 @@ Nodes (21): Acceptance Criteria (Given - When - Then), Acceptance Criteria (Give
 Cohesion: 0.10
 Nodes (21): Button Press (Playful), Card Entrance (Premium), Choreography Essentials, Common Patterns, CRITICAL — never break, Duration Table, Easing Selection, Emotion-to-Motion Map (+13 more)
 
-### Community 184 - "clay_nav_item.dart"
-Cohesion: 0.20
-Nodes (10): build, ClayNavItem, _ClayNavItemState, createState, icon, _isPressed, isSelected, label (+2 more)
+### Community 184 - "installModelStyleSchema"
+Cohesion: 0.12
+Nodes (44): installModelStyleSchema(), animationPaintComplexity(), componentSchemaBounds(), cssSizeToString(), filterToCss(), gradientToCss(), hasPaintEffects(), hoverStyleToCss() (+36 more)
 
 ### Community 185 - "AstroBite — Design System"
-Cohesion: 0.09
-Nodes (22): 10. Screen-Level 5-State Coverage, 11. Quick Reference Palette, 12. File Index, 1. Design Philosophy, 2.1 M3 ColorScheme Mapping, 2.2 Clay 3D Depth Colors, 2.3 Clay Pastel Tints (Chips & Badges), 2.4 Semantic Color Rules (+14 more)
+Cohesion: 0.07
+Nodes (30): 10. Screen-Level 5-State Coverage, 11. Quick Reference Palette, 12. File Index, 1. Design Philosophy, 2.1 M3 ColorScheme Mapping, 2.2 Clay 3D Depth Colors, 2.3 Clay Pastel Tints (Chips & Badges), 2.4 Semantic Color Rules (+22 more)
 
-### Community 186 - "clay_3d_astro_bot.dart"
-Cohesion: 0.25
-Nodes (7): build, Clay3DAstroBot, _Clay3DAstroBotPainter, isSelected, paint, shouldRepaint, size
+### Community 186 - "tj"
+Cohesion: 0.05
+Nodes (14): tj(), A(), at(), he(), Ia(), J(), je(), ke() (+6 more)
 
 ### Community 187 - "PRD: Tối Ưu Hoá Ghi Chép Dinh Dưỡng Công Thái Học & Tốc Độ Cao (Zero-Friction Ergonomic Logging)"
 Cohesion: 0.10
 Nodes (20): 1.1. Vấn Đề Cần Giải Quyết (Problem Statement), 1.2. Mục Tiêu Lượng Hóa Cụ Thể (KPIs & Metrics), 1. Bối Cảnh & Mục Tiêu Nghiệp Vụ (Context & Business Objectives), 2. Đối Tượng Người Dùng (Target Personas), 3.1. US-01: Khay Món Ăn Gần Đây & Yêu Thích 1 Chạm (Recent & Favorite Foods Tray), 3.2. US-02: Bộ Nút Preset Trọng Lượng Nhanh (Quick Weight Stepper Chips), 3.3. US-03: Bố Cục Công Thái Học Nửa Dưới Màn Hình (One-Thumb Action Bar), 3.4. US-04: Hiệu Ứng Quét Radar Vũ Trụ (Celestial Radar Viewfinder) (+12 more)
 
-### Community 188 - "clay_3d_voice_mic_orb.dart"
-Cohesion: 0.15
-Nodes (12): build, Clay3DVoiceMicOrb, _Clay3DVoiceMicOrbState, createState, dispose, _hoverController, initState, isListening (+4 more)
+### Community 188 - "setInitialProperties"
+Cohesion: 0.10
+Nodes (44): accumulateSuspenseyCommitOnFiber(), acquireResource(), adoptPreloadPropsForScript(), adoptPreloadPropsForStylesheet(), clearPendingLoadOnNode(), commitHostUpdate(), createHoistableInstance(), escapeSelectorAttributeValueInsideDoubleQuotes() (+36 more)
 
-### Community 189 - "clay_3d_flame.dart"
-Cohesion: 0.25
-Nodes (7): build, Clay3DFlame, _Clay3DFlamePainter, _createFlamePath, paint, shouldRepaint, size
+### Community 189 - "installModelGeometry"
+Cohesion: 0.09
+Nodes (32): installModelGeometry(), applyAxisSpecCss(), aspectRatioAxisResizeDeltas(), axisResizeTravelLimit(), axisSpecCenter(), axisSpecSize(), canResizeNodeAxis(), clampedResizeMargin() (+24 more)
 
 ### Community 190 - "_"
 Cohesion: 0.18
 Nodes (11): _, AppDateUtils, daysBetween, daysBetweenIso, formatIsoDate, formatVietnameseDate, getVietnameseWeekday, isSameDay (+3 more)
 
-### Community 191 - "clay_3d_salt_shaker.dart"
-Cohesion: 0.25
-Nodes (7): accentColor, build, Clay3DSaltShaker, _Clay3DSaltShakerPainter, paint, shouldRepaint, size
+### Community 191 - "ni"
+Cohesion: 0.09
+Nodes (42): af(), ai(), bi(), ci(), Dg(), ef(), Eg(), Eh() (+34 more)
 
-### Community 192 - "clay_3d_sprout.dart"
-Cohesion: 0.25
-Nodes (7): accentColor, build, Clay3DSprout, _Clay3DSproutPainter, paint, shouldRepaint, size
+### Community 192 - "dispatchSetStateInternal"
+Cohesion: 0.07
+Nodes (40): clsx(), attemptHydrationAtCurrentPriority(), chainThenableValue(), dispatchActionState(), dispatchOptimisticSetState(), dispatchReducerAction(), dispatchSetState(), dispatchSetStateInternal() (+32 more)
 
 ### Community 193 - "Visual Companion Guide"
 Cohesion: 0.10
@@ -1548,9 +1615,9 @@ Nodes (19): Accessing Bloc Without Rebuilds, Async Bloc Pattern (API Calls), Bas
 Cohesion: 0.18
 Nodes (10): 1. 📝 BACKLOG / QUEUED — [0 SP], 2. ⚡ IN PROGRESS — [0 SP], 3. 🏁 DONE — [21 SP], 📋 Bảng Kanban Sprint 34, Kế Hoạch Sprint Hiện Hành (Sprint Backlog), 🏛️ Lịch Sử Các Sprint Đã Hoàn Thành (Sprint Archive), 🎯 Mục Tiêu Sprint 34: Đạt Chuẩn Sẵn Sàng Sản Xuất (Production-Grade Readiness), 🟢 Sprint 31 — AstroBite v3.3.0 Internationalization Foundation (Hoàn tất 11/10/2026) (+2 more)
 
-### Community 197 - "AnimationController"
+### Community 197 - "installDesignSystemRestyle"
 Cohesion: 0.10
-Nodes (18): build, createState, dispose, initState, onTap, _pulseCtrl, size, VoicePulsingMicButton (+10 more)
+Nodes (37): installDesignSystemRestyle(), analyzeDeckColors(), analyzeDeckStyles(), analyzeDeckText(), assignUseRoles(), chromaticValuesByWeight(), colorUseKey(), deckGround() (+29 more)
 
 ### Community 198 - "User Stories & Acceptance Criteria: Offline-First Local Cache & Sync"
 Cohesion: 0.10
@@ -1568,9 +1635,9 @@ Nodes (17): 1. Direct Entrance (Slide In), 1. Direct Exit (Slide Out), 2. Dissol
 Cohesion: 0.11
 Nodes (17): Accordion, Choreography Rules, Coordinated Sequences, Counter-Motion, Dashboard Widgets, Drag and Drop, Grid Cards, Group Rules (+9 more)
 
-### Community 202 - "meal_quick_log_props.dart"
-Cohesion: 0.18
-Nodes (10): calories, carbs, dishName, fat, fromMap, mealType, protein, sodium (+2 more)
+### Community 202 - "installExportPdfWriter"
+Cohesion: 0.11
+Nodes (39): installExportPdfWriter(), asciiPdfBytes(), base64ToBytes(), clipPdfBlockBounds(), createUnicodePdfTextEncoder(), deflateWorstCaseBytes(), documentLanguage(), encodeWinAnsiText() (+31 more)
 
 ### Community 203 - "Đặc Tả Thiết Kế Giao Diện (UI/UX Design Spec): FEAT-09 — Smart Realtime AI Coach"
 Cohesion: 0.11
@@ -1581,44 +1648,44 @@ Cohesion: 0.11
 Nodes (17): 🧭 1. Sơ Đồ Luồng Điều Hướng Người Dùng (Mermaid Navigation Flow), 1. 🟢 Trạng Thái Mặc Định (Default State), 2.1. Cấu Trúc Khối Giao Diện (Top to Bottom), 🎨 2. Bản Vẽ Bố Cục Màn Hình (Screen Layout Blueprint lưới 4pt), 2. ⚡ Trạng Thái Tải (Skeleton Shimmer State), 3. ⚪ Trạng Thái Rỗng (Empty State), 📱 3. Đặc Tả 5 Trạng Thái Giao Diện Bắt Buộc (The 5 Mandatory UI States), 4.1. Màu sắc bất biến (Celestial Dark UI Tokens) (+9 more)
 
 ### Community 205 - "AstroBite — Design Specification"
-Cohesion: 0.10
-Nodes (20): 10. Out of Scope (Future Versions), 1.1 Vision, 1.2 Core Value Proposition, 1.3 Target User, 1. Product Overview, 2.1 High-Level Architecture, 2.2 Tech Stack, 2.3 Architecture Pattern: Clean Architecture + Feature-First (+12 more)
+Cohesion: 0.08
+Nodes (25): 10. Out of Scope (Future Versions), 1.1 Vision, 1.2 Core Value Proposition, 1.3 Target User, 1. Product Overview, 2.1 High-Level Architecture, 2.2 Tech Stack, 2.3 Architecture Pattern: Clean Architecture + Feature-First (+17 more)
 
 ### Community 206 - "Tài Liệu Đặc Tả Thiết Kế: Hệ Sinh Thái Đa Sub-Agent Độc Lập & Quản Trị Dự Án AstroBite"
-Cohesion: 0.11
-Nodes (17): 1.1. Bối cảnh, 1.2. Mục tiêu thiết kế, 1. Bối Cảnh & Mục Tiêu (Executive Summary), 2.1. Danh Sách 6 Sub-Agent Chuyên Biệt, 2.2. Quy Tắc Bất Khả Xâm Phạm (The Four-Eyes Principle), 2. Ma Trận 6 Sub-Agent Độc Lập & Cơ Chế Kiểm Soát Chéo, 3.1. Sub-Agent Product Owner (`.agents/skills/product-owner/SKILL.md`), 3.2. Sub-Agent Project Manager (`.agents/skills/project-manager/SKILL.md`) (+9 more)
+Cohesion: 0.17
+Nodes (11): 2.1. Danh Sách 6 Sub-Agent Chuyên Biệt, 2.2. Quy Tắc Bất Khả Xâm Phạm (The Four-Eyes Principle), 2. Ma Trận 6 Sub-Agent Độc Lập & Cơ Chế Kiểm Soát Chéo, 4. Cấu Trúc Thư Mục & Tài Liệu Quản Trị (`docs/`), 5. Quy Trình Vận Hành 6-Gate SOP Bằng Hệ Thống Sub-Agent, 6.1. Hiện trạng 5 Tính Năng Cốt Lõi, 6.2. Kế hoạch Lộ trình (Roadmap v1.0 -> v1.2) do Sub-Agent PO Lập, 6.3. Kế hoạch Sprint 01 do Sub-Agent PM Lập (+3 more)
 
-### Community 207 - "🎭 2. Bản Sắc & Cá Tính 10 Sub-Agents (The 10 Distinct Archetypes)"
-Cohesion: 0.18
-Nodes (11): 1. Sub-Agent PO — *"The Strategic Tyrant"* (Vị Giám Đốc Chiến Lược Thực Dụng), 🎭 2. Bản Sắc & Cá Tính 10 Sub-Agents (The 10 Distinct Archetypes), 2. Sub-Agent Tech Lead — *"The Pragmatic System Architect"* (Tổng Công Trình Sư Thực Chứng), 3. Sub-Agent BA — *"The Pedantic Logician"* (Nhà Logic Học Ám Ảnh Quy Chuẩn), 4. Sub-Agent UI/UX Designer — *"The Celestial Aesthetic Purist"* (Tín Đồ Thẩm Mỹ Thiên Hà Tối Thượng), 5. Sub-Agent PM — *"The Clockwork Disciplinarian"* (Kỷ Luật Viên Tiến Độ & Vận Tốc), 5b. Sub-Agent Scrum Master (SM) — *"The Servant Leader & Agile Coach"* (Người Phục Vụ Đội & Huấn Luyện Agile) ⭐ NEW, 6. Sub-Agent QA / QC Tester — *"The Paranoid Inquisitor"* (Đao Phủ Kiểm Thử Hoài Nghi Đa Nghi) (+3 more)
+### Community 207 - "emit"
+Cohesion: 0.10
+Nodes (37): emit(), nextTick(), "node_modules/process-nextick-args/index.js"(), nextTick(), "node_modules/readable-stream/lib/internal/streams/destroy.js"(), destroy(), emitErrorNT(), "node_modules/readable-stream/lib/_stream_duplex.js"() (+29 more)
 
-### Community 208 - "scanner_controller_test.dart"
-Cohesion: 0.05
-Nodes (27): FakeUser, FakeUser, main, _FakeUser, authStateChanges, container, currentUser, dtoToReturn (+19 more)
+### Community 208 - "installHostFrameBridge"
+Cohesion: 0.10
+Nodes (40): installHostFrameBridge(), claimHostChatToggle(), createHostFrameBridge(), declineHostExport(), getHostFrameBridge(), holdHostLeaveWarning(), hostChromeWitnessed(), hostDrawsReadOnly() (+32 more)
 
 ### Community 209 - "Tài Liệu Đặc Tả Thiết Kế: Tích Hợp Sub-Agent Mobile UI/UX Designer & Chuẩn Hóa Quy Trình 7-Gate SOP"
-Cohesion: 0.11
-Nodes (17): 1.1. Bối cảnh, 1.2. Mục tiêu thiết kế, 1. Bối Cảnh & Mục Tiêu Thiết Kế (Executive Summary), 2.1. Sơ Đồ Điều Phối Tổng Thể, 2.2. Ma Trận Bàn Giao & Kiểm Soát Chéo (Four-Eyes Matrix), 2. Kiến Trúc 7 Sub-Agents Độc Lập & Quy Trình 7 Cổng (7-Gate SOP), 3.1. Thông Tin Nhận Dạng & Triggers, 3.2. Quyền Hạn & Ranh Giới Trách Nhiệm (Boundaries) (+9 more)
+Cohesion: 0.13
+Nodes (14): 1.1. Bối cảnh, 1.2. Mục tiêu thiết kế, 1. Bối Cảnh & Mục Tiêu Thiết Kế (Executive Summary), 3.1. Thông Tin Nhận Dạng & Triggers, 3.2. Quyền Hạn & Ranh Giới Trách Nhiệm (Boundaries), 3.3. Kỷ Luật Thiết Kế Celestial Dark UI Bất Biến, 3. Đặc Tả Sub-Agent `ui-ux-designer`, 4.1. Cấu Trúc 6 Khối Thông Tin Chuẩn: (+6 more)
 
 ### Community 210 - "Architectural Design Spec: Multi-Region Food Culture Intelligence (Sprint 19)"
 Cohesion: 0.11
 Nodes (17): 1.1. Bối Cảnh & Nỗi Đau Người Dùng, 1.2. Mục Tiêu Chiến Lược & ROI, 1. Executive Summary & Business Value (PO Strategic Rationale), 2.1. One-Pass Gemini Vision Prompt Optimization, 2.2. DTO & Domain Modeling (`scan_result_dto.dart`), 2. Technical Architecture & Data Contract, 3.1. Broth Calculation Engine, 3.2. Sub-Item / Topping Toggle Engine (+9 more)
 
-### Community 211 - "dashboard_app_bar_test.dart"
-Cohesion: 0.09
-Nodes (10): main, build, main, _record, main, main, build, main (+2 more)
+### Community 211 - "Rs"
+Cohesion: 0.10
+Nodes (39): _0(), A0(), be(), Bl(), cf(), E0(), eh(), D() (+31 more)
 
 ### Community 212 - "Đặc Tả Thiết Kế Giao Diện (UI/UX Design Spec): [Mã & Tên Tính Năng]"
 Cohesion: 0.11
 Nodes (17): 1.1. Bảng Danh Mục Màn Hình & Thành Phần UI, 1.2. Sơ Đồ Luồng Tương Tác Người Dùng (Mermaid Navigation Flow), 1. Danh Sách Màn Hình & Sơ Đồ Điều Hướng (Navigation Flow), 2.1. Cấu Trúc Bố Cục Màn Hình (`SCR-01: [Tên Màn Hình]`), 2.2. Kiểm Soát Vùng Chạm Công Thái Học (Touch Targets Checklist), 2.3. Thang Phân Cấp Kiểu Chữ (Typography Hierarchy), 2. Blueprint Bố Cục & Thông Số Lưới 4pt (Screen Layout Blueprints), 3. Đặc Tả 5 Trạng Thái Giao Diện Bắt Buộc (The 5 Essential States) (+9 more)
 
-### Community 213 - "AGENTS.md — AstroBite Project Guidelines"
-Cohesion: 0.15
-Nodes (13): 1. Project Overview, 2. Tech Stack & Dependencies, 3. Directory Structure & Architecture Rules, 4. UI & Design System Rules (Claymorphic × Duolingo 2D/3D), 6. End-to-End Feature Delivery Lifecycle (8-Gate SOP & Multi Sub-Agent Architecture), 7. Prohibited Actions & Red Flags (Zero-Tolerance), 8. Mandatory Docs-as-Code Synchronization Rule (Zero Doc-Code Drift), AGENTS.md — AstroBite Project Guidelines (+5 more)
+### Community 213 - "5. Coding & Development Conventions"
+Cohesion: 0.10
+Nodes (20): 1. Project Overview, 2. Tech Stack & Dependencies, 3. Directory Structure & Architecture Rules, 4. UI & Design System Rules (Claymorphic × Duolingo 2D/3D), 5. Coding & Development Conventions, 6. End-to-End Feature Delivery Lifecycle (8-Gate SOP & Multi Sub-Agent Architecture), 7. Prohibited Actions & Red Flags (Zero-Tolerance), 8. Mandatory Docs-as-Code Synchronization Rule (Zero Doc-Code Drift) (+12 more)
 
 ### Community 214 - "Sub-Agent Mobile UI/UX Designer — AstroBite"
 Cohesion: 0.12
-Nodes (16): 1. Bảng Màu Dinh Dưỡng Bất Biến (Immutable Nutrient Semantics), 2. Chiều Sâu Không Gian & Bề Mặt Kính Mờ (Surfaces & Glassmorphism), 3. Công Thái Học Di Động & Lưới 4pt (Ergonomics & 4pt Grid), 4. Hệ Thống Chữ (Typography Scale), Bước 1: Tiếp Nhận & Phân Tích Yêu Cầu Đầu Vào, Bước 2: Thiết Kế Sơ Đồ Luồng Giao Diện (Mermaid Navigation Flow), Bước 3: Tự Động Hóa Thiết Kế Với Google Stitch MCP (`stitch`), Bước 4: Lập Blueprint Bố Cục Màn Hình (Screen Layout Blueprint) (+8 more)
+Nodes (15): 1. Bảng Màu Dinh Dưỡng Bất Biến (Immutable Nutrient Semantics), 2. Chiều Sâu Không Gian & Bề Mặt Kính Mờ (Surfaces & Glassmorphism), 3. Công Thái Học Di Động & Lưới 4pt (Ergonomics & 4pt Grid), 4. Hệ Thống Chữ (Typography Scale), Bước 1: Tiếp Nhận & Phân Tích Yêu Cầu Đầu Vào, Bước 2: Thiết Kế Sơ Đồ Luồng Giao Diện (Mermaid Navigation Flow), Bước 3: Tạo Artboard Canvas & Mockup Trực Quan (`claude-design` / Google Stitch), Bước 5: Ánh Xạ Token Celestial Dark UI & Trình Duyệt Gate 2 Sign-off (+7 more)
 
 ### Community 215 - "4. Yêu Cầu Chức Năng Chi Tiết (Functional Requirements)"
 Cohesion: 0.12
@@ -1632,9 +1699,9 @@ Nodes (9): Broker and queue isolation attack classes (subagent_type: `general`),
 Cohesion: 0.20
 Nodes (9): 1. Kết Quả Kiểm Thử Tự Động (Automated Test Execution), 2. Kiểm Tra Giới Hạn Kích Thước Tệp (File Length Thresholds), 3. Xác Nhận Không Gãy Nghiệp Vụ (Zero Functional Regression), 4. Phán Quyết Gate 6, Biên Bản Nghiệm Thu Độc Lập Gate 6: Sprint 23 (v3.3.0), Danh mục Sub-Widgets Độc Lập Mới Được Tạo Ra (Đạt Chuẩn Ponytail):, Danh mục Test Suite Chuyên Biệt Được Bảo Toàn 100%:, Phân hệ Coach (`lib/features/coach/presentation/widgets/`): (+1 more)
 
-### Community 222 - "scan_tactile_action_button.dart"
-Cohesion: 0.18
-Nodes (10): build, _buttonSize, createState, icon, iconSize, _isPressed, onPressed, ScanTactileActionButton (+2 more)
+### Community 222 - ""node_modules/readable-stream/lib/_stream_readable.js""
+Cohesion: 0.10
+Nodes (34): "node_modules/readable-stream/lib/internal/streams/BufferList.js"(), BufferList(), _classCallCheck(), "node_modules/readable-stream/lib/_stream_readable.js"(), addChunk(), chunkInvalid(), cleanup(), computeNewHighWaterMark() (+26 more)
 
 ### Community 223 - "PRD: Trợ Lý AI Dinh Dưỡng Hội Thoại Thời Gian Thực (Smart Realtime AI Coach)"
 Cohesion: 0.12
@@ -1705,16 +1772,16 @@ Cohesion: 0.13
 Nodes (14): Danh Sách User Stories & Kịch Bản BDD: Social Guilds, Scenario 1.1: Tạo bang hội thành công, Scenario 1.2: Lỗi trùng hoặc tên không hợp lệ, Scenario 2.1: Nhập mã mời hợp lệ, Scenario 2.2: Mã mời không tồn tại hoặc hết hạn, Scenario 2.3: Bang hội đã đủ 20 thành viên, Scenario 3.1: Tự động cộng Starlight XP khi ghi chép bữa ăn, Scenario 3.2: Hoàn thành Chiến Dịch Tuần Hành Tinh (+6 more)
 
 ### Community 261 - "Phase 1: Project Foundation"
-Cohesion: 0.13
-Nodes (14): AstroBite Implementation Plan, Phase 1: Project Foundation, Phase 2: Firebase Integration, Phase 4: Integration & Polish, Task 13: Bottom Navigation Shell & Auth Guard, Task 14: Firestore Security Rules & App Check, Task 15: Final Integration Testing & Polish, Task 1: Create Flutter Project & Configure Dependencies (+6 more)
+Cohesion: 0.10
+Nodes (20): AstroBite Implementation Plan, Phase 1: Project Foundation, Phase 2: Firebase Integration, Phase 3: Core Features, Phase 4: Integration & Polish, Task 10: Daily Tracker & Home Dashboard, Task 11: User Profile & BMR/TDEE, Task 12: Analytics & Charts (+12 more)
 
 ### Community 262 - "Sub-Agent Flutter Developer (Dev FE) — AstroBite"
 Cohesion: 0.14
 Nodes (13): Before / After — State Management, Code Examples, Constraints, Core Workflow, 🎯 Khi Nào Sử Dụng Skill Này?, MUST DO, MUST NOT DO, 🛡️ Nguyên Tắc Sub-Agent Độc Lập & Four-Eyes Principle (+5 more)
 
-### Community 263 - "_"
-Cohesion: 0.18
-Nodes (12): build, _, CameraErrorDialogHandler, formatErrorMessage, handleResult, _handleScanError, _isNetworkError, _showApiKeyDialog (+4 more)
+### Community 263 - "popHydrationState"
+Cohesion: 0.08
+Nodes (37): bubbleProperties(), completeDehydratedSuspenseBoundary(), createFiberFromHostInstanceForDeletion(), deleteHydratableInstance(), didNotFindHydratableInstance(), didNotFindHydratableInstanceWithinContainer(), didNotFindHydratableInstanceWithinSuspenseInstance(), didNotFindHydratableTextInstance() (+29 more)
 
 ### Community 264 - "Sub-Agent Tech Lead & System Architect — *"The Pragmatic System Architect"*"
 Cohesion: 0.14
@@ -1756,9 +1823,9 @@ Nodes (12): Distance-Duration Scaling, Duration by Element Type, Duration by Per
 Cohesion: 0.15
 Nodes (12): 💡 1.1. Tích Hợp Kỹ Năng `/brainstorming` Chiến Lược, 🎭 1. Persona, Khẩu Hiệu & Thiên Kiến Nghề Nghiệp, 2.1. Thẩm Định Gate 1: PRD Sign-Off — Triggers REJECT Thẳng Thừng, 2.2. Thẩm Định Gate 2: UI/UX Design Sign-Off — Triggers REJECT Thẳng Thừng, 2.3. Thẩm Định Gate 7: Final Release Sign-Off — Quyền Lực Tối Cao, 🛡️ 2. Nguyên Tắc Thẩm Định "CẤM DU DI" (Zero-Tolerance Policy), 3.1. Phân loại MoSCoW Cực Kỳ Khắt Khe, 3.2. Lộ Trình 3 Chân Trời (3-Horizon Roadmap) (+4 more)
 
-### Community 274 - "Security Audit"
-Cohesion: 0.15
-Nodes (13): Anti-patterns, Core principles, Full audit setup, Operating modes, Platform terminology, Recommend the smallest effective source fix, Require a boundary and result, Respect source visibility (+5 more)
+### Community 274 - "ATTACK-CLASSES.md"
+Cohesion: 0.11
+Nodes (12): Anti-patterns, Core principles, Full audit workflow, Operating modes, Platform terminology, Recommend the smallest effective source fix, Require a boundary and result, Respect source visibility (+4 more)
 
 ### Community 275 - "🚪 Chi Tiết 6 Cổng Chất Lượng & Phân Nhiệm Sub-Agent"
 Cohesion: 0.15
@@ -1784,9 +1851,9 @@ Nodes (12): Kịch bản 1.1: Gạt công tắc chuyển sang "Chỉ ăn cái" (
 Cohesion: 0.15
 Nodes (12): 1.1. Hiện Trạng Kỹ Thuật (Legacy AstroCoach Chat), 1.2. Phát Hiện Trọng Yếu Từ Tech Spike (Spike Finding), 1. Bối Cảnh & Kết Quả Tech Spike (Context & Spike Discovery), 2.1. Quyết Định 1: Mô Hình A2UI (Agent-to-User Interface) Protocol, 2.2. Quyết Định 2: Bộ Danh Mục Widget Độc Lập (Catalog Items), 2.3. Quyết Định 3: Gemini 3.8 Flash System Prompt & Tool Definition, 2. Quyết Định Kiến Trúc Chi Tiết (Architectural Decisions), 3. Đánh Giá Hậu Quả & Rủi Ro (Consequences & Trade-offs) (+4 more)
 
-### Community 281 - "Từ Điển Dữ Liệu Thực Thể (Data Dictionary)"
-Cohesion: 0.15
-Nodes (12): 1. Collection `users/{uid}`, 2.1. Cấu trúc phần tử trong mảng `dishes` (Dành cho bữa ăn đa món), 2.2. Cấu trúc phần tử trong mảng `sub_items` (Topping / Món phụ con), 2. Subcollection `users/{uid}/meal_logs/{logId}`, 3.1. Box `offline_meal_logs`, 3.2. Box `sync_queue`, 3. Cấu Trúc Bộ Nhớ Đệm Cục Bộ (Local Cache & Offline Storage), 4.1. Cấu trúc phần tử trong mảng `messages` (+4 more)
+### Community 281 - "name"
+Cohesion: 0.07
+Nodes (30): domain(), name(), trace(), A system kept in files, handleInputValueChanged(), Structured hunter result, source(), 4.1. Entity: `Recipe` (Collection: `recipes`) (+22 more)
 
 ### Community 282 - "Release Notes — AstroBite v1.1.0"
 Cohesion: 0.15
@@ -1813,8 +1880,8 @@ Cohesion: 0.17
 Nodes (11): Feels Cheap / Flat, Feels Too Fast / Jarring, Feels Too Slow, Inconsistent Feel, Looks Robotic, No Personality, Performance (Dropped Frames), Personality Mistakes (+3 more)
 
 ### Community 288 - "Sub-Agent Security Auditor — *"The Zero-Trust Sentinel"*"
-Cohesion: 0.17
-Nodes (11): 1. Mobile Client & Native Surface (OWASP MASVS / Mobile Top 10), 🎭 1. Persona, Khẩu Hiệu & Thiên Kiến Nghề Nghiệp, 2. Cloud & Firebase Backend Security, 🛡️ 2. Trọng Tâm An Ninh Của AstroBite (AppSec Threat Vectors), 3. AI & Multimodal LLM Security (Gemini 2.0 Flash), 🚫 4. Chính Sách "CẤM DU DI" Của Security Auditor (Zero-Tolerance Policy), 4. Supply Chain & Dependencies, 5. Data Privacy & Isolation (+3 more)
+Cohesion: 0.15
+Nodes (12): 1. Mobile Client & Native Surface (OWASP MASVS / Mobile Top 10), 🎭 1. Persona, Khẩu Hiệu & Thiên Kiến Nghề Nghiệp, 2. Cloud & Firebase Backend Security, 🛡️ 2. Trọng Tâm An Ninh Của AstroBite (AppSec Threat Vectors), 3. AI & Multimodal LLM Security (Gemini 2.0 Flash), 🧭 3. Quy Trình Kiểm Toán 6 Pha (Cloudflare Security Audit Harness), 🚫 4. Chính Sách "CẤM DU DI" Của Security Auditor (Zero-Tolerance Policy), 4. Supply Chain & Dependencies (+4 more)
 
 ### Community 289 - "Đặc Tả Thiết Kế Giao Diện (UI/UX Design Spec): Trải Nghiệm Ngoại Tuyến & Tự Động Đồng Bộ (Offline-First Resilience)"
 Cohesion: 0.17
@@ -1824,9 +1891,9 @@ Nodes (11): 1.1. Bảng Danh Mục Thành Phần UI Ngoại Tuyến, 1.2. Sơ Đ
 Cohesion: 0.17
 Nodes (11): 1.1. Bảng Danh Mục Thành Phần UI Vi Chất, 1.2. Sơ Đồ Luồng Tương Tác Người Dùng (Mermaid Navigation Flow), 1. Danh Sách Màn Hình & Sơ Đồ Điều Hướng (Navigation Flow), 2.1. Cụm Chips Vi Chất `CMP-MIC-01: MicronutrientChipsRow`, 2.2. Thẻ Vi Chất Trong Ngày `CMP-MIC-02: DailyMicronutrientCard`, 2.3. Huy Hiệu Cảnh Báo Món Ăn Mặn `CMP-MIC-03: HighSodiumAlertBadge`, 2. Blueprint Bố Cục & Thông Số Lưới 4pt (Component Layout Blueprints), 3. Đặc Tả 5 Trạng Thái Giao Diện Bắt Buộc (The 5 Essential States) (+3 more)
 
-### Community 291 - "4. UI/UX Design System (Celestial Dark UI × M3)"
-Cohesion: 0.17
-Nodes (12): 4.1 Design Philosophy, 4.2 M3 ColorScheme Mapping, 4.3 Typography System, 4.4 Layout & 4pt Grid System, 4.5 Component Specifications, 4.6 Implementation Directives, 4. UI/UX Design System (Celestial Dark UI × M3), Calorie Progress Arc (+4 more)
+### Community 291 - "outline"
+Cohesion: 0.10
+Nodes (21): outline(), 7.1 Component Catalog, 7. UI Kit Architecture (`lib/shared/ui_kit/`), Buttons, Chips, Indicators & Gauges, Inputs, Navigation (+13 more)
 
 ### Community 292 - "Manual Testcases — Smart Realtime AI Coach (FEAT-09 / EPIC-07)"
 Cohesion: 0.17
@@ -1856,13 +1923,13 @@ Nodes (10): Accessibility Quality, CRITICAL, Emotional Quality, HIGH, MEDIUM, Pe
 Cohesion: 0.18
 Nodes (10): 💡 1.1. Tích Hợp Kỹ Năng `/brainstorming` (Phân Rã & Điều Phối Sprint), 🎯 1. Persona & Lập Trường Độc Lập, 2.1. Lập Kế Hoạch Sprint (Sprint Planning & Backlog), 2.2. Phân Rã Công Việc Theo Ma Trận 6 Cổng (WBS Task Matrix), 2.3. Thang Đo Fibonacci Story Points Đặc Thù Của AstroBite, 2.4. Quản Trị Rủi Ro & Điểm Nghẽn (Risk & Blocker Log), 2.5. Báo Cáo Trạng Thái Dự Án (Project Status Reporting), 🧭 2. Nhiệm Vụ & Thẩm Quyền Cốt Lõi (+2 more)
 
-### Community 299 - "Client-Side and Browser Hunting"
-Cohesion: 0.20
-Nodes (10): Client-Side and Browser Hunting, Core discipline (include in every agent prompt for this domain), Cross-origin messaging and network attack classes (subagent_type: `general`), Cross-site information leak classes (subagent_type: `general`), DOM and object-state attack classes (subagent_type: `general`), Service-worker and browser-storage attack classes (subagent_type: `general`), UI-redress and navigation attack classes (subagent_type: `general`), Universal moves (apply across the above) (+2 more)
+### Community 299 - "setViewport"
+Cohesion: 0.08
+Nodes (25): getWindowFeatures(), goto(), localStorage(), openPage(), password(), postMessage(), redirect(), resizeBy() (+17 more)
 
-### Community 300 - "clay_icon_button.dart"
-Cohesion: 0.14
-Nodes (13): backgroundColor, borderRadius, build, ClayIconButton, _ClayIconButtonState, createState, customIcon, icon (+5 more)
+### Community 300 - "getBorder"
+Cohesion: 0.07
+Nodes (37): getBorder(), getBorderBottom(), getBorderBottomColor(), getBorderBottomLeftRadius(), getBorderBottomRightRadius(), getBorderBottomStyle(), getBorderBottomWidth(), getBorderColor() (+29 more)
 
 ### Community 301 - "Memory Safety, Binary, and Kernel Hunting"
 Cohesion: 0.20
@@ -1912,21 +1979,21 @@ Nodes (10): 1. **Using `slowapi` (Recommended - Easiest)**, 2. **Using `limits` 
 Cohesion: 0.20
 Nodes (9): AI, LLM, and Agent Hunting, Context, retrieval, and memory attack classes (subagent_type: `general`), Core discipline (include in every agent prompt for this domain), MCP and sub-agent trust classes (subagent_type: `general`), Output and disclosure attack classes (subagent_type: `general`), Tool and action attack classes (subagent_type: `general`), Universal moves (apply across the above), Validation rules (apply before reporting ANY finding here) (+1 more)
 
-### Community 313 - "Cloud and Deployment Hunting"
-Cohesion: 0.18
-Nodes (10): Cloud and Deployment Hunting, Configuration and secret lifecycle attack classes (subagent_type: `general`), Container and orchestration attack classes (subagent_type: `general`), Core discipline (include in every agent prompt for this domain), Ingress, network, and control-plane attack classes (subagent_type: `general`), Managed storage, events, and edge attack classes (subagent_type: `general`), Universal moves (apply across the above), Validation rules (apply before reporting ANY finding here) (+2 more)
+### Community 313 - "xM"
+Cohesion: 0.06
+Nodes (15): JL(), qw(), Ty(), uh(), d(), E(), l(), w() (+7 more)
 
 ### Community 314 - "Data Isolation and Lifecycle Hunting"
 Cohesion: 0.20
 Nodes (9): Core discipline (include in every agent prompt for this domain), Data Isolation and Lifecycle Hunting, Deletion, revocation, and lifecycle attack classes (subagent_type: `general`), Derived-data and disclosure attack classes (subagent_type: `general`), Export, backup, restore, and migration attack classes (subagent_type: `general`), Tenant and object-isolation attack classes (subagent_type: `general`), Universal moves (apply across the above), Validation rules (apply before reporting ANY finding here) (+1 more)
 
-### Community 315 - "ATTACK-CLASSES.md"
-Cohesion: 0.10
-Nodes (11): Attack Classes, Attack classes — choose and split based on Phase 1, Computational amplification attack classes (subagent_type: `general`), Core discipline (include in every agent prompt for this domain), Failure and recovery attack classes (subagent_type: `general`), Quota and scheduling attack classes (subagent_type: `general`), Resource accumulation attack classes (subagent_type: `general`), Resource Exhaustion and Availability Hunting (+3 more)
+### Community 315 - "Resource Exhaustion and Availability Hunting"
+Cohesion: 0.20
+Nodes (9): Computational amplification attack classes (subagent_type: `general`), Core discipline (include in every agent prompt for this domain), Failure and recovery attack classes (subagent_type: `general`), Quota and scheduling attack classes (subagent_type: `general`), Resource accumulation attack classes (subagent_type: `general`), Resource Exhaustion and Availability Hunting, Universal moves (apply across the above), Validation rules (apply before reporting ANY finding here) (+1 more)
 
-### Community 316 - "voice_log_repository_impl.dart"
-Cohesion: 0.15
-Nodes (7): GeminiVoiceNluDatasource, _datasource, parseVoiceTranscript, VoiceLogRepositoryImpl, parseVoiceTranscript, VoiceLogRepository, _MockVoiceLogRepository
+### Community 316 - ""node_modules/pako/lib/zlib/deflate.js""
+Cohesion: 0.12
+Nodes (36): "node_modules/pako/lib/deflate.js"(), Deflate(), deflateRaw(), gzip(), "node_modules/pako/lib/utils/strings.js"(), buf2binstring(), "node_modules/pako/lib/zlib/adler32.js"(), adler32() (+28 more)
 
 ### Community 317 - "HTTP-Protocol and Authentication Hunting"
 Cohesion: 0.20
@@ -1961,8 +2028,8 @@ Cohesion: 0.20
 Nodes (9): 1. Bối Cảnh & Vấn Đề (Context & Problem Statement), 2. Các Phương Án Kỹ Thuật Đã Đánh Giá (Options Analysis), 3. Kiến Trúc Hệ Thống (Feature-First Clean Architecture), 4. Kỷ Luật Ponytail & Thiết Kế Kháng Lỗi (Resilience & Testability), 5. Quyết Định Của Tech Lead & Phê Duyệt Của PO, Architecture Decision Record (ADR-S20-VOICE-LOG), 🔴 Phương Án 1: Thu âm file Audio raw (`record`) ➔ Gửi trực tiếp lên Gemini 2.0 Flash Multimodal Audio, 🟢 Phương Án 2 (ĐƯỢC CHỌN - Chuẩn Ponytail): On-Device Speech Recognition (`speech_to_text`) + Gemini 2.0 Flash Text NLU (+1 more)
 
 ### Community 325 - "2. Chi Tiết Rà Soát Từng Module"
-Cohesion: 0.20
-Nodes (9): 1. Mục Tiêu & Phương Pháp Thẩm Định, 2.1 Domain Layer (`lib/features/voice/domain/`), 2.2 Data Layer (`lib/features/voice/data/`), 2.3 Presentation Layer (`lib/features/voice/presentation/`), 2.4 Tích Hợp Entry Points, 2. Chi Tiết Rà Soát Từng Module, 3. Bảng Kiểm Tra Ponytail Checkpoints, 4. Phán Quyết Gate 5 (+1 more)
+Cohesion: 0.22
+Nodes (8): 1. Mục Tiêu & Phương Pháp Thẩm Định, 2.1 Domain Layer (`lib/features/voice/domain/`), 2.2 Data Layer (`lib/features/voice/data/`), 2.4 Tích Hợp Entry Points, 2. Chi Tiết Rà Soát Từng Module, 3. Bảng Kiểm Tra Ponytail Checkpoints, 4. Phán Quyết Gate 5, Biên Bản Đánh Giá Code Gate 5 (Ponytail Review & Quality Gate) — Sprint 20
 
 ### Community 326 - "2. Kết Quả Kiểm Tra Chi Tiết"
 Cohesion: 0.20
@@ -2096,9 +2163,9 @@ Nodes (8): 1. Ma Trận Truy Vết Kiểm Thử (Traceability Matrix), 2. Chi Ti
 Cohesion: 0.22
 Nodes (8): 🔍 1. Tuyên Bố Thẩm Định Của Sub-Agent QA ("The Paranoid Inquisitor"), 2.1. Feature Test Suite (`FEAT-17` Custom Recipes & Meal Plan), 2.2. Regression Test Toàn Bộ Ứng Dụng (Full Workspace Regression), 📊 2. Ma Trận Thực Thi Kiểm Thử Tự Động (Automated Test Suite), ⚡ 3. Đo Lường Tiêu Chuẩn Phi Chức Năng (Non-Functional Benchmarks), 🛡️ 4. Báo Cáo Khiếm Khuyết & Xử Lý (Defect Log), 🏁 5. Kết Luận & Quyết Định Nghiệm Thu (Sign-Off Decision), Biên Bản Nghiệm Thu Phát Hành Gate 6 (QA Release Sign-Off) — Sprint 10
 
-### Community 359 - "Flutter Animations"
-Cohesion: 0.25
-Nodes (7): Constraints, Decision Guide, Flutter Animations, Principle 0, Resource Routing, Validation, Workflow
+### Community 359 - "jQueryFactoryWrapper"
+Cohesion: 0.01
+Nodes (329): activeElement(), add(), addCue(), addTextTrack(), angle(), appendItem(), appendMedium(), appendRule() (+321 more)
 
 ### Community 360 - "Flutter Testing"
 Cohesion: 0.25
@@ -2106,7 +2173,7 @@ Nodes (7): Constraints, Fallback, Flutter Testing, Mandatory Validation, Princip
 
 ### Community 361 - "examples/README.md"
 Cohesion: 0.25
-Nodes (5): Debounce, Without Ponytail, 116 lines of code, Rate Limiting, Without Ponytail, 128 lines of code, Examples
+Nodes (5): Rate Limiting, Without Ponytail, 128 lines of code, Countdown Timer, Without Ponytail, 267 lines of code, Examples
 
 ### Community 362 - "Email Validation Function"
 Cohesion: 0.25
@@ -2116,9 +2183,9 @@ Nodes (7): Comparison, Email Validation, Email Validation Function, More Robust 
 Cohesion: 0.25
 Nodes (7): Configure Default Mode, Deactivate, Levels, More, Ponytail Help, Skills, Update
 
-### Community 364 - "recipe_card_tile.dart"
-Cohesion: 0.13
-Nodes (14): _BadgeTheme, bevel, bg, build, color, icon, iconColor, index (+6 more)
+### Community 364 - "commitRootImpl"
+Cohesion: 0.08
+Nodes (36): batchedUpdates$1(), commitMutationEffects(), commitPassiveMountEffects(), commitPassiveMountEffects_begin(), commitPassiveUnmountEffects(), commitRoot(), commitRootImpl(), discreteUpdates() (+28 more)
 
 ### Community 365 - "2. Quy Chuẩn Đồ Họa & Tương Tác (Celestial Dark UI)"
 Cohesion: 0.25
@@ -2148,9 +2215,9 @@ Nodes (7): 📡 Danh sách Endpoints & Lộ Trình Kỹ Thuật (Data Sources Ph
 Cohesion: 0.25
 Nodes (7): 1. Bối Cảnh (Context), 2. Quyết Định Kiến Trúc (Architectural Decisions), 3. Đánh Giá Rủi Ro & Tuân Thủ Ponytail (YAGNI & Simplicity), A. Tối Ưu Hóa Dữ Liệu Leaderboard (Single-Read Snapshot Stream), ADR: S18 Live Social Sync & Streak Nudge Architecture, B. Kết Nối Bạn Bè Hai Chiều (Callable Cloud Function `social_addFriend`), C. Cơ Chế Streak Nudge (Peer Accountability qua FCM)
 
-### Community 372 - "ADR-S19: Multi-Region Food Culture Intelligence & Vietnamese Culinary Decomposition Engine"
-Cohesion: 0.25
-Nodes (7): 1. Context & Problem Statement, 2. Decision: One-Pass Gemini Vision Decomposition + Claymorphic Toggle Engine, 3. Consequences & Trade-offs, 4. Handover to Gate 1 (Sub-Agent BA), ADR-S19: Multi-Region Food Culture Intelligence & Vietnamese Culinary Decomposition Engine, Negative / Mitigation, Positive
+### Community 372 - "oP"
+Cohesion: 0.07
+Nodes (19): aL(), n(), mB(), B(), D(), F(), I(), O() (+11 more)
 
 ### Community 373 - "Release Notes — AstroBite v1.2.0"
 Cohesion: 0.25
@@ -2189,8 +2256,8 @@ Cohesion: 0.29
 Nodes (6): Custom Hooks (flutter_hooks), Key Optimization Patterns, Optimized Widget Pattern, Responsive Layout, Sliver Patterns, Widget Patterns
 
 ### Community 382 - "Debounce Search Input"
-Cohesion: 0.29
-Nodes (7): Advanced: Debounce with Cancel & Immediate Options, Basic Debounce Function, Debounce Search Input, Enhanced Version with Loading State, HTML Example, Key Benefits, With Ponytail, 10 lines of code
+Cohesion: 0.22
+Nodes (8): Advanced: Debounce with Cancel & Immediate Options, Basic Debounce Function, Debounce, Debounce Search Input, Enhanced Version with Loading State, HTML Example, Key Benefits, Without Ponytail, 116 lines of code
 
 ### Community 383 - "2. Quy Tắc Nghiệp Vụ & Hiển Thị"
 Cohesion: 0.29
@@ -2256,9 +2323,9 @@ Nodes (6): 1. Engine Nhận Diện Giọng Nói Tự Nhiên On-Device (AstroVoic
 Cohesion: 0.29
 Nodes (6): Implementation Plan: Antigravity Multi-Agent Team & SOP Template, Phase 1: Directory Setup & Agnostic Core Skills, Phase 2: Tech Stacks Modules, Phase 3: Scaffolding Engine & Documentation, Phase 4: Verification & GitHub Release, Task Breakdown
 
-### Community 399 - "scan_review_page.dart"
+### Community 399 - "commitRoot"
 Cohesion: 0.10
-Nodes (12): build, _computeEffectiveResult, createState, _currentWeightG, _defaultMealType, _dishes, imageBytes, initState (+4 more)
+Nodes (34): create(), claimQueuedTransitionTypes(), commitCachePassiveMountEffect(), commitHookEffectListMount(), commitOffscreenPassiveMountEffects(), commitPassiveMountOnFiber(), commitRoot(), completeRoot() (+26 more)
 
 ### Community 400 - "Thiết Kế Chi Tiết Hệ Thống AstroVoice AI (Hands-Free Voice Logging Spec)"
 Cohesion: 0.29
@@ -2272,9 +2339,9 @@ Nodes (6): 1. Tuyên Bố Mục Tiêu (Objective Statement), 2. Giá Trị Kinh 
 Cohesion: 0.29
 Nodes (6): 1. Bối Cảnh & Mục Tiêu Nghiệp Vụ, 2. Đối Tượng Người Dùng (Target Personas), 3. Luồng Nghiệp Vụ (User Journey & Flow), 4. Danh Sách Yêu Cầu Chức Năng (Functional Requirements), 5. Yêu Cầu Phi Chức Năng (Non-Functional Requirements), [TEMPLATE] Đặc Tả Sản Phẩm (PRD Template)
 
-### Community 403 - "Architectural Design Spec: Core Tracker Clean Architecture & O(1) Meal Enums Overhaul"
-Cohesion: 0.22
-Nodes (8): 1. Context & Problem Statement, 2.1. Enhanced Enums O(1) (`lib/features/tracker/domain/models/meal_enums.dart`), 2.2. Decomposition Blueprint for `meal_section.dart` (1,224 dòng ➔ 4 sub-widgets), 2.3. Decomposition Blueprint for `manual_entry_page.dart` (969 dòng ➔ 4 sub-widgets), 2. Architectural Solution, 3. SLAs & Verification Commitments, 4. Technical Feasibility Sign-Off (Gate 0), Architectural Design Spec: Core Tracker Clean Architecture & O(1) Meal Enums Overhaul
+### Community 403 - "Designing well (craft, not format)"
+Cohesion: 0.08
+Nodes (23): Appropriate scales, Branded Anthropic work, Content and design rules shared by every appifact family, Designing well (craft, not format), Designing well — the long form, Hi-fi mockups are rooted in context, Landing pages and marketing artboards, Layout that survives direct manipulation (+15 more)
 
 ### Community 404 - "Testcases Kiểm Tra Hợp Lệ Onboarding (Onboarding Validation)"
 Cohesion: 0.29
@@ -2312,9 +2379,9 @@ Nodes (6): 1. Phạm Vi Nghiệm Thu Tính Năng (Feature Scope Verification), 2
 Cohesion: 0.29
 Nodes (6): 1. Phạm Vi Nghiệm Thu Tính Năng (Feature Scope Verification), 2. Ma Trận Thực Thi Kiểm Thử Tự Động (Automated Test Suite), 3. Đo Kiểm Tiêu Chuẩn Phi Chức Năng (Non-Functional Benchmarks), 4. Tình Trạng Lỗi & Quản Lý Khiếm Khuyết (Defect Log), 5. Kết Luận & Quyết Định Nghiệm Thu (Sign-Off Decision), Biên Bản Nghiệm Thu Phát Hành Gate 6 (QA Release Sign-Off) — Sprint 03
 
-### Community 413 - "5. Coding & Development Conventions"
-Cohesion: 0.22
-Nodes (9): 5. Coding & Development Conventions, Code & File Length Limits (Ponytail Clean Code), Code Generation (`build_runner`), Development Philosophy (Strict Ponytail Mindset), Function Design: O(1) Complexity & Pure Functions, Prohibition of Magic Strings & Numbers (Enhanced Enums & Constants), Routing (AutoRoute), State Management (Riverpod) (+1 more)
+### Community 413 - "ChildReconciler"
+Cohesion: 0.19
+Nodes (33): ChildReconciler(), createChild(), deleteChild(), deleteRemainingChildren(), mapRemainingChildren(), placeChild(), placeSingleChild(), reconcileChildFibers2() (+25 more)
 
 ### Community 414 - "Ponytail Code Review Agent"
 Cohesion: 0.33
@@ -2420,9 +2487,9 @@ Nodes (5): 1. Biên Bản Thẩm Định Của Sub-Agent BA (`business-analyst`)
 Cohesion: 0.33
 Nodes (5): 1. Ma Trận Phân Vùng Tương Đương & Phân Tích Giá Trị Biên (EP & BVA Matrix), 2. Kịch Bản BDD Gherkin Chi Tiết (`test/features/voice/voice_logging.feature`), 3. Tiêu Chí Nghiệm Thu SLAs Phi Chức Năng (Non-Functional Gates), Hands-Free Voice Logging (AstroVoice AI), Kế Hoạch & Ma Trận Kiểm Thử Gate 3 (Master Test Plan & BVA Matrix)
 
-### Community 440 - "Biên Bản Nghiệm Thu Chất Lượng Gate 6 (QA Verification & Release Sign-Off) — Sprint 20"
-Cohesion: 0.33
-Nodes (5): 1. Tóm Tắt Kết Quả Kiểm Thử Tự Động, 2. Ma Trận Nghiệm Thu Chi Tiết (100% Traceability với Gate 3), 3. Đo Đạc Hiệu Năng & Phi Chức Năng (Non-Functional SLAs), 4. Phán Quyết Gate 6, Biên Bản Nghiệm Thu Chất Lượng Gate 6 (QA Verification & Release Sign-Off) — Sprint 20
+### Community 440 - "#associateRange"
+Cohesion: 0.12
+Nodes (17): addRange(), #associateRange(), collapse(), collapseToEnd(), collapseToStart(), empty(), removeAllRanges(), removeRange() (+9 more)
 
 ### Community 441 - "Biên Bản Thẩm Định Nghiệp Vụ Gate 1 (Gate 1 Sign-Off Dossier — Sprint 02)"
 Cohesion: 0.33
@@ -2521,8 +2588,8 @@ Cohesion: 0.40
 Nodes (4): 🚨 Bảng Quản Trị Rủi Ro & Blockers Đang Hoạt Động (Sprint 33), 🏛️ Lịch Sử Rủi Ro Đã Xử Lý (Sprint 01 – 16 & Post-Release), Nhật Ký Rủi Ro & Điểm Nghẽn Kỹ Thuật (Risk & Blocker Log), 🧭 Quy Trình Xử Lý Cờ Đỏ (Red Flag Escalation)
 
 ### Community 465 - "Ma Trận Phân Nhiệm Các Bên Liên Quan & Hệ Thống Đa Sub-Agent (RACI Matrix)"
-Cohesion: 0.40
-Nodes (4): 1. Danh Sách 6 Sub-Agents Chuyên Trách, 2. Ma Trận RACI (Responsible, Accountable, Consulted, Informed), 3. Nguyên Tắc Bất Khả Xâm Phạm (Four-Eyes Principle), Ma Trận Phân Nhiệm Các Bên Liên Quan & Hệ Thống Đa Sub-Agent (RACI Matrix)
+Cohesion: 0.50
+Nodes (3): 1. Danh Sách 6 Sub-Agents Chuyên Trách, 2. Ma Trận RACI (Responsible, Accountable, Consulted, Informed), Ma Trận Phân Nhiệm Các Bên Liên Quan & Hệ Thống Đa Sub-Agent (RACI Matrix)
 
 ### Community 466 - "Chính Sách Bảo Mật & Tuân Thủ Dữ Liệu Sức Khỏe (Compliance & Privacy)"
 Cohesion: 0.40
@@ -2552,17 +2619,17 @@ Nodes (4): 1. Traceability Matrix & Test Design (EP & BVA), 2. BDD Gherkin Test 
 Cohesion: 0.40
 Nodes (4): 🏆 1. Quyết Định Nghiệm Thu Tối Cao Của Sub-Agent PO ("The Strategic Tyrant"), 📋 2. Báo Cáo Logistics & Điều Phối Của Sub-Agent PM, 📦 3. Danh Mục Tài Liệu Bàn Giao Phát Hành, Gate 7 Sign-Off & Official Release — Sprint 10 (Custom Recipes & Meal Planning)
 
-### Community 473 - "Gate 3: Master Test Plan & Adversarial Test Design — Custom Recipes & Meal Planning Architecture"
-Cohesion: 0.40
-Nodes (4): 🔍 1. Ma Trận Truy Vết Kiểm Thử (Traceability Matrix: EP & BVA), ⚡ 2. Kịch Bản Kiểm Thử Phi Chức Năng (Non-Functional Benchmarks), 🛑 3. Tiêu Chí Nghiệm Thu Gate 6 (Acceptance & Exit Criteria), Gate 3: Master Test Plan & Adversarial Test Design — Custom Recipes & Meal Planning Architecture
+### Community 473 - "Zk"
+Cohesion: 0.06
+Nodes (37): aN(), bN(), eN(), fN(), gN(), hN(), ho(), jN() (+29 more)
 
 ### Community 474 - "Gate 7 Sign-Off & Official Release — Sprint 11 (Generative UI Chat Cockpit)"
 Cohesion: 0.40
 Nodes (4): 🏆 1. Quyết Định Nghiệm Thu Tối Cao Của Sub-Agent PO ("The Strategic Tyrant"), 📋 2. Báo Cáo Logistics & Điều Phối Của Sub-Agent PM, 🚀 3. Firebase App Distribution & Technical Release Clearance (Sub-Agent Tech Lead), Gate 7 Sign-Off & Official Release — Sprint 11 (Generative UI Chat Cockpit)
 
-### Community 475 - "Gate 3: Master Test Plan & Adversarial Test Design — Generative UI Chat Cockpit"
-Cohesion: 0.40
-Nodes (4): 🔍 1. Ma Trận Truy Vết Kiểm Thử (Traceability Matrix: EP & BVA), ⚡ 2. Kịch Bản Kiểm Thử Phi Chức Năng (Non-Functional Benchmarks), 🛑 3. Tiêu Chí Nghiệm Thu Gate 6 (Acceptance & Exit Criteria), Gate 3: Master Test Plan & Adversarial Test Design — Generative UI Chat Cockpit
+### Community 475 - "claude-design-system/scripts/artifact.mjs"
+Cohesion: 0.03
+Nodes (149): addMessage(), agentView(), agentViews(), alive(), artifactTitle(), assertServerFiles(), assetExtensionOf(), assetIndex() (+141 more)
 
 ### Community 476 - "📋 Biên Bản Nghiệm Thu Yêu Cầu & Nghiệp Vụ (Gate 1 Sign-Off Dossier)"
 Cohesion: 0.40
@@ -2596,9 +2663,9 @@ Nodes (4): 📝 BDD User Stories: Analytics & OS Widgets (`FEAT-S16-WIDGETS`), U
 Cohesion: 0.40
 Nodes (4): 1. Share Card Blueprint (Thẻ Khoe Thành Tích), 2. Astro Leaderboard Blueprint, 3. Màu Sắc (Color Tokens), UI/UX Blueprint: Sprint 17 Social & Leaderboard
 
-### Community 484 - "BIÊN BẢN NGHIỆM THU GATE 1: PRD & BDD USER STORIES (GATE 1 SIGN-OFF DOSSIER)"
-Cohesion: 0.40
-Nodes (4): 🧐 1. Kết Quả Thẩm Định Của Sub-Agent PO (The Strategic Tyrant), 🛠️ 2. Kết Quả Thẩm Định Của Sub-Agent Tech Lead (Feasibility Sign-Off), 🚦 3. Lệnh Chuyển Giao Sang Gate 2 (UI/UX Design), BIÊN BẢN NGHIỆM THU GATE 1: PRD & BDD USER STORIES (GATE 1 SIGN-OFF DOSSIER)
+### Community 484 - "xk"
+Cohesion: 0.10
+Nodes (33): bj(), Bk(), cf(), $d(), Db(), Dc(), di(), fi() (+25 more)
 
 ### Community 485 - "BIÊN BẢN NGHIỆM THU GATE 2: UI/UX DESIGN SPECIFICATION (GATE 2 SIGN-OFF DOSSIER)"
 Cohesion: 0.40
@@ -2624,9 +2691,9 @@ Nodes (4): 1. Bảng Đối Soát 8 Cổng Chất Lượng (The 8-Gate Clearance
 Cohesion: 0.40
 Nodes (4): 1. Đánh Giá Của Sub-Agent PO (The Strategic Tyrant), 2. Đánh Giá Của Sub-Agent Tech Lead (The Pragmatic System Architect), 3. Lệnh Chuyển Tiếp Sang Gate 2, Biên Bản Nghiệm Thu Gate 1: PRD Sign-Off (Sprint 21)
 
-### Community 491 - "Báo Cáo Kiểm Toán An Ninh Gate 6.5: Security Audit (Sprint 21)"
-Cohesion: 0.40
-Nodes (4): 1. Phân Tích Bề Mặt Tấn Công (Threat Modeling & Attack Surface), 2. Kết Quả Kiểm Tra OWASP MASVS, 3. Phán Quyết Gate 6.5, Báo Cáo Kiểm Toán An Ninh Gate 6.5: Security Audit (Sprint 21)
+### Community 491 - "role"
+Cohesion: 0.25
+Nodes (7): Accessible as drawn, role(), Designing well (full: `artifact-type/reference/craft.md`), 1. Phân Tích Bề Mặt Tấn Công (Threat Modeling & Attack Surface), 2. Kết Quả Kiểm Tra OWASP MASVS, 3. Phán Quyết Gate 6.5, Báo Cáo Kiểm Toán An Ninh Gate 6.5: Security Audit (Sprint 21)
 
 ### Community 492 - "Biên Bản Nghiệm Thu Chất Lượng Gate 6: Quality Verification (Sprint 21)"
 Cohesion: 0.40
@@ -2696,17 +2763,17 @@ Nodes (3): Number Formatting, With Ponytail, Without Ponytail
 Cohesion: 0.50
 Nodes (3): URL Parameters, With Ponytail, Without Ponytail
 
-### Community 509 - "push_notification_service.dart"
-Cohesion: 0.14
-Nodes (10): dispose, _firestore, initialize, _messageSubscription, _messaging, PushNotificationService, _safeGetFirestore, _safeGetMessaging (+2 more)
+### Community 509 - "j7"
+Cohesion: 0.06
+Nodes (19): j7(), B(), C(), G(), I(), m(), P(), R() (+11 more)
 
-### Community 510 - "package:flutter/material.dart"
-Cohesion: 0.03
-Nodes (63): _, FoodIconUtils, getFoodIcon, build, CoachSessionBanner, onResetToToday, selectedDate, build (+55 more)
+### Community 510 - "installModelEditing"
+Cohesion: 0.08
+Nodes (17): installModelEditing(), clampInteger(), frameStackContentOffset(), imageHasMedia(), imageHasPoster(), insertTableRow(), nodeIsBold(), nodeIsItalic() (+9 more)
 
-### Community 511 - "analytics_repository_impl.dart"
-Cohesion: 0.09
-Nodes (16): AnalyticsRemoteDatasource, _foodLogRepository, getDailyCalorieTotals, AnalyticsRepositoryImpl, _foodLogRepository, getDailyCalorieTotals, _remoteDatasource, AnalyticsRepository (+8 more)
+### Community 511 - "reconcileChildFibersImpl"
+Cohesion: 0.20
+Nodes (32): coerceRef(), createChildReconciler(), createChild(), deleteChild(), deleteRemainingChildren(), mapRemainingChildren(), placeChild(), placeSingleChild() (+24 more)
 
 ### Community 512 - "Quản Trị Dự Án & Điều Phối Thực Thi (Project Management Governance)"
 Cohesion: 0.50
@@ -2876,9 +2943,13 @@ Nodes (3): Curve Complexity, Optimization Tips, Performance Considerations
 Cohesion: 0.67
 Nodes (3): Debugging Curves, Print Curve Values, Visualize Curve
 
-### Community 559 - "fitness_goal_card.dart"
-Cohesion: 0.05
-Nodes (36): ActivityLevel, FitnessGoal, Gender, _, calculateBMR, calculateMacros, calculateTargetCalories, calculateTDEE (+28 more)
+### Community 554 - "dB"
+Cohesion: 0.06
+Nodes (16): dB(), Ce(), ee(), f(), g(), ha(), le(), me() (+8 more)
+
+### Community 559 - "k9"
+Cohesion: 0.07
+Nodes (16): dz(), b(), c(), f(), o(), p(), u(), n() (+8 more)
 
 ### Community 568 - "Sprint 25: Camera Scanner Pipeline Modular Refactoring (v3.5.0)"
 Cohesion: 0.25
@@ -2888,9 +2959,9 @@ Nodes (7): 1. Kết Quả Kiểm Thử Thực Tế (Empirical Test Suite), 2. Th
 Cohesion: 0.22
 Nodes (8): 1. Bối Cảnh & Vấn Đề Kỹ Thuật (Context & Problem Statement), 2. Thiết Kế Module Bóc Tách (Decomposition Blueprint), 3. Nguyên Tắc Ponytail & Tuân Thủ Clean Code, Architectural Decision Record (ADR-032) & System Design Spec, Phân hệ Gamification (`lib/features/gamification/presentation/widgets/`):, Phân hệ Guilds (`lib/features/guilds/presentation/`):, Phân hệ Social (`lib/features/social/presentation/`):, Sprint 26: Gamification, Guilds & Social Modular Architecture (v3.6.0)
 
-### Community 570 - "gemini_remote_datasource.dart"
-Cohesion: 0.10
-Nodes (14): analyzeFoodImage, _analyzeWithKey, _generateWithModel, _model, _systemPrompt, candidateModels, _generateWithKey, inferMealType (+6 more)
+### Community 570 - "coach_repository.dart"
+Cohesion: 0.03
+Nodes (65): AppColors, brandGreen, carbs, clayBreakfast, clayDinner, clayLunch, clayMint, claySnack (+57 more)
 
 ### Community 571 - "Desktop, Mobile, and Local IPC Hunting"
 Cohesion: 0.20
@@ -2900,49 +2971,49 @@ Nodes (10): Application-state and device-lifecycle attack classes (subagent_type
 Cohesion: 0.40
 Nodes (11): JsonStructureError, preflightJsonText(), beginContainer(), beginString(), beginValue(), closeContainer(), countValue(), currentContainer() (+3 more)
 
-### Community 573 - "clay_3d_wand.dart"
-Cohesion: 0.22
-Nodes (8): build, Clay3DWand, _Clay3DWandPainter, _createStarPath, isSelected, paint, shouldRepaint, size
+### Community 573 - "installModelTypography"
+Cohesion: 0.17
+Nodes (28): installModelTypography(), applyTypographyStyle(), clearTypographyOverrides(), compareTypographyComboKeys(), designSystemTypographyStyles(), dominantTypographyCombo(), findExactTypographyStyle(), findTypographyStyle() (+20 more)
 
 ### Community 574 - "Biên Bản Nghiệm Thu Độc Lập Gate 6: Sprint 22 (v3.2.0)"
 Cohesion: 0.29
 Nodes (6): 1. Kết Quả Kiểm Thử Tự Động (Automated Test Execution), 2. Kiểm Tra Giới Hạn Kích Thước Tệp (File Length Thresholds), 3. Xác Nhận Không Gãy Nghiệp Vụ (Zero Functional Regression), 4. Phán Quyết Gate 6, Biên Bản Nghiệm Thu Độc Lập Gate 6: Sprint 22 (v3.2.0), Danh mục Test Mới Được Bổ Sung:
 
-### Community 575 - "PRD: Core Tracker Clean Architecture & O(1) Meal Enums Overhaul"
-Cohesion: 0.33
-Nodes (5): 1. Bối Cảnh & Vấn Đề Nghiệp Vụ (Context & Problem Statement), 2. Mục Tiêu Sản Phẩm (Product Objectives & KPIs), 3. Quy Chuẩn Dữ Liệu Bữa Ăn (Data Dictionary & Meal Enums), 4. Phê Duyệt Gate 1 (Sign-Off), PRD: Core Tracker Clean Architecture & O(1) Meal Enums Overhaul
+### Community 575 - "getAttribute"
+Cohesion: 0.01
+Nodes (256): Prohibition of Magic Strings & Numbers (Enhanced Enums & Constants), Quick syntax card (a syntax demo; `{{title}}` etc. are placeholders), Which artboards the viewer can see, abbr(), accept(), acceptCharset(), action(), allow() (+248 more)
 
 ### Community 576 - "Biên Bản Kiểm Toán An Ninh Gate 6.5: Sprint 22 (v3.2.0)"
 Cohesion: 0.40
 Nodes (4): 1. Rà Soát Ranh Giới Tin Cậy (Trust Boundaries & Input Validation), 2. Rà Soát Bí Mật & API Keys (Zero Secret Leaks), 3. Phán Quyết Gate 6.5, Biên Bản Kiểm Toán An Ninh Gate 6.5: Sprint 22 (v3.2.0)
 
-### Community 577 - "7.1 Component Catalog"
-Cohesion: 0.25
-Nodes (8): 7.1 Component Catalog, 7. UI Kit Architecture (`lib/shared/ui_kit/`), Buttons, Chips, Indicators & Gauges, Inputs, Navigation, Surfaces
+### Community 577 - "commitExitViewTransitions"
+Cohesion: 0.14
+Nodes (30): applyViewTransitionName(), applyViewTransitionToHostInstances(), applyViewTransitionToHostInstancesRecursive(), commitAfterMutationEffectsOnFiber(), commitAppearingPairViewTransitions(), commitBeforeMutationEffects(), commitBeforeMutationEffects_complete(), commitDeletedPairViewTransitions() (+22 more)
 
 ### Community 578 - "UI/UX Design Specification: Core Tracker Decomposition"
 Cohesion: 0.40
 Nodes (4): 🎨 1. Sơ Đồ Kiến Trúc Cây Widget Sau Phân Rã (Widget Hierarchy), 📏 2. Design Tokens & Bảng Ánh Xạ Bữa Ăn (4pt Grid System), 🌓 3. Quy Chuẩn 5 Trạng Thái (5 UI States), UI/UX Design Specification: Core Tracker Decomposition
 
-### Community 579 - "zero_gravity_food_specs.dart"
-Cohesion: 0.15
-Nodes (12): amplitudeX, amplitudeY, auraColor, foodType, maxRotation, opacity, phase, relativeX (+4 more)
+### Community 579 - "hg"
+Cohesion: 0.13
+Nodes (29): lt(), Ia(), Ko(), jt(), Ar(), qn(), G0(), hg() (+21 more)
 
-### Community 580 - "Gate 3: Master Test Plan & BDD Gherkin Specification"
-Cohesion: 0.50
-Nodes (3): 🧪 1. Ma Trận Kịch Bản Kiểm Thử (Test Traceability Matrix), 🥒 2. Kịch Bản BDD Gherkin (`.feature`), Gate 3: Master Test Plan & BDD Gherkin Specification
+### Community 580 - "updateWorkInProgressHook"
+Cohesion: 0.10
+Nodes (29): areHookInputsEqual(), basicStateReducer(), createFunctionComponentUpdateQueue(), getWorkInProgressRoot(), includesBlockingLane(), includesOnlyNonUrgentLanes(), markWorkInProgressReceivedUpdate(), mountSyncExternalStore() (+21 more)
 
-### Community 581 - "gemini_api_key_dialog.dart"
-Cohesion: 0.18
-Nodes (14): geminiApiKeyServiceProvider, ProfileEcosystemCard, build, _clearKey, _controller, createState, dispose, GeminiApiKeyDialog (+6 more)
+### Community 581 - "m"
+Cohesion: 0.10
+Nodes (29): Ag(), B(), Bg(), Cc(), cd(), Cg(), df(), Gk() (+21 more)
 
-### Community 582 - "_"
-Cohesion: 0.15
-Nodes (11): _, buildDefaultGuild, buildInitialChallenge, buildNewMember, generateInviteCode, GuildMockSeeds, validateGuildName, build (+3 more)
+### Community 582 - "installModelSelection"
+Cohesion: 0.16
+Nodes (27): installModelSelection(), collectMarqueeSelection(), commonSelectedNodeKind(), compareNodePaths(), createNodeSelection(), cssColorOpacity(), filterValidSelections(), isEmptyGroupBase() (+19 more)
 
-### Community 583 - "analytics_providers.dart"
-Cohesion: 0.09
-Nodes (15): analyticsRepositoryProvider, endDate, getDailyCalorieTotals, now, repo, startDate, user, chatSessionsListProvider (+7 more)
+### Community 583 - ""node_modules/pako/lib/zlib/trees.js""
+Cohesion: 0.17
+Nodes (28): "node_modules/pako/lib/zlib/trees.js"(), bi_flush(), bi_reverse(), bi_windup(), build_bl_tree(), build_tree(), compress_block(), copy_block() (+20 more)
 
 ### Community 585 - "_"
 Cohesion: 0.33
@@ -2956,21 +3027,21 @@ Nodes (7): 1. Mục Tiêu Nghiệp Vụ & Chỉ Số Đo Lường (Metrics & ROI
 Cohesion: 0.20
 Nodes (9): 1. Bối Cảnh & Vấn Đề Kỹ Thuật (Context & Problem Statement), 2. Thiết Kế Module Bóc Tách (Decomposition Blueprint), 3. Nguyên Tắc Ponytail & Tuân Thủ Clean Code, A. Phân hệ 3D Food Art (`lib/features/auth/presentation/widgets/`):, Architectural Decision Record (ADR-033) & System Design Spec, B. Phân hệ Onboarding (`lib/features/auth/presentation/widgets/onboarding_steps/`):, C. Phân hệ Splash (`lib/features/auth/presentation/`):, D. Phân hệ Login (`lib/features/auth/presentation/`): (+1 more)
 
-### Community 588 - "meal_quick_log_macro_badges.dart"
-Cohesion: 0.15
-Nodes (12): bevelColor, bgColor, borderColor, build, carbsG, color, fatG, label (+4 more)
+### Community 588 - "pop"
+Cohesion: 0.13
+Nodes (28): bubbleProperties(), checkForUnmatchedText(), claimNextRetryLane(), completeWork(), cutOffTailIfNeeded(), getOwnerDocumentFromRootContainer(), markUpdate(), maySuspendCommit() (+20 more)
 
-### Community 589 - "meal_plan_section_card.dart"
-Cohesion: 0.06
-Nodes (28): MealType, mealPlanControllerProvider, build, _delete, item, _log, MealPlanItemCard, mealType (+20 more)
+### Community 589 - "main"
+Cohesion: 0.12
+Nodes (21): addMessage(), agentView(), agentViews(), commentHints(), findThread(), listComments(), localize(), lock() (+13 more)
 
 ### Community 590 - "📖 US-01: Xem & Tương Tác Với AI Coach Cá Nhân Hóa"
 Cohesion: 0.25
 Nodes (7): Scenario 1.1: Xem thông tin tiến độ calo và macros trên Context Header, Scenario 1.2: Lưu món ăn từ 1-Tap Holographic Meal Card, Scenario 2.1: Điều chỉnh khối lượng món ăn bằng Quick Stepper, Scenario 2.2: Xóa một món phụ trong mâm cơm, 📖 US-01: Xem & Tương Tác Với AI Coach Cá Nhân Hóa, 📖 US-02: Xem Lại & Điều Chỉnh Kết Quả Quét Món Ăn Đa Món, User Stories & BDD Scenarios: AI Coach & Scanner Review (Sprint 23)
 
-### Community 591 - "share_image_service.dart"
-Cohesion: 0.22
-Nodes (3): captureAndShare, ShareImageService, testL10n
+### Community 591 - "readDesignSystemInfo"
+Cohesion: 0.12
+Nodes (19): alive(), artifactTitle(), assertServerFiles(), designSystemNamespace(), designSystemTitle(), folderName(), isDeckMetadata(), listSystems() (+11 more)
 
 ### Community 592 - "PRD: AI Coach & Scanner Review Decomposition (Sprint 23)"
 Cohesion: 0.29
@@ -3016,13 +3087,13 @@ Nodes (4): 1. Rà Soát Ranh Giới Tin Cậy (Trust Boundaries & Input Validati
 Cohesion: 0.50
 Nodes (3): 🧪 1. Ma Trận Kiểm Thử Tự Động & Hồi Quy (Regression Matrix), 🎯 2. Tiêu Chuẩn Nghiệm Thu Cứng (Quality Gate 6 Entry Criteria), Master Test Plan: AI Coach & Scan Review (Gate 3)
 
-### Community 603 - "guild_edit_sheet.dart"
-Cohesion: 0.18
-Nodes (11): createState, _descController, dispose, guild, GuildEditSheet, _GuildEditSheetState, initState, _nameController (+3 more)
-
-### Community 605 - "galactic_date_orbit.dart"
+### Community 603 - "Zu"
 Cohesion: 0.08
-Nodes (23): streakNotifierProvider, build, CosmicStreakBadge, selectedDateProvider, currentTime, DashboardAppBar, onDateTap, onProfileTap (+15 more)
+Nodes (10): Hw, rV(), g(), h(), o(), u(), Zu, H() (+2 more)
+
+### Community 605 - "react.production.min.js"
+Cohesion: 0.13
+Nodes (17): th(), B(), D(), E(), fa(), M(), N(), O() (+9 more)
 
 ### Community 606 - "Feature: Camera & Viewfinder Scanner Pipeline (Modular Architecture)"
 Cohesion: 0.33
@@ -3045,8 +3116,8 @@ Cohesion: 0.25
 Nodes (7): 1. Kết Quả Kiểm Thử Tự Động (Automated Test Execution), 2. Kiểm Tra Giới Hạn Kích Thước Tệp (File Length Thresholds), 3. Xác Nhận Không Gãy Nghiệp Vụ (Zero Functional Regression), 4. Phán Quyết Gate 6, Biên Bản Nghiệm Thu Độc Lập Gate 6: Sprint 24 (v3.4.0), Danh mục Sub-Widgets Độc Lập Mới Tạo (Đạt Chuẩn Ponytail):, Danh mục Test Suite Chuyên Biệt Được Bảo Toàn 100%:
 
 ### Community 611 - "package:google_fonts/google_fonts.dart"
-Cohesion: 0.04
-Nodes (45): AppTheme, darkTheme, build, fadeAnimation, LoginHeaderView, slideAnimation, build, logoFadeAnimation (+37 more)
+Cohesion: 0.02
+Nodes (100): AppTheme, darkTheme, build, CoachAppBar, preferredSize, bevelColor, bgColor, borderColor (+92 more)
 
 ### Community 612 - "2. Đặc Tả Chức Năng & BDD Scenarios"
 Cohesion: 0.29
@@ -3080,25 +3151,25 @@ Nodes (5): Epic: Gamification, Guilds & Social Modular Clean Architecture, Kịc
 Cohesion: 0.18
 Nodes (10): 1. Tóm Tắt Giá Trị Phát Hành (Executive Summary), 2. Chi Tiết Các Hạng Mục Kỹ Thuật Hoàn Thành (Changelog), 3. Ma Trận Chất Lượng Phần Mềm (Quality Gate Matrix), 4. Hướng Dẫn Kích Hoạt CI/CD & Phân Phối (Technical Release Execution), 🔐 An Ninh, Cloud Functions & CI/CD Pipeline, 🏃 Native System, HealthKit & iOS Widgets, 🍱 Refactoring Phân Hệ Recipes & UI Kit Đạt Chuẩn Ponytail, 🪐 Social Guilds & Planetary Challenges (+2 more)
 
-### Community 625 - "3. Firestore Data Model"
-Cohesion: 0.40
-Nodes (5): 3.1 Collection: `users/{uid}`, 3.2 Subcollection: `users/{uid}/foodLogs/{logId}`, 3.3 Subcollection: `users/{uid}/aiUsage/{date}`, 3.4 Firestore Security Rules (Overview), 3. Firestore Data Model
+### Community 625 - "checkDesignSystem"
+Cohesion: 0.12
+Nodes (22): attr2(), bundleHeader(), checkBlobRefs2(), checkBundle(), checkDesignSystem(), checkFont(), checkIndex2(), checkIndexFields() (+14 more)
 
-### Community 626 - "_"
-Cohesion: 0.29
-Nodes (7): _, Clay3DFruitsPastryPainters, drawApple, drawAvocado, drawCroissant, drawIceCream, drawPizza
+### Community 626 - "installEnvironmentI18n"
+Cohesion: 0.15
+Nodes (24): installEnvironmentI18n(), appendFormattedPart(), cachedIntlFormatter(), createIntlFormatter(), createMessageFormatter(), formatMessage2(), dateTimeFormatOptions(), formatIcuMessage() (+16 more)
 
 ### Community 627 - "Sprint 26: Gamification, Guilds & Social Modular Architecture"
 Cohesion: 0.40
 Nodes (4): 1. Ma Trận Test Cases Bắt Buộc, 2. Kiểm Tra Chặn Cứng Mã Nguồn, Kế Hoạch Kiểm Thử Hồi Quy (Test Plan) — Gate 3 Sign-Off, Sprint 26: Gamification, Guilds & Social Modular Architecture
 
-### Community 628 - "package:astrobite/features/auth/domain/auth_providers.dart"
-Cohesion: 0.06
-Nodes (13): _mealTypes, createState, RecipesPage, _RecipesPageState, _searchQuery, _mealIcon, _mealTint, _mealTitle (+5 more)
+### Community 628 - "hs"
+Cohesion: 0.21
+Nodes (24): Ed(), Ft(), Hn(), ni(), po(), Au(), cd(), Fv() (+16 more)
 
-### Community 629 - "add_meal_slot_sheet.dart"
-Cohesion: 0.18
-Nodes (11): MealSlotPreset, AddMealSlotBottomSheet, _AddMealSlotBottomSheetState, build, createState, _customNameController, dispose, _handleConfirm (+3 more)
+### Community 629 - "health_activity.dart"
+Cohesion: 0.11
+Nodes (18): activeEnergyBurned, caloriesBurned, caloriesIn, caloriesOut, calorieTarget, date, durationMinutes, EnergyBalance (+10 more)
 
 ### Community 631 - "Gate 6 QA Independent Sign-off: Sprint 27 — Auth & Onboarding Flow Clean Architecture (v3.7.0)"
 Cohesion: 0.29
@@ -3108,17 +3179,17 @@ Nodes (6): 1. Kết Quả Kiểm Thử Tự Động (Automated Regression Test S
 Cohesion: 0.40
 Nodes (4): 🌟 1. Tóm Tắt Điểm Sáng Phát Hành (Release Highlights), 📊 2. Báo Cáo Chất Lượng & Cam Kết SLAs (Gate 6 & Gate 6.5 Approved), ✍️ 3. Chữ Ký Phê Duyệt Cấp Cao (Gate 7 Clearance), Biên Bản Phát Hành: AstroBite v3.4.0 (Sprint 32 Release Dossier)
 
-### Community 633 - "clay_3d_carrot_rocket.dart"
-Cohesion: 0.25
-Nodes (8): accentColor, build, Clay3DCarrotRocket, _Clay3DCarrotRocketPainter, Clay3DRocket, paint, shouldRepaint, size
+### Community 633 - "installDesignSystemColorAnalysis"
+Cohesion: 0.26
+Nodes (23): installDesignSystemColorAnalysis(), analyzeSystemTheme(), assignRemainingRoles(), assignRolesByName(), assignStatusByHue(), contrastRatio(), createRoleAssigner(), finalizeRoles() (+15 more)
 
 ### Community 634 - "2. Quyết Định Kiến Trúc (Architecture Decisions - ADR-035)"
 Cohesion: 0.22
 Nodes (8): 1. Bối Cảnh & Vấn Đề Kỹ Thuật (Context & Problem Statement), 2.1. Phân rã `analytics_page.dart` (497 dòng ➔ < 180 dòng), 2.2. Phân rã `clay_bottom_nav.dart` (477 dòng ➔ < 160 dòng), 2.3. Phân rã `coach_history_sheet.dart` (426 dòng ➔ < 160 dòng), 2.4. Phân rã `meal_quick_log_card.dart` (401 dòng ➔ < 160 dòng), 2. Quyết Định Kiến Trúc (Architecture Decisions - ADR-035), 3. Tiêu Chí Nghiệm Thu (Acceptance Criteria), Architectural Spec & ADR-035: Deep Clean Polish & Warning Elimination (Sprint 29)
 
-### Community 635 - "language_settings_card.dart"
-Cohesion: 0.18
-Nodes (10): appLanguageProvider, build, flag, isSelected, _LanguageOptionTile, LanguageSettingsCard, onTap, _showLanguagePicker (+2 more)
+### Community 635 - "installModelNavigation"
+Cohesion: 0.20
+Nodes (24): installModelNavigation(), accessibleNodeDetail(), accessibleNodeKind(), accessibleNodePositionLabel(), accessibleNodeTypeLabel(), accessiblePositionSuffix(), accessibleSelectionLabel(), boundaryNavigationSelection() (+16 more)
 
 ### Community 636 - "Sprint 27: Auth & Onboarding Flow Clean Architecture"
 Cohesion: 0.33
@@ -3128,21 +3199,21 @@ Nodes (5): 1. Bố Cục `SplashPage`, 2. Bố Cục `LoginPage`, 3. Bố Cục 
 Cohesion: 0.33
 Nodes (5): Epic: Auth & Onboarding Flow Clean Architecture, Kịch Bản Nghiệp Vụ BDD (User Stories) — Sprint 27, Story 1: Khởi động app qua Splash Page, Story 2: Đăng nhập & Khôi phục mật khẩu, Story 3: Hoàn thành khảo sát Onboarding 5 bước
 
-### Community 638 - "common_foods_dataset.dart"
-Cohesion: 0.17
-Nodes (11): baseCalories, baseCarbsG, baseFatG, baseProteinG, baseWeightG, calculateCalories, calculateCarbs, calculateFat (+3 more)
+### Community 638 - "validate_palette.js"
+Cohesion: 0.15
+Nodes (21): apcaY(), BAND, DEFAULT_SURFACE, GLYPH, apca(), contrast(), deltaE(), hex2srgb() (+13 more)
 
-### Community 639 - "Sprint 27: Auth & Onboarding Flow Clean Architecture"
-Cohesion: 0.40
-Nodes (4): 1. Ma Trận Test Cases Bắt Buộc, 2. Tiêu Chuẩn Nghiệm Thu Kỹ Thuật, Kế Hoạch Kiểm Thử Hồi Quy (Test Plan) — Gate 3 Sign-Off, Sprint 27: Auth & Onboarding Flow Clean Architecture
+### Community 639 - "dispatchEvent"
+Cohesion: 0.02
+Nodes (205): abort(), abortAll(), addCookies(), addEventListener(), #addIdentifierToWindow(), addListener(), addResolveListener(), addTrack() (+197 more)
 
 ### Community 640 - "Gate 6.5 Security Audit Sign-off: Sprint 27 — Auth & Onboarding Flow Clean Architecture (v3.7.0)"
 Cohesion: 0.40
 Nodes (4): 1. Rà Soát Biên Tin Cậy (Trust Boundaries & Input Validation), 2. Rà Soát Bí Mật & Mã Nguồn (Secrets & Hardcoded Credentials Audit), 3. Kết Luận Kiểm Toán, Gate 6.5 Security Audit Sign-off: Sprint 27 — Auth & Onboarding Flow Clean Architecture (v3.7.0)
 
-### Community 641 - "cockpit_micronutrient_row.dart"
-Cohesion: 0.17
-Nodes (11): accentColor, build, CockpitMicronutrientRow, current, currentVal, icon, isWarning, label (+3 more)
+### Community 641 - "write"
+Cohesion: 0.12
+Nodes (24): appendFormData(), determineBranch(), emitNamedEntityData(), emitNotTerminatedNamedEntity(), emitNumericEntity(), end(), getContentDisposition(), getDecoder() (+16 more)
 
 ### Community 643 - "1. Rà Soát Bảo Mật Độc Lập"
 Cohesion: 0.29
@@ -3152,13 +3223,13 @@ Nodes (6): 1. Rà Soát Bảo Mật Độc Lập, 2. Kết Luận Của Security
 Cohesion: 0.22
 Nodes (8): 1. Bối Cảnh (Context), 2. Quyết Định Kỹ Thuật (Decisions), 3. Hệ Quả & Chỉ Số Đo Lường (Consequences & SLAs), Architecture Decision Record (ADR-036): Sprint 30 — Ultimate Warning Cleanout (v3.10.0), D1: Phân Rã `mock_guild_repository.dart` (448L ➔ < 250L), D2: Phân Rã `zero_gravity_food_background.dart` (415L ➔ < 170L), D3: Phân Rã `health_cards.dart` (354L ➔ < 20L Barrel), D4: Phân Rã `member_action_sheet.dart` (354L ➔ < 180L)
 
-### Community 645 - "meal_plan_controller.dart"
-Cohesion: 0.18
-Nodes (6): addItem, _DateUserKey, deleteItem, logMealToDiary, _ref, _repo
+### Community 645 - "installEditorChildSizeModes"
+Cohesion: 0.29
+Nodes (16): installEditorChildSizeModes(), canResetChildSizeMode(), childAxisFills(), childCrossAxisAlignment(), childSizeMode(), childSizeModeOptions(), dimensionToAxis(), fixedNodeDimension() (+8 more)
 
-### Community 646 - "streak_repository.dart"
-Cohesion: 0.07
-Nodes (22): A2uiParser, parse, _parseFromMap, _, _extractJsonObject, JsonParser, _stripMarkdownFences, tryParseGeminiResponse (+14 more)
+### Community 646 - "water_repository_impl.dart"
+Cohesion: 0.02
+Nodes (104): A2uiComponent, A2uiMessagePayload, components, fromMap, hasComponents, id, props, surface (+96 more)
 
 ### Community 647 - "1. Rà Soát Bảo Mật Độc Lập"
 Cohesion: 0.29
@@ -3169,8 +3240,8 @@ Cohesion: 0.33
 Nodes (5): 1. Mục Tiêu Sản Phẩm & Chỉ Số Đo Lường (Metrics & SLAs), 2. Phạm Vi Tính Năng (Scope & MoSCoW), 3. Từ Điển Dữ Liệu (Data Dictionary), 4. Chữ Ký Phê Duyệt Gate 1 (Sign-Off), PRD: Quét Mã Vạch & Bóc Tách Bảng Dinh Dưỡng Thực Phẩm Đóng Gói — AstroBite
 
 ### Community 649 - "Reconnaissance"
-Cohesion: 0.40
-Nodes (5): Architecture summary and companion selection, Deterministic coverage ledger, Phase 1: Map the source and plan coverage, Prior-run input, Reconnaissance
+Cohesion: 0.33
+Nodes (6): status(), Architecture summary and companion selection, Deterministic coverage ledger, Phase 1: Map the source and plan coverage, Prior-run input, Reconnaissance
 
 ### Community 650 - "leaderboard_entry.dart"
 Cohesion: 0.17
@@ -3180,21 +3251,21 @@ Nodes (11): astroId, copyWith, fromMap, goalAchievedToday, isMe, isNudgedToday, 
 Cohesion: 0.22
 Nodes (8): 1. Bối Cảnh & Vấn Đề Kỹ Thuật (Context & Problem Statement), 2.1. Phân rã `custom_food_sheet.dart` (682 dòng ➔ < 180 dòng), 2.2. Phân rã `home_page.dart` (552 dòng ➔ < 160 dòng), 2.3. Phân rã `celestial_cockpit_card.dart` (452 dòng ➔ < 180 dòng), 2.4. Phân rã `meal_detail_page.dart` (435 dòng ➔ < 180 dòng), 2. Quyết Định Kiến Trúc (Architecture Decisions - ADR-034), 3. Tiêu Chí Nghiệm Thu (Acceptance Criteria), Architectural Spec & ADR-034: Daily Tracker & Dashboard Modular Clean Architecture (Sprint 28)
 
-### Community 652 - "Phase 6: Produce target-neutral reports from final records"
-Cohesion: 0.50
-Nodes (4): `FINDINGS-DETAIL.md`, `NEEDS-VALIDATION.md`, Phase 6: Produce target-neutral reports from final records, `REPORT.md`
+### Community 652 - "installEditorClipboard"
+Cohesion: 0.18
+Nodes (23): installEditorClipboard(), collectClipboardAssets(), collectFrameClipboardText(), countNodeEffects(), countSlideEffects(), createClipboardAssetImporter(), createFramesClipboardPayload(), createSlideClipboardPayload() (+15 more)
 
-### Community 653 - "clay_3d_calendar.dart"
-Cohesion: 0.25
-Nodes (7): build, Clay3DCalendar, _Clay3DCalendarPainter, isSelected, paint, shouldRepaint, size
+### Community 653 - "Gd"
+Cohesion: 0.13
+Nodes (23): as(), B0(), Bd(), Du(), ec(), fs(), Ft(), Gd() (+15 more)
 
 ### Community 654 - "Gate 6 QA Independent Sign-off: Sprint 28 — Daily Tracker & Dashboard Clean Architecture (v3.8.0)"
 Cohesion: 0.29
 Nodes (6): 1. Kết Quả Kiểm Thử Tự Động (Automated Regression Test Suite), 2. Kiểm Soát Giới Hạn File (Ponytail Clean Code & File Length Audit), 3. Danh Mục 8 Sub-widgets Mới Tạo:, 4. Kết Luận Nghiệm Thu, 🏆 CỘT MỐC LỊCH SỬ CỦA CODEBASE:, Gate 6 QA Independent Sign-off: Sprint 28 — Daily Tracker & Dashboard Clean Architecture (v3.8.0)
 
-### Community 655 - "health_repository.dart"
-Cohesion: 0.09
-Nodes (19): _configured, _detectPlatform, _ensureConfigured, _firestore, getTodayActivity, hasPermissions, _healthPlugin, HealthRepository (+11 more)
+### Community 655 - "createSlideCreationController"
+Cohesion: 0.22
+Nodes (23): installCreationController(), connectSlideCreationController(), createSlideCreationController(), advanceEmptyDeckTransition(), advanceRevealSequence(), animateFirstSlideLanding(), beginEndingSequence(), beginFirstSlideLanding() (+15 more)
 
 ### Community 656 - "User Stories (BDD Given-When-Then): Sprint 28 Tracker & Dashboard"
 Cohesion: 0.33
@@ -3228,9 +3299,9 @@ Nodes (4): 1.1. Mục tiêu, 1.2. Phạm vi, 1. Mục Tiêu & Phạm Vi, PRD: De
 Cohesion: 0.40
 Nodes (4): 1. Tóm Tắt Kết Quả Kiểm Thử, 2. Chi Tiết Line Count Sau Khi Phân Rã, 3. Kết Luận Của QA Lead, Gate 6 QA Verification & Quality Sign-Off — Sprint 29 (v3.9.0)
 
-### Community 665 - "clay_3d_camera.dart"
-Cohesion: 0.29
-Nodes (6): build, Clay3DCamera, _Clay3DCameraPainter, paint, shouldRepaint, size
+### Community 665 - "installEditorCurrentSlide"
+Cohesion: 0.28
+Nodes (15): installEditorCurrentSlide(), currentSlideStorageKey(), initialCurrentSlideId(), isFiniteNumber(), newLinkedSlideId(), readCanvasCameraPreference(), readCurrentSlidePreference(), readEditorPanelsPreference() (+7 more)
 
 ### Community 666 - "Gate 3 Master Test Plan: Sprint 29 Deep Clean Polish"
 Cohesion: 0.50
@@ -3272,33 +3343,33 @@ Nodes (4): 1. Mục Tiêu & Vấn Đề Nghiệp Vụ, 2. Tiêu Chí Nghiệm Th
 Cohesion: 0.40
 Nodes (4): 1. Tóm Tắt Kết Quả Kiểm Thử, 2. Chi Tiết Line Count Sau Khi Phân Rã, 3. Kết Luận Của QA Lead, Gate 6 QA Verification & Quality Sign-Off — Sprint 30 (v3.10.0)
 
-### Community 676 - "social_repository.dart"
-Cohesion: 0.05
-Nodes (36): addFriend, findUserByAstroId, _firestore, hasNudgedToday, sendNudge, SocialRemoteDatasource, SocialRemoteDatasourceImpl, upsertUserLeaderboardEntry (+28 more)
+### Community 676 - "health_repository.dart"
+Cohesion: 0.01
+Nodes (122): candidateModels, GeminiConfig, isTransientError, _connectivity, _connectivitySub, coordinator, dispose, _handleConnectivityChange (+114 more)
 
 ### Community 677 - "Gate 7 Super-Repo Release Clearance — Sprint 30 (v3.10.0)"
 Cohesion: 0.50
 Nodes (3): 1. Tóm Tắt Bản Phát Hành (Changelog v3.10.0), 2. Phê Duyệt Của Hội Đồng, Gate 7 Super-Repo Release Clearance — Sprint 30 (v3.10.0)
 
-### Community 680 - "State"
-Cohesion: 0.13
-Nodes (19): CircularHeroExample, _CircularHeroExampleState, _animated, AnimatedContainerExample, _AnimatedContainerExampleState, build, createState, _expanded (+11 more)
+### Community 680 - "installRenderingTheme"
+Cohesion: 0.14
+Nodes (14): installRenderingTheme(), addOptionalGoogleFontImports(), applyTextFillCss(), buildDeckThemeCss(), renderingTypeScaleForRole(), resolvedFontVariants(), resolveSlideColor(), selectedSwatchName() (+6 more)
 
-### Community 681 - "coach_typing_indicator.dart"
-Cohesion: 0.20
-Nodes (9): BouncingMacroDots, _BouncingMacroDotsState, build, _buildDot, CoachTypingIndicator, _controller, createState, dispose (+1 more)
+### Community 681 - "installUiColorPicker"
+Cohesion: 0.19
+Nodes (22): installUiColorPicker(), beginColorPickerPointerGesture(), ColorHexInput(), ColorPicker(), ColorPickerGroup(), ColorPickerHeader(), ColorPickerLabel(), colorTrackFraction() (+14 more)
 
-### Community 682 - "clay_3d_food_art.dart"
-Cohesion: 0.18
-Nodes (8): build, Clay3DFoodArt, _Clay3DFoodPainter, Clay3DFoodType, foodType, paint, shouldRepaint, size
+### Community 682 - "uU"
+Cohesion: 0.12
+Nodes (21): AU(), BU(), CU(), EU(), FU(), gt(), jU(), MU() (+13 more)
 
-### Community 683 - "clay_planet_chip.dart"
-Cohesion: 0.20
-Nodes (9): build, ClayPlanetChip, _ClayPlanetChipState, createState, _isPressed, isSelected, label, onTap (+1 more)
+### Community 683 - "sc"
+Cohesion: 0.16
+Nodes (21): ht(), Dc(), oc(), pc(), Ri(), sc(), vi(), zl() (+13 more)
 
-### Community 684 - "scanner_providers.dart"
-Cohesion: 0.18
-Nodes (7): foodScanRepositoryProvider, getTodayScanCount, repository, scanFoodUseCaseProvider, today, user, ScanFoodUseCase
+### Community 684 - "installDeliveryProvider"
+Cohesion: 0.33
+Nodes (14): installDeliveryProvider(), clearExportRequestReleaseTimer(), consumePendingExportRequest(), dispatchExportRequest(), exportCapabilityDescriptors(), exportDeliveryHandled(), exportRequestOptionsCompatible(), findExportEntry() (+6 more)
 
 ### Community 685 - "Biên Bản Phát Hành: AstroBite v3.5.0 (Sprint 33 Release Dossier)"
 Cohesion: 0.40
@@ -3312,13 +3383,13 @@ Nodes (5): AppLocalizations, _AppLocalizationsDelegate, AppLocalizationsEn, of, 
 Cohesion: 0.40
 Nodes (4): 1. Mục Tiêu Sản Phẩm & Chỉ Số Đo Lường (Metrics & SLAs), 2. Phạm Vi Tính Năng (Scope & MoSCoW), 3. Quy Tắc Nghiệp Vụ (Business Rules), PRD: Nền Tảng Đa Ngôn Ngữ Song Ngữ (VI + EN) — AstroBite
 
-### Community 688 - "analytics_page.dart"
-Cohesion: 0.06
-Nodes (20): calorieTrendsProvider, AnalyticsPage, _AnalyticsPageState, build, createState, _days, _globalKey, _buildMealContext (+12 more)
+### Community 688 - ""node_modules/pako/lib/zlib/inflate.js""
+Cohesion: 0.17
+Nodes (21): "node_modules/pako/lib/inflate.js"(), Inflate(), inflateRaw(), "node_modules/pako/lib/zlib/gzheader.js"(), GZheader(), "node_modules/pako/lib/zlib/inflate.js"(), fixedtables(), inflate() (+13 more)
 
-### Community 689 - "IconData"
-Cohesion: 0.04
-Nodes (48): build, icon, isSelected, OnboardingSelectCard, onTap, subtitle, title, build (+40 more)
+### Community 689 - "package:flutter/material.dart"
+Cohesion: 0.01
+Nodes (408): CircularDetailScreen, createState, DetailScreen, GalleryScreen, HeroAnimationApp, index, main, onTap (+400 more)
 
 ### Community 690 - "UI/UX Specification: Language Selection Experience — Sprint 31"
 Cohesion: 0.50
@@ -3336,25 +3407,25 @@ Nodes (4): 1. Line Count & Code Limit Audit, 2. Ponytail Principle Verification,
 Cohesion: 0.40
 Nodes (4): 1. Test Execution Metrics, 2. Non-Functional & Visual Quality Verification, 3. QA Lead Sign-Off, Gate 6: Quality Assurance Verification & Sign-Off (Sprint 33)
 
-### Community 695 - "catalog_item.dart"
-Cohesion: 0.15
-Nodes (8): buildFromRawProps, CatalogItem, CatalogItemContext, description, isLogged, type, AppLocalizationsX, l10n
+### Community 695 - "cg"
+Cohesion: 0.18
+Nodes (19): Da(), mi(), uc(), Li(), ae(), bf(), bi(), cg() (+11 more)
 
 ### Community 696 - "Gate 6.5: Zero-Trust Security Audit & AppSec Clearance (Sprint 33)"
 Cohesion: 0.50
 Nodes (3): 1. Security Scope & Trust Boundary Audit, 2. Security Auditor Sign-Off, Gate 6.5: Zero-Trust Security Audit & AppSec Clearance (Sprint 33)
 
-### Community 697 - "guild_create_sheet.dart"
-Cohesion: 0.16
-Nodes (14): guildControllerProvider, build, createState, _descController, dispose, GuildCreateSheet, _GuildCreateSheetState, _nameController (+6 more)
+### Community 697 - "ch"
+Cohesion: 0.11
+Nodes (10): r(), ch, A(), l(), r(), S(), v(), w() (+2 more)
 
-### Community 698 - "water_repository_impl.dart"
-Cohesion: 0.07
-Nodes (23): _addToPending, _cacheKey, _db, _docRef, _firestore, getDailyWater, _getPrefs, logWater (+15 more)
+### Community 698 - "installHostAgentSession"
+Cohesion: 0.29
+Nodes (13): installHostAgentSession(), availableAgentSessionRoom(), callSendToAgent(), fitAgentPayload(), isAgentSessionDestination(), objectProperty(), resolveAgentSessionCapability(), resolvePromptSuggestion() (+5 more)
 
-### Community 699 - "food_scan_repository_impl.dart"
-Cohesion: 0.14
-Nodes (8): GeminiRemoteDatasource, _aiUsageRef, _firestore, getTodayScanCount, incrementScanCount, _remoteDatasource, scanFoodImage, main
+### Community 699 - "nb"
+Cohesion: 0.11
+Nodes (17): fy, J6(), nb(), A(), b(), F(), g(), L() (+9 more)
 
 ### Community 700 - "Gate 7: Super-Repo Release Dossier (Sprint 33 — v3.5.0)"
 Cohesion: 0.50
@@ -3364,21 +3435,25 @@ Nodes (3): 1. Release Checklist, 2. Phê Duyệt Cấp Cao, Gate 7: Super-Repo R
 Cohesion: 0.22
 Nodes (8): 1. Executive Summary & Success Metrics, 2. User Stories & BDD Scenarios (Given - When - Then), 3. Data Dictionary, 4. Gate 1 Sign-Off Board, PRD-040: Water Intake & Hydration Tracker (Theo dõi lượng nước uống), 🧪 US-01: Quick Log Nước từ Home Dashboard (1-Tap), 🧪 US-02: Đạt Mục Tiêu Nước Hàng Ngày (Goal Celebration), 🧪 US-03: Hoạt Động Hoàn Toàn Ngoại Tuyến (Offline-First)
 
+### Community 702 - "installFontsInlining"
+Cohesion: 0.20
+Nodes (17): installFontsInlining(), countCodePointsInRange(), documentFontCoverage(), fontUnicodeRangesEqual(), fontUnicodeRangesOverlap(), googleFontUrlFamilies(), googleFontUrlFamiliesLowercase(), inlineGoogleFontFaces() (+9 more)
+
 ### Community 703 - "PRD-040: Water Intake & Hydration Tracker (Theo dõi lượng nước uống)"
 Cohesion: 0.22
 Nodes (8): 1. Executive Summary & Success Metrics, 2. User Stories & BDD Scenarios (Given - When - Then), 3. Data Dictionary, 4. Gate 1 Sign-Off Board, PRD-040: Water Intake & Hydration Tracker (Theo dõi lượng nước uống), 🧪 US-01: Quick Log Nước từ Home Dashboard (1-Tap), 🧪 US-02: Đạt Mục Tiêu Nước Hàng Ngày (Goal Celebration), 🧪 US-03: Hoạt Động Hoàn Toàn Ngoại Tuyến (Offline-First)
 
-### Community 704 - "recipe_macro_summary_card.dart"
-Cohesion: 0.18
-Nodes (10): bevel, bg, border, build, color, label, _MacroPill, RecipeMacroSummaryCard (+2 more)
+### Community 704 - "installPresentationFullscreen"
+Cohesion: 0.38
+Nodes (14): installPresentationFullscreen(), exitFullscreen(), exitStaleFullscreenRequest(), fullscreenAvailable(), getFullscreenDocument(), getFullscreenElement(), getFullscreenEventNames(), isFullscreenOrEntering() (+6 more)
 
-### Community 705 - "scan_food_usecase.dart"
-Cohesion: 0.25
-Nodes (9): execute, message, NotFoodResult, QuotaExceeded, _repository, result, ScanError, ScanFoodResult (+1 more)
+### Community 705 - "n9"
+Cohesion: 0.11
+Nodes (6): n9(), d(), o(), r(), s(), y()
 
-### Community 706 - "StateNotifier"
-Cohesion: 0.39
-Nodes (7): LoginController, RegisterController, ProfileController, MealPlanController, ScannerController, TrackerController, WaterController
+### Community 706 - "j5"
+Cohesion: 0.11
+Nodes (11): j5(), B(), E(), I(), K(), m(), p(), T() (+3 more)
 
 ### Community 707 - "2. Decision & Architecture (ADR-039)"
 Cohesion: 0.25
@@ -3392,13 +3467,13 @@ Nodes (3): 1. Zero Invisible Work Principle (Minh Bạch Tuyệt Đối), 2. Spr
 Cohesion: 0.25
 Nodes (7): 1. Context & Business Drivers, 2.1 State Management & Data Flow (Riverpod 2.x), 2.2 Storage Strategy (Zero Bloat - Strict Ponytail), 2.3 Performance & Ergonomics SLA, 2. Decision & Architecture (ADR-039), 3. Feasibility Sign-off (Gate 0 Clearance), ADR-039 & Architectural Spec: Water Intake & Hydration Tracker (Sprint 33)
 
-### Community 710 - "guild_page.dart"
-Cohesion: 0.14
-Nodes (6): currentUserGuildStreamProvider, currentUserIdProvider, build, _buildActiveGuild, _buildErrorState, _buildShimmerLoading
+### Community 710 - "installUiFindBar"
+Cohesion: 0.23
+Nodes (17): installUiFindBar(), blurEditingTargetForFind(), captureFindBarClipboard(), captureFindBarKey(), createFindKeyHandler(), FindBar(), findCountAnnouncement(), findCountReadout() (+9 more)
 
-### Community 711 - "ValueChanged"
-Cohesion: 0.05
-Nodes (32): build, OnboardingStepGender, onSelectGender, selectedGender, activityLevel, build, fitnessGoal, _goals (+24 more)
+### Community 711 - "crc32"
+Cohesion: 0.25
+Nodes (6): "node_modules/jszip/lib/crc32.js"(), "node_modules/jszip/lib/stream/Crc32Probe.js"(), Crc32Probe(), "node_modules/pako/lib/zlib/crc32.js"(), crc32(), makeTable()
 
 ### Community 712 - "_"
 Cohesion: 0.29
@@ -3416,157 +3491,365 @@ Nodes (5): 1. User Interaction Flow (Mermaid), 2. Design Tokens & Styling (Claym
 Cohesion: 0.40
 Nodes (4): 1. Test Strategy & Coverage Scope, 2. BDD Gherkin Test Cases (`.feature`), 3. Visual QA & Performance Criteria, Master Test Plan & BDD Gherkin: Water Intake Tracker (Sprint 33)
 
-### Community 716 - "scan_review_action_bar.dart"
-Cohesion: 0.07
-Nodes (24): ScanResult, SubDishItem, build, isSaving, onMealSelected, onRescan, onSave, scaled (+16 more)
+### Community 716 - "⚡ 6 Đột Phá Kỹ Thuật Trọng Yếu Của Senior Mobile Engineer"
+Cohesion: 0.12
+Nodes (17): profile(), Full audit setup, Write isolation, 🚀 3. ĐỘT PHÁ KỸ THUẬT & KIẾN TRÚC HỆ THỐNG (ENGINEERING DOSSIER), 🛠️ Tech Stack Tổng Thể Phiên Bản v3.0.0, 1.1. Bối cảnh, 1.2. Mục tiêu thiết kế, 1. Bối Cảnh & Mục Tiêu (Executive Summary) (+9 more)
 
-### Community 717 - "clay_hero_camera_fab.dart"
-Cohesion: 0.29
-Nodes (7): build, ClayHeroCameraFab, _ClayHeroCameraFabState, createState, fabSize, _isPressed, onTap
+### Community 717 - "installPresentationSpeakerPanel"
+Cohesion: 0.21
+Nodes (16): installDeliveryDialog(), ExportDeliveryDialog(), exportDeliveryFailureMessage(), richMessage(), installPresentationSpeakerPanel(), elapsedSpeakerClock(), formatSpeakerElapsedTime(), isSpeakerNotesWindowWide() (+8 more)
 
 ### Community 718 - "🧪 Bảng Kịch Bản Kiểm Thử Thủ Công Từng Bước (Manual Step-by-Step Test Case)"
 Cohesion: 0.40
 Nodes (4): 🧪 Bảng Kịch Bản Kiểm Thử Thủ Công Từng Bước (Manual Step-by-Step Test Case), 📋 Chi Tiết Kịch Bản Kiểm Thử Từng Bước (Step-by-Step Matrix), 🔍 Tiêu Chuẩn Nghiệm Thu Thị Giác (Visual Exit Criteria), 🎯 Điều Kiện Tiên Quyết (Pre-conditions)
 
-### Community 719 - "guild_join_sheet.dart"
-Cohesion: 0.25
-Nodes (8): build, _codeController, createState, dispose, GuildJoinSheet, _GuildJoinSheetState, show, _submit
+### Community 719 - "installFilesPublishInputs"
+Cohesion: 0.21
+Nodes (13): installFilesPublishInputs(), fileContentBytes(), fileMimeTypeFromPath(), filePublishEncodedBytes(), filePublishRejection(), filePublishSizeRejection(), hashFilePublishEntries(), isTextFileWithInvalidUnicode() (+5 more)
 
 ### Community 720 - "meal_section.dart"
-Cohesion: 0.04
-Nodes (38): baseMealType, calculateSuggestedCalories, calorieRatio, clayBgColor, copyWith, defaultRatio, defaultSlots, emoji (+30 more)
+Cohesion: 0.01
+Nodes (129): bevelColor, calculateSuggestedCalories, calorieRatio, caloriesPerGram, clayBgColor, color, endHour, fromCurrentHour (+121 more)
 
-### Community 721 - "Riverpod State Management"
-Cohesion: 0.33
-Nodes (5): Notifier Pattern (Riverpod 2.0), Provider Types, Quick Reference, Riverpod State Management, Usage in Widgets
+### Community 721 - ""node_modules/core-util-is/lib/util.js""
+Cohesion: 0.15
+Nodes (7): "node_modules/core-util-is/lib/util.js"(), isArray(), isDate(), isError(), isRegExp(), objectToString(), prependListener()
 
-### Community 722 - "package:astrobite/features/tracker/domain/tracker_providers.dart"
-Cohesion: 0.07
-Nodes (18): main, main, build, _FakeCoachController, main, _messages, build, deleteCalled (+10 more)
+### Community 722 - "setProp"
+Cohesion: 0.14
+Nodes (17): addTrappedEventListener(), coerceFormActionProp(), extractEvents$1(), getEventPriority(), isAttributeNameSafe(), listenToAllSupportedEvents(), listenToNativeEvent(), listenToNonDelegatedEvent() (+9 more)
 
-### Community 723 - "AuthRepository"
-Cohesion: 0.18
-Nodes (11): AuthRepositoryImpl, AuthRepository, FakeAuthRepository, FakeAuthRepo, FakeAuthRepository, _FakeAuthRepository, FakeAuthRepository, FakeAuthRepository (+3 more)
+### Community 723 - "createArtifactDocument"
+Cohesion: 0.05
+Nodes (67): installBootstrap(), bootLegacyFileState(), bootSlidesApplication(), bootSlidesFilesMode(), bootThumbnailFromEarlyFiles(), buildBootErrorPresentation(), configureFilesDocumentFactory(), configureLoadedLegacyState() (+59 more)
 
-### Community 724 - "analytics_page_test.dart"
-Cohesion: 0.20
-Nodes (3): main, main, main
+### Community 724 - "installMediaVideoAssets"
+Cohesion: 0.26
+Nodes (14): installMediaVideoAssets(), captureVideoPoster(), fetchVideoStillFile(), identifyVideoContainer(), isVideoFile(), probeVideoFile_Ql0(), probeVideoMetadata(), readVideoMetadata() (+6 more)
 
-### Community 725 - "scanner_controller.dart"
-Cohesion: 0.20
-Nodes (7): ref, reset, scanImage, scannerControllerProvider, build, _processImage, _resolveFromProvider
+### Community 725 - ""node_modules/react/cjs/react.production.js""
+Cohesion: 0.19
+Nodes (11): "node_modules/react/cjs/react.production.js"(), cloneAndReplaceKey(), escape(), getElementKey(), isValidElement5(), mapChildren(), mapIntoArray(), ReactElement() (+3 more)
 
-### Community 726 - "DateTime"
-Cohesion: 0.25
-Nodes (6): build, CelestialTimeAvatar, CelestialTimePhase, getPhase, onTap, time
+### Community 726 - "createWasm"
+Cohesion: 0.19
+Nodes (15): info(), addOnInit(), addRunDependency(), createWasm(), instantiateArrayBuffer(), instantiateAsync(), receiveInstance(), receiveInstantiationResult() (+7 more)
 
-### Community 727 - "water_repository.dart"
-Cohesion: 0.29
-Nodes (5): getDailyWater, logWater, syncPendingWaterLogs, updateDailyTarget, watchDailyWater
+### Community 727 - "zz"
+Cohesion: 0.13
+Nodes (10): zz(), ce(), ge(), H(), J(), le(), ne(), re() (+2 more)
 
-### Community 728 - "meal_plan_tab_switcher.dart"
-Cohesion: 0.20
-Nodes (9): build, icon, isSelected, MealPlanTabSwitcher, onChanged, onTap, selectedIndex, _TabButton (+1 more)
+### Community 728 - "Rk"
+Cohesion: 0.14
+Nodes (15): ah(), bh(), ch(), Ck(), Hk(), Ie(), me(), oj() (+7 more)
 
 ### Community 729 - "scripts"
 Cohesion: 0.20
 Nodes (10): scripts, build, build:watch, deploy, genkit:start, lint, logs, serve (+2 more)
 
-### Community 730 - "bool get"
-Cohesion: 0.40
-Nodes (3): isDish, isPackaged, packaged
+### Community 730 - "installEditorFrameComments"
+Cohesion: 0.25
+Nodes (15): installEditorFrameComments(), deferCommentFootPress(), FrameCommentButton(), listenForFrameComments(), parseFrameCommentsMessage(), requestFrameCommentsShown(), runAfterFootClick(), setFrameCommentsState() (+7 more)
 
 ### Community 731 - "devDependencies"
 Cohesion: 0.22
 Nodes (9): devDependencies, eslint, eslint-config-google, eslint-plugin-import, firebase-functions-test, tsx, typescript, @typescript-eslint/eslint-plugin (+1 more)
 
-### Community 732 - "food_scan_repository.dart"
-Cohesion: 0.20
-Nodes (7): FoodScanRepositoryImpl, FoodScanRepository, getTodayScanCount, incrementScanCount, scanFoodImage, FakeFoodScanRepository, FakeFoodScanRepo
+### Community 732 - "installEditorGrouping"
+Cohesion: 0.19
+Nodes (9): installEditorGrouping(), groupedChildrenPlacement(), groupFrameSelection(), groupRelativeAnchor(), moveLeadingGroupLayer(), nodeMainAxisInsets(), regroupOverlayLayers(), stackChildrenFitMeasuredBounds() (+1 more)
 
-### Community 733 - "meal_plan_repository.dart"
-Cohesion: 0.22
-Nodes (7): MealPlanRepositoryImpl, deleteMealPlanItemForUser, getMealPlanItems, markAsLoggedForUser, MealPlanRepository, saveMealPlanItem, _MockMealPlanRepo
+### Community 733 - "installUiContrast"
+Cohesion: 0.23
+Nodes (12): installUiContrast(), clippedOklchColor(), colorContrastResults(), compositeContrastColor(), contrastColorFix(), contrastColorHex(), contrastRatio(), oklchToRgb() (+4 more)
 
-### Community 734 - "../../domain/models/guild.dart"
-Cohesion: 0.33
-Nodes (4): build, guild, GuildHeaderCard, onOpenGovernance
+### Community 734 - "BL"
+Cohesion: 0.15
+Nodes (13): BL(), cL(), EL(), FL(), GL(), jL(), kL(), lL() (+5 more)
 
-### Community 735 - "build"
-Cohesion: 0.30
-Nodes (5): build, recipesProvider, build, RecipeBuilderRoute, RegisterRoute
+### Community 735 - "tH"
+Cohesion: 0.14
+Nodes (9): tH(), d(), E(), N(), O(), p(), u(), w() (+1 more)
 
 ### Community 736 - "dependencies"
 Cohesion: 0.29
 Nodes (7): dependencies, express, firebase-admin, firebase-functions, genkit, @genkit-ai/firebase, @genkit-ai/google-genai
 
-### Community 737 - "Phase 3: Core Features"
-Cohesion: 0.33
-Nodes (6): Phase 3: Core Features, Task 10: Daily Tracker & Home Dashboard, Task 11: User Profile & BMR/TDEE, Task 12: Analytics & Charts, Task 8: Firestore Data Layer — Models & Repositories, Task 9: AI Food Scanner Feature
-
-### Community 738 - "app_keys.dart"
-Cohesion: 0.22
-Nodes (4): AppKeys, defaultGeminiApiKey, isProxyMode, rootScaffoldMessengerKey
-
-### Community 739 - "6. Layout & Spacing"
-Cohesion: 0.50
-Nodes (4): 6.1 The 4pt Grid System, 6.2 Global Radii, 6.3 Touch Target & Ergonomics, 6. Layout & Spacing
-
-### Community 740 - "water_quick_action_button.dart"
+### Community 737 - "installMediaVideoLinkPlayer"
 Cohesion: 0.25
-Nodes (8): build, createState, icon, _isPressed, label, onTap, WaterQuickActionButton, _WaterQuickActionButtonState
+Nodes (13): installMediaVideoLinkPlayer(), blurToFocusableParent(), bumpBlockedVideos(), claimVideoPlayer(), clearBlockedVideosOnReturn(), recordVideoCspViolation(), releasePlayerFocus(), releaseVideoPlayer() (+5 more)
+
+### Community 738 - "installUiNumberControls"
+Cohesion: 0.27
+Nodes (13): installUiNumberControls(), acceptsNumberFieldKey(), attachNumberScrubGesture(), createNumberScrubGesture(), decimalPlaces(), numberInputDecimalPlaces(), parseTypedNumber(), PropertyNumberInput() (+5 more)
+
+### Community 739 - ""node_modules/string_decoder/lib/string_decoder.js""
+Cohesion: 0.18
+Nodes (7): "node_modules/string_decoder/lib/string_decoder.js"(), _normalizeEncoding(), utf8CheckByte(), utf8CheckExtraBytes(), utf8CheckIncomplete(), utf8FillLast(), utf8Text()
+
+### Community 740 - "installEditorDialogs"
+Cohesion: 0.36
+Nodes (13): installEditorDialogs(), cancelEditorDialogRequest(), confirmEditorAction(), dismissEditorDialog(), dismissMatchingEditorDialog(), EditorConfirmDialog(), EditorDialogHost(), EditorDialogLayout() (+5 more)
 
 ### Community 741 - "index.ts"
 Cohesion: 0.33
 Nodes (5): geminiProxy, onStreakNudgeCreated, sendStreakNudge, firebase-admin, firebase-functions
 
-### Community 742 - "leaderboard_add_friend_sheet.dart"
-Cohesion: 0.25
-Nodes (8): build, createState, dispose, LeaderboardAddFriendSheet, _LeaderboardAddFriendSheetState, onAddFriend, show, _textController
+### Community 742 - "explainDesignSystemPath"
+Cohesion: 0.19
+Nodes (13): checkRecord(), collectFiles(), comparablePath(), comparableSegment(), descendInto(), explainDesignSystemPath(), explainReservedSystemPath(), explainToolConfigurationPath() (+5 more)
 
-### Community 744 - "8. Accessibility & Contrast"
-Cohesion: 0.50
-Nodes (4): 8.1 WCAG Compliance, 8.2 Touch Target Rules, 8.3 Motion Accessibility, 8. Accessibility & Contrast
+### Community 744 - "NGUYEN DUY TRANG — ASTROBITE PORTFOLIO & CV MASTER PROFILE"
+Cohesion: 0.15
+Nodes (12): 🌟 1. TỔNG QUAN DỰ ÁN & GIẢI BẢY VẤN ĐỀ NGƯỜI DÙNG (PRODUCT STORY), 📊 4. CÁC CHỈ SỐ KỸ THUẬT VÀNG (VERIFIED BENCHMARKS), 📝 5. NỘI DUNG MẪU SẴN SÀNG COPY VÀO CV / PORTFOLIO, 🎯 6. BỘ CÂU HỎI TRẢ LỜI PHỎNG VẤN (INTERVIEW CHEAT SHEET CHO SENIOR/LEAD), 💡 AstroBite — Biến Việc Ăn Uống Lành Mạnh Thành Thói Quen Vui Vẻ, NGUYEN DUY TRANG — ASTROBITE PORTFOLIO & CV MASTER PROFILE, 🎯 Nỗi đau của người dùng ăn kiêng truyền thống, 🇬🇧 Phiên Bản Tiếng Anh Chuẩn Quốc Tế (STAR Format / Google XYZ) (+4 more)
 
-### Community 746 - "splash_floating_food_item.dart"
-Cohesion: 0.29
-Nodes (4): SplashFoodItemSpec, build, spec, SplashFloatingFoodItem
+### Community 746 - "installUiBoxStyleToolbar"
+Cohesion: 0.27
+Nodes (13): installUiBoxStyleToolbar(), activeBorderSides(), borderColorPatch(), BoxStyleToolbar(), cornerStyleBindings(), CornerStylePopover(), definedBorderSides(), ensureShapeFill() (+5 more)
 
-### Community 747 - "recipe_chunky_fab.dart"
+### Community 747 - "i5"
+Cohesion: 0.17
+Nodes (8): i5(), be(), _e(), Ee(), ie(), ke(), re(), ze()
+
+### Community 748 - "claude-slides/scripts/artifact.mjs"
+Cohesion: 0.11
+Nodes (25): balanced(), check(), checkDeck(), checkSlide(), checkTokensText(), compilerAvailable(), deckFileProblems(), deckReferenceProblems() (+17 more)
+
+### Community 749 - "installBridgePlaceLinks"
 Cohesion: 0.33
-Nodes (6): build, createState, _isPressed, onTap, RecipeChunkyFab, _RecipeChunkyFabState
+Nodes (11): installBridgePlaceLinks(), createPlaceLinkReporter(), isValidPlaceFragment(), parseGotoAnchorMessage(), placeLinkStorageKey(), readLastPlace(), readPlaceLinkFields(), requestCopyPageLink() (+3 more)
 
-### Community 748 - "camera_quota_badge.dart"
+### Community 750 - "installCommentsAnchors"
+Cohesion: 0.29
+Nodes (10): installCommentsAnchors(), countOpenCommentsBySlide(), encodePromotedFrameId(), encodeSlideCommentAnchor(), hashCommentAnchorId(), parseCommentFramePath(), parsePromotedFrameId(), parseSlideCommentAnchor() (+2 more)
+
+### Community 751 - "removeNestedNode"
+Cohesion: 0.29
+Nodes (12): frameById(), imageNodeAtPath(), nodeAtPath(), pinNodeToRect(), removeNestedNode(), removeOverlayLayer(), removeSlideFrame(), removeSlideNode() (+4 more)
+
+### Community 752 - "installUiDialog2"
+Cohesion: 0.36
+Nodes (11): installUiDialog2(), animateSegmentedControlThumb(), cancelAnimations(), getElementAnimations(), hasFlipAnimationMarker(), hasRunningAnimations(), pauseFlipAnimationAtProgress(), readCssDuration() (+3 more)
+
+### Community 753 - "installUiEditorSelection"
+Cohesion: 0.24
+Nodes (8): installUiEditorSelection(), collaboratorSelectionColor(), collaboratorSelectionIndex(), equalSelectionPoint(), finiteSelectionRotation(), selectionHandlePositions(), SelectionLabel(), SelectionOutline()
+
+### Community 754 - "Reference palette"
+Cohesion: 0.17
+Nodes (11): Categorical palette, Chart chrome & ink, Diverging pair, Filter controls, How to use these values, Reference palette, Sequential hue, Status palette (fixed - never themed) (+3 more)
+
+### Community 755 - "getBackground"
+Cohesion: 0.22
+Nodes (11): getBackground(), getBackgroundAttachment(), getBackgroundClip(), getBackgroundColor(), getBackgroundImage(), getBackgroundOrigin(), getBackgroundPosition(), getBackgroundPositionX() (+3 more)
+
+### Community 756 - "rf"
+Cohesion: 0.25
+Nodes (11): gc(), pi(), zd(), jv(), mc(), Ne(), pi(), rf() (+3 more)
+
+### Community 757 - "sU"
+Cohesion: 0.18
+Nodes (6): sU(), c(), o(), s(), u(), y()
+
+### Community 758 - "q8"
+Cohesion: 0.18
+Nodes (6): q8(), H(), i(), M(), U(), z()
+
+### Community 759 - "x4"
+Cohesion: 0.18
+Nodes (5): x4(), L(), T(), w(), x()
+
+### Community 760 - ""node_modules/scheduler/cjs/scheduler.production.js""
+Cohesion: 0.38
+Nodes (11): LookTileView(), "node_modules/scheduler/cjs/scheduler.production.js"(), advanceTimers(), compare(), handleTimeout(), peek(), performWorkUntilDeadline(), pop() (+3 more)
+
+### Community 761 - "installDocumentsDeckStore"
+Cohesion: 0.20
+Nodes (3): installDocumentsDeckStore(), createSlidesArtifactDocumentOptions(), describeInvalidDeckHtml()
+
+### Community 762 - "installEnvironmentCompiledPage"
+Cohesion: 0.31
+Nodes (9): installEnvironmentCompiledPage(), assembleCompiledPage(), capabilitiesUseDatabase(), compiledPageHtmlAttributes(), detectCompiledPageStorageMode(), emulatorBuildMetaName(), escapeHtmlComment(), escapePageHtmlAttribute() (+1 more)
+
+### Community 763 - ""node_modules/setimmediate/setImmediate.js""
+Cohesion: 0.29
+Nodes (8): "node_modules/setimmediate/setImmediate.js"(), clearImmediate(), installMessageChannelImplementation(), installNextTickImplementation(), installPostMessageImplementation(), installReadyStateChangeImplementation(), installSetTimeoutImplementation(), runIfPresent()
+
+### Community 764 - "i7"
+Cohesion: 0.20
+Nodes (5): i7(), d(), l(), v(), w()
+
+### Community 765 - "pi"
+Cohesion: 0.29
+Nodes (10): gi(), hi(), Id(), ii(), ji(), ki(), Pa(), pi() (+2 more)
+
+### Community 767 - "installHostArtifactPresence"
+Cohesion: 0.42
+Nodes (10): installHostArtifactPresence(), isDisallowedPresenceCodepoint(), isDroppedPeerNameCharacter(), isEmojiTagCodepoint(), isValidPresenceId(), normalizePresenceFields(), normalizePresenceGlyph(), normalizePresenceObjects() (+2 more)
+
+### Community 768 - "installHostFrameComposer"
+Cohesion: 0.36
+Nodes (9): installHostFrameComposer(), applyComposerInset(), listenForFrameComposer(), parseFrameComposerMessage(), setFrameComposerState(), subscribeFrameComposer(), useComposerFocusReturn(), useFrameChat() (+1 more)
+
+### Community 769 - "installPresentationSpeakerProtocol"
+Cohesion: 0.24
+Nodes (5): installPresentationSpeakerProtocol(), inertPresentationSiblings(), parseBoundedInteger(), parseSpeakerJumpMessage(), parseSpeakerSlideMessage()
+
+### Community 770 - "vb"
+Cohesion: 0.22
+Nodes (7): qk(), vb(), C(), E(), i(), w(), Xk()
+
+### Community 771 - "installHostRoomPresence"
+Cohesion: 0.42
+Nodes (8): installHostRoomPresence(), cachedHostRoom(), hostErrorCode(), normalizeRoomPeers(), publishWhoPresence(), reportRoomPresence(), resolveHostRoom(), startRoomPeerListener()
+
+### Community 772 - "patchNodeStyle"
+Cohesion: 0.22
+Nodes (9): applyTextListFields(), fillShapeFromOutline(), nodeIsUnderlined(), patchNodeStyle(), setNodeList(), setNodeRotation(), setTextFill(), toggleNodeUnderline() (+1 more)
+
+### Community 773 - "setNodeThickness"
+Cohesion: 0.31
+Nodes (9): hollowShapeOutline(), minimumLineThickness(), minimumStrokeAdjustedSize(), nodeThickness(), nodeThicknessInfo(), nodeThicknessIsWritable(), setNodeThickness(), smallerAxisSpec() (+1 more)
+
+### Community 774 - "nodeTextAt"
+Cohesion: 0.22
+Nodes (9): nodeDisplayLabel(), nodeFallbackLabel(), nodeTextAt(), nodeTextLabel(), slideDisplayLabel(), slideTextAt(), slideTextAtPath(), slideTitleText() (+1 more)
+
+### Community 775 - "sj"
+Cohesion: 0.25
+Nodes (7): ah(), nh(), oj(), rj(), sh(), sj(), tj()
+
+### Community 776 - "cv"
+Cohesion: 0.25
+Nodes (4): cv, g(), s(), v()
+
+### Community 777 - ".constructor"
+Cohesion: 0.46
+Nodes (3): iF(), Jg(), kF()
+
+### Community 779 - "common_foods_dataset.dart"
+Cohesion: 0.17
+Nodes (11): baseCalories, baseCarbsG, baseFatG, baseProteinG, baseWeightG, calculateCalories, calculateCarbs, calculateFat (+3 more)
+
+### Community 780 - "installFontsReadiness"
+Cohesion: 0.39
+Nodes (7): installFontsReadiness(), fontTimeoutWarning(), fontUnavailableWarning(), formatFontFamilyList(), loadingFontFaces(), promiseWithTimeout(), waitForDocumentFonts()
+
+### Community 781 - "installUiAgentCursor"
+Cohesion: 0.36
+Nodes (11): installUiAgentCursor(), AgentCursor(), AgentCursorLabel(), AgentWorkingCursor(), animateAgentWorkingCursor(), createCursorIdleMotion(), createCursorIntroPath(), createCursorMotion() (+3 more)
+
+### Community 782 - "installModelDeckMetadata"
+Cohesion: 0.36
+Nodes (5): installModelDeckMetadata(), patchDeckMetadata(), replaceDeckMetadata(), restoreKeptListedSlides(), setDeckStyle()
+
+### Community 783 - "installEditorMediaCropSession"
+Cohesion: 0.40
+Nodes (10): installEditorMediaCropSession(), announceSlideStatus(), applyCropFrameChange(), computedCropFrameSize(), cropImageElements(), cropImageLocation(), cropImageSizeOwnership(), cropImageTransformSupport() (+2 more)
+
+### Community 784 - "Color formula"
+Cohesion: 0.25
+Nodes (7): Color formula, Run the checks - never eyeball them, Snap-to-passing (any design system), Status is fixed, The four jobs, The six checks, Themes
+
+### Community 785 - "Anthropic brand color system"
+Cohesion: 0.29
+Nodes (6): Anthropic brand color system, Claude system, Primary (the foundation — most surfaces are just these two), Secondary (prismatic — illustrations and compositions, not UI chrome), Tertiary scales (marketing/slides/dataviz — NOT product UI), Warm grayscale (21 steps, black → white)
+
+### Community 786 - "hw"
+Cohesion: 0.29
+Nodes (7): cw(), dw(), gw(), hw(), lw(), mw(), rB()
+
+### Community 787 - "gV"
+Cohesion: 0.38
+Nodes (7): fV(), gV(), lV(), pV(), uV(), Xv(), Yv()
+
+### Community 788 - "z_"
+Cohesion: 0.29
+Nodes (3): z_(), f(), s()
+
+### Community 789 - "installFilesDesignSystems"
+Cohesion: 0.67
+Nodes (7): installFilesDesignSystems(), createInstalledDesignSystemTracker(), designSystemDirectory(), designSystemTokensPath(), isValidDesignSystemNamespace(), readInstalledDesignSystems(), readInstalledDesignSystemTokens()
+
+### Community 792 - "Anti-patterns - what goes wrong"
+Cohesion: 0.33
+Nodes (5): Anti-patterns - what goes wrong, Color & encoding, Form, Interaction & accessibility, Marks & chrome
+
+### Community 793 - "Choosing a form"
+Cohesion: 0.33
+Nodes (5): Choosing a form, Is it even a chart?, Series-count ladder (categorical), The job -> the type, The rules behind the table
+
+### Community 794 - "Components - the pieces a chart is made of"
+Cohesion: 0.33
+Nodes (5): Components - the pieces a chart is made of, System tier - becomes the skill, Tier 0 - Foundations, Tier 1 - The charts people ask for, Tier 2 - Rounding out the kit
+
+### Community 795 - "Data Visualization"
+Cohesion: 0.33
+Nodes (5): Data Visualization, Non-negotiables (true in every design system), Plugging in a design system, Reference files, The procedure - do these in order
+
+### Community 796 - "Print design — posters, flyers, brochures, documents, anything that leaves as a PDF"
+Cohesion: 0.40
+Nodes (4): Fixed pages, Print design — posters, flyers, brochures, documents, anything that leaves as a PDF, Sheets and units (CSS px at 96 px/in), Type, tables, ink
+
+### Community 797 - "sh"
+Cohesion: 0.40
+Nodes (4): sh(), c(), s(), ie()
+
+### Community 798 - "clearImageMedia"
+Cohesion: 0.40
+Nodes (5): clearImageMedia(), looksLikeMediaFilename(), replaceImageAsset(), setVideoLink(), setVideoStillAsset()
+
+### Community 799 - "Anthropic brand typography"
 Cohesion: 0.50
-Nodes (3): todayScanCountProvider, build, CameraQuotaBadge
+Nodes (3): Anthropic brand typography, Scale (from the brand type system), Stacks (use verbatim in inline styles)
 
-### Community 749 - "static const List"
-Cohesion: 0.40
-Nodes (3): candidateModels, GeminiConfig, isTransientError
+### Community 803 - "borderWidthsBySide"
+Cohesion: 0.50
+Nodes (4): borderPatchFromWidths(), borderWidthsBySide(), hasPerSideBorderWidths(), setBorderWidthsPreservingSides()
 
-### Community 750 - "static const"
-Cohesion: 0.40
-Nodes (4): _, number, NutritionLabelPrompt, systemPrompt
+### Community 804 - "defaultOnDefaultTransitionIndicator"
+Cohesion: 0.67
+Nodes (3): defaultOnDefaultTransitionIndicator(), handleNavigateComplete(), startFakeNavigation()
+
+### Community 805 - "clay_morph_icon.dart"
+Cohesion: 0.20
+Nodes (7): build, ClayMorphIcon, color, curve, duration, icon, size
+
+### Community 807 - "Wje"
+Cohesion: 1.00
+Nodes (3): Vje(), Wje(), zje()
+
+### Community 810 - "countNodeTableCells"
+Cohesion: 0.67
+Nodes (3): countDeckTableCells(), countNodeTableCells(), countSlideTableCells()
+
+### Community 812 - "installFilesCrashStash"
+Cohesion: 0.50
+Nodes (8): installFilesCrashStash(), artifactPathWithoutFrameScope(), awaitIndexedDbRequest(), claimCrashStashTabLock(), createCrashStashKit(), createCurrentArtifactCrashStash(), createIndexedDbCrashStashKit(), createIndexedDbCrashStashStorage()
+
+### Community 813 - "installUiPropertyLabels"
+Cohesion: 0.48
+Nodes (5): installUiPropertyLabels(), additionalPassingGroundsMessage(), contrastResultCountSummary(), contrastResultDetails(), contrastResultSummary()
 
 ## Knowledge Gaps
-- **3804 isolated node(s):** `userId`, `date`, `mealType`, `mealLabel`, `_selectedTab` (+3799 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 7524 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
-- **61 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **3809 isolated node(s):** `RFC-6455`, `RFC-6455`, `RFC-6381`, `RFC-7845`, `RFC-6381` (+3804 more)
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 11899 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **66 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `MealPlanRepository` connect `meal_plan_repository.dart` to `recipe_repository_impl.dart`?**
-  _High betweenness centrality (0.006) - this node is a cross-community bridge._
-- **What connects `userId`, `date`, `mealType` to the rest of the system?**
-  _3804 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Why does `document()` connect `i_` to `l`, `d`, `fast-edit-worker.js`, `.get`, `__`, `k`, `__`, `installUiToolbarControls`, `s`, `$u`, `index-CHV2ZUA0.js`, `.get`, `v`, `SlidesApp`, `x_`, `createSlidesRuntime`, `fG`, `get`, `dc-runtime.js`, `installUiOverlays`, `createArtifactDocument`, `c`, `installUiDisclosure`, `jQueryFactoryWrapper`?**
+  _High betweenness centrality (0.349) - this node is a cross-community bridge._
+- **Are the 47 inferred relationships involving `__` (e.g. with `BL()` and `es()`) actually correct?**
+  _`__` has 47 INFERRED edges - model-reasoned connections that need verification._
+- **What connects `RFC-6455`, `RFC-6455`, `RFC-6381` to the rest of the system?**
+  _3809 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `server.cjs` be split into smaller, more focused modules?**
-  _Cohesion score 0.05034965034965035 - nodes in this community are weakly interconnected._
-- **Why does `_SplashPageState` connect `splash_page.dart` to `scanning_viewfinder.dart`, `recipe_add_ingredient_sheet.dart`, `authRepositoryProvider`, `ConsumerWidget`?**
-  _High betweenness centrality (0.004) - this node is a cross-community bridge._
+  _Cohesion score 0.05257936507936508 - nodes in this community are weakly interconnected._
+- **Why does `🌟 Tóm Tắt Bản Phát Hành (Highlights)` connect `getAttribute` to `width`, `Provider`?**
+  _High betweenness centrality (0.196) - this node is a cross-community bridge._
+- **Are the 21 inferred relationships involving `"node_modules/react-dom-18/cjs/react-dom.development.js"()` (e.g. with `attemptContinuousHydration$1()` and `attemptHydrationAtCurrentPriority$1()`) actually correct?**
+  _`"node_modules/react-dom-18/cjs/react-dom.development.js"()` has 21 INFERRED edges - model-reasoned connections that need verification._
 - **Should `package.json` be split into smaller, more focused modules?**
   _Cohesion score 0.125 - nodes in this community are weakly interconnected._
-- **Should `guild_repository_impl_test.dart` be split into smaller, more focused modules?**
-  _Cohesion score 0.1 - nodes in this community are weakly interconnected._
-- **Should `coach_page.dart` be split into smaller, more focused modules?**
-  _Cohesion score 0.06896551724137931 - nodes in this community are weakly interconnected._

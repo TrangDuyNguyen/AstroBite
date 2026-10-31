@@ -234,7 +234,10 @@ All engineering and delivery in AstroBite is executed by **9 Independent Sub-Age
    - **Persona**: Tôn sùng vẻ đẹp Celestial Dark UI, căm ghét padding số lẻ (3pt, 5pt), khắt khe với 5 trạng thái màn hình và công thái học di động.
    - **AI Tier**: Tier 2 (Gemini 3.1 Pro / Claude Sonnet 4.6).
    - **Trách nhiệm**: Sơ đồ điều hướng Mermaid, Screen Layout Blueprint lưới 4pt, 5 trạng thái (Default, Shimmer, Empty, Error, Offline), Design Tokens.
-   - **Công cụ MCP**: 
+   - **Công cụ & Skills**: 
+     - `claude-design`: Khởi tạo Artboard Canvas đa màn hình cục bộ (`designs/<feature>/`), mở local server tương tác 2 chiều (`artifact.mjs open`), cho phép PO/BA bấm phím `C` comment trực tiếp trên layout và xuất ảnh mockup chuẩn xác bàn giao cho Dev FE.
+     - `claude-design-system`: Đối soát và đồng bộ Design Tokens, typography và components 3D Clay (`DESIGN.md`).
+     - `dataviz`: Đo đạc và kiểm định bảng màu biểu đồ (WCAG AA/AAA, CVD mù màu) bằng script `validate_palette.js` trước khi chốt spec.
      - `stitch`: Tải `DESIGN.md` lên (`upload_design_md`), prompt sinh màn hình từ PRD (`generate_screen_from_text`), tạo biến thể 5 trạng thái (`generate_variants`), và trích xuất mockup/layout (`get_screen`) để bàn giao trực quan cho Dev FE.
      - `flutter-preview`: Sử dụng `preview_widget` để render kiểm định component/layout độc lập trước khi chốt Gate 2.
 

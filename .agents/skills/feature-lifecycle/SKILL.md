@@ -144,7 +144,7 @@ Hội đồng thẩm định sẽ **LẬP TỨC REJECT VÀ TRẢ VỀ** nếu:
 - ❌ Sai lệch bảng màu dinh dưỡng: Carbs `#1A73E8`, Fat `#FF69B4`, Protein `#FFD700`.
 - ❌ Vi phạm lưới 4pt (padding 3pt, 5pt, 7pt, 10pt...) hoặc Touch Target nhỏ hơn `44x44pt`.
 - ❌ BA đối soát thấy sót dù chỉ 1 User Story từ Gate 1 mà không có màn hình/dialog thể hiện.
-- ❌ Thiếu mockup visual trực quan hoặc cấu trúc layout (sinh từ Google Stitch MCP hoặc blueprint) để Dev FE bám theo.
+- ❌ Thiếu mockup visual trực quan hoặc cấu trúc layout (sinh từ `claude-design` Canvas, Google Stitch MCP hoặc blueprint) để Dev FE bám theo.
 
 ### 🚪 Chốt Chặn 3: QC Thẩm Định Gate 3 (Test Design) — Cấm Du Di!
 QC sẽ **TỪ CHỐI BÀN GIAO CHO DEV** nếu:
