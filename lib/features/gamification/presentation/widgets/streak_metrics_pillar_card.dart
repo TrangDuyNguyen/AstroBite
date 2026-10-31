@@ -37,11 +37,11 @@ class StreakMetricsPillarCard extends StatelessWidget {
               color: AppColors.tertiary,
               bgColor: const Color(0xFFFFF9ED),
               borderColor: const Color(0xFFFFE7BA),
-              tagText: streak.hasActiveStreak ? 'Đang cháy 🔥' : 'Bắt đầu',
+              tagText: streak.hasActiveStreak ? 'Đang cháy' : 'Bắt đầu',
               tagColor: const Color(0xFFB26A00),
             ),
           ),
-          const SizedBox(width: 6),
+          const SizedBox(width: AppValues.spacing8),
 
           // Column 2: Longest Streak Record
           Expanded(
@@ -65,7 +65,7 @@ class StreakMetricsPillarCard extends StatelessWidget {
               tagColor: const Color(0xFF0284C7),
             ),
           ),
-          const SizedBox(width: 6),
+          const SizedBox(width: AppValues.spacing8),
 
           // Column 3: Starlight Shields
           Expanded(

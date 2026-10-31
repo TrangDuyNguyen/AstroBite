@@ -120,7 +120,7 @@ class _GoalSummaryPageState extends ConsumerState<GoalSummaryPage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
-                'Mục Tiêu Cá Nhân Của Bạn 🚀',
+                'Mục Tiêu Cá Nhân Của Bạn',
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                       fontWeight: FontWeight.bold,
                       color: AppColors.onSurface,
@@ -143,7 +143,10 @@ class _GoalSummaryPageState extends ConsumerState<GoalSummaryPage> {
                 child: Column(
                   children: [
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: AppValues.spacing12,
+                        vertical: AppValues.spacing4,
+                      ),
                       decoration: BoxDecoration(
                         color: AppColors.clayLunch,
                         borderRadius: BorderRadius.circular(10),
@@ -165,7 +168,7 @@ class _GoalSummaryPageState extends ConsumerState<GoalSummaryPage> {
                       size: 240,
                     ),
                     const SizedBox(height: AppValues.spacing24),
-                    const Divider(color: Color(0xFFF0EFEB), height: 1),
+                    const Divider(color: AppColors.shimmerBase, height: 1),
                     const SizedBox(height: AppValues.spacing12),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -187,7 +190,7 @@ class _GoalSummaryPageState extends ConsumerState<GoalSummaryPage> {
                             ),
                           ],
                         ),
-                        Container(width: 1, height: 36, color: const Color(0xFFE8E5DF)),
+                        Container(width: 1, height: 36, color: AppColors.outline),
                         Column(
                           children: [
                             const Text(

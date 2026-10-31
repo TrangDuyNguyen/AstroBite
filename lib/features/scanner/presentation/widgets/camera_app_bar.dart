@@ -22,6 +22,7 @@ class CameraAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: AppColors.surface.withValues(alpha: 0.85),
+      surfaceTintColor: Colors.transparent,
       elevation: 0,
       centerTitle: true,
       leading: Padding(

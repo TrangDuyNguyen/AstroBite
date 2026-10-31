@@ -168,6 +168,7 @@ class _ManualEntryPageState extends ConsumerState<ManualEntryPage> {
       backgroundColor: AppColors.surface,
       appBar: AppBar(
         backgroundColor: AppColors.surface,
+        surfaceTintColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
         leading: Padding(

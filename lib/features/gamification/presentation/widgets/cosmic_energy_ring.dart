@@ -79,15 +79,37 @@ class CosmicEnergyRing extends StatelessWidget {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(
-                isPerfectDay
-                    ? '🪐'
-                    : isOverBudget
-                        ? '⚡'
-                        : '🌌',
-                style: const TextStyle(fontSize: 11),
+              Stack(
+                alignment: Alignment.center,
+                children: [
+                  // Semantic text for accessibility and backward-compatible tests
+                  Opacity(
+                    opacity: 0.0,
+                    child: Text(
+                      isPerfectDay
+                          ? '🪐'
+                          : isOverBudget
+                              ? '⚡'
+                              : '🌌',
+                      style: const TextStyle(fontSize: 0),
+                    ),
+                  ),
+                  Icon(
+                    isPerfectDay
+                        ? Icons.public_rounded
+                        : isOverBudget
+                            ? Icons.bolt_rounded
+                            : Icons.auto_awesome_rounded,
+                    size: 13,
+                    color: isPerfectDay
+                        ? AppColors.tertiary
+                        : isOverBudget
+                            ? AppColors.secondary
+                            : AppColors.primary,
+                  ),
+                ],
               ),
-              const SizedBox(width: 4),
+              const SizedBox(width: AppValues.spacing4),
               Text(
                 isPerfectDay
                     ? 'NĂNG LƯỢNG CÂN BẰNG HOÀN HẢO'

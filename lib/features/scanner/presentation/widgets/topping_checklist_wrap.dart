@@ -89,7 +89,7 @@ class _ToppingChip extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 150),
-          constraints: const BoxConstraints(minHeight: 34),
+          constraints: const BoxConstraints(minHeight: 44),
           padding: const EdgeInsets.symmetric(
             horizontal: AppValues.spacing12,
             vertical: AppValues.spacing4,

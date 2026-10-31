@@ -21,7 +21,10 @@ class CosmicStreakBadge extends ConsumerWidget {
           onTap: () => StreakDetailSheet.show(context, streak),
           borderRadius: BorderRadius.circular(20),
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppValues.spacing12,
+              vertical: AppValues.spacing4,
+            ),
             decoration: BoxDecoration(
               color: AppColors.surfaceContainer,
               gradient: const LinearGradient(
@@ -70,10 +73,10 @@ class CosmicStreakBadge extends ConsumerWidget {
                     // 3D Clay Flame
                     hasStreak
                         ? const Clay3DFlame(size: 19)
-                        : const Text('✨', style: TextStyle(fontSize: 14)),
+                        : const Clay3DStar(size: 19),
                   ],
                 ),
-                const SizedBox(width: 5),
+                const SizedBox(width: AppValues.spacing4),
                 Text(
                   '${streak.currentStreak}',
                   style: GoogleFonts.outfit(
@@ -82,7 +85,7 @@ class CosmicStreakBadge extends ConsumerWidget {
                     color: hasStreak ? AppColors.onSurface : AppColors.onSurfaceVariant,
                   ),
                 ),
-                const SizedBox(width: 7),
+                const SizedBox(width: AppValues.spacing8),
                 Stack(
                   alignment: Alignment.center,
                   children: [

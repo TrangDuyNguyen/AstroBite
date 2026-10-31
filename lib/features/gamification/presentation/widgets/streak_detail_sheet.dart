@@ -114,7 +114,8 @@ class StreakDetailSheet extends StatelessWidget {
 
               // 9. Leaderboard Button
               ClayButton(
-                text: '🏆 Bảng Xếp Hạng Bạn Bè',
+                text: 'Bảng Xếp Hạng Bạn Bè',
+                icon: const Icon(Icons.emoji_events_rounded, color: Colors.white, size: 20),
                 variant: ClayButtonVariant.primary,
                 width: double.infinity,
                 onPressed: () {
@@ -155,8 +156,8 @@ class StreakDetailSheet extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Text('✨', style: TextStyle(fontSize: 12)),
-          const SizedBox(width: 5),
+          const Icon(Icons.auto_awesome_rounded, size: 12, color: Color(0xFFB26A00)),
+          const SizedBox(width: AppValues.spacing4),
           Text(
             'TIỂU VŨ TRỤ KỶ LUẬT',
             style: GoogleFonts.outfit(
@@ -192,7 +193,7 @@ class StreakDetailSheet extends StatelessWidget {
           const SizedBox(width: 12),
           Expanded(
             child: Text(
-              'Mỗi ngày ăn đúng mục tiêu là một tinh cầu dinh dưỡng được thắp sáng rực rỡ! 🚀',
+              'Mỗi ngày ăn đúng mục tiêu là một tinh cầu dinh dưỡng được thắp sáng rực rỡ!',
               style: GoogleFonts.inter(
                 fontSize: 12,
                 fontWeight: FontWeight.w500,

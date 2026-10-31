@@ -33,19 +33,31 @@ class HealthConnectionPage extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 connectionAsync.when(
-                  loading: () => _buildHeaderRow(repo.platformName, '❤️', const Text(
-                    'Đang kiểm tra...',
-                    style: TextStyle(color: AppColors.onSurfaceVariant, fontSize: 13),
-                  )),
-                  error: (_, __) => _buildHeaderRow(repo.platformName, '⚠️', const Text(
-                    'Lỗi kết nối',
-                    style: TextStyle(color: AppColors.tertiary, fontSize: 13),
-                  )),
+                  loading: () => _buildHeaderRow(
+                    repo.platformName,
+                    const Icon(Icons.favorite_rounded, color: AppColors.secondary, size: 26),
+                    const Text(
+                      'Đang kiểm tra...',
+                      style: TextStyle(color: AppColors.onSurfaceVariant, fontSize: 13),
+                    ),
+                  ),
+                  error: (_, __) => _buildHeaderRow(
+                    repo.platformName,
+                    const Icon(Icons.warning_amber_rounded, color: AppColors.tertiary, size: 26),
+                    const Text(
+                      'Lỗi kết nối',
+                      style: TextStyle(color: AppColors.tertiary, fontSize: 13),
+                    ),
+                  ),
                   data: (connected) => _buildHeaderRow(
                     repo.platformName,
-                    connected ? '❤️' : '🔌',
+                    Icon(
+                      connected ? Icons.favorite_rounded : Icons.link_off_rounded,
+                      color: connected ? AppColors.secondary : AppColors.onSurfaceVariant,
+                      size: 26,
+                    ),
                     Text(
-                      connected ? 'Đã kết nối ✅' : 'Chưa có thiết bị nào kết nối',
+                      connected ? 'Đã kết nối' : 'Chưa có thiết bị nào kết nối',
                       style: TextStyle(
                         fontSize: 13,
                         fontWeight: FontWeight.w700,
@@ -238,7 +250,7 @@ class HealthConnectionPage extends ConsumerWidget {
     );
   }
 
-  Widget _buildHeaderRow(String title, String icon, Widget subtitle) {
+  Widget _buildHeaderRow(String title, Widget iconWidget, Widget subtitle) {
     return Row(
       children: [
         Container(
@@ -249,9 +261,9 @@ class HealthConnectionPage extends ConsumerWidget {
             borderRadius: BorderRadius.circular(14),
           ),
           alignment: Alignment.center,
-          child: Text(icon, style: const TextStyle(fontSize: 26)),
+          child: iconWidget,
         ),
-        const SizedBox(width: 14),
+        const SizedBox(width: AppValues.spacing16),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

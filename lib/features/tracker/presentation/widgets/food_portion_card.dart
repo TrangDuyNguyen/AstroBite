@@ -304,7 +304,7 @@ class _QuickWeightChip extends StatelessWidget {
       behavior: HitTestBehavior.opaque,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 120),
-        constraints: const BoxConstraints(minWidth: 44, minHeight: 34),
+        constraints: const BoxConstraints(minWidth: 44, minHeight: 44),
         alignment: Alignment.center,
         padding: const EdgeInsets.symmetric(
           horizontal: AppValues.spacing12,

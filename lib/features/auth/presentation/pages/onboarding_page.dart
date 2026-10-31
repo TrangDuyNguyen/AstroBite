@@ -78,6 +78,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
       backgroundColor: AppColors.surface,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
+        surfaceTintColor: Colors.transparent,
         elevation: 0,
         leading: _currentStep > 0
             ? IconButton(
@@ -166,7 +167,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
           return Expanded(
             child: Container(
               height: 4,
-              margin: const EdgeInsets.symmetric(horizontal: 3),
+              margin: const EdgeInsets.symmetric(horizontal: AppValues.spacing4),
               decoration: BoxDecoration(
                 color: isActive ? AppColors.primary : AppColors.outline.withValues(alpha: 0.3),
                 borderRadius: BorderRadius.circular(2),

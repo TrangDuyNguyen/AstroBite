@@ -36,7 +36,7 @@ class _RecipesPageState extends ConsumerState<RecipesPage> {
         title: Row(
           children: [
             const Clay3DCookbook(size: 28),
-            const SizedBox(width: 10),
+            const SizedBox(width: AppValues.spacing12),
             Text(
               'Công Thức Của Tôi',
               style: Theme.of(context).textTheme.titleMedium?.copyWith(

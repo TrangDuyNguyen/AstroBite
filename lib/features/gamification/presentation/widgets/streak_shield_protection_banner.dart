@@ -141,10 +141,10 @@ class StreakShieldProtectionBanner extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(width: 10),
+              const SizedBox(width: AppValues.spacing12),
               Text(
                 daysLeft == 0 && streak.currentStreak > 0
-                    ? 'Đã đạt mốc khiên! 🎉'
+                    ? 'Đã đạt mốc khiên!'
                     : 'Còn $daysLeft ngày chuỗi',
                 style: GoogleFonts.inter(
                   fontSize: 10.5,

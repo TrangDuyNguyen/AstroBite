@@ -34,11 +34,11 @@ class QuickReviewWeightChip extends StatelessWidget {
         onTap: onTap,
         borderRadius: BorderRadius.circular(AppValues.radius12),
         child: Container(
-          constraints: const BoxConstraints(minWidth: 44, minHeight: 36),
+          constraints: const BoxConstraints(minWidth: 44, minHeight: 44),
           alignment: Alignment.center,
           padding: const EdgeInsets.symmetric(
             horizontal: AppValues.spacing12,
-            vertical: 6,
+            vertical: AppValues.spacing4,
           ),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(AppValues.radius12),
